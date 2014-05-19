@@ -33,9 +33,9 @@ thumbs.db
 
 # misc directories
 clang-checks
-img*
-quazip*
-wwWidgets*
+# img*
+# quazip*
+# wwWidgets*
 
 # dotfiles
 .*
