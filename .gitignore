@@ -1,0 +1,50 @@
+# objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+*.framework
+
+# make and qmake
+CMakeLists.txt.user
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile
+*-build-*
+*.qm
+
+# mac files
+.DS_Store
+
+# win files
+thumbs.db
+
+# misc files
+.kdev*
+
+# misc directories
+clang-checks
+img*
+quazip*
+wwWidgets*
+
+# dotfiles
+.*
+
+# backup files
+*~
+*.bak
+*.autosave
+
+# exception for .gitignore
+!.gitignore
+
