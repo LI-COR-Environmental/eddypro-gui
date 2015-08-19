@@ -49,7 +49,7 @@ public:
                          QWidget* parent = nullptr);
 
     void setTitle(const QString& title);
-    void setIcon(const QPixmap& icon);
+    void setIcon(const QPixmap &icon);
     void setMessage(const QString& text);
     void setType(Type type);
     void setDoNotShowAgainVisible(bool visible);

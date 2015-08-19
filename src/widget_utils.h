@@ -32,12 +32,15 @@ class QComboBox;
 class QLabel;
 class QLineEdit;
 class QProgressBar;
+class QScrollArea;
 class QTextEdit;
 class QWidget;
 
+struct ConfigState;
+
 namespace WidgetUtils
 {
-    typedef QPair<const char*, bool> PropertyList;
+    using PropertyList = QPair<const char*, bool>;
 
     // color
     const QColor getColor(int step);
@@ -79,8 +82,9 @@ namespace WidgetUtils
     void showHelp(const QUrl& url);
 
     // message box
-    bool okToOverwrite(const QString& filename);
+    bool okToOverwrite(QWidget *parent, const QString& filename);
     bool okToRemoveColumn(QWidget* parent);
+    bool okToCloseSmartFlux(QWidget* parent);
     QMessageBox::ButtonRole requestToSave(QWidget* parent,
                                           const QString& title,
                                           const QString& text,
@@ -94,20 +98,28 @@ namespace WidgetUtils
     void warning(QWidget* parent,
                  const QString& title,
                  const QString& text,
-                 const QString& infoText = QString());
+                 const QString& infoText = QString(),
+                 const QString& objectName = QString());
     void critical(QWidget* parent,
                   const QString& title,
                   const QString& text,
                   const QString& infoText = QString());
-    bool okToQuestion(QWidget* parent,
+    bool yesNoQuestion(QWidget* parent,
                   const QString& title,
                   const QString& text,
                   const QString& infoText = QString(),
+                  const QString& objectName = QString(),
                   const QString& yesText = QObject::tr("&Yes"),
                   const QString& noText = QObject::tr("&No"));
 
     // progress bar
     void setProgressValue(QProgressBar* bar, int value);
+
+    // make container scroll area
+    QScrollArea *getContainerScrollArea(QWidget* parent, QLayout *layout);
+
+    // provide a search path hint
+    QString getSearchPathHint();
 
 }  // namespace WidgetUtils
 

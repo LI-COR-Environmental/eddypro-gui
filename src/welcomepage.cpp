@@ -68,7 +68,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     openButton->setText(tr("Open Project"));
     openButton->setObjectName(QStringLiteral("openButton"));
     openButton->setIcon(QPixmap(QStringLiteral(":/icons/open-big")));
-    openButton->setIconSize(QSize(110, 105));
+    openButton->setIconSize(QSize(94, 103));
     openButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
     auto mainButtonsLayout = new QHBoxLayout;
@@ -81,7 +81,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     mainButtonsLayout->setMargin(0);
 
     auto recentListTitle = new QLabel(tr("Recent Projects"));
-    recentListTitle->setProperty("groupTitle3", true);
+    recentListTitle->setProperty("openRecentGroupTitle", true);
 
     recentListWidget = new QListWidget;
     recentListWidget->setProperty("helpListItem", true);
@@ -107,7 +107,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     smartfluxModeCheckbox_->setToolTip(smartfluxTooltip);
 
     auto title = new ClickLabel;
-    title->setPixmap(QPixmap(QStringLiteral(":/icons/smartflux-grey")));
+    auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-grey"));
+#if defined(Q_OS_MAC)
+    pixmap.setDevicePixelRatio(2.0);
+#endif
+    title->setPixmap(pixmap);
     title->setProperty("smartfluxLogoGrey", true);
     title->setToolTip(smartfluxTooltip);
 
@@ -160,25 +164,25 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     newsListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Design Your Own Eddy Covariance System"), newsListWidget);
-    rssItem_1->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/system_build.html")));
+    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements"), newsListWidget);
+    rssItem_1->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/light")));
 
-    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Case Studies and Applications"), newsListWidget);
-    rssItem_2->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/applications.html")));
+    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Coming Soon! FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site"), newsListWidget);
+    rssItem_2->setData(Qt::UserRole, QString(QStringLiteral("http://www.fluxsuite.com")));
 
-    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Overview of Biological and Meteorological Sensors in Eddy Covariance Flux Research"), newsListWidget);
-    rssItem_3->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#8-15-12")));
+    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New! SoilFluxPro™ Software – Expanded processing for soil gas flux data"), newsListWidget);
+    rssItem_3->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/soilfluxpro")));
 
-    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Using Biomet Sensors in LI-COR Eddy Covariance Systems"), newsListWidget);
-    rssItem_4->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#8-29-12")));
+    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Design Your Own Eddy Covariance System"), newsListWidget);
+    rssItem_4->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/system_build.html")));
 
-    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Biomet Data Processing and Advanced Features of EddyPro 4"), newsListWidget);
-    rssItem_5->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#9-5-12")));
+    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Eddy Covariance Case Studies and Applications"), newsListWidget);
+    rssItem_5->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/applications.html")));
 
-    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Small add-on provides big benefits for eddy covariance systems - The SMARTFlux (TM) System"), newsListWidget);
-    rssItem_6->setData(Qt::UserRole, QString(QStringLiteral("www.licor.com/SMARTFlux/")));
+    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System"), newsListWidget);
+    rssItem_6->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/SMARTFlux/")));
 
-    auto rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("New Eddy Covariance Training course available"), newsListWidget);
+    auto rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("View Upcoming Eddy Covariance Training Courses"), newsListWidget);
     rssItem_7->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/training.html")));
 
     auto rssItem_8 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Mapping CO2 Concentrations and Fluxes with the LI-8100A"), newsListWidget);
@@ -205,13 +209,13 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpTitle->setProperty("groupTitle3", true);
 
     auto item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
-    item_1->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#EddyPro_Home.htm")));
+    item_1->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/EddyPro_Home.html")));
     auto item_2 = new QListWidgetItem(tr("Getting started"));
-    item_2->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_Getting_Started.pdf")));
+    item_2->setData(Qt::UserRole, QString(QStringLiteral("https://boxenterprise.net/s/qmhucid6g0hdvd3d13tk")));
     auto item_3 = new QListWidgetItem(tr("Video tutorials"));
-    item_3->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Video_Library.htm")));
+    item_3->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Video_Library.html")));
     auto item_4 = new QListWidgetItem(tr("Printable manual (PDF version)"));
-    item_4->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_User_Guide.pdf")));
+    item_4->setData(Qt::UserRole, QString(QStringLiteral("https://boxenterprise.net/s/1ium2zmwm6hl36yz9bu4")));
     auto item_5 = new QListWidgetItem(tr("Download sample data files"));
     item_5->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Data/")));
 
@@ -229,13 +233,13 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     supportTitle->setProperty("groupTitle3", true);
 
     auto item_6 = new QListWidgetItem(tr("Forum"));
-    item_6->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/forum.php?id=8")));
+    item_6->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro")));
     auto item_7 = new QListWidgetItem(tr("Eddy Covariance Glossary"));
-    item_7->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#skinName=Glossary")));
+    item_7->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Glossary.html")));
     auto item_8 = new QListWidgetItem(tr("LI-COR Newsline (EddyPro related articles and technical tips)"));
     item_8->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/newsline/tag/eddypro/")));
     auto item_9 = new QListWidgetItem(tr("Features request"));
-    item_9->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/topic.php?id=15")));
+    item_9->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/?topic=feature-requests")));
     auto item_10 = new QListWidgetItem(tr("Check for updates"));
     item_10->setData(Qt::UserRole, QString(QStringLiteral("check_updates")));
 
@@ -268,7 +272,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
 
-    // TODO: verify if necessary: it seems no in windows
+    // TODO: verify if necessary: it seems not in windows
 //    smartfluxBar_->setMinimumHeight(35);
 
     smartfluxBarPlaceholder_ = new QWidget;
@@ -423,7 +427,7 @@ void WelcomePage::updateWelcomePage(bool small)
 
 void WelcomePage::openForumFeedback()
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("http://www.licor.com/env/forum/forum.php?id=8")));
+    QDesktopServices::openUrl(QUrl(QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro")));
 }
 
 void WelcomePage::updateSmartfluxBar()
@@ -472,5 +476,5 @@ void WelcomePage::createQuestionMark()
 
 void WelcomePage::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#smartfluxSettings.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/smartfluxSettings.html")));
 }

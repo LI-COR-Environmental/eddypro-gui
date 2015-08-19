@@ -204,7 +204,8 @@ public:
     static const QStringList conversionTypeStringList();
 
     // return a list of boolean strings
-    static QStringList yesNoStringList();
+    // NOTE: duplicated from anemdesc.h
+    static const QStringList yesNoStringList();
 
     static bool isGoodWindComponent(const VariableDesc& var);
     static bool isGoodGas(const VariableDesc& var, bool isCustom = false);
@@ -256,7 +257,7 @@ private:
     qreal maxTimelag_;
 };
 
-typedef QList<VariableDesc> VariableDescList;
+using VariableDescList = QList<VariableDesc>;
 
 // Inlined Methods
 inline bool VariableDesc::operator<(const VariableDesc& fileDesc) const

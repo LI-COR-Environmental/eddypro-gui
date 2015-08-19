@@ -31,8 +31,9 @@ class CustomComboBox : public QComboBox
 public:
     explicit CustomComboBox(QWidget* parent = nullptr);
 
-    QSize sizeHint(const QStyleOptionViewItem& option,
-                   const QModelIndex& index) const;
+    // FIXME: it should override the ItemDelegate sizeHint
+//    QSize sizeHint(const QStyleOptionViewItem& option,
+//                   const QModelIndex& index) const;
 
     void addSeparator();
     void addParentItem(const QString& text);

@@ -46,9 +46,9 @@ QDebug Defs::operator<<(QDebug dbg, const RawFileType& fileType)
     case RawFileType::SLT2:
         dbg << "Defs::RawFileType::SLT2";
         break;
-    default:
-        dbg << "Defs::RawFileType(" << static_cast<int>(fileType) << ')';
-        break;
+//    default:
+//        dbg << "Defs::RawFileType(" << static_cast<int>(fileType) << ')';
+//        break;
     }
     return dbg;
 }

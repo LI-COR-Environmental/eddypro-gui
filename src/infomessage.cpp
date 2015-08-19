@@ -38,7 +38,7 @@
 InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *parent) :
     QDialog(parent),
     title_(),
-    message_(new QLabel)
+    message_(new QLabel(this))
 {
     WidgetUtils::removeContextHelpButton(this);
 
@@ -52,7 +52,7 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
     }
 
     // NOTE: use QSignalMapper
-    // map dialog risults to messagebox buttons
+    // map dialog results to messagebox buttons
     foreach (QAbstractButton* button, buttonBox_->buttons())
     {
         switch (buttonBox_->buttonRole(button))
@@ -73,7 +73,13 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
                 connect(button, &QAbstractButton::clicked,
                         this, &InfoMessage::onCancelButtonClicked);
                 break;
-            default:
+            case QDialogButtonBox::ActionRole:
+            case QDialogButtonBox::DestructiveRole:
+            case QDialogButtonBox::InvalidRole:
+            case QDialogButtonBox::ApplyRole:
+            case QDialogButtonBox::ResetRole:
+            case QDialogButtonBox::HelpRole:
+            case QDialogButtonBox::NRoles:
                 break;
         }
     }
@@ -81,7 +87,11 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
     message_->setWordWrap(true);
 
     icon_ = new QLabel;
-    icon_->setPixmap(QPixmap(QStringLiteral(":/icons/msg-info")));
+    auto pixmap = QPixmap(QStringLiteral(":/icons/msg-info"));
+#if defined(Q_OS_MAC)
+    pixmap.setDevicePixelRatio(2.0);
+#endif
+    icon_->setPixmap(pixmap);
 
     auto firstRowLayout = new QHBoxLayout;
     firstRowLayout->addWidget(icon_);
@@ -140,8 +150,6 @@ void InfoMessage::refresh()
         case Type::ANGLE_OF_ATTACK_SELECTION:
             showDialog = config.value(Defs::CONF_WIN_AOA_SELECTION_MSG, true).toBool();
             break;
-        default:
-            break;
     }
     config.endGroup();
 
@@ -177,8 +185,6 @@ void InfoMessage::onDoNotShowAgainCheckboxToggled_(bool toggled)
         case Type::ANGLE_OF_ATTACK_SELECTION:
             config.setValue(Defs::CONF_WIN_AOA_SELECTION_MSG, !toggled);
             break;
-        default:
-            break;
     }
     config.endGroup();
     config.sync();
@@ -191,7 +197,11 @@ void InfoMessage::setTitle(const QString &title)
 
 void InfoMessage::setIcon(const QPixmap &icon)
 {
-    icon_->setPixmap(icon);
+    auto pixmap = const_cast<QPixmap&>(icon);
+#if defined(Q_OS_MAC)
+    pixmap.setDevicePixelRatio(2.0);
+#endif
+    icon_->setPixmap(pixmap);
 }
 
 void InfoMessage::setMessage(const QString& text)

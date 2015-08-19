@@ -28,11 +28,12 @@
 #include <QUrl>
 
 #include "dbghelper.h"
+#include "defs.h"
 
 FtpManager::FtpManager(QObject *parent) :
     QObject(parent),
-    reply(0),
-    data(0),
+    reply(nullptr),
+    data(nullptr),
     versionNr(QByteArray())
 {
     connect(&manager, &QNetworkAccessManager::finished,
@@ -41,18 +42,28 @@ FtpManager::FtpManager(QObject *parent) :
 
 FtpManager::~FtpManager()
 {
-//    if (reply)
-//    {
-//        abort();
-//        reply->deleteLater();
-//    }
+}
+
+void FtpManager::abort()
+{
+    DEBUG_FUNC_NAME
+    if (reply)
+    {
+        if (reply->isRunning())
+        {
+            disconnect(reply, &QNetworkReply::finished,
+                       this, &FtpManager::requestFinished);
+            reply->abort();
+        }
+        reply->deleteLater();
+    }
 }
 
 void FtpManager::get(const QString &file)
 {
-    QUrl url(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Software/") + file);
-    url.setUserName(QStringLiteral("anonymous"));
-    url.setPassword(QStringLiteral("anonymous@password.com"));
+    QUrl url(Defs::LICOR_FTP_URL + file);
+    url.setUserName(Defs::LICOR_FTP_USERNAME);
+    url.setPassword(Defs::LICOR_FTP_PASSWORD);
 
     reply = manager.get(QNetworkRequest(url));
 
@@ -66,9 +77,9 @@ void FtpManager::get(const QString &file)
 
 void FtpManager::put(const QString &file)
 {
-    QUrl url(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Software"));
-    url.setUserName(QStringLiteral("anonymous"));
-    url.setPassword(QStringLiteral("anonymous@password.com"));
+    QUrl url(Defs::LICOR_FTP_URL + file);
+    url.setUserName(Defs::LICOR_FTP_USERNAME);
+    url.setPassword(Defs::LICOR_FTP_PASSWORD);
 
     data = new QFile(file, this);
 
@@ -90,24 +101,9 @@ void FtpManager::put(const QString &file)
     }
 }
 
-void FtpManager::abort()
+void FtpManager::transferFinished(QNetworkReply *r)
 {
-    DEBUG_FUNC_NAME
-    if (reply)
-    {
-        if (reply->isRunning())
-        {
-            disconnect(reply, &QNetworkReply::finished,
-                       this, &FtpManager::requestFinished);
-            reply->abort();
-        }
-        reply->deleteLater();
-    }
-}
-
-void FtpManager::transferFinished(QNetworkReply *reply)
-{
-    qDebug() << "Transfer Finished" << reply->error();
+    qDebug() << "Transfer Finished" << r->error();
 
     if (data)
     {
@@ -124,7 +120,7 @@ void FtpManager::requestFinished()
         versionNr = reply->readAll();
         qDebug() << "versionNr" << versionNr.trimmed().constData();
 
-        emit getFinished();
+        emit requestComplete();
     }
 }
 
@@ -151,11 +147,9 @@ void FtpManager::downloadProgress(qint64 bytesReceived, qint64 bytesTotal) {
 void FtpManager::uploadDone()
 {
     qDebug() << "Upload Done" << reply->error();
-//    data->deleteLater();
-//    reply->deleteLater();
 }
+
 QByteArray FtpManager::getVersionNr() const
 {
     return versionNr;
 }
-

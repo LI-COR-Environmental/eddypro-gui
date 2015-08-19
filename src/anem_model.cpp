@@ -53,7 +53,7 @@ void AnemModel::flush()
 // Return data at index
 QVariant AnemModel::data(const QModelIndex& index, int role) const
 {
-//    DEBUG_FUNC_NAME
+    DEBUG_FUNC_NAME
 
     // row is the var field
     int row = index.row();
@@ -778,7 +778,7 @@ QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
             case VPATHLENGTH:
             case HPATHLENGTH:
             case TAU:
-                return QVariant(tr(""));
+                return QVariant(QString());
             default:
                 return QVariant();
         }

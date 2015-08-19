@@ -30,6 +30,8 @@
 
 namespace FileUtils
 {
+    using DateRange = QPair<QDateTime, QDateTime>;
+
     bool existsPath(const QString& p);
 
     bool isFileEmpty(const QString& fileName);
@@ -62,8 +64,12 @@ namespace FileUtils
     QDate getDateFromDoY(int doy, int year);
     QDateTime getDateTimeFromFilename(const QString& filename,
                                       const QString& filenameFormat);
-    QPair<QDateTime, QDateTime> getDateRangeFromFileList(const QStringList& fileList,
-                                                         const QString& filenameProtoype);
+    DateRange getDateRangeFromFileList(const QStringList& fileList,
+                                       const QString& filenameProtoype);
+    bool dateRangesOverlap(DateRange range_1, DateRange range_2);
+
+    QString getGhgSuffixFromFilename(const QString& filename);
+    QStringList getGhgFileSuffixList(const QStringList& fileList);
 
     void loadStyleSheetFile(const QString& sheetPath);
     QString setupEnv();

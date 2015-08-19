@@ -31,22 +31,18 @@ class CustomHeader;
 class AnemTableView : public QTableView
 {
     Q_OBJECT
+
 public:
     explicit AnemTableView(QWidget* parent = nullptr);
     ~AnemTableView();
 
-signals:
-
 protected:
-    void resizeEvent(QResizeEvent *event);
-    void showEvent(QShowEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-
-private slots:
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
 private:
     CustomHeader *m_header;
-
 };
 
 #endif // ANEM_TABLEVIEW_H

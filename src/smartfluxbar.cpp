@@ -37,6 +37,7 @@
 #include "clicklabel.h"
 #include "createpackagedialog.h"
 #include "dbghelper.h"
+#include "defs.h"
 #include "ecproject.h"
 #include "fileutils.h"
 #include "globalsettings.h"
@@ -52,7 +53,11 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
     cpDialog_(nullptr)
 {
     auto smartfluxLogo = new QLabel;
-    smartfluxLogo->setPixmap(QPixmap(QLatin1String(":/icons/smartflux-white")));
+    auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-white"));
+#if defined(Q_OS_MAC)
+    pixmap.setDevicePixelRatio(2.0);
+#endif
+    smartfluxLogo->setPixmap(pixmap);
     smartfluxLogo->setProperty("smartfluxLogoWhite", true);
 
     auto smartfluxTitle = new QLabel;
@@ -72,7 +77,12 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
     closeButton->setProperty("smartfluxBarClose", true);
     closeButton->setToolTip(tr("Click to exit SMARTFlux configuration mode. "
                                "You can enter SMARTFlux configuration mode "
-                               "under the File menu or with Ctrl+F."));
+                               "under the File menu or with ")
+#if defined(Q_OS_MAC)
+                               + Defs::MAC_COMMAND_KEY + tr("+F."));
+#else
+                               + tr("Ctrl+F."));
+#endif
     connect(closeButton, &ClickLabel::clicked,
             this, &SmartFluxBar::closeRequest);
 
@@ -90,7 +100,13 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
     makeCreatePackageDialog();
 
     setToolTip(tr("EddyPro is in SMARTFlux "
-                  "configuration mode (Ctrl+F to exit)"));
+                  "configuration mode (")
+#if defined(Q_OS_MAC)
+                               + Defs::MAC_COMMAND_KEY + tr("+F to exit)."));
+#else
+                               + tr("Ctrl+F to exit)."));
+#endif
+
     setVisible(false);
 }
 
@@ -116,6 +132,7 @@ void SmartFluxBar::paintEvent(QPaintEvent *event)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
+    // NOTE: useful for visual inspection/debugging purpose
 //    if (layout())
 //        paintLayout(&p, layout());
 }
@@ -124,18 +141,19 @@ void SmartFluxBar::paintEvent(QPaintEvent *event)
 void SmartFluxBar::paintLayout(QPainter* painter, QLayoutItem* item)
 {
     QLayout* layout = item->layout();
-    if (layout) {
+    if (layout)
+    {
         for (int i = 0; i < layout->count(); ++i)
+        {
             paintLayout(painter, layout->itemAt(i));
+        }
     }
     painter->drawRect(item->geometry());
 }
 
 void SmartFluxBar::closeRequest()
 {
-    if (WidgetUtils::okToQuestion(nullptr,
-                tr("SmartFlux Configuration Exit"),
-                tr("Do you want to leave the SmartFlux Configuration?")))
+    if (WidgetUtils::okToCloseSmartFlux(this))
     {
         emit showSmartfluxBarRequest(false);
     }
@@ -149,7 +167,7 @@ void SmartFluxBar::createPackage()
 
     qDebug() << "project file name" << ecProject_->generalFileName();
     if (ecProject_->generalFileName()
-        == QLatin1String("project-untitled-smartflux.eddypro"))
+        == Defs::DEFAULT_SMARTFLUX_PROJECT_FILENAME)
     {
         emit saveRequest();
     }
@@ -158,25 +176,24 @@ void SmartFluxBar::createPackage()
         emit saveSilentlyRequest();
     }
 
-    QString homePath;
-    homePath = configState_->general.env;
+    auto homePath = configState_->general.env;
 
-    QString smfDir = homePath
-                     + QStringLiteral("/")
+    auto smfDir = homePath
+                     + QLatin1Char('/')
                      + Defs::SMF_FILE_DIR;
 
-    QString packageFilename = GlobalSettings::getAppPersistentSettings(
+    auto packageFilename = GlobalSettings::getAppPersistentSettings(
                                         Defs::CONFGROUP_PROJECT,
                                         Defs::CONF_PROJ_SMARTFLUX_FILENAME,
                                         QString()).toString();
 
-    QString packageFilepath = QDir::fromNativeSeparators(
+    auto packageFilepath = QDir::fromNativeSeparators(
                 GlobalSettings::getAppPersistentSettings(
                                         Defs::CONFGROUP_PROJECT,
                                         Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
                                         QString()).toString());
 
-    QString smartfluxFilename = packageFilename;
+    auto smartfluxFilename = packageFilename;
 
     // append extension
     if (!smartfluxFilename.endsWith(QStringLiteral(".")
@@ -189,12 +206,12 @@ void SmartFluxBar::createPackage()
                                   Defs::SMARTFLUX_FILE_EXT.size(),
                                   Defs::SMARTFLUX_FILE_EXT);
 
-    QString smartfluxFile = packageFilepath
-                                + QStringLiteral("/")
+    auto smartfluxFile = packageFilepath
+                                + QLatin1Char('/')
                                 + smartfluxFilename;
 
-    QString smfIniDir = smfDir
-                     + QStringLiteral("/")
+    auto smfIniDir = smfDir
+                     + QLatin1Char('/')
                      + Defs::INI_FILE_DIR;
     qDebug() << "smf ini dir" << smfIniDir;
 
@@ -223,32 +240,32 @@ void SmartFluxBar::createPackage()
         foreach (const QString& str, mdFileList)
         {
             // chmod 644
-            QFile::setPermissions(smfDir + QStringLiteral("/") + str, QFileDevice::ReadUser
+            QFile::setPermissions(smfDir + QLatin1Char('/') + str, QFileDevice::ReadUser
                                                                       | QFileDevice::WriteUser
                                                                       | QFileDevice::ReadGroup
                                                                       | QFileDevice::ReadOther);
-            if (!QFile::copy(smfDir + QStringLiteral("/") + str,
-                             smfIniDir + QStringLiteral("/") + str))
+            if (!QFile::copy(smfDir + QLatin1Char('/') + str,
+                             smfIniDir + QLatin1Char('/') + str))
             {
                 qDebug() << "Unable to copy metadata file in smf/ini folder";
             }
         }
     }
 
-    // NOTE: soft cleaning (just files, not also subdirs, to fix...) required by quazip
-//    FileUtils::cleanDir(smfDir);
+    // psrtial cleaning (just files, not also subdirs)
+    FileUtils::cleanDir(smfDir);
 
     // copy ancillary files in smf/ini
     QString saFile = ecProject_->spectraFile();
     qDebug() << "saFile" << ecProject_->spectraFile();
     if (!QFile::copy(ecProject_->spectraFile(),
                      smfIniDir
-                     + QStringLiteral("/")
-                     + saFile.mid(saFile.lastIndexOf(QStringLiteral("/")))))
+                     + QLatin1Char('/')
+                     + saFile.mid(saFile.lastIndexOf(QLatin1Char('/')))))
     {
         qDebug() << smfIniDir
-                    + QStringLiteral("/")
-                    + saFile.mid(saFile.lastIndexOf(QStringLiteral("/")));
+                    + QLatin1Char('/')
+                    + saFile.mid(saFile.lastIndexOf(QLatin1Char('/')));
         qDebug() << "Unable to copy spectral assessment file in smf/ini folder";
     }
 
@@ -256,8 +273,8 @@ void SmartFluxBar::createPackage()
     qDebug() << "pfFile" << ecProject_->planarFitFile();
     if (!QFile::copy(ecProject_->planarFitFile(),
                      smfIniDir
-                     + QStringLiteral("/")
-                     + pfFile.mid(pfFile.lastIndexOf(QStringLiteral("/")))))
+                     + QLatin1Char('/')
+                     + pfFile.mid(pfFile.lastIndexOf(QLatin1Char('/')))))
     {
         qDebug() << "Unable to copy planar fit file in smf/ini folder";
     }
@@ -266,8 +283,8 @@ void SmartFluxBar::createPackage()
     qDebug() << "tlFile" << ecProject_->timelagOptFile();
     if (!QFile::copy(ecProject_->timelagOptFile(),
                      smfIniDir
-                     + QStringLiteral("/")
-                     + tlFile.mid(tlFile.lastIndexOf(QStringLiteral("/")))))
+                     + QLatin1Char('/')
+                     + tlFile.mid(tlFile.lastIndexOf(QLatin1Char('/')))))
     {
         qDebug() << "Unable to copy time lag file in smf/ini folder";
     }
@@ -281,33 +298,33 @@ void SmartFluxBar::createPackage()
         // overwrite confirmation request
         if (QFile::exists(smartfluxFile))
         {
-            if (!WidgetUtils::okToOverwrite(smartfluxFile))
+            if (!WidgetUtils::okToOverwrite(this, smartfluxFile))
             {
-                // cleanup
+                // cleanup before exit if not overwriting
                 FileUtils::removeDirRecursively(smfIniDir);
                 return;
             }
         }
 
         // compress ini dir, i.e. create package and show result
-#if defined(Q_OS_MAC)
-        // NOTE: verify that quazip compression does work with smartflux embedded
-        cpDialog_->showResult(JlCompress::compressDir(smartfluxFile, smfDir, false),
+        // NOTE: test that quazip compression does work with current smartflux embedded
+        cpDialog_->showResult(JlCompress::compressDir(smartfluxFile, smfDir, true),
                           smartfluxFilename);
-#else
+#if 0
         Process zipper(this, qApp->applicationDirPath());
         cpDialog_->showResult(zipper.zipProcessAddStart(smartfluxFile,
                                                         Defs::INI_FILE_DIR
-                                                        + QStringLiteral("/"),
+                                                        + QLatin1Char('/'),
                                                         smfDir),
                               smartfluxFilename);
 #endif
-}
+    }
 
     qDebug() << "cpDialog_->close()";
     // on mac nested dialogs don't work well,
-    // making cpDialog->close() not hiding as expected,
-    // so it's preferable to delete the dialog
+    // because cpDialog->close() not hides the dialog as expected,
+    // so it's preferable to delete it
+    // TODO: use a std::unique_ptr
 #if defined(Q_OS_WIN)
     cpDialog_->close();
 #elif defined(Q_OS_MAC)
@@ -341,10 +358,10 @@ void SmartFluxBar::showCreatePackageDialog()
     if (ecProject_->screenDataPath().isEmpty())
     {
         WidgetUtils::information(this,
-                      tr("SMARTFlux package creation"),
-                      tr("<p>Choose a Raw Data directory "
+                        tr("SMARTFlux package creation"),
+                        tr("<p>Choose a Raw Data directory "
                          "from the Basic Settings page.</p>"),
-                      tr(""));
+                        QString());
         return;
     }
 

@@ -54,7 +54,6 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                                      const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
 {
-//    DEBUG_FUNC_MSG(tr("createeditor"));
     QLabel *label;
     QComboBox *combo;
     CustomComboBox *custom_combo;
@@ -105,7 +104,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
         case VariableModel::INSTRUMENT:
             combo = new QComboBox(parent);
             combo->setEditable(false);
-            combo->addItems(((const VariableModel *)index.model())->instrModels());
+            combo->addItems((static_cast<const VariableModel *>(index.model()))->instrModels());
             combo->setMinimumWidth(130);
             connect(combo, SIGNAL(activated(int)),
                     this, SLOT(commitAndCloseEditor()));
@@ -271,7 +270,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
         case VariableModel::MAXTIMELAG:
             dspin = new QDoubleSpinBox(parent);
             dspin->setDecimals(2);
-            dspin->setRange(-60.0, 60.0);
+            dspin->setRange(-100.0, 100.0);
             dspin->setSingleStep(1.0);
             dspin->setAccelerated(true);
             dspin->setSuffix(QStringLiteral(" [s]"));
@@ -308,6 +307,10 @@ void VariableDelegate::setEditorData(QWidget* editor,
         case VariableModel::INPUTUNIT:
             combo = static_cast<QComboBox*>(editor);
             if (!combo) { return; }
+
+            // prevent empty variables
+            if (stringValue.isEmpty()) break;
+
             combo->setCurrentIndex(combo->findText(stringValue));
             break;
         case VariableModel::VARIABLE:

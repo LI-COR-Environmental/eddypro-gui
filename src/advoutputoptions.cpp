@@ -36,8 +36,10 @@
 
 #include "clicklabel.h"
 #include "configstate.h"
+#include "customcheckbox.h"
 #include "dbghelper.h"
 #include "ecproject.h"
+#include "richtextcheckbox.h"
 #include "widget_utils.h"
 
 AdvOutputOptions::AdvOutputOptions(QWidget* parent,
@@ -51,31 +53,9 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
     QString tooltipStr;
 
-    fullSelectionButton = new QPushButton;
-    fullSelectionButton->setText(tr("Set Thorough"));
-    fullSelectionButton->setProperty("mdButton", true);
-    fullSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
-    tooltipStr =
-        tr("<b>Set thorough:</b> Click this button to pre-select a thorough "
-           "set of output files. While program execution increases (even "
-           "dramatically), you are provided with full results and diagnostic "
-           "information. Note that you can customize this pre-selection by "
-           "adding or removing items.");
-    fullSelectionButton->setToolTip(tooltipStr);
-
-    fullSelectionDesc = new QLabel;
-    fullSelectionDesc->setText(tr("Complete results and diagnostic information"));
-    fullSelectionDesc->setStyleSheet(QStringLiteral("QLabel {margin-left: 30px;}"));
-    fullSelectionDesc->setToolTip(fullSelectionButton->toolTip());
-
-    auto fullSelectionLayout = new QHBoxLayout;
-    fullSelectionLayout->addWidget(fullSelectionButton);
-    fullSelectionLayout->addWidget(fullSelectionDesc);
-
     minSelectionButton = new QPushButton;
     minSelectionButton->setText(tr("Set Minimal"));
     minSelectionButton->setProperty("mdButton", true);
-    minSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
     tooltipStr =
         tr("<b>Set minimal:</b> Click this button to pre-select a minimal "
            "set of output files, providing you with the essential results "
@@ -97,7 +77,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     typicalSelectionButton = new QPushButton;
     typicalSelectionButton->setText(tr("Set Typical"));
     typicalSelectionButton->setProperty("mdButton", true);
-    typicalSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
     tooltipStr =
         tr("<b>Set typical:</b> Click this button to pre-select a balanced "
            "set of output files, providing you with the essential results as "
@@ -114,6 +93,30 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     auto typicalSelectionLayout = new QHBoxLayout;
     typicalSelectionLayout->addWidget(typicalSelectionButton);
     typicalSelectionLayout->addWidget(typicalSelectionDesc);
+
+    fullSelectionButton = new QPushButton;
+    fullSelectionButton->setText(tr("Set Thorough"));
+    fullSelectionButton->setProperty("mdButton", true);
+    tooltipStr =
+        tr("<b>Set thorough:</b> Click this button to pre-select a thorough "
+           "set of output files. While program execution increases (even "
+           "dramatically), you are provided with full results and diagnostic "
+           "information. Note that you can customize this pre-selection by "
+           "adding or removing items.");
+    fullSelectionButton->setToolTip(tooltipStr);
+
+    fullSelectionDesc = new QLabel;
+    fullSelectionDesc->setText(tr("Complete results and diagnostic information"));
+    fullSelectionDesc->setStyleSheet(QStringLiteral("QLabel {margin-left: 30px;}"));
+    fullSelectionDesc->setToolTip(fullSelectionButton->toolTip());
+
+    auto fullSelectionLayout = new QHBoxLayout;
+    fullSelectionLayout->addWidget(fullSelectionButton);
+    fullSelectionLayout->addWidget(fullSelectionDesc);
+
+    minSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
+    typicalSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
+    fullSelectionButton->setMaximumWidth(fullSelectionButton->sizeHint().width());
 
     hrLabel_1 = new QLabel;
     hrLabel_1->setObjectName(QStringLiteral("hrLabel"));
@@ -161,6 +164,20 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
                "the selected output folder.");
     outBinOgivesCheckBox->setToolTip(tooltipStr);
 
+    outMeanSpectraCheckBox = new QCheckBox;
+    outMeanSpectraCheckBox->setText(tr("Ensemble averaged spectra"));
+    tooltipStr =
+        tr("<b>Ensemble averaged spectra:</b> Check this box to "
+           "instruct EddyPro to calculate ensemble-averaged spectra. "
+           "EddyPro will present ensemble gas spectra with and without noise "
+           "elimination (if this option is selected in the Spectral Analysis "
+           "page) along with ensemble temperature spectra for reference. Use "
+           "ensemble spectra to analyze the turbulence structure and the "
+           "instruments performance at your site. Note "
+           "that a fair amount of spectral data are needed (e.g., more than "
+           "2-3 weeks) to obtain a robust assessment.");
+    outMeanSpectraCheckBox->setToolTip(tooltipStr);
+
     outMeanCospCheckBox = new QCheckBox;
     outMeanCospCheckBox->setText(tr("Ensemble averaged cospectra and models"));
     tooltipStr =
@@ -169,52 +186,54 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
            "model cospectra and present \"ideal\" cospectra along with the "
            "former, to analyzer the turbulence structure at your site. Note "
            "that a fair amount of cospectral data are needed (e.g., more than "
-           "2-3 weeks) to obtain a careful assessment.");
+           "2-3 weeks) to obtain a robust assessment.");
     outMeanCospCheckBox->setToolTip(tooltipStr);
 
     auto fullSpectraDescription = new QLabel;
     fullSpectraDescription->setText(tr("Obtaining full spectra and cospectra "
-                            "will significantly increase the processing time.<br />"
-                            "We recommend limitting the number of these outputs "
+                            "will significantly increase processing time "
+                            "and disk usage.<br />"
+                            "For long datasets, we recommend limiting the "
+                            "number of these outputs "
                             "to no more than two."));
-    fullSpectraDescription->setObjectName(QStringLiteral("citeLabel"));
+    fullSpectraDescription->setObjectName(QStringLiteral("alertLabel"));
 
-    outFullSpectraCheckBoxU = new QCheckBox;
-    fullSpectraULabel = new ClickLabel(tr("U (longitudinal wind component)"));
-    outFullSpectraCheckBoxV = new QCheckBox;
-    fullSpectraVLabel = new ClickLabel(tr("V (transversal wind component)"));
-    outFullSpectraCheckBoxW = new QCheckBox;
-    fullSpectraWLabel = new ClickLabel(tr("W (vertical wind component)"));
-    outFullSpectraCheckBoxTs = new QCheckBox;
-    fullSpectraTsLabel = new ClickLabel(tr("%1 (sonic or fast ambient temperature)"
-                                           ).arg(Defs::TSON_STRING));
-    outFullSpectraCheckBoxCo2 = new QCheckBox;
-    fullSpectraCo2Label = new ClickLabel(tr("%1 (concentration or density)"
-                                            ).arg(Defs::CO2_STRING));
-    outFullSpectraCheckBoxH2o = new QCheckBox;
-    fullSpectraH2oLabel = new ClickLabel(tr("%1 (concentration or density)"
-                                            ).arg(Defs::H2O_STRING));
-    outFullSpectraCheckBoxCh4 = new QCheckBox;
-    fullSpectraCh4Label = new ClickLabel(tr("%1 (concentration or density)"
-                                            ).arg(Defs::CH4_STRING));
-    outFullSpectraCheckBoxN2o = new QCheckBox;
-    fullSpectraN2oLabel = new ClickLabel(tr("%1 Gas (concentration or density)"
-                                            ).arg(Defs::GAS4_STRING));
+    outFullSpectraCheckBoxU = new RichTextCheckBox;
+    outFullSpectraCheckBoxU->setText(tr("U (longitudinal wind component)"));
+    outFullSpectraCheckBoxV = new RichTextCheckBox;
+    outFullSpectraCheckBoxV->setText(tr("V (transversal wind component)"));
+    outFullSpectraCheckBoxW = new RichTextCheckBox;
+    outFullSpectraCheckBoxW->setText(tr("W (vertical wind component)"));
+    outFullSpectraCheckBoxTs = new RichTextCheckBox;
+    outFullSpectraCheckBoxTs->setText(tr("%1 (sonic or fast ambient temperature)")
+                                      .arg(Defs::TSON_STRING));
+    outFullSpectraCheckBoxCo2 = new RichTextCheckBox;
+    outFullSpectraCheckBoxCo2->setText(tr("%1 (concentration or density)")
+                                       .arg(Defs::CO2_STRING));
+    outFullSpectraCheckBoxH2o = new RichTextCheckBox;
+    outFullSpectraCheckBoxH2o->setText(tr("%1 (concentration or density)")
+                                       .arg(Defs::H2O_STRING));
+    outFullSpectraCheckBoxCh4 = new RichTextCheckBox;
+    outFullSpectraCheckBoxCh4->setText(tr("%1 (concentration or density)")
+                                       .arg(Defs::CH4_STRING));
+    outFullSpectraCheckBoxN2o = new RichTextCheckBox;
+    outFullSpectraCheckBoxN2o->setText(tr("%1 Gas (concentration or density)")
+                                       .arg(Defs::GAS4_STRING));
 
-    outFullCospectraCheckBoxU = new QCheckBox;
-    fullCospectraULabel = new ClickLabel(tr("W/U"));
-    outFullCospectraCheckBoxV = new QCheckBox;
-    fullCospectraVLabel = new ClickLabel(tr("W/V"));
-    outFullCospectraCheckBoxTs = new QCheckBox;
-    fullCospectraTsLabel = new ClickLabel(tr("W/%1").arg(Defs::TSON_STRING));
-    outFullCospectraCheckBoxCo2 = new QCheckBox;
-    fullCospectraCo2Label = new ClickLabel(tr("W/%1").arg(Defs::CO2_STRING));
-    outFullCospectraCheckBoxH2o = new QCheckBox;
-    fullCospectraH2oLabel = new ClickLabel(tr("W/%1").arg(Defs::H2O_STRING));
-    outFullCospectraCheckBoxCh4 = new QCheckBox;
-    fullCospectraCh4Label = new ClickLabel(tr("W/%1").arg(Defs::CH4_STRING));
-    outFullCospectraCheckBoxN2o = new QCheckBox;
-    fullCospectraN2oLabel = new ClickLabel(tr("W/%1 Gas").arg(Defs::GAS4_STRING));
+    outFullCospectraCheckBoxU = new RichTextCheckBox;
+    outFullCospectraCheckBoxU->setText(QStringLiteral("W/U"));
+    outFullCospectraCheckBoxV = new RichTextCheckBox;
+    outFullCospectraCheckBoxV->setText(QStringLiteral("W/V"));
+    outFullCospectraCheckBoxTs = new RichTextCheckBox;
+    outFullCospectraCheckBoxTs->setText(QStringLiteral("W/%1").arg(Defs::TSON_STRING));
+    outFullCospectraCheckBoxCo2 = new RichTextCheckBox;
+    outFullCospectraCheckBoxCo2->setText(QStringLiteral("W/%1").arg(Defs::CO2_STRING));
+    outFullCospectraCheckBoxH2o = new RichTextCheckBox;
+    outFullCospectraCheckBoxH2o->setText(QStringLiteral("W/%1").arg(Defs::H2O_STRING));
+    outFullCospectraCheckBoxCh4 = new RichTextCheckBox;
+    outFullCospectraCheckBoxCh4->setText(QStringLiteral("W/%1").arg(Defs::CH4_STRING));
+    outFullCospectraCheckBoxN2o = new RichTextCheckBox;
+    outFullCospectraCheckBoxN2o->setText(tr("W/%1 Gas").arg(Defs::GAS4_STRING));
 
     outGhgEuCheckBox = new QCheckBox;
     outGhgEuCheckBox->setText(tr("GHG-Europe results (fluxes and more, "
@@ -351,17 +370,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     level6Label = new ClickLabel(tr("Level 6 (after time lag compensation) :"));
     level7Label = new ClickLabel(tr("Level 7 (after detrending) :"));
 
-    rawULabel = new ClickLabel(tr("U"));
-    rawVLabel = new ClickLabel(tr("V"));
-    rawWLabel = new ClickLabel(tr("W"));
-    rawTsLabel = new ClickLabel(tr("%1").arg(Defs::TSON_STRING));
-    rawCo2Label = new ClickLabel(tr("%1").arg(Defs::CO2_STRING));
-    rawH2oLabel = new ClickLabel(tr("%1").arg(Defs::H2O_STRING));
-    rawCh4Label = new ClickLabel(tr("%1").arg(Defs::CH4_STRING));
-    rawGas4Label = new ClickLabel(tr("%1 trace gas").arg(Defs::GAS4_STRING));
-    rawTairLabel = new ClickLabel(tr("T<sub>air</sub>"));
-    rawPairLabel = new ClickLabel(tr("P<sub>air</sub>"));
-
     outSt1CheckBox = new QCheckBox;
     outSt2CheckBox = new QCheckBox;
     outSt3CheckBox = new QCheckBox;
@@ -378,223 +386,30 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outRaw6CheckBox = new QCheckBox;
     outRaw7CheckBox = new QCheckBox;
 
-    outRawUCheckBox = new QCheckBox;
-    outRawVCheckBox = new QCheckBox;
-    outRawWCheckBox = new QCheckBox;
-    outRawTsCheckBox = new QCheckBox;
-    outRawCo2CheckBox = new QCheckBox;
-    outRawH2oCheckBox = new QCheckBox;
-    outRawCh4CheckBox = new QCheckBox;
-    outRawGas4CheckBox = new QCheckBox;
-    outRawTairCheckBox = new QCheckBox;
-    outRawPairCheckBox = new QCheckBox;
+    outRawUCheckBox = new RichTextCheckBox;
+    outRawUCheckBox->setText(QStringLiteral("U"));
+    outRawVCheckBox = new RichTextCheckBox;
+    outRawVCheckBox->setText(QStringLiteral("V"));
+    outRawWCheckBox = new RichTextCheckBox;
+    outRawWCheckBox->setText(QStringLiteral("W"));
+    outRawTsCheckBox = new RichTextCheckBox;
+    outRawTsCheckBox->setText(QStringLiteral("%1").arg(Defs::TSON_STRING));
+    outRawCo2CheckBox = new RichTextCheckBox;
+    outRawCo2CheckBox->setText(QStringLiteral("%1").arg(Defs::CO2_STRING));
+    outRawH2oCheckBox = new RichTextCheckBox;
+    outRawH2oCheckBox->setText(QStringLiteral("%1").arg(Defs::H2O_STRING));
+    outRawCh4CheckBox = new RichTextCheckBox;
+    outRawCh4CheckBox->setText(QStringLiteral("%1").arg(Defs::CH4_STRING));
+    outRawGas4CheckBox = new RichTextCheckBox;
+    outRawGas4CheckBox->setText(tr("%1 trace gas").arg(Defs::GAS4_STRING));
+    outRawTairCheckBox = new RichTextCheckBox;
+    outRawTairCheckBox->setText(tr("T<sub>air</sub>"));
+    outRawPairCheckBox = new RichTextCheckBox;
+    outRawPairCheckBox->setText(tr("P<sub>air</sub>"));
 
     outVarsAllCheckBox = new QCheckBox;
     outVarsAllCheckBox->setText(tr("Select all variables"));
     outVarsAllCheckBox->setStyleSheet(QStringLiteral("QCheckBox {margin-left: 40px;}"));
-
-    auto checkboxContainerLayout_1 = new QHBoxLayout;
-    checkboxContainerLayout_1->addWidget(outFullSpectraCheckBoxU);
-    checkboxContainerLayout_1->addWidget(fullSpectraULabel);
-    checkboxContainerLayout_1->addStretch();
-    checkboxContainerLayout_1->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_1->setSpacing(0);
-    auto checkboxContainer_1 = new QWidget;
-    checkboxContainer_1->setLayout(checkboxContainerLayout_1);
-    auto checkboxContainerLayout_2 = new QHBoxLayout;
-    checkboxContainerLayout_2->addWidget(outFullSpectraCheckBoxV);
-    checkboxContainerLayout_2->addWidget(fullSpectraVLabel);
-    checkboxContainerLayout_2->addStretch();
-    checkboxContainerLayout_2->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_2->setSpacing(0);
-    auto checkboxContainer_2 = new QWidget;
-    checkboxContainer_2->setLayout(checkboxContainerLayout_2);
-    auto checkboxContainerLayout_3 = new QHBoxLayout;
-    checkboxContainerLayout_3->addWidget(outFullSpectraCheckBoxW);
-    checkboxContainerLayout_3->addWidget(fullSpectraWLabel);
-    checkboxContainerLayout_3->addStretch();
-    checkboxContainerLayout_3->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_3->setSpacing(0);
-    auto checkboxContainer_3 = new QWidget;
-    checkboxContainer_3->setLayout(checkboxContainerLayout_3);
-    auto checkboxContainerLayout_4 = new QHBoxLayout;
-    checkboxContainerLayout_4->addWidget(outFullSpectraCheckBoxTs);
-    checkboxContainerLayout_4->addWidget(fullSpectraTsLabel);
-    checkboxContainerLayout_4->addStretch();
-    checkboxContainerLayout_4->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_4->setSpacing(0);
-    auto checkboxContainer_4 = new QWidget;
-    checkboxContainer_4->setLayout(checkboxContainerLayout_4);
-    auto checkboxContainerLayout_5 = new QHBoxLayout;
-    checkboxContainerLayout_5->addWidget(outFullSpectraCheckBoxCo2);
-    checkboxContainerLayout_5->addWidget(fullSpectraCo2Label);
-    checkboxContainerLayout_5->addStretch();
-    checkboxContainerLayout_5->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_5->setSpacing(0);
-    auto checkboxContainer_5 = new QWidget;
-    checkboxContainer_5->setLayout(checkboxContainerLayout_5);
-    auto checkboxContainerLayout_6 = new QHBoxLayout;
-    checkboxContainerLayout_6->addWidget(outFullSpectraCheckBoxH2o);
-    checkboxContainerLayout_6->addWidget(fullSpectraH2oLabel);
-    checkboxContainerLayout_6->addStretch();
-    checkboxContainerLayout_6->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_6->setSpacing(0);
-    auto checkboxContainer_6 = new QWidget;
-    checkboxContainer_6->setLayout(checkboxContainerLayout_6);
-    auto checkboxContainerLayout_7 = new QHBoxLayout;
-    checkboxContainerLayout_7->addWidget(outFullSpectraCheckBoxCh4);
-    checkboxContainerLayout_7->addWidget(fullSpectraCh4Label);
-    checkboxContainerLayout_7->addStretch();
-    checkboxContainerLayout_7->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_7->setSpacing(0);
-    auto checkboxContainer_7 = new QWidget;
-    checkboxContainer_7->setLayout(checkboxContainerLayout_7);
-    auto checkboxContainerLayout_8 = new QHBoxLayout;
-    checkboxContainerLayout_8->addWidget(outFullSpectraCheckBoxN2o);
-    checkboxContainerLayout_8->addWidget(fullSpectraN2oLabel);
-    checkboxContainerLayout_8->addStretch();
-    checkboxContainerLayout_8->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_8->setSpacing(0);
-    auto checkboxContainer_8 = new QWidget;
-    checkboxContainer_8->setLayout(checkboxContainerLayout_8);
-
-    auto checkboxContainerLayout_12 = new QHBoxLayout;
-    checkboxContainerLayout_12->addWidget(outFullCospectraCheckBoxU);
-    checkboxContainerLayout_12->addWidget(fullCospectraULabel);
-    checkboxContainerLayout_12->addStretch();
-    checkboxContainerLayout_12->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_12->setSpacing(0);
-    auto checkboxContainer_12 = new QWidget;
-    checkboxContainer_12->setLayout(checkboxContainerLayout_12);
-    auto checkboxContainerLayout_22 = new QHBoxLayout;
-    checkboxContainerLayout_22->addWidget(outFullCospectraCheckBoxV);
-    checkboxContainerLayout_22->addWidget(fullCospectraVLabel);
-    checkboxContainerLayout_22->addStretch();
-    checkboxContainerLayout_22->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_22->setSpacing(0);
-    auto checkboxContainer_22 = new QWidget;
-    checkboxContainer_22->setLayout(checkboxContainerLayout_22);
-    auto checkboxContainerLayout_32 = new QHBoxLayout;
-    checkboxContainerLayout_32->addWidget(outFullCospectraCheckBoxTs);
-    checkboxContainerLayout_32->addWidget(fullCospectraTsLabel);
-    checkboxContainerLayout_32->addStretch();
-    checkboxContainerLayout_32->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_32->setSpacing(0);
-    auto checkboxContainer_32 = new QWidget;
-    checkboxContainer_32->setLayout(checkboxContainerLayout_32);
-    auto checkboxContainerLayout_42 = new QHBoxLayout;
-    checkboxContainerLayout_42->addWidget(outFullCospectraCheckBoxCo2);
-    checkboxContainerLayout_42->addWidget(fullCospectraCo2Label);
-    checkboxContainerLayout_42->addStretch();
-    checkboxContainerLayout_42->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_42->setSpacing(0);
-    auto checkboxContainer_42 = new QWidget;
-    checkboxContainer_42->setLayout(checkboxContainerLayout_42);
-    auto checkboxContainerLayout_52 = new QHBoxLayout;
-    checkboxContainerLayout_52->addWidget(outFullCospectraCheckBoxH2o);
-    checkboxContainerLayout_52->addWidget(fullCospectraH2oLabel);
-    checkboxContainerLayout_52->addStretch();
-    checkboxContainerLayout_52->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_52->setSpacing(0);
-    auto checkboxContainer_52 = new QWidget;
-    checkboxContainer_52->setLayout(checkboxContainerLayout_52);
-    auto checkboxContainerLayout_62 = new QHBoxLayout;
-    checkboxContainerLayout_62->addWidget(outFullCospectraCheckBoxCh4);
-    checkboxContainerLayout_62->addWidget(fullCospectraCh4Label);
-    checkboxContainerLayout_62->addStretch();
-    checkboxContainerLayout_62->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_62->setSpacing(0);
-    auto checkboxContainer_62 = new QWidget;
-    checkboxContainer_62->setLayout(checkboxContainerLayout_62);
-    auto checkboxContainerLayout_72 = new QHBoxLayout;
-    checkboxContainerLayout_72->addWidget(outFullCospectraCheckBoxN2o);
-    checkboxContainerLayout_72->addWidget(fullCospectraN2oLabel);
-    checkboxContainerLayout_72->addStretch();
-    checkboxContainerLayout_72->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_72->setSpacing(0);
-    auto checkboxContainer_72 = new QWidget;
-    checkboxContainer_72->setLayout(checkboxContainerLayout_72);
-
-    auto checkboxContainerLayout_13 = new QHBoxLayout;
-    checkboxContainerLayout_13->addWidget(outRawUCheckBox);
-    checkboxContainerLayout_13->addWidget(rawULabel);
-    checkboxContainerLayout_13->addStretch();
-    checkboxContainerLayout_13->setContentsMargins(50, 0, 11, 0);
-    checkboxContainerLayout_13->setSpacing(0);
-    auto checkboxContainer_13 = new QWidget;
-    checkboxContainer_13->setLayout(checkboxContainerLayout_13);
-    auto checkboxContainerLayout_23 = new QHBoxLayout;
-    checkboxContainerLayout_23->addWidget(outRawVCheckBox);
-    checkboxContainerLayout_23->addWidget(rawVLabel);
-    checkboxContainerLayout_23->addStretch();
-    checkboxContainerLayout_23->setContentsMargins(50, 0, 11, 0);
-    checkboxContainerLayout_23->setSpacing(0);
-    auto checkboxContainer_23 = new QWidget;
-    checkboxContainer_23->setLayout(checkboxContainerLayout_23);
-    auto checkboxContainerLayout_33 = new QHBoxLayout;
-    checkboxContainerLayout_33->addWidget(outRawWCheckBox);
-    checkboxContainerLayout_33->addWidget(rawWLabel);
-    checkboxContainerLayout_33->addStretch();
-    checkboxContainerLayout_33->setContentsMargins(50, 0, 11, 0);
-    checkboxContainerLayout_33->setSpacing(0);
-    auto checkboxContainer_33 = new QWidget;
-    checkboxContainer_33->setLayout(checkboxContainerLayout_33);
-    auto checkboxContainerLayout_43 = new QHBoxLayout;
-    checkboxContainerLayout_43->addWidget(outRawTsCheckBox);
-    checkboxContainerLayout_43->addWidget(rawTsLabel);
-    checkboxContainerLayout_43->addStretch();
-    checkboxContainerLayout_43->setContentsMargins(50, 0, 11, 0);
-    checkboxContainerLayout_43->setSpacing(0);
-    auto checkboxContainer_43 = new QWidget;
-    checkboxContainer_43->setLayout(checkboxContainerLayout_43);
-    auto checkboxContainerLayout_53 = new QHBoxLayout;
-    checkboxContainerLayout_53->addWidget(outRawCo2CheckBox);
-    checkboxContainerLayout_53->addWidget(rawCo2Label);
-    checkboxContainerLayout_53->addStretch();
-    checkboxContainerLayout_53->setContentsMargins(50, 0, 11, 0);
-    checkboxContainerLayout_53->setSpacing(0);
-    auto checkboxContainer_53 = new QWidget;
-    checkboxContainer_53->setLayout(checkboxContainerLayout_53);
-    auto checkboxContainerLayout_14 = new QHBoxLayout;
-    checkboxContainerLayout_14->addWidget(outRawH2oCheckBox);
-    checkboxContainerLayout_14->addWidget(rawH2oLabel);
-    checkboxContainerLayout_14->addStretch();
-    checkboxContainerLayout_14->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_14->setSpacing(0);
-    auto checkboxContainer_14 = new QWidget;
-    checkboxContainer_14->setLayout(checkboxContainerLayout_14);
-    auto checkboxContainerLayout_24 = new QHBoxLayout;
-    checkboxContainerLayout_24->addWidget(outRawCh4CheckBox);
-    checkboxContainerLayout_24->addWidget(rawCh4Label);
-    checkboxContainerLayout_24->addStretch();
-    checkboxContainerLayout_24->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_24->setSpacing(0);
-    auto checkboxContainer_24 = new QWidget;
-    checkboxContainer_24->setLayout(checkboxContainerLayout_24);
-    auto checkboxContainerLayout_34 = new QHBoxLayout;
-    checkboxContainerLayout_34->addWidget(outRawGas4CheckBox);
-    checkboxContainerLayout_34->addWidget(rawGas4Label);
-    checkboxContainerLayout_34->addStretch();
-    checkboxContainerLayout_34->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_34->setSpacing(0);
-    auto checkboxContainer_34 = new QWidget;
-    checkboxContainer_34->setLayout(checkboxContainerLayout_34);
-    auto checkboxContainerLayout_44 = new QHBoxLayout;
-    checkboxContainerLayout_44->addWidget(outRawTairCheckBox);
-    checkboxContainerLayout_44->addWidget(rawTairLabel);
-    checkboxContainerLayout_44->addStretch();
-    checkboxContainerLayout_44->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_44->setSpacing(0);
-    auto checkboxContainer_44 = new QWidget;
-    checkboxContainer_44->setLayout(checkboxContainerLayout_44);
-    auto checkboxContainerLayout_54 = new QHBoxLayout;
-    checkboxContainerLayout_54->addWidget(outRawPairCheckBox);
-    checkboxContainerLayout_54->addWidget(rawPairLabel);
-    checkboxContainerLayout_54->addStretch();
-    checkboxContainerLayout_54->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout_54->setSpacing(0);
-    auto checkboxContainer_54 = new QWidget;
-    checkboxContainer_54->setLayout(checkboxContainerLayout_54);
 
     auto title_1 = new QLabel;
     title_1->setText(tr("Results files"));
@@ -710,24 +525,25 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_5, 15, 0);
     outputLayout->addWidget(outBinSpectraCheckBox, 16, 0);
     outputLayout->addWidget(outBinOgivesCheckBox, 17, 0);
-    outputLayout->addWidget(outMeanCospCheckBox, 18, 0);
+    outputLayout->addWidget(outMeanSpectraCheckBox, 18, 0);
+    outputLayout->addWidget(outMeanCospCheckBox, 19, 0);
     outputLayout->addLayout(qBox_6, 15, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_1, 16, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_2, 17, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_3, 18, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_4, 19, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_5, 20, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_6, 21, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_7, 22, 1, 1, 2);
-    outputLayout->addWidget(checkboxContainer_8, 23, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxU, 16, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxV, 17, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxW, 18, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxTs, 19, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxCo2, 20, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxH2o, 21, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxCh4, 22, 1, 1, 2);
+    outputLayout->addWidget(outFullSpectraCheckBoxN2o, 23, 1, 1, 2);
     outputLayout->addLayout(qBox_7, 15, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_12, 16, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_22, 17, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_32, 18, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_42, 19, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_52, 20, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_62, 21, 3, 1, 3);
-    outputLayout->addWidget(checkboxContainer_72, 22, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxU, 16, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxV, 17, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxTs, 18, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxCo2, 19, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxH2o, 20, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxCh4, 21, 3, 1, 3);
+    outputLayout->addWidget(outFullCospectraCheckBoxN2o, 22, 3, 1, 3);
     outputLayout->addWidget(fullSpectraDescription, 24, 1, 1, 7);
     outputLayout->addWidget(hrLabel_3, 25, 0, 1, -1);
     outputLayout->addWidget(title_5, 26, 0);
@@ -758,46 +574,55 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addWidget(outRaw6CheckBox, 34, 2, Qt::AlignCenter);
     outputLayout->addWidget(outRaw7CheckBox, 35, 2, Qt::AlignCenter);
     outputLayout->addWidget(vrLabel_2, 29, 3, 7, 1, Qt::AlignLeft);
-    outputLayout->addWidget(checkboxContainer_13, 29, 3, 1, 2);
-    outputLayout->addWidget(checkboxContainer_23, 30, 3, 1, 2);
-    outputLayout->addWidget(checkboxContainer_33, 31, 3, 1, 2);
-    outputLayout->addWidget(checkboxContainer_43, 32, 3, 1, 2);
-    outputLayout->addWidget(checkboxContainer_53, 33, 3, 1, 2);
-    outputLayout->addWidget(checkboxContainer_14, 29, 4, 1, 2);
-    outputLayout->addWidget(checkboxContainer_24, 30, 4, 1, 2);
-    outputLayout->addWidget(checkboxContainer_34, 31, 4, 1, 2);
-    outputLayout->addWidget(checkboxContainer_44, 32, 4, 1, 2);
-    outputLayout->addWidget(checkboxContainer_54, 33, 4, 1, 2);
+    outputLayout->addWidget(outRawUCheckBox, 29, 3, 1, 2);
+    outputLayout->addWidget(outRawVCheckBox, 30, 3, 1, 2);
+    outputLayout->addWidget(outRawWCheckBox, 31, 3, 1, 2);
+    outputLayout->addWidget(outRawTsCheckBox, 32, 3, 1, 2);
+    outputLayout->addWidget(outRawCo2CheckBox, 33, 3, 1, 2);
+    outputLayout->addWidget(outRawH2oCheckBox, 29, 4, 1, 2);
+    outputLayout->addWidget(outRawCh4CheckBox, 30, 4, 1, 2);
+    outputLayout->addWidget(outRawGas4CheckBox, 31, 4, 1, 2);
+    outputLayout->addWidget(outRawTairCheckBox, 32, 4, 1, 2);
+    outputLayout->addWidget(outRawPairCheckBox, 33, 4, 1, 2);
     outputLayout->addWidget(outVarsAllCheckBox, 35, 3, 1, 3);
     outputLayout->setRowStretch(36, 1);
     outputLayout->setColumnStretch(8, 1);
     outputLayout->setColumnMinimumWidth(4, 60);
 
-    auto outputFrame = new QWidget;
-    outputFrame->setProperty("scrollContainerWidget", true);
-    outputFrame->setLayout(outputLayout);
+//    auto outputFrame = new QWidget;
+//    outputFrame->setProperty("scrollContainerWidget", true);
+//    outputFrame->setLayout(outputLayout);
 
-    auto scrollArea = new QScrollArea;
-    scrollArea->setWidget(outputFrame);
-    scrollArea->setWidgetResizable(true);
+//    auto scrollArea = new QScrollArea;
+//    scrollArea->setWidget(outputFrame);
+//    scrollArea->setWidgetResizable(true);
+
+//    auto settingsGroupLayout = new QHBoxLayout;
+//    settingsGroupLayout->addWidget(scrollArea);
 
     auto settingsGroupLayout = new QHBoxLayout;
-    settingsGroupLayout->addWidget(scrollArea);
+    settingsGroupLayout
+            ->addWidget(WidgetUtils::getContainerScrollArea(this,
+                                                            outputLayout));
 
     auto settingsGroupTitle = new QLabel;
     settingsGroupTitle->setText(tr("Output File Options"));
     settingsGroupTitle->setProperty("groupTitle", true);
+//    settingsGroupTitle->setStyleSheet(
+//        QStringLiteral("QLabel { margin: 5px 0px 10px 0px; padding: 0px; }"));
 
     auto mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(settingsGroupTitle);
     mainLayout->addLayout(settingsGroupLayout);
-    mainLayout->setContentsMargins(15, 15, 0, 0);
+    mainLayout->setContentsMargins(15, 0, 15, 10);
     setLayout(mainLayout);
 
     connect(outBinSpectraCheckBox, &QCheckBox::toggled,
             this, &AdvOutputOptions::updateOutBinSpectra);
     connect(outBinOgivesCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutBinOgives(checked); });
+    connect(outMeanSpectraCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralOutMeanSpectra(checked); });
     connect(outMeanCospCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralOutMeanCosp(checked); });
     connect(outMeanCospCheckBox, &QCheckBox::toggled,
@@ -830,69 +655,37 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     connect(errorFormatCombo, SIGNAL(editTextChanged(QString)),
             this, SLOT(updateErrorLabel(QString)));
 
-    connect(outFullSpectraCheckBoxU, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxU, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraU(checked); });
-    connect(outFullSpectraCheckBoxV, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxV, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraV(checked); });
-    connect(outFullSpectraCheckBoxW, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxW, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraW(checked); });
-    connect(outFullSpectraCheckBoxTs, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxTs, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraTs(checked); });
-    connect(outFullSpectraCheckBoxCo2, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxCo2, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraCo2(checked); });
-    connect(outFullSpectraCheckBoxH2o, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxH2o, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraH2o(checked); });
-    connect(outFullSpectraCheckBoxCh4, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxCh4, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraCh4(checked); });
-    connect(outFullSpectraCheckBoxN2o, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullSpectraCheckBoxN2o, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullSpectraN2o(checked); });
 
-    connect(fullSpectraULabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxU, &QCheckBox::toggle);
-    connect(fullSpectraVLabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxV, &QCheckBox::toggle);
-    connect(fullSpectraWLabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxW, &QCheckBox::toggle);
-    connect(fullSpectraTsLabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxTs, &QCheckBox::toggle);
-    connect(fullSpectraCo2Label, &ClickLabel::clicked,
-            outFullSpectraCheckBoxCo2, &QCheckBox::toggle);
-    connect(fullSpectraH2oLabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxH2o, &QCheckBox::toggle);
-    connect(fullSpectraCh4Label, &ClickLabel::clicked,
-            outFullSpectraCheckBoxCh4, &QCheckBox::toggle);
-    connect(fullSpectraN2oLabel, &ClickLabel::clicked,
-            outFullSpectraCheckBoxN2o, &QCheckBox::toggle);
-
-    connect(outFullCospectraCheckBoxU, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxU, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraU(checked); });
-    connect(outFullCospectraCheckBoxV, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxV, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraV(checked); });
-    connect(outFullCospectraCheckBoxTs, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxTs, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraTs(checked); });
-    connect(outFullCospectraCheckBoxCo2, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxCo2, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraCo2(checked); });
-    connect(outFullCospectraCheckBoxH2o, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxH2o, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraH2o(checked); });
-    connect(outFullCospectraCheckBoxCh4, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxCh4, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraCh4(checked); });
-    connect(outFullCospectraCheckBoxN2o, &QCheckBox::toggled, [=](bool checked)
+    connect(outFullCospectraCheckBoxN2o, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutFullCospectraN2o(checked); });
-
-    connect(fullCospectraULabel, &ClickLabel::clicked,
-            outFullCospectraCheckBoxU, &QCheckBox::toggle);
-    connect(fullCospectraVLabel, &ClickLabel::clicked,
-            outFullCospectraCheckBoxV, &QCheckBox::toggle);
-    connect(fullCospectraTsLabel, &ClickLabel::clicked,
-            outFullCospectraCheckBoxTs, &QCheckBox::toggle);
-    connect(fullCospectraCo2Label, &ClickLabel::clicked,
-            outFullCospectraCheckBoxCo2, &QCheckBox::toggle);
-    connect(fullCospectraH2oLabel, &ClickLabel::clicked,
-            outFullCospectraCheckBoxH2o, &QCheckBox::toggle);
-    connect(fullCospectraCh4Label, &ClickLabel::clicked,
-            outFullCospectraCheckBoxCh4, &QCheckBox::toggle);
-    connect(fullCospectraN2oLabel, &ClickLabel::clicked,
-            outFullCospectraCheckBoxN2o, &QCheckBox::toggle);
 
     connect(outSt1CheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenOutSt1(checked); });
@@ -924,25 +717,25 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     connect(outRaw7CheckBox, &QCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRaw7);
 
-    connect(outRawUCheckBox, &QCheckBox::toggled,
+    connect(outRawUCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawU);
-    connect(outRawVCheckBox, &QCheckBox::toggled,
+    connect(outRawVCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawV);
-    connect(outRawWCheckBox, &QCheckBox::toggled,
+    connect(outRawWCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawW);
-    connect(outRawTsCheckBox, &QCheckBox::toggled,
+    connect(outRawTsCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawTs);
-    connect(outRawCo2CheckBox, &QCheckBox::toggled,
+    connect(outRawCo2CheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawCo2);
-    connect(outRawH2oCheckBox, &QCheckBox::toggled,
+    connect(outRawH2oCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawH2o);
-    connect(outRawCh4CheckBox, &QCheckBox::toggled,
+    connect(outRawCh4CheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawCh4);
-    connect(outRawGas4CheckBox, &QCheckBox::toggled,
+    connect(outRawGas4CheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawGas4);
-    connect(outRawTairCheckBox, &QCheckBox::toggled,
+    connect(outRawTairCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawTair);
-    connect(outRawPairCheckBox, &QCheckBox::toggled,
+    connect(outRawPairCheckBox, &RichTextCheckBox::toggled,
             this, &AdvOutputOptions::updateOutputRawPair);
     connect(outVarsAllCheckBox, &QCheckBox::toggled,
             this, &AdvOutputOptions::checkVarsAll);
@@ -953,27 +746,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             this, &AdvOutputOptions::selectTypical);
     connect(fullSelectionButton, &QPushButton::clicked,
             this, &AdvOutputOptions::selectFull);
-
-    connect(rawULabel,&ClickLabel::clicked,
-            outRawUCheckBox, &QCheckBox::toggle);
-    connect(rawVLabel, &ClickLabel::clicked,
-            outRawVCheckBox, &QCheckBox::toggle);
-    connect(rawWLabel, &ClickLabel::clicked,
-            outRawWCheckBox, &QCheckBox::toggle);
-    connect(rawTsLabel, &ClickLabel::clicked,
-            outRawTsCheckBox, &QCheckBox::toggle);
-    connect(rawCo2Label, &ClickLabel::clicked,
-            outRawCo2CheckBox, &QCheckBox::toggle);
-    connect(rawH2oLabel, &ClickLabel::clicked,
-            outRawH2oCheckBox, &QCheckBox::toggle);
-    connect(rawCh4Label, &ClickLabel::clicked,
-            outRawCh4CheckBox, &QCheckBox::toggle);
-    connect(rawGas4Label, &ClickLabel::clicked,
-            outRawGas4CheckBox, &QCheckBox::toggle);
-    connect(rawTairLabel, &ClickLabel::clicked,
-            outRawTairCheckBox, &QCheckBox::toggle);
-    connect(rawPairLabel, &ClickLabel::clicked,
-            outRawPairCheckBox, &QCheckBox::toggle);
 
     connect(ecProject_, &EcProject::ecProjectNew,
             this, &AdvOutputOptions::reset);
@@ -989,7 +761,7 @@ void AdvOutputOptions::setSmartfluxUI()
     DEBUG_FUNC_NAME
     bool on = configState_->project.smartfluxMode;
 
-    QList<QWidget *> enableableWidgets;
+    QWidgetList enableableWidgets;
     enableableWidgets << outFullCheckBox
                       << fullOutformatLabel
                       << fixedVarsOutputRadio
@@ -997,6 +769,7 @@ void AdvOutputOptions::setSmartfluxUI()
                       << errorFormatLabel
                       << errorFormatCombo
                       << createDatasetCheckBox
+                      << outMeanSpectraCheckBox
                       << outMeanCospCheckBox
                       << outAmFluxCheckBox
                       << outGhgEuCheckBox
@@ -1052,11 +825,11 @@ void AdvOutputOptions::setSmartfluxUI()
         }
         else
         {
-            w->setEnabled(oldEnabled.at(enableableWidgets.indexOf(w)));
+            w->setEnabled(oldEnabled.at(static_cast<unsigned long>(enableableWidgets.indexOf(w))));
         }
     }
 
-    QList<QWidget *> visibleWidgets;
+    QWidgetList visibleWidgets;
     visibleWidgets << fullSelectionButton
             << fullSelectionDesc
             << minSelectionButton
@@ -1074,7 +847,7 @@ void AdvOutputOptions::setSmartfluxUI()
         }
         else
         {
-            w->setVisible(oldVisible.at(visibleWidgets.indexOf(w)));
+            w->setVisible(oldVisible.at(static_cast<unsigned long>(visibleWidgets.indexOf(w))));
         }
     }
 
@@ -1099,29 +872,20 @@ void AdvOutputOptions::setSmartfluxUI()
         }
     }
 
-    QList<QAbstractButton *> uncheckableWidgets;
-    uncheckableWidgets << outAmFluxCheckBox
+    if (on)
+    {
+        updateFixedOuputFormat(1);
+    }
+
+    QList<QCheckBox *> uncheckableCheckbox;
+    uncheckableCheckbox << outAmFluxCheckBox
                        << outGhgEuCheckBox
                        << createDatasetCheckBox
+                       << outMeanSpectraCheckBox
                        << outMeanCospCheckBox
                        << outDetailsCheckBox
                        << outMdCheckBox
                        << outBinOgivesCheckBox
-                       << outFullSpectraCheckBoxU
-                       << outFullSpectraCheckBoxV
-                       << outFullSpectraCheckBoxW
-                       << outFullSpectraCheckBoxTs
-                       << outFullSpectraCheckBoxCo2
-                       << outFullSpectraCheckBoxH2o
-                       << outFullSpectraCheckBoxCh4
-                       << outFullSpectraCheckBoxN2o
-                       << outFullCospectraCheckBoxU
-                       << outFullCospectraCheckBoxV
-                       << outFullCospectraCheckBoxTs
-                       << outFullCospectraCheckBoxCo2
-                       << outFullCospectraCheckBoxH2o
-                       << outFullCospectraCheckBoxCh4
-                       << outFullCospectraCheckBoxN2o
                        << outSt1CheckBox
                        << outSt2CheckBox
                        << outSt3CheckBox
@@ -1136,6 +900,31 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRaw5CheckBox
                        << outRaw6CheckBox
                        << outRaw7CheckBox
+                       << outVarsAllCheckBox;
+    foreach (QCheckBox* w, uncheckableCheckbox)
+    {
+        if (on)
+        {
+            w->setChecked(!on);
+        }
+    }
+
+    QList<RichTextCheckBox *> uncheckableRichTextCheckbox;
+    uncheckableRichTextCheckbox << outFullSpectraCheckBoxU
+                       << outFullSpectraCheckBoxV
+                       << outFullSpectraCheckBoxW
+                       << outFullSpectraCheckBoxTs
+                       << outFullSpectraCheckBoxCo2
+                       << outFullSpectraCheckBoxH2o
+                       << outFullSpectraCheckBoxCh4
+                       << outFullSpectraCheckBoxN2o
+                       << outFullCospectraCheckBoxU
+                       << outFullCospectraCheckBoxV
+                       << outFullCospectraCheckBoxTs
+                       << outFullCospectraCheckBoxCo2
+                       << outFullCospectraCheckBoxH2o
+                       << outFullCospectraCheckBoxCh4
+                       << outFullCospectraCheckBoxN2o
                        << outRawUCheckBox
                        << outRawVCheckBox
                        << outRawWCheckBox
@@ -1145,9 +934,8 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRawCh4CheckBox
                        << outRawGas4CheckBox
                        << outRawTairCheckBox
-                       << outRawPairCheckBox
-                       << outVarsAllCheckBox;
-    foreach (QAbstractButton* w, uncheckableWidgets)
+                       << outRawPairCheckBox;
+    foreach (RichTextCheckBox* w, uncheckableRichTextCheckbox)
     {
         if (on)
         {
@@ -1204,6 +992,7 @@ void AdvOutputOptions::refresh()
 
     outBinSpectraCheckBox->setChecked(ecProject_->screenOutBinSpectra());
     outBinOgivesCheckBox->setChecked(ecProject_->screenOutBinOgives());
+    outMeanSpectraCheckBox->setChecked(ecProject_->generalOutMeanSpectra());
     outMeanCospCheckBox->setChecked(ecProject_->generalOutMeanCosp());
 
     outFullSpectraCheckBoxU->setChecked(ecProject_->screenOutFullSpectraU());
@@ -1498,6 +1287,7 @@ void AdvOutputOptions::selectMin()
     createDatasetCheckBox->setChecked(false);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(false);
+    outMeanSpectraCheckBox->setChecked(false);
     outMeanCospCheckBox->setChecked(false);
     checkFullSpectraAll(false);
     checkFullCospectraAll(false);
@@ -1519,6 +1309,7 @@ void AdvOutputOptions::selectTypical()
     createDatasetCheckBox->setChecked(true);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(true);
+    outMeanSpectraCheckBox->setChecked(true);
     outMeanCospCheckBox->setChecked(true);
     checkFullSpectraAll(false);
     checkFullCospectraAll(false);
@@ -1539,6 +1330,7 @@ void AdvOutputOptions::selectFull()
     createDatasetCheckBox->setChecked(true);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(true);
+    outMeanSpectraCheckBox->setChecked(true);
     outMeanCospCheckBox->setChecked(true);
     checkFullSpectraAll(false);
     checkFullCospectraAll(false);
@@ -1548,24 +1340,8 @@ void AdvOutputOptions::selectFull()
     checkVarsAll(false);
 }
 
-void AdvOutputOptions::fullSpectraULabelClicked()
-{
-    outFullSpectraCheckBoxU->toggle();
-}
-
 void AdvOutputOptions::setVarsAvailable(bool ok)
 {
-    rawULabel->setEnabled(ok);
-    rawVLabel->setEnabled(ok);
-    rawWLabel->setEnabled(ok);
-    rawTsLabel->setEnabled(ok);
-    rawCo2Label->setEnabled(ok);
-    rawH2oLabel->setEnabled(ok);
-    rawCh4Label->setEnabled(ok);
-    rawGas4Label->setEnabled(ok);
-    rawTairLabel->setEnabled(ok);
-    rawPairLabel->setEnabled(ok);
-
     outRawUCheckBox->setEnabled(ok);
     outRawVCheckBox->setEnabled(ok);
     outRawWCheckBox->setEnabled(ok);
@@ -1603,7 +1379,8 @@ void AdvOutputOptions::updateOutputs(int n)
     qDebug() << n << "ecProject_->spectraMode()"
              << ecProject_->spectraMode();
 
-    if (n == 1 || n == 2)
+    // horst/ibrom
+    if (n == 2 || n == 3)
     {
         qDebug() << "ecProject_->generalBinSpectraAvail()"
                  << ecProject_->generalBinSpectraAvail();
@@ -1626,7 +1403,8 @@ void AdvOutputOptions::updateOutputs(int n)
             outBinSpectraCheckBox->setEnabled(true);
         }
     }
-    else if (n == 3)
+    //fratini
+    else if (n == 4)
     {
         qDebug() << "ecProject_->generalBinSpectraAvail()"
                  << ecProject_->generalBinSpectraAvail();
@@ -1655,20 +1433,17 @@ void AdvOutputOptions::updateOutputs(int n)
         {
             outFullCospectraCheckBoxTs->setChecked(false);
             outFullCospectraCheckBoxTs->setEnabled(true);
-            fullCospectraTsLabel->setEnabled(true);
         }
         else
         {
             outFullCospectraCheckBoxTs->setChecked(true);
             outFullCospectraCheckBoxTs->setEnabled(false);
-            fullCospectraTsLabel->setEnabled(false);
         }
     }
     else
     {
         outBinSpectraCheckBox->setEnabled(true);
         outFullCospectraCheckBoxTs->setEnabled(true);
-        fullCospectraTsLabel->setEnabled(true);
     }
 }
 
@@ -1682,7 +1457,7 @@ void AdvOutputOptions::updateErrorLabel(const QString& s)
     DEBUG_FUNC_NAME
     if (s.isEmpty() || s.toUpper() == QLatin1String("NONE"))
     {
-        WidgetUtils::warning(nullptr,
+        WidgetUtils::warning(this,
                              tr("Error Label"),
                              tr("Enter a label other than "
                                 "\"none\" (case insensitive)."));
@@ -1724,12 +1499,12 @@ void AdvOutputOptions::createQuestionMark()
 
 void AdvOutputOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Output_Files_Overview.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Output_Files_Overview.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Output_Files.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Output_Files.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_3()
@@ -1739,12 +1514,12 @@ void AdvOutputOptions::onlineHelpTrigger_3()
 
 void AdvOutputOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Output_Files_Full_Output.htm#Build")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Output_Files_Full_Output.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculating_Spectra_Cospectra_and_Ogives.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Calculating_Spectra_Cospectra_and_Ogives.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_6()
@@ -1759,12 +1534,12 @@ void AdvOutputOptions::onlineHelpTrigger_7()
 
 void AdvOutputOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Output_Files_The_Stats_Folder.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Output_Files_The_Stats_Folder.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Output_Files.htm#Statistics")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Output_Files.html")));
 }
 
 void AdvOutputOptions::onClickerrorFormatLabel()

@@ -162,7 +162,7 @@ void DocChooserDialog::close()
     {
         // open local help
         QString htmlHelpPath = qApp->applicationDirPath()
-                + QStringLiteral("/docs/help/index.htm#EddyPro_Home.htm");
+                + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
         qDebug() << QDesktopServices::openUrl(QUrl::fromLocalFile(htmlHelpPath));
     }
 

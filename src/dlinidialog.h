@@ -52,6 +52,8 @@ public:
     inline QTabWidget* tabWidget() { return tabwidget_; }
     inline DlProject *dlProject() { return dlProject_; }
     inline bool newFlag() { return newFlag_; }
+    inline void setNewFlag(bool b) { newFlag_ = b; }
+    bool requestMetadataReset();
 
 signals:
     void metadataFileSaved(const QString &);
@@ -74,8 +76,6 @@ private:
     void apply();
     bool saveFile(const QString& filename);
     void fileSaveAs();
-
-    void setNewFlag(bool b) { newFlag_ = b; }
 
     QTabWidget *tabwidget_;
     DlSiteTab *site_tab;

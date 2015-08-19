@@ -86,43 +86,94 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
     // read file
     QSettings settings(fileName, QSettings::IniFormat);
 
-    // try old format
+    // try old format first
     settings.beginGroup(BmIni::INIGROUP_VARS_OLD);
 
     // iterate through instrument list
-    int numVars = countEmbVariables(settings.allKeys());
+    auto numVars = countEmbVariables(settings.allKeys());
     qDebug() << "numVars:" << numVars;
 
+    // if no variables are found, try new format
     if (numVars == 0)
     {
         settings.endGroup();
 
-        // try new format
         settings.beginGroup(BmIni::INIGROUP_VARS);
         numVars = countEmbVariables(settings.allKeys());
         qDebug() << "numVars:" << numVars;
     }
 
-    for (int k = 0; k < numVars; ++k)
+    for (auto k = 0; k < numVars; ++k)
     {
-        QString prefix = BmIni::INI_PREFIX + QString::number(k + 1) + QStringLiteral("_");
-        QString var = settings.value(prefix + BmIni::INI_VARS_0).toString();
-        QString id = settings.value(prefix + BmIni::INI_VARS_1).toString();
+        qDebug() << "var number" << k + 1;
 
-        // skip entries with no type defined
-        if (!var.isEmpty())
+        auto prefix = BmIni::INI_PREFIX;
+        prefix += QString::number(k + 1);
+        prefix += QStringLiteral("_");
+        qDebug() << "prefix" << prefix;
+
+        auto var = settings.value(prefix + BmIni::INI_VARS_0, QString()).toString();
+        qDebug() << "var" << var;
+
+        // NOTE: not really needed for now
+        auto id = settings.value(prefix + BmIni::INI_VARS_1, QString()).toString();
+        qDebug() << "id" << id;
+
+        // skip entries with no type ('variable' field in the biomet metadata
+        // file) defined
+        if (var.isEmpty())
         {
-            QStringList allowedVars;
-            allowedVars << getVAR_TA()
-                        << getVAR_PA()
-                        << getVAR_RH()
-                        << getVAR_RG()
-                        << getVAR_LWIN()
-                        << getVAR_PPFD();
-            if (!allowedVars.filter(var).isEmpty())
-            {
-                biomMetadata_->append(BiomItem(var, id, k + 1));
-            }
+            continue;
+        }
+
+        // variables types the GUI is allowed to show and manage for now
+        QStringList allowedVarIDs;
+        allowedVarIDs << getVAR_TA()
+                      << getVAR_PA()
+                      << getVAR_RH()
+                      << getVAR_RG()
+                      << getVAR_LWIN()
+                      << getVAR_PPFD();
+
+        // get components of the variable type field
+        // it can be simple or with positional notation defined
+        auto type_components_list = var.split(QLatin1Char('_'));
+
+        auto extracted_type = QString();
+        // entry with positional notation and underscore(s)
+        // in the variable name (e.g. P_RAIN_1_1_1)
+        auto type_components_size = type_components_list.size();
+        if (type_components_size > 4)
+        {
+            QStringList extracted_var_name = type_components_list.mid(0, type_components_size - 3);
+            extracted_type = extracted_var_name.join(QStringLiteral("_"));
+        }
+        // entry with positional notation and no underscore
+        // in the variable name (e.g. PA_1_1_1)
+        // or entry with no positional notation (e.g. DATE)
+        else
+        {
+            extracted_type = type_components_list.first();
+        }
+        qDebug() << "extracted_type" << extracted_type;
+
+        auto allowedVar = allowedVarIDs.filter(extracted_type);
+        qDebug() << "allowedVar" << allowedVar;
+        // skip not allowed entries
+        if (allowedVar.isEmpty())
+        {
+            continue;
+        }
+
+        // add allowed biogeo variables
+        biomMetadata_->append(BiomItem(var, id, k + 1));
+
+        foreach(const BiomItem& item, *biomMetadata_)
+        {
+            qDebug() << '[' << item.type_
+                     << ", " << item.id_
+                     << ", " << item.col_
+                     << ']';
         }
     }
     settings.endGroup();
@@ -133,11 +184,13 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
 int BiomMetadataReader::countEmbVariables(const QStringList& list)
 {
-    int i = 0;
+    auto i = 0;
     foreach (const QString& s, list)
     {
         if (s.contains(BmIni::INI_VARS_0))
+        {
             ++i;
+        }
     }
     return i;
 }
@@ -156,9 +209,9 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
     }
 
     // read file
-    QByteArray baLine = dataFile.readLine();
-    const char* lineContent = baLine.constData();
-    QString line = QString::fromUtf8(lineContent);
+    auto baLine = dataFile.readLine();
+    auto lineContent = baLine.constData();
+    auto line = QString::fromUtf8(lineContent);
 
     if (!line.isEmpty())
     {
@@ -183,13 +236,13 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
             }
         }
 
-        QStringList strings = line.split(QLatin1Char(','));
+        auto strings = line.split(QLatin1Char(','));
 
-        // iterate ont the vars list
-        for (int k = 0; k < strings.count(); ++k)
+        // iterate on the vars list
+        for (auto k = 0; k < strings.count(); ++k)
         {
-            QStringList varStrList = strings.at(k).split(QLatin1Char('_'));
-            QString id = varStrList.at(0).toUpper();
+            auto var = strings.at(k).split(QLatin1Char('_'));
+            auto id = var.at(0).toUpper();
 
             qDebug() << "k" << k << "id" << id;
 

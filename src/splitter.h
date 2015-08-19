@@ -37,7 +37,7 @@ signals:
 public slots:
 
 protected:
-    QSplitterHandle* createHandle();
+    QSplitterHandle* createHandle() Q_DECL_OVERRIDE;
 };
 
 #endif // SPLITTER_H

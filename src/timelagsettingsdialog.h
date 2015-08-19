@@ -46,16 +46,15 @@ class QDate;
 class QDateEdit;
 class QDoubleSpinBox;
 class QLabel;
-class QLineEdit;
-class QPushButton;
 class QRadioButton;
 class QSpinBox;
+class QTimeEdit;
 
-class QwwButtonLineEdit;
-
+class AncillaryFileTest;
 class ClickLabel;
 struct ConfigState;
 class EcProject;
+class FileBrowseWidget;
 
 class TimeLagSettingsDialog : public QDialog
 {
@@ -72,20 +71,21 @@ public slots:
     void close();
     void reset();
     void refresh();
+    void partialRefresh();
     void setDateRange(QPair<QDateTime, QDateTime> dates);
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event);
 
 private slots:
     void updateTlMode(int radioButton);
     void radioClicked(int radioButton);
-    void updateFile(const QString& fp);
-    void fileLoad_clicked();
+    void testSelectedFile(const QString &fp);
+
     void onStartDateLabelClicked();
     void onEndDateLabelClicked();
     void updateStartDate(const QDate &d);
     void updateEndDate(const QDate &d);
+    void updateStartTime(const QTime &t);
+    void updateEndTime(const QTime &t);
+
     void onRhClassClicked();
     void updateRhClass(int n);
 
@@ -114,20 +114,24 @@ private slots:
     void updateMaxGas4Tl(double d);
 
     void updateSubsetSelection(bool b);
-    void clearFileEdit();
 
 private:
+    void updateFile(const QString& fp);
+    void forceEndDatePolicy();
+    void forceEndTimePolicy();
+
     QRadioButton* existingRadio;
     QRadioButton* nonExistingRadio;
     QButtonGroup* radioGroup;
-    QwwButtonLineEdit* fileEdit;
-    QPushButton* fileLoad;
+    FileBrowseWidget * fileBrowse;
     QCheckBox* subsetCheckBox;
     ClickLabel* startDateLabel;
     QDateEdit* startDateEdit;
+    QTimeEdit* startTimeEdit;
     QLabel* lockedIcon;
     ClickLabel* endDateLabel;
     QDateEdit* endDateEdit;
+    QTimeEdit* endTimeEdit;
     ClickLabel* pgRangeLabel;
     QLabel* pgRangeLabel_2;
     QDoubleSpinBox* pgRangeSpin;
@@ -164,9 +168,6 @@ private:
 
     EcProject *ecProject_;
     ConfigState* configState_;
-
-    void forceEndDatePolicy();
-
 };
 
 #endif // TIMELAGSETTINGSDIALOG_H

@@ -28,6 +28,7 @@
 #include <QCheckBox>
 #include <QPainter>
 #include <QProgressBar>
+#include <QPushButton>
 #include <QVBoxLayout>
 
 #include "defs.h"
@@ -36,22 +37,38 @@
 CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f) :
     QSplashScreen(pixmap, f)
 {
-    progressBar_ = new QProgressBar(this);
+    progressBar_ = new QProgressBar;
     progressBar_->setRange(0, 100);
     progressBar_->setProperty("splash", true);
 
     showSplashCheckbox_ = new QCheckBox(tr("Do not show again"));
+    showSplashCheckbox_->setObjectName(QStringLiteral("splashCheckbox"));
 
-    auto layout = new QVBoxLayout;
-    layout->addSpacerItem(new QSpacerItem(100, 350));
-    layout->addWidget(progressBar_);
-    layout->addWidget(showSplashCheckbox_);
-    layout->addStretch();
-    layout->setMargin(50);
+    auto okButton = new QPushButton;
+    okButton->setText(QStringLiteral("Ok"));
+    okButton->setProperty("okSplash", true);
+
+    auto rowLayout = new QHBoxLayout;
+    rowLayout->addWidget(showSplashCheckbox_, Qt::AlignLeft);
+    rowLayout->addWidget(okButton, Qt::AlignCenter);
+#if defined(Q_OS_WIN)
+    rowLayout->addStretch(1);
+#elif defined(Q_OS_MAC)
+    rowLayout->addStretch(4);
+#endif
+    auto layout = new QVBoxLayout(this);
+    layout->addSpacerItem(new QSpacerItem(1, 335));
+    layout->addLayout(rowLayout);
+    layout->addWidget(progressBar_, 1, Qt::AlignVCenter);
+    layout->addStretch(18);
+    layout->setContentsMargins(60, 0, 60, 24);
+    layout->setSpacing(0);
     setLayout(layout);
 
     connect(showSplashCheckbox_, &QCheckBox::toggled,
             this, &CustomSplashScreen::updateShowSplash);
+    connect(okButton, &QPushButton::clicked,
+            this, &QSplashScreen::close);
 }
 
 CustomSplashScreen::~CustomSplashScreen()
@@ -62,6 +79,7 @@ void CustomSplashScreen::drawContents(QPainter *painter)
 {
     painter->setPen(color_);
     painter->drawText(rect_, alignement_, message_);
+    update();
 }
 
 void CustomSplashScreen::setProgressValue(int value)
@@ -74,6 +92,7 @@ void CustomSplashScreen::showStatusMessage(const QString &message, const QColor 
     message_ = message;
     color_ = color;
     showMessage(message_, alignement_, color_);
+    update();
 }
 
 void CustomSplashScreen::setMessageRect(QRect rect, int alignement)

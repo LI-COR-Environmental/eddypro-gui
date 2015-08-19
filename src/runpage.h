@@ -61,9 +61,7 @@ public slots:
 signals:
     void updateConsoleLineRequest(QByteArray &data);
     void updateConsoleCharRequest(QByteArray &data);
-    void runExpRequest();
-    void runAdvRequest();
-    void runRetRequest();
+    void pauseRequest(Defs::CurrRunStatus mode);
 
 private slots:
     void pauseLabel();
@@ -84,7 +82,9 @@ private:
     void resetFileLabels();
     void resetTimeEstimateLabels();
     int updateETC(int *mean_processing_time,
-                  const int current_processing_time, const int index, const int num_steps);
+                  const int current_processing_time,
+                  const int index,
+                  const int num_steps);
 
     Defs::CurrRunStatus runMode_;
     QProgressIndicator* progressWidget_;
@@ -109,7 +109,7 @@ private:
     QTimer* pauseResumeDelayTimer_;        // delay and control the pause/resume operations
     QTimer* total_elapsed_update_timer_;   // update the overall elapsed time shown during a run
     QElapsedTimer overall_progress_timer_; // measure the total run time
-    QElapsedTimer main_progress_timer_; // measure the main steps run time
+    QElapsedTimer main_progress_timer_;    // measure the main steps run time
 
     SmartFluxBar* smartfluxBar_;
 

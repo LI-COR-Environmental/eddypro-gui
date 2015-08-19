@@ -305,7 +305,7 @@ double DlSiteTab::numLatitude(const QString &text)
 {
     double lat = 0.0;
 
-    if(!decimalDegrees_)
+    if (!decimalDegrees_)
     {
         QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
                 lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
@@ -408,7 +408,7 @@ double DlSiteTab::numLongitude(const QString &text)
 {
     double lon = 0.0;
 
-    if(!decimalDegrees_)
+    if (!decimalDegrees_)
     {
         QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
                 lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
@@ -575,7 +575,7 @@ void DlSiteTab::refresh()
 
 void DlSiteTab::sexDegRadioToogled(bool checked)
 {
-    if(checked)
+    if (checked)
     {
         decimalDegrees_ = false;
 
@@ -608,7 +608,7 @@ void DlSiteTab::sexDegRadioToogled(bool checked)
 
 void DlSiteTab::decDegRadioToogled(bool checked)
 {
-    if(checked)
+    if (checked)
     {
         decimalDegrees_ = true;
 
@@ -802,15 +802,15 @@ void DlSiteTab::createQuestionMark()
 
 void DlSiteTab::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Beginning_of_dataset.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Beginning_of_dataset.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Displacement_Height.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Displacement_Height.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Roughness_Length.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Roughness_Length.html")));
 }

@@ -37,6 +37,10 @@ QVariant getAppPersistentSettings(const QString& group,
                                   const QString& key,
                                   const QVariant& value);
 
+QVariant getFirstAppPersistentSettings(const QString& group,
+                                       const QString& key,
+                                       const QVariant& defaultValue);
+
     void updateLastDatapath(const QString& dir);
 
     void getCustomVariableList(QStringList* varList);

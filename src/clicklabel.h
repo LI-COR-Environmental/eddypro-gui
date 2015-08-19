@@ -89,8 +89,8 @@ Q_SIGNALS:
     void clicked();
 
 protected:
-    virtual void mousePressEvent(QMouseEvent* event);
-    virtual void mouseReleaseEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
 
 private:
     QTime time;

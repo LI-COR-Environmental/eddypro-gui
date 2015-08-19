@@ -38,12 +38,15 @@ class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
+class QTimeEdit;
 
-class QwwButtonLineEdit;
-
+class AncillaryFileTest;
 class ClickLabel;
+class CustomClearLineEdit;
+class DirBrowseWidget;
 class DlProject;
 class EcProject;
+class FileBrowseWidget;
 
 class AdvSpectralOptions : public QWidget
 {
@@ -62,18 +65,16 @@ signals:
 
 public slots:
     void reset();
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event);
+    void partialRefresh();
 
 private slots:
     void refresh();
     void updateSpectraFile(const QString& fp);
     void updateBinnedSpectraFile(const QString& fp);
     void updateFullSpectraFile(const QString& fp);
-    void spectraFileLoad_clicked();
-    void binnedSpectraDirBrowse_clicked();
-    void fullSpectraDirBrowse_clicked();
+    void testSelectedSpectraFile(const QString &fp);
+    void binnedSpectraDirSelected(const QString &dir_path);
+    void fullSpectraDirSelected(const QString &dir_path);
     void spectraRadioClicked(int radioButton);
     void binnedSpectraRadioClicked(int radioButton);
     void fullSpectraRadioClicked(int radioButton);
@@ -89,14 +90,6 @@ private slots:
     void onMinCo2LabelClicked();
     void onMinCh4LabelClicked();
     void onMinGas4LabelClicked();
-    void onMinLeLabelClicked();
-    void onMinHLabelClicked();
-
-    void updateMinCo2(double d);
-    void updateMinCh4(double d);
-    void updateMinGas4(double d);
-    void updateMinLe(double d);
-    void updateMinH(double d);
 
     void updateFminCo2(double d);
     void updateFminH2o(double d);
@@ -111,18 +104,6 @@ private slots:
     void updateHfnCh4(double d);
     void updateHfnGas4(double d);
 
-    void updateF10Co2(double d);
-    void updateF10Ch4(double d);
-    void updateF10Gas4(double d);
-    void updateF10Le(double d);
-    void updateF10H(double d);
-
-    void onF10Co2LabelClicked();
-    void onF10Ch4LabelClicked();
-    void onF10Gas4LabelClicked();
-    void onF10LeLabelClicked();
-    void onF10HLabelClicked();
-
     void onSpin10LabelClicked();
     void onSpin20LabelClicked();
     void onSpin30LabelClicked();
@@ -130,36 +111,50 @@ private slots:
     void onStartDateLabelClicked();
     void onEndDateLabelClicked();
     void updateStartDate(const QDate& d);
+    void updateStartTime(const QTime& t);
     void updateEndDate(const QDate& d);
+    void updateEndTime(const QTime& t);
 
     void onMinSmplLabelClicked();
     void updateMinSmpl(int n);
 
+    void onlineHelpTrigger_11();
     void onlineHelpTrigger_1();
     void onlineHelpTrigger_2();
     void onlineHelpTrigger_3();
     void onlineHelpTrigger_4();
+    void onlineHelpTrigger_5();
 
     void updateTooltip(int i);
-    void clearSpectraFileEdit();
-    void clearBinnedSpectraDirEdit();
-    void clearFullSpectraDirEdit();
 
-    void updateSubsetSelection(bool b);
-    void updateSuggestedFrequencyRanges();
+    void onSubsetCheckboxToggled(bool b);
+
+    void updateFilter(int n);
+    void updateNBins(int n);
 
 private:
     bool isHorstIbromFratini();
     bool isIbrom();
     bool isFratini();
     void forceEndDatePolicy();
+    void forceEndTimePolicy();
 
-    void createQuestionMark();
+    void createQuestionMarks();
 
     double getLowestFrequencyValue();
     double getHighestFrequencyValue();
 
     void setHfMethod(int hfMethComboIndex);
+
+    QCheckBox* vmFlagsCheckBox;
+    QCheckBox* lowQualityCheckBox;
+    QCheckBox* moderateQualityCheckBox;
+
+    ClickLabel* filterLabel;
+    QComboBox* filterCombo;
+    ClickLabel* nBinsLabel;
+    QSpinBox* nBinsSpin;
+    QCheckBox* fftCheckBox;
 
     QRadioButton* spectraExistingRadio;
     QRadioButton* spectraNonExistingRadio;
@@ -168,14 +163,14 @@ private:
     QCheckBox* subsetCheckBox;
     ClickLabel* startDateLabel;
     QDateEdit* startDateEdit;
+    QTimeEdit* startTimeEdit;
     QLabel* lockedIcon;
     ClickLabel* endDateLabel;
     QDateEdit* endDateEdit;
-    QwwButtonLineEdit* spectraFileEdit;
-    QPushButton* spectraFileLoad;
+    QTimeEdit* endTimeEdit;
+    FileBrowseWidget* spectraFileBrowse;
     QButtonGroup* spectraRadioGroup;
-    QwwButtonLineEdit* binnedSpectraDirEdit;
-    QPushButton* binnedSpectraDirBrowse;
+    DirBrowseWidget* binnedSpectraDirBrowse;
     QButtonGroup* binnedSpectraRadioGroup;
     QCheckBox* lfMethodCheck;
     QCheckBox* hfMethodCheck;
@@ -186,16 +181,31 @@ private:
     QComboBox* horstCombo;
     ClickLabel* minSmplLabel;
     QSpinBox* minSmplSpin;
-    ClickLabel* minSpinCo2Label;
-    ClickLabel* minSpinCh4Label;
-    ClickLabel* minSpinGas4Label;
-    ClickLabel* minSpinLeLabel;
-    ClickLabel* minSpinHLabel;
-    QDoubleSpinBox* minSpinCo2;
-    QDoubleSpinBox* minSpinCh4;
-    QDoubleSpinBox* minSpinGas4;
-    QDoubleSpinBox* minSpinLe;
-    QDoubleSpinBox* minSpinH;
+    ClickLabel* minUnstableLabel;
+    ClickLabel* minStableLabel;
+    ClickLabel* maxLabel;
+    QLabel* spin31Label;
+    QLabel* spin32Label;
+    QLabel* spin33Label;
+    QLabel* spin34Label;
+    QDoubleSpinBox* qcMinUnstableUstarSpin;
+    QDoubleSpinBox* qcMinUnstableHSpin;
+    QDoubleSpinBox* qcMinUnstableLESpin;
+    QDoubleSpinBox* qcMinUnstableCo2Spin;
+    QDoubleSpinBox* qcMinUnstableCh4Spin;
+    QDoubleSpinBox* qcMinUnstableGas4Spin;
+    QDoubleSpinBox* qcMinStableUstarSpin;
+    QDoubleSpinBox* qcMinStableHSpin;
+    QDoubleSpinBox* qcMinStableLESpin;
+    QDoubleSpinBox* qcMinStableCo2Spin;
+    QDoubleSpinBox* qcMinStableCh4Spin;
+    QDoubleSpinBox* qcMinStableGas4Spin;
+    QDoubleSpinBox* qcMaxUstarSpin;
+    QDoubleSpinBox* qcMaxHSpin;
+    QDoubleSpinBox* qcMaxLESpin;
+    QDoubleSpinBox* qcMaxCo2Spin;
+    QDoubleSpinBox* qcMaxCh4Spin;
+    QDoubleSpinBox* qcMaxGas4Spin;
     QLabel* spin11Label;
     QLabel* spin12Label;
     QLabel* spin13Label;
@@ -205,7 +215,6 @@ private:
     ClickLabel* spin30Label;
     QLabel* minMaxFreqLabel;
     QLabel* noiseFreqLabel;
-    QLabel* thresholdLabel;
     QDoubleSpinBox* spin11;
     QDoubleSpinBox* spin12;
     QDoubleSpinBox* spin13;
@@ -220,33 +229,29 @@ private:
     QDoubleSpinBox* spin34;
     QRadioButton* fullSpectraExistingRadio;
     QRadioButton* fullSpectraNonExistingRadio;
-    QwwButtonLineEdit* fullSpectraDirEdit;
-    QPushButton* fullSpectraDirBrowse;
+    DirBrowseWidget* fullSpectraDirBrowse;
     QButtonGroup* fullSpectraRadioGroup;
     QLabel* fratiniTitle;
     QCheckBox* addSonicCheck;
-    ClickLabel* f10Spin1Label;
-    ClickLabel* f10Spin2Label;
-    ClickLabel* f10Spin3Label;
-    ClickLabel* f10Spin4Label;
-    ClickLabel* f10Spin5Label;
-    QDoubleSpinBox* f10Co2Spin;
-    QDoubleSpinBox* f10Ch4Spin;
-    QDoubleSpinBox* f10Gas4Spin;
-    QDoubleSpinBox* f10LeSpin;
-    QDoubleSpinBox* f10HSpin;
 
-    QLabel* settingsGroupTitle;
+    ClickLabel* frictionVelocityLabel;
+    ClickLabel* sensibleHeatLabel;
+    ClickLabel* latentHeatLabel;
+    ClickLabel* qcCo2Label;
+    ClickLabel* qcCh4Label;
+    ClickLabel* qcGas4Label;
+
+    QLabel* settingsGroupTitle_1;
     QLabel* lowFreqTitle;
     QLabel* highFreqTitle;
     QLabel* freqAttenuationTitle;
 
     QPushButton* questionMark_1;
-    QPushButton* questionMark_2;
-    QPushButton* questionMark_3;
-    QPushButton* questionMark_4;
-
-    QPushButton* suggestedRangeButton;
+    QPushButton* questionMark_11;
+    QPushButton* questionMark_22;
+    QPushButton* questionMark_33;
+    QPushButton* questionMark_44;
+    QPushButton* questionMark_55;
 
     DlProject* dlProject_;
     EcProject* ecProject_;

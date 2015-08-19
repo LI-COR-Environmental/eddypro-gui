@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>NSHighResolutionCapable</key>
+    <string>True</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundleIconFile</key>
+    <string>@ICON@</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleGetInfoString</key>
+    <string>Created by Qt/QMake</string>
+    <key>CFBundleSignature</key>
+    <string>APPL</string>
+    <key>CFBundleExecutable</key>
+    <string>@EXECUTABLE@</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.licor.@EXECUTABLE@</string>
+    <key>ForAppStore</key>
+    <string>no</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright (c) 2011-2015, LI-COR Biosciences Inc.</string>
+    <key>CFBundleShortVersionString</key>
+    <string>@VERSION@</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>EddyPro</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.education</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.7</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>eddypro</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>app.icns</string>
+            <key>CFBundleTypeMIMETypes</key>
+            <array>
+                <string>text/plain</string>
+            </array>
+            <key>CFBundleTypeName</key>
+            <string>EddyPro Project File</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>LSIsAppleDefaultForType</key>
+            <true/>
+        </dict>
+    </array>
+</dict>
+</plist>

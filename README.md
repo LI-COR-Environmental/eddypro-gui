@@ -70,9 +70,43 @@ To compile the Engine use [gfortran](https://gcc.gnu.org/wiki/GFortran) (The GNU
 To compile the GUI:
 
 1. install the [Qt framework](http://qt-project.org/)
-2. open the `eddypro.pro` project file with QtCreator
-3. build the project
+2. install [git](http://git-scm.com/)
+3. build the Qt `eddypro.pro` project file using custom build scripts available
+   under `source/scripts/build` or using QtCreator
 
+In both cases, the build configuration will be shadowed or out-of-tree, i.e. created in a dedicated
+directory outside the source tree.
+
+#### Build the GUI using provided scripts
+
+##### On Windows
+
+Launch git-bash and enter the following commands, where `eddypro-source-dir` is
+the directory where the source code is:
+
+    1. $ cd eddypro-source-dir/source/scripts/build/
+    2. $ ./win-build-eddypro.sh [debug|release]
+
+##### On Mac
+
+In a terminal enter the following commands, where `eddypro-source-dir` is the
+directory where the source code is:
+
+    1. $ cd eddypro-source-dir/source/scripts/build/
+    2. $ ./mac-build-eddypro.sh [debug|release]
+
+#### Build the GUI using QtCreator (on Windows or Mac)
+
+    1. Open 'source\eddypro.pro'
+    2. Open 'source\libs\quazip\quazip\eddypro.pro'
+    3. In the 'eddypro.pro' project settings:
+        3.1 set the build directory to '..\build\build-eddypro-qt-5.4.1-mingw-4.9.1-x86_64'
+            for both debug and release targets
+        3.2 check all the listed libs as dependencies
+    4. In the 'quazip.pro' project settings:
+        4.1 set the build directory to '..\..\..\..\build\libs\build-quazip-qt-5.4.1-mingw-4.9.1-x86_64'
+            for both debug and release targets
+    5. In the 'eddypro.pro' project, build both targets
 
 ## Utilities
 
@@ -136,7 +170,7 @@ You can run EddyPro using sample data files available in the LI-COR
 
 
 + Statistical tests for raw time series data (Vickers and Mahrt, 1997)
-  - Spike count/removal
+  - Spike count/removal (Mauder et al., 2013)
   - Amplitude resolution
   - Dropouts
   - Absolute limits
@@ -158,12 +192,12 @@ You can run EddyPro using sample data files available in the LI-COR
 + Correction for frequency response (attenuation)
   - Analytic high-pass filtering correction (Moncrieff et al., 2004)
   - Low-pass filtering, select and configure:
-  - Moncrieff et al. (1997)
-  - Massmann (2000)
-  - Horst (1997)
-  - Ibrom et al. (2007b)
-  - Horst and Lenschow (2009)
-  - Fratini et. al. (2012)
+    - Moncrieff et al. (1997)
+    - Massmann (2000)
+    - Horst (1997)
+    - Ibrom et al. (2007b)
+    - Horst and Lenschow (2009)
+    - Fratini et. al. (2012)
 
 
 + Quality control tests for fluxes according to Foken et al. (2004)
@@ -188,7 +222,7 @@ You can run EddyPro using sample data files available in the LI-COR
   - Spectroscopic correction for LI-7700 following McDermitt et al. (2011)
   - Angle of attack corrections for Gill anemometers following Nakai et al. (2006)
   - Angle of attack corrections for Gill anemometers following Nakai and Shimoyama (2012)
-  - sInclusion of biomet data for improved flux computation/correction
+  - Inclusion of biomet data for improved flux computation/correction
 
 
 + Available outputs
@@ -218,16 +252,16 @@ use of the EddyPro wordmark and logo.
 
 More information is available at:
 
-  - http://www.licor.com/eddyro
-  - http://envsupport.licor.com/help/EddyPro5/index.htm
+  - http://www.licor.com/eddypro
+  - http://www.licor.com/env/help/eddypro6/Content/EddyPro_Home.html
 
 Be sure to check out the
-'[What's new](http://envsupport.licor.com/help/EddyPro5/index.htm#Whats_New.htm)'
+'[What's new](http://www.licor.com/env/help/eddypro6/Content/Whats_New.html)'
 page, which will list any known problems or limitations of the current and
 past versions.
 
 
-See also the CHANGELOG available in the /docs folder.
+See also the [CHANGELOG](CHANGELOG).
 
 ---
 

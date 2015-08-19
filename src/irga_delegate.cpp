@@ -117,16 +117,6 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;
-//      case IrgaModel::HEIGHT:
-//          dspin = new QDoubleSpinBox(parent);
-//          dspin->setDecimals(2);
-//          dspin->setRange(0.1, 500.0);
-//          dspin->setSingleStep(1.0);
-//          dspin->setAccelerated(true);
-//          dspin->setSuffix(QStringLiteral(" [m]"));
-//          connect(dspin, SIGNAL(editingFinished()),
-//                  this, SLOT(commitAndCloseEditor()));
-//          return dspin;
       case IrgaModel::TUBELENGTH:
             if (IrgaDesc::isOpenPathModel(currentModel))
             {
@@ -232,7 +222,7 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
             {
                 dspin = new QDoubleSpinBox(parent);
                 dspin->setDecimals(4);
-                dspin->setRange(0.001, 500.0);
+                dspin->setRange(0.0001, 500.0);
                 dspin->setSingleStep(1.0);
                 dspin->setAccelerated(true);
                 dspin->setSuffix(QStringLiteral(" [s]"));
@@ -344,7 +334,6 @@ void IrgaDelegate::setEditorData(QWidget* editor,
                 dspin->setValue(value.toReal());
             }
             break;
-//        case IrgaModel::HEIGHT:
         case IrgaModel::TUBENSEPARATION:
         case IrgaModel::TUBEESEPARATION:
         case IrgaModel::TUBEVSEPARATION:
@@ -387,8 +376,6 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
 
     QString currentManufacturer = index.model()->data(index.model()->index(IrgaModel::MANUFACTURER, index.column())).toString();
     QString currentModel = index.model()->data(index.model()->index(IrgaModel::MODEL, index.column())).toString();
-
-//    qDebug() << "index.row()" << index.row();
 
     // different kind of editor for each row
     switch (index.row())
@@ -459,7 +446,6 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                 model->setData(index, value);
             }
             break;
-//        case IrgaModel::HEIGHT:
         case IrgaModel::TUBENSEPARATION:
         case IrgaModel::TUBEESEPARATION:
         case IrgaModel::TUBEVSEPARATION:

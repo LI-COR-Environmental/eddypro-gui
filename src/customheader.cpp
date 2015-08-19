@@ -52,8 +52,14 @@ void CustomHeader::addSection(const QString &txt,
     if (questionMark == QuestionMarkHint::QuestionMark)
     {
         auto questionMarkLabel = new ClickLabel;
+
+        auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
+#if defined(Q_OS_MAC)
+        pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+        questionMarkLabel->setPixmap(pixmap_2x);
         questionMarkLabel->setHeaderData(headerData);
-        questionMarkLabel->setObjectName(QStringLiteral("questionMarkImg"));
+//        questionMarkLabel->setObjectName(QStringLiteral("questionMarkImg"));
         connect(questionMarkLabel, &ClickLabel::clicked,
                 this, &CustomHeader::onlineHelpTrigger);
 
@@ -69,44 +75,44 @@ void CustomHeader::onlineHelpTrigger()
 
     if (data == ClickLabel::AnemNAlign)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Axes_Alignment.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Axes_Alignment.html")));
     }
     else if (data == ClickLabel::AnemNOffset)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#North_Offset.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/North_Offset.html")));
     }
     else if (data == ClickLabel::AnemNSep
              || data == ClickLabel::AnemESep
              || data == ClickLabel::AnemVSep)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensor_Separation.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Sensor_Separation.html")));
     }
     else if (data == ClickLabel::IrgaModel)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Gas_Analyzer_Model.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Gas_Analyzer_Model.html")));
     }
     else if (data == ClickLabel::IrgaLPathLength
              || data == ClickLabel::IrgaTPathLength)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Longitude_Transverse.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Longitude_Transverse.html")));
     }
     else if (data == ClickLabel::VarIgnoreDesc
              || data == ClickLabel::VarNumericDesc
              || data == ClickLabel::VarDesc)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensitive_and_Non-sensitive_Variables.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Sensitive_and_Non-sensitive_Variables.html")));
     }
     else if (data == ClickLabel::VarConv
              || data == ClickLabel::VarMinValue
              || data == ClickLabel::VarMaxValue)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Conversion_Type.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Conversion_Type.html")));
     }
     else if (data == ClickLabel::VarNomTLag
              || data == ClickLabel::VarMinTLag
              || data == ClickLabel::VarMaxTLag)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Nominal_Time_Lag.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Nominal_Time_Lag.html")));
     }
 }
 

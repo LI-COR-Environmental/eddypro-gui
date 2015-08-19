@@ -51,12 +51,12 @@ class QStringLiteral;
 /// \brief Contains global string literals
 namespace Defs
 {
-    const QString APP_VERSION_STR = QStringLiteral("5.2.1");
+    const QString APP_VERSION_STR = QStringLiteral("6.0.0");
     const QString APP_STAGE_STR = QStringLiteral("");
-    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.3");
+    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4");
     const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.1");
-    const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86_32");
-    const QString MAC_COMPILER = QStringLiteral("Clang 4.2 x86_64");
+    const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86-32 on Windows<sup>&reg;</sup> 8.1");
+    const QString MAC_COMPILER = QStringLiteral("Apple LLVM 6.1.0 (clang-602.0.53) x86-64 on Mac OS X<sup>&reg;</sup> 10.10.3");
     const QString CURRENT_COPYRIGHT_YEAR = QStringLiteral("2015");
 
     enum class CurrPage
@@ -99,6 +99,16 @@ namespace Defs
         SLT2,
         BIN
     };
+
+    enum class HfSpectraMethod
+    {
+        Moncrieff,
+        Massmann,
+        Horst,
+        Ibrom,
+        Fratini
+    };
+
     // debug helper to show Defs::RawFileType enum values
     QDebug operator<<(QDebug dbg, const RawFileType& fileType);
 
@@ -112,11 +122,11 @@ namespace Defs
     const QString EXEC_FILE_EXT = QStringLiteral(".exe");
     const QString HOST_OS = QStringLiteral("win");
 #elif defined(Q_OS_MAC)
-    const QString EXEC_FILE_EXT = QStringLiteral(".app");
+    const QString EXEC_FILE_EXT = QString();
     const QString HOST_OS = QStringLiteral("mac");
 #elif defined(Q_OS_LINUX)
     const QString EXEC_FILE_EXT = QString();
-    const QString HOST_OS = QStringLiteral("lin");
+    const QString HOST_OS = QStringLiteral("linux");
 #endif
 
     // strings
@@ -127,7 +137,7 @@ namespace Defs
     const QString ORG_NAME       = QStringLiteral("LI-COR");
     const QString APP_WEBSITE
         = QStringLiteral("http://www.licor.com/env/products/"
-                         "eddy_covariance/software.html");
+                         "eddy_covariance/eddypro.html");
 
     // UTF-16 hex codes
     const QChar DEGREE      = QChar(0x00B0);
@@ -148,6 +158,7 @@ namespace Defs
     const QChar SUBFOUR     = QChar(0x2084);
     const QChar DEGREE_C    = QChar(0x2103);
     const QChar DEGREE_K    = QChar(0x212A);
+    const QChar MAC_COMMAND_KEY    = QChar(0x2318);
 
     const QString CDEGREE_C_STRING = QStringLiteral("c") + DEGREE_C;
     const QString CDEGREE_K_STRING = QStringLiteral("c") + DEGREE_K;
@@ -189,7 +200,9 @@ namespace Defs
     const QString TMP_FILE_DIR         = QStringLiteral("tmp");
     const QString SMF_FILE_DIR         = QStringLiteral("smf");
     const QString TRANSLATION_FILE_DIR = QStringLiteral("tra");
+    const QString DOC_DIR              = QStringLiteral("docs");
     const QString TEMPLATE_FILE_DIR    = QStringLiteral("file-templates/");
+    const QString OUT_BINNED_COSPECTRA_DIR    = QStringLiteral("/eddypro_binned_cospectra");
 
 #if defined(Q_OS_WIN)
     const QString LICOR_ENV_DIR        = QStringLiteral(".licor");
@@ -210,19 +223,22 @@ namespace Defs
     const QString ARJ_NATIVE_DATA_FILE_EXT = QStringLiteral("arj");
     const QString ZIP_NATIVE_DATA_FILE_EXT = QStringLiteral("zip");
     const QString GHG_NATIVE_DATA_FILE_EXT = QStringLiteral("ghg");
+    const QString SLT_NATIVE_DATA_FILE_EXT = QStringLiteral("slt");
+    const QString TOB1_NATIVE_DATA_FILE_EXT = QStringLiteral("tob1");
     const QString CSS_FILE_EXT             = QStringLiteral("qss");
     const QString TEMPLATE_FILE_EXT        = QStringLiteral(".txt");
 
-    // auxiliary programs
+    // eddypro engine
+    const QString ENGINE_RP  = QString(QStringLiteral("%1_rp%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+    const QString ENGINE_FCC = QString(QStringLiteral("%1_fcc%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+
+    // helper tools
     const QString COMPRESSOR_BIN        = QString(QStringLiteral("7z%1")).arg(EXEC_FILE_EXT);
-    const QString PRE_PROCESSOR_BIN     = QString(QStringLiteral("preprocessor%1")).arg(EXEC_FILE_EXT);
-    const QString PLANAR_FIT_BIN        = QString(QStringLiteral("planarfit%1")).arg(EXEC_FILE_EXT);
-    const QString SPECTRAL_ANALYSIS_BIN = QString(QStringLiteral("specanalysis%1")).arg(EXEC_FILE_EXT);
-    const QString FLUX_COMP_BIN         = QString(QStringLiteral("fluxcomputation%1")).arg(EXEC_FILE_EXT);
-    const QString TIMELAG_OPT_BIN       = QString(QStringLiteral("timelag_optimizer%1")).arg(EXEC_FILE_EXT);
-    const QString ENGINE_1_BIN          = QString(QStringLiteral("%1_rp%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
-    const QString ENGINE_2_BIN          = QString(QStringLiteral("%1_fcc%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+#if defined(Q_OS_WIN)
     const QString FREEZER_BIN           = QString(QStringLiteral("pausep%1")).arg(EXEC_FILE_EXT);
+#elif defined(Q_OS_MAC)
+    const QString FREEZER_BIN           = QString(QStringLiteral("kill"));
+#endif
 
     // auxiliary ini files
     const QString RS_INI = QString(QStringLiteral("rssetup.%1")).arg(AUX_FILE_EXT);
@@ -230,7 +246,7 @@ namespace Defs
     const QString SA_INI = QString(QStringLiteral("sasetup.%1")).arg(AUX_FILE_EXT);
     const QString EC_INI = QString(QStringLiteral("ecsetup.%1")).arg(AUX_FILE_EXT);
 
-    const QString GHG_MD_INI_TAG = QLatin1String(";GHG_METADATA");
+    const QString GHG_MD_INI_TAG = QStringLiteral(";GHG_METADATA");
     const QString APP_MD_INI_TAG = QString(QStringLiteral(";%1_METADATA")).arg(APP_NAME_UCASE);
     const QString APP_PD_INI_TAG = QString(QStringLiteral(";%1_PROCESSING")).arg(APP_NAME_UCASE);
 
@@ -280,6 +296,14 @@ namespace Defs
     const QString CONF_WIN_SMARTFLUX_CONFIG_MSG = QStringLiteral("/smartflux_conf_msg");
     const QString CONF_WIN_NOAA_WEBSITE_MSG = QStringLiteral("/noaa_website_msg");
     const QString CONF_WIN_AOA_SELECTION_MSG = QStringLiteral("/aoa_selection_msg");
+
+    const QString LICOR_FTP_URL = QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Software/");
+    const QString LICOR_FTP_USERNAME = QStringLiteral("anonymous");
+    const QString LICOR_FTP_PASSWORD = QStringLiteral("anonymous@password.com");
+
+    const QString GHG_TIMESTAMP_FORMAT = QStringLiteral("yyyy-mm-ddTHHMM??_");
+
+    const QString CONF_WIN_DATES_CHECK_MSG = QStringLiteral("/dates_range_check_msg");
 } // namespace Defs
 
 Q_DECLARE_METATYPE(Defs::CurrRunMode)

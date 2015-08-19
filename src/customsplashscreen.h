@@ -38,7 +38,7 @@ class CustomSplashScreen : public QSplashScreen
     Q_OBJECT
 
 public:
-    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0);
+    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::Widget);
     ~CustomSplashScreen();
 
     void setProgressValue(int value);
@@ -46,7 +46,7 @@ public:
     void setMessageRect(QRect rect, int alignment = Qt::AlignLeft);
 
 protected:
-    virtual void drawContents(QPainter *painter);
+    void drawContents(QPainter *painter) Q_DECL_OVERRIDE;
 
 signals:
 
@@ -58,7 +58,7 @@ private:
     int alignement_;
     QColor color_;
     QRect rect_;
-    QProgressBar *progressBar_;
+    QProgressBar* progressBar_;
     QCheckBox* showSplashCheckbox_;
 };
 

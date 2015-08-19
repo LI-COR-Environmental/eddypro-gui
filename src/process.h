@@ -66,29 +66,38 @@ public:
 
     bool engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList);
 
-    bool zipProcessAddStart(const QString& fileName, const QString &toArchive, const QString &workingDir = QString(), const QString& fileType = QString());
-    bool zipProcessExtMdStart(const QString& fileName, const QString& outDir);
-    bool zipContainsFiletype(const QString& fileName, const QString& fileExt);
+    // NOTE: not used (7z based)
+    bool zipProcessAddStart(const QString& fileName,
+                            const QString &toArchive,
+                            const QString &workingDir = QString(),
+                            const QString& fileType = QString());
+
+    // NOTE: not used (7z based)
+    bool zipProcessExtMdStart(const QString& fileName,
+                              const QString& outDir);
+    // NOTE: not used (7z based)
+    bool zipContainsFiletype(const QString& fileName,
+                             const QString& fileExt);
 
     void setChannelsMode(QProcess::ProcessChannelMode mode);
     void setReadChannels(QProcess::ProcessChannel channel);
 
-    QByteArray readAllStdOut();
-    QByteArray readAllStdErr();
+    QByteArray readAllStdOut() const;
+    QByteArray readAllStdErr() const;
 
-    QProcess *process();
-    inline QProcess::ProcessState processState() { return process_->state(); }
-    inline QProcess::ProcessError processError() { return process_->error(); }
-    inline QString processErrorString() { return process_->errorString(); }
-    inline QString processPath() { return fullPath_; }
+    QProcess *process() const;
+    inline QProcess::ProcessState processState() const { return process_->state(); }
+    inline QProcess::ProcessError processError() const { return process_->error(); }
+    inline QString processErrorString() const { return process_->errorString(); }
+    inline QString processPath() const { return fullPath_; }
 
     void setEnv(const QStringList &envList);
 
     void processPause(Defs::CurrRunStatus mode);
     void processResume(Defs::CurrRunStatus mode);
     void processStop();
-    inline ExitStatus processExit() { return processExit_; }
-    bool isRunning();
+    inline ExitStatus processExit() const { return processExit_; }
+    bool isRunning() const { return (process_->state() == QProcess::Running); }
 
 #if 0
     static unsigned int getProcessIdsByProcessName(const QString &processName, QStringList &listOfPids);
@@ -104,9 +113,9 @@ private:
     QProcess* process_;
     QString fullPath_;
     ExitStatus processExit_;
-    Q_PID processPid_;
+    qint64 processPid_;
+    QString winPid_;
     QProcess* freezerUtility_;
-    QString pid_;
     QByteArray rxBuffer_;
 
     void parseFreezerPid(const QByteArray& data);

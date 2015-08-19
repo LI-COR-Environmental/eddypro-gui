@@ -46,18 +46,24 @@
 
 class QStackedLayout;
 
+class AdvSpectralOptions;
+class BasicSettingsPage;
 class DlProject;
 class EcProject;
-class WelcomePage;
-class ProjectPage;
 class FullProjectPage;
-class BasicSettingsPage;
-class AdvancedSettingsPage;
+class PlanarFitSettingsDialog;
+class ProjectPage;
 class RunPage;
+class TimeLagSettingsDialog;
+class WelcomePage;
 struct ConfigState;
 
+#include "advancedsettingspage.h"
+#include "advsettingscontainer.h"
+#include "advprocessingoptions.h"
+
 /// \class StartDialog
-/// \brief Class representing the start page of the application
+/// \brief Widget representing the page container of the application
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -66,13 +72,26 @@ public:
     MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* configState);
     ~MainWidget();
 
-    inline WelcomePage* startPage() { return welcomePage_; }
+    inline WelcomePage* welcomePage() { return welcomePage_; }
     inline ProjectPage* projectPage() { return projectPage_; }
-    inline BasicSettingsPage* processingPage() { return basicSettingsPage_; }
+    inline BasicSettingsPage* basicPage() { return basicSettingsPage_; }
     inline AdvancedSettingsPage* advancedPage() { return advancedSettingsPage_; }
     inline RunPage* runPage() { return runPage_; }
+    inline PlanarFitSettingsDialog* pfDialog() { return advancedSettingsPage_
+                                                            ->advancedSettingPages()
+                                                            ->processingOptions()
+                                                            ->getPlanarFitSettingsDialog(); }
+    inline TimeLagSettingsDialog* tlDialog() { return advancedSettingsPage_
+                                                            ->advancedSettingPages()
+                                                            ->processingOptions()
+                                                            ->getTimeLagSettingsDialog(); }
+    inline AdvSpectralOptions* spectralOptions() { return advancedSettingsPage_
+                                                            ->advancedSettingPages()
+                                                            ->spectralOptions(); }
 
     Defs::CurrPage currentPage();
+
+    bool smartFluxCloseRequest();
 
 public slots:
     void setCurrentPage(Defs::CurrPage page);
@@ -107,6 +126,8 @@ signals:
     void showSmartfluxBarRequest(bool on);
     void saveSilentlyRequest();
     void saveRequest();
+    void mdCleanupRequest();
+    void showSetPrototypeRequest();
 };
 
 #endif // MAINDIALOG_H

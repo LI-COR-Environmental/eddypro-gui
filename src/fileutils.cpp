@@ -60,7 +60,7 @@ bool FileUtils::projectFileForcedCopy(const QString& fileName,
     qDebug() << "destDir" << destDir;
 
     QString destFile = destDir
-                       + QStringLiteral("/")
+                       + QLatin1Char('/')
                        + Defs::DEFAULT_PROCESSING_FILENAME;
     qDebug() << "destFile" << destFile;
 
@@ -80,7 +80,7 @@ bool FileUtils::fileForcedCopy(const QString& fileName, const QString& destDir)
     qDebug() << "fileName" << fileName;
     qDebug() << "destDir" << destDir;
 
-    QString destFile = destDir + QStringLiteral("/") + fileName;
+    QString destFile = destDir + QLatin1Char('/') + fileName;
     qDebug() << "destFile" << destFile;
 
     if (QFile::exists(destFile))
@@ -96,7 +96,7 @@ void FileUtils::createDir(const QString& dirName, const QString& absoluteDirDest
 {
     QString dirPath;
     if (!absoluteDirDest.isEmpty())
-        dirPath = absoluteDirDest + QStringLiteral("/") + dirName;
+        dirPath = absoluteDirDest + QLatin1Char('/') + dirName;
     else
         dirPath = dirName;
 
@@ -198,6 +198,7 @@ void FileUtils::cleanDirRecursively_alt(const QString& d)
     }
 }
 
+// not recursive
 void FileUtils::cleanDir(const QString& d)
 {
     if (existsPath(d))
@@ -257,24 +258,20 @@ const QStringList FileUtils::getFiles(const QString& dir, const QString& extensi
 
     QStringList fileList;
 
-    if (recurse)
+    // set the flag according to the current raw data directory flag
+    QDirIterator::IteratorFlag recursionFlag = QDirIterator::Subdirectories;
+    if (!recurse)
     {
-        QFuture<QStringList> future = QtConcurrent::run(&getDirContent, dir, filters, QDirIterator::Subdirectories);
-        while (!future.isFinished())
-        {
-            QCoreApplication::processEvents();
-        }
-        fileList = future.result();
+        recursionFlag = QDirIterator::NoIteratorFlags;
     }
-    else
+
+    QFuture<QStringList> future = QtConcurrent::run(&getDirContent, dir, filters, recursionFlag);
+    while (!future.isFinished())
     {
-        QFuture<QStringList> future = QtConcurrent::run(&getDirContent, dir, filters, QDirIterator::NoIteratorFlags);
-        while (!future.isFinished())
-        {
-            QCoreApplication::processEvents();
-        }
-        fileList = future.result();
+        QCoreApplication::processEvents();
     }
+    fileList = future.result();
+
     return fileList;
 }
 
@@ -284,7 +281,7 @@ QStringList FileUtils::getDirContent(const QString& dirPath,
 {
     DEBUG_FUNC_NAME
 
-    // test empty list
+    // test empty filter list
     if (nameFilter.isEmpty()) return QStringList();
 
     QString extension = nameFilter.first();
@@ -423,7 +420,8 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
     return QDateTime(date, time);
 }
 
-QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringList& fileList, const QString& filenameProtoype)
+QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringList& fileList,
+                                                                const QString& filenameProtoype)
 {
     QDateTime dateStart;
     QDateTime dateEnd;
@@ -436,7 +434,9 @@ QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringLis
         QDateTime d = getDateTimeFromFilename(filename, filenameProtoype);
         qDebug() << "d" << d;
         if (d != QDateTime())
+        {
             dateList.append(d);
+        }
     }
 
     qSort(dateList.begin(), dateList.end());
@@ -449,7 +449,37 @@ QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringLis
         return QPair<QDateTime, QDateTime>(dateStart, dateEnd);
     }
     else
+    {
         return QPair<QDateTime, QDateTime>();
+    }
+}
+
+// extract everything from the first underscore to the end
+// of the file name
+QString FileUtils::getGhgSuffixFromFilename(const QString& filename)
+{
+    return filename.mid(filename.indexOf(QLatin1Char('_')) + 1);
+}
+
+// ghg suffix contains the file extension
+QStringList FileUtils::getGhgFileSuffixList(const QStringList& fileList)
+{
+    DEBUG_FUNC_NAME
+    QStringList suffixList;
+
+    foreach (const QString& s, fileList)
+    {
+        QString filename = s.mid(s.lastIndexOf(QLatin1Char('/')) + 1);
+        qDebug() << filename;
+        QString suffix = getGhgSuffixFromFilename(filename);
+        if (!suffix.isEmpty())
+        {
+            suffixList.append(suffix);
+        }
+    }
+
+    suffixList.removeDuplicates();
+    return suffixList;
 }
 
 void FileUtils::loadStyleSheetFile(const QString &sheetPath)
@@ -481,23 +511,31 @@ QString FileUtils::setupEnv()
 #if defined(Q_OS_WIN)
     QString userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
 #elif defined(Q_OS_LINUX) || defined(Q_OS_MAC)
-    QString userHomePath = env.value(QStringLiteral("HOME")) + QStringLiteral("/.config");
+    QString userHomePath = env.value(QStringLiteral("HOME"));
+    QString configPath = QStringLiteral(".config");
 #endif
 
     qDebug() << "env" << env.value(QStringLiteral("HOME"));
     qDebug() << "userHomePath" << userHomePath;
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+    qDebug() << "configPath" << configPath;
+#endif
 
     if (!userHomePath.isEmpty())
     {
-        FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+        FileUtils::createDir(configPath, userHomePath);
+        userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#endif
 
-        QString licorDir = userHomePath + QStringLiteral("/") + Defs::LICOR_ENV_DIR;
+        FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
+        QString licorDir = userHomePath + QLatin1Char('/') + Defs::LICOR_ENV_DIR;
         FileUtils::createDir(Defs::APP_NAME_LCASE, licorDir);
 
-        QString appDir = licorDir + QStringLiteral("/") + Defs::APP_NAME_LCASE;
+        QString appDir = licorDir + QLatin1Char('/') + Defs::APP_NAME_LCASE;
         FileUtils::createDir(Defs::APP_VERSION_STR, appDir);
 
-        QString appVerDir = appDir + QStringLiteral("/") + Defs::APP_VERSION_STR;
+        QString appVerDir = appDir + QLatin1Char('/') + Defs::APP_VERSION_STR;
         FileUtils::createDir(Defs::INI_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
@@ -536,6 +574,13 @@ bool FileUtils::zipExtract(const QString& fileName, const QString& outDir)
 void FileUtils::cleanSmfDirRecursively(const QString& appEnvPath)
 {
     // cleanup smf dir
-    QString smfDir = appEnvPath + QStringLiteral("/") + Defs::SMF_FILE_DIR;
+    QString smfDir = appEnvPath + QLatin1Char('/') + Defs::SMF_FILE_DIR;
     cleanDirRecursively(smfDir);
+}
+
+// return true if the two date ranges overlap
+bool FileUtils::dateRangesOverlap(DateRange range_1, DateRange range_2)
+{
+    return ((range_1.second >= range_2.first)
+            && (range_2.second >= range_1.first));
 }

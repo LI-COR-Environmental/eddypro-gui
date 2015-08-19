@@ -190,7 +190,7 @@ private:
     bool hasGoodTemp_;
 };
 
-typedef QList<AnemDesc> AnemDescList;
+using AnemDescList = QList<AnemDesc>;
 
 // Inlined Methods
 inline bool AnemDesc::operator<(const AnemDesc& anem) const

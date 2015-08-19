@@ -96,6 +96,7 @@ namespace EcIni
     const QString INI_PROJECT_62   = QStringLiteral("bin_sp_avail");
     const QString INI_PROJECT_63   = QStringLiteral("full_sp_avail");
     const QString INI_PROJECT_64   = QStringLiteral("files_found");
+    const QString INI_PROJECT_65   = QStringLiteral("out_mean_spec");
 
     const QString INIGROUP_SPEC_SETTINGS = QStringLiteral("FluxCorrection_SpectralAnalysis_General");
     const QString INI_SPEC_SETTINGS_0    = QStringLiteral("sa_start_date");
@@ -115,23 +116,36 @@ namespace EcIni
     const QString INI_SPEC_SETTINGS_14   = QStringLiteral("sa_hfn_h2o_fmin");
     const QString INI_SPEC_SETTINGS_15   = QStringLiteral("sa_hfn_ch4_fmin");
     const QString INI_SPEC_SETTINGS_16   = QStringLiteral("sa_hfn_gas4_fmin");
-    const QString INI_SPEC_SETTINGS_17   = QStringLiteral("sa_min_co2");
-    const QString INI_SPEC_SETTINGS_18   = QStringLiteral("sa_min_ch4");
-    const QString INI_SPEC_SETTINGS_19   = QStringLiteral("sa_min_gas4");
-    const QString INI_SPEC_SETTINGS_20   = QStringLiteral("sa_min_le");
-    const QString INI_SPEC_SETTINGS_21   = QStringLiteral("sa_min_h");
+    const QString INI_SPEC_SETTINGS_17   = QStringLiteral("sa_min_st_co2");
+    const QString INI_SPEC_SETTINGS_18   = QStringLiteral("sa_min_st_ch4");
+    const QString INI_SPEC_SETTINGS_19   = QStringLiteral("sa_min_st_gas4");
+    const QString INI_SPEC_SETTINGS_20   = QStringLiteral("sa_min_st_le");
+    const QString INI_SPEC_SETTINGS_21   = QStringLiteral("sa_min_st_h");
     const QString INI_SPEC_SETTINGS_22   = QStringLiteral("add_sonic_lptf");
-    const QString INI_SPEC_SETTINGS_23   = QStringLiteral("f10_co2_trshld");
-    const QString INI_SPEC_SETTINGS_24   = QStringLiteral("f10_ch4_trshld");
-    const QString INI_SPEC_SETTINGS_25   = QStringLiteral("f10_gas4_trshld");
-    const QString INI_SPEC_SETTINGS_26   = QStringLiteral("f10_le_trshld");
-    const QString INI_SPEC_SETTINGS_27   = QStringLiteral("f10_h_trshld");
     const QString INI_SPEC_SETTINGS_28   = QStringLiteral("horst_lens");
     const QString INI_SPEC_SETTINGS_29   = QStringLiteral("ex_file");
     const QString INI_SPEC_SETTINGS_30   = QStringLiteral("sa_bin_spectra");
     const QString INI_SPEC_SETTINGS_31   = QStringLiteral("sa_full_spectra");
     const QString INI_SPEC_SETTINGS_32   = QStringLiteral("ex_dir");
     const QString INI_SPEC_SETTINGS_33   = QStringLiteral("sa_subset");
+    const QString INI_SPEC_SETTINGS_34   = QStringLiteral("sa_use_vm_flags");
+    const QString INI_SPEC_SETTINGS_35   = QStringLiteral("sa_min_st_ustar");
+    const QString INI_SPEC_SETTINGS_36   = QStringLiteral("sa_min_un_ustar");
+    const QString INI_SPEC_SETTINGS_37   = QStringLiteral("sa_min_un_h");
+    const QString INI_SPEC_SETTINGS_38   = QStringLiteral("sa_min_un_le");
+    const QString INI_SPEC_SETTINGS_39   = QStringLiteral("sa_min_un_co2");
+    const QString INI_SPEC_SETTINGS_40   = QStringLiteral("sa_min_un_ch4");
+    const QString INI_SPEC_SETTINGS_41   = QStringLiteral("sa_min_un_gas4");
+    const QString INI_SPEC_SETTINGS_42   = QStringLiteral("sa_max_ustar");
+    const QString INI_SPEC_SETTINGS_43   = QStringLiteral("sa_max_h");
+    const QString INI_SPEC_SETTINGS_44   = QStringLiteral("sa_max_le");
+    const QString INI_SPEC_SETTINGS_45   = QStringLiteral("sa_max_co2");
+    const QString INI_SPEC_SETTINGS_46   = QStringLiteral("sa_max_ch4");
+    const QString INI_SPEC_SETTINGS_47   = QStringLiteral("sa_max_gas4");
+    const QString INI_SPEC_SETTINGS_48   = QStringLiteral("sa_use_foken_low");
+    const QString INI_SPEC_SETTINGS_49   = QStringLiteral("sa_use_foken_mid");
+    const QString INI_SPEC_SETTINGS_50    = QStringLiteral("sa_start_time");
+    const QString INI_SPEC_SETTINGS_51    = QStringLiteral("sa_end_time");
 
     const QString INIGROUP_SCREEN_GENERAL = QStringLiteral("RawProcess_General");
     const QString INI_SCREEN_GENERAL_4    = QStringLiteral("data_path");
@@ -171,7 +185,6 @@ namespace EcIni
     const QString INI_SCREEN_GENERAL_40   = QStringLiteral("use_geo_north");
 
     const QString INIGROUP_SCREEN_SETTINGS = QStringLiteral("RawProcess_Settings");
-    const QString INI_SCREEN_SETTINGS_0    = QStringLiteral("nfiles");
     const QString INI_SCREEN_SETTINGS_1    = QStringLiteral("max_lack");
     const QString INI_SCREEN_SETTINGS_2    = QStringLiteral("cross_wind");
     const QString INI_SCREEN_SETTINGS_3    = QStringLiteral("flow_distortion");
@@ -209,7 +222,6 @@ namespace EcIni
     const QString INI_SCREEN_SETTINGS_36   = QStringLiteral("out_full_cosp_w_ch4");
     const QString INI_SCREEN_SETTINGS_37   = QStringLiteral("out_full_cosp_w_n2o");
     const QString INI_SCREEN_SETTINGS_38   = QStringLiteral("out_bin_og");
-    const QString INI_SCREEN_SETTINGS_39   = QStringLiteral("to_mixratio");
     const QString INI_SCREEN_SETTINGS_40   = QStringLiteral("filter_sr");
     const QString INI_SCREEN_SETTINGS_41   = QStringLiteral("filter_al");
     const QString INI_SCREEN_SETTINGS_44   = QStringLiteral("bu_corr");
@@ -342,6 +354,7 @@ namespace EcIni
     const QString INI_SCREEN_PARAM_57   = QStringLiteral("al_n2o_max");
     const QString INI_SCREEN_PARAM_58   = QStringLiteral("tl_def_ch4");
     const QString INI_SCREEN_PARAM_59   = QStringLiteral("tl_def_n2o");
+    const QString INI_SCREEN_PARAM_60   = QStringLiteral("despike_vm");
 
     const QString INIGROUP_SCREEN_TILT   = QStringLiteral("RawProcess_TiltCorrection_Settings");
     const QString INI_SCREEN_TILT_0      = QStringLiteral("pf_start_date");
@@ -357,6 +370,8 @@ namespace EcIni
     const QString INI_SCREEN_TILT_9      = QStringLiteral("width");
     const QString INI_SCREEN_TILT_10     = QStringLiteral("exclude");
     const QString INI_SCREEN_TILT_11     = QStringLiteral("pf_subset");
+    const QString INI_SCREEN_TILT_12     = QStringLiteral("pf_start_time");
+    const QString INI_SCREEN_TILT_13     = QStringLiteral("pf_end_time");
 
     const QString INIGROUP_TIMELAG_OPT = QStringLiteral("RawProcess_TimelagOptimization_Settings");
     const QString INI_TIMELAG_OPT_0    = QStringLiteral("to_start_date");
@@ -378,6 +393,8 @@ namespace EcIni
     const QString INI_TIMELAG_OPT_16   = QStringLiteral("to_gas4_max_lag");
     const QString INI_TIMELAG_OPT_17   = QStringLiteral("to_h2o_nclass");
     const QString INI_TIMELAG_OPT_18   = QStringLiteral("to_subset");
+    const QString INI_TIMELAG_OPT_19   = QStringLiteral("to_start_time");
+    const QString INI_TIMELAG_OPT_20   = QStringLiteral("to_end_time");
 
     const QString INIGROUP_RAND_ERROR = QStringLiteral("RawProcess_RandomUncertainty_Settings");
     const QString INI_RAND_ERROR_0    = QStringLiteral("ru_meth");

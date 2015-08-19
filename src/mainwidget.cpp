@@ -27,10 +27,7 @@
 #include <QMainWindow>
 #include <QStackedLayout>
 
-#include "advancedsettingspage.h"
 #include "advoutputoptions.h"
-#include "advprocessingoptions.h"
-#include "advsettingscontainer.h"
 #include "advspectraloptions.h"
 #include "basicsettingspage.h"
 #include "configstate.h"
@@ -40,6 +37,7 @@
 #include "projectpage.h"
 #include "runpage.h"
 #include "welcomepage.h"
+#include "widget_utils.h"
 
 MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* configState) :
     QWidget(parent),
@@ -97,18 +95,24 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     // from MainWindow
     connect(static_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
             basicSettingsPage_, SLOT(updateMetadataRead()));
+    connect(this, SIGNAL(showSetPrototypeRequest()),
+            basicSettingsPage_, SLOT(showSetPrototype()));
+
     connect(static_cast<QMainWindow*>(parent), SIGNAL(checkMetadataOutputRequest()),
             advancedSettingsPage_->advancedSettingPages(), SIGNAL(checkMetadataOutputRequest()));
 
     connect(projectPage_, SIGNAL(updateMetadataReadRequest()),
             basicSettingsPage_, SLOT(updateMetadataRead()));
-    connect(projectPage_, &ProjectPage::updateRawFilenameFormatRequest,
-            basicSettingsPage_, &BasicSettingsPage::updateRawFilenameFormat);
+    connect(projectPage_, &ProjectPage::mdCleanupRequest,
+            this, &MainWidget::mdCleanupRequest);
     connect(projectPage_, &ProjectPage::requestBasicSettingsClear,
             basicSettingsPage_, &BasicSettingsPage::clearSelectedItems);
     connect(projectPage_, &ProjectPage::setOutputBiometRequest,
             advancedPage()->advancedSettingPages()->outputOptions(),
             &AdvOutputOptions::setOutputBiomet);
+
+    connect(basicSettingsPage_, &BasicSettingsPage::saveSilentlyRequest,
+            this, &MainWidget::saveSilentlyRequest);
 
     connect(welcomePage_, &WelcomePage::openProjectRequest,
             this, &MainWidget::openProjectRequest);
@@ -144,6 +148,11 @@ Defs::CurrPage MainWidget::currentPage()
     return static_cast<Defs::CurrPage>(mainWidgetLayout->currentIndex());
 }
 
+bool MainWidget::smartFluxCloseRequest()
+{
+    return WidgetUtils::okToCloseSmartFlux(this);
+}
+
 void MainWidget::fadeInWidget(int index)
 {
     DEBUG_FUNC_NAME
@@ -151,7 +160,9 @@ void MainWidget::fadeInWidget(int index)
     if (fadingOn)
     {
         if (faderWidget)
+        {
             faderWidget->close();
+        }
         faderWidget = new FaderWidget(mainWidgetLayout->widget(index));
         faderWidget->setFadeDuration(200);
         faderWidget->start();
@@ -167,14 +178,9 @@ void MainWidget::updateSmartfluxBarStatus()
     welcomePage_->updateSmartfluxCheckBox();
 
     projectPage_->setSmartfluxUI();
+    projectPage_->updateSmartfluxBar();
 
     basicSettingsPage_->updateSmartfluxBar();
     advancedSettingsPage_->updateSmartfluxBar();
     runPage_->updateSmartfluxBar();
 }
-
-//void MainWidget::routeSmartfluxBarRequests()
-//{
-//    emit saveSilentlyRequest();
-//    emit saveRequest();
-//}

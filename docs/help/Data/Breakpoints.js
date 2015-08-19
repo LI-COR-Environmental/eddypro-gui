@@ -1,1 +1,0 @@
-define({'Tablet':1000});

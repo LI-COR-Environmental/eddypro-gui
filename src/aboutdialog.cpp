@@ -53,13 +53,12 @@ AboutDialog::AboutDialog(QWidget* parent)
     auto introduction = new QLabel;
     introduction->setText(
         tr("<h2>%1<sup>&reg;</sup> version %2 %3</h2>"
-           "<h6>Built on %4 at %5<br />Based on Qt %6 (%7)<br /></h6>"
+           "<h6>Built on %4 at %5<br />With %7<br /></h6>"
            ).arg(Defs::APP_NAME)
             .arg(Defs::APP_VERSION_STR)
             .arg(Defs::APP_STAGE_STR)
             .arg(QStringLiteral(__DATE__))
             .arg(QStringLiteral(__TIME__))
-            .arg(QStringLiteral(QT_VERSION_STR))
         #if defined(Q_OS_WIN)
             .arg(Defs::WIN_COMPILER)
         #elif defined(Q_OS_MAC)
@@ -67,7 +66,11 @@ AboutDialog::AboutDialog(QWidget* parent)
         #endif
         );
     auto icon = new QLabel;
-    icon->setPixmap(QPixmap(QStringLiteral(":/icons/app-logo-about")));
+    auto app_logo_2x = QPixmap(QStringLiteral(":/icons/app-logo-about"));
+#if defined(Q_OS_MAC)
+    app_logo_2x.setDevicePixelRatio(2.0);
+#endif
+    icon->setPixmap(app_logo_2x);
 
     // About information
     auto infoWidget = new QWidget;

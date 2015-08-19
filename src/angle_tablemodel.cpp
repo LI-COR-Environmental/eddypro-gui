@@ -35,9 +35,9 @@ const double MinDegrees = 0.0;
 const double MaxDegrees = 360.0;
 const double InitialAngle = 30.0;
 
+static int colorHueDecStep_ = 1;
 } // namespace unnamed
 
-int AngleTableModel::colorHueDecStep_ = 1;
 
 // FIXME: include angle checkbox with only 1 angle doesn't work
 AngleTableModel::AngleTableModel(QObject *parent, QList<AngleItem> *angles)
@@ -213,7 +213,7 @@ bool AngleTableModel::setData(const QModelIndex &index,
                         return false;
 
                     // equal to 360 degrees
-                    if (currAngleSum == MaxDegrees)
+                    if (qFuzzyCompare(currAngleSum, MaxDegrees))
                     {
                         qDebug() << "currAngleSum" << currAngleSum;
 
@@ -422,7 +422,7 @@ void AngleTableModel::setOffset(double alpha)
     DEBUG_FUNC_NAME
     qDebug() << "alpha" << alpha;
 
-    if (alpha != offset_)
+    if (!qFuzzyCompare(alpha, offset_))
     {
         offset_ = alpha;
         emit offsetChanged(alpha);

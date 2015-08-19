@@ -27,14 +27,15 @@
 #include <QMultiHash>
 #include <QObject>
 
-#include "anem_desc.h"      // NOTE: for AnemDescList typedef, maybe to fix
+#include "anem_desc.h"      // NOTE: for AnemDescList, maybe to fix
 #include "configstate.h"
 #include "dlprojectstate.h"
-#include "irga_desc.h"      // NOTE: for IrgaDescList typedef, maybe to fix
-#include "variable_desc.h"  // NOTE: for VariableDescList typedef, maybe to fix
+#include "irga_desc.h"      // NOTE: for IrgaDescList, maybe to fix
+#include "variable_desc.h"  // NOTE: for VariableDescList, maybe to fix
 
 class QSettings;
-typedef QMultiHash<QString, int> AnemComponents;
+
+using AnemComponents = QMultiHash<QString, int>;
 
 class DlProject : public QObject
 {
@@ -51,6 +52,10 @@ public:
     bool hasGoodWindComponentsAndTemperature();
     bool hasOneFastTemperature();
     bool hasNullGainVariables();
+    bool hasGoodIrgaNames();
+    bool hasGoodIrgaSeparations();
+    bool hasGoodIrgaClosedPath();
+    bool hasGoodIrgaGeneric();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);
@@ -181,7 +186,6 @@ public:
     static const QStringList gillModelGroup_2();
     static const QStringList gillModelGroup_3();
 
-    bool requestMetadataReset();
 signals:
     // send that a new project has been created
     void projectNew();
@@ -192,8 +196,6 @@ signals:
 
 private:
     enum class InstrumentType { UNDEFINED, ANEM, IRGA };
-
-    bool queryProjectImport();
 
     QString toIniAnemManufacturer(const QString& s);
     QString toIniAnemWindFormat(const QString& s);

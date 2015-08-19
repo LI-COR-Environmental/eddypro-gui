@@ -33,11 +33,11 @@ public:
     explicit SplitterHandle(Qt::Orientation orientation,
                             QSplitter* parent = nullptr);
 
-    QSize sizeHint() const;
+    QSize sizeHint() const Q_DECL_OVERRIDE;
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void enterEvent(QEvent *e);
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *e) Q_DECL_OVERRIDE;
 
 private:
     void buzz();

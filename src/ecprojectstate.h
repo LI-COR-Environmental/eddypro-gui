@@ -40,7 +40,8 @@ struct ProjectGeneralState
     bool run_fcc = false;
     QString file_name = QString();
     QString project_title = QString();
-    QString project_id = QString();
+//    QString project_id = QString();
+    QString project_id = QStringLiteral("gerardo");
     Defs::RawFileType file_type = Defs::RawFileType::GHG;
     QString file_prototype = QString();
     bool use_alt_md_file = false;
@@ -72,6 +73,7 @@ struct ProjectGeneralState
     int out_amflux = 0;
     int out_rich = 1;
     bool make_dataset = false;
+    int subset = 0;
     QString start_date = QString();
     QString end_date = QString();
     QString start_time = QString();
@@ -84,7 +86,6 @@ struct ProjectGeneralState
     QString out_path = QString();
     int fix_out_format = 0;
     QString err_label = QStringLiteral("-9999.0");
-    int subset = 0;
     int qcflag_meth = 1;
     int out_md = 1;
     int out_biomet = 0;
@@ -93,6 +94,7 @@ struct ProjectGeneralState
     QString biom_dir = QString();
     int biom_recurse = 0;
     QString biom_ext = QStringLiteral("txt");
+    int out_mean_spectra = 0;
     int out_mean_cosp = 0;
     int bin_sp_avail = 0;
     int full_sp_avail = 0;
@@ -108,36 +110,49 @@ struct SpectraSettingsState
     int horst_lens = 2;
     QString start_sa_date = QString();
     QString end_sa_date = QString();
+    QString start_sa_time = QString();
+    QString end_sa_time = QString();
     QString sa_file = QString();
     int sa_min_smpl = 10;
-    qreal sa_fmin_co2 = 0.0006;
-    qreal sa_fmin_h2o = 0.0006;
-    qreal sa_fmin_ch4 = 0.0006;
-    qreal sa_fmin_gas4 = 0.0006;
-    qreal sa_fmax_co2 = 5.0;
-    qreal sa_fmax_h2o = 5.0;
-    qreal sa_fmax_ch4 = 5.0;
-    qreal sa_fmax_gas4 = 5.0;
-    qreal sa_hfn_co2_fmin = 5.0;
-    qreal sa_hfn_h2o_fmin = 5.0;
-    qreal sa_hfn_ch4_fmin = 5.0;
-    qreal sa_hfn_gas4_fmin = 5.0;
-    qreal sa_min_co2 = 2.0;
-    qreal sa_min_ch4 = 0.2;
-    qreal sa_min_gas4 = 0.02;
-    qreal sa_min_le = 20.0;
-    qreal sa_min_h = -20.0;
+    qreal sa_fmin_co2 = 0.005;
+    qreal sa_fmin_h2o = 0.005;
+    qreal sa_fmin_ch4 = 0.005;
+    qreal sa_fmin_gas4 = 0.005;
+    qreal sa_fmax_co2 = 2.0;
+    qreal sa_fmax_h2o = 2.0;
+    qreal sa_fmax_ch4 = 2.0;
+    qreal sa_fmax_gas4 = 2.0;
+    qreal sa_hfn_co2_fmin = 1.0;
+    qreal sa_hfn_h2o_fmin = 1.0;
+    qreal sa_hfn_ch4_fmin = 1.0;
+    qreal sa_hfn_gas4_fmin = 1.0;
+    qreal sa_min_un_ustar = 0.2;
+    qreal sa_min_un_h = 20.0;
+    qreal sa_min_un_le = 20.0;
+    qreal sa_min_un_co2 = 2.0;
+    qreal sa_min_un_ch4 = 0.01;
+    qreal sa_min_un_gas4 = 0.01;
+    qreal sa_min_st_ustar = 0.05;
+    qreal sa_min_st_h = 5.0;
+    qreal sa_min_st_le = 3.0;
+    qreal sa_min_st_co2 = 0.5;
+    qreal sa_min_st_ch4 = 0.005;
+    qreal sa_min_st_gas4 = 0.005;
+    qreal sa_max_ustar = 5.0;
+    qreal sa_max_h = 1000.0;
+    qreal sa_max_le = 1000.0;
+    qreal sa_max_co2 = 100.0;
+    qreal sa_max_ch4 = 20.0;
+    qreal sa_max_gas4 = 20.0;
     int add_sonic_lptf = 1;
-    qreal f10_co2_trshld = 2.0;
-    qreal f10_ch4_trshld = 0.2;
-    qreal f10_gas4_trshld = 0.02;
-    qreal f10_le_trshld = 10.0;
-    qreal f10_h_trshld = 10.0;
     QString ex_file = QString();
     QString sa_bin_spectra = QString();
     QString sa_full_spectra = QString();
     QString ex_dir = QString();
     int subset = 0;
+    int use_vm_flags = 1;
+    int use_foken_low = 1;
+    int use_foken_mid = 0;
 };
 
 /// \struct ScreenGeneralState
@@ -196,7 +211,6 @@ struct ScreenGeneralState
 /// processing file
 struct ScreenSettingState
 {
-    int nfiles = 1;
     int max_lack = 10;
     int cross_wind = 0;
     int flow_distortion = 0;
@@ -205,7 +219,7 @@ struct ScreenSettingState
     qreal timeconst = 250.0;
     int tlag_meth = 2;
     int tap_win = 3;
-    int nbins = 90;
+    int nbins = 50;
     int avrg_len = 30;
     qreal u_offset = 0.0;
     qreal v_offset = 0.0;
@@ -251,10 +265,9 @@ struct ScreenSettingState
     int out_raw_gas4 = 0;
     int out_raw_tair = 0;
     int out_raw_pair = 0;
-    int to_mixratio = 1;
     int filter_sr = 1;
     int filter_al = 1;
-    int bu_corr = -1;
+    int bu_corr = 0;
     int bu_multi = 0;
     qreal l_day_bot_gain = 0.944;
     qreal l_day_bot_offset = 2.57;
@@ -285,13 +298,13 @@ struct ScreenSettingState
     qreal m_night_bot3 = 0.0087;
     qreal m_night_bot4 = -0.206;
     qreal m_night_top1 = -1.7;
-    qreal m_night_top2 = -0.1160;
+    qreal m_night_top2 = -0.0160;
     qreal m_night_top3 = 0.0051;
     qreal m_night_top4 = -0.029;
     qreal m_night_spar1 = -2.1;
     qreal m_night_spar2 = -0.0200;
     qreal m_night_spar3 = 0.0070;
-    qreal m_night_spar4 = -0.026;
+    qreal m_night_spar4 = 0.026;
     int out_details = 0;
     int power_of_two = 1;
 };
@@ -364,19 +377,20 @@ struct ScreenParamState
     qreal ds_sf_t = 2.7;
     qreal ds_sf_co2 = 27.0;
     qreal ds_sf_h2o = 2.2;
-    qreal ds_sf_ch4 = 27.0;
-    qreal ds_sf_n2o = 27.0;
+    qreal ds_sf_ch4 = 30.0;
+    qreal ds_sf_n2o = 30.0;
     qreal ds_sf_var = 2.0;
     qreal tl_hf_lim = 20.0;
     qreal tl_sf_lim = 10.0;
-    qreal tl_def_co2 = 3.5;
-    qreal tl_def_h2o = 2.5;
-    qreal tl_def_ch4 = 3.5;
-    qreal tl_def_n2o = 2.5;
+    qreal tl_def_co2 = 0.0;
+    qreal tl_def_h2o = 0.0;
+    qreal tl_def_ch4 = 0.0;
+    qreal tl_def_n2o = 0.0;
     qreal aa_min = -30.0;
     qreal aa_max = 30.0;
     qreal aa_lim = 10.0;
     qreal ns_hf_lim = 0.5;
+    int despike_vm = 0;
 };
 
 /// \struct ScreenTiltState
@@ -385,6 +399,8 @@ struct ScreenTiltState
 {
     QString start_date = QString();
     QString end_date = QString();
+    QString start_time = QString();
+    QString end_time = QString();
     int mode = 1;
     qreal north_offset = 0.0;
     int min_num_per_sec = 0;
@@ -400,6 +416,8 @@ struct TimelagOptState
 {
     QString start_date = QString();
     QString end_date = QString();
+    QString start_time = QString();
+    QString end_time = QString();
     int mode = 1;
     QString file = QString();
     int to_h2o_nclass = 10;

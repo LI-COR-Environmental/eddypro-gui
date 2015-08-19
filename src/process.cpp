@@ -42,8 +42,8 @@ Process::Process(QWidget* parent, const QString &fullPath) :
     fullPath_(fullPath),
     processExit_(ExitStatus::Success),
     processPid_(0),
+    winPid_(QString()),
     freezerUtility_(0),
-    pid_(QString()),
     rxBuffer_(QByteArray())
 {
     process_ = new QProcess(this);
@@ -73,13 +73,18 @@ bool Process::engineProcessStart(const QString& fullPath, const QString& working
 
     // NOTE: start() function without args not parse correctly filepath with spaces, Qt bug?
     process_->start(fullPath, argList, QProcess::Unbuffered | QProcess::ReadOnly);
-    processPid_ = process_->pid();
+    processPid_ = process_->processId();
 
     return true;
 }
 
 // add file to an archive fileName
-bool Process::zipProcessAddStart(const QString &fileName, const QString &toArchive, const QString &workingDir, const QString &fileType)
+// using an external helper (7z)
+// NOTE: not used
+bool Process::zipProcessAddStart(const QString &fileName,
+                                 const QString &toArchive,
+                                 const QString &workingDir,
+                                 const QString &fileType)
 {
     QString zipFileName;
     QString workDir;
@@ -124,9 +129,9 @@ bool Process::zipProcessAddStart(const QString &fileName, const QString &toArchi
 
     // file path of the program
     QString fp(fullPath_
-            + QStringLiteral("/")
+            + QLatin1Char('/')
             + Defs::BIN_FILE_DIR
-            + QStringLiteral("/")
+            + QLatin1Char('/')
             + Defs::COMPRESSOR_BIN);
     qDebug() << "fp" << fp;
     qDebug() << "filename" << fileName;
@@ -150,6 +155,8 @@ bool Process::zipProcessAddStart(const QString &fileName, const QString &toArchi
 }
 
 // extract int the outDir all the metadata files in the fileName archive
+// using an external helper (7z)
+// NOTE: not used
 bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDir)
 {
     QStringList args;
@@ -163,9 +170,9 @@ bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDi
 
     // file path of the program
     QString fp(fullPath_
-            + QStringLiteral("/")
+            + QLatin1Char('/')
             + Defs::BIN_FILE_DIR
-            + QStringLiteral("/")
+            + QLatin1Char('/')
             + Defs::COMPRESSOR_BIN);
     qDebug() << fp;
     qDebug() << args;
@@ -179,6 +186,8 @@ bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDi
 }
 
 // return if a specific file type is present in the archive
+// using an external helper (7z)
+// NOTE: not used
 bool Process::zipContainsFiletype(const QString& fileName, const QString& filePattern)
 {
     DEBUG_FUNC_NAME
@@ -193,12 +202,8 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
     else
         args << QStringLiteral("*");
 
-    // file path of the program
-    QString fp(qApp->applicationDirPath()
-                + QStringLiteral("/")
-                + Defs::BIN_FILE_DIR
-                + QStringLiteral("/")
-                + Defs::COMPRESSOR_BIN);
+    // file path of the 7z utility
+    QString fp(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::COMPRESSOR_BIN);
 
     connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -218,64 +223,70 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
 void Process::processPause(Defs::CurrRunStatus mode)
 {
     DEBUG_FUNC_NAME
-
     Q_UNUSED(mode)
 
-    // file path of the program
-    QString fp(qApp->applicationDirPath()
-            + QStringLiteral("/")
-            + Defs::BIN_FILE_DIR
-            + QStringLiteral("/")
-            + Defs::FREEZER_BIN);
+    // file path of the utility to pause the engine
+    QString fp;
 
+    // arguments
     QStringList args;
-    qDebug() << "fp" << fp << "args" << args;
 
+#if defined(Q_OS_WIN)
+    // On Windows we pause using a third-party utility, namely 'pausep.exe'.
+    // Pausing the engine requires two runs of it,
+    // one for detecting the pid with no args and one for tha actual pausing.
+
+    fp = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
     connect(freezerUtility_, &QProcess::readyReadStandardOutput,
              this, &Process::bufferFreezerOutput);
 
-    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath()
-                                         + QStringLiteral("/")
-                                         + Defs::BIN_FILE_DIR);
-    freezerUtility_->start(fp, args);
-}
+#elif defined(Q_OS_MAC)
+    // on mac anc linux we use the standard kill
+    // calling, 'kill -STOP processPid_'
 
-void Process::processPause_2()
-{
-    DEBUG_FUNC_NAME
+    fp = QStringLiteral("kill");
 
-    // file path of the program
-    QString fp(qApp->applicationDirPath()
-            + QStringLiteral("/")
-            + Defs::BIN_FILE_DIR
-            + QStringLiteral("/")
-            + Defs::FREEZER_BIN);
+    args << QStringLiteral("-STOP");
+    args << QString::number(processPid_);
+#endif
 
-    QStringList args;
-    args << pid_;
+    qDebug() << "fp" << fp << "args" << args;
+
+    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
 void Process::processResume(Defs::CurrRunStatus mode)
 {
     DEBUG_FUNC_NAME
-
     Q_UNUSED(mode)
 
-    // file path of the program
-    QString fp(qApp->applicationDirPath()
-            + QStringLiteral("/")
-            + Defs::BIN_FILE_DIR
-            + QStringLiteral("/")
-            + Defs::FREEZER_BIN);
+    // file path of the utility to resume the engine
+    QString fp;
 
+    // arguments
     QStringList args;
-    args << pid_;
+
+#if defined(Q_OS_WIN)
+    // file path of the utility to resume the engine
+    fp = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
+
+    args << winPid_;
     args << QStringLiteral("/r");
 
-    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath()
-                                         + QStringLiteral("/")
-                                         + Defs::BIN_FILE_DIR);
+#elif defined(Q_OS_MAC)
+    // on mac anc linux we use the standard kill
+    // calling, 'kill -CONT processPid_'
+
+    fp = QStringLiteral("kill");
+
+    args << QStringLiteral("-CONT");
+    args << QString::number(processPid_);
+#endif
+
+    qDebug() << "fp" << fp << "args" << args;
+
+    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
@@ -338,19 +349,19 @@ void Process::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
     emit processFailure();
 }
 
-QByteArray Process::readAllStdOut()
+QByteArray Process::readAllStdOut() const
 {
     DEBUG_FUNC_NAME
     return process_->readAllStandardOutput();
 }
 
-QByteArray Process::readAllStdErr()
+QByteArray Process::readAllStdErr() const
 {
     DEBUG_FUNC_NAME
     return process_->readAllStandardError();
 }
 
-QProcess *Process::process()
+QProcess *Process::process() const
 {
     return process_;
 }
@@ -377,9 +388,11 @@ void Process::setEnv(const QStringList &envList)
     process_->setProcessEnvironment(env);
 }
 
+// analyze the pausep output
 void Process::bufferFreezerOutput()
 {
     DEBUG_FUNC_NAME
+#if defined(Q_OS_WIN)
     QByteArray data = freezerUtility_->readAllStandardOutput();
 
     rxBuffer_.append(data);
@@ -399,20 +412,23 @@ void Process::bufferFreezerOutput()
         else
             rxBuffer_ = lineList.last();
     }
+#endif
 }
 
+// detect the engine pid under Windows
 void Process::parseFreezerPid(const QByteArray& data)
 {
+#if defined(Q_OS_WIN)
     QByteArray cleanLine;
     cleanLine.append(data.simplified());
 
-    if (cleanLine.contains(Defs::ENGINE_1_BIN.toLatin1()))
+    if (cleanLine.contains(Defs::ENGINE_RP.toLatin1()))
     {
         QList<QByteArray> columnList(cleanLine.split(' '));
         QByteArray col = columnList.at(1);
         const char* colData = col.constData();
-        pid_ = QString::fromUtf8(colData);
-        qDebug() << "pid" << pid_;
+        winPid_ = QString::fromUtf8(colData);
+        qDebug() << "pid" << winPid_;
 
         freezerUtility_->kill();
 
@@ -420,11 +436,25 @@ void Process::parseFreezerPid(const QByteArray& data)
                  this, &Process::bufferFreezerOutput);
         QTimer::singleShot(1000, this, SLOT(processPause_2()));
     }
+#endif
+    Q_UNUSED(data)
 }
 
-bool::Process::isRunning()
+// Second run of 'pausep.exe' on Windows
+void Process::processPause_2()
 {
-    return (process_->state() == QProcess::Running);
+    DEBUG_FUNC_NAME
+
+#if defined(Q_OS_WIN)
+    // file path of the program
+    QString fp(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN);
+
+    QStringList args;
+    args << winPid_;
+
+    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
+    freezerUtility_->start(fp, args);
+#endif
 }
 
 #if 0

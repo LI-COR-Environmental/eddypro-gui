@@ -43,7 +43,6 @@
 /// \todo
 ////////////////////////////////////////////////////////////////////////////////
 
-class QButtonGroup;
 class QCalendarWidget;
 class QCheckBox;
 class QComboBox;
@@ -61,15 +60,15 @@ class QProgressIndicator;
 class QRadioButton;
 class QSpinBox;
 
-class QwwButtonLineEdit;
-class QwwClearLineEdit;
-
 class AnemDesc;
 struct BiomItem;
 class ClickLabel;
 struct ConfigState;
+class CustomClearLineEdit;
+class DirBrowseWidget;
 class DlProject;
 class EcProject;
+class FileFormatWidget;
 class IrgaDesc;
 class RawFilenameDialog;
 class SmartFluxBar;
@@ -91,28 +90,23 @@ public:
     BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
     virtual ~BasicSettingsPage();
 
-    QwwButtonLineEdit *datapathEdit;
-    QwwClearLineEdit *outpathEdit;
-    QwwClearLineEdit *idEdit;
-    QwwButtonLineEdit *previousDatapathEdit;
     Q_DECLARE_FLAGS(EmbeddedFileFlags, EmbeddedFileFlag)
 
     void updateSmartfluxBar();
 
 public slots:
     void refresh();
-    void datapathBrowse_clicked();
-    void outpathBrowse_clicked();
-    void previousDatapathBrowse_clicked();
-    void askRawFilenameFormat();
+    void datapathSelected(const QString &dir_path);
+    void outpathBrowseSelected(const QString& dir_path);
+    void previousDatapathSelected(const QString &dir_path);
+    void askRawFilenamePrototype();
+    void partialRefresh();
     void updateMetadataRead(bool firstReading = false);
-    void updateRawFilenameFormat();
-    void filesFoundClear();
+    void clearFilesFound();
     void updateProjectFilesFound(int fileNumber);
     void clearSelectedItems();
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event);
+    void alignDeclinationDate(const QDate& d);
+    void showSetPrototype();
 
 private:
     void noNoaaConnectionMsg();
@@ -130,24 +124,20 @@ private:
     QPushButton* questionMark_5;
 
     ClickLabel *datapathLabel;
-    QPushButton *datapathBrowse;
+    DirBrowseWidget *datapathBrowse;
     QCheckBox *recursionCheckBox;
     QLabel* filesFound;
-    QProgressIndicator* progressWidget_1;
+    QProgressIndicator* findFileProgressWidget;
     QProgressIndicator* progressWidget_2;
 
     ClickLabel *idLabel;
+    CustomClearLineEdit *idEdit;
 
     ClickLabel *outpathLabel;
-    QPushButton *outpathBrowse;
+    DirBrowseWidget *outpathBrowse;
 
     ClickLabel *previousDatapathLabel;
-    QPushButton *previousDatapathBrowse;
-
-    ClickLabel *nFileLabel;
-    QSpinBox *nFilesSpin;
-
-    ClickLabel *lockedIcon_2;
+    DirBrowseWidget *previousDatapathBrowse;
 
     ClickLabel *avgIntervalLabel;
     QSpinBox *avgIntervalSpin;
@@ -157,7 +147,6 @@ private:
 
     QRadioButton* useMagneticNRadio;
     QRadioButton* useGeographicNRadio;
-    QButtonGroup* northRadioGroup;
 
     QCheckBox *subsetCheckBox;
     QPushButton* dateRangeDetectButton;
@@ -168,13 +157,12 @@ private:
     QDateEdit *endDateEdit;
     QTimeEdit *startTimeEdit;
     QTimeEdit *endTimeEdit;
-    QLabel* lockedIcon_1;
+    QLabel* lockedIcon;
 
     QCheckBox *crossWindCheckBox;
 
-    ClickLabel *fileFormatLabel;
-    QwwButtonLineEdit *fileFormatEdit;
-    QPushButton *fileFormatSetButton;
+    ClickLabel *filePrototypeLabel;
+    FileFormatWidget *filePrototypeEdit;
 
     ClickLabel* anemRefLabel;
     QComboBox* anemRefCombo;
@@ -276,6 +264,7 @@ private:
     ConfigState* configState_;
 
     RawFilenameDialog* rawFilenameDialog;
+    QStringList suffixList_;
 
     QLabel* northLabel;
     ClickLabel* declinationLabel;
@@ -292,6 +281,7 @@ private:
     QProgressIndicator* progressWidget_3;
 
     QStringList currentRawDataList_;
+    QStringList currentFilteredRawDataList_;
 
     QList<BiomItem> biomList_;
 
@@ -336,23 +326,24 @@ private:
     void parseBiomMetadata();
 
     void setSmartfluxUI(bool on);
+    void setPrototype(bool showDialog = false);
+
+    QStringList getAvailableGhgSuffixes();
+    QStringList filterRawDataWithPrototype(const QString &p);
+
+    QString prototypeToRegExp(const QString &p);
 
 private slots:
     void updateDataPath(const QString& dp);
     void updateRecursion(bool b);
     void updateOutPath(const QString& dp);
     void updatePreviousDataPath(const QString& dp);
-    void updateNFiles(int n);
     void updateAvrgLen(int n);
     void updateMaxLack(int n);
-    void onFileFormatLabelClicked();
-    void updateFilePrototype_1(const QString& f);
-    void updateFilePrototype_2(const QString& f);
+    void updateFilePrototype(const QString& pattern);
+    void updateFilePrototypeEdit(const QString& f);
     void updateSubsetSelection(bool b);
 
-    void onDatapathLabelClicked();
-    void onOutpathLabelClicked();
-    void onPreviousDatapathLabelClicked();
     void onIdLabelClicked();
     void onAvgLenLabelClicked();
     void onMaxLackLabelClicked();
@@ -453,7 +444,6 @@ private slots:
 
     void reset();
 
-    void updateCrossWindCheckBox(const QString& model);
     void updateFilesFound(bool recursionToggled);
     void runUpdateFilesFound();
 
@@ -471,17 +461,16 @@ private slots:
     void onDeclinationDateLabelClicked();
     void updateUseGeoNorth(int b);
     void updateDeclinationDate(const QDate &d);
-    void alignDeclinationDate(const QDate& d);
-    void clearDataSelection_1();
+    void clearDataSelection();
     int handleVariableReset();
     int acceptVariableReset();
     void dateRangeDetect();
-    void clearPreviousDatapathEdit();
-    void handleCrossWindAndAngleOfAttackUpdate(const QString& anem);
+    void clearFilePrototype();
 
 signals:
     void updateMetadataReadResult(bool b);
     void setDateRangeRequest(QPair<QDateTime, QDateTime>);
+    void saveSilentlyRequest();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(BasicSettingsPage::EmbeddedFileFlags)

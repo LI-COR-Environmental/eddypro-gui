@@ -168,7 +168,7 @@ void DlIniDialog::defaults()
     DEBUG_FUNC_NAME
     if (!newFlag_)
     {
-        if (dlProject_->requestMetadataReset())
+        if (requestMetadataReset())
         {
             defaults_2();
         }
@@ -219,7 +219,7 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
                 else
                 {
                     // load was unsuccessful
-                    WidgetUtils::warning(nullptr,
+                    WidgetUtils::warning(this,
                         tr("Load Metadata Error"),
                         tr("Unable to load the project <p>%1</p>")
                         .arg(QFileInfo(filename_).fileName()));
@@ -241,7 +241,7 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
         // file does not exist
         else
         {
-            filename_ = QString();
+            filename_.clear();
         }
     }
     // empty file name
@@ -263,7 +263,7 @@ void DlIniDialog::apply()
         if (!saveFile(filename_))
         {
             // error in saving file
-            WidgetUtils::warning(nullptr,
+            WidgetUtils::warning(this,
                                  tr("Save Metadata Error"),
                                  tr("%1 was unable to save <b>%2</b>")
                                  .arg(Defs::APP_NAME).arg(filename_));
@@ -290,14 +290,9 @@ void DlIniDialog::fileSaveAs()
 
     QString fname;
 
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
+    auto searchPath = WidgetUtils::getSearchPathHint();
 
-    QString filenameHint;
+    auto filenameHint = QString();
     if (dlProject_->filename().isEmpty())
     {
         filenameHint = searchPath;
@@ -336,7 +331,7 @@ void DlIniDialog::fileSaveAs()
         // overwrite?
         if (QFile::exists(fname))
         {
-            if (!WidgetUtils::okToOverwrite(fname)) { return; }
+            if (!WidgetUtils::okToOverwrite(this, fname)) { return; }
         }
 
         if (saveFile(fname))
@@ -350,7 +345,7 @@ void DlIniDialog::fileSaveAs()
         else
         {
             // error in saving
-            WidgetUtils::warning(nullptr,
+            WidgetUtils::warning(this,
                                  tr("Save Metadata Error"),
                                  tr("Unable to save <b>%1</b>")
                                  .arg(QFileInfo(filename_).fileName()));
@@ -377,4 +372,12 @@ void DlIniDialog::saveAvailable()
 void DlIniDialog::disableResetButton(bool ok)
 {
     resetButton->setDisabled(ok);
+}
+
+bool DlIniDialog::requestMetadataReset()
+{
+    return WidgetUtils::yesNoQuestion(this,
+                tr("Reset Metadata"),
+                tr("<p>Do you want to reset the current metadata values?</p>"),
+                tr("<p>You cannot undo this action.</p>"));
 }

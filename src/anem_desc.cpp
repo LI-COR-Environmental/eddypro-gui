@@ -34,7 +34,7 @@ const QString AnemDesc::getANEM_MANUFACTURER_STRING_0()
 
 const QString AnemDesc::getANEM_MANUFACTURER_STRING_1()
 {
-    static const QString s(QStringLiteral("Gill"));
+    static const auto s(QStringLiteral("Gill"));
     return s;
 }
 
@@ -275,16 +275,16 @@ bool AnemDesc::operator==(const AnemDesc& anem) const
              && (model_ == anem.model_)
              && (sn_ == anem.sn_)
              && (id_ == anem.id_)
-             && (height_ == anem.height_)
+             && qFuzzyCompare(height_, anem.height_)
              && (windFormat_ == anem.windFormat_)
              && (northAlignment_ == anem.northAlignment_)
-             && (northOffset_ == anem.northOffset_)
-             && (nSeparation_ == anem.nSeparation_)
-             && (eSeparation_ == anem.eSeparation_)
-             && (vSeparation_ == anem.vSeparation_)
-             && (vPathLength_ == anem.vPathLength_)
-             && (hPathLength_ == anem.hPathLength_)
-             && (tau_ == anem.tau_)
+             && qFuzzyCompare(northOffset_, anem.northOffset_)
+             && qFuzzyCompare(nSeparation_, anem.nSeparation_)
+             && qFuzzyCompare(eSeparation_, anem.eSeparation_)
+             && qFuzzyCompare(vSeparation_, anem.vSeparation_)
+             && qFuzzyCompare(vPathLength_, anem.vPathLength_)
+             && qFuzzyCompare(hPathLength_, anem.hPathLength_)
+             && qFuzzyCompare(tau_, anem.tau_)
              && (hasGoodWindComponents_ == anem.hasGoodWindComponents_)
              && (hasGoodTemp_ == anem.hasGoodTemp_));
 }

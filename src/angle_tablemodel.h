@@ -72,7 +72,6 @@ private:
     void pruneEmptyRows();
 
     QList<AngleItem> *angles_;
-    static int colorHueDecStep_;
     double offset_;
     bool skipPruning_;
 

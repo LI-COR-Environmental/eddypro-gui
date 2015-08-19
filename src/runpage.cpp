@@ -33,6 +33,8 @@
 #include <QTime>
 #include <QTimer>
 
+#include <cmath>
+
 #include "QProgressIndicator.h"
 
 #include "clicklabel.h"
@@ -85,6 +87,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     main_progress_bar = new QProgressBar;
     main_progress_bar->setMinimum(0);
     main_progress_bar->setMaximum(10);
+    main_progress_bar->setObjectName(QStringLiteral("mainProgress"));
 
     mini_progress_bar_ = new QProgressBar;
     mini_progress_bar_->setMinimum(0);
@@ -104,13 +107,16 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     errorEdit_->setObjectName(QStringLiteral("ErrorEdit"));
     errorEdit_->setReadOnly(true);
     errorEdit_->setCursorWidth(0);
-    errorEdit_->setText(QStringLiteral("No errors"));
     errorEdit_->setLineWrapMode(QTextEdit::NoWrap);
 
     open_output_dir = new QPushButton;
     open_output_dir->setText(tr("Open output directory"));
     open_output_dir->setProperty("commonButton2", true);
     open_output_dir->setMaximumWidth(200);
+
+    auto clearErrorEditButton = new QPushButton(tr("Clear"));
+    clearErrorEditButton->setProperty("mdButton", true);
+    clearErrorEditButton->setMaximumWidth(clearErrorEditButton->sizeHint().width());
 
     auto progressLayout = new QGridLayout;
     progressLayout->addWidget(runModeIcon_, 0, 0, 1, 1);
@@ -126,6 +132,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     progressLayout->addWidget(errorEdit_, 8, 1, 1, 2);
     progressLayout->addWidget(pauseResumeLabel_, 9, 1);
     progressLayout->addWidget(open_output_dir, 10, 1);
+    progressLayout->addWidget(clearErrorEditButton, 9, 2, Qt::AlignRight);
     progressLayout->setColumnStretch(2, 2);
     progressLayout->setRowStretch(8, 2);
     progressLayout->setRowStretch(11, 2);
@@ -142,7 +149,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     mainLayout->setContentsMargins(20, 15, 30, 0);
     mainLayout->setRowStretch(1, 0);
 
-    setLayout(progressLayout);
+    setLayout(mainLayout);
 
     connect(runModeIcon_, &ClickLabel::clicked,
             this, &RunPage::runModeIconClicked);
@@ -177,6 +184,9 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, open_output_lambda);
 
+    connect(clearErrorEditButton, &QPushButton::clicked,
+            errorEdit_, &QTextEdit::clear);
+
     QList<WidgetUtils::PropertyList> progressBarProp;
     progressBarProp << WidgetUtils::PropertyList("expRun", false)
                     << WidgetUtils::PropertyList("advRun", false)
@@ -188,7 +198,9 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
 RunPage::~RunPage()
 {
     if (pauseResumeDelayTimer_)
+    {
         delete pauseResumeDelayTimer_;
+    }
 }
 
 void RunPage::startRun(Defs::CurrRunStatus mode)
@@ -221,7 +233,6 @@ void RunPage::startRun(Defs::CurrRunStatus mode)
             progressText = tr("Initializing raw data processing...");
 
             errorEdit_->clear();
-            errorEdit_->setText(QStringLiteral("No errors."));
 
             break;
         }
@@ -243,7 +254,6 @@ void RunPage::startRun(Defs::CurrRunStatus mode)
             progressText = tr("Initializing raw data processing...");
 
             errorEdit_->clear();
-            errorEdit_->setText(QStringLiteral("No errors."));
 
             break;
         }
@@ -284,12 +294,11 @@ void RunPage::startRun(Defs::CurrRunStatus mode)
             progressText = tr("Initializing metadata retriever...");
 
             errorEdit_->clear();
-            errorEdit_->setText(QStringLiteral("No errors."));
 
             break;
         }
-        default:
-            break;
+//    default:
+//        break;
     }
 
     WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
@@ -345,8 +354,8 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
                              << WidgetUtils::PropertyList("resumeRetButton", true);
                 break;
             }
-            default:
-                break;
+//    default:
+//        break;
         }
 
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
@@ -410,8 +419,8 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
                              << WidgetUtils::PropertyList("resumeRetButton", false);
                 break;
             }
-            default:
-                break;
+//    default:
+//        break;
         }
 
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
@@ -518,7 +527,7 @@ bool RunPage::filterData(const QByteArray& data)
 {
     if (inPlanarFit_ or inTimeLag_)
     {
-        return data.contains(QByteArray("another small step"));
+        return data.contains(QByteArrayLiteral("another small step"));
     }
     return false;
 }
@@ -572,21 +581,20 @@ void RunPage::bufferData(QByteArray &data)
 QByteArray RunPage::cleanupEngineOutput(QByteArray data)
 {
     DEBUG_FUNC_NAME
-    if (data.contains(QByteArray("of file C:")))
+    if (data.contains(QByteArrayLiteral("of file Z:")))
     {
         // cleanup file path in case of fortan runtime error
         qDebug() << "data before" << data;
-        data = data.mid(0, data.indexOf("C:")) + data.mid(data.lastIndexOf("\\") + 1);
+        data = data.mid(0, data.indexOf("Z:")) + data.mid(data.lastIndexOf("\\") + 1);
         qDebug() << "data after" << data;
     }
-    else if (data == QByteArray(" "))
+    else if (data == QByteArrayLiteral(" ")
+             || data.contains(QByteArrayLiteral("STOP"))
+             || data.contains(QByteArrayLiteral("Note: The following floating-point exceptions")))
     {
         data = QByteArray();
     }
-    else if (data.contains(QByteArray("STOP")))
-    {
-        data = QByteArray();
-    }
+
     return data;
 }
 
@@ -603,13 +611,12 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     static int meanProcessingTimeMSec = 0;
     static int elapsedTimeMSec = 0;
     static int estimatedTimeToCompletionMSec = 0;
-    static int previous_elapsed_time = 0;
-    int current_step_elapsed_time = 0;
+
+    static qint64 previous_elapsed_time = 0;
+    qint64 current_step_elapsed_time = 0;
 
     static QString fromStr;
     static QString toStr;
-
-    static QByteArray previousTag = QByteArray();
 
     QString elapsedTimeMSecStr; // just for debug
 
@@ -628,7 +635,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #endif
 
     // start preamble
-    if (cleanLine.contains(QByteArray("Executing EddyPro")))
+    if (cleanLine.contains(QByteArrayLiteral("Executing EddyPro")))
     {
         total_elapsed_update_timer_->start();
 
@@ -654,7 +661,6 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         fromStr.clear();
         toStr.clear();
-        previousTag.clear();
 
         inCycle = false;
         inPlanarFit_ = false;
@@ -669,7 +675,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         endl(out);
         out << "Executing EddyPro";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << processingTimeMSec << " "
@@ -682,49 +688,49 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #endif
         return;
     }
-    if (cleanLine.contains(QByteArray("Reading EddyPro project file")))
+    if (cleanLine.contains(QByteArrayLiteral("Reading EddyPro project file")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Retrieving file")))
+    if (cleanLine.contains(QByteArrayLiteral("Retrieving file")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("names from directory")))
+    if (cleanLine.contains(QByteArrayLiteral("names from directory")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Retrieving timestamps")))
+    if (cleanLine.contains(QByteArrayLiteral("Retrieving timestamps")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("from file names")))
+    if (cleanLine.contains(QByteArrayLiteral("from file names")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Arranging raw files")))
+    if (cleanLine.contains(QByteArrayLiteral("Arranging raw files")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("in chronological order")))
+    if (cleanLine.contains(QByteArrayLiteral("in chronological order")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating master time series")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating master time series")))
     {
         main_progress_bar->setValue(main_progress_bar->maximum());
         qDebug() << "progressValue_" << progressValue_;
@@ -732,7 +738,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #ifdef QT_DEBUG
         out << "Creating master time series";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << "x "
@@ -748,7 +754,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end preamble
 
     // start planar fit
-    if (cleanLine.contains(QByteArray("Performing planar-fit assessment")))
+    if (cleanLine.contains(QByteArrayLiteral("Performing planar-fit assessment")))
     {
         inPlanarFit_ = true;
         progressLabel_->setText(tr("Performing planar-fit assessment..."));
@@ -768,10 +774,12 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         main_progress_timer_.restart(); // restart to measure planar fit run time
 
+        errorEdit_->append(QStringLiteral("Performing planar-fit assessment"));
+
         return;
     }
     // valid for both planar fit and time lag
-    if (cleanLine.contains(QByteArray("Maximum number of flux averaging periods available")))
+    if (cleanLine.contains(QByteArrayLiteral("Maximum number of flux averaging periods available")))
     {
         QString numStr = QLatin1String(cleanLine.trimmed().split(':').last().trimmed().constData());
         qDebug() << "numStr: " << numStr;
@@ -779,20 +787,17 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         main_progress_bar->setMaximum(totalAveragingPeriods);
         return;
     }
-    if (cleanLine.contains(QByteArray("Importing wind data for")))
+    if (cleanLine.contains(QByteArrayLiteral("Importing wind data for")))
     {
         QString dateStr = QLatin1String(cleanLine.mid(25).constData());
         currentPlanarFitDate = QDate::fromString(dateStr.trimmed(),
                                                  QStringLiteral("dd MMMM yyyy"));
         qDebug() << "currentPlanarFitDate: " << currentPlanarFitDate;
 
-//        main_progress_bar->setValue(++progressValue_);
-//        qDebug() << "progressValue_" << progressValue_;
-
         fileProgressLabel_->setText(QStringLiteral("Importing wind data"));
         return;
     }
-    if (cleanLine.contains(QByteArray("another small step to the planar-fit")))
+    if (cleanLine.contains(QByteArrayLiteral("another small step to the planar-fit")))
     {
         auto timeStr = QLatin1String(cleanLine.trimmed().split(' ')
                                      .last().trimmed().constData());
@@ -812,6 +817,9 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
                             .arg(fromStr)
                             .arg(toStr));
+        auto avgPeriod = avgPeriodLabel_->text();
+        errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
+                                    .append(QStringLiteral("</font>")));
 
         ++averagingPeriodIndex;
 
@@ -821,7 +829,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         // ETC computation
         current_step_elapsed_time = main_progress_timer_.elapsed();
-        processingTimeMSec = current_step_elapsed_time - previous_elapsed_time;
+        processingTimeMSec = static_cast<int>(current_step_elapsed_time - previous_elapsed_time);
 
         estimatedTimeToCompletionMSec = updateETC(&meanProcessingTimeMSec, processingTimeMSec,
                                                   averagingPeriodIndex, totalAveragingPeriods);
@@ -848,17 +856,17 @@ void RunPage::parseEngineOutput(const QByteArray &data)
                                     .replace(61, 12, estimatedTimeToCompletionMSecStr));
         return;
     }
-    if (cleanLine.contains(QByteArray("Sorting wind data by sector")))
+    if (cleanLine.contains(QByteArrayLiteral("Sorting wind data by sector")))
     {
         fileProgressLabel_->setText(QStringLiteral("Sorting wind data by sector"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating planar fit rotation matrices")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating planar fit rotation matrices")))
     {
         fileProgressLabel_->setText(QStringLiteral("Calculating planar fit rotation matrices"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Planar Fit session terminated")))
+    if (cleanLine.contains(QByteArrayLiteral("Planar Fit session terminated")))
     {
         inPlanarFit_ = false;
         main_progress_bar->setValue(main_progress_bar->maximum());
@@ -869,7 +877,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end planar fit
 
     // start time lag
-    if (cleanLine.contains(QByteArray("Performing time-lag optimization")))
+    if (cleanLine.contains(QByteArrayLiteral("Performing time-lag optimization")))
     {
         inTimeLag_ = true;
         progressLabel_->setText(tr("Performing time-lag optimization..."));
@@ -889,22 +897,21 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         main_progress_timer_.restart(); // restart to measure time lag run time
 
+        errorEdit_->append(QStringLiteral("Performing time-lag optimization"));
+
         return;
     }
-    if (cleanLine.contains(QByteArray("Importing data for")))
+    if (cleanLine.contains(QByteArrayLiteral("Importing data for")))
     {
         QString dateStr = QLatin1String(cleanLine.mid(21).constData());
         currentTimeLagDate = QDate::fromString(dateStr.trimmed(),
                                                  QStringLiteral("dd MMMM yyyy"));
         qDebug() << "currentTimeLagDate: " << currentTimeLagDate;
 
-//        main_progress_bar->setValue(++progressValue_);
-//        qDebug() << "progressValue_" << progressValue_;
-
         fileProgressLabel_->setText(QStringLiteral("Importing data"));
         return;
     }
-    if (cleanLine.contains(QByteArray("another small step to the time-lag")))
+    if (cleanLine.contains(QByteArrayLiteral("another small step to the time-lag")))
     {
         auto timeStr = QLatin1String(cleanLine.trimmed().split(' ')
                                      .last().trimmed().constData());
@@ -914,7 +921,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         qDebug() << "currentTimeLagTime: " << currentTimeLagTime;
 
         QDateTime fromDate(currentTimeLagDate, currentTimeLagTime
-                      .addSecs(-ecProject_->screenAvrgLen() * 60));
+                           .addSecs(-ecProject_->screenAvrgLen() * 60));
         fromStr = fromDate.toString(Qt::ISODate).replace(QLatin1String("T"), QLatin1String(" "));
         QDateTime toDate(currentTimeLagDate, currentTimeLagTime);
         toStr = toDate.toString(Qt::ISODate);
@@ -924,6 +931,9 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
                             .arg(fromStr)
                             .arg(toStr));
+        auto avgPeriod = avgPeriodLabel_->text();
+        errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
+                                    .append(QStringLiteral("</font>")));
 
         ++averagingPeriodIndex;
 
@@ -933,7 +943,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         // ETC computation
         current_step_elapsed_time = main_progress_timer_.elapsed();
-        processingTimeMSec = current_step_elapsed_time - previous_elapsed_time;
+        processingTimeMSec = static_cast<int>(current_step_elapsed_time - previous_elapsed_time);
 
         estimatedTimeToCompletionMSec = updateETC(&meanProcessingTimeMSec, processingTimeMSec,
                                                   averagingPeriodIndex, totalAveragingPeriods);
@@ -960,7 +970,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
                                     .replace(61, 12, estimatedTimeToCompletionMSecStr));
         return;
     }
-    if (cleanLine.contains(QByteArray("Time lag optimization session terminated")))
+    if (cleanLine.contains(QByteArrayLiteral("Time lag optimization session terminated")))
     {
         inTimeLag_ = false;
         main_progress_bar->setValue(main_progress_bar->maximum());
@@ -971,12 +981,14 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end time lag
 
     // start raw data processing
-    if (cleanLine.contains(QByteArray("Start raw data processing")))
+    if (cleanLine.contains(QByteArrayLiteral("Start raw data processing")))
     {
         inCycle = true;
         progressLabel_->setText(tr("Processing raw data..."));
 
         main_progress_timer_.restart(); // restart to measure main cycle run time
+
+        errorEdit_->append(QStringLiteral("Start raw data processing"));
 
         // re-init
         averagingPeriodIndex = 0;
@@ -994,7 +1006,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #ifdef QT_DEBUG
         out << "Start raw data processing";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << "x "
@@ -1007,19 +1019,27 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #endif
         return;
     }
-    if (cleanLine.contains(QByteArray("From:")))
+    if (cleanLine.contains(QByteArrayLiteral("From:")))
     {
         fromStr = QLatin1String(cleanLine.mid(7, 16).constData());
         qDebug() << "fromStr: " << fromStr;
         return;
     }
-    if (cleanLine.contains(QByteArray("To:")))
+    if (cleanLine.contains(QByteArrayLiteral("To:")))
     {
         toStr = QLatin1String(cleanLine.mid(7, 16).constData());
         qDebug() << "toStr: " << toStr;
+
+        avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
+                            .arg(fromStr)
+                            .arg(toStr));
+        auto avgPeriod = avgPeriodLabel_->text();
+        errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
+                                    .append(QStringLiteral("</font>")));
+
         return;
     }
-    if (cleanLine.contains(QByteArray("Total number of flux averaging periods")))
+    if (cleanLine.contains(QByteArrayLiteral("Total number of flux averaging periods")))
     {
         totalAveragingPeriods = cleanLine.trimmed().trimmed().split(':').last().trimmed().toInt();
         qDebug() << "totalRuns" << totalAveragingPeriods;
@@ -1027,7 +1047,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
     // start processing cycle
-    if (cleanLine.contains(QByteArray("processing new flux averaging period")))
+    if (cleanLine.contains(QByteArrayLiteral("processing new flux averaging period")))
     {
         ++averagingPeriodIndex;
         main_progress_bar->setValue(++progressValue_);
@@ -1036,7 +1056,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #ifdef QT_DEBUG
         out << ">> Processing new flux averaging period";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << "x "
@@ -1053,7 +1073,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
 
-    if (cleanLine.contains(QByteArray("File(s): ..")))
+    if (cleanLine.contains(QByteArrayLiteral("File(s): ..")))
     {
         qDebug() << "fromToStr: " << fromStr << toStr;
         qDebug() << "averagingPeriodIndex: " << averagingPeriodIndex;
@@ -1061,6 +1081,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
                             .arg(fromStr)
                             .arg(toStr));
+
         fileProgressLabel_->setText(tr("Parsing file"));
 
         currentFileList.append(QLatin1String(cleanLine.trimmed().split('\\')
@@ -1070,7 +1091,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
 
-    if (cleanLine.contains((QByteArray("Skipping to next averaging period"))))
+    if (cleanLine.contains((QByteArrayLiteral("Skipping to next averaging period"))))
     {
         qDebug() << "fromToStr: " << fromStr << toStr;
         qDebug() << "averagingPeriodIndex: " << averagingPeriodIndex;
@@ -1078,6 +1099,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
                             .arg(fromStr)
                             .arg(toStr));
+
 #ifdef QT_DEBUG
         out << "Skipping to next averaging period";
         endl(out);
@@ -1085,14 +1107,14 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
 
-    if (cleanLine.contains(QByteArray("..\\")))
+    if (cleanLine.contains(QByteArrayLiteral("..\\")))
     {
         currentFileList.append(QLatin1String(cleanLine.trimmed().split('\\')
                                              .last().trimmed().constData()));
         return;
     }
 
-    if (cleanLine.contains(QByteArray("Number of samples")))
+    if (cleanLine.contains(QByteArrayLiteral("Number of samples")))
     {
         qDebug() << "progressValue_" << progressValue_;
         mini_progress_bar_->setValue(2);
@@ -1102,38 +1124,38 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
 
-    if (cleanLine.contains(QByteArray("Calculating statistics..")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating statistics..")))
     {
         mini_progress_bar_->setValue(3);
         fileProgressLabel_->setText(tr("Calculating statistics"));
 
         return;
     }
-    if (cleanLine.contains(QByteArray("Raw level statistical screening")))
+    if (cleanLine.contains(QByteArrayLiteral("Raw level statistical screening")))
     {
         mini_progress_bar_->setValue(4);
         fileProgressLabel_->setText(tr("Raw level statistical screening"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Spike detection/removal test")))
+    if (cleanLine.contains(QByteArrayLiteral("Spike detection/removal test")))
     {
         mini_progress_bar_->setValue(5);
         fileProgressLabel_->setText(tr("Spike detection/removal"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Spike detection/removal test")))
+    if (cleanLine.contains(QByteArrayLiteral("Spike detection/removal test")))
     {
         mini_progress_bar_->setValue(6);
         fileProgressLabel_->setText(tr("Spike detection/removal test"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Absolute limits test")))
+    if (cleanLine.contains(QByteArrayLiteral("Absolute limits test")))
     {
         mini_progress_bar_->setValue(7);
         fileProgressLabel_->setText(tr("Absolute limits test"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Skewness & kurtosis test")))
+    if (cleanLine.contains(QByteArrayLiteral("Skewness & kurtosis test")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
@@ -1142,49 +1164,49 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         fileProgressLabel_->setText(tr("Skewness & kurtosis test"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Despiking user set")))
+    if (cleanLine.contains(QByteArrayLiteral("Despiking user set")))
     {
         mini_progress_bar_->setValue(9);
         fileProgressLabel_->setText(tr("Despiking user set"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Cross-wind correction")))
+    if (cleanLine.contains(QByteArrayLiteral("Cross-wind correction")))
     {
         mini_progress_bar_->setValue(10);
         fileProgressLabel_->setText(tr("Cross-wind correction"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Converting into mixing ratio")))
+    if (cleanLine.contains(QByteArrayLiteral("Converting into mixing ratio")))
     {
         mini_progress_bar_->setValue(11);
         fileProgressLabel_->setText(tr("Converting into mixing ratio"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Performing tilt correction")))
+    if (cleanLine.contains(QByteArrayLiteral("Performing tilt correction")))
     {
         mini_progress_bar_->setValue(12);
         fileProgressLabel_->setText(tr("Performing tilt correction"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Compensating time lags")))
+    if (cleanLine.contains(QByteArrayLiteral("Compensating time lags")))
     {
         mini_progress_bar_->setValue(13);
         fileProgressLabel_->setText(tr("Compensating time lags"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Compensating user variables")))
+    if (cleanLine.contains(QByteArrayLiteral("Compensating user variables")))
     {
         mini_progress_bar_->setValue(14);
         fileProgressLabel_->setText(tr("Compensating user variables"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Performing stationarity test")))
+    if (cleanLine.contains(QByteArrayLiteral("Performing stationarity test")))
     {
         mini_progress_bar_->setValue(15);
         fileProgressLabel_->setText(tr("Performing stationarity test"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Detrending")))
+    if (cleanLine.contains(QByteArrayLiteral("Detrending")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
@@ -1193,55 +1215,55 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         fileProgressLabel_->setText(tr("Detrending"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating (co)spectra")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating (co)spectra")))
     {
         mini_progress_bar_->setValue(17);
         fileProgressLabel_->setText(tr("Calculating (co)spectra"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Tapering timeseries")))
+    if (cleanLine.contains(QByteArrayLiteral("Tapering timeseries")))
     {
         mini_progress_bar_->setValue(18);
         fileProgressLabel_->setText(tr("Tapering timeseries"));
         return;
     }
-    if (cleanLine.contains(QByteArray("FFT-ing")))
+    if (cleanLine.contains(QByteArrayLiteral("FFT-ing")))
     {
         mini_progress_bar_->setValue(19);
         fileProgressLabel_->setText(tr("FFT-ing"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Cospectral densities")))
+    if (cleanLine.contains(QByteArrayLiteral("Cospectral densities")))
     {
         mini_progress_bar_->setValue(20);
         fileProgressLabel_->setText(tr("Cospectral densities"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating fluxes Level 0")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating fluxes Level 0")))
     {
         mini_progress_bar_->setValue(21);
         fileProgressLabel_->setText(tr("Calculating fluxes Level 0"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating fluxes Level 1")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating fluxes Level 1")))
     {
         mini_progress_bar_->setValue(22);
         fileProgressLabel_->setText(tr("Calculating fluxes Level 1"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating fluxes Level 2")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating fluxes Level 2")))
     {
         mini_progress_bar_->setValue(23);
         fileProgressLabel_->setText(tr("Calculating fluxes Level 2 and 3"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Estimating footprint")))
+    if (cleanLine.contains(QByteArrayLiteral("Estimating footprint")))
     {
         mini_progress_bar_->setValue(24);
         fileProgressLabel_->setText(tr("Estimating footprint"));
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating quality flags")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating quality flags")))
     {
         mini_progress_bar_->setValue(mini_progress_bar_->maximum());
         fileProgressLabel_->setText(tr("Calculating quality flags"));
@@ -1249,7 +1271,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     }
 
     // end processing cycle
-    if (cleanLine.contains(QByteArray("Flux averaging period processing time")))
+    if (cleanLine.contains(QByteArrayLiteral("Flux averaging period processing time")))
     {
         // ETC computation
         auto procTimeString = QLatin1String(cleanLine.trimmed().split(' ')
@@ -1258,8 +1280,13 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         auto procTime = QTime::fromString(procTimeString, QStringLiteral("h:mm:ss.zzz"));
         processingTimeMSec = QTime(0, 0).msecsTo(procTime);
 
-        estimatedTimeToCompletionMSec = updateETC(&meanProcessingTimeMSec, processingTimeMSec,
-                                                  averagingPeriodIndex, totalAveragingPeriods);
+        // prevent division by zero
+        if (averagingPeriodIndex == 0) ++averagingPeriodIndex;
+
+        estimatedTimeToCompletionMSec = updateETC(&meanProcessingTimeMSec,
+                                                  processingTimeMSec,
+                                                  averagingPeriodIndex,
+                                                  totalAveragingPeriods);
 
         auto estimatedTimeToCompletionMSecStr = QTime(0, 0)
                             .addMSecs(estimatedTimeToCompletionMSec)
@@ -1293,14 +1320,24 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
     // end raw data processing
-    if (cleanLine.contains(QByteArray("Raw data processing terminated")))
+    if (cleanLine.contains(QByteArrayLiteral("Raw data processing terminated")))
     {
         inCycle = false;
+
+        errorEdit_->append(QStringLiteral("Raw data processing terminated"));
+
+        return;
+    }
+    if (cleanLine.contains(QByteArrayLiteral("Essentials file path:")))
+    {
+        QString ex_file_path_ = QLatin1String(cleanLine.trimmed().split(':')
+                                            .last().trimmed().constData());
+        ecProject_->setSpectraExFile(ex_file_path_);
         return;
     }
 
     // start flux computation
-    if (cleanLine.contains(QByteArray("Starting flux computation and correction")))
+    if (cleanLine.contains(QByteArrayLiteral("Starting flux computation and correction")))
     {
         progressLabel_->setText(tr("Starting flux computation and correction..."));
         resetProgressSoft();
@@ -1308,13 +1345,13 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Initializing retrieval of EddyPro-RP results")))
+    if (cleanLine.contains(QByteArrayLiteral("Initializing retrieval of EddyPro-RP results")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("File found, importing content")))
+    if (cleanLine.contains(QByteArrayLiteral("File found, importing content")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
@@ -1323,7 +1360,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end flux computation
 
     // start spectral corrections
-    if (cleanLine.contains(QByteArray("Starting Spectral Assessment")))
+    if (cleanLine.contains(QByteArrayLiteral("Starting Spectral Assessment")))
     {
 //        resetTimeEstimateLabels();
         progressLabel_->setText(tr("Performing spectral assessment..."));
@@ -1333,37 +1370,37 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         resetProgressSoft();
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
-        main_progress_bar->setMaximum(dStart.daysTo(dEnd) + 1);
+        main_progress_bar->setMaximum(static_cast<int>(dStart.daysTo(dEnd)) + 1);
         return;
     }
-    if (cleanLine.contains(QByteArray("Importing binned spectra for")))
+    if (cleanLine.contains(QByteArrayLiteral("Importing binned (co)spectra for")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         avgPeriodLabel_->setText(QLatin1String(cleanLine.trimmed().constData()));
         return;
     }
-    if (cleanLine.contains(QByteArray("Fitting model")))
+    if (cleanLine.contains(QByteArrayLiteral("Fitting model")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         avgPeriodLabel_->setText(QLatin1String(cleanLine.trimmed().constData()));
         return;
     }
-    if (cleanLine.contains(QByteArray("Sorting")))
+    if (cleanLine.contains(QByteArrayLiteral("Sorting")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         avgPeriodLabel_->setText(QLatin1String(cleanLine.trimmed().constData()));
         return;
     }
-    if (cleanLine.contains(QByteArray("Spectral Assessment session terminated")))
+    if (cleanLine.contains(QByteArrayLiteral("Spectral Assessment session terminated")))
     {
         main_progress_bar->setValue(main_progress_bar->maximum());
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Calculating fluxes for:")))
+    if (cleanLine.contains(QByteArrayLiteral("Calculating fluxes for:")))
     {
         resetProgressSoft();
         main_progress_bar->setValue(++progressValue_);
@@ -1373,7 +1410,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // start spectral corrections
 
     // start finalizing output files
-    if (cleanLine.contains(QByteArray("Raw data processing terminated. "
+    if (cleanLine.contains(QByteArrayLiteral("Raw data processing terminated. "
                                       "Creating continuous datasets if necessary")))
     {
 //        resetTimeEstimateLabels();
@@ -1413,7 +1450,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #ifdef QT_DEBUG
         out << "Raw data processing terminated";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << "x "
@@ -1426,43 +1463,43 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #endif
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating Full Output dataset")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating Full Output dataset")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating GHG-EUROPE-style dataset")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating GHG-EUROPE-style dataset")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating Metadata dataset")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating Metadata dataset")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating Level")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating Level")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Creating Biomet dataset")))
+    if (cleanLine.contains(QByteArrayLiteral("Creating Biomet dataset")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Closing COMMON output files")))
+    if (cleanLine.contains(QByteArrayLiteral("Closing COMMON output files")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
         return;
     }
-    if (cleanLine.contains(QByteArray("Closing RP output files")))
+    if (cleanLine.contains(QByteArrayLiteral("Closing RP output files")))
     {
         main_progress_bar->setValue(++progressValue_);
         qDebug() << "progressValue_" << progressValue_;
@@ -1470,7 +1507,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 #ifdef QT_DEBUG
         out << "Closing RP output files";
         endl(out);
-        elapsedTimeMSecStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+        elapsedTimeMSecStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                     .toString(QStringLiteral("hh:mm:ss.zzz"));
         out << averagingPeriodIndex << " "
             << "x "
@@ -1486,7 +1523,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end finalizing output files
 
     // engine run possible endings
-    if (cleanLine.contains(QByteArray("gracefully")))
+    if (cleanLine.contains(QByteArrayLiteral("gracefully")))
     {
         main_progress_bar->setValue(main_progress_bar->maximum());
         progressWidget_->stopAnimation();
@@ -1496,91 +1533,79 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         return;
     }
 
-    if (cleanLine.contains(QByteArray("At line"))
-        || cleanLine.contains(QByteArray("Fortran runtime error")))
+    if (cleanLine.contains(QByteArrayLiteral("At line"))
+        || cleanLine.contains(QByteArrayLiteral("Fortran runtime error")))
     {
         cleanLine.prepend("Critical> ");
     }
 
     qDebug() << "cleanline" << cleanLine.trimmed().constData();
-    if (cleanLine.contains(QByteArray("Alert"))
-        || cleanLine.contains(QByteArray("Warning"))
-        || cleanLine.contains(QByteArray("Error"))
+    if (cleanLine.contains(QByteArrayLiteral("Alert"))
+        || cleanLine.contains(QByteArrayLiteral("Warning"))
+        || cleanLine.contains(QByteArrayLiteral("Error"))
         // runtime errors
-        || cleanLine.contains(QByteArray("Critical"))
-        || cleanLine.contains(QByteArray("Fatal error")))
+        || cleanLine.contains(QByteArrayLiteral("Critical"))
+        || cleanLine.contains(QByteArrayLiteral("Fatal error")))
     {
         // color the labels
         auto tag = cleanLine.mid(0, cleanLine.indexOf('>') + 1);
         qDebug() << "tag" << tag;
 
         auto htmlTag = tag;
-        htmlTag.append(QByteArray("</font></b>"));
+        htmlTag.append(QByteArrayLiteral("</font>"));
         qDebug() << "htmlTag" << htmlTag;
 
-        if (cleanLine.contains(QByteArray("Alert"))
-            && cleanLine.contains(QByteArray("Error")))
+        if (cleanLine.contains(QByteArrayLiteral("Alert"))
+            && cleanLine.contains(QByteArrayLiteral("Error")))
         {
             // blue
-            cleanLine.replace(tag, htmlTag.prepend(QByteArray("<b><font color=\"#0066FF\">")));
+            cleanLine.replace(tag, htmlTag.prepend(QByteArrayLiteral("<font color=\"#0066FF\">")));
 
             goto SKIP;
         }
-        if (cleanLine.contains(QByteArray("Alert")))
+        if (cleanLine.contains(QByteArrayLiteral("Alert")))
         {
             // blue
-            cleanLine.replace(tag, htmlTag.prepend(QByteArray("<b><font color=\"#0066FF\">")));
+            cleanLine.replace(tag, htmlTag.prepend(QByteArrayLiteral("<font color=\"#0066FF\">")));
         }
-        if (cleanLine.contains(QByteArray("Warning")))
+        if (cleanLine.contains(QByteArrayLiteral("Warning")))
         {
+            if (cleanLine.contains(QByteArrayLiteral("(80)"))
+                || cleanLine.contains(QByteArrayLiteral("(81)"))
+                || cleanLine.contains(QByteArrayLiteral("(82)"))
+                || cleanLine.contains(QByteArrayLiteral("(83)"))
+                || cleanLine.contains(QByteArrayLiteral("(84)"))
+                || cleanLine.contains(QByteArrayLiteral("(85)")))
+            {
+                cleanLine.clear();
+            }
+
             // yellow
-            cleanLine.replace(tag, htmlTag.prepend(QByteArray("<b><font color=\"#FFFF00\">")));
+            cleanLine.replace(tag, htmlTag.prepend(QByteArrayLiteral("<font color=\"#FFFF00\">")));
         }
-        if (cleanLine.contains(QByteArray("Error")))
+        if (cleanLine.contains(QByteArrayLiteral("Error")))
         {
             // orange
-            cleanLine.replace(tag, htmlTag.prepend(QByteArray("<b><font color=\"#FF9900\">")));
+            cleanLine.replace(tag, htmlTag.prepend(QByteArrayLiteral("<font color=\"#FF9900\">")));
         }
-        if (cleanLine.contains(QByteArray("Critical"))
-            || cleanLine.contains(QByteArray("Fatal error"))
-            || cleanLine.contains(QByteArray("At line"))
-            || cleanLine.contains(QByteArray("Fortran runtime error")))
+        if (cleanLine.contains(QByteArrayLiteral("Critical"))
+            || cleanLine.contains(QByteArrayLiteral("Fatal error"))
+            || cleanLine.contains(QByteArrayLiteral("At line"))
+            || cleanLine.contains(QByteArrayLiteral("Fortran runtime error")))
         {
             // red
-            cleanLine.replace(tag, htmlTag.prepend(QByteArray("<b><font color=\"#FF3300\">")));
+            cleanLine.replace(tag, htmlTag.prepend(QByteArrayLiteral("<font color=\"#FF3300\">")));
             qDebug() << "replace tag" << tag;
         }
 SKIP:
-        // clear 'no error' string and append error msg
-        if (errorEdit_->find(QStringLiteral("No errors")))
+        QString clearedStr = QLatin1String(cleanLine.trimmed().constData());
+        if (!clearedStr.isEmpty())
         {
-            errorEdit_->clear();
+            errorEdit_->append(clearedStr);
         }
 
-        qDebug() << "tags: current, previous" << tag << previousTag;
-        if (tag != previousTag)
-        {
-            if (!previousTag.isEmpty())
-            {
-                auto avgPeriod = avgPeriodLabel_->text();
-                if (avgPeriod.startsWith(tr("Averaging interval")))
-                {
-                    errorEdit_->append(QStringLiteral(" "));
-                    errorEdit_->append(avgPeriodLabel_->text());
-                    qDebug() << "avgPeriodLabel_->text()" << avgPeriodLabel_->text();
-                    qDebug() << "append avgPeriod";
-                }
-            }
-
-            previousTag = tag;
-        }
-
-        qDebug() << "tag" << tag;
-        qDebug() << "cleanline to errorEdit" << cleanLine.trimmed().constData();
-        errorEdit_->append(QLatin1String(cleanLine.trimmed().constData()));
-
-        if (cleanLine.contains(QByteArray("Fatal"))
-            || cleanLine.contains(QByteArray("aborted")))
+        if (cleanLine.contains(QByteArrayLiteral("Fatal"))
+            || cleanLine.contains(QByteArrayLiteral("aborted")))
         {
             stopRun();
             averagingPeriodIndex = 0;
@@ -1592,21 +1617,7 @@ SKIP:
 
 void RunPage::runModeIconClicked()
 {
-    switch (runMode_)
-    {
-    case Defs::CurrRunStatus::Express:
-        emit runExpRequest();
-        break;
-    case Defs::CurrRunStatus::Advanced_RP:
-    case Defs::CurrRunStatus::Advanced_FCC:
-        emit runAdvRequest();
-        break;
-    case Defs::CurrRunStatus::Retriever:
-        emit runRetRequest();
-        break;
-    default:
-        break;
-    }
+    emit pauseRequest(runMode_);
 }
 
 void RunPage::updateSmartfluxBar()
@@ -1617,7 +1628,7 @@ void RunPage::updateSmartfluxBar()
 void RunPage::updateElapsedTime()
 {
     DEBUG_FUNC_NAME
-    QString elapsedTimeStr = QTime(0, 0).addMSecs(overall_progress_timer_.elapsed())
+    QString elapsedTimeStr = QTime(0, 0).addMSecs(static_cast<int>(overall_progress_timer_.elapsed()))
                                         .toString(QStringLiteral("hh:mm:ss"));
     timeEstimateLabels_->setText(timeEstimateLabels_->text().replace(20, 8, elapsedTimeStr));
 }
@@ -1628,8 +1639,12 @@ void RunPage::updateMiniProgress()
 {
     if (inPlanarFit_ or inTimeLag_)
     {
+        // prevent division by zero in case of 'File as is' averaging period
+        auto avrgPeriod = ecProject_->screenAvrgLen();
+        if (avrgPeriod == 0) ++avrgPeriod;
+
         // factor to scale speed of progression in respect of the standard 30 minutes
-        int progressFactor = round(7 * 30 / ecProject_->screenAvrgLen());
+        int progressFactor = static_cast<int>(lround(7.0 * 30.0 / avrgPeriod));
 
         WidgetUtils::setProgressValue(mini_progress_bar_,
                                       mini_progress_bar_->value() + progressFactor);
@@ -1639,7 +1654,9 @@ void RunPage::updateMiniProgress()
 // Return ETC (Estimated Time to Completion) in msec and update the running average
 // of the processing time using a Simple Moving Average
 int RunPage::updateETC(int* mean_processing_time,
-                       const int current_processing_time, const int index, const int num_steps)
+                       const int current_processing_time,
+                       const int index,
+                       const int num_steps)
 {
     qDebug() << "mean_processing_time" << *mean_processing_time
              << "current_processing_time" << current_processing_time
@@ -1647,7 +1664,6 @@ int RunPage::updateETC(int* mean_processing_time,
              << "num_steps" << num_steps;
 
     Q_ASSERT(index != 0);
-//    if (index == 0) ++index;
 
     if (index == 1)
     {

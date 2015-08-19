@@ -146,7 +146,6 @@ IrgaDesc::IrgaDesc() :
     swVersion_(QString()),
     sn_(QString()),
     id_(QString()),
-//    height_(0.1),
     tubeLength_(0.0),
     tubeDiameter_(0.0),
     tubeFlowRate_(0.0),
@@ -164,7 +163,6 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
                    const QString& model,
                    const QString& swVersion,
                    const QString& id,
-//                   qreal height,
                    qreal tubeLength,
                    qreal tubeDiameter,
                    qreal tubeFlowRate,
@@ -180,7 +178,6 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
     model_(model),
     swVersion_(swVersion),
     id_(id),
-//    height_(height),
     tubeLength_(tubeLength),
     tubeDiameter_(tubeDiameter),
     tubeFlowRate_(tubeFlowRate),
@@ -202,7 +199,6 @@ IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     swVersion_(irga.swVersion_),
     sn_(irga.sn_),
     id_(irga.id_),
-//    height_(irga.height_),
     tubeLength_(irga.tubeLength_),
     tubeDiameter_(irga.tubeDiameter_),
     tubeFlowRate_(irga.tubeFlowRate_),
@@ -225,7 +221,6 @@ IrgaDesc& IrgaDesc::operator=(const IrgaDesc& irga)
         swVersion_ = irga.swVersion_;
         sn_ = irga.sn_;
         id_ = irga.id_;
-//        height_ = irga.height_;
         tubeLength_ = irga.tubeLength_;
         tubeDiameter_ = irga.tubeDiameter_;
         tubeFlowRate_ = irga.tubeFlowRate_;
@@ -248,18 +243,17 @@ bool IrgaDesc::operator==(const IrgaDesc& irga) const
             && (swVersion_ == irga.swVersion_)
             && (sn_ == irga.sn_)
             && (id_ == irga.id_)
-//            && (height_ == irga.height_)
-            && (tubeLength_ == irga.tubeLength_)
-            && (tubeDiameter_ == irga.tubeDiameter_)
-            && (tubeFlowRate_ == irga.tubeFlowRate_)
-            && (nSeparation_ == irga.nSeparation_)
-            && (eSeparation_ == irga.eSeparation_)
-            && (vSeparation_ == irga.vSeparation_)
-            && (vPathLength_ == irga.vPathLength_)
-            && (hPathLength_ == irga.hPathLength_)
-            && (tau_ == irga.tau_)
-            && (kWater_ == irga.kWater_)
-            && (kOxygen_ == irga.kOxygen_);
+            && qFuzzyCompare(tubeLength_, irga.tubeLength_)
+            && qFuzzyCompare(tubeDiameter_, irga.tubeDiameter_)
+            && qFuzzyCompare(tubeFlowRate_, irga.tubeFlowRate_)
+            && qFuzzyCompare(nSeparation_, irga.nSeparation_)
+            && qFuzzyCompare(eSeparation_, irga.eSeparation_)
+            && qFuzzyCompare(vSeparation_, irga.vSeparation_)
+            && qFuzzyCompare(vPathLength_, irga.vPathLength_)
+            && qFuzzyCompare(hPathLength_, irga.hPathLength_)
+            && qFuzzyCompare(tau_, irga.tau_)
+            && qFuzzyCompare(kWater_, irga.kWater_)
+            && qFuzzyCompare(kOxygen_, irga.kOxygen_);
 }
 
 // Return string list of anem measures types
@@ -322,33 +316,23 @@ const QStringList IrgaDesc::allSwVersionStringList()
             << getIRGA_SW_VERSION_3());
 }
 
-bool IrgaDesc::isGoodIrga(IrgaDesc irga)
+bool IrgaDesc::isALicorModel(const QString& model)
 {
+    return ((model == getIRGA_MODEL_STRING_0())
+             || (model == getIRGA_MODEL_STRING_1())
+             || (model == getIRGA_MODEL_STRING_2())
+             || (model == getIRGA_MODEL_STRING_3())
+             || (model == getIRGA_MODEL_STRING_4())
+             || (model == getIRGA_MODEL_STRING_5()));
+}
+
+bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
+{
+    const auto model = irga.model();
     const QString manufacturer = irga.manufacturer();
-    const QString model = irga.model();
-//    qreal height = irga.height();
-    qreal tubeLength = irga.tubeLength();
-    qreal tubeDiameter = irga.tubeDiameter();
-    qreal tubeFlowRate = irga.tubeFlowRate();
-    qreal NSeparation = irga.tubeNSeparation();
-    qreal ESeparation = irga.tubeESeparation();
-    qreal VSeparation = irga.tubeVSeparation();
-    qreal hPathLength = irga.hPathLength();
-    qreal vPathLength = irga.vPathLength();
-    qreal tau = irga.tau();
-    qreal kWater = irga.kWater();
-    qreal kOxygen = irga.kOxygen();
 
-    // 1
-    bool isGoodManufacturer = !manufacturer.isEmpty();
-
-    // 2
-    bool isLicorModel = ((model == getIRGA_MODEL_STRING_0())
-                         || (model == getIRGA_MODEL_STRING_1())
-                         || (model == getIRGA_MODEL_STRING_2())
-                         || (model == getIRGA_MODEL_STRING_3())
-                         || (model == getIRGA_MODEL_STRING_4())
-                         || (model == getIRGA_MODEL_STRING_5()));
+    auto isGoodManufacturer = !manufacturer.isEmpty();
+    auto isLicorModel = isALicorModel(model);
 
     bool isGoodModel = false;
     if (!model.isEmpty())
@@ -368,25 +352,33 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
         }
     }
 
-    // 3
-    // always true by min value
-//    bool isGoodHeight = height > 0;
+    return (isGoodManufacturer && isGoodModel);
+}
 
-    // 4
-    bool isGoodTubeLength = tubeLength > 0;
+// return true if at least one separation is different from 0.0
+bool IrgaDesc::hasGoodSeparations(const IrgaDesc& irga)
+{
+    return (!qFuzzyCompare(irga.tubeNSeparation() + 1, 0.0 + 1)
+            || !qFuzzyCompare(irga.tubeESeparation() + 1, 0.0 + 1)
+            || !qFuzzyCompare(irga.tubeVSeparation() + 1, 0.0 + 1));
+}
 
-    bool isGoodTubeDiameter = tubeDiameter > 0;
+bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
+{
+    const auto model = irga.model();
 
-    bool isGoodTubeFlowRate = tubeFlowRate > 0;
+    auto isGoodTubeLength = irga.tubeLength() > 0.0;
+    auto isGoodTubeDiameter = irga.tubeDiameter() > 0.0;
+    auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
 
-    bool isClosedPath = (model == getIRGA_MODEL_STRING_0())
+    auto isClosedPath = (model == getIRGA_MODEL_STRING_0())
                         || (model == getIRGA_MODEL_STRING_1())
                         || (model == getIRGA_MODEL_STRING_4())
                         || (model == getIRGA_MODEL_STRING_7())
                         || (model == getIRGA_MODEL_STRING_10())
                         || (model == getIRGA_MODEL_STRING_11());
 
-    bool isGoodClosedPath = false;
+    auto isGoodClosedPath = false;
     if (isClosedPath)
     {
         isGoodClosedPath = isGoodTubeLength
@@ -397,28 +389,49 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
     {
         isGoodClosedPath = true;
     }
+    return isGoodClosedPath;
+}
 
-    // 5
-    bool isGoodSeparation = false;
-    isGoodSeparation = (NSeparation != 0)
-                        || (ESeparation != 0)
-                        || (VSeparation != 0);
-
-    // 6
-    bool isGoodPathLength = false;
-    if (isLicorModel)
+bool IrgaDesc::hasGoodPathLength(const IrgaDesc& irga)
+{
+    auto isGoodPathLength = false;
+    if (isALicorModel(irga.model()))
     {
         isGoodPathLength = true;
     }
     else
     {
-        isGoodPathLength = (hPathLength > 0)
-                            && (vPathLength > 0)
-                            && (tau > 0);
+        isGoodPathLength = (irga.hPathLength() > 0)
+                            && (irga.vPathLength() > 0)
+                            && (irga.tau() > 0);
     }
+    return isGoodPathLength;
+}
+
+bool IrgaDesc::isGoodIrga(const IrgaDesc &irga)
+{
+    const QString model = irga.model();
+
+    // 1
+    auto isGoodManufacturer = !irga.manufacturer().isEmpty();
+
+    // 2
+    auto isGoodModel = isWellNamed(irga);
+
+    // 4
+    auto isGoodClosedPath = isAGoodClosedPath(irga);
+
+    // 5
+    auto isGoodSeparation = hasGoodSeparations(irga);
+
+    // 6
+    auto isGoodPathLength = hasGoodPathLength(irga);
 
     // 7
-    bool isGoodKorLAnalyzer = false;
+    auto isGoodKorLAnalyzer = false;
+    qreal kWater = irga.kWater();
+    qreal kOxygen = irga.kOxygen();
+
     if ((model == getIRGA_MODEL_STRING_8())
         || (model == getIRGA_MODEL_STRING_9())
         || (model == getIRGA_MODEL_STRING_10())
@@ -431,18 +444,16 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
         isGoodKorLAnalyzer = true;
     }
 
-    qDebug() << ">> isGoodManufacturer" << isGoodManufacturer;
-    qDebug() << ">> isGoodModel" << isGoodModel;
-//    qDebug() << ">> isGoodHeight" << isGoodHeight;
-    qDebug() << ">> isGoodClosedPath" << isGoodClosedPath;
-    qDebug() << ">> isGoodSeparation" << isGoodSeparation;
-    qDebug() << ">> isGoodPathLength" << isGoodPathLength;
-    qDebug() << ">> isGoodKorLAnalyzer" << isGoodKorLAnalyzer;
+    qDebug() << "isGoodManufacturer" << isGoodManufacturer;
+    qDebug() << "isGoodModel" << isGoodModel;
+    qDebug() << "isGoodClosedPath" << isGoodClosedPath;
+    qDebug() << "isGoodSeparation" << isGoodSeparation;
+    qDebug() << "isGoodPathLength" << isGoodPathLength;
+    qDebug() << "isGoodKorLAnalyzer" << isGoodKorLAnalyzer;
 
     // all
     return (isGoodManufacturer
             && isGoodModel
-//            && isGoodHeight
             && isGoodClosedPath
             && isGoodSeparation
             && isGoodPathLength

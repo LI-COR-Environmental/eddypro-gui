@@ -28,10 +28,10 @@ static void DbgHelper_output(int color, int indent,
   QString text = QString(4*indent, QLatin1Char(' ')) + QString(prefix + QLatin1Char(' ') + funcName);
   if (color >= 0)
   {
-    text.prepend(QStringLiteral("\x1b[3") + QString::number(1 + color) + QStringLiteral("m"));
+    text.prepend(QLatin1String("\x1b[3") + QString::number(1 + color) + QStringLiteral("m"));
 //    QString colorNum = QString::number(1 + color);
-//    text.prepend(QLatin1String("\x1b[3") + colorNum + QLatin1String("m;3") + colorNum + QLatin1String(";3") + colorNum + QLatin1String("m"));
-    text.append(QStringLiteral("\x1b[39m"));
+//    text.prepend(QLatin1String("\x1b[3") + colorNum + QStringLiteral("m;3") + colorNum + QStringLiteral(";3") + colorNum + QStringLiteral("m"));
+    text.append(QLatin1String("\x1b[39m"));
   }
 
   QTime currTime = QTime::currentTime();

@@ -1,11 +1,11 @@
 # objects and libs
-
 *.slo
 *.lo
 *.o
 *.a
 *.la
 *.lai
+*.lib
 *.so
 *.dll
 *.dylib
@@ -13,30 +13,45 @@
 
 # make and qmake
 CMakeLists.txt.user
-*.pro.user
-*.pro.user.*
+Makefile*
+*.qm
+
+# qt moc
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
-Makefile
-*-build-*
-*.qm
+*.moc
+/.qmake.cache
+/.qmake.stash
 
-# mac files
+# qtcreator 
+*.user*
+
+# precompiled headers
+*.gch
+*.pch
+
+# mac 
 .DS_Store
 
-# win files
-thumbs.db
+# win
+Thumbs.db
+desktop.ini
 
 # misc files
+*.log
 .kdev*
+diff*
+sha1
 
 # misc directories
 clang-checks
 img*
+!img_6
 quazip*
 wwWidgets*
 dist
+karchive*
 
 # dotfiles
 .*
@@ -44,7 +59,15 @@ dist
 # backup files
 *~
 *.bak
+*.BAK
 *.autosave
+*.old
+*.orig
+*.del
+*.rej
+
+# python files
+*.pyc
 
 # exception for .gitignore
 !.gitignore

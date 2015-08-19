@@ -22,19 +22,20 @@
 
 #include "createpackagedialog.h"
 
+#include <QAction>
 #include <QDebug>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-
-#include <QwwButtonLineEdit/QwwButtonLineEdit>
-#include <QwwClearLineEdit/QwwClearLineEdit>
+#include <QRegExpValidator>
 
 #include "clicklabel.h"
 #include "configstate.h"
+#include "customclearlineedit.h"
 #include "dbghelper.h"
 #include "ecproject.h"
+#include "dirbrowsewidget.h"
 #include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
@@ -65,18 +66,20 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     filenameLabel = new ClickLabel(tr("Package name :"));
     filenameLabel->setToolTip(tr("<b>Package name:</b> Enter the Package name. Note that characters that result in file names that are unacceptable to the commonest operating systems (this includes | \\ / : ; ? * ' \" < > CR LF TAB SPACE and other non readable characters) are not permitted."));
 
+    filenameEdit = new CustomClearLineEdit;
+    filenameEdit->setToolTip(filenameLabel->toolTip());
+    filenameEdit->setMaxLength(255);
+
     // prevent filesystem's illegal characters and whitespace insertion:
     // exclude the first 33 (from 0 to 32) ASCII chars, including
     // '\0'(NUL),'\a'(BEL),'\b'(BS),'\t'(TAB),'\n'(LF),'\v'(VT),'\f'(FF),'\r'(CR) and ' '(SPACE)
     // plus the following:
     // '|', '\', '/', ':', ';', '?', '*', '"', ''', '`', '<', '>'
-    QString filenameRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
+    auto filenameRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
+    QRegExp filenameRe(filenameRegexp);
+    auto filenameValidator = new QRegExpValidator(filenameRe, filenameEdit);
+    filenameEdit->setValidator(filenameValidator);
 
-    filenameEdit = new QwwClearLineEdit;
-    filenameEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    filenameEdit->setToolTip(filenameLabel->toolTip());
-    filenameEdit->setMaxLength(200);
-    filenameEdit->setRegExp(filenameRegexp);
 #if defined(Q_OS_WIN)
     filenameEdit->setMaximumWidth(400);
 #elif defined(Q_OS_MAC)
@@ -85,42 +88,32 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
     outpathLabel = new ClickLabel(tr("Save package to :"), this);
     outpathLabel->setToolTip(tr("<b>Save package to:</b> Specify where the package file will be stored. Click the <i>Browse...</i> button and navigate to the desired directory."));
-    outpathEdit = new QwwButtonLineEdit;
-    outpathEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    outpathEdit->setButtonVisible(false);
-    outpathEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
-    outpathEdit->installEventFilter(const_cast<CreatePackageDialog*>(this));
-    outpathEdit->setReadOnly(true);
-    outpathEdit->setProperty("asButtonLineEdit", true);
-    outpathEdit->setMinimumWidth(400);
-    outpathBrowse = new QPushButton(tr("Browse..."));
-    outpathBrowse->setProperty("loadButton", true);
+
+    outpathBrowse = new DirBrowseWidget;
+    outpathBrowse->disableClearAction();
+    outpathBrowse->setDialogTitle(tr("Select the Output Directory"));
+    outpathBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
     outpathBrowse->setToolTip(outpathLabel->toolTip());
 
-    auto outpathContainerLayout = new QHBoxLayout;
-    outpathContainerLayout->addWidget(outpathEdit);
-    outpathContainerLayout->addWidget(outpathBrowse);
-    outpathContainerLayout->setStretch(2, 1);
-    outpathContainerLayout->setContentsMargins(0, 0, 0, 0);
-    outpathContainerLayout->setSpacing(0);
-    auto outpathContainer = new QWidget;
-    outpathContainer->setLayout(outpathContainerLayout);
+#if defined(Q_OS_WIN)
+    outpathBrowse->setMaximumWidth(400);
+#elif defined(Q_OS_MAC)
+    outpathBrowse->setMaximumWidth(395);
+#endif
 
     createButton = new QPushButton(tr("Create"));
-//    createButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     createButton->setDefault(true);
     createButton->setAutoDefault(true);
     createButton->setProperty("commonButton", true);
 
     cancelButton = new QPushButton(tr("Cancel"));
-//    cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     cancelButton->setProperty("commonButton", true);
 
     auto propertiesLayout = new QGridLayout;
     propertiesLayout->addWidget(filenameLabel, 0, 0);
     propertiesLayout->addWidget(filenameEdit, 0, 1);
     propertiesLayout->addWidget(outpathLabel, 1, 0);
-    propertiesLayout->addWidget(outpathContainer, 1, 1);
+    propertiesLayout->addWidget(outpathBrowse, 1, 1);
     propertiesLayout->setVerticalSpacing(3);
     propertiesLayout->setRowMinimumHeight(1, 10);
     propertiesLayout->setContentsMargins(3, 3, 3, 3);
@@ -139,24 +132,29 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     mainLayout->addWidget(propertiesFrame, 2, 0);
     mainLayout->addLayout(buttonsLayout, 3, 0);
     mainLayout->setVerticalSpacing(10);
-    mainLayout->setContentsMargins(15, 15, 15, 15);
     mainLayout->setRowMinimumHeight(3, 40);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+
+#if defined(Q_OS_WIN)
+    mainLayout->setContentsMargins(15, 15, 15, 15);
+#elif defined(Q_OS_MAC)
+    mainLayout->setContentsMargins(30, 30, 30, 30);
+#endif
     setLayout(mainLayout);
 
     connect(filenameLabel, &ClickLabel::clicked,
             this, &CreatePackageDialog::onFilenameLabelClicked);
-    connect(filenameEdit, &QwwClearLineEdit::textChanged,
-            this, &CreatePackageDialog::updateFilename);
-    connect(filenameEdit, &QwwClearLineEdit::buttonClicked,
+    connect(filenameEdit, &CustomClearLineEdit::buttonClicked,
             this, &CreatePackageDialog::clearFilenameEdit);
+    connect(filenameEdit, &QLineEdit::textChanged,
+            this, &CreatePackageDialog::updateFilename);
 
-    connect(outpathEdit, &QwwButtonLineEdit::buttonClicked,
-            this, &CreatePackageDialog::clearOutpathEdit);
-    connect(outpathEdit, &QwwButtonLineEdit::textChanged,
+    connect(outpathBrowse, &DirBrowseWidget::clearRequested,
+            this, &CreatePackageDialog::clearOutpathBrowse);
+    connect(outpathBrowse, &DirBrowseWidget::pathChanged,
             this, &CreatePackageDialog::updateOutpath);
-    connect(outpathBrowse, &QPushButton::clicked,
-            this, &CreatePackageDialog::outpathBrowse_clicked);
+    connect(outpathBrowse, &DirBrowseWidget::pathSelected,
+            this, &CreatePackageDialog::outpathBrowseSelected);
 
     connect(createButton, &QPushButton::clicked,
             this, &CreatePackageDialog::createPackageRequest);
@@ -180,7 +178,7 @@ void CreatePackageDialog::refresh()
                                             QString()).toString();
 
     filenameEdit->setText(lastFilename);
-    outpathEdit->setText(lastOutpath);
+    outpathBrowse->setPath(lastOutpath);
 
     refreshButtonStatus();
 }
@@ -213,38 +211,7 @@ void CreatePackageDialog::showResult(bool ok, const QString& pkgname)
 void CreatePackageDialog::refreshButtonStatus()
 {
     createButton->setEnabled(!filenameEdit->text().isEmpty()
-                         && !outpathEdit->text().isEmpty());
-}
-
-bool CreatePackageDialog::eventFilter(QObject *o, QEvent *e)
-{
-//    if (o == this)
-//    {
-//        bool previousHidden = isHidden();
-
-////        if (e->type() == QEvent::WindowStateChange)
-////        {
-////            toggleConsoleOutputAct->setChecked(previousVisible);
-////            return true;
-////        }
-
-//        if ( e->type() == QEvent::ActivationChange
-//            || e->type() == QEvent::ApplicationActivate
-//            || e->type() == QEvent::ApplicationStateChange
-//            || e->type() == QEvent::Show
-//             || e->type() == QEvent::WindowActivate
-//            || e->type() == QEvent::WindowStateChange)
-//        {
-//            qDebug() << "create filter" << e->type();
-//            if (previousHidden)
-//                hide();
-
-////            activateWindow();
-//            return true;
-//        }
-//    }
-
-    return QDialog::eventFilter(o, e);
+                             && !outpathBrowse->path().isEmpty());
 }
 
 void CreatePackageDialog::close()
@@ -275,18 +242,18 @@ void CreatePackageDialog::clearFilenameEdit()
 
 void CreatePackageDialog::updateFilename(const QString& fn)
 {
+    refreshButtonStatus();
+
     if (fn.isEmpty()) { return; }
 
     GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
                                              Defs::CONF_PROJ_SMARTFLUX_FILENAME,
                                              fn);
-    refreshButtonStatus();
 }
 
-void CreatePackageDialog::clearOutpathEdit()
+void CreatePackageDialog::clearOutpathBrowse()
 {
-    outpathEdit->clear();
-    WidgetUtils::updateLineEditToolip(outpathEdit);
+    outpathBrowse->clear();
     GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
                                              Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
                                              QString());
@@ -303,30 +270,16 @@ void CreatePackageDialog::updateOutpath(const QString& fp)
                                              Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
                                              fp);
     refreshButtonStatus();
-    outpathEdit->setButtonVisible(outpathEdit->isEnabled() && !outpathEdit->text().isEmpty());
-    WidgetUtils::updateLineEditToolip(outpathEdit);
 }
 
-void CreatePackageDialog::outpathBrowse_clicked()
+void CreatePackageDialog::outpathBrowseSelected(const QString& dir_path)
 {
     DEBUG_FUNC_NAME
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
 
-    QString dir = QFileDialog::getExistingDirectory(this,
-                        tr("Select the Output Directory"),
-                        searchPath);
+    outpathBrowse->setPath(dir_path);
 
-    if (dir.isEmpty()) { return; }
-
-    QDir outDir(dir);
-    QString canonicalOutDir = outDir.canonicalPath();
-    outpathEdit->setText(QDir::toNativeSeparators(canonicalOutDir));
-
+    QDir outDir(dir_path);
+    auto canonicalOutDir = outDir.canonicalPath();
     configState_->window.last_data_path = canonicalOutDir;
     GlobalSettings::updateLastDatapath(canonicalOutDir);
 }

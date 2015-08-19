@@ -29,7 +29,7 @@
 #include <QStringList>
 #include <QVariant>
 
-#include "variable_desc.h" // FIXME: for VariableDescList typedef, maybe to fix
+#include "variable_desc.h" // NOTE: for VariableDescList, maybe to fix
 
 class VariableModel : public QAbstractTableModel
 {

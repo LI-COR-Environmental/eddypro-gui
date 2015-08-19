@@ -29,11 +29,13 @@
 #include "dbghelper.h"
 #include "ecinidefs.h"
 #include "fileutils.h"
+#include "mainwindow.h"
 #include "stringutils.h"
 #include "widget_utils.h"
 
 EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
     QObject(parent),
+    defaultSettings(EcProjectState()),
     modified_(false),
     ec_project_state_(EcProjectState()),
     project_config_state_(project_config)
@@ -92,7 +94,7 @@ bool EcProject::previousFourthGasCompare(int currentGas, double currGasMw, doubl
 
     if (currentGas >= 0 && currentGas == previousGas)
     {
-        if (currGasMw == previousGasMw && currGasDiff == previousGasDiff)
+        if (qFuzzyCompare(currGasMw, previousGasMw) && qFuzzyCompare(currGasDiff, previousGasDiff))
         {
             qDebug() << "return true";
             return true;
@@ -221,73 +223,71 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     qDebug() << "dataSetTest 2.1" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_col == previousProject.ec_project_state_.screenGeneral.flag1_col);
     qDebug() << "dataSetTest 2.2" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_threshold == previousProject.ec_project_state_.screenGeneral.flag1_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag1_threshold, previousProject.ec_project_state_.screenGeneral.flag1_threshold);
     qDebug() << "dataSetTest 2.3" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_policy == previousProject.ec_project_state_.screenGeneral.flag1_policy);
     qDebug() << "dataSetTest 2.4" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_col == previousProject.ec_project_state_.screenGeneral.flag2_col);
     qDebug() << "dataSetTest 2.5" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_threshold == previousProject.ec_project_state_.screenGeneral.flag2_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag2_threshold, previousProject.ec_project_state_.screenGeneral.flag2_threshold);
     qDebug() << "dataSetTest 2.6" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_policy == previousProject.ec_project_state_.screenGeneral.flag2_policy);
     qDebug() << "dataSetTest 2.7" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_col == previousProject.ec_project_state_.screenGeneral.flag3_col);
     qDebug() << "dataSetTest 2.8" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_threshold == previousProject.ec_project_state_.screenGeneral.flag3_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag3_threshold, previousProject.ec_project_state_.screenGeneral.flag3_threshold);
     qDebug() << "dataSetTest 2.9" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_policy == previousProject.ec_project_state_.screenGeneral.flag3_policy);
     qDebug() << "dataSetTest 2.10" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_col == previousProject.ec_project_state_.screenGeneral.flag4_col);
     qDebug() << "dataSetTest 2.11" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_threshold == previousProject.ec_project_state_.screenGeneral.flag4_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag4_threshold, previousProject.ec_project_state_.screenGeneral.flag4_threshold);
     qDebug() << "dataSetTest 2.12" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_policy == previousProject.ec_project_state_.screenGeneral.flag4_policy);
     qDebug() << "dataSetTest 2.13" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_col == previousProject.ec_project_state_.screenGeneral.flag5_col);
     qDebug() << "dataSetTest 2.14" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_threshold == previousProject.ec_project_state_.screenGeneral.flag5_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag5_threshold, previousProject.ec_project_state_.screenGeneral.flag5_threshold);
     qDebug() << "dataSetTest 2.15" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_policy == previousProject.ec_project_state_.screenGeneral.flag5_policy);
     qDebug() << "dataSetTest 2.16" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_col == previousProject.ec_project_state_.screenGeneral.flag6_col);
     qDebug() << "dataSetTest 2.17" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_threshold == previousProject.ec_project_state_.screenGeneral.flag6_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag6_threshold, previousProject.ec_project_state_.screenGeneral.flag6_threshold);
     qDebug() << "dataSetTest 2.18" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_policy == previousProject.ec_project_state_.screenGeneral.flag6_policy);
     qDebug() << "dataSetTest 2.19" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_col == previousProject.ec_project_state_.screenGeneral.flag7_col);
     qDebug() << "dataSetTest 2.20" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_threshold == previousProject.ec_project_state_.screenGeneral.flag7_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag7_threshold, previousProject.ec_project_state_.screenGeneral.flag7_threshold);
     qDebug() << "dataSetTest 2.21" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_policy == previousProject.ec_project_state_.screenGeneral.flag7_policy);
     qDebug() << "dataSetTest 2.22" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_col == previousProject.ec_project_state_.screenGeneral.flag8_col);
     qDebug() << "dataSetTest 2.23" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_threshold == previousProject.ec_project_state_.screenGeneral.flag8_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag8_threshold, previousProject.ec_project_state_.screenGeneral.flag8_threshold);
     qDebug() << "dataSetTest 2.24" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_policy == previousProject.ec_project_state_.screenGeneral.flag8_policy);
     qDebug() << "dataSetTest 2.25" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_col == previousProject.ec_project_state_.screenGeneral.flag9_col);
     qDebug() << "dataSetTest 2.26" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_threshold == previousProject.ec_project_state_.screenGeneral.flag9_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag9_threshold, previousProject.ec_project_state_.screenGeneral.flag9_threshold);
     qDebug() << "dataSetTest 2.27" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_policy == previousProject.ec_project_state_.screenGeneral.flag9_policy);
     qDebug() << "dataSetTest 2.28" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_col == previousProject.ec_project_state_.screenGeneral.flag10_col);
     qDebug() << "dataSetTest 2.29" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_threshold == previousProject.ec_project_state_.screenGeneral.flag10_threshold);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag10_threshold, previousProject.ec_project_state_.screenGeneral.flag10_threshold);
     qDebug() << "dataSetTest 2.30" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_policy == previousProject.ec_project_state_.screenGeneral.flag10_policy);
     qDebug() << "dataSetTest 2.31" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.nfiles == previousProject.ec_project_state_.screenSetting.nfiles);
-    qDebug() << "dataSetTest 2.32" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenSetting.max_lack == previousProject.ec_project_state_.screenSetting.max_lack);
     qDebug() << "dataSetTest 2.33" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.u_offset == previousProject.ec_project_state_.screenSetting.u_offset);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.u_offset, previousProject.ec_project_state_.screenSetting.u_offset);
     qDebug() << "dataSetTest 2.34" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.v_offset == previousProject.ec_project_state_.screenSetting.v_offset);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.v_offset, previousProject.ec_project_state_.screenSetting.v_offset);
     qDebug() << "dataSetTest 2.35" << dataSetTest;
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.w_offset == previousProject.ec_project_state_.screenSetting.w_offset);
+    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.w_offset, previousProject.ec_project_state_.screenSetting.w_offset);
     qDebug() << "dataSetTest 2.36" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenSetting.avrg_len == previousProject.ec_project_state_.screenSetting.avrg_len);
     qDebug() << "dataSetTest 2.37" << dataSetTest;
@@ -298,7 +298,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest && ec_project_state_.screenSetting.detrend_meth)
     {
         qDebug() << "advSettingsTest 2" << advSettingsTest;
-        advSettingsTest = advSettingsTest && ec_project_state_.screenSetting.timeconst == previousProject.ec_project_state_.screenSetting.timeconst;
+        advSettingsTest = advSettingsTest && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
     }
     qDebug() << "advSettingsTest 3" << advSettingsTest;
 
@@ -322,6 +322,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         || ec_project_state_.screenSetting.out_full_cosp_ts == 1
         || ec_project_state_.screenSetting.out_full_cosp_u == 1
         || ec_project_state_.screenSetting.out_full_cosp_v == 1
+        || ec_project_state_.projectGeneral.out_mean_spectra == 1
         || ec_project_state_.projectGeneral.out_mean_cosp == 1)
     {
         advSettingsTest = advSettingsTest
@@ -331,7 +332,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     qDebug() << "advSettingsTest 2" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
-        && (ec_project_state_.screenSetting.timeconst== previousProject.ec_project_state_.screenSetting.timeconst);
+        && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
     qDebug() << "advSettingsTest 21" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
@@ -347,8 +348,12 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     qDebug() << "advSettingsTest 24" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
+        && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_spectra, previousProject.ec_project_state_.projectGeneral.out_mean_spectra);
+    qDebug() << "advSettingsTest 25a" << advSettingsTest;
+
+    advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_cosp, previousProject.ec_project_state_.projectGeneral.out_mean_cosp);
-    qDebug() << "advSettingsTest 25" << advSettingsTest;
+    qDebug() << "advSettingsTest 25b" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_u, previousProject.ec_project_state_.screenSetting.out_full_sp_u);
@@ -460,14 +465,14 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     {
         advSettingsTest = advSettingsTest
                && (ec_project_state_.screenParam.sr_num_spk == previousProject.ec_project_state_.screenParam.sr_num_spk)
-               && (ec_project_state_.screenParam.sr_lim_hf == previousProject.ec_project_state_.screenParam.sr_lim_hf)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_hf, previousProject.ec_project_state_.screenParam.sr_lim_hf)
                && (ec_project_state_.screenSetting.filter_sr == previousProject.ec_project_state_.screenSetting.filter_sr)
-               && (ec_project_state_.screenParam.sr_lim_u == previousProject.ec_project_state_.screenParam.sr_lim_u)
-               && (ec_project_state_.screenParam.sr_lim_w == previousProject.ec_project_state_.screenParam.sr_lim_w)
-               && (ec_project_state_.screenParam.sr_lim_co2 == previousProject.ec_project_state_.screenParam.sr_lim_co2)
-               && (ec_project_state_.screenParam.sr_lim_h2o == previousProject.ec_project_state_.screenParam.sr_lim_h2o)
-               && (ec_project_state_.screenParam.sr_lim_ch4 == previousProject.ec_project_state_.screenParam.sr_lim_ch4)
-               && (ec_project_state_.screenParam.sr_lim_n2o == previousProject.ec_project_state_.screenParam.sr_lim_n2o);
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_u, previousProject.ec_project_state_.screenParam.sr_lim_u)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_w, previousProject.ec_project_state_.screenParam.sr_lim_w)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_co2, previousProject.ec_project_state_.screenParam.sr_lim_co2)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_h2o, previousProject.ec_project_state_.screenParam.sr_lim_h2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_ch4, previousProject.ec_project_state_.screenParam.sr_lim_ch4)
+               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_n2o, previousProject.ec_project_state_.screenParam.sr_lim_n2o);
     }
     qDebug() << "advSettingsTest 4" << advSettingsTest;
 
@@ -475,7 +480,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.ar_lim == previousProject.ec_project_state_.screenParam.ar_lim)
+               && qFuzzyCompare(ec_project_state_.screenParam.ar_lim, previousProject.ec_project_state_.screenParam.ar_lim)
                && (ec_project_state_.screenParam.ar_bins == previousProject.ec_project_state_.screenParam.ar_bins)
                && (ec_project_state_.screenParam.ar_hf_lim == previousProject.ec_project_state_.screenParam.ar_hf_lim);
     }
@@ -486,8 +491,8 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     {
         advSettingsTest = advSettingsTest
                && (ec_project_state_.screenParam.do_extlim_dw == previousProject.ec_project_state_.screenParam.do_extlim_dw)
-               && (ec_project_state_.screenParam.do_hf1_lim == previousProject.ec_project_state_.screenParam.do_hf1_lim)
-               && (ec_project_state_.screenParam.do_hf2_lim == previousProject.ec_project_state_.screenParam.do_hf2_lim);
+               && qFuzzyCompare(ec_project_state_.screenParam.do_hf1_lim, previousProject.ec_project_state_.screenParam.do_hf1_lim)
+               && qFuzzyCompare(ec_project_state_.screenParam.do_hf2_lim, previousProject.ec_project_state_.screenParam.do_hf2_lim);
     }
     qDebug() << "advSettingsTest 6" << advSettingsTest;
 
@@ -495,18 +500,18 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.al_u_max == previousProject.ec_project_state_.screenParam.al_u_max)
-               && (ec_project_state_.screenParam.al_w_max == previousProject.ec_project_state_.screenParam.al_w_max)
-               && (ec_project_state_.screenParam.al_tson_min == previousProject.ec_project_state_.screenParam.al_tson_min)
-               && (ec_project_state_.screenParam.al_tson_max == previousProject.ec_project_state_.screenParam.al_tson_max)
-               && (ec_project_state_.screenParam.al_co2_min == previousProject.ec_project_state_.screenParam.al_co2_min)
-               && (ec_project_state_.screenParam.al_co2_max == previousProject.ec_project_state_.screenParam.al_co2_max)
-               && (ec_project_state_.screenParam.al_h2o_min == previousProject.ec_project_state_.screenParam.al_h2o_min)
-               && (ec_project_state_.screenParam.al_h2o_max == previousProject.ec_project_state_.screenParam.al_h2o_max)
-               && (ec_project_state_.screenParam.al_ch4_min == previousProject.ec_project_state_.screenParam.al_ch4_min)
-               && (ec_project_state_.screenParam.al_ch4_max == previousProject.ec_project_state_.screenParam.al_ch4_max)
-               && (ec_project_state_.screenParam.al_n2o_min == previousProject.ec_project_state_.screenParam.al_n2o_min)
-               && (ec_project_state_.screenParam.al_n2o_max == previousProject.ec_project_state_.screenParam.al_n2o_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_u_max, previousProject.ec_project_state_.screenParam.al_u_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_w_max, previousProject.ec_project_state_.screenParam.al_w_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_tson_min, previousProject.ec_project_state_.screenParam.al_tson_min)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_tson_max, previousProject.ec_project_state_.screenParam.al_tson_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_co2_min, previousProject.ec_project_state_.screenParam.al_co2_min)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_co2_max, previousProject.ec_project_state_.screenParam.al_co2_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_h2o_min, previousProject.ec_project_state_.screenParam.al_h2o_min)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_h2o_max, previousProject.ec_project_state_.screenParam.al_h2o_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_ch4_min, previousProject.ec_project_state_.screenParam.al_ch4_min)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_ch4_max, previousProject.ec_project_state_.screenParam.al_ch4_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_n2o_min, previousProject.ec_project_state_.screenParam.al_n2o_min)
+               && qFuzzyCompare(ec_project_state_.screenParam.al_n2o_max, previousProject.ec_project_state_.screenParam.al_n2o_max)
                && (ec_project_state_.screenSetting.filter_al == previousProject.ec_project_state_.screenSetting.filter_al);
     }
     qDebug() << "advSettingsTest 7" << advSettingsTest;
@@ -515,14 +520,14 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.sk_hf_kumax == previousProject.ec_project_state_.screenParam.sk_hf_kumax)
-               && (ec_project_state_.screenParam.sk_hf_kumin == previousProject.ec_project_state_.screenParam.sk_hf_kumin)
-               && (ec_project_state_.screenParam.sk_hf_skmax == previousProject.ec_project_state_.screenParam.sk_hf_skmax)
-               && (ec_project_state_.screenParam.sk_hf_skmin == previousProject.ec_project_state_.screenParam.sk_hf_skmin)
-               && (ec_project_state_.screenParam.sk_sf_kumax == previousProject.ec_project_state_.screenParam.sk_sf_kumax)
-               && (ec_project_state_.screenParam.sk_sf_kumin == previousProject.ec_project_state_.screenParam.sk_sf_kumin)
-               && (ec_project_state_.screenParam.sk_sf_skmax == previousProject.ec_project_state_.screenParam.sk_sf_skmax)
-               && (ec_project_state_.screenParam.sk_sf_skmin == previousProject.ec_project_state_.screenParam.sk_sf_skmin);
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_kumax, previousProject.ec_project_state_.screenParam.sk_hf_kumax)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_kumin, previousProject.ec_project_state_.screenParam.sk_hf_kumin)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_skmax, previousProject.ec_project_state_.screenParam.sk_hf_skmax)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_skmin, previousProject.ec_project_state_.screenParam.sk_hf_skmin)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_kumax, previousProject.ec_project_state_.screenParam.sk_sf_kumax)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_kumin, previousProject.ec_project_state_.screenParam.sk_sf_kumin)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmax, previousProject.ec_project_state_.screenParam.sk_sf_skmax)
+               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmin, previousProject.ec_project_state_.screenParam.sk_sf_skmin);
     }
     qDebug() << "advSettingsTest 8" << advSettingsTest;
 
@@ -530,22 +535,23 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.ds_hf_ch4 == previousProject.ec_project_state_.screenParam.ds_hf_ch4)
-               && (ec_project_state_.screenParam.ds_hf_co2 == previousProject.ec_project_state_.screenParam.ds_hf_co2)
-               && (ec_project_state_.screenParam.ds_hf_h2o == previousProject.ec_project_state_.screenParam.ds_hf_h2o)
-               && (ec_project_state_.screenParam.ds_hf_n2o == previousProject.ec_project_state_.screenParam.ds_hf_n2o)
-               && (ec_project_state_.screenParam.ds_hf_t == previousProject.ec_project_state_.screenParam.ds_hf_t)
-               && (ec_project_state_.screenParam.ds_hf_uv == previousProject.ec_project_state_.screenParam.ds_hf_uv)
-               && (ec_project_state_.screenParam.ds_hf_var == previousProject.ec_project_state_.screenParam.ds_hf_var)
-               && (ec_project_state_.screenParam.ds_hf_w == previousProject.ec_project_state_.screenParam.ds_hf_w)
-               && (ec_project_state_.screenParam.ds_sf_ch4 == previousProject.ec_project_state_.screenParam.ds_sf_ch4)
-               && (ec_project_state_.screenParam.ds_sf_co2 == previousProject.ec_project_state_.screenParam.ds_sf_co2)
-               && (ec_project_state_.screenParam.ds_sf_h2o == previousProject.ec_project_state_.screenParam.ds_sf_h2o)
-               && (ec_project_state_.screenParam.ds_sf_n2o == previousProject.ec_project_state_.screenParam.ds_sf_n2o)
-               && (ec_project_state_.screenParam.ds_sf_t == previousProject.ec_project_state_.screenParam.ds_sf_t)
-               && (ec_project_state_.screenParam.ds_sf_uv == previousProject.ec_project_state_.screenParam.ds_sf_uv)
-               && (ec_project_state_.screenParam.ds_sf_var == previousProject.ec_project_state_.screenParam.ds_sf_var)
-               && (ec_project_state_.screenParam.ds_sf_w == previousProject.ec_project_state_.screenParam.ds_sf_w);
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_ch4, previousProject.ec_project_state_.screenParam.ds_hf_ch4)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_co2, previousProject.ec_project_state_.screenParam.ds_hf_co2)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_h2o, previousProject.ec_project_state_.screenParam.ds_hf_h2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_n2o, previousProject.ec_project_state_.screenParam.ds_hf_n2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_t, previousProject.ec_project_state_.screenParam.ds_hf_t)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_uv, previousProject.ec_project_state_.screenParam.ds_hf_uv)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_var, previousProject.ec_project_state_.screenParam.ds_hf_var)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_w, previousProject.ec_project_state_.screenParam.ds_hf_w)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_ch4, previousProject.ec_project_state_.screenParam.ds_sf_ch4)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_co2, previousProject.ec_project_state_.screenParam.ds_sf_co2)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_h2o, previousProject.ec_project_state_.screenParam.ds_sf_h2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_n2o, previousProject.ec_project_state_.screenParam.ds_sf_n2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_t, previousProject.ec_project_state_.screenParam.ds_sf_t)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_uv, previousProject.ec_project_state_.screenParam.ds_sf_uv)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_var, previousProject.ec_project_state_.screenParam.ds_sf_var)
+               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_w, previousProject.ec_project_state_.screenParam.ds_sf_w)
+               && ec_project_state_.screenParam.despike_vm == previousProject.ec_project_state_.screenParam.despike_vm;
     }
     qDebug() << "advSettingsTest 9" << advSettingsTest;
 
@@ -553,12 +559,12 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.tl_def_ch4 == previousProject.ec_project_state_.screenParam.tl_def_ch4)
-               && (ec_project_state_.screenParam.tl_def_co2 == previousProject.ec_project_state_.screenParam.tl_def_co2)
-               && (ec_project_state_.screenParam.tl_def_h2o == previousProject.ec_project_state_.screenParam.tl_def_h2o)
-               && (ec_project_state_.screenParam.tl_def_n2o == previousProject.ec_project_state_.screenParam.tl_def_n2o)
-               && (ec_project_state_.screenParam.tl_hf_lim == previousProject.ec_project_state_.screenParam.tl_hf_lim)
-               && (ec_project_state_.screenParam.tl_sf_lim == previousProject.ec_project_state_.screenParam.tl_sf_lim);
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_ch4, previousProject.ec_project_state_.screenParam.tl_def_ch4)
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_co2, previousProject.ec_project_state_.screenParam.tl_def_co2)
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_h2o, previousProject.ec_project_state_.screenParam.tl_def_h2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_n2o, previousProject.ec_project_state_.screenParam.tl_def_n2o)
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_hf_lim, previousProject.ec_project_state_.screenParam.tl_hf_lim)
+               && qFuzzyCompare(ec_project_state_.screenParam.tl_sf_lim, previousProject.ec_project_state_.screenParam.tl_sf_lim);
     }
     qDebug() << "advSettingsTest 10" << advSettingsTest;
 
@@ -566,9 +572,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.aa_lim == previousProject.ec_project_state_.screenParam.aa_lim)
-               && (ec_project_state_.screenParam.aa_max == previousProject.ec_project_state_.screenParam.aa_max)
-               && (ec_project_state_.screenParam.aa_min == previousProject.ec_project_state_.screenParam.aa_min);
+               && qFuzzyCompare(ec_project_state_.screenParam.aa_lim, previousProject.ec_project_state_.screenParam.aa_lim)
+               && qFuzzyCompare(ec_project_state_.screenParam.aa_max, previousProject.ec_project_state_.screenParam.aa_max)
+               && qFuzzyCompare(ec_project_state_.screenParam.aa_min, previousProject.ec_project_state_.screenParam.aa_min);
     }
     qDebug() << "advSettingsTest 11" << advSettingsTest;
 
@@ -576,7 +582,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest)
     {
         advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.ns_hf_lim == previousProject.ec_project_state_.screenParam.ns_hf_lim);
+               && qFuzzyCompare(ec_project_state_.screenParam.ns_hf_lim, previousProject.ec_project_state_.screenParam.ns_hf_lim);
     }
     qDebug() << "advSettingsTest 12" << advSettingsTest;
 
@@ -618,49 +624,48 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
 
     if (subTest && ec_project_state_.projectGeneral.wpl_meth)
     {
-        subTest = (ec_project_state_.screenSetting.to_mixratio == previousProject.ec_project_state_.screenSetting.to_mixratio);
+        subTest = (ec_project_state_.screenSetting.bu_corr == previousProject.ec_project_state_.screenSetting.bu_corr);
         advSettingsTest = advSettingsTest && subTest;
 
-        if (subTest && !ec_project_state_.screenSetting.to_mixratio)
+        if (subTest && ec_project_state_.screenSetting.bu_multi == previousProject.ec_project_state_.screenSetting.bu_multi)
         {
-            advSettingsTest = advSettingsTest && (ec_project_state_.screenSetting.bu_corr == previousProject.ec_project_state_.screenSetting.bu_corr)
-                && (ec_project_state_.screenSetting.bu_multi == previousProject.ec_project_state_.screenSetting.bu_multi)
-                && (ec_project_state_.screenSetting.l_day_bot_gain == previousProject.ec_project_state_.screenSetting.l_day_bot_gain)
-                && (ec_project_state_.screenSetting.l_day_bot_offset == previousProject.ec_project_state_.screenSetting.l_day_bot_offset)
-                && (ec_project_state_.screenSetting.l_day_spar_gain == previousProject.ec_project_state_.screenSetting.l_day_spar_gain)
-                && (ec_project_state_.screenSetting.l_day_spar_offset == previousProject.ec_project_state_.screenSetting.l_day_spar_offset)
-                && (ec_project_state_.screenSetting.l_day_top_gain == previousProject.ec_project_state_.screenSetting.l_day_top_gain)
-                && (ec_project_state_.screenSetting.l_day_top_offset == previousProject.ec_project_state_.screenSetting.l_day_top_offset)
-                && (ec_project_state_.screenSetting.l_night_bot_gain == previousProject.ec_project_state_.screenSetting.l_night_bot_gain)
-                && (ec_project_state_.screenSetting.l_night_bot_offset == previousProject.ec_project_state_.screenSetting.l_night_bot_offset)
-                && (ec_project_state_.screenSetting.l_night_spar_gain == previousProject.ec_project_state_.screenSetting.l_night_spar_gain)
-                && (ec_project_state_.screenSetting.l_night_spar_offset == previousProject.ec_project_state_.screenSetting.l_night_spar_offset)
-                && (ec_project_state_.screenSetting.l_night_top_gain == previousProject.ec_project_state_.screenSetting.l_night_top_gain)
-                && (ec_project_state_.screenSetting.l_night_top_offset == previousProject.ec_project_state_.screenSetting.l_night_top_offset)
-                && (ec_project_state_.screenSetting.m_day_bot1 == previousProject.ec_project_state_.screenSetting.m_day_bot1)
-                && (ec_project_state_.screenSetting.m_day_bot2 == previousProject.ec_project_state_.screenSetting.m_day_bot2)
-                && (ec_project_state_.screenSetting.m_day_bot3 == previousProject.ec_project_state_.screenSetting.m_day_bot3)
-                && (ec_project_state_.screenSetting.m_day_bot4 == previousProject.ec_project_state_.screenSetting.m_day_bot4)
-                && (ec_project_state_.screenSetting.m_day_spar1 == previousProject.ec_project_state_.screenSetting.m_day_spar1)
-                && (ec_project_state_.screenSetting.m_day_spar2 == previousProject.ec_project_state_.screenSetting.m_day_spar2)
-                && (ec_project_state_.screenSetting.m_day_spar3 == previousProject.ec_project_state_.screenSetting.m_day_spar3)
-                && (ec_project_state_.screenSetting.m_day_spar4 == previousProject.ec_project_state_.screenSetting.m_day_spar4)
-                && (ec_project_state_.screenSetting.m_day_top1 == previousProject.ec_project_state_.screenSetting.m_day_top1)
-                && (ec_project_state_.screenSetting.m_day_top2 == previousProject.ec_project_state_.screenSetting.m_day_top2)
-                && (ec_project_state_.screenSetting.m_day_top3 == previousProject.ec_project_state_.screenSetting.m_day_top3)
-                && (ec_project_state_.screenSetting.m_day_top4 == previousProject.ec_project_state_.screenSetting.m_day_top4)
-                && (ec_project_state_.screenSetting.m_night_bot1 == previousProject.ec_project_state_.screenSetting.m_night_bot1)
-                && (ec_project_state_.screenSetting.m_night_bot2 == previousProject.ec_project_state_.screenSetting.m_night_bot2)
-                && (ec_project_state_.screenSetting.m_night_bot3 == previousProject.ec_project_state_.screenSetting.m_night_bot3)
-                && (ec_project_state_.screenSetting.m_night_bot4 == previousProject.ec_project_state_.screenSetting.m_night_bot4)
-                && (ec_project_state_.screenSetting.m_night_spar1 == previousProject.ec_project_state_.screenSetting.m_night_spar1)
-                && (ec_project_state_.screenSetting.m_night_spar2 == previousProject.ec_project_state_.screenSetting.m_night_spar2)
-                && (ec_project_state_.screenSetting.m_night_spar3 == previousProject.ec_project_state_.screenSetting.m_night_spar3)
-                && (ec_project_state_.screenSetting.m_night_spar4 == previousProject.ec_project_state_.screenSetting.m_night_spar4)
-                && (ec_project_state_.screenSetting.m_night_top1 == previousProject.ec_project_state_.screenSetting.m_night_top1)
-                && (ec_project_state_.screenSetting.m_night_top2 == previousProject.ec_project_state_.screenSetting.m_night_top2)
-                && (ec_project_state_.screenSetting.m_night_top3 == previousProject.ec_project_state_.screenSetting.m_night_top3)
-                && (ec_project_state_.screenSetting.m_night_top4 == previousProject.ec_project_state_.screenSetting.m_night_top4);
+            advSettingsTest = advSettingsTest
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_bot_gain, previousProject.ec_project_state_.screenSetting.l_day_bot_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_bot_offset, previousProject.ec_project_state_.screenSetting.l_day_bot_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_spar_gain, previousProject.ec_project_state_.screenSetting.l_day_spar_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_spar_offset, previousProject.ec_project_state_.screenSetting.l_day_spar_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_top_gain, previousProject.ec_project_state_.screenSetting.l_day_top_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_top_offset, previousProject.ec_project_state_.screenSetting.l_day_top_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_bot_gain, previousProject.ec_project_state_.screenSetting.l_night_bot_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_bot_offset, previousProject.ec_project_state_.screenSetting.l_night_bot_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_spar_gain, previousProject.ec_project_state_.screenSetting.l_night_spar_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_spar_offset, previousProject.ec_project_state_.screenSetting.l_night_spar_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_top_gain, previousProject.ec_project_state_.screenSetting.l_night_top_gain)
+                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_top_offset, previousProject.ec_project_state_.screenSetting.l_night_top_offset)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot1, previousProject.ec_project_state_.screenSetting.m_day_bot1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot2, previousProject.ec_project_state_.screenSetting.m_day_bot2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot3, previousProject.ec_project_state_.screenSetting.m_day_bot3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot4, previousProject.ec_project_state_.screenSetting.m_day_bot4)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar1, previousProject.ec_project_state_.screenSetting.m_day_spar1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar2, previousProject.ec_project_state_.screenSetting.m_day_spar2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar3, previousProject.ec_project_state_.screenSetting.m_day_spar3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar4, previousProject.ec_project_state_.screenSetting.m_day_spar4)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top1, previousProject.ec_project_state_.screenSetting.m_day_top1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top2, previousProject.ec_project_state_.screenSetting.m_day_top2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top3, previousProject.ec_project_state_.screenSetting.m_day_top3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top4, previousProject.ec_project_state_.screenSetting.m_day_top4)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot1, previousProject.ec_project_state_.screenSetting.m_night_bot1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot2, previousProject.ec_project_state_.screenSetting.m_night_bot2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot3, previousProject.ec_project_state_.screenSetting.m_night_bot3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot4, previousProject.ec_project_state_.screenSetting.m_night_bot4)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar1, previousProject.ec_project_state_.screenSetting.m_night_spar1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar2, previousProject.ec_project_state_.screenSetting.m_night_spar2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar3, previousProject.ec_project_state_.screenSetting.m_night_spar3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar4, previousProject.ec_project_state_.screenSetting.m_night_spar4)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top1, previousProject.ec_project_state_.screenSetting.m_night_top1)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top2, previousProject.ec_project_state_.screenSetting.m_night_top2)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top3, previousProject.ec_project_state_.screenSetting.m_night_top3)
+                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top4, previousProject.ec_project_state_.screenSetting.m_night_top4);
         }
     }
     qDebug() << "advSettingsTest 15" << advSettingsTest;
@@ -694,10 +699,10 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         if (subTest && ec_project_state_.screenTilt.mode == 1)
         {
             advSettingsTest = advSettingsTest
-                && (ec_project_state_.screenTilt.north_offset == previousProject.ec_project_state_.screenTilt.north_offset)
+                && qFuzzyCompare(ec_project_state_.screenTilt.north_offset, previousProject.ec_project_state_.screenTilt.north_offset)
                 && (ec_project_state_.screenTilt.min_num_per_sec == previousProject.ec_project_state_.screenTilt.min_num_per_sec)
-                && (ec_project_state_.screenTilt.w_max == previousProject.ec_project_state_.screenTilt.w_max)
-                && (ec_project_state_.screenTilt.u_min == previousProject.ec_project_state_.screenTilt.u_min)
+                && qFuzzyCompare(ec_project_state_.screenTilt.w_max, previousProject.ec_project_state_.screenTilt.w_max)
+                && qFuzzyCompare(ec_project_state_.screenTilt.u_min, previousProject.ec_project_state_.screenTilt.u_min)
                 && (ec_project_state_.screenTilt.fix_policy == previousProject.ec_project_state_.screenTilt.fix_policy);
 
             subTest = (ec_project_state_.screenTilt.subset == previousProject.ec_project_state_.screenTilt.subset);
@@ -744,19 +749,19 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         if (subTest && ec_project_state_.timelagOpt.mode == 1)
         {
             advSettingsTest = advSettingsTest
-                && (ec_project_state_.timelagOpt.ch4_max_lag == previousProject.ec_project_state_.timelagOpt.ch4_max_lag)
-                && (ec_project_state_.timelagOpt.ch4_min_flux == previousProject.ec_project_state_.timelagOpt.ch4_min_flux)
-                && (ec_project_state_.timelagOpt.ch4_min_lag == previousProject.ec_project_state_.timelagOpt.ch4_min_lag)
-                && (ec_project_state_.timelagOpt.co2_max_lag == previousProject.ec_project_state_.timelagOpt.co2_max_lag)
-                && (ec_project_state_.timelagOpt.co2_min_flux == previousProject.ec_project_state_.timelagOpt.co2_min_flux)
-                && (ec_project_state_.timelagOpt.co2_min_lag == previousProject.ec_project_state_.timelagOpt.co2_min_lag)
-                && (ec_project_state_.timelagOpt.gas4_max_lag == previousProject.ec_project_state_.timelagOpt.gas4_max_lag)
-                && (ec_project_state_.timelagOpt.gas4_min_flux == previousProject.ec_project_state_.timelagOpt.gas4_min_flux)
-                && (ec_project_state_.timelagOpt.gas4_min_lag == previousProject.ec_project_state_.timelagOpt.gas4_min_lag)
-                && (ec_project_state_.timelagOpt.h2o_max_lag == previousProject.ec_project_state_.timelagOpt.h2o_max_lag)
-                && (ec_project_state_.timelagOpt.h2o_min_lag == previousProject.ec_project_state_.timelagOpt.h2o_min_lag)
-                && (ec_project_state_.timelagOpt.le_min_flux == previousProject.ec_project_state_.timelagOpt.le_min_flux)
-                && (ec_project_state_.timelagOpt.pg_range == previousProject.ec_project_state_.timelagOpt.pg_range)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_max_lag, previousProject.ec_project_state_.timelagOpt.ch4_max_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_min_flux, previousProject.ec_project_state_.timelagOpt.ch4_min_flux)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_min_lag, previousProject.ec_project_state_.timelagOpt.ch4_min_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_max_lag, previousProject.ec_project_state_.timelagOpt.co2_max_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_min_flux, previousProject.ec_project_state_.timelagOpt.co2_min_flux)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_min_lag, previousProject.ec_project_state_.timelagOpt.co2_min_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_max_lag, previousProject.ec_project_state_.timelagOpt.gas4_max_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_min_flux, previousProject.ec_project_state_.timelagOpt.gas4_min_flux)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_min_lag, previousProject.ec_project_state_.timelagOpt.gas4_min_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.h2o_max_lag, previousProject.ec_project_state_.timelagOpt.h2o_max_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.h2o_min_lag, previousProject.ec_project_state_.timelagOpt.h2o_min_lag)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.le_min_flux, previousProject.ec_project_state_.timelagOpt.le_min_flux)
+                && qFuzzyCompare(ec_project_state_.timelagOpt.pg_range, previousProject.ec_project_state_.timelagOpt.pg_range)
                 && (ec_project_state_.timelagOpt.to_h2o_nclass == previousProject.ec_project_state_.timelagOpt.to_h2o_nclass);
 
             subTest = (ec_project_state_.timelagOpt.subset == previousProject.ec_project_state_.timelagOpt.subset);
@@ -799,7 +804,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     {
         advSettingsTest = advSettingsTest
             && ec_project_state_.randomError.its_method == previousProject.ec_project_state_.randomError.its_method
-            && ec_project_state_.randomError.its_tlag_max == previousProject.ec_project_state_.randomError.its_tlag_max;
+            && qFuzzyCompare(ec_project_state_.randomError.its_tlag_max, previousProject.ec_project_state_.randomError.its_tlag_max);
     }
     qDebug() << "advSettingsTest 21" << advSettingsTest;
     qDebug() << "dataSetTest 8" << dataSetTest;
@@ -813,9 +818,8 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
             return (dataSetTest && advSettingsTest);
         case Defs::CurrRunMode::Retriever:
             return false;
-        default:
-            return false;
     }
+    Q_ASSERT(false);
 }
 
 // New project
@@ -824,372 +828,390 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     DEBUG_FUNC_NAME
 
     // data e ora in formato ISO
-    QDateTime now = QDateTime::currentDateTime();
-    QString now_str = now.toString(Qt::ISODate);
+    auto now = QDateTime::currentDateTime();
+    auto now_str = now.toString(Qt::ISODate);
 
     // update project configuration
     project_config_state_ = project_config;
 
-    ec_project_state_.projectGeneral.sw_version = Defs::APP_VERSION_STR;
-    ec_project_state_.projectGeneral.ini_version = Defs::PROJECT_FILE_VERSION_STR;
+    EcProjectState defaultEcProjectState;
+    ec_project_state_.projectGeneral.sw_version = defaultEcProjectState.projectGeneral.sw_version;
+    ec_project_state_.projectGeneral.ini_version = defaultEcProjectState.projectGeneral.ini_version;
     ec_project_state_.projectGeneral.creation_date = now_str;
     ec_project_state_.projectGeneral.last_change_date.clear();
-    ec_project_state_.projectGeneral.run_mode = Defs::CurrRunMode::Advanced;
-    ec_project_state_.projectGeneral.run_fcc = false;
+    ec_project_state_.projectGeneral.run_mode = defaultEcProjectState.projectGeneral.run_mode;
+    ec_project_state_.projectGeneral.run_fcc = defaultEcProjectState.projectGeneral.run_fcc;
     ec_project_state_.projectGeneral.file_name.clear();
     ec_project_state_.projectGeneral.project_title.clear();
     ec_project_state_.projectGeneral.project_id.clear();
-    ec_project_state_.projectGeneral.file_type = Defs::RawFileType::GHG;
+    ec_project_state_.projectGeneral.file_type = defaultEcProjectState.projectGeneral.file_type;
     ec_project_state_.projectGeneral.file_prototype.clear();
-    ec_project_state_.projectGeneral.use_alt_md_file = false;
+    ec_project_state_.projectGeneral.use_alt_md_file = defaultEcProjectState.projectGeneral.use_alt_md_file;
     ec_project_state_.projectGeneral.md_file.clear();
-    ec_project_state_.projectGeneral.use_tlfile = false;
+    ec_project_state_.projectGeneral.use_tlfile = defaultEcProjectState.projectGeneral.use_tlfile;
     ec_project_state_.projectGeneral.timeline_file.clear();
-    ec_project_state_.projectGeneral.binary_hnlines = -1;
-    ec_project_state_.projectGeneral.binary_eol = -1;
-    ec_project_state_.projectGeneral.binary_nbytes = -1;
-    ec_project_state_.projectGeneral.binary_little_end = -1;
+    ec_project_state_.projectGeneral.binary_hnlines = defaultEcProjectState.projectGeneral.binary_hnlines;
+    ec_project_state_.projectGeneral.binary_eol = defaultEcProjectState.projectGeneral.binary_eol;
+    ec_project_state_.projectGeneral.binary_nbytes = defaultEcProjectState.projectGeneral.binary_nbytes;
+    ec_project_state_.projectGeneral.binary_little_end = defaultEcProjectState.projectGeneral.binary_little_end;
     ec_project_state_.projectGeneral.master_sonic.clear();
-    ec_project_state_.projectGeneral.col_co2 = -1;
-    ec_project_state_.projectGeneral.col_h2o = -1;
-    ec_project_state_.projectGeneral.col_ch4 = -1;
-    ec_project_state_.projectGeneral.col_n2o = -1;
-    ec_project_state_.projectGeneral.col_int_t_c = -1;
-    ec_project_state_.projectGeneral.col_int_t_1 = -1;
-    ec_project_state_.projectGeneral.col_int_t_2 = -1;
-    ec_project_state_.projectGeneral.col_int_p = -1;
-    ec_project_state_.projectGeneral.col_air_t = -1;
-    ec_project_state_.projectGeneral.col_air_p = -1;
-    ec_project_state_.projectGeneral.col_diag_75 = -1;
-    ec_project_state_.projectGeneral.col_diag_72 = -1;
-    ec_project_state_.projectGeneral.col_diag_77 = -1;
-    ec_project_state_.projectGeneral.col_ts = -1;
-    ec_project_state_.projectGeneral.gas_mw = -1.0;
-    ec_project_state_.projectGeneral.gas_diff = -1.0;
-    ec_project_state_.projectGeneral.out_ghg_eu = 0;
-    ec_project_state_.projectGeneral.out_amflux = 0;
-    ec_project_state_.projectGeneral.out_rich = 1;
-    ec_project_state_.projectGeneral.out_md = 1;
-    ec_project_state_.projectGeneral.out_biomet = 0;
-    ec_project_state_.projectGeneral.make_dataset = false;
-    ec_project_state_.projectGeneral.subset = 0;
+    ec_project_state_.projectGeneral.col_co2 = defaultEcProjectState.projectGeneral.col_co2;
+    ec_project_state_.projectGeneral.col_h2o = defaultEcProjectState.projectGeneral.col_h2o;
+    ec_project_state_.projectGeneral.col_ch4 = defaultEcProjectState.projectGeneral.col_ch4;
+    ec_project_state_.projectGeneral.col_n2o = defaultEcProjectState.projectGeneral.col_n2o;
+    ec_project_state_.projectGeneral.col_int_t_c = defaultEcProjectState.projectGeneral.col_int_t_c;
+    ec_project_state_.projectGeneral.col_int_t_1 = defaultEcProjectState.projectGeneral.col_int_t_1;
+    ec_project_state_.projectGeneral.col_int_t_2 = defaultEcProjectState.projectGeneral.col_int_t_2;
+    ec_project_state_.projectGeneral.col_int_p = defaultEcProjectState.projectGeneral.col_int_p;
+    ec_project_state_.projectGeneral.col_air_t = defaultEcProjectState.projectGeneral.col_air_t;
+    ec_project_state_.projectGeneral.col_air_p = defaultEcProjectState.projectGeneral.col_air_p;
+    ec_project_state_.projectGeneral.col_diag_75 = defaultEcProjectState.projectGeneral.col_diag_75;
+    ec_project_state_.projectGeneral.col_diag_72 = defaultEcProjectState.projectGeneral.col_diag_72;
+    ec_project_state_.projectGeneral.col_diag_77 = defaultEcProjectState.projectGeneral.col_diag_77;
+    ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
+    ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
+    ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
+    ec_project_state_.projectGeneral.out_ghg_eu = defaultEcProjectState.projectGeneral.out_ghg_eu;
+    ec_project_state_.projectGeneral.out_amflux = defaultEcProjectState.projectGeneral.out_amflux;
+    ec_project_state_.projectGeneral.out_rich = defaultEcProjectState.projectGeneral.out_rich;
+    ec_project_state_.projectGeneral.out_md = defaultEcProjectState.projectGeneral.out_md;
+    ec_project_state_.projectGeneral.out_biomet = defaultEcProjectState.projectGeneral.out_biomet;
+    ec_project_state_.projectGeneral.make_dataset = defaultEcProjectState.projectGeneral.make_dataset;
+    ec_project_state_.projectGeneral.subset = defaultEcProjectState.projectGeneral.subset;
     ec_project_state_.projectGeneral.start_date = QDate(2000, 1, 1).toString(Qt::ISODate);
     ec_project_state_.projectGeneral.end_date = QDate::currentDate().toString(Qt::ISODate);
     ec_project_state_.projectGeneral.start_time = QTime(0, 0).toString(QStringLiteral("hh:mm"));
     ec_project_state_.projectGeneral.end_time = QTime(23, 59).toString(QStringLiteral("hh:mm"));
-    ec_project_state_.projectGeneral.hf_meth = 1;
-    ec_project_state_.projectGeneral.lf_meth = 1;
-    ec_project_state_.projectGeneral.wpl_meth = 1;
-    ec_project_state_.projectGeneral.foot_meth = 1;
-    ec_project_state_.projectGeneral.tob1_format = 0;
+    ec_project_state_.projectGeneral.hf_meth = defaultEcProjectState.projectGeneral.hf_meth;
+    ec_project_state_.projectGeneral.lf_meth = defaultEcProjectState.projectGeneral.lf_meth;
+    ec_project_state_.projectGeneral.wpl_meth = defaultEcProjectState.projectGeneral.wpl_meth;
+    ec_project_state_.projectGeneral.foot_meth = defaultEcProjectState.projectGeneral.foot_meth;
+    ec_project_state_.projectGeneral.tob1_format = defaultEcProjectState.projectGeneral.tob1_format;
     ec_project_state_.projectGeneral.out_path.clear();
-    ec_project_state_.projectGeneral.fix_out_format = 0;
-    ec_project_state_.projectGeneral.err_label = QStringLiteral("-9999.0");
-    ec_project_state_.projectGeneral.qcflag_meth = 1;
-    ec_project_state_.projectGeneral.use_biomet = 0;
+    ec_project_state_.projectGeneral.fix_out_format = defaultEcProjectState.projectGeneral.fix_out_format;
+    ec_project_state_.projectGeneral.err_label = defaultEcProjectState.projectGeneral.err_label;
+    ec_project_state_.projectGeneral.qcflag_meth = defaultEcProjectState.projectGeneral.qcflag_meth;
+    ec_project_state_.projectGeneral.use_biomet = defaultEcProjectState.projectGeneral.use_biomet;
     ec_project_state_.projectGeneral.biom_file.clear();
     ec_project_state_.projectGeneral.biom_dir.clear();
-    ec_project_state_.projectGeneral.biom_recurse = 0;
-    ec_project_state_.projectGeneral.biom_ext = QStringLiteral("txt");
-    ec_project_state_.projectGeneral.out_mean_cosp = 0;
-    ec_project_state_.projectGeneral.bin_sp_avail = 0;
-    ec_project_state_.projectGeneral.full_sp_avail = 0;
-    ec_project_state_.projectGeneral.files_found = 0;
+    ec_project_state_.projectGeneral.biom_recurse = defaultEcProjectState.projectGeneral.biom_recurse;
+    ec_project_state_.projectGeneral.biom_ext = defaultEcProjectState.projectGeneral.biom_ext;
+    ec_project_state_.projectGeneral.out_mean_spectra = defaultEcProjectState.projectGeneral.out_mean_spectra;
+    ec_project_state_.projectGeneral.out_mean_cosp = defaultEcProjectState.projectGeneral.out_mean_cosp;
+    ec_project_state_.projectGeneral.bin_sp_avail = defaultEcProjectState.projectGeneral.bin_sp_avail;
+    ec_project_state_.projectGeneral.full_sp_avail = defaultEcProjectState.projectGeneral.full_sp_avail;
+    ec_project_state_.projectGeneral.files_found = defaultEcProjectState.projectGeneral.files_found;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
     ec_project_state_.screenGeneral.end_run.clear();
     ec_project_state_.screenGeneral.data_path.clear();
-    ec_project_state_.screenGeneral.use_geo_north = false;
-    ec_project_state_.screenGeneral.mag_dec = 0.0;
+    ec_project_state_.screenGeneral.use_geo_north = defaultEcProjectState.screenGeneral.use_geo_north;
+    ec_project_state_.screenGeneral.mag_dec = defaultEcProjectState.screenGeneral.mag_dec;
     ec_project_state_.screenGeneral.dec_date = ec_project_state_.projectGeneral.end_date;
-    ec_project_state_.screenGeneral.recurse = 1;
-    ec_project_state_.screenGeneral.flag1_col = -1;
-    ec_project_state_.screenGeneral.flag1_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag1_policy = 1;
-    ec_project_state_.screenGeneral.flag2_col = -1;
-    ec_project_state_.screenGeneral.flag2_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag2_policy = 1;
-    ec_project_state_.screenGeneral.flag3_col = -1;
-    ec_project_state_.screenGeneral.flag3_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag3_policy = 1;
-    ec_project_state_.screenGeneral.flag4_col = -1;
-    ec_project_state_.screenGeneral.flag4_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag4_policy = 1;
-    ec_project_state_.screenGeneral.flag5_col = -1;
-    ec_project_state_.screenGeneral.flag5_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag5_policy = 1;
-    ec_project_state_.screenGeneral.flag6_col = -1;
-    ec_project_state_.screenGeneral.flag6_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag6_policy = 1;
-    ec_project_state_.screenGeneral.flag7_col = -1;
-    ec_project_state_.screenGeneral.flag7_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag7_policy = 1;
-    ec_project_state_.screenGeneral.flag8_col = -1;
-    ec_project_state_.screenGeneral.flag8_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag8_policy = 1;
-    ec_project_state_.screenGeneral.flag9_col = -1;
-    ec_project_state_.screenGeneral.flag9_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag9_policy = 1;
-    ec_project_state_.screenGeneral.flag10_col = -1;
-    ec_project_state_.screenGeneral.flag10_threshold = -9999.0;
-    ec_project_state_.screenGeneral.flag10_policy = 1;
+    ec_project_state_.screenGeneral.recurse = defaultEcProjectState.screenGeneral.recurse;
+    ec_project_state_.screenGeneral.flag1_col = defaultEcProjectState.screenGeneral.flag1_col;
+    ec_project_state_.screenGeneral.flag1_threshold = defaultEcProjectState.screenGeneral.flag1_threshold;
+    ec_project_state_.screenGeneral.flag1_policy = defaultEcProjectState.screenGeneral.flag1_policy;
+    ec_project_state_.screenGeneral.flag2_col = defaultEcProjectState.screenGeneral.flag2_col;
+    ec_project_state_.screenGeneral.flag2_threshold = defaultEcProjectState.screenGeneral.flag2_threshold;
+    ec_project_state_.screenGeneral.flag2_policy = defaultEcProjectState.screenGeneral.flag2_policy;
+    ec_project_state_.screenGeneral.flag3_col = defaultEcProjectState.screenGeneral.flag3_col;
+    ec_project_state_.screenGeneral.flag3_threshold = defaultEcProjectState.screenGeneral.flag3_threshold;
+    ec_project_state_.screenGeneral.flag3_policy = defaultEcProjectState.screenGeneral.flag3_policy;
+    ec_project_state_.screenGeneral.flag4_col = defaultEcProjectState.screenGeneral.flag4_col;
+    ec_project_state_.screenGeneral.flag4_threshold = defaultEcProjectState.screenGeneral.flag4_threshold;
+    ec_project_state_.screenGeneral.flag4_policy = defaultEcProjectState.screenGeneral.flag4_policy;
+    ec_project_state_.screenGeneral.flag5_col = defaultEcProjectState.screenGeneral.flag5_col;
+    ec_project_state_.screenGeneral.flag5_threshold = defaultEcProjectState.screenGeneral.flag5_threshold;
+    ec_project_state_.screenGeneral.flag5_policy = defaultEcProjectState.screenGeneral.flag5_policy;
+    ec_project_state_.screenGeneral.flag6_col = defaultEcProjectState.screenGeneral.flag6_col;
+    ec_project_state_.screenGeneral.flag6_threshold = defaultEcProjectState.screenGeneral.flag6_threshold;
+    ec_project_state_.screenGeneral.flag6_policy = defaultEcProjectState.screenGeneral.flag6_policy;
+    ec_project_state_.screenGeneral.flag7_col = defaultEcProjectState.screenGeneral.flag7_col;
+    ec_project_state_.screenGeneral.flag7_threshold = defaultEcProjectState.screenGeneral.flag7_threshold;
+    ec_project_state_.screenGeneral.flag7_policy = defaultEcProjectState.screenGeneral.flag7_policy;
+    ec_project_state_.screenGeneral.flag8_col = defaultEcProjectState.screenGeneral.flag8_col;
+    ec_project_state_.screenGeneral.flag8_threshold = defaultEcProjectState.screenGeneral.flag8_threshold;
+    ec_project_state_.screenGeneral.flag8_policy = defaultEcProjectState.screenGeneral.flag8_policy;
+    ec_project_state_.screenGeneral.flag9_col = defaultEcProjectState.screenGeneral.flag9_col;
+    ec_project_state_.screenGeneral.flag9_threshold = defaultEcProjectState.screenGeneral.flag9_threshold;
+    ec_project_state_.screenGeneral.flag9_policy = defaultEcProjectState.screenGeneral.flag9_policy;
+    ec_project_state_.screenGeneral.flag10_col = defaultEcProjectState.screenGeneral.flag10_col;
+    ec_project_state_.screenGeneral.flag10_threshold = defaultEcProjectState.screenGeneral.flag10_threshold;
+    ec_project_state_.screenGeneral.flag10_policy = defaultEcProjectState.screenGeneral.flag10_policy;
 
     // preproc setting section
-    ec_project_state_.screenSetting.nfiles = 1;
-    ec_project_state_.screenSetting.avrg_len = 30;
-    ec_project_state_.screenSetting.max_lack = 10;
-    ec_project_state_.screenSetting.u_offset = 0.0;
-    ec_project_state_.screenSetting.v_offset = 0.0;
-    ec_project_state_.screenSetting.w_offset = 0.0;
-    ec_project_state_.screenSetting.cross_wind = 0;
-    ec_project_state_.screenSetting.flow_distortion = 0;
-    ec_project_state_.screenSetting.rot_meth = 1;
-    ec_project_state_.screenSetting.detrend_meth = 0;
-    ec_project_state_.screenSetting.timeconst = 250.0;
-    ec_project_state_.screenSetting.tlag_meth = 2;
-    ec_project_state_.screenSetting.tap_win = 3;
-    ec_project_state_.screenSetting.nbins = 50;
-    ec_project_state_.screenSetting.out_bin_sp = 1;
-    ec_project_state_.screenSetting.out_bin_og = 0;
-    ec_project_state_.screenSetting.out_full_sp_u = 0;
-    ec_project_state_.screenSetting.out_full_sp_v = 0;
-    ec_project_state_.screenSetting.out_full_sp_w = 0;
-    ec_project_state_.screenSetting.out_full_sp_ts = 0;
-    ec_project_state_.screenSetting.out_full_sp_co2 = 0;
-    ec_project_state_.screenSetting.out_full_sp_h2o = 0;
-    ec_project_state_.screenSetting.out_full_sp_ch4 = 0;
-    ec_project_state_.screenSetting.out_full_sp_n2o = 0;
-    ec_project_state_.screenSetting.out_st_1 = 1;
-    ec_project_state_.screenSetting.out_st_2 = 0;
-    ec_project_state_.screenSetting.out_st_3 = 0;
-    ec_project_state_.screenSetting.out_st_4 = 0;
-    ec_project_state_.screenSetting.out_st_5 = 0;
-    ec_project_state_.screenSetting.out_st_6 = 0;
-    ec_project_state_.screenSetting.out_st_7 = 0;
-    ec_project_state_.screenSetting.out_raw_1 = 0;
-    ec_project_state_.screenSetting.out_raw_2 = 0;
-    ec_project_state_.screenSetting.out_raw_3 = 0;
-    ec_project_state_.screenSetting.out_raw_4 = 0;
-    ec_project_state_.screenSetting.out_raw_5 = 0;
-    ec_project_state_.screenSetting.out_raw_6 = 0;
-    ec_project_state_.screenSetting.out_raw_7 = 0;
-    ec_project_state_.screenSetting.out_raw_u = 0;
-    ec_project_state_.screenSetting.out_raw_v = 0;
-    ec_project_state_.screenSetting.out_raw_w = 0;
-    ec_project_state_.screenSetting.out_raw_ts = 0;
-    ec_project_state_.screenSetting.out_raw_co2 = 0;
-    ec_project_state_.screenSetting.out_raw_h2o = 0;
-    ec_project_state_.screenSetting.out_raw_ch4 = 0;
-    ec_project_state_.screenSetting.out_raw_gas4 = 0;
-    ec_project_state_.screenSetting.out_raw_tair = 0;
-    ec_project_state_.screenSetting.out_raw_pair = 0;
-    ec_project_state_.screenSetting.out_full_cosp_u = 0;
-    ec_project_state_.screenSetting.out_full_cosp_v = 0;
-    ec_project_state_.screenSetting.out_full_cosp_ts = 1;
-    ec_project_state_.screenSetting.out_full_cosp_co2 = 0;
-    ec_project_state_.screenSetting.out_full_cosp_h2o = 0;
-    ec_project_state_.screenSetting.out_full_cosp_ch4 = 0;
-    ec_project_state_.screenSetting.out_full_cosp_n2o = 0;
-    ec_project_state_.screenSetting.to_mixratio = 1;
-    ec_project_state_.screenSetting.filter_sr = 1;
-    ec_project_state_.screenSetting.filter_al = 1;
-    ec_project_state_.screenSetting.bu_corr = 0;
-    ec_project_state_.screenSetting.bu_multi = 0;
-    ec_project_state_.screenSetting.l_day_bot_gain = 0.944;
-    ec_project_state_.screenSetting.l_day_bot_offset = 2.57;
-    ec_project_state_.screenSetting.l_day_top_gain = 1.005;
-    ec_project_state_.screenSetting.l_day_top_offset = 0.24;
-    ec_project_state_.screenSetting.l_day_spar_gain = 1.010;
-    ec_project_state_.screenSetting.l_day_spar_offset = 0.36;
-    ec_project_state_.screenSetting.l_night_bot_gain = 0.883;
-    ec_project_state_.screenSetting.l_night_bot_offset = 2.17;
-    ec_project_state_.screenSetting.l_night_top_gain = 1.008;
-    ec_project_state_.screenSetting.l_night_top_offset = -0.41;
-    ec_project_state_.screenSetting.l_night_spar_gain = 1.010;
-    ec_project_state_.screenSetting.l_night_spar_offset = -0.17;
-    ec_project_state_.screenSetting.m_day_bot1 = 2.8;
-    ec_project_state_.screenSetting.m_day_bot2 = -0.0681;
-    ec_project_state_.screenSetting.m_day_bot3 = 0.0021;
-    ec_project_state_.screenSetting.m_day_bot4 = -0.334;
-    ec_project_state_.screenSetting.m_day_top1 = -0.1;
-    ec_project_state_.screenSetting.m_day_top2 = -0.0044;
-    ec_project_state_.screenSetting.m_day_top3 = 0.0011;
-    ec_project_state_.screenSetting.m_day_top4 = -0.022;
-    ec_project_state_.screenSetting.m_day_spar1 = 0.3;
-    ec_project_state_.screenSetting.m_day_spar2 = -0.0007;
-    ec_project_state_.screenSetting.m_day_spar3 = 0.0006;
-    ec_project_state_.screenSetting.m_day_spar4 = -0.044;
-    ec_project_state_.screenSetting.m_night_bot1 = 0.5;
-    ec_project_state_.screenSetting.m_night_bot2 = -0.1160;
-    ec_project_state_.screenSetting.m_night_bot3 = 0.0087;
-    ec_project_state_.screenSetting.m_night_bot4 = -0.206;
-    ec_project_state_.screenSetting.m_night_top1 = -1.7;
-    ec_project_state_.screenSetting.m_night_top2 = -0.1160;
-    ec_project_state_.screenSetting.m_night_top3 = 0.0051;
-    ec_project_state_.screenSetting.m_night_top4 = -0.029;
-    ec_project_state_.screenSetting.m_night_spar1 = -2.1;
-    ec_project_state_.screenSetting.m_night_spar2 = -0.0200;
-    ec_project_state_.screenSetting.m_night_spar3 = 0.0070;
-    ec_project_state_.screenSetting.m_night_spar4 = -0.026;
-    ec_project_state_.screenSetting.out_details = 0;
-    ec_project_state_.screenSetting.power_of_two = 1;
+    ec_project_state_.screenSetting.avrg_len = defaultEcProjectState.screenSetting.avrg_len;
+    ec_project_state_.screenSetting.max_lack = defaultEcProjectState.screenSetting.max_lack;
+    ec_project_state_.screenSetting.u_offset = defaultEcProjectState.screenSetting.u_offset;
+    ec_project_state_.screenSetting.v_offset = defaultEcProjectState.screenSetting.v_offset;
+    ec_project_state_.screenSetting.w_offset = defaultEcProjectState.screenSetting.w_offset;
+    ec_project_state_.screenSetting.cross_wind = defaultEcProjectState.screenSetting.cross_wind;
+    ec_project_state_.screenSetting.flow_distortion = defaultEcProjectState.screenSetting.flow_distortion;
+    ec_project_state_.screenSetting.rot_meth = defaultEcProjectState.screenSetting.rot_meth;
+    ec_project_state_.screenSetting.detrend_meth = defaultEcProjectState.screenSetting.detrend_meth;
+    ec_project_state_.screenSetting.timeconst = defaultEcProjectState.screenSetting.timeconst;
+    ec_project_state_.screenSetting.tlag_meth = defaultEcProjectState.screenSetting.tlag_meth;
+    ec_project_state_.screenSetting.tap_win = defaultEcProjectState.screenSetting.tap_win;
+    ec_project_state_.screenSetting.nbins = defaultEcProjectState.screenSetting.nbins;
+    ec_project_state_.screenSetting.out_bin_sp = defaultEcProjectState.screenSetting.out_bin_sp;
+    ec_project_state_.screenSetting.out_bin_og = defaultEcProjectState.screenSetting.out_bin_og;
+    ec_project_state_.screenSetting.out_full_sp_u = defaultEcProjectState.screenSetting.out_full_sp_u;
+    ec_project_state_.screenSetting.out_full_sp_v = defaultEcProjectState.screenSetting.out_full_sp_v;
+    ec_project_state_.screenSetting.out_full_sp_w = defaultEcProjectState.screenSetting.out_full_sp_w;
+    ec_project_state_.screenSetting.out_full_sp_ts = defaultEcProjectState.screenSetting.out_full_sp_ts;
+    ec_project_state_.screenSetting.out_full_sp_co2 = defaultEcProjectState.screenSetting.out_full_sp_co2;
+    ec_project_state_.screenSetting.out_full_sp_h2o = defaultEcProjectState.screenSetting.out_full_sp_h2o;
+    ec_project_state_.screenSetting.out_full_sp_ch4 = defaultEcProjectState.screenSetting.out_full_sp_ch4;
+    ec_project_state_.screenSetting.out_full_sp_n2o = defaultEcProjectState.screenSetting.out_full_sp_n2o;
+    ec_project_state_.screenSetting.out_st_1 = defaultEcProjectState.screenSetting.out_st_1;
+    ec_project_state_.screenSetting.out_st_2 = defaultEcProjectState.screenSetting.out_st_2;
+    ec_project_state_.screenSetting.out_st_3 = defaultEcProjectState.screenSetting.out_st_3;
+    ec_project_state_.screenSetting.out_st_4 = defaultEcProjectState.screenSetting.out_st_4;
+    ec_project_state_.screenSetting.out_st_5 = defaultEcProjectState.screenSetting.out_st_5;
+    ec_project_state_.screenSetting.out_st_6 = defaultEcProjectState.screenSetting.out_st_6;
+    ec_project_state_.screenSetting.out_st_7 = defaultEcProjectState.screenSetting.out_st_7;
+    ec_project_state_.screenSetting.out_raw_1 = defaultEcProjectState.screenSetting.out_raw_1;
+    ec_project_state_.screenSetting.out_raw_2 = defaultEcProjectState.screenSetting.out_raw_2;
+    ec_project_state_.screenSetting.out_raw_3 = defaultEcProjectState.screenSetting.out_raw_3;
+    ec_project_state_.screenSetting.out_raw_4 = defaultEcProjectState.screenSetting.out_raw_4;
+    ec_project_state_.screenSetting.out_raw_5 = defaultEcProjectState.screenSetting.out_raw_5;
+    ec_project_state_.screenSetting.out_raw_6 = defaultEcProjectState.screenSetting.out_raw_6;
+    ec_project_state_.screenSetting.out_raw_7 = defaultEcProjectState.screenSetting.out_raw_7;
+    ec_project_state_.screenSetting.out_raw_u = defaultEcProjectState.screenSetting.out_raw_u;
+    ec_project_state_.screenSetting.out_raw_v = defaultEcProjectState.screenSetting.out_raw_v;
+    ec_project_state_.screenSetting.out_raw_w = defaultEcProjectState.screenSetting.out_raw_w;
+    ec_project_state_.screenSetting.out_raw_ts = defaultEcProjectState.screenSetting.out_raw_ts;
+    ec_project_state_.screenSetting.out_raw_co2 = defaultEcProjectState.screenSetting.out_raw_co2;
+    ec_project_state_.screenSetting.out_raw_h2o = defaultEcProjectState.screenSetting.out_raw_h2o;
+    ec_project_state_.screenSetting.out_raw_ch4 = defaultEcProjectState.screenSetting.out_raw_ch4;
+    ec_project_state_.screenSetting.out_raw_gas4 = defaultEcProjectState.screenSetting.out_raw_gas4;
+    ec_project_state_.screenSetting.out_raw_tair = defaultEcProjectState.screenSetting.out_raw_tair;
+    ec_project_state_.screenSetting.out_raw_pair = defaultEcProjectState.screenSetting.out_raw_pair;
+    ec_project_state_.screenSetting.out_full_cosp_u = defaultEcProjectState.screenSetting.out_full_cosp_u;
+    ec_project_state_.screenSetting.out_full_cosp_v = defaultEcProjectState.screenSetting.out_full_cosp_v;
+    ec_project_state_.screenSetting.out_full_cosp_ts = defaultEcProjectState.screenSetting.out_full_cosp_ts;
+    ec_project_state_.screenSetting.out_full_cosp_co2 = defaultEcProjectState.screenSetting.out_full_cosp_co2;
+    ec_project_state_.screenSetting.out_full_cosp_h2o = defaultEcProjectState.screenSetting.out_full_cosp_h2o;
+    ec_project_state_.screenSetting.out_full_cosp_ch4 = defaultEcProjectState.screenSetting.out_full_cosp_ch4;
+    ec_project_state_.screenSetting.out_full_cosp_n2o = defaultEcProjectState.screenSetting.out_full_cosp_n2o;
+    ec_project_state_.screenSetting.filter_sr = defaultEcProjectState.screenSetting.filter_sr;
+    ec_project_state_.screenSetting.filter_al = defaultEcProjectState.screenSetting.filter_al;
+    ec_project_state_.screenSetting.bu_corr = defaultEcProjectState.screenSetting.bu_corr;
+    ec_project_state_.screenSetting.bu_multi = defaultEcProjectState.screenSetting.bu_multi;
+    ec_project_state_.screenSetting.l_day_bot_gain = defaultEcProjectState.screenSetting.l_day_bot_gain;
+    ec_project_state_.screenSetting.l_day_bot_offset = defaultEcProjectState.screenSetting.l_day_bot_offset;
+    ec_project_state_.screenSetting.l_day_top_gain = defaultEcProjectState.screenSetting.l_day_top_gain;
+    ec_project_state_.screenSetting.l_day_top_offset = defaultEcProjectState.screenSetting.l_day_top_offset;
+    ec_project_state_.screenSetting.l_day_spar_gain = defaultEcProjectState.screenSetting.l_day_spar_gain;
+    ec_project_state_.screenSetting.l_day_spar_offset = defaultEcProjectState.screenSetting.l_day_spar_offset;
+    ec_project_state_.screenSetting.l_night_bot_gain = defaultEcProjectState.screenSetting.l_night_bot_gain;
+    ec_project_state_.screenSetting.l_night_bot_offset = defaultEcProjectState.screenSetting.l_night_bot_offset;
+    ec_project_state_.screenSetting.l_night_top_gain = defaultEcProjectState.screenSetting.l_night_top_gain;
+    ec_project_state_.screenSetting.l_night_top_offset = defaultEcProjectState.screenSetting.l_night_top_offset;
+    ec_project_state_.screenSetting.l_night_spar_gain = defaultEcProjectState.screenSetting.l_night_spar_gain;
+    ec_project_state_.screenSetting.l_night_spar_offset = defaultEcProjectState.screenSetting.l_night_spar_offset;
+    ec_project_state_.screenSetting.m_day_bot1 = defaultEcProjectState.screenSetting.m_day_bot1;
+    ec_project_state_.screenSetting.m_day_bot2 = defaultEcProjectState.screenSetting.m_day_bot2;
+    ec_project_state_.screenSetting.m_day_bot3 = defaultEcProjectState.screenSetting.m_day_bot3;
+    ec_project_state_.screenSetting.m_day_bot4 = defaultEcProjectState.screenSetting.m_day_bot4;
+    ec_project_state_.screenSetting.m_day_top1 = defaultEcProjectState.screenSetting.m_day_top1;
+    ec_project_state_.screenSetting.m_day_top2 = defaultEcProjectState.screenSetting.m_day_top2;
+    ec_project_state_.screenSetting.m_day_top3 = defaultEcProjectState.screenSetting.m_day_top3;
+    ec_project_state_.screenSetting.m_day_top4 = defaultEcProjectState.screenSetting.m_day_top4;
+    ec_project_state_.screenSetting.m_day_spar1 = defaultEcProjectState.screenSetting.m_day_spar1;
+    ec_project_state_.screenSetting.m_day_spar2 = defaultEcProjectState.screenSetting.m_day_spar2;
+    ec_project_state_.screenSetting.m_day_spar3 = defaultEcProjectState.screenSetting.m_day_spar3;
+    ec_project_state_.screenSetting.m_day_spar4 = defaultEcProjectState.screenSetting.m_day_spar4;
+    ec_project_state_.screenSetting.m_night_bot1 = defaultEcProjectState.screenSetting.m_night_bot1;
+    ec_project_state_.screenSetting.m_night_bot2 = defaultEcProjectState.screenSetting.m_night_bot2;
+    ec_project_state_.screenSetting.m_night_bot3 = defaultEcProjectState.screenSetting.m_night_bot3;
+    ec_project_state_.screenSetting.m_night_bot4 = defaultEcProjectState.screenSetting.m_night_bot4;
+    ec_project_state_.screenSetting.m_night_top1 = defaultEcProjectState.screenSetting.m_night_top1;
+    ec_project_state_.screenSetting.m_night_top2 = defaultEcProjectState.screenSetting.m_night_top2;
+    ec_project_state_.screenSetting.m_night_top3 = defaultEcProjectState.screenSetting.m_night_top3;
+    ec_project_state_.screenSetting.m_night_top4 = defaultEcProjectState.screenSetting.m_night_top4;
+    ec_project_state_.screenSetting.m_night_spar1 = defaultEcProjectState.screenSetting.m_night_spar1;
+    ec_project_state_.screenSetting.m_night_spar2 = defaultEcProjectState.screenSetting.m_night_spar2;
+    ec_project_state_.screenSetting.m_night_spar3 = defaultEcProjectState.screenSetting.m_night_spar3;
+    ec_project_state_.screenSetting.m_night_spar4 = defaultEcProjectState.screenSetting.m_night_spar4;
+    ec_project_state_.screenSetting.out_details = defaultEcProjectState.screenSetting.out_details;
+    ec_project_state_.screenSetting.power_of_two = defaultEcProjectState.screenSetting.power_of_two;
 
     // preproc test section
-    ec_project_state_.screenTest.test_sr = 1;
-    ec_project_state_.screenTest.test_ar = 1;
-    ec_project_state_.screenTest.test_do = 1;
-    ec_project_state_.screenTest.test_al = 1;
-    ec_project_state_.screenTest.test_sk = 1;
-    ec_project_state_.screenTest.test_ds = 0;
-    ec_project_state_.screenTest.test_tl = 0;
-    ec_project_state_.screenTest.test_aa = 0;
-    ec_project_state_.screenTest.test_ns = 0;
+    ec_project_state_.screenTest.test_sr = defaultEcProjectState.screenTest.test_sr;
+    ec_project_state_.screenTest.test_ar = defaultEcProjectState.screenTest.test_ar;
+    ec_project_state_.screenTest.test_do = defaultEcProjectState.screenTest.test_do;
+    ec_project_state_.screenTest.test_al = defaultEcProjectState.screenTest.test_al;
+    ec_project_state_.screenTest.test_sk = defaultEcProjectState.screenTest.test_sk;
+    ec_project_state_.screenTest.test_ds = defaultEcProjectState.screenTest.test_ds;
+    ec_project_state_.screenTest.test_tl = defaultEcProjectState.screenTest.test_tl;
+    ec_project_state_.screenTest.test_aa = defaultEcProjectState.screenTest.test_aa;
+    ec_project_state_.screenTest.test_ns = defaultEcProjectState.screenTest.test_ns;
 
     // preproc parameters section
-    ec_project_state_.screenParam.aa_lim = 10.0;
-    ec_project_state_.screenParam.aa_max = 30.0;
-    ec_project_state_.screenParam.aa_min = -30.0;
-    ec_project_state_.screenParam.al_co2_min = 200.0;
-    ec_project_state_.screenParam.al_co2_max = 900.0;
-    ec_project_state_.screenParam.al_h2o_min = 0.0;
-    ec_project_state_.screenParam.al_h2o_max = 40.0;
-    ec_project_state_.screenParam.al_ch4_min = 0.17;
-    ec_project_state_.screenParam.al_ch4_max = 1000.0;
-    ec_project_state_.screenParam.al_n2o_min = 0.032;
-    ec_project_state_.screenParam.al_n2o_max = 1000.0;
-    ec_project_state_.screenParam.al_tson_min = -40.0;
-    ec_project_state_.screenParam.al_tson_max = 50.0;
-    ec_project_state_.screenParam.al_u_max = 30.0;
-    ec_project_state_.screenParam.al_w_max = 5.0;
-    ec_project_state_.screenParam.ar_bins = 100;
-    ec_project_state_.screenParam.ar_hf_lim = 70;
-    ec_project_state_.screenParam.ar_lim = 7.0;
-    ec_project_state_.screenParam.ds_hf_uv = 4.0;
-    ec_project_state_.screenParam.ds_hf_w = 2.0;
-    ec_project_state_.screenParam.ds_hf_t = 4.0;
-    ec_project_state_.screenParam.ds_hf_co2 = 40.0;
-    ec_project_state_.screenParam.ds_hf_h2o = 3.26;
-    ec_project_state_.screenParam.ds_hf_ch4 = 40.0;
-    ec_project_state_.screenParam.ds_hf_n2o = 40.0;
-    ec_project_state_.screenParam.ds_hf_var = 3.0;
-    ec_project_state_.screenParam.ds_sf_uv = 2.7;
-    ec_project_state_.screenParam.ds_sf_w = 1.3;
-    ec_project_state_.screenParam.ds_sf_t = 2.7;
-    ec_project_state_.screenParam.ds_sf_co2 = 27.0;
-    ec_project_state_.screenParam.ds_sf_h2o = 2.2;
-    ec_project_state_.screenParam.ds_sf_ch4 = 30.0;
-    ec_project_state_.screenParam.ds_sf_n2o = 30.0;
-    ec_project_state_.screenParam.ds_sf_var = 2.0;
-    ec_project_state_.screenParam.do_extlim_dw = 10;
-    ec_project_state_.screenParam.do_hf1_lim = 10.0;
-    ec_project_state_.screenParam.do_hf2_lim = 6.0;
-    ec_project_state_.screenParam.ns_hf_lim = 0.5;
-    ec_project_state_.screenParam.sk_hf_kumax = 8.0;
-    ec_project_state_.screenParam.sk_hf_kumin = 1.0;
-    ec_project_state_.screenParam.sk_hf_skmax = 2.0;
-    ec_project_state_.screenParam.sk_hf_skmin = -2.0;
-    ec_project_state_.screenParam.sk_sf_kumax = 5.0;
-    ec_project_state_.screenParam.sk_sf_kumin = 2.0;
-    ec_project_state_.screenParam.sk_sf_skmax = 1.0;
-    ec_project_state_.screenParam.sk_sf_skmin = -1.0;
-    ec_project_state_.screenParam.sr_num_spk = 3;
-    ec_project_state_.screenParam.sr_lim_u = 3.5;
-    ec_project_state_.screenParam.sr_lim_w = 5.0;
-    ec_project_state_.screenParam.sr_lim_co2 = 3.5;
-    ec_project_state_.screenParam.sr_lim_h2o = 3.5;
-    ec_project_state_.screenParam.sr_lim_ch4 = 8.0;
-    ec_project_state_.screenParam.sr_lim_n2o = 8.0;
-    ec_project_state_.screenParam.sr_lim_hf = 1.0;
-    ec_project_state_.screenParam.tl_hf_lim = 20.0;
-    ec_project_state_.screenParam.tl_def_co2 = 3.5;
-    ec_project_state_.screenParam.tl_def_h2o = 2.5;
-    ec_project_state_.screenParam.tl_def_ch4 = 3.5;
-    ec_project_state_.screenParam.tl_def_n2o = 2.5;
-    ec_project_state_.screenParam.tl_sf_lim = 10.0;
+    ec_project_state_.screenParam.aa_lim = defaultEcProjectState.screenParam.aa_lim;
+    ec_project_state_.screenParam.aa_max = defaultEcProjectState.screenParam.aa_max;
+    ec_project_state_.screenParam.aa_min = defaultEcProjectState.screenParam.aa_min;
+    ec_project_state_.screenParam.al_co2_min = defaultEcProjectState.screenParam.al_co2_min;
+    ec_project_state_.screenParam.al_co2_max = defaultEcProjectState.screenParam.al_co2_max;
+    ec_project_state_.screenParam.al_h2o_min = defaultEcProjectState.screenParam.al_h2o_min;
+    ec_project_state_.screenParam.al_h2o_max = defaultEcProjectState.screenParam.al_h2o_max;
+    ec_project_state_.screenParam.al_ch4_min = defaultEcProjectState.screenParam.al_ch4_min;
+    ec_project_state_.screenParam.al_ch4_max = defaultEcProjectState.screenParam.al_ch4_max;
+    ec_project_state_.screenParam.al_n2o_min = defaultEcProjectState.screenParam.al_n2o_min;
+    ec_project_state_.screenParam.al_n2o_max = defaultEcProjectState.screenParam.al_n2o_max;
+    ec_project_state_.screenParam.al_tson_min = defaultEcProjectState.screenParam.al_tson_min;
+    ec_project_state_.screenParam.al_tson_max = defaultEcProjectState.screenParam.al_tson_max;
+    ec_project_state_.screenParam.al_u_max = defaultEcProjectState.screenParam.al_u_max;
+    ec_project_state_.screenParam.al_w_max = defaultEcProjectState.screenParam.al_w_max;
+    ec_project_state_.screenParam.ar_bins = defaultEcProjectState.screenParam.ar_bins;
+    ec_project_state_.screenParam.ar_hf_lim = defaultEcProjectState.screenParam.ar_hf_lim;
+    ec_project_state_.screenParam.ar_lim = defaultEcProjectState.screenParam.ar_lim;
+    ec_project_state_.screenParam.ds_hf_uv = defaultEcProjectState.screenParam.ds_hf_uv;
+    ec_project_state_.screenParam.ds_hf_w = defaultEcProjectState.screenParam.ds_hf_w;
+    ec_project_state_.screenParam.ds_hf_t = defaultEcProjectState.screenParam.ds_hf_t;
+    ec_project_state_.screenParam.ds_hf_co2 = defaultEcProjectState.screenParam.ds_hf_co2;
+    ec_project_state_.screenParam.ds_hf_h2o = defaultEcProjectState.screenParam.ds_hf_h2o;
+    ec_project_state_.screenParam.ds_hf_ch4 = defaultEcProjectState.screenParam.ds_hf_ch4;
+    ec_project_state_.screenParam.ds_hf_n2o = defaultEcProjectState.screenParam.ds_hf_n2o;
+    ec_project_state_.screenParam.ds_hf_var = defaultEcProjectState.screenParam.ds_hf_var;
+    ec_project_state_.screenParam.ds_sf_uv = defaultEcProjectState.screenParam.ds_sf_uv;
+    ec_project_state_.screenParam.ds_sf_w = defaultEcProjectState.screenParam.ds_sf_w;
+    ec_project_state_.screenParam.ds_sf_t = defaultEcProjectState.screenParam.ds_sf_t;
+    ec_project_state_.screenParam.ds_sf_co2 = defaultEcProjectState.screenParam.ds_sf_co2;
+    ec_project_state_.screenParam.ds_sf_h2o = defaultEcProjectState.screenParam.ds_sf_h2o;
+    ec_project_state_.screenParam.ds_sf_ch4 = defaultEcProjectState.screenParam.ds_sf_ch4;
+    ec_project_state_.screenParam.ds_sf_n2o = defaultEcProjectState.screenParam.ds_sf_n2o;
+    ec_project_state_.screenParam.ds_sf_var = defaultEcProjectState.screenParam.ds_sf_var;
+    ec_project_state_.screenParam.despike_vm = defaultEcProjectState.screenParam.despike_vm;
+    ec_project_state_.screenParam.do_extlim_dw = defaultEcProjectState.screenParam.do_extlim_dw;
+    ec_project_state_.screenParam.do_hf1_lim = defaultEcProjectState.screenParam.do_hf1_lim;
+    ec_project_state_.screenParam.do_hf2_lim = defaultEcProjectState.screenParam.do_hf2_lim;
+    ec_project_state_.screenParam.ns_hf_lim = defaultEcProjectState.screenParam.ns_hf_lim;
+    ec_project_state_.screenParam.sk_hf_kumax = defaultEcProjectState.screenParam.sk_hf_kumax;
+    ec_project_state_.screenParam.sk_hf_kumin = defaultEcProjectState.screenParam.sk_hf_kumin;
+    ec_project_state_.screenParam.sk_hf_skmax = defaultEcProjectState.screenParam.sk_hf_skmax;
+    ec_project_state_.screenParam.sk_hf_skmin = defaultEcProjectState.screenParam.sk_hf_skmin;
+    ec_project_state_.screenParam.sk_sf_kumax = defaultEcProjectState.screenParam.sk_sf_kumax;
+    ec_project_state_.screenParam.sk_sf_kumin = defaultEcProjectState.screenParam.sk_sf_kumin;
+    ec_project_state_.screenParam.sk_sf_skmax = defaultEcProjectState.screenParam.sk_sf_skmax;
+    ec_project_state_.screenParam.sk_sf_skmin = defaultEcProjectState.screenParam.sk_sf_skmin;
+    ec_project_state_.screenParam.sr_num_spk = defaultEcProjectState.screenParam.sr_num_spk;
+    ec_project_state_.screenParam.sr_lim_u = defaultEcProjectState.screenParam.sr_lim_u;
+    ec_project_state_.screenParam.sr_lim_w = defaultEcProjectState.screenParam.sr_lim_w;
+    ec_project_state_.screenParam.sr_lim_co2 = defaultEcProjectState.screenParam.sr_lim_co2;
+    ec_project_state_.screenParam.sr_lim_h2o = defaultEcProjectState.screenParam.sr_lim_h2o;
+    ec_project_state_.screenParam.sr_lim_ch4 = defaultEcProjectState.screenParam.sr_lim_ch4;
+    ec_project_state_.screenParam.sr_lim_n2o = defaultEcProjectState.screenParam.sr_lim_n2o;
+    ec_project_state_.screenParam.sr_lim_hf = defaultEcProjectState.screenParam.sr_lim_hf;
+    ec_project_state_.screenParam.tl_hf_lim = defaultEcProjectState.screenParam.tl_hf_lim;
+    ec_project_state_.screenParam.tl_def_co2 = defaultEcProjectState.screenParam.tl_def_co2;
+    ec_project_state_.screenParam.tl_def_h2o = defaultEcProjectState.screenParam.tl_def_h2o;
+    ec_project_state_.screenParam.tl_def_ch4 = defaultEcProjectState.screenParam.tl_def_ch4;
+    ec_project_state_.screenParam.tl_def_n2o = defaultEcProjectState.screenParam.tl_def_n2o;
+    ec_project_state_.screenParam.tl_sf_lim = defaultEcProjectState.screenParam.tl_sf_lim;
 
     ec_project_state_.spectraSettings.start_sa_date = QDate(2000, 1, 1).toString(Qt::ISODate);
     ec_project_state_.spectraSettings.end_sa_date = QDate::currentDate().toString(Qt::ISODate);
-    ec_project_state_.spectraSettings.sa_mode = 1;
+    ec_project_state_.spectraSettings.start_sa_time = QTime(0, 0).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.spectraSettings.end_sa_time = QTime(23, 59).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.spectraSettings.sa_mode = defaultEcProjectState.spectraSettings.sa_mode;
     ec_project_state_.spectraSettings.sa_file.clear();
-    ec_project_state_.spectraSettings.horst_lens = 2;
-    ec_project_state_.spectraSettings.sa_min_smpl = 10;
-    ec_project_state_.spectraSettings.sa_fmin_co2 = 0.0006;
-    ec_project_state_.spectraSettings.sa_fmin_h2o = 0.0006;
-    ec_project_state_.spectraSettings.sa_fmin_ch4 = 0.0006;
-    ec_project_state_.spectraSettings.sa_fmin_gas4 = 0.0006;
-    ec_project_state_.spectraSettings.sa_fmax_co2 = 5.0;
-    ec_project_state_.spectraSettings.sa_fmax_h2o = 5.0;
-    ec_project_state_.spectraSettings.sa_fmax_ch4 = 5.0;
-    ec_project_state_.spectraSettings.sa_fmax_gas4 = 5.0;
-    ec_project_state_.spectraSettings.sa_hfn_co2_fmin = 5.0;
-    ec_project_state_.spectraSettings.sa_hfn_h2o_fmin = 5.0;
-    ec_project_state_.spectraSettings.sa_hfn_ch4_fmin = 5.0;
-    ec_project_state_.spectraSettings.sa_hfn_gas4_fmin = 5.0;
-    ec_project_state_.spectraSettings.add_sonic_lptf = 1;
-    ec_project_state_.spectraSettings.sa_min_co2 = 2.0;
-    ec_project_state_.spectraSettings.sa_min_ch4 = 0.2;
-    ec_project_state_.spectraSettings.sa_min_gas4 = 0.02;
-    ec_project_state_.spectraSettings.sa_min_le = 20.0;
-    ec_project_state_.spectraSettings.sa_min_h = 20.0;
-    ec_project_state_.spectraSettings.f10_co2_trshld = 2.0;
-    ec_project_state_.spectraSettings.f10_ch4_trshld = 0.2;
-    ec_project_state_.spectraSettings.f10_gas4_trshld = 0.02;
-    ec_project_state_.spectraSettings.f10_le_trshld = 10.0;
-    ec_project_state_.spectraSettings.f10_h_trshld = 10.0;
+    ec_project_state_.spectraSettings.horst_lens = defaultEcProjectState.spectraSettings.horst_lens;
+    ec_project_state_.spectraSettings.sa_min_smpl = defaultEcProjectState.spectraSettings.sa_min_smpl;
+    ec_project_state_.spectraSettings.sa_fmin_co2 = defaultEcProjectState.spectraSettings.sa_fmin_co2;
+    ec_project_state_.spectraSettings.sa_fmin_h2o = defaultEcProjectState.spectraSettings.sa_fmin_h2o;
+    ec_project_state_.spectraSettings.sa_fmin_ch4 = defaultEcProjectState.spectraSettings.sa_fmin_ch4;
+    ec_project_state_.spectraSettings.sa_fmin_gas4 = defaultEcProjectState.spectraSettings.sa_fmin_gas4;
+    ec_project_state_.spectraSettings.sa_fmax_co2 = defaultEcProjectState.spectraSettings.sa_fmax_co2;
+    ec_project_state_.spectraSettings.sa_fmax_h2o = defaultEcProjectState.spectraSettings.sa_fmax_h2o;
+    ec_project_state_.spectraSettings.sa_fmax_ch4 = defaultEcProjectState.spectraSettings.sa_fmax_ch4;
+    ec_project_state_.spectraSettings.sa_fmax_gas4 = defaultEcProjectState.spectraSettings.sa_fmax_gas4;
+    ec_project_state_.spectraSettings.sa_hfn_co2_fmin = defaultEcProjectState.spectraSettings.sa_hfn_co2_fmin;
+    ec_project_state_.spectraSettings.sa_hfn_h2o_fmin = defaultEcProjectState.spectraSettings.sa_hfn_h2o_fmin;
+    ec_project_state_.spectraSettings.sa_hfn_ch4_fmin = defaultEcProjectState.spectraSettings.sa_hfn_ch4_fmin;
+    ec_project_state_.spectraSettings.sa_hfn_gas4_fmin = defaultEcProjectState.spectraSettings.sa_hfn_gas4_fmin;
+    ec_project_state_.spectraSettings.add_sonic_lptf = defaultEcProjectState.spectraSettings.add_sonic_lptf;
+    ec_project_state_.spectraSettings.sa_min_un_ustar = defaultEcProjectState.spectraSettings.sa_min_un_ustar;
+    ec_project_state_.spectraSettings.sa_min_un_h = defaultEcProjectState.spectraSettings.sa_min_un_h;
+    ec_project_state_.spectraSettings.sa_min_un_le = defaultEcProjectState.spectraSettings.sa_min_un_le;
+    ec_project_state_.spectraSettings.sa_min_un_co2 = defaultEcProjectState.spectraSettings.sa_min_un_co2;
+    ec_project_state_.spectraSettings.sa_min_un_ch4 = defaultEcProjectState.spectraSettings.sa_min_un_ch4;
+    ec_project_state_.spectraSettings.sa_min_un_gas4 = defaultEcProjectState.spectraSettings.sa_min_un_gas4;
+    ec_project_state_.spectraSettings.sa_min_st_ustar = defaultEcProjectState.spectraSettings.sa_min_st_ustar;
+    ec_project_state_.spectraSettings.sa_min_st_h = defaultEcProjectState.spectraSettings.sa_min_st_h;
+    ec_project_state_.spectraSettings.sa_min_st_le = defaultEcProjectState.spectraSettings.sa_min_st_le;
+    ec_project_state_.spectraSettings.sa_min_st_co2 = defaultEcProjectState.spectraSettings.sa_min_st_co2;
+    ec_project_state_.spectraSettings.sa_min_st_ch4 = defaultEcProjectState.spectraSettings.sa_min_st_ch4;
+    ec_project_state_.spectraSettings.sa_min_st_gas4 = defaultEcProjectState.spectraSettings.sa_min_st_gas4;
+    ec_project_state_.spectraSettings.sa_max_ustar = defaultEcProjectState.spectraSettings.sa_max_ustar;
+    ec_project_state_.spectraSettings.sa_max_h = defaultEcProjectState.spectraSettings.sa_max_h;
+    ec_project_state_.spectraSettings.sa_max_le = defaultEcProjectState.spectraSettings.sa_max_le;
+    ec_project_state_.spectraSettings.sa_max_co2 = defaultEcProjectState.spectraSettings.sa_max_co2;
+    ec_project_state_.spectraSettings.sa_max_ch4 = defaultEcProjectState.spectraSettings.sa_max_ch4;
+    ec_project_state_.spectraSettings.sa_max_gas4 = defaultEcProjectState.spectraSettings.sa_max_gas4;
     ec_project_state_.spectraSettings.ex_file.clear();
     ec_project_state_.spectraSettings.sa_bin_spectra.clear();
     ec_project_state_.spectraSettings.sa_full_spectra.clear();
     ec_project_state_.spectraSettings.ex_dir.clear();
-    ec_project_state_.spectraSettings.subset = 1;
+    ec_project_state_.spectraSettings.subset = defaultEcProjectState.spectraSettings.subset;
+    ec_project_state_.spectraSettings.use_vm_flags = defaultEcProjectState.spectraSettings.use_vm_flags;
+    ec_project_state_.spectraSettings.use_foken_low = defaultEcProjectState.spectraSettings.use_foken_low;
+    ec_project_state_.spectraSettings.use_foken_mid = defaultEcProjectState.spectraSettings.use_foken_mid;
 
     ec_project_state_.screenTilt.start_date = QDate(2000, 1, 1).toString(Qt::ISODate);
     ec_project_state_.screenTilt.end_date = QDate::currentDate().toString(Qt::ISODate);
-    ec_project_state_.screenTilt.mode = 1;
-    ec_project_state_.screenTilt.north_offset = 0.0;
-    ec_project_state_.screenTilt.min_num_per_sec = 0;
-    ec_project_state_.screenTilt.w_max = 0.099;
-    ec_project_state_.screenTilt.u_min = -0.001;
+    ec_project_state_.screenTilt.start_time = QTime(0, 0).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.screenTilt.end_time = QTime(23, 59).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.screenTilt.mode = defaultEcProjectState.screenTilt.mode;
+    ec_project_state_.screenTilt.north_offset = defaultEcProjectState.screenTilt.north_offset;
+    ec_project_state_.screenTilt.min_num_per_sec = defaultEcProjectState.screenTilt.min_num_per_sec;
+    ec_project_state_.screenTilt.w_max = defaultEcProjectState.screenTilt.w_max;
+    ec_project_state_.screenTilt.u_min = defaultEcProjectState.screenTilt.u_min;
     ec_project_state_.screenTilt.file.clear();
-    ec_project_state_.screenTilt.fix_policy = 0;
+    ec_project_state_.screenTilt.fix_policy = defaultEcProjectState.screenTilt.fix_policy;
     ec_project_state_.screenTilt.angles.clear();
-    ec_project_state_.screenTilt.subset = 0;
+    ec_project_state_.screenTilt.subset = defaultEcProjectState.screenTilt.subset;
 
     ec_project_state_.timelagOpt.start_date = QDate(2000, 1, 1).toString(Qt::ISODate);
     ec_project_state_.timelagOpt.end_date = QDate::currentDate().toString(Qt::ISODate);
-    ec_project_state_.timelagOpt.mode = 1;
+    ec_project_state_.timelagOpt.start_time = QTime(0, 0).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.timelagOpt.end_time = QTime(23, 59).toString(QStringLiteral("hh:mm"));
+    ec_project_state_.timelagOpt.mode = defaultEcProjectState.timelagOpt.mode;
     ec_project_state_.timelagOpt.file.clear();
-    ec_project_state_.timelagOpt.pg_range = 1.5;
-    ec_project_state_.timelagOpt.le_min_flux = 20.0;
-    ec_project_state_.timelagOpt.to_h2o_nclass = 10;
-    ec_project_state_.timelagOpt.co2_min_flux = 2.0;
-    ec_project_state_.timelagOpt.ch4_min_flux = 0.2;
-    ec_project_state_.timelagOpt.gas4_min_flux = 0.02;
-    ec_project_state_.timelagOpt.co2_min_lag = -1000.1;
-    ec_project_state_.timelagOpt.co2_max_lag = -1000.1;
-    ec_project_state_.timelagOpt.h2o_min_lag = -1000.1;
-    ec_project_state_.timelagOpt.h2o_max_lag = -1000.1;
-    ec_project_state_.timelagOpt.ch4_min_lag = -1000.1;
-    ec_project_state_.timelagOpt.ch4_max_lag = -1000.1;
-    ec_project_state_.timelagOpt.gas4_min_lag = -1000.1;
-    ec_project_state_.timelagOpt.gas4_max_lag = -1000.1;
-    ec_project_state_.timelagOpt.subset  = 0;
+    ec_project_state_.timelagOpt.pg_range = defaultEcProjectState.timelagOpt.pg_range;
+    ec_project_state_.timelagOpt.le_min_flux = defaultEcProjectState.timelagOpt.le_min_flux;
+    ec_project_state_.timelagOpt.to_h2o_nclass = defaultEcProjectState.timelagOpt.to_h2o_nclass;
+    ec_project_state_.timelagOpt.co2_min_flux = defaultEcProjectState.timelagOpt.co2_min_flux;
+    ec_project_state_.timelagOpt.ch4_min_flux = defaultEcProjectState.timelagOpt.ch4_min_flux;
+    ec_project_state_.timelagOpt.gas4_min_flux = defaultEcProjectState.timelagOpt.gas4_min_flux;
+    ec_project_state_.timelagOpt.co2_min_lag = defaultEcProjectState.timelagOpt.co2_min_lag;
+    ec_project_state_.timelagOpt.co2_max_lag = defaultEcProjectState.timelagOpt.co2_max_lag;
+    ec_project_state_.timelagOpt.h2o_min_lag = defaultEcProjectState.timelagOpt.h2o_min_lag;
+    ec_project_state_.timelagOpt.h2o_max_lag = defaultEcProjectState.timelagOpt.h2o_max_lag;
+    ec_project_state_.timelagOpt.ch4_min_lag = defaultEcProjectState.timelagOpt.ch4_min_lag;
+    ec_project_state_.timelagOpt.ch4_max_lag = defaultEcProjectState.timelagOpt.ch4_max_lag;
+    ec_project_state_.timelagOpt.gas4_min_lag = defaultEcProjectState.timelagOpt.gas4_min_lag;
+    ec_project_state_.timelagOpt.gas4_max_lag = defaultEcProjectState.timelagOpt.gas4_max_lag;
+    ec_project_state_.timelagOpt.subset  = defaultEcProjectState.timelagOpt.subset;
 
-    ec_project_state_.randomError.method = 0;
-    ec_project_state_.randomError.its_method = 1;
-    ec_project_state_.randomError.its_tlag_max = 10.0;
-    ec_project_state_.randomError.its_sec_factor = 20.0;
+    ec_project_state_.randomError.method = defaultEcProjectState.randomError.method;
+    ec_project_state_.randomError.its_method = defaultEcProjectState.randomError.its_method;
+    ec_project_state_.randomError.its_tlag_max = defaultEcProjectState.randomError.its_tlag_max;
+    ec_project_state_.randomError.its_sec_factor = defaultEcProjectState.randomError.its_sec_factor;
 
-    ec_project_state_.biomParam.native_header = 1;
-    ec_project_state_.biomParam.hlines = 2;
-    ec_project_state_.biomParam.separator = QStringLiteral("comma");
-    ec_project_state_.biomParam.tstamp_ref = QStringLiteral("end");
-    ec_project_state_.biomParam.col_ta = 999;
-    ec_project_state_.biomParam.col_pa = 999;
-    ec_project_state_.biomParam.col_rh = -1;
-    ec_project_state_.biomParam.col_ppfd = -1;
-    ec_project_state_.biomParam.col_rg = -1;
-    ec_project_state_.biomParam.col_lwin = -1;
+    ec_project_state_.biomParam.native_header = defaultEcProjectState.biomParam.native_header;
+    ec_project_state_.biomParam.hlines = defaultEcProjectState.biomParam.hlines;
+    ec_project_state_.biomParam.separator = defaultEcProjectState.biomParam.separator;
+    ec_project_state_.biomParam.tstamp_ref = defaultEcProjectState.biomParam.tstamp_ref;
+    ec_project_state_.biomParam.col_ta = defaultEcProjectState.biomParam.col_ta;
+    ec_project_state_.biomParam.col_pa = defaultEcProjectState.biomParam.col_pa;
+    ec_project_state_.biomParam.col_rh = defaultEcProjectState.biomParam.col_rh;
+    ec_project_state_.biomParam.col_ppfd = defaultEcProjectState.biomParam.col_ppfd;
+    ec_project_state_.biomParam.col_rg = defaultEcProjectState.biomParam.col_rg;
+    ec_project_state_.biomParam.col_lwin = defaultEcProjectState.biomParam.col_lwin;
 
     setModified(false); // new documents are not in a modified state
     emit ecProjectNew();
@@ -1215,8 +1237,6 @@ bool EcProject::saveEcProject(const QString &filename)
         return false;
     }
 
-//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
 
@@ -1231,7 +1251,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_2, fileinfo.absoluteFilePath());
         project_ini.setValue(EcIni::INI_PROJECT_33, QVariant::fromValue(ec_project_state_.projectGeneral.run_mode).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_40, QVariant(ec_project_state_.projectGeneral.run_fcc).toInt());
-        project_ini.setValue(EcIni::INI_PROJECT_3, ec_project_state_.projectGeneral.project_title);
+        project_ini.setValue(EcIni::INI_PROJECT_3, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.project_title));
 
         // update sw version if empty or old
         if (ec_project_state_.projectGeneral.sw_version.isEmpty()
@@ -1260,7 +1280,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_9, QVariant(ec_project_state_.projectGeneral.use_alt_md_file).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_10, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.md_file));
         project_ini.setValue(EcIni::INI_PROJECT_11, QVariant(ec_project_state_.projectGeneral.use_tlfile).toInt());
-        project_ini.setValue(EcIni::INI_PROJECT_12, ec_project_state_.projectGeneral.timeline_file);
+        project_ini.setValue(EcIni::INI_PROJECT_12, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.timeline_file));
         project_ini.setValue(EcIni::INI_PROJECT_13, ec_project_state_.projectGeneral.binary_hnlines);
         project_ini.setValue(EcIni::INI_PROJECT_14, ec_project_state_.projectGeneral.binary_eol);
         project_ini.setValue(EcIni::INI_PROJECT_15, ec_project_state_.projectGeneral.binary_nbytes);
@@ -1298,15 +1318,16 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_48, ec_project_state_.projectGeneral.wpl_meth);
         project_ini.setValue(EcIni::INI_PROJECT_49, ec_project_state_.projectGeneral.foot_meth);
         project_ini.setValue(EcIni::INI_PROJECT_50, ec_project_state_.projectGeneral.tob1_format);
-        project_ini.setValue(EcIni::INI_PROJECT_51, ec_project_state_.projectGeneral.out_path);
+        project_ini.setValue(EcIni::INI_PROJECT_51, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.out_path));
         project_ini.setValue(EcIni::INI_PROJECT_52, ec_project_state_.projectGeneral.fix_out_format);
         project_ini.setValue(EcIni::INI_PROJECT_53, ec_project_state_.projectGeneral.err_label);
         project_ini.setValue(EcIni::INI_PROJECT_55, ec_project_state_.projectGeneral.qcflag_meth);
         project_ini.setValue(EcIni::INI_PROJECT_34, QVariant(ec_project_state_.projectGeneral.use_biomet).toInt());
-        project_ini.setValue(EcIni::INI_PROJECT_35, ec_project_state_.projectGeneral.biom_file);
-        project_ini.setValue(EcIni::INI_PROJECT_57, ec_project_state_.projectGeneral.biom_dir);
+        project_ini.setValue(EcIni::INI_PROJECT_35, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.biom_file));
+        project_ini.setValue(EcIni::INI_PROJECT_57, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.biom_dir));
         project_ini.setValue(EcIni::INI_PROJECT_58, ec_project_state_.projectGeneral.biom_recurse);
         project_ini.setValue(EcIni::INI_PROJECT_59, QVariant(QString(QLatin1Char('.')) + ec_project_state_.projectGeneral.biom_ext));
+        project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
         project_ini.setValue(EcIni::INI_PROJECT_60, ec_project_state_.projectGeneral.out_mean_cosp);
         project_ini.setValue(EcIni::INI_PROJECT_62, ec_project_state_.projectGeneral.bin_sp_avail);
         project_ini.setValue(EcIni::INI_PROJECT_63, ec_project_state_.projectGeneral.full_sp_avail);
@@ -1317,38 +1338,51 @@ bool EcProject::saveEcProject(const QString &filename)
     project_ini.beginGroup(EcIni::INIGROUP_SPEC_SETTINGS);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_0, ec_project_state_.spectraSettings.start_sa_date);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_1, ec_project_state_.spectraSettings.end_sa_date);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_50, ec_project_state_.spectraSettings.start_sa_time);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_51, ec_project_state_.spectraSettings.end_sa_time);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_2, ec_project_state_.spectraSettings.sa_mode);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_3, ec_project_state_.spectraSettings.sa_file);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_3, QDir::fromNativeSeparators(ec_project_state_.spectraSettings.sa_file));
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_4, ec_project_state_.spectraSettings.sa_min_smpl);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_5, ec_project_state_.spectraSettings.sa_fmin_co2);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_6, ec_project_state_.spectraSettings.sa_fmin_h2o);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_7, ec_project_state_.spectraSettings.sa_fmin_ch4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_8, ec_project_state_.spectraSettings.sa_fmin_gas4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_9, ec_project_state_.spectraSettings.sa_fmax_co2);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_10, ec_project_state_.spectraSettings.sa_fmax_h2o);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_11, ec_project_state_.spectraSettings.sa_fmax_ch4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_12, ec_project_state_.spectraSettings.sa_fmax_gas4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_13, ec_project_state_.spectraSettings.sa_hfn_co2_fmin);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_14, ec_project_state_.spectraSettings.sa_hfn_h2o_fmin);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_15, ec_project_state_.spectraSettings.sa_hfn_ch4_fmin);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_16, ec_project_state_.spectraSettings.sa_hfn_gas4_fmin);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_17, ec_project_state_.spectraSettings.sa_min_co2);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_18, ec_project_state_.spectraSettings.sa_min_ch4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_19, ec_project_state_.spectraSettings.sa_min_gas4);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_20, ec_project_state_.spectraSettings.sa_min_le);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_21, ec_project_state_.spectraSettings.sa_min_h);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_5, QString::number(ec_project_state_.spectraSettings.sa_fmin_co2, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_6, QString::number(ec_project_state_.spectraSettings.sa_fmin_h2o, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_7, QString::number(ec_project_state_.spectraSettings.sa_fmin_ch4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_8, QString::number(ec_project_state_.spectraSettings.sa_fmin_gas4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_9, QString::number(ec_project_state_.spectraSettings.sa_fmax_co2, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_10, QString::number(ec_project_state_.spectraSettings.sa_fmax_h2o, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_11, QString::number(ec_project_state_.spectraSettings.sa_fmax_ch4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_12, QString::number(ec_project_state_.spectraSettings.sa_fmax_gas4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_13, QString::number(ec_project_state_.spectraSettings.sa_hfn_co2_fmin, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_14, QString::number(ec_project_state_.spectraSettings.sa_hfn_h2o_fmin, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_15, QString::number(ec_project_state_.spectraSettings.sa_hfn_ch4_fmin, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_16, QString::number(ec_project_state_.spectraSettings.sa_hfn_gas4_fmin, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_17, QString::number(ec_project_state_.spectraSettings.sa_min_st_co2, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_18, QString::number(ec_project_state_.spectraSettings.sa_min_st_ch4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_19, QString::number(ec_project_state_.spectraSettings.sa_min_st_gas4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_20, QString::number(ec_project_state_.spectraSettings.sa_min_st_le, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_21, QString::number(ec_project_state_.spectraSettings.sa_min_st_h, 'f', 4));
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_22, ec_project_state_.spectraSettings.add_sonic_lptf);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_23, ec_project_state_.spectraSettings.f10_co2_trshld);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_24, ec_project_state_.spectraSettings.f10_ch4_trshld);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_25, ec_project_state_.spectraSettings.f10_gas4_trshld);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_26, ec_project_state_.spectraSettings.f10_le_trshld);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_27, ec_project_state_.spectraSettings.f10_h_trshld);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_28, ec_project_state_.spectraSettings.horst_lens);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_29, ec_project_state_.spectraSettings.ex_file);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_30, ec_project_state_.spectraSettings.sa_bin_spectra);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_31, ec_project_state_.spectraSettings.sa_full_spectra);
-        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_32, ec_project_state_.spectraSettings.ex_dir);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_29, QDir::fromNativeSeparators(ec_project_state_.spectraSettings.ex_file));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_30, QDir::fromNativeSeparators(ec_project_state_.spectraSettings.sa_bin_spectra));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_31, QDir::fromNativeSeparators(ec_project_state_.spectraSettings.sa_full_spectra));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_32, QDir::fromNativeSeparators(ec_project_state_.spectraSettings.ex_dir));
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_33, ec_project_state_.spectraSettings.subset);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_34, ec_project_state_.spectraSettings.use_vm_flags);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_35, QString::number(ec_project_state_.spectraSettings.sa_min_st_ustar, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_36, QString::number(ec_project_state_.spectraSettings.sa_min_un_ustar, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_37, QString::number(ec_project_state_.spectraSettings.sa_min_un_h, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_38, QString::number(ec_project_state_.spectraSettings.sa_min_un_le, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_39, QString::number(ec_project_state_.spectraSettings.sa_min_un_co2, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_40, QString::number(ec_project_state_.spectraSettings.sa_min_un_ch4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_41, QString::number(ec_project_state_.spectraSettings.sa_min_un_gas4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_42, QString::number(ec_project_state_.spectraSettings.sa_max_ustar, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_43, QString::number(ec_project_state_.spectraSettings.sa_max_h, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_44, QString::number(ec_project_state_.spectraSettings.sa_max_le, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_45, QString::number(ec_project_state_.spectraSettings.sa_max_co2, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_46, QString::number(ec_project_state_.spectraSettings.sa_max_ch4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_47, QString::number(ec_project_state_.spectraSettings.sa_max_gas4, 'f', 4));
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_48, ec_project_state_.spectraSettings.use_foken_low);
+        project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
         // NOTE: temporary placeholders for SA Groups
         project_ini.setValue(QString(QStringLiteral("sa_co2_g1_start")), 1);
@@ -1362,7 +1396,7 @@ bool EcProject::saveEcProject(const QString &filename)
 
     // screen general section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_GENERAL);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_4, ec_project_state_.screenGeneral.data_path);
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_4, QDir::fromNativeSeparators(ec_project_state_.screenGeneral.data_path));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_6, ec_project_state_.screenGeneral.recurse);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_40, QVariant(ec_project_state_.screenGeneral.use_geo_north).toInt());
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_38, ec_project_state_.screenGeneral.mag_dec);
@@ -1401,7 +1435,6 @@ bool EcProject::saveEcProject(const QString &filename)
 
     // screen settings section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_SETTINGS);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_0, ec_project_state_.screenSetting.nfiles);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_1, ec_project_state_.screenSetting.max_lack);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_12, ec_project_state_.screenSetting.u_offset);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_13, ec_project_state_.screenSetting.v_offset);
@@ -1456,47 +1489,46 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_35, ec_project_state_.screenSetting.out_full_cosp_h2o);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_36, ec_project_state_.screenSetting.out_full_cosp_ch4);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_37, ec_project_state_.screenSetting.out_full_cosp_n2o);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_39, ec_project_state_.screenSetting.to_mixratio);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_40, ec_project_state_.screenSetting.filter_sr);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_41, ec_project_state_.screenSetting.filter_al);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_44, ec_project_state_.screenSetting.bu_corr);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_45, ec_project_state_.screenSetting.bu_multi);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_46, ec_project_state_.screenSetting.l_day_bot_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_47, ec_project_state_.screenSetting.l_day_bot_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_48, ec_project_state_.screenSetting.l_day_top_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_49, ec_project_state_.screenSetting.l_day_top_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_50, ec_project_state_.screenSetting.l_day_spar_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_51, ec_project_state_.screenSetting.l_day_spar_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_52, ec_project_state_.screenSetting.l_night_bot_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_53, ec_project_state_.screenSetting.l_night_bot_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_54, ec_project_state_.screenSetting.l_night_top_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_55, ec_project_state_.screenSetting.l_night_top_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_56, ec_project_state_.screenSetting.l_night_spar_gain);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_57, ec_project_state_.screenSetting.l_night_spar_offset);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_58, ec_project_state_.screenSetting.m_day_bot1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_59, ec_project_state_.screenSetting.m_day_bot2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_60, ec_project_state_.screenSetting.m_day_bot3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_61, ec_project_state_.screenSetting.m_day_bot4);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_62, ec_project_state_.screenSetting.m_day_top1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_63, ec_project_state_.screenSetting.m_day_top2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_64, ec_project_state_.screenSetting.m_day_top3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_65, ec_project_state_.screenSetting.m_day_top4);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_66, ec_project_state_.screenSetting.m_day_spar1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_67, ec_project_state_.screenSetting.m_day_spar2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_68, ec_project_state_.screenSetting.m_day_spar3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_69, ec_project_state_.screenSetting.m_day_spar4);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_70, ec_project_state_.screenSetting.m_night_bot1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_71, ec_project_state_.screenSetting.m_night_bot2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_72, ec_project_state_.screenSetting.m_night_bot3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_73, ec_project_state_.screenSetting.m_night_bot4);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_74, ec_project_state_.screenSetting.m_night_top1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_75, ec_project_state_.screenSetting.m_night_top2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_76, ec_project_state_.screenSetting.m_night_top3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_77, ec_project_state_.screenSetting.m_night_top4);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_78, ec_project_state_.screenSetting.m_night_spar1);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_79, ec_project_state_.screenSetting.m_night_spar2);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_80, ec_project_state_.screenSetting.m_night_spar3);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_81, ec_project_state_.screenSetting.m_night_spar4);
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_46, QString::number(ec_project_state_.screenSetting.l_day_bot_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_47, QString::number(ec_project_state_.screenSetting.l_day_bot_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_48, QString::number(ec_project_state_.screenSetting.l_day_top_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_49, QString::number(ec_project_state_.screenSetting.l_day_top_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_50, QString::number(ec_project_state_.screenSetting.l_day_spar_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_51, QString::number(ec_project_state_.screenSetting.l_day_spar_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_52, QString::number(ec_project_state_.screenSetting.l_night_bot_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_53, QString::number(ec_project_state_.screenSetting.l_night_bot_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_54, QString::number(ec_project_state_.screenSetting.l_night_top_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_55, QString::number(ec_project_state_.screenSetting.l_night_top_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_56, QString::number(ec_project_state_.screenSetting.l_night_spar_gain, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_57, QString::number(ec_project_state_.screenSetting.l_night_spar_offset, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_58, QString::number(ec_project_state_.screenSetting.m_day_bot1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_59, QString::number(ec_project_state_.screenSetting.m_day_bot2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_60, QString::number(ec_project_state_.screenSetting.m_day_bot3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_61, QString::number(ec_project_state_.screenSetting.m_day_bot4, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_62, QString::number(ec_project_state_.screenSetting.m_day_top1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_63, QString::number(ec_project_state_.screenSetting.m_day_top2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_64, QString::number(ec_project_state_.screenSetting.m_day_top3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_65, QString::number(ec_project_state_.screenSetting.m_day_top4, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_66, QString::number(ec_project_state_.screenSetting.m_day_spar1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_67, QString::number(ec_project_state_.screenSetting.m_day_spar2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_68, QString::number(ec_project_state_.screenSetting.m_day_spar3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_69, QString::number(ec_project_state_.screenSetting.m_day_spar4, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_70, QString::number(ec_project_state_.screenSetting.m_night_bot1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_71, QString::number(ec_project_state_.screenSetting.m_night_bot2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_72, QString::number(ec_project_state_.screenSetting.m_night_bot3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_73, QString::number(ec_project_state_.screenSetting.m_night_bot4, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_74, QString::number(ec_project_state_.screenSetting.m_night_top1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_75, QString::number(ec_project_state_.screenSetting.m_night_top2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_76, QString::number(ec_project_state_.screenSetting.m_night_top3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_77, QString::number(ec_project_state_.screenSetting.m_night_top4, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_78, QString::number(ec_project_state_.screenSetting.m_night_spar1, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_79, QString::number(ec_project_state_.screenSetting.m_night_spar2, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_80, QString::number(ec_project_state_.screenSetting.m_night_spar3, 'f', 8));
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_81, QString::number(ec_project_state_.screenSetting.m_night_spar4, 'f', 8));
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_99, ec_project_state_.screenSetting.out_details);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.power_of_two);
     project_ini.endGroup();
@@ -1550,22 +1582,23 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_22, QString::number(ec_project_state_.screenParam.sk_hf_kumax, 'f', 1));
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_23, QString::number(ec_project_state_.screenParam.sk_sf_kumin, 'f', 1));
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_24, QString::number(ec_project_state_.screenParam.sk_sf_kumax, 'f', 1));
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_25, ec_project_state_.screenParam.ds_hf_uv);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_26, ec_project_state_.screenParam.ds_hf_w);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_27, ec_project_state_.screenParam.ds_hf_t);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_28, ec_project_state_.screenParam.ds_hf_co2);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_29, ec_project_state_.screenParam.ds_hf_h2o);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_50, ec_project_state_.screenParam.ds_hf_ch4);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_51, ec_project_state_.screenParam.ds_hf_n2o);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_30, ec_project_state_.screenParam.ds_hf_var);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_31, ec_project_state_.screenParam.ds_sf_uv);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_32, ec_project_state_.screenParam.ds_sf_w);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_33, ec_project_state_.screenParam.ds_sf_t);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_34, ec_project_state_.screenParam.ds_sf_co2);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_35, ec_project_state_.screenParam.ds_sf_h2o);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_52, ec_project_state_.screenParam.ds_sf_ch4);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_53, ec_project_state_.screenParam.ds_sf_n2o);
-        project_ini.setValue(EcIni::INI_SCREEN_PARAM_36, ec_project_state_.screenParam.ds_sf_var);
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_25, QString::number(ec_project_state_.screenParam.ds_hf_uv, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_26, QString::number(ec_project_state_.screenParam.ds_hf_w, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_27, QString::number(ec_project_state_.screenParam.ds_hf_t, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_28, QString::number(ec_project_state_.screenParam.ds_hf_co2, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_29, QString::number(ec_project_state_.screenParam.ds_hf_h2o, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_50, QString::number(ec_project_state_.screenParam.ds_hf_ch4, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_51, QString::number(ec_project_state_.screenParam.ds_hf_n2o, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_30, QString::number(ec_project_state_.screenParam.ds_hf_var, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_31, QString::number(ec_project_state_.screenParam.ds_sf_uv, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_32, QString::number(ec_project_state_.screenParam.ds_sf_w, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_33, QString::number(ec_project_state_.screenParam.ds_sf_t, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_34, QString::number(ec_project_state_.screenParam.ds_sf_co2, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_35, QString::number(ec_project_state_.screenParam.ds_sf_h2o, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_52, QString::number(ec_project_state_.screenParam.ds_sf_ch4, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_53, QString::number(ec_project_state_.screenParam.ds_sf_n2o, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_36, QString::number(ec_project_state_.screenParam.ds_sf_var, 'f', 2));
+        project_ini.setValue(EcIni::INI_SCREEN_PARAM_60, ec_project_state_.screenParam.despike_vm);
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_37, QString::number(ec_project_state_.screenParam.tl_hf_lim, 'f', 1));
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_38, QString::number(ec_project_state_.screenParam.tl_sf_lim, 'f', 1));
         project_ini.setValue(EcIni::INI_SCREEN_PARAM_39, QString::number(ec_project_state_.screenParam.tl_def_co2, 'f', 1));
@@ -1585,12 +1618,14 @@ bool EcProject::saveEcProject(const QString &filename)
 
         project_ini.setValue(EcIni::INI_SCREEN_TILT_0, ec_project_state_.screenTilt.start_date);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_1, ec_project_state_.screenTilt.end_date);
+        project_ini.setValue(EcIni::INI_SCREEN_TILT_12, ec_project_state_.screenTilt.start_time);
+        project_ini.setValue(EcIni::INI_SCREEN_TILT_13, ec_project_state_.screenTilt.end_time);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_2, ec_project_state_.screenTilt.mode);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_3, ec_project_state_.screenTilt.north_offset);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_4, ec_project_state_.screenTilt.min_num_per_sec);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_5, QString::number(ec_project_state_.screenTilt.w_max, 'f', 3));
         project_ini.setValue(EcIni::INI_SCREEN_TILT_6, QString::number(ec_project_state_.screenTilt.u_min, 'f', 3));
-        project_ini.setValue(EcIni::INI_SCREEN_TILT_7, ec_project_state_.screenTilt.file);
+        project_ini.setValue(EcIni::INI_SCREEN_TILT_7, QDir::fromNativeSeparators(ec_project_state_.screenTilt.file));
         project_ini.setValue(EcIni::INI_SCREEN_TILT_8, ec_project_state_.screenTilt.fix_policy);
         project_ini.setValue(EcIni::INI_SCREEN_TILT_11, ec_project_state_.screenTilt.subset);
 
@@ -1614,8 +1649,10 @@ bool EcProject::saveEcProject(const QString &filename)
     project_ini.beginGroup(EcIni::INIGROUP_TIMELAG_OPT);
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_0, ec_project_state_.timelagOpt.start_date);
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_1, ec_project_state_.timelagOpt.end_date);
+        project_ini.setValue(EcIni::INI_TIMELAG_OPT_19, ec_project_state_.timelagOpt.start_time);
+        project_ini.setValue(EcIni::INI_TIMELAG_OPT_20, ec_project_state_.timelagOpt.end_time);
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_2, ec_project_state_.timelagOpt.mode);
-        project_ini.setValue(EcIni::INI_TIMELAG_OPT_3, ec_project_state_.timelagOpt.file);
+        project_ini.setValue(EcIni::INI_TIMELAG_OPT_3, QDir::fromNativeSeparators(ec_project_state_.timelagOpt.file));
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_17, ec_project_state_.timelagOpt.to_h2o_nclass);
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_4, QString::number(ec_project_state_.timelagOpt.co2_min_flux, 'f', 3));
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_5, QString::number(ec_project_state_.timelagOpt.ch4_min_flux, 'f', 3));
@@ -1635,12 +1672,16 @@ bool EcProject::saveEcProject(const QString &filename)
 
     // random error section
     project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_0, ec_project_state_.randomError.method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_1, ec_project_state_.randomError.its_method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_2, QString::number(ec_project_state_.randomError.its_tlag_max, 'f', 1));
+        project_ini.setValue(EcIni::INI_RAND_ERROR_0,
+                             ec_project_state_.randomError.method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_1,
+                             ec_project_state_.randomError.its_method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_2,
+                             QString::number(ec_project_state_.randomError.its_tlag_max, 'f', 1));
 
         // NOTE: temporarly disabled
-        //project_ini.setValue(EcIni::INI_RAND_ERROR_3, QString::number(ec_project_state_.randomError.its_sec_factor, 'f', 1));
+//        project_ini.setValue(EcIni::INI_RAND_ERROR_3,
+//                             QString::number(ec_project_state_.randomError.its_sec_factor, 'f', 1));
     project_ini.endGroup();
 
     // biomet section
@@ -1669,7 +1710,6 @@ bool EcProject::saveEcProject(const QString &filename)
 
     // project is saved, so set flags accordingly
     setModified(false);
-//    QApplication::restoreOverrideCursor();
     return true;
 }
 
@@ -1677,6 +1717,9 @@ bool EcProject::saveEcProject(const QString &filename)
 bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *modified)
 {
     DEBUG_FUNC_NAME
+
+    auto parent = static_cast<MainWindow*>(this->parent());
+    if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
     QVariant v = QVariant(); // container for conversions
@@ -1694,8 +1737,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         return false;
     }
 
-//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
     QSettings project_ini(filename, QSettings::IniFormat);
 
     // in case of old non existing file name, use the current existing
@@ -1706,33 +1747,42 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     }
     qDebug() << "projectFilename" << projectFilename;
 
+    EcProjectState defaultEcProjectState;
     // general section
     project_ini.beginGroup(EcIni::INIGROUP_PROJECT);
-    ec_project_state_.projectGeneral.project_title = project_ini.value(EcIni::INI_PROJECT_3, QString()).toString();
-        ec_project_state_.projectGeneral.project_id = project_ini.value(EcIni::INI_PROJECT_6, QString()).toString();
-        ec_project_state_.projectGeneral.creation_date = project_ini.value(EcIni::INI_PROJECT_0, QString()).toString();
-        ec_project_state_.projectGeneral.last_change_date = project_ini.value(EcIni::INI_PROJECT_1, QString()).toString();
+        ec_project_state_.projectGeneral.project_title
+            = project_ini.value(EcIni::INI_PROJECT_3,
+                                defaultEcProjectState.projectGeneral.project_title).toString();
+        ec_project_state_.projectGeneral.project_id
+            = project_ini.value(EcIni::INI_PROJECT_6,
+                                defaultEcProjectState.projectGeneral.project_id).toString();
+        ec_project_state_.projectGeneral.creation_date
+            = project_ini.value(EcIni::INI_PROJECT_0,
+                                defaultEcProjectState.projectGeneral.creation_date).toString();
+        ec_project_state_.projectGeneral.last_change_date
+            = project_ini.value(EcIni::INI_PROJECT_1,
+                                defaultEcProjectState.projectGeneral.last_change_date).toString();
 
         v = project_ini.value(EcIni::INI_PROJECT_7,
-                              QVariant::fromValue(Defs::RawFileType::GHG).toInt());
-        ec_project_state_.projectGeneral.file_type
-                = static_cast<Defs::RawFileType>(v.toInt());
+                              QVariant::fromValue(defaultEcProjectState.projectGeneral.file_type).toInt());
+        ec_project_state_.projectGeneral.file_type = static_cast<Defs::RawFileType>(v.toInt());
 
-        ec_project_state_.projectGeneral.use_alt_md_file = project_ini.value(EcIni::INI_PROJECT_9, false).toBool();
+        ec_project_state_.projectGeneral.use_alt_md_file
+                = project_ini.value(EcIni::INI_PROJECT_9,
+                                    defaultEcProjectState.projectGeneral.use_alt_md_file).toBool();
 
-        // NOTE: backward compatibility, is_express key
+        // NOTE: backward compatibility for 'is_express' key
         if (project_ini.contains(EcIni::INI_PROJECT_33_OLD))
         {
             if (checkVersion)
             {
-//                QApplication::restoreOverrideCursor();
-                if(!queryProjectImport(filename))
+                if (!parent->queryEcProjectImport(filename))
                 {
                     return false;
                 }
 
                 v = project_ini.value(EcIni::INI_PROJECT_33_OLD,
-                         QVariant::fromValue(Defs::CurrRunMode::Advanced).toInt());
+                         QVariant::fromValue(defaultEcProjectState.projectGeneral.run_mode).toInt());
                 ec_project_state_.projectGeneral.run_mode
                     = static_cast<Defs::CurrRunMode>(v.toInt());
 
@@ -1748,7 +1798,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         else
         {
             v = project_ini.value(EcIni::INI_PROJECT_33,
-                            QVariant::fromValue(Defs::CurrRunMode::Advanced));
+                            QVariant::fromValue(defaultEcProjectState.projectGeneral.run_mode));
 
             if (v.canConvert<Defs::CurrRunMode>())
             {
@@ -1756,53 +1806,107 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                     = v.value<Defs::CurrRunMode>();
             }
 
-//            v = project_ini.value(EcIni::INI_PROJECT_40,
-//                            QVariant::fromValue(Defs::CurrRunMode::Advanced));
-//            ec_project_state_.projectGeneral.run_fcc
-//                    = v.value<Defs::CurrRunMode>();
-
             ec_project_state_.projectGeneral.run_fcc
-                    = project_ini.value(EcIni::INI_PROJECT_40, false).toBool();
+                    = project_ini.value(EcIni::INI_PROJECT_40,
+                                        defaultEcProjectState.projectGeneral.run_fcc).toBool();
         }
 
         ec_project_state_.projectGeneral.file_name = projectFilename;
-        ec_project_state_.projectGeneral.sw_version = project_ini.value(EcIni::INI_PROJECT_4, Defs::APP_VERSION_STR).toString();
-        ec_project_state_.projectGeneral.ini_version = project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_FILE_VERSION_STR).toString();
-        ec_project_state_.projectGeneral.file_prototype = project_ini.value(EcIni::INI_PROJECT_8, QString()).toString();
-        ec_project_state_.projectGeneral.md_file = project_ini.value(EcIni::INI_PROJECT_10, QString()).toString();
-        ec_project_state_.projectGeneral.use_tlfile = project_ini.value(EcIni::INI_PROJECT_11, false).toBool();
-        ec_project_state_.projectGeneral.timeline_file = project_ini.value(EcIni::INI_PROJECT_12, QString()).toString();
-        ec_project_state_.projectGeneral.binary_hnlines = project_ini.value(EcIni::INI_PROJECT_13, -1).toInt();
-        ec_project_state_.projectGeneral.binary_eol = project_ini.value(EcIni::INI_PROJECT_14, -1).toInt();
-        ec_project_state_.projectGeneral.binary_nbytes = project_ini.value(EcIni::INI_PROJECT_15, -1).toInt();
-        ec_project_state_.projectGeneral.binary_little_end = project_ini.value(EcIni::INI_PROJECT_16, -1).toInt();
-        ec_project_state_.projectGeneral.master_sonic = project_ini.value(EcIni::INI_PROJECT_17, QString()).toString();
-        ec_project_state_.projectGeneral.col_co2 = project_ini.value(EcIni::INI_PROJECT_18, -1).toInt();
-        ec_project_state_.projectGeneral.col_h2o = project_ini.value(EcIni::INI_PROJECT_19, -1).toInt();
-        ec_project_state_.projectGeneral.col_ch4 = project_ini.value(EcIni::INI_PROJECT_20, -1).toInt();
-        ec_project_state_.projectGeneral.col_n2o = project_ini.value(EcIni::INI_PROJECT_21, -1).toInt();
-        ec_project_state_.projectGeneral.col_int_t_1 = project_ini.value(EcIni::INI_PROJECT_22, -1).toInt();
-        ec_project_state_.projectGeneral.col_int_t_2 = project_ini.value(EcIni::INI_PROJECT_23, -1).toInt();
-        ec_project_state_.projectGeneral.col_int_p = project_ini.value(EcIni::INI_PROJECT_24, -1).toInt();
-        ec_project_state_.projectGeneral.col_air_t = project_ini.value(EcIni::INI_PROJECT_25, -1).toInt();
-        ec_project_state_.projectGeneral.col_air_p = project_ini.value(EcIni::INI_PROJECT_26, -1).toInt();
-        ec_project_state_.projectGeneral.col_int_t_c = project_ini.value(EcIni::INI_PROJECT_27, -1).toInt();
-        ec_project_state_.projectGeneral.col_diag_75 = project_ini.value(EcIni::INI_PROJECT_28, -1).toInt();
-        ec_project_state_.projectGeneral.col_diag_72 = project_ini.value(EcIni::INI_PROJECT_29, -1).toInt();
-        ec_project_state_.projectGeneral.col_diag_77 = project_ini.value(EcIni::INI_PROJECT_30, -1).toInt();
-        ec_project_state_.projectGeneral.col_ts = project_ini.value(EcIni::INI_PROJECT_36, -1).toInt();
-        ec_project_state_.projectGeneral.gas_mw = project_ini.value(EcIni::INI_PROJECT_31, -1.0).toReal();
-        ec_project_state_.projectGeneral.gas_diff = project_ini.value(EcIni::INI_PROJECT_32, -1.0).toReal();
-        ec_project_state_.projectGeneral.out_ghg_eu = project_ini.value(EcIni::INI_PROJECT_37, 0).toInt();
-        ec_project_state_.projectGeneral.out_amflux = project_ini.value(EcIni::INI_PROJECT_38, 0).toInt();
+        ec_project_state_.projectGeneral.sw_version
+                = project_ini.value(EcIni::INI_PROJECT_4,
+                                    defaultEcProjectState.projectGeneral.sw_version).toString();
+        ec_project_state_.projectGeneral.ini_version
+                = project_ini.value(EcIni::INI_PROJECT_5,
+                                    defaultEcProjectState.projectGeneral.ini_version).toString();
+        ec_project_state_.projectGeneral.file_prototype
+                = project_ini.value(EcIni::INI_PROJECT_8,
+                                    defaultEcProjectState.projectGeneral.file_prototype).toString();
+        ec_project_state_.projectGeneral.md_file
+                = project_ini.value(EcIni::INI_PROJECT_10,
+                                    defaultEcProjectState.projectGeneral.md_file).toString();
+        ec_project_state_.projectGeneral.use_tlfile
+                = project_ini.value(EcIni::INI_PROJECT_11,
+                                    defaultEcProjectState.projectGeneral.use_tlfile).toBool();
+        ec_project_state_.projectGeneral.timeline_file
+                = project_ini.value(EcIni::INI_PROJECT_12,
+                                    defaultEcProjectState.projectGeneral.timeline_file).toString();
+        ec_project_state_.projectGeneral.binary_hnlines
+                = project_ini.value(EcIni::INI_PROJECT_13,
+                                    defaultEcProjectState.projectGeneral.binary_hnlines).toInt();
+        ec_project_state_.projectGeneral.binary_eol
+                = project_ini.value(EcIni::INI_PROJECT_14,
+                                    defaultEcProjectState.projectGeneral.binary_eol).toInt();
+        ec_project_state_.projectGeneral.binary_nbytes
+                = project_ini.value(EcIni::INI_PROJECT_15,
+                                    defaultEcProjectState.projectGeneral.binary_nbytes).toInt();
+        ec_project_state_.projectGeneral.binary_little_end
+                = project_ini.value(EcIni::INI_PROJECT_16,
+                                    defaultEcProjectState.projectGeneral.binary_little_end).toInt();
+        ec_project_state_.projectGeneral.master_sonic
+                = project_ini.value(EcIni::INI_PROJECT_17,
+                                    defaultEcProjectState.projectGeneral.master_sonic).toString();
+        ec_project_state_.projectGeneral.col_co2
+                = project_ini.value(EcIni::INI_PROJECT_18,
+                                    defaultEcProjectState.projectGeneral.col_co2).toInt();
+        ec_project_state_.projectGeneral.col_h2o
+                = project_ini.value(EcIni::INI_PROJECT_19,
+                                    defaultEcProjectState.projectGeneral.col_h2o).toInt();
+        ec_project_state_.projectGeneral.col_ch4
+                = project_ini.value(EcIni::INI_PROJECT_20,
+                                    defaultEcProjectState.projectGeneral.col_ch4).toInt();
+        ec_project_state_.projectGeneral.col_n2o
+                = project_ini.value(EcIni::INI_PROJECT_21,
+                                    defaultEcProjectState.projectGeneral.col_n2o).toInt();
+        ec_project_state_.projectGeneral.col_int_t_1
+                = project_ini.value(EcIni::INI_PROJECT_22,
+                                    defaultEcProjectState.projectGeneral.col_int_t_1).toInt();
+        ec_project_state_.projectGeneral.col_int_t_2
+                = project_ini.value(EcIni::INI_PROJECT_23,
+                                    defaultEcProjectState.projectGeneral.col_int_t_2).toInt();
+        ec_project_state_.projectGeneral.col_int_p
+                = project_ini.value(EcIni::INI_PROJECT_24,
+                                    defaultEcProjectState.projectGeneral.col_int_p).toInt();
+        ec_project_state_.projectGeneral.col_air_t
+                = project_ini.value(EcIni::INI_PROJECT_25,
+                                    defaultEcProjectState.projectGeneral.col_air_t).toInt();
+        ec_project_state_.projectGeneral.col_air_p
+                = project_ini.value(EcIni::INI_PROJECT_26,
+                                    defaultEcProjectState.projectGeneral.col_air_p).toInt();
+        ec_project_state_.projectGeneral.col_int_t_c
+                = project_ini.value(EcIni::INI_PROJECT_27,
+                                    defaultEcProjectState.projectGeneral.col_int_t_c).toInt();
+        ec_project_state_.projectGeneral.col_diag_75
+                = project_ini.value(EcIni::INI_PROJECT_28,
+                                    defaultEcProjectState.projectGeneral.col_diag_75).toInt();
+        ec_project_state_.projectGeneral.col_diag_72
+                = project_ini.value(EcIni::INI_PROJECT_29,
+                                    defaultEcProjectState.projectGeneral.col_diag_72).toInt();
+        ec_project_state_.projectGeneral.col_diag_77
+                = project_ini.value(EcIni::INI_PROJECT_30,
+                                    defaultEcProjectState.projectGeneral.col_diag_77).toInt();
+        ec_project_state_.projectGeneral.col_ts
+                = project_ini.value(EcIni::INI_PROJECT_36,
+                                    defaultEcProjectState.projectGeneral.col_ts).toInt();
+        ec_project_state_.projectGeneral.gas_mw
+                = project_ini.value(EcIni::INI_PROJECT_31,
+                                    defaultEcProjectState.projectGeneral.gas_mw).toReal();
+        ec_project_state_.projectGeneral.gas_diff
+                = project_ini.value(EcIni::INI_PROJECT_32,
+                                    defaultEcProjectState.projectGeneral.gas_diff).toReal();
+        ec_project_state_.projectGeneral.out_ghg_eu
+                = project_ini.value(EcIni::INI_PROJECT_37,
+                                    defaultEcProjectState.projectGeneral.out_ghg_eu).toInt();
+        ec_project_state_.projectGeneral.out_amflux
+                = project_ini.value(EcIni::INI_PROJECT_38,
+                                    defaultEcProjectState.projectGeneral.out_amflux).toInt();
 
-        // NOTE: backward compatibility change, out_rich key
-        if (project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_FILE_VERSION_STR).toString() == QLatin1String("1.0"))
+        // NOTE: backward compatibility change for 'out_rich' key
+        if (project_ini.value(EcIni::INI_PROJECT_5,
+                              defaultEcProjectState.projectGeneral.ini_version).toString() == QLatin1String("1.0"))
         {
             if (checkVersion)
             {
-//                QApplication::restoreOverrideCursor();
-                if(!queryProjectImport(filename))
+                if (!parent->queryEcProjectImport(filename))
                 {
                     return false;
                 }
@@ -1817,319 +1921,898 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         }
         else
         {
-            ec_project_state_.projectGeneral.out_rich = project_ini.value(EcIni::INI_PROJECT_39, 1).toInt();
+            ec_project_state_.projectGeneral.out_rich
+                    = project_ini.value(EcIni::INI_PROJECT_39,
+                                        defaultEcProjectState.projectGeneral.out_rich).toInt();
         }
 
-        ec_project_state_.projectGeneral.out_md = project_ini.value(EcIni::INI_PROJECT_56, 1).toInt();
-        ec_project_state_.projectGeneral.out_biomet = project_ini.value(EcIni::INI_PROJECT_61, 0).toInt();
+        ec_project_state_.projectGeneral.out_md
+                = project_ini.value(EcIni::INI_PROJECT_56,
+                                    defaultEcProjectState.projectGeneral.out_md).toInt();
+        ec_project_state_.projectGeneral.out_biomet
+                = project_ini.value(EcIni::INI_PROJECT_61,
+                                    defaultEcProjectState.projectGeneral.out_biomet).toInt();
+        ec_project_state_.projectGeneral.make_dataset
+                = project_ini.value(EcIni::INI_PROJECT_41,
+                                    defaultEcProjectState.projectGeneral.make_dataset).toBool();
 
-        ec_project_state_.projectGeneral.make_dataset = project_ini.value(EcIni::INI_PROJECT_41, false).toBool();
-        ec_project_state_.projectGeneral.subset = project_ini.value(EcIni::INI_PROJECT_54, 0).toInt();
-        ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-        ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.projectGeneral.subset
+                = project_ini.value(EcIni::INI_PROJECT_54,
+                                    defaultEcProjectState.projectGeneral.subset).toInt();
+        ec_project_state_.projectGeneral.start_date
+                = project_ini.value(EcIni::INI_PROJECT_42,
+                                    QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+        ec_project_state_.projectGeneral.start_time
+                = project_ini.value(EcIni::INI_PROJECT_44,
+                                    QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.projectGeneral.end_date
+                = project_ini.value(EcIni::INI_PROJECT_43,
+                                    QDate::currentDate().toString(Qt::ISODate)).toString();
+        ec_project_state_.projectGeneral.end_time
+                = project_ini.value(EcIni::INI_PROJECT_45,
+                                    QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
 
-//        if (ec_project_state_.projectGeneral.subset)
-//        {
-//            ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-//            ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
-//            ec_project_state_.projectGeneral.end_date = project_ini.value(EcIni::INI_PROJECT_43, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-//            ec_project_state_.projectGeneral.end_time = project_ini.value(EcIni::INI_PROJECT_45, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
-//        }
-//        else
-//        {
-            ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-            ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
-            ec_project_state_.projectGeneral.end_date = project_ini.value(EcIni::INI_PROJECT_43, QDate::currentDate().toString(Qt::ISODate)).toString();
-            ec_project_state_.projectGeneral.end_time = project_ini.value(EcIni::INI_PROJECT_45, QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
-//        }
-        ec_project_state_.projectGeneral.hf_meth = project_ini.value(EcIni::INI_PROJECT_46, 1).toInt();
-        ec_project_state_.projectGeneral.lf_meth = project_ini.value(EcIni::INI_PROJECT_47, 1).toInt();
-        ec_project_state_.projectGeneral.wpl_meth = project_ini.value(EcIni::INI_PROJECT_48, 1).toInt();
-        ec_project_state_.projectGeneral.foot_meth = project_ini.value(EcIni::INI_PROJECT_49, 1).toInt();
-        ec_project_state_.projectGeneral.tob1_format = project_ini.value(EcIni::INI_PROJECT_50, 0).toInt();
-        ec_project_state_.projectGeneral.out_path = project_ini.value(EcIni::INI_PROJECT_51, QString()).toString();
-        ec_project_state_.projectGeneral.fix_out_format = project_ini.value(EcIni::INI_PROJECT_52, 0).toInt();
-        ec_project_state_.projectGeneral.err_label = project_ini.value(EcIni::INI_PROJECT_53, QString(QStringLiteral("-9999.0"))).toString();
-        ec_project_state_.projectGeneral.qcflag_meth = project_ini.value(EcIni::INI_PROJECT_55, 1).toInt();
-        ec_project_state_.projectGeneral.use_biomet = project_ini.value(EcIni::INI_PROJECT_34, 0).toInt();
-        ec_project_state_.projectGeneral.biom_file = project_ini.value(EcIni::INI_PROJECT_35, QString()).toString();
-        ec_project_state_.projectGeneral.biom_dir = project_ini.value(EcIni::INI_PROJECT_57, QString()).toString();
-        ec_project_state_.projectGeneral.biom_recurse = project_ini.value(EcIni::INI_PROJECT_58, 0).toInt();
-        ec_project_state_.projectGeneral.biom_ext = project_ini.value(EcIni::INI_PROJECT_59, QString(QStringLiteral("txt"))).toString().remove(QLatin1Char('.'));
-        ec_project_state_.projectGeneral.out_mean_cosp = project_ini.value(EcIni::INI_PROJECT_60, 0).toInt();
-        ec_project_state_.projectGeneral.bin_sp_avail = project_ini.value(EcIni::INI_PROJECT_62, 0).toInt();
-        ec_project_state_.projectGeneral.full_sp_avail = project_ini.value(EcIni::INI_PROJECT_63, 0).toInt();
-        ec_project_state_.projectGeneral.files_found = project_ini.value(EcIni::INI_PROJECT_64, 0).toInt();
+        ec_project_state_.projectGeneral.hf_meth
+                = project_ini.value(EcIni::INI_PROJECT_46,
+                                    defaultEcProjectState.projectGeneral.hf_meth).toInt();
+        ec_project_state_.projectGeneral.lf_meth
+                = project_ini.value(EcIni::INI_PROJECT_47,
+                                    defaultEcProjectState.projectGeneral.lf_meth).toInt();
+        ec_project_state_.projectGeneral.wpl_meth
+                = project_ini.value(EcIni::INI_PROJECT_48,
+                                    defaultEcProjectState.projectGeneral.wpl_meth).toInt();
+        ec_project_state_.projectGeneral.foot_meth
+                = project_ini.value(EcIni::INI_PROJECT_49,
+                                    defaultEcProjectState.projectGeneral.foot_meth).toInt();
+        ec_project_state_.projectGeneral.tob1_format
+                = project_ini.value(EcIni::INI_PROJECT_50,
+                                    defaultEcProjectState.projectGeneral.tob1_format).toInt();
+        ec_project_state_.projectGeneral.out_path
+                = project_ini.value(EcIni::INI_PROJECT_51,
+                                    defaultEcProjectState.projectGeneral.out_path).toString();
+        ec_project_state_.projectGeneral.fix_out_format
+                = project_ini.value(EcIni::INI_PROJECT_52,
+                                    defaultEcProjectState.projectGeneral.fix_out_format).toInt();
+        ec_project_state_.projectGeneral.err_label
+                = project_ini.value(EcIni::INI_PROJECT_53,
+                                    defaultEcProjectState.projectGeneral.err_label).toString();
+        ec_project_state_.projectGeneral.qcflag_meth
+                = project_ini.value(EcIni::INI_PROJECT_55,
+                                    defaultEcProjectState.projectGeneral.qcflag_meth).toInt();
+        ec_project_state_.projectGeneral.use_biomet
+                = project_ini.value(EcIni::INI_PROJECT_34,
+                                    defaultEcProjectState.projectGeneral.use_biomet).toInt();
+        ec_project_state_.projectGeneral.biom_file
+                = project_ini.value(EcIni::INI_PROJECT_35,
+                                    defaultEcProjectState.projectGeneral.biom_file).toString();
+        ec_project_state_.projectGeneral.biom_dir
+                = project_ini.value(EcIni::INI_PROJECT_57,
+                                    defaultEcProjectState.projectGeneral.biom_dir).toString();
+        ec_project_state_.projectGeneral.biom_recurse
+                = project_ini.value(EcIni::INI_PROJECT_58,
+                                    defaultEcProjectState.projectGeneral.biom_recurse).toInt();
+        ec_project_state_.projectGeneral.biom_ext
+                = project_ini.value(EcIni::INI_PROJECT_59,
+                                    defaultEcProjectState.projectGeneral.biom_ext).toString().remove(QLatin1Char('.'));
+        ec_project_state_.projectGeneral.out_mean_spectra
+                = project_ini.value(EcIni::INI_PROJECT_65,
+                                    defaultEcProjectState.projectGeneral.out_mean_spectra).toInt();
+        ec_project_state_.projectGeneral.out_mean_cosp
+                = project_ini.value(EcIni::INI_PROJECT_60,
+                                    defaultEcProjectState.projectGeneral.out_mean_cosp).toInt();
+        ec_project_state_.projectGeneral.bin_sp_avail
+                = project_ini.value(EcIni::INI_PROJECT_62,
+                                    defaultEcProjectState.projectGeneral.bin_sp_avail).toInt();
+        ec_project_state_.projectGeneral.full_sp_avail
+                = project_ini.value(EcIni::INI_PROJECT_63,
+                                    defaultEcProjectState.projectGeneral.full_sp_avail).toInt();
+        ec_project_state_.projectGeneral.files_found
+                = project_ini.value(EcIni::INI_PROJECT_64,
+                                    defaultEcProjectState.projectGeneral.files_found).toInt();
     project_ini.endGroup();
 
     // spec settings section
     project_ini.beginGroup(EcIni::INIGROUP_SPEC_SETTINGS);
-        ec_project_state_.spectraSettings.start_sa_date = project_ini.value(EcIni::INI_SPEC_SETTINGS_0, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-        ec_project_state_.spectraSettings.end_sa_date = project_ini.value(EcIni::INI_SPEC_SETTINGS_1, QDate::currentDate().toString(Qt::ISODate)).toString();
-        ec_project_state_.spectraSettings.sa_mode = project_ini.value(EcIni::INI_SPEC_SETTINGS_2, 1).toInt();
-        ec_project_state_.spectraSettings.sa_file = project_ini.value(EcIni::INI_SPEC_SETTINGS_3, QString()).toString();
-        ec_project_state_.spectraSettings.sa_min_smpl = project_ini.value(EcIni::INI_SPEC_SETTINGS_4, 10).toInt();
-        ec_project_state_.spectraSettings.sa_fmin_co2 = project_ini.value(EcIni::INI_SPEC_SETTINGS_5, 0.004).toDouble();
-        ec_project_state_.spectraSettings.sa_fmin_h2o = project_ini.value(EcIni::INI_SPEC_SETTINGS_6, 0.004).toDouble();
-        ec_project_state_.spectraSettings.sa_fmin_ch4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_7, 0.004).toDouble();
-        ec_project_state_.spectraSettings.sa_fmin_gas4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_8, 0.004).toDouble();
-        ec_project_state_.spectraSettings.sa_fmax_co2 = project_ini.value(EcIni::INI_SPEC_SETTINGS_9, 1.0).toDouble();
-        ec_project_state_.spectraSettings.sa_fmax_h2o = project_ini.value(EcIni::INI_SPEC_SETTINGS_10, 1.0).toDouble();
-        ec_project_state_.spectraSettings.sa_fmax_ch4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_11, 1.0).toDouble();
-        ec_project_state_.spectraSettings.sa_fmax_gas4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_12, 1.0).toDouble();
-        ec_project_state_.spectraSettings.sa_hfn_co2_fmin = project_ini.value(EcIni::INI_SPEC_SETTINGS_13, 2.0).toDouble();
-        ec_project_state_.spectraSettings.sa_hfn_h2o_fmin = project_ini.value(EcIni::INI_SPEC_SETTINGS_14, 2.0).toDouble();
-        ec_project_state_.spectraSettings.sa_hfn_ch4_fmin = project_ini.value(EcIni::INI_SPEC_SETTINGS_15, 2.0).toDouble();
-        ec_project_state_.spectraSettings.sa_hfn_gas4_fmin = project_ini.value(EcIni::INI_SPEC_SETTINGS_16, 2.0).toDouble();
-        ec_project_state_.spectraSettings.sa_min_co2 = project_ini.value(EcIni::INI_SPEC_SETTINGS_17, 2.0).toDouble();
-        ec_project_state_.spectraSettings.sa_min_ch4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_18, 0.2).toDouble();
-        ec_project_state_.spectraSettings.sa_min_gas4 = project_ini.value(EcIni::INI_SPEC_SETTINGS_19, 0.02).toDouble();
-        ec_project_state_.spectraSettings.sa_min_le = project_ini.value(EcIni::INI_SPEC_SETTINGS_20, 20.0).toDouble();
-        ec_project_state_.spectraSettings.sa_min_h = project_ini.value(EcIni::INI_SPEC_SETTINGS_21, 20.0).toDouble();
-        ec_project_state_.spectraSettings.add_sonic_lptf = project_ini.value(EcIni::INI_SPEC_SETTINGS_22, 1).toInt();
-        ec_project_state_.spectraSettings.f10_co2_trshld = project_ini.value(EcIni::INI_SPEC_SETTINGS_23, 2.0).toDouble();
-        ec_project_state_.spectraSettings.f10_ch4_trshld = project_ini.value(EcIni::INI_SPEC_SETTINGS_24, 0.2).toDouble();
-        ec_project_state_.spectraSettings.f10_gas4_trshld = project_ini.value(EcIni::INI_SPEC_SETTINGS_25, 0.02).toDouble();
-        ec_project_state_.spectraSettings.f10_le_trshld = project_ini.value(EcIni::INI_SPEC_SETTINGS_26, 10.0).toDouble();
-        ec_project_state_.spectraSettings.f10_h_trshld = project_ini.value(EcIni::INI_SPEC_SETTINGS_27, 10.0).toDouble();
-        ec_project_state_.spectraSettings.horst_lens = project_ini.value(EcIni::INI_SPEC_SETTINGS_28, 2).toInt();
-        ec_project_state_.spectraSettings.ex_file = project_ini.value(EcIni::INI_SPEC_SETTINGS_29, QString()).toString();
-        ec_project_state_.spectraSettings.sa_bin_spectra = project_ini.value(EcIni::INI_SPEC_SETTINGS_30, QString()).toString();
-        ec_project_state_.spectraSettings.sa_full_spectra = project_ini.value(EcIni::INI_SPEC_SETTINGS_31, QString()).toString();
-        ec_project_state_.spectraSettings.ex_dir = project_ini.value(EcIni::INI_SPEC_SETTINGS_32, QString()).toString();
-        ec_project_state_.spectraSettings.subset = project_ini.value(EcIni::INI_SPEC_SETTINGS_33, 0).toInt();
+        ec_project_state_.spectraSettings.start_sa_date
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_0,
+                                    QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+        ec_project_state_.spectraSettings.end_sa_date
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_1,
+                                    QDate::currentDate().toString(Qt::ISODate)).toString();
+        ec_project_state_.spectraSettings.start_sa_time
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_50,
+                                    QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.spectraSettings.end_sa_time
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_51,
+                                    QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.spectraSettings.sa_mode
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_2,
+                                    defaultEcProjectState.spectraSettings.sa_mode).toInt();
+        ec_project_state_.spectraSettings.sa_file
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_3,
+                                    defaultEcProjectState.spectraSettings.sa_file).toString();
+        ec_project_state_.spectraSettings.sa_min_smpl
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_4,
+                                    defaultEcProjectState.spectraSettings.sa_min_smpl).toInt();
+        ec_project_state_.spectraSettings.sa_fmin_co2
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_5,
+                                    defaultEcProjectState.spectraSettings.sa_fmax_co2).toDouble();
+        ec_project_state_.spectraSettings.sa_fmin_h2o
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_6,
+                                    defaultEcProjectState.spectraSettings.sa_fmin_h2o).toDouble();
+        ec_project_state_.spectraSettings.sa_fmin_ch4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_7,
+                                    defaultEcProjectState.spectraSettings.sa_fmin_ch4).toDouble();
+        ec_project_state_.spectraSettings.sa_fmin_gas4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_8,
+                                    defaultEcProjectState.spectraSettings.sa_fmin_gas4).toDouble();
+        ec_project_state_.spectraSettings.sa_fmax_co2
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_9,
+                                    defaultEcProjectState.spectraSettings.sa_fmax_co2).toDouble();
+        ec_project_state_.spectraSettings.sa_fmax_h2o
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_10,
+                                    defaultEcProjectState.spectraSettings.sa_fmax_h2o).toDouble();
+        ec_project_state_.spectraSettings.sa_fmax_ch4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_11,
+                                    defaultEcProjectState.spectraSettings.sa_fmax_ch4).toDouble();
+        ec_project_state_.spectraSettings.sa_fmax_gas4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_12,
+                                    defaultEcProjectState.spectraSettings.sa_fmax_gas4).toDouble();
+        ec_project_state_.spectraSettings.sa_hfn_co2_fmin
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_13,
+                                    defaultEcProjectState.spectraSettings.sa_hfn_co2_fmin).toDouble();
+        ec_project_state_.spectraSettings.sa_hfn_h2o_fmin
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_14,
+                                    defaultEcProjectState.spectraSettings.sa_hfn_h2o_fmin).toDouble();
+        ec_project_state_.spectraSettings.sa_hfn_ch4_fmin
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_15,
+                                    defaultEcProjectState.spectraSettings.sa_hfn_ch4_fmin).toDouble();
+        ec_project_state_.spectraSettings.sa_hfn_gas4_fmin
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_16,
+                                    defaultEcProjectState.spectraSettings.sa_hfn_gas4_fmin).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_ustar
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_36,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_ustar).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_h
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_37,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_h).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_le
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_38,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_le).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_co2
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_39,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_co2).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_ch4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_40,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_ch4).toDouble();
+        ec_project_state_.spectraSettings.sa_min_un_gas4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_41,
+                                    defaultEcProjectState.spectraSettings.sa_min_un_gas4).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_ustar
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_35,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_ustar).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_h
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_21,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_h).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_le
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_20,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_le).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_co2
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_17,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_co2).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_ch4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_18,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_ch4).toDouble();
+        ec_project_state_.spectraSettings.sa_min_st_gas4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_19,
+                                    defaultEcProjectState.spectraSettings.sa_min_st_gas4).toDouble();
+        ec_project_state_.spectraSettings.sa_max_ustar
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_42,
+                                    defaultEcProjectState.spectraSettings.sa_max_ustar).toDouble();
+        ec_project_state_.spectraSettings.sa_max_h
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_43,
+                                    defaultEcProjectState.spectraSettings.sa_max_h).toDouble();
+        ec_project_state_.spectraSettings.sa_max_le
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_44,
+                                    defaultEcProjectState.spectraSettings.sa_max_le).toDouble();
+        ec_project_state_.spectraSettings.sa_max_co2
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_45,
+                                    defaultEcProjectState.spectraSettings.sa_max_co2).toDouble();
+        ec_project_state_.spectraSettings.sa_max_ch4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_46,
+                                    defaultEcProjectState.spectraSettings.sa_max_ch4).toDouble();
+        ec_project_state_.spectraSettings.sa_max_gas4
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_47,
+                                    defaultEcProjectState.spectraSettings.sa_max_gas4).toDouble();
+        ec_project_state_.spectraSettings.add_sonic_lptf
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_22,
+                                    defaultEcProjectState.spectraSettings.add_sonic_lptf).toInt();
+        ec_project_state_.spectraSettings.horst_lens
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_28,
+                                    defaultEcProjectState.spectraSettings.horst_lens).toInt();
+        ec_project_state_.spectraSettings.ex_file
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_29,
+                                    defaultEcProjectState.spectraSettings.ex_file).toString();
+        ec_project_state_.spectraSettings.sa_bin_spectra
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_30,
+                                    defaultEcProjectState.spectraSettings.sa_bin_spectra).toString();
+        ec_project_state_.spectraSettings.sa_full_spectra
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_31,
+                                    defaultEcProjectState.spectraSettings.sa_full_spectra).toString();
+        ec_project_state_.spectraSettings.ex_dir
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_32,
+                                    defaultEcProjectState.spectraSettings.ex_dir).toString();
+        ec_project_state_.spectraSettings.subset
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_33,
+                                    defaultEcProjectState.spectraSettings.subset).toInt();
+        ec_project_state_.spectraSettings.use_vm_flags
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_34,
+                                    defaultEcProjectState.spectraSettings.use_vm_flags).toInt();
+        ec_project_state_.spectraSettings.use_foken_low
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_48,
+                                    defaultEcProjectState.spectraSettings.use_foken_low).toInt();
+        ec_project_state_.spectraSettings.use_foken_mid
+                = project_ini.value(EcIni::INI_SPEC_SETTINGS_49,
+                                    defaultEcProjectState.spectraSettings.use_foken_mid).toInt();
     project_ini.endGroup();
 
     // preproc general section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_GENERAL);
-        ec_project_state_.screenGeneral.data_path = project_ini.value(EcIni::INI_SCREEN_GENERAL_4, QString()).toString();
-        ec_project_state_.screenGeneral.recurse = project_ini.value(EcIni::INI_SCREEN_GENERAL_6, 1).toInt();
-        ec_project_state_.screenGeneral.use_geo_north = project_ini.value(EcIni::INI_SCREEN_GENERAL_40, false).toBool();
-        ec_project_state_.screenGeneral.mag_dec = project_ini.value(EcIni::INI_SCREEN_GENERAL_38, 0.0).toReal();
-        ec_project_state_.screenGeneral.dec_date = project_ini.value(EcIni::INI_SCREEN_GENERAL_39, ec_project_state_.projectGeneral.end_date).toString();
-        ec_project_state_.screenGeneral.flag1_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_8, -1).toInt();
-        ec_project_state_.screenGeneral.flag1_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_9, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag1_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_10, 1).toInt();
-        ec_project_state_.screenGeneral.flag2_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_11, -1).toInt();
-        ec_project_state_.screenGeneral.flag2_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_12, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag2_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_13, 1).toInt();
-        ec_project_state_.screenGeneral.flag3_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_14, -1).toInt();
-        ec_project_state_.screenGeneral.flag3_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_15, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag3_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_16, 1).toInt();
-        ec_project_state_.screenGeneral.flag4_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_17, -1).toInt();
-        ec_project_state_.screenGeneral.flag4_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_18, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag4_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_19, 1).toInt();
-        ec_project_state_.screenGeneral.flag5_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_20, -1).toInt();
-        ec_project_state_.screenGeneral.flag5_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_21, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag5_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_22, 1).toInt();
-        ec_project_state_.screenGeneral.flag6_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_23, -1).toInt();
-        ec_project_state_.screenGeneral.flag6_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_24, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag6_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_25, 1).toInt();
-        ec_project_state_.screenGeneral.flag7_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_26, -1).toInt();
-        ec_project_state_.screenGeneral.flag7_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_27, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag7_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_28, 1).toInt();
-        ec_project_state_.screenGeneral.flag8_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_29, -1).toInt();
-        ec_project_state_.screenGeneral.flag8_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_30, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag8_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_31, 1).toInt();
-        ec_project_state_.screenGeneral.flag9_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_32, -1).toInt();
-        ec_project_state_.screenGeneral.flag9_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_33, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag9_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_34, 1).toInt();
-        ec_project_state_.screenGeneral.flag10_col = project_ini.value(EcIni::INI_SCREEN_GENERAL_35, -1).toInt();
-        ec_project_state_.screenGeneral.flag10_threshold = project_ini.value(EcIni::INI_SCREEN_GENERAL_36, -9999.0).toReal();
-        ec_project_state_.screenGeneral.flag10_policy = project_ini.value(EcIni::INI_SCREEN_GENERAL_37, 1).toInt();
+        ec_project_state_.screenGeneral.data_path
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_4,
+                                    defaultEcProjectState.screenGeneral.data_path).toString();
+        ec_project_state_.screenGeneral.recurse
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_6,
+                                    defaultEcProjectState.screenGeneral.recurse).toInt();
+        ec_project_state_.screenGeneral.use_geo_north
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_40,
+                                    defaultEcProjectState.screenGeneral.use_geo_north).toBool();
+        ec_project_state_.screenGeneral.mag_dec
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_38,
+                                    defaultEcProjectState.screenGeneral.mag_dec).toReal();
+        ec_project_state_.screenGeneral.dec_date
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_39,
+                                    defaultEcProjectState.projectGeneral.end_date).toString();
+        ec_project_state_.screenGeneral.flag1_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_8,
+                                    defaultEcProjectState.screenGeneral.flag1_col).toInt();
+        ec_project_state_.screenGeneral.flag1_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_9,
+                                    defaultEcProjectState.screenGeneral.flag1_threshold).toReal();
+        ec_project_state_.screenGeneral.flag1_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_10,
+                                    defaultEcProjectState.screenGeneral.flag1_policy).toInt();
+        ec_project_state_.screenGeneral.flag2_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_11,
+                                    defaultEcProjectState.screenGeneral.flag2_col).toInt();
+        ec_project_state_.screenGeneral.flag2_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_12,
+                                    defaultEcProjectState.screenGeneral.flag2_threshold).toReal();
+        ec_project_state_.screenGeneral.flag2_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_13,
+                                    defaultEcProjectState.screenGeneral.flag2_policy).toInt();
+        ec_project_state_.screenGeneral.flag3_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_14,
+                                    defaultEcProjectState.screenGeneral.flag3_col).toInt();
+        ec_project_state_.screenGeneral.flag3_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_15,
+                                    defaultEcProjectState.screenGeneral.flag3_threshold).toReal();
+        ec_project_state_.screenGeneral.flag3_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_16,
+                                    defaultEcProjectState.screenGeneral.flag3_policy).toInt();
+        ec_project_state_.screenGeneral.flag4_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_17,
+                                    defaultEcProjectState.screenGeneral.flag4_col).toInt();
+        ec_project_state_.screenGeneral.flag4_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_18,
+                                    defaultEcProjectState.screenGeneral.flag4_threshold).toReal();
+        ec_project_state_.screenGeneral.flag4_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_19,
+                                    defaultEcProjectState.screenGeneral.flag4_policy).toInt();
+        ec_project_state_.screenGeneral.flag5_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_20,
+                                    defaultEcProjectState.screenGeneral.flag5_col).toInt();
+        ec_project_state_.screenGeneral.flag5_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_21,
+                                    defaultEcProjectState.screenGeneral.flag5_threshold).toReal();
+        ec_project_state_.screenGeneral.flag5_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_22,
+                                    defaultEcProjectState.screenGeneral.flag5_policy).toInt();
+        ec_project_state_.screenGeneral.flag6_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_23,
+                                    defaultEcProjectState.screenGeneral.flag6_col).toInt();
+        ec_project_state_.screenGeneral.flag6_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_24,
+                                    defaultEcProjectState.screenGeneral.flag6_threshold).toReal();
+        ec_project_state_.screenGeneral.flag6_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_25,
+                                    defaultEcProjectState.screenGeneral.flag6_policy).toInt();
+        ec_project_state_.screenGeneral.flag7_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_26,
+                                    defaultEcProjectState.screenGeneral.flag7_col).toInt();
+        ec_project_state_.screenGeneral.flag7_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_27,
+                                    defaultEcProjectState.screenGeneral.flag7_threshold).toReal();
+        ec_project_state_.screenGeneral.flag7_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_28,
+                                    defaultEcProjectState.screenGeneral.flag7_policy).toInt();
+        ec_project_state_.screenGeneral.flag8_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_29,
+                                    defaultEcProjectState.screenGeneral.flag8_col).toInt();
+        ec_project_state_.screenGeneral.flag8_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_30,
+                                    defaultEcProjectState.screenGeneral.flag8_threshold).toReal();
+        ec_project_state_.screenGeneral.flag8_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_31,
+                                    defaultEcProjectState.screenGeneral.flag8_policy).toInt();
+        ec_project_state_.screenGeneral.flag9_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_32,
+                                    defaultEcProjectState.screenGeneral.flag9_col).toInt();
+        ec_project_state_.screenGeneral.flag9_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_33,
+                                    defaultEcProjectState.screenGeneral.flag9_threshold).toReal();
+        ec_project_state_.screenGeneral.flag9_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_34,
+                                    defaultEcProjectState.screenGeneral.flag9_policy).toInt();
+        ec_project_state_.screenGeneral.flag10_col
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_35,
+                                    defaultEcProjectState.screenGeneral.flag10_col).toInt();
+        ec_project_state_.screenGeneral.flag10_threshold
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_36,
+                                    defaultEcProjectState.screenGeneral.flag10_threshold).toReal();
+        ec_project_state_.screenGeneral.flag10_policy
+                = project_ini.value(EcIni::INI_SCREEN_GENERAL_37,
+                                    defaultEcProjectState.screenGeneral.flag10_policy).toInt();
     project_ini.endGroup();
 
     // preproc setup section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_SETTINGS);
-        ec_project_state_.screenSetting.nfiles = project_ini.value(EcIni::INI_SCREEN_SETTINGS_0, 1).toInt();
-        ec_project_state_.screenSetting.max_lack = project_ini.value(EcIni::INI_SCREEN_SETTINGS_1, 10).toInt();
-        ec_project_state_.screenSetting.u_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_12, 0.0).toDouble();
-        ec_project_state_.screenSetting.v_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_13, 0.0).toDouble();
-        ec_project_state_.screenSetting.w_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_14, 0.0).toDouble();
-        ec_project_state_.screenSetting.cross_wind = project_ini.value(EcIni::INI_SCREEN_SETTINGS_2, 0).toInt();
-        ec_project_state_.screenSetting.flow_distortion = project_ini.value(EcIni::INI_SCREEN_SETTINGS_3, 0).toInt();
-        ec_project_state_.screenSetting.rot_meth = project_ini.value(EcIni::INI_SCREEN_SETTINGS_4, 1).toInt();
-        ec_project_state_.screenSetting.detrend_meth = project_ini.value(EcIni::INI_SCREEN_SETTINGS_5, 0).toInt();
-        ec_project_state_.screenSetting.timeconst = project_ini.value(EcIni::INI_SCREEN_SETTINGS_6, 250.0).toDouble();
-        ec_project_state_.screenSetting.tlag_meth = project_ini.value(EcIni::INI_SCREEN_SETTINGS_7, 2.0).toInt();
-        ec_project_state_.screenSetting.tap_win = project_ini.value(EcIni::INI_SCREEN_SETTINGS_8, 3).toInt();
-        ec_project_state_.screenSetting.nbins = project_ini.value(EcIni::INI_SCREEN_SETTINGS_9, 90).toInt();
-        ec_project_state_.screenSetting.avrg_len = project_ini.value(EcIni::INI_SCREEN_SETTINGS_10, 30).toInt();
-        ec_project_state_.screenSetting.out_bin_sp = project_ini.value(EcIni::INI_SCREEN_SETTINGS_15, 1).toInt();
-        ec_project_state_.screenSetting.out_bin_og = project_ini.value(EcIni::INI_SCREEN_SETTINGS_38, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_u = project_ini.value(EcIni::INI_SCREEN_SETTINGS_16, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_v = project_ini.value(EcIni::INI_SCREEN_SETTINGS_17, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_w = project_ini.value(EcIni::INI_SCREEN_SETTINGS_18, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_ts = project_ini.value(EcIni::INI_SCREEN_SETTINGS_19, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_co2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_20, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_h2o = project_ini.value(EcIni::INI_SCREEN_SETTINGS_21, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_ch4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_22, 0).toInt();
-        ec_project_state_.screenSetting.out_full_sp_n2o = project_ini.value(EcIni::INI_SCREEN_SETTINGS_23, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_u = project_ini.value(EcIni::INI_SCREEN_SETTINGS_31, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_v = project_ini.value(EcIni::INI_SCREEN_SETTINGS_32, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_ts = project_ini.value(EcIni::INI_SCREEN_SETTINGS_33, 1).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_co2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_34, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_h2o = project_ini.value(EcIni::INI_SCREEN_SETTINGS_35, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_ch4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_36, 0).toInt();
-        ec_project_state_.screenSetting.out_full_cosp_n2o = project_ini.value(EcIni::INI_SCREEN_SETTINGS_37, 0).toInt();
-        ec_project_state_.screenSetting.out_st_1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_24, 1).toInt();
-        ec_project_state_.screenSetting.out_st_2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_25, 0).toInt();
-        ec_project_state_.screenSetting.out_st_3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_26, 0).toInt();
-        ec_project_state_.screenSetting.out_st_4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_27, 0).toInt();
-        ec_project_state_.screenSetting.out_st_5 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_28, 0).toInt();
-        ec_project_state_.screenSetting.out_st_6 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_29, 0).toInt();
-        ec_project_state_.screenSetting.out_st_7 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_30, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_82, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_83, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_84, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_85, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_5 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_86, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_6 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_87, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_7 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_88, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_u = project_ini.value(EcIni::INI_SCREEN_SETTINGS_89, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_v = project_ini.value(EcIni::INI_SCREEN_SETTINGS_90, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_w = project_ini.value(EcIni::INI_SCREEN_SETTINGS_91, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_ts = project_ini.value(EcIni::INI_SCREEN_SETTINGS_92, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_co2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_93, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_h2o = project_ini.value(EcIni::INI_SCREEN_SETTINGS_94, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_ch4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_95, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_gas4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_96, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_tair = project_ini.value(EcIni::INI_SCREEN_SETTINGS_97, 0).toInt();
-        ec_project_state_.screenSetting.out_raw_pair = project_ini.value(EcIni::INI_SCREEN_SETTINGS_98, 0).toInt();
-        ec_project_state_.screenSetting.to_mixratio = project_ini.value(EcIni::INI_SCREEN_SETTINGS_39, 1).toInt();
-        ec_project_state_.screenSetting.filter_sr = project_ini.value(EcIni::INI_SCREEN_SETTINGS_40, 1).toInt();
-        ec_project_state_.screenSetting.filter_al = project_ini.value(EcIni::INI_SCREEN_SETTINGS_41, 1).toInt();
-        ec_project_state_.screenSetting.bu_corr = project_ini.value(EcIni::INI_SCREEN_SETTINGS_44, 0).toInt();
-        ec_project_state_.screenSetting.bu_multi = project_ini.value(EcIni::INI_SCREEN_SETTINGS_45, 0).toInt();
-        ec_project_state_.screenSetting.l_day_bot_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_46, 0.944).toDouble();
-        ec_project_state_.screenSetting.l_day_bot_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_47, 2.57).toDouble();
-        ec_project_state_.screenSetting.l_day_top_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_48).toDouble();
-        ec_project_state_.screenSetting.l_day_top_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_49, 1.005).toDouble();
-        ec_project_state_.screenSetting.l_day_spar_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_50, 1.010).toDouble();
-        ec_project_state_.screenSetting.l_day_spar_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_51, 0.36).toDouble();
-        ec_project_state_.screenSetting.l_night_bot_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_52, 0.883).toDouble();
-        ec_project_state_.screenSetting.l_night_bot_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_53, 2.17).toDouble();
-        ec_project_state_.screenSetting.l_night_top_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_54, 1.008).toDouble();
-        ec_project_state_.screenSetting.l_night_top_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_55, -0.41).toDouble();
-        ec_project_state_.screenSetting.l_night_spar_gain = project_ini.value(EcIni::INI_SCREEN_SETTINGS_56, 1.010).toDouble();
-        ec_project_state_.screenSetting.l_night_spar_offset = project_ini.value(EcIni::INI_SCREEN_SETTINGS_57, -0.17).toDouble();
-        ec_project_state_.screenSetting.m_day_bot1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_58, 2.8).toDouble();
-        ec_project_state_.screenSetting.m_day_bot2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_59, -0.0681).toDouble();
-        ec_project_state_.screenSetting.m_day_bot3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_60, 0.0021).toDouble();
-        ec_project_state_.screenSetting.m_day_bot4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_61, -0.334).toDouble();
-        ec_project_state_.screenSetting.m_day_top1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_62, -0.1).toDouble();
-        ec_project_state_.screenSetting.m_day_top2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_63, -0.0044).toDouble();
-        ec_project_state_.screenSetting.m_day_top3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_64, 0.0011).toDouble();
-        ec_project_state_.screenSetting.m_day_top4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_65, -0.022).toDouble();
-        ec_project_state_.screenSetting.m_day_spar1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_66, 0.3).toDouble();
-        ec_project_state_.screenSetting.m_day_spar2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_67, -0.0007).toDouble();
-        ec_project_state_.screenSetting.m_day_spar3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_68, 0.0006).toDouble();
-        ec_project_state_.screenSetting.m_day_spar4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_69, -0.044).toDouble();
-        ec_project_state_.screenSetting.m_night_bot1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_70, 0.5).toDouble();
-        ec_project_state_.screenSetting.m_night_bot2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_71, -0.1160).toDouble();
-        ec_project_state_.screenSetting.m_night_bot3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_72, 0.0087).toDouble();
-        ec_project_state_.screenSetting.m_night_bot4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_73, -0.206).toDouble();
-        ec_project_state_.screenSetting.m_night_top1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_74, -1.7).toDouble();
-        ec_project_state_.screenSetting.m_night_top2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_75, -0.1160).toDouble();
-        ec_project_state_.screenSetting.m_night_top3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_76, 0.0051).toDouble();
-        ec_project_state_.screenSetting.m_night_top4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_77, -0.029).toDouble();
-        ec_project_state_.screenSetting.m_night_spar1 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_78, -2.1).toDouble();
-        ec_project_state_.screenSetting.m_night_spar2 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_79, -0.0200).toDouble();
-        ec_project_state_.screenSetting.m_night_spar3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_80, 0.0070).toDouble();
-        ec_project_state_.screenSetting.m_night_spar4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_81, -0.026).toDouble();
-        ec_project_state_.screenSetting.out_details = project_ini.value(EcIni::INI_SCREEN_SETTINGS_99, 0).toInt();
-        ec_project_state_.screenSetting.power_of_two = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101, 1).toInt();
+        ec_project_state_.screenSetting.max_lack
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_1,
+                                    defaultEcProjectState.screenSetting.max_lack).toInt();
+        ec_project_state_.screenSetting.u_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_12,
+                                    defaultEcProjectState.screenSetting.u_offset).toDouble();
+        ec_project_state_.screenSetting.v_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_13,
+                                    defaultEcProjectState.screenSetting.v_offset).toDouble();
+        ec_project_state_.screenSetting.w_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_14,
+                                    defaultEcProjectState.screenSetting.w_offset).toDouble();
+        ec_project_state_.screenSetting.cross_wind
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_2,
+                                    defaultEcProjectState.screenSetting.cross_wind).toInt();
+        ec_project_state_.screenSetting.flow_distortion
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_3,
+                                    defaultEcProjectState.screenSetting.flow_distortion).toInt();
+        ec_project_state_.screenSetting.rot_meth
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_4,
+                                    defaultEcProjectState.screenSetting.rot_meth).toInt();
+        ec_project_state_.screenSetting.detrend_meth
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_5,
+                                    defaultEcProjectState.screenSetting.detrend_meth).toInt();
+        ec_project_state_.screenSetting.timeconst
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_6,
+                                    defaultEcProjectState.screenSetting.timeconst).toDouble();
+        ec_project_state_.screenSetting.tlag_meth
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_7,
+                                    defaultEcProjectState.screenSetting.tlag_meth).toInt();
+        ec_project_state_.screenSetting.tap_win
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_8,
+                                    defaultEcProjectState.screenSetting.tap_win).toInt();
+        ec_project_state_.screenSetting.nbins
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_9,
+                                    defaultEcProjectState.screenSetting.nbins).toInt();
+        ec_project_state_.screenSetting.avrg_len
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_10,
+                                    defaultEcProjectState.screenSetting.avrg_len).toInt();
+        ec_project_state_.screenSetting.out_bin_sp
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_15,
+                                    defaultEcProjectState.screenSetting.out_bin_sp).toInt();
+        ec_project_state_.screenSetting.out_bin_og
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_38,
+                                    defaultEcProjectState.screenSetting.out_bin_og).toInt();
+        ec_project_state_.screenSetting.out_full_sp_u
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_16,
+                                    defaultEcProjectState.screenSetting.out_full_sp_u).toInt();
+        ec_project_state_.screenSetting.out_full_sp_v
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_17,
+                                    defaultEcProjectState.screenSetting.out_full_sp_v).toInt();
+        ec_project_state_.screenSetting.out_full_sp_w
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_18,
+                                    defaultEcProjectState.screenSetting.out_full_sp_w).toInt();
+        ec_project_state_.screenSetting.out_full_sp_ts
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_19,
+                                    defaultEcProjectState.screenSetting.out_full_sp_ts).toInt();
+        ec_project_state_.screenSetting.out_full_sp_co2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_20,
+                                    defaultEcProjectState.screenSetting.out_full_sp_co2).toInt();
+        ec_project_state_.screenSetting.out_full_sp_h2o
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_21,
+                                    defaultEcProjectState.screenSetting.out_full_sp_h2o).toInt();
+        ec_project_state_.screenSetting.out_full_sp_ch4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_22,
+                                    defaultEcProjectState.screenSetting.out_full_sp_ch4).toInt();
+        ec_project_state_.screenSetting.out_full_sp_n2o
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_23,
+                                    defaultEcProjectState.screenSetting.out_full_sp_n2o).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_u
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_31,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_u).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_v
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_32,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_v).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_ts
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_33,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_ts).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_co2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_34,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_co2).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_h2o
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_35,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_h2o).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_ch4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_36,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_ch4).toInt();
+        ec_project_state_.screenSetting.out_full_cosp_n2o
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_37,
+                                    defaultEcProjectState.screenSetting.out_full_cosp_n2o).toInt();
+        ec_project_state_.screenSetting.out_st_1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_24,
+                                    defaultEcProjectState.screenSetting.out_st_1).toInt();
+        ec_project_state_.screenSetting.out_st_2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_25,
+                                    defaultEcProjectState.screenSetting.out_st_2).toInt();
+        ec_project_state_.screenSetting.out_st_3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_26,
+                                    defaultEcProjectState.screenSetting.out_st_3).toInt();
+        ec_project_state_.screenSetting.out_st_4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_27,
+                                    defaultEcProjectState.screenSetting.out_st_4).toInt();
+        ec_project_state_.screenSetting.out_st_5
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_28,
+                                    defaultEcProjectState.screenSetting.out_st_5).toInt();
+        ec_project_state_.screenSetting.out_st_6
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_29,
+                                    defaultEcProjectState.screenSetting.out_st_6).toInt();
+        ec_project_state_.screenSetting.out_st_7
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_30,
+                                    defaultEcProjectState.screenSetting.out_st_7).toInt();
+        ec_project_state_.screenSetting.out_raw_1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_82,
+                                    defaultEcProjectState.screenSetting.out_raw_1).toInt();
+        ec_project_state_.screenSetting.out_raw_2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_83,
+                                    defaultEcProjectState.screenSetting.out_raw_2).toInt();
+        ec_project_state_.screenSetting.out_raw_3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_84,
+                                    defaultEcProjectState.screenSetting.out_raw_3).toInt();
+        ec_project_state_.screenSetting.out_raw_4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_85,
+                                    defaultEcProjectState.screenSetting.out_raw_4).toInt();
+        ec_project_state_.screenSetting.out_raw_5
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_86,
+                                    defaultEcProjectState.screenSetting.out_raw_5).toInt();
+        ec_project_state_.screenSetting.out_raw_6
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_87,
+                                    defaultEcProjectState.screenSetting.out_raw_6).toInt();
+        ec_project_state_.screenSetting.out_raw_7
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_88,
+                                    defaultEcProjectState.screenSetting.out_raw_7).toInt();
+        ec_project_state_.screenSetting.out_raw_u
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_89,
+                                    defaultEcProjectState.screenSetting.out_raw_u).toInt();
+        ec_project_state_.screenSetting.out_raw_v
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_90,
+                                    defaultEcProjectState.screenSetting.out_raw_v).toInt();
+        ec_project_state_.screenSetting.out_raw_w
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_91,
+                                    defaultEcProjectState.screenSetting.out_raw_w).toInt();
+        ec_project_state_.screenSetting.out_raw_ts
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_92,
+                                    defaultEcProjectState.screenSetting.out_raw_ts).toInt();
+        ec_project_state_.screenSetting.out_raw_co2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_93,
+                                    defaultEcProjectState.screenSetting.out_raw_co2).toInt();
+        ec_project_state_.screenSetting.out_raw_h2o
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_94,
+                                    defaultEcProjectState.screenSetting.out_raw_h2o).toInt();
+        ec_project_state_.screenSetting.out_raw_ch4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_95,
+                                    defaultEcProjectState.screenSetting.out_raw_ch4).toInt();
+        ec_project_state_.screenSetting.out_raw_gas4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_96,
+                                    defaultEcProjectState.screenSetting.out_raw_gas4).toInt();
+        ec_project_state_.screenSetting.out_raw_tair
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_97,
+                                    defaultEcProjectState.screenSetting.out_raw_tair).toInt();
+        ec_project_state_.screenSetting.out_raw_pair
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_98,
+                                    defaultEcProjectState.screenSetting.out_raw_pair).toInt();
+        ec_project_state_.screenSetting.filter_sr
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_40,
+                                    defaultEcProjectState.screenSetting.filter_sr).toInt();
+        ec_project_state_.screenSetting.filter_al
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_41,
+                                    defaultEcProjectState.screenSetting.filter_al).toInt();
+        ec_project_state_.screenSetting.bu_corr
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_44,
+                                    defaultEcProjectState.screenSetting.bu_corr).toInt();
+        ec_project_state_.screenSetting.bu_multi
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_45,
+                                    defaultEcProjectState.screenSetting.bu_multi).toInt();
+        ec_project_state_.screenSetting.l_day_bot_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_46,
+                                    defaultEcProjectState.screenSetting.l_day_bot_gain).toDouble();
+        ec_project_state_.screenSetting.l_day_bot_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_47,
+                                    defaultEcProjectState.screenSetting.l_day_bot_offset).toDouble();
+        ec_project_state_.screenSetting.l_day_top_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_48,
+                                    defaultEcProjectState.screenSetting.l_day_top_gain).toDouble();
+        ec_project_state_.screenSetting.l_day_top_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_49,
+                                    defaultEcProjectState.screenSetting.l_day_top_offset).toDouble();
+        ec_project_state_.screenSetting.l_day_spar_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_50,
+                                    defaultEcProjectState.screenSetting.l_day_spar_gain).toDouble();
+        ec_project_state_.screenSetting.l_day_spar_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_51,
+                                    defaultEcProjectState.screenSetting.l_day_spar_offset).toDouble();
+        ec_project_state_.screenSetting.l_night_bot_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_52,
+                                    defaultEcProjectState.screenSetting.l_night_bot_gain).toDouble();
+        ec_project_state_.screenSetting.l_night_bot_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_53,
+                                    defaultEcProjectState.screenSetting.l_night_bot_offset).toDouble();
+        ec_project_state_.screenSetting.l_night_top_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_54,
+                                    defaultEcProjectState.screenSetting.l_night_top_gain).toDouble();
+        ec_project_state_.screenSetting.l_night_top_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_55,
+                                    defaultEcProjectState.screenSetting.l_night_top_offset).toDouble();
+        ec_project_state_.screenSetting.l_night_spar_gain
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_56,
+                                    defaultEcProjectState.screenSetting.l_night_spar_gain).toDouble();
+        ec_project_state_.screenSetting.l_night_spar_offset
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_57,
+                                    defaultEcProjectState.screenSetting.l_night_spar_offset).toDouble();
+        ec_project_state_.screenSetting.m_day_bot1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_58,
+                                    defaultEcProjectState.screenSetting.m_day_bot1).toDouble();
+        ec_project_state_.screenSetting.m_day_bot2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_59,
+                                    defaultEcProjectState.screenSetting.m_day_bot2).toDouble();
+        ec_project_state_.screenSetting.m_day_bot3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_60,
+                                    defaultEcProjectState.screenSetting.m_day_bot3).toDouble();
+        ec_project_state_.screenSetting.m_day_bot4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_61,
+                                    defaultEcProjectState.screenSetting.m_day_bot4).toDouble();
+        ec_project_state_.screenSetting.m_day_top1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_62,
+                                    defaultEcProjectState.screenSetting.m_day_top1).toDouble();
+        ec_project_state_.screenSetting.m_day_top2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_63,
+                                    defaultEcProjectState.screenSetting.m_day_top2).toDouble();
+        ec_project_state_.screenSetting.m_day_top3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_64,
+                                    defaultEcProjectState.screenSetting.m_day_top3).toDouble();
+        ec_project_state_.screenSetting.m_day_top4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_65,
+                                    defaultEcProjectState.screenSetting.m_day_top4).toDouble();
+        ec_project_state_.screenSetting.m_day_spar1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_66,
+                                    defaultEcProjectState.screenSetting.m_day_spar1).toDouble();
+        ec_project_state_.screenSetting.m_day_spar2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_67,
+                                    defaultEcProjectState.screenSetting.m_day_spar2).toDouble();
+        ec_project_state_.screenSetting.m_day_spar3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_68,
+                                    defaultEcProjectState.screenSetting.m_day_spar3).toDouble();
+        ec_project_state_.screenSetting.m_day_spar4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_69,
+                                    defaultEcProjectState.screenSetting.m_day_spar4).toDouble();
+        ec_project_state_.screenSetting.m_night_bot1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_70,
+                                    defaultEcProjectState.screenSetting.m_night_bot1).toDouble();
+        ec_project_state_.screenSetting.m_night_bot2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_71,
+                                    defaultEcProjectState.screenSetting.m_night_bot2).toDouble();
+        ec_project_state_.screenSetting.m_night_bot3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_72,
+                                    defaultEcProjectState.screenSetting.m_night_bot3).toDouble();
+        ec_project_state_.screenSetting.m_night_bot4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_73,
+                                    defaultEcProjectState.screenSetting.m_night_bot4).toDouble();
+        ec_project_state_.screenSetting.m_night_top1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_74,
+                                    defaultEcProjectState.screenSetting.m_night_top1).toDouble();
+        ec_project_state_.screenSetting.m_night_top2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_75,
+                                    defaultEcProjectState.screenSetting.m_night_top2).toDouble();
+        ec_project_state_.screenSetting.m_night_top3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_76,
+                                    defaultEcProjectState.screenSetting.m_night_top3).toDouble();
+        ec_project_state_.screenSetting.m_night_top4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_77,
+                                    defaultEcProjectState.screenSetting.m_night_top4).toDouble();
+        ec_project_state_.screenSetting.m_night_spar1
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_78,
+                                    defaultEcProjectState.screenSetting.m_night_spar1).toDouble();
+        ec_project_state_.screenSetting.m_night_spar2
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_79,
+                                    defaultEcProjectState.screenSetting.m_night_spar2).toDouble();
+        ec_project_state_.screenSetting.m_night_spar3
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_80,
+                                    defaultEcProjectState.screenSetting.m_night_spar3).toDouble();
+        ec_project_state_.screenSetting.m_night_spar4
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_81,
+                                    defaultEcProjectState.screenSetting.m_night_spar4).toDouble();
+        ec_project_state_.screenSetting.out_details =
+                project_ini.value(EcIni::INI_SCREEN_SETTINGS_99,
+                                  defaultEcProjectState.screenSetting.out_details).toInt();
+        ec_project_state_.screenSetting.power_of_two
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101,
+                                    defaultEcProjectState.screenSetting.power_of_two).toInt();
     project_ini.endGroup();
 
     // preproc test section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_TESTS);
-        ec_project_state_.screenTest.test_sr = project_ini.value(EcIni::INI_SCREEN_TESTS_0, 1).toInt();
-        ec_project_state_.screenTest.test_ar = project_ini.value(EcIni::INI_SCREEN_TESTS_1, 1).toInt();
-        ec_project_state_.screenTest.test_do = project_ini.value(EcIni::INI_SCREEN_TESTS_2, 1).toInt();
-        ec_project_state_.screenTest.test_al = project_ini.value(EcIni::INI_SCREEN_TESTS_3, 1).toInt();
-        ec_project_state_.screenTest.test_sk = project_ini.value(EcIni::INI_SCREEN_TESTS_4, 1).toInt();
-        ec_project_state_.screenTest.test_ds = project_ini.value(EcIni::INI_SCREEN_TESTS_5, 0).toInt();
-        ec_project_state_.screenTest.test_tl = project_ini.value(EcIni::INI_SCREEN_TESTS_6, 0).toInt();
-        ec_project_state_.screenTest.test_aa = project_ini.value(EcIni::INI_SCREEN_TESTS_7, 0).toInt();
-        ec_project_state_.screenTest.test_ns = project_ini.value(EcIni::INI_SCREEN_TESTS_8, 0).toInt();
+        ec_project_state_.screenTest.test_sr
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_0,
+                                    defaultEcProjectState.screenTest.test_sr).toInt();
+        ec_project_state_.screenTest.test_ar
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_1,
+                                    defaultEcProjectState.screenTest.test_ar).toInt();
+        ec_project_state_.screenTest.test_do
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_2,
+                                    defaultEcProjectState.screenTest.test_do).toInt();
+        ec_project_state_.screenTest.test_al
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_3,
+                                    defaultEcProjectState.screenTest.test_al).toInt();
+        ec_project_state_.screenTest.test_sk
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_4,
+                                    defaultEcProjectState.screenTest.test_sk).toInt();
+        ec_project_state_.screenTest.test_ds
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_5,
+                                    defaultEcProjectState.screenTest.test_ds).toInt();
+        ec_project_state_.screenTest.test_tl
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_6,
+                                    defaultEcProjectState.screenTest.test_tl).toInt();
+        ec_project_state_.screenTest.test_aa
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_7,
+                                    defaultEcProjectState.screenTest.test_aa).toInt();
+        ec_project_state_.screenTest.test_ns
+                = project_ini.value(EcIni::INI_SCREEN_TESTS_8,
+                                    defaultEcProjectState.screenTest.test_ns).toInt();
     project_ini.endGroup();
 
     // preproc test section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_PARAM);
-        ec_project_state_.screenParam.sr_num_spk = project_ini.value(EcIni::INI_SCREEN_PARAM_0, 3).toInt();
-        ec_project_state_.screenParam.sr_lim_u = project_ini.value(EcIni::INI_SCREEN_PARAM_1, 3.5).toDouble();
-        ec_project_state_.screenParam.sr_lim_w = project_ini.value(EcIni::INI_SCREEN_PARAM_45, 5.0).toDouble();
-        ec_project_state_.screenParam.sr_lim_co2 = project_ini.value(EcIni::INI_SCREEN_PARAM_46, 3.5).toDouble();
-        ec_project_state_.screenParam.sr_lim_h2o = project_ini.value(EcIni::INI_SCREEN_PARAM_47, 3.5).toDouble();
-        ec_project_state_.screenParam.sr_lim_ch4 = project_ini.value(EcIni::INI_SCREEN_PARAM_48, 8.0).toDouble();
-        ec_project_state_.screenParam.sr_lim_n2o = project_ini.value(EcIni::INI_SCREEN_PARAM_49, 8.0).toDouble();
-        ec_project_state_.screenParam.sr_lim_hf = project_ini.value(EcIni::INI_SCREEN_PARAM_2, 1.0).toDouble();
-        ec_project_state_.screenParam.ar_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_3, 7.0).toDouble();
-        ec_project_state_.screenParam.ar_bins = project_ini.value(EcIni::INI_SCREEN_PARAM_4, 100).toInt();
-        ec_project_state_.screenParam.ar_hf_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_5, 70).toInt();
-        ec_project_state_.screenParam.do_extlim_dw = project_ini.value(EcIni::INI_SCREEN_PARAM_6, 10).toInt();
-        ec_project_state_.screenParam.do_hf1_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_7, 10.0).toDouble();
-        ec_project_state_.screenParam.do_hf2_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_8, 6.0).toDouble();
-        ec_project_state_.screenParam.al_u_max = project_ini.value(EcIni::INI_SCREEN_PARAM_9, 30.0).toDouble();
-        ec_project_state_.screenParam.al_w_max = project_ini.value(EcIni::INI_SCREEN_PARAM_10, 5.0).toDouble();
-        ec_project_state_.screenParam.al_tson_min = project_ini.value(EcIni::INI_SCREEN_PARAM_11, -40.0).toDouble();
-        ec_project_state_.screenParam.al_tson_max = project_ini.value(EcIni::INI_SCREEN_PARAM_12, 50.0).toDouble();
-        ec_project_state_.screenParam.al_co2_min = project_ini.value(EcIni::INI_SCREEN_PARAM_13, 200.0).toDouble();
-        ec_project_state_.screenParam.al_co2_max = project_ini.value(EcIni::INI_SCREEN_PARAM_14, 900.0).toDouble();
-        ec_project_state_.screenParam.al_h2o_min = project_ini.value(EcIni::INI_SCREEN_PARAM_15, 0.0).toDouble();
-        ec_project_state_.screenParam.al_h2o_max = project_ini.value(EcIni::INI_SCREEN_PARAM_16, 40.0).toDouble();
-        ec_project_state_.screenParam.al_ch4_min = project_ini.value(EcIni::INI_SCREEN_PARAM_54, 0.17).toDouble();
-        ec_project_state_.screenParam.al_ch4_max = project_ini.value(EcIni::INI_SCREEN_PARAM_55, 1000.0).toDouble();
-        ec_project_state_.screenParam.al_n2o_min = project_ini.value(EcIni::INI_SCREEN_PARAM_56, 0.032).toDouble();
-        ec_project_state_.screenParam.al_n2o_max = project_ini.value(EcIni::INI_SCREEN_PARAM_57, 1000.0).toDouble();
-        ec_project_state_.screenParam.sk_hf_skmin = project_ini.value(EcIni::INI_SCREEN_PARAM_17, -2.0).toDouble();
-        ec_project_state_.screenParam.sk_hf_skmax = project_ini.value(EcIni::INI_SCREEN_PARAM_18, 2.0).toDouble();
-        ec_project_state_.screenParam.sk_sf_skmin = project_ini.value(EcIni::INI_SCREEN_PARAM_19, -1.0).toDouble();
-        ec_project_state_.screenParam.sk_sf_skmax = project_ini.value(EcIni::INI_SCREEN_PARAM_20, 1.0).toDouble();
-        ec_project_state_.screenParam.sk_hf_kumin = project_ini.value(EcIni::INI_SCREEN_PARAM_21, 1.0).toDouble();
-        ec_project_state_.screenParam.sk_hf_kumax = project_ini.value(EcIni::INI_SCREEN_PARAM_22, 8.0).toDouble();
-        ec_project_state_.screenParam.sk_sf_kumin = project_ini.value(EcIni::INI_SCREEN_PARAM_23, 2.0).toDouble();
-        ec_project_state_.screenParam.sk_sf_kumax = project_ini.value(EcIni::INI_SCREEN_PARAM_24, 5.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_uv = project_ini.value(EcIni::INI_SCREEN_PARAM_25, 4.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_w = project_ini.value(EcIni::INI_SCREEN_PARAM_26, 2.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_t = project_ini.value(EcIni::INI_SCREEN_PARAM_27, 4.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_co2 = project_ini.value(EcIni::INI_SCREEN_PARAM_28, 40.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_h2o = project_ini.value(EcIni::INI_SCREEN_PARAM_29, 3.26).toDouble();
-        ec_project_state_.screenParam.ds_hf_ch4 = project_ini.value(EcIni::INI_SCREEN_PARAM_50, 40.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_n2o = project_ini.value(EcIni::INI_SCREEN_PARAM_51, 40.0).toDouble();
-        ec_project_state_.screenParam.ds_hf_var = project_ini.value(EcIni::INI_SCREEN_PARAM_30, 3.0).toDouble();
-        ec_project_state_.screenParam.ds_sf_uv = project_ini.value(EcIni::INI_SCREEN_PARAM_31, 2.7).toDouble();
-        ec_project_state_.screenParam.ds_sf_w = project_ini.value(EcIni::INI_SCREEN_PARAM_32, 1.3).toDouble();
-        ec_project_state_.screenParam.ds_sf_t = project_ini.value(EcIni::INI_SCREEN_PARAM_33, 2.7).toDouble();
-        ec_project_state_.screenParam.ds_sf_co2 = project_ini.value(EcIni::INI_SCREEN_PARAM_34, 27.0).toDouble();
-        ec_project_state_.screenParam.ds_sf_h2o = project_ini.value(EcIni::INI_SCREEN_PARAM_35, 2.2).toDouble();
-        ec_project_state_.screenParam.ds_sf_ch4 = project_ini.value(EcIni::INI_SCREEN_PARAM_52, 30.0).toDouble();
-        ec_project_state_.screenParam.ds_sf_n2o = project_ini.value(EcIni::INI_SCREEN_PARAM_53, 30.0).toDouble();
-        ec_project_state_.screenParam.ds_sf_var = project_ini.value(EcIni::INI_SCREEN_PARAM_36, 2.0).toDouble();
-        ec_project_state_.screenParam.tl_hf_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_37, 20.0).toDouble();
-        ec_project_state_.screenParam.tl_sf_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_38, 10.0).toDouble();
-        ec_project_state_.screenParam.tl_def_co2 = project_ini.value(EcIni::INI_SCREEN_PARAM_39, 3.5).toDouble();
-        ec_project_state_.screenParam.tl_def_h2o = project_ini.value(EcIni::INI_SCREEN_PARAM_40, 2.5).toDouble();
-        ec_project_state_.screenParam.tl_def_ch4 = project_ini.value(EcIni::INI_SCREEN_PARAM_58, 3.5).toDouble();
-        ec_project_state_.screenParam.tl_def_n2o = project_ini.value(EcIni::INI_SCREEN_PARAM_59, 2.5).toDouble();
-        ec_project_state_.screenParam.aa_min = project_ini.value(EcIni::INI_SCREEN_PARAM_41, -30.0).toDouble();
-        ec_project_state_.screenParam.aa_max = project_ini.value(EcIni::INI_SCREEN_PARAM_42, 30.0).toDouble();
-        ec_project_state_.screenParam.aa_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_43, 10.0).toDouble();
-        ec_project_state_.screenParam.ns_hf_lim = project_ini.value(EcIni::INI_SCREEN_PARAM_44, 0.5).toDouble();
+        ec_project_state_.screenParam.sr_num_spk
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_0,
+                                    defaultEcProjectState.screenParam.sr_num_spk).toInt();
+        ec_project_state_.screenParam.sr_lim_u
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_1,
+                                    defaultEcProjectState.screenParam.sr_lim_u).toDouble();
+        ec_project_state_.screenParam.sr_lim_w
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_45,
+                                    defaultEcProjectState.screenParam.sr_lim_w).toDouble();
+        ec_project_state_.screenParam.sr_lim_co2
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_46,
+                                    defaultEcProjectState.screenParam.sr_lim_co2).toDouble();
+        ec_project_state_.screenParam.sr_lim_h2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_47,
+                                    defaultEcProjectState.screenParam.sr_lim_h2o).toDouble();
+        ec_project_state_.screenParam.sr_lim_ch4
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_48,
+                                    defaultEcProjectState.screenParam.sr_lim_ch4).toDouble();
+        ec_project_state_.screenParam.sr_lim_n2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_49,
+                                    defaultEcProjectState.screenParam.sr_lim_n2o).toDouble();
+        ec_project_state_.screenParam.sr_lim_hf
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_2,
+                                    defaultEcProjectState.screenParam.sr_lim_hf).toDouble();
+        ec_project_state_.screenParam.ar_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_3,
+                                    defaultEcProjectState.screenParam.ar_lim).toDouble();
+        ec_project_state_.screenParam.ar_bins
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_4,
+                                    defaultEcProjectState.screenParam.ar_bins).toInt();
+        ec_project_state_.screenParam.ar_hf_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_5,
+                                    defaultEcProjectState.screenParam.ar_hf_lim).toInt();
+        ec_project_state_.screenParam.do_extlim_dw
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_6,
+                                    defaultEcProjectState.screenParam.do_extlim_dw).toInt();
+        ec_project_state_.screenParam.do_hf1_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_7,
+                                    defaultEcProjectState.screenParam.do_hf1_lim).toDouble();
+        ec_project_state_.screenParam.do_hf2_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_8,
+                                    defaultEcProjectState.screenParam.do_hf2_lim).toDouble();
+        ec_project_state_.screenParam.al_u_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_9,
+                                    defaultEcProjectState.screenParam.al_u_max).toDouble();
+        ec_project_state_.screenParam.al_w_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_10,
+                                    defaultEcProjectState.screenParam.al_w_max).toDouble();
+        ec_project_state_.screenParam.al_tson_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_11,
+                                    defaultEcProjectState.screenParam.al_tson_min).toDouble();
+        ec_project_state_.screenParam.al_tson_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_12,
+                                    defaultEcProjectState.screenParam.al_tson_max).toDouble();
+        ec_project_state_.screenParam.al_co2_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_13,
+                                    defaultEcProjectState.screenParam.al_co2_min).toDouble();
+        ec_project_state_.screenParam.al_co2_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_14,
+                                    defaultEcProjectState.screenParam.al_co2_max).toDouble();
+        ec_project_state_.screenParam.al_h2o_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_15,
+                                    defaultEcProjectState.screenParam.al_h2o_min).toDouble();
+        ec_project_state_.screenParam.al_h2o_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_16,
+                                    defaultEcProjectState.screenParam.al_h2o_max).toDouble();
+        ec_project_state_.screenParam.al_ch4_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_54,
+                                    defaultEcProjectState.screenParam.al_ch4_min).toDouble();
+        ec_project_state_.screenParam.al_ch4_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_55,
+                                    defaultEcProjectState.screenParam.al_ch4_max).toDouble();
+        ec_project_state_.screenParam.al_n2o_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_56,
+                                    defaultEcProjectState.screenParam.al_n2o_min).toDouble();
+        ec_project_state_.screenParam.al_n2o_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_57,
+                                    defaultEcProjectState.screenParam.al_n2o_max).toDouble();
+        ec_project_state_.screenParam.sk_hf_skmin
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_17,
+                                    defaultEcProjectState.screenParam.sk_hf_skmin).toDouble();
+        ec_project_state_.screenParam.sk_hf_skmax
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_18,
+                                    defaultEcProjectState.screenParam.sk_hf_skmax).toDouble();
+        ec_project_state_.screenParam.sk_sf_skmin
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_19,
+                                    defaultEcProjectState.screenParam.sk_sf_skmin).toDouble();
+        ec_project_state_.screenParam.sk_sf_skmax
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_20,
+                                    defaultEcProjectState.screenParam.sk_sf_skmax).toDouble();
+        ec_project_state_.screenParam.sk_hf_kumin
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_21,
+                                    defaultEcProjectState.screenParam.sk_hf_kumin).toDouble();
+        ec_project_state_.screenParam.sk_hf_kumax
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_22,
+                                    defaultEcProjectState.screenParam.sk_hf_kumax).toDouble();
+        ec_project_state_.screenParam.sk_sf_kumin
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_23,
+                                    defaultEcProjectState.screenParam.sk_sf_kumin).toDouble();
+        ec_project_state_.screenParam.sk_sf_kumax
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_24,
+                                    defaultEcProjectState.screenParam.sk_sf_kumax).toDouble();
+        ec_project_state_.screenParam.ds_hf_uv
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_25,
+                                    defaultEcProjectState.screenParam.ds_hf_uv).toDouble();
+        ec_project_state_.screenParam.ds_hf_w
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_26,
+                                    defaultEcProjectState.screenParam.ds_hf_w).toDouble();
+        ec_project_state_.screenParam.ds_hf_t
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_27,
+                                    defaultEcProjectState.screenParam.ds_hf_t).toDouble();
+        ec_project_state_.screenParam.ds_hf_co2
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_28,
+                                    defaultEcProjectState.screenParam.ds_hf_co2).toDouble();
+        ec_project_state_.screenParam.ds_hf_h2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_29,
+                                    defaultEcProjectState.screenParam.ds_hf_h2o).toDouble();
+        ec_project_state_.screenParam.ds_hf_ch4
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_50,
+                                    defaultEcProjectState.screenParam.ds_hf_ch4).toDouble();
+        ec_project_state_.screenParam.ds_hf_n2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_51,
+                                    defaultEcProjectState.screenParam.ds_hf_n2o).toDouble();
+        ec_project_state_.screenParam.ds_hf_var
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_30,
+                                    defaultEcProjectState.screenParam.ds_hf_var).toDouble();
+        ec_project_state_.screenParam.ds_sf_uv
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_31,
+                                    defaultEcProjectState.screenParam.ds_sf_uv).toDouble();
+        ec_project_state_.screenParam.ds_sf_w
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_32,
+                                    defaultEcProjectState.screenParam.ds_sf_w).toDouble();
+        ec_project_state_.screenParam.ds_sf_t
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_33,
+                                    defaultEcProjectState.screenParam.ds_sf_t).toDouble();
+        ec_project_state_.screenParam.ds_sf_co2
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_34,
+                                    defaultEcProjectState.screenParam.ds_sf_co2).toDouble();
+        ec_project_state_.screenParam.ds_sf_h2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_35,
+                                    defaultEcProjectState.screenParam.ds_sf_h2o).toDouble();
+        ec_project_state_.screenParam.ds_sf_ch4
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_52,
+                                    defaultEcProjectState.screenParam.ds_sf_ch4).toDouble();
+        ec_project_state_.screenParam.ds_sf_n2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_53,
+                                    defaultEcProjectState.screenParam.ds_sf_n2o).toDouble();
+        ec_project_state_.screenParam.ds_sf_var
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_36,
+                                    defaultEcProjectState.screenParam.ds_sf_var).toDouble();
+        ec_project_state_.screenParam.despike_vm
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_60,
+                                    defaultEcProjectState.screenParam.despike_vm).toInt();
+        ec_project_state_.screenParam.tl_hf_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_37,
+                                    defaultEcProjectState.screenParam.tl_hf_lim).toDouble();
+        ec_project_state_.screenParam.tl_sf_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_38,
+                                    defaultEcProjectState.screenParam.tl_sf_lim).toDouble();
+        ec_project_state_.screenParam.tl_def_co2
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_39,
+                                    defaultEcProjectState.screenParam.tl_def_co2).toDouble();
+        ec_project_state_.screenParam.tl_def_h2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_40,
+                                    defaultEcProjectState.screenParam.tl_def_h2o).toDouble();
+        ec_project_state_.screenParam.tl_def_ch4
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_58,
+                                    defaultEcProjectState.screenParam.tl_def_ch4).toDouble();
+        ec_project_state_.screenParam.tl_def_n2o
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_59,
+                                    defaultEcProjectState.screenParam.tl_def_n2o).toDouble();
+        ec_project_state_.screenParam.aa_min
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_41,
+                                    defaultEcProjectState.screenParam.aa_min).toDouble();
+        ec_project_state_.screenParam.aa_max
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_42,
+                                    defaultEcProjectState.screenParam.aa_max).toDouble();
+        ec_project_state_.screenParam.aa_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_43,
+                                    defaultEcProjectState.screenParam.aa_lim).toDouble();
+        ec_project_state_.screenParam.ns_hf_lim
+                = project_ini.value(EcIni::INI_SCREEN_PARAM_44,
+                                    defaultEcProjectState.screenParam.ns_hf_lim).toDouble();
     project_ini.endGroup();
 
     // planar fit section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_TILT);
-        ec_project_state_.screenTilt.start_date = project_ini.value(EcIni::INI_SCREEN_TILT_0, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-        ec_project_state_.screenTilt.end_date = project_ini.value(EcIni::INI_SCREEN_TILT_1, QDate::currentDate().toString(Qt::ISODate)).toString();
-        ec_project_state_.screenTilt.mode = project_ini.value(EcIni::INI_SCREEN_TILT_2, 1).toInt();
-        ec_project_state_.screenTilt.north_offset = project_ini.value(EcIni::INI_SCREEN_TILT_3, 0.0).toDouble();
-        ec_project_state_.screenTilt.min_num_per_sec = project_ini.value(EcIni::INI_SCREEN_TILT_4).toInt();
-        ec_project_state_.screenTilt.w_max = project_ini.value(EcIni::INI_SCREEN_TILT_5, 0.099).toDouble();
-        ec_project_state_.screenTilt.u_min = project_ini.value(EcIni::INI_SCREEN_TILT_6, -0.001).toDouble();
-        ec_project_state_.screenTilt.file = project_ini.value(EcIni::INI_SCREEN_TILT_7, QString()).toString();
-        ec_project_state_.screenTilt.fix_policy = project_ini.value(EcIni::INI_SCREEN_TILT_8, 0).toInt();
-        ec_project_state_.screenTilt.subset = project_ini.value(EcIni::INI_SCREEN_TILT_11, 0).toInt();
+        ec_project_state_.screenTilt.start_date
+                = project_ini.value(EcIni::INI_SCREEN_TILT_0,
+                                    QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+        ec_project_state_.screenTilt.end_date
+                = project_ini.value(EcIni::INI_SCREEN_TILT_1,
+                                    QDate::currentDate().toString(Qt::ISODate)).toString();
+        ec_project_state_.screenTilt.start_time
+                = project_ini.value(EcIni::INI_SCREEN_TILT_12,
+                                    QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.screenTilt.end_time
+                = project_ini.value(EcIni::INI_SCREEN_TILT_13,
+                                    QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.screenTilt.mode
+                = project_ini.value(EcIni::INI_SCREEN_TILT_2,
+                                    defaultEcProjectState.screenTilt.mode).toInt();
+        ec_project_state_.screenTilt.north_offset
+                = project_ini.value(EcIni::INI_SCREEN_TILT_3,
+                                    defaultEcProjectState.screenTilt.north_offset).toDouble();
+        ec_project_state_.screenTilt.min_num_per_sec
+                = project_ini.value(EcIni::INI_SCREEN_TILT_4,
+                                    defaultEcProjectState.screenTilt.min_num_per_sec).toInt();
+        ec_project_state_.screenTilt.w_max
+                = project_ini.value(EcIni::INI_SCREEN_TILT_5,
+                                    defaultEcProjectState.screenTilt.w_max).toDouble();
+        ec_project_state_.screenTilt.u_min
+                = project_ini.value(EcIni::INI_SCREEN_TILT_6,
+                                    defaultEcProjectState.screenTilt.u_min).toDouble();
+        ec_project_state_.screenTilt.file
+                = project_ini.value(EcIni::INI_SCREEN_TILT_7,
+                                    defaultEcProjectState.screenTilt.file).toString();
+        ec_project_state_.screenTilt.fix_policy
+                = project_ini.value(EcIni::INI_SCREEN_TILT_8,
+                                    defaultEcProjectState.screenTilt.fix_policy).toInt();
+        ec_project_state_.screenTilt.subset
+                = project_ini.value(EcIni::INI_SCREEN_TILT_11,
+                                    defaultEcProjectState.screenTilt.subset).toInt();
 
         ec_project_state_.screenTilt.angles.clear();
         int numAngles = countPlanarFitAngles(project_ini.allKeys());
@@ -2153,45 +2836,109 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
 
     // time lag opt section
     project_ini.beginGroup(EcIni::INIGROUP_TIMELAG_OPT);
-        ec_project_state_.timelagOpt.start_date = project_ini.value(EcIni::INI_TIMELAG_OPT_0, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-        ec_project_state_.timelagOpt.end_date = project_ini.value(EcIni::INI_TIMELAG_OPT_1, QDate::currentDate().toString(Qt::ISODate)).toString();
-        ec_project_state_.timelagOpt.mode = project_ini.value(EcIni::INI_TIMELAG_OPT_2, 1).toInt();
-        ec_project_state_.timelagOpt.file = project_ini.value(EcIni::INI_TIMELAG_OPT_3, QString()).toString();
-        ec_project_state_.timelagOpt.to_h2o_nclass = project_ini.value(EcIni::INI_TIMELAG_OPT_17, 10).toInt();
-        ec_project_state_.timelagOpt.co2_min_flux = project_ini.value(EcIni::INI_TIMELAG_OPT_4, 2.0).toDouble();
-        ec_project_state_.timelagOpt.ch4_min_flux = project_ini.value(EcIni::INI_TIMELAG_OPT_5, 0.2).toDouble();
-        ec_project_state_.timelagOpt.gas4_min_flux = project_ini.value(EcIni::INI_TIMELAG_OPT_6, 0.02).toDouble();
-        ec_project_state_.timelagOpt.le_min_flux = project_ini.value(EcIni::INI_TIMELAG_OPT_7, 20.0).toDouble();
-        ec_project_state_.timelagOpt.pg_range = project_ini.value(EcIni::INI_TIMELAG_OPT_8, 1.5).toDouble();
-        ec_project_state_.timelagOpt.co2_min_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_9, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.co2_max_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_10, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.h2o_min_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_11, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.h2o_max_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_12, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.ch4_min_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_13, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.ch4_max_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_14, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.gas4_min_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_15, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.gas4_max_lag = project_ini.value(EcIni::INI_TIMELAG_OPT_16, -1000.1).toDouble();
-        ec_project_state_.timelagOpt.subset = project_ini.value(EcIni::INI_TIMELAG_OPT_18, 0).toInt();
+        ec_project_state_.timelagOpt.start_date
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_0,
+                                    QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+        ec_project_state_.timelagOpt.end_date
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_1,
+                                    QDate::currentDate().toString(Qt::ISODate)).toString();
+        ec_project_state_.timelagOpt.start_time
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_19,
+                                    QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.timelagOpt.end_time
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_20,
+                                    QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
+        ec_project_state_.timelagOpt.mode
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_2,
+                                    defaultEcProjectState.timelagOpt.mode).toInt();
+        ec_project_state_.timelagOpt.file
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_3,
+                                    defaultEcProjectState.timelagOpt.file).toString();
+        ec_project_state_.timelagOpt.to_h2o_nclass
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_17,
+                                    defaultEcProjectState.timelagOpt.to_h2o_nclass).toInt();
+        ec_project_state_.timelagOpt.co2_min_flux
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_4,
+                                    defaultEcProjectState.timelagOpt.co2_min_flux).toDouble();
+        ec_project_state_.timelagOpt.ch4_min_flux
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_5,
+                                    defaultEcProjectState.timelagOpt.ch4_min_flux).toDouble();
+        ec_project_state_.timelagOpt.gas4_min_flux
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_6,
+                                    defaultEcProjectState.timelagOpt.gas4_min_flux).toDouble();
+        ec_project_state_.timelagOpt.le_min_flux
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_7,
+                                    defaultEcProjectState.timelagOpt.le_min_flux).toDouble();
+        ec_project_state_.timelagOpt.pg_range
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_8,
+                                    defaultEcProjectState.timelagOpt.pg_range).toDouble();
+        ec_project_state_.timelagOpt.co2_min_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_9,
+                                    defaultEcProjectState.timelagOpt.co2_min_lag).toDouble();
+        ec_project_state_.timelagOpt.co2_max_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_10,
+                                    defaultEcProjectState.timelagOpt.co2_max_lag).toDouble();
+        ec_project_state_.timelagOpt.h2o_min_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_11,
+                                    defaultEcProjectState.timelagOpt.h2o_min_lag).toDouble();
+        ec_project_state_.timelagOpt.h2o_max_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_12,
+                                    defaultEcProjectState.timelagOpt.h2o_max_lag).toDouble();
+        ec_project_state_.timelagOpt.ch4_min_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_13,
+                                    defaultEcProjectState.timelagOpt.ch4_min_lag).toDouble();
+        ec_project_state_.timelagOpt.ch4_max_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_14,
+                                    defaultEcProjectState.timelagOpt.ch4_max_lag).toDouble();
+        ec_project_state_.timelagOpt.gas4_min_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_15,
+                                    defaultEcProjectState.timelagOpt.gas4_min_lag).toDouble();
+        ec_project_state_.timelagOpt.gas4_max_lag
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_16,
+                                    defaultEcProjectState.timelagOpt.gas4_max_lag).toDouble();
+        ec_project_state_.timelagOpt.subset
+                = project_ini.value(EcIni::INI_TIMELAG_OPT_18,
+                                    defaultEcProjectState.timelagOpt.subset).toInt();
     project_ini.endGroup();
 
     // random error section
     project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        ec_project_state_.randomError.method = project_ini.value(EcIni::INI_RAND_ERROR_0, 0).toInt();
-        ec_project_state_.randomError.its_method = project_ini.value(EcIni::INI_RAND_ERROR_1, 1).toInt();
-        ec_project_state_.randomError.its_tlag_max = project_ini.value(EcIni::INI_RAND_ERROR_2, 10.0).toDouble();
+        ec_project_state_.randomError.method
+                = project_ini.value(EcIni::INI_RAND_ERROR_0,
+                                    defaultEcProjectState.randomError.method).toInt();
+        ec_project_state_.randomError.its_method
+                = project_ini.value(EcIni::INI_RAND_ERROR_1,
+                                    defaultEcProjectState.randomError.its_method).toInt();
+        ec_project_state_.randomError.its_tlag_max
+                = project_ini.value(EcIni::INI_RAND_ERROR_2,
+                                    defaultEcProjectState.randomError.its_tlag_max).toDouble();
 
         // NOTE: temporarly disabled
-//        ec_project_state_.randomError.its_sec_factor = project_ini.value(EcIni::INI_RAND_ERROR_3, 20.0).toDouble();
+//        ec_project_state_.randomError.its_sec_factor
+//                = project_ini.value(EcIni::INI_RAND_ERROR_3,
+//                                    defaultEcProjectState.randomError.its_sec_factor).toDouble();
     project_ini.endGroup();
 
     // biomet section
     project_ini.beginGroup(EcIni::INIGROUP_BIOMET);
-        ec_project_state_.biomParam.col_ta = project_ini.value(EcIni::INI_BIOMET_4, -1).toInt() + 1000;
-        ec_project_state_.biomParam.col_pa = project_ini.value(EcIni::INI_BIOMET_5, -1).toInt() + 1000;
-        ec_project_state_.biomParam.col_rh = project_ini.value(EcIni::INI_BIOMET_6, -1).toInt();
-        ec_project_state_.biomParam.col_rg = project_ini.value(EcIni::INI_BIOMET_7, -1).toInt();
-        ec_project_state_.biomParam.col_lwin = project_ini.value(EcIni::INI_BIOMET_8, -1).toInt();
-        ec_project_state_.biomParam.col_ppfd = project_ini.value(EcIni::INI_BIOMET_9, -1).toInt();
+        ec_project_state_.biomParam.col_ta
+                = project_ini.value(EcIni::INI_BIOMET_4,
+                                    defaultEcProjectState.biomParam.col_ta).toInt() + 1000;
+        ec_project_state_.biomParam.col_pa
+                = project_ini.value(EcIni::INI_BIOMET_5,
+                                    defaultEcProjectState.biomParam.col_pa).toInt() + 1000;
+        ec_project_state_.biomParam.col_rh
+                = project_ini.value(EcIni::INI_BIOMET_6,
+                                    defaultEcProjectState.biomParam.col_rh).toInt();
+        ec_project_state_.biomParam.col_rg
+                = project_ini.value(EcIni::INI_BIOMET_7,
+                                    defaultEcProjectState.biomParam.col_rg).toInt();
+        ec_project_state_.biomParam.col_lwin
+                = project_ini.value(EcIni::INI_BIOMET_8,
+                                    defaultEcProjectState.biomParam.col_lwin).toInt();
+        ec_project_state_.biomParam.col_ppfd
+                = project_ini.value(EcIni::INI_BIOMET_9,
+                                    defaultEcProjectState.biomParam.col_ppfd).toInt();
     project_ini.endGroup();
 
     datafile.close();
@@ -2203,7 +2950,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     if (!isVersionCompatible)
         *modified = true;
 
-//    QApplication::restoreOverrideCursor();
     return true;
 }
 
@@ -2293,8 +3039,6 @@ void EcProject::setModified(bool mod)
     modified_ = mod;
     if (mod)
     {
-//        DEBUG_FUNC_NAME
-//        DEBUG_FUNC_MSG(tr("project modified"));
         emit ecProjectModified();
     }
 }
@@ -2388,33 +3132,111 @@ void EcProject::setSpectraHfnGas4(double d)
     setModified(true);
 }
 
-void EcProject::setSpectraMinCo2(double d)
+void EcProject::setSpectraMinUnstableUstar(double d)
 {
-    ec_project_state_.spectraSettings.sa_min_co2 = d;
+    ec_project_state_.spectraSettings.sa_min_un_ustar = d;
     setModified(true);
 }
 
-void EcProject::setSpectraMinCh4(double d)
+void EcProject::setSpectraMinUnstableH(double d)
 {
-    ec_project_state_.spectraSettings.sa_min_ch4 = d;
+    ec_project_state_.spectraSettings.sa_min_un_h = d;
     setModified(true);
 }
 
-void EcProject::setSpectraMinGas4(double d)
+void EcProject::setSpectraMinUnstableLE(double d)
 {
-    ec_project_state_.spectraSettings.sa_min_gas4 = d;
+    ec_project_state_.spectraSettings.sa_min_un_le = d;
     setModified(true);
 }
 
-void EcProject::setSpectraMinLe(double d)
+void EcProject::setSpectraMinUnstableCo2(double d)
 {
-    ec_project_state_.spectraSettings.sa_min_le = d;
+    ec_project_state_.spectraSettings.sa_min_un_co2 = d;
     setModified(true);
 }
 
-void EcProject::setSpectraMinH(double d)
+void EcProject::setSpectraMinUnstableCh4(double d)
 {
-    ec_project_state_.spectraSettings.sa_min_h = d;
+    ec_project_state_.spectraSettings.sa_min_un_ch4 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinUnstableGas4(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_un_gas4 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableUstar(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_ustar = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableH(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_h = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableLE(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_le = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableCo2(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_co2 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableCh4(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_ch4 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMinStableGas4(double d)
+{
+    ec_project_state_.spectraSettings.sa_min_st_gas4 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxUstar(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_ustar = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxH(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_h = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxLE(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_le = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxCo2(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_co2 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxCh4(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_ch4 = d;
+    setModified(true);
+}
+
+void EcProject::setSpectraMaxGas4(double d)
+{
+    ec_project_state_.spectraSettings.sa_max_gas4 = d;
     setModified(true);
 }
 
@@ -2458,36 +3280,6 @@ void EcProject::setSpectraSubset(int n)
 void EcProject::setSpectraAddSonic(int n)
 {
     ec_project_state_.spectraSettings.add_sonic_lptf = n;
-    setModified(true);
-}
-
-void EcProject::setSpectraF10Co2(double d)
-{
-    ec_project_state_.spectraSettings.f10_co2_trshld = d;
-    setModified(true);
-}
-
-void EcProject::setSpectraF10Ch4(double d)
-{
-    ec_project_state_.spectraSettings.f10_ch4_trshld = d;
-    setModified(true);
-}
-
-void EcProject::setSpectraF10Gas4(double d)
-{
-    ec_project_state_.spectraSettings.f10_gas4_trshld = d;
-    setModified(true);
-}
-
-void EcProject::setSpectraF10Le(double d)
-{
-    ec_project_state_.spectraSettings.f10_le_trshld = d;
-    setModified(true);
-}
-
-void EcProject::setSpectraF10H(double d)
-{
-    ec_project_state_.spectraSettings.f10_h_trshld = d;
     setModified(true);
 }
 
@@ -2722,6 +3514,12 @@ void EcProject::setGeneralErrorLabel(const QString &p)
     setModified(true);
 }
 
+void EcProject::setGeneralOutMeanSpectra(int n)
+{
+    ec_project_state_.projectGeneral.out_mean_spectra = n;
+    setModified(true);
+}
+
 void EcProject::setGeneralOutMeanCosp(int n)
 {
     ec_project_state_.projectGeneral.out_mean_cosp = n;
@@ -2752,12 +3550,6 @@ void EcProject::setGeneralFilesFound(int n)
 //    setModified(true);
 }
 
-void EcProject::setScreenNFiles(int n)
-{
-    ec_project_state_.screenSetting.nfiles = n;
-    setModified(true);
-}
-
 void EcProject::setScreenMaxLack(int n)
 {
     ec_project_state_.screenSetting.max_lack = n;
@@ -2785,12 +3577,6 @@ void EcProject::setScreenWOffset(double d)
 void EcProject::setScreenFlowDistortion(int n)
 {
     ec_project_state_.screenSetting.flow_distortion = n;
-    setModified(true);
-}
-
-void EcProject::setScreenToMixRatio(int n)
-{
-    ec_project_state_.screenSetting.to_mixratio = n;
     setModified(true);
 }
 
@@ -3453,6 +4239,12 @@ void EcProject::setScreenParamDsSfW(double n)
     setModified(true);
 }
 
+void EcProject::setScreenParamDespikeVm(int n)
+{
+    ec_project_state_.screenParam.despike_vm = n;
+    setModified(true);
+}
+
 void EcProject::setScreenParamDsSfT(double n)
 {
     ec_project_state_.screenParam.ds_sf_t = n;
@@ -4101,6 +4893,18 @@ void EcProject::setPlanarFitEndDate(const QString& date)
     setModified(true);
 }
 
+void EcProject::setPlanarFitStartTime(const QString& time)
+{
+    ec_project_state_.screenTilt.start_time = time;
+    setModified(true);
+}
+
+void EcProject::setPlanarFitEndTime(const QString& time)
+{
+    ec_project_state_.screenTilt.end_time = time;
+    setModified(true);
+}
+
 void EcProject::setPlanarFitMode(int i)
 {
     ec_project_state_.screenTilt.mode = i;
@@ -4167,6 +4971,18 @@ void EcProject::setSpectraEndDate(const QString& date)
     setModified(true);
 }
 
+void EcProject::setSpectraStartTime(const QString& time)
+{
+    ec_project_state_.spectraSettings.start_sa_time = time;
+    setModified(true);
+}
+
+void EcProject::setSpectraEndTime(const QString& time)
+{
+    ec_project_state_.spectraSettings.end_sa_time = time;
+    setModified(true);
+}
+
 void EcProject::setSpectraMode(int i)
 {
     ec_project_state_.spectraSettings.sa_mode = i;
@@ -4181,6 +4997,25 @@ void EcProject::setSpectraFile(const QString &p)
     emit updateInfo();
 }
 
+void EcProject::setSpectraUseVmFlags(int n)
+{
+    ec_project_state_.spectraSettings.use_vm_flags = n;
+    setModified(true);
+}
+
+void EcProject::setSpectraUseFokenLow(int n)
+{
+    ec_project_state_.spectraSettings.use_foken_low = n;
+    setModified(true);
+}
+
+
+void EcProject::setSpectraUseFokenMid(int n)
+{
+    ec_project_state_.spectraSettings.use_foken_mid = n;
+    setModified(true);
+}
+
 void EcProject::setTimelagOptStartDate(const QString& date)
 {
     ec_project_state_.timelagOpt.start_date = date;
@@ -4190,6 +5025,18 @@ void EcProject::setTimelagOptStartDate(const QString& date)
 void EcProject::setTimelagOptEndDate(const QString& date)
 {
     ec_project_state_.timelagOpt.end_date = date;
+    setModified(true);
+}
+
+void EcProject::setTimelagOptStartTime(const QString& time)
+{
+    ec_project_state_.timelagOpt.start_time = time;
+    setModified(true);
+}
+
+void EcProject::setTimelagOptEndTime(const QString& time)
+{
+    ec_project_state_.timelagOpt.end_time = time;
     setModified(true);
 }
 
@@ -4395,25 +5242,6 @@ void EcProject::setBiomParamColPpfd(int n)
     setModified(true);
 }
 
-const QString EcProject::getFilenamePrototype() const
-{
-    DEBUG_FUNC_NAME
-
-    QString format;
-
-    if (generalFileType() == Defs::RawFileType::GHG)
-    {
-        format = QStringLiteral("yyyy-mm-ddTHHMM_") + this->generalId()
-                 + QStringLiteral(".") + Defs::GHG_NATIVE_DATA_FILE_EXT;
-    }
-    else
-    {
-        format = generalFilePrototype();
-    }
-
-    return format;
-}
-
 bool EcProject::isEngineStep2Needed()
 {
     bool test = false;
@@ -4442,26 +5270,7 @@ bool EcProject::isEngineStep2Needed()
     return test;
 }
 
-bool EcProject::queryProjectImport(const QString& filename)
-{
-    return WidgetUtils::okToQuestion(nullptr,
-        tr("Import Project"),
-        tr("<p>Your project file has to be imported "
-           "and updated to a new version. "
-           "If you proceed, you will "
-           "lose your file and the "
-           "compatibility with previous versions of EddyPro "
-           "but you will have a smooth "
-           "transition to the new EddyPro version. "
-           "If you are unsure, "
-           "select 'No' and create a backup copy of your "
-           "project file before proceeding.</p>"),
-        tr("<p>Are you sure you want to "
-           "import the following file?<br>"
-           "<b>\"%1\"</b></p>").arg(filename));
-}
-
-bool EcProject::isGoodRawFileNameFormat(const QString& s)
+bool EcProject::isGoodRawFilePrototype(const QString& s)
 {
     DEBUG_FUNC_NAME
     bool test = !s.isEmpty()

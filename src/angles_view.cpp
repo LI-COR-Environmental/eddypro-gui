@@ -103,7 +103,7 @@ QModelIndex AnglesView::indexAt(const QPoint &point) const
         double d = pow(pow(cx, 2) + pow(cy, 2), 0.5);
         qDebug() << "d" << d;
 
-        if (d == 0 || d > pieSize/2)
+        if (qFuzzyCompare(d + 1, 0.0 + 1) || (d > pieSize/2))
         {
             return QModelIndex();
         }
@@ -353,6 +353,12 @@ QModelIndex AnglesView::moveCursor(QAbstractItemView::CursorAction cursorAction,
                 current = model()->index(rows(current) - 1, column, rootIndex());
             }
             break;
+        case MoveHome:
+        case MoveEnd:
+        case MovePageUp:
+        case MovePageDown:
+        case MoveNext:
+        case MovePrevious:
         default:
             break;
     }

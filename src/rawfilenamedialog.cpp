@@ -24,6 +24,7 @@
 
 #include <QButtonGroup>
 #include <QDebug>
+#include <QDialogButtonBox>
 #include <QDirIterator>
 #include <QLabel>
 #include <QLineEdit>
@@ -37,9 +38,14 @@
 #include "ecproject.h"
 #include "widget_utils.h"
 
-RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
+RawFilenameDialog::RawFilenameDialog(QWidget *parent,
+                                     EcProject *ecProject,
+                                     QStringList* suffixList,
+                                     QStringList* rawFileList) :
     QDialog(parent),
-    ecProject_(ecProject)
+    ecProject_(ecProject),
+    ghgSuffixList_(suffixList),
+    rawFileList_(rawFileList)
 {
     setWindowModality(Qt::WindowModal);
     setWindowTitle(tr("Raw File Name Format"));
@@ -70,30 +76,42 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
     okButton->setProperty("commonButton", true);
     okButton->setEnabled(false);
 
+    auto cancelButton = new QPushButton(tr("Cancel"));
+    cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    cancelButton->setDefault(true);
+    cancelButton->setProperty("commonButton", true);
+
+    auto buttonBox = new QDialogButtonBox;
+    buttonBox->addButton(okButton, QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+
     auto dialogLayout = new QGridLayout(this);
     dialogLayout->addWidget(title, 0, 0);
     dialogLayout->addWidget(desc, 1, 0);
     dialogLayout->addWidget(radioScrollArea, 2, 0);
     dialogLayout->addWidget(rawFilenameFormatEdit, 3, 0);
-    dialogLayout->addWidget(okButton, 4, 0, 1, 1, Qt::AlignCenter);
+    dialogLayout->addWidget(buttonBox, 4, 0, 1, 1, Qt::AlignCenter);
     dialogLayout->setVerticalSpacing(10);
     dialogLayout->setContentsMargins(30, 30, 30, 30);
-//    dialogLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(dialogLayout);
 
     connect(okButton, &QPushButton::clicked,
-            this, &RawFilenameDialog::close);
+            this, &RawFilenameDialog::accept);
+    connect(cancelButton, &QPushButton::clicked,
+            this, &RawFilenameDialog::reject);
     connect(extRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateFormatEdit(int)));
     connect(rawFilenameFormatEdit, &QLineEdit::textEdited,
             this, &RawFilenameDialog::updateFileList);
 }
 
-void RawFilenameDialog::close()
+void RawFilenameDialog::accept()
 {
     emit updateFileFormatRequest(rawFilenameFormatEdit->text());
     if (isVisible())
+    {
         hide();
+    }
 }
 
 void RawFilenameDialog::reset()
@@ -117,95 +135,257 @@ void RawFilenameDialog::reset()
 
 void RawFilenameDialog::refresh()
 {
+    // clean the dialog
     reset();
 
-    QString baseDescText = tr("<p>Your entry in this field will describe "
-                     "how the timestamp is encoded in the raw file name.<br />"
-                     "In the field below, replace the:"
-                     "<ul><li>Year with characters yy or yyyy</li>"
-                     "<li>Month with mm</li>"
-                     "<li>Day with dd (day of month) or ddd (day of year) (case sensitive)</li>"
-                     "<li>Hour and minute with HH and MM</li></ul>"
-                     "<u>Example</u><br />"
-                     "<table><tr><td>File name:</td><td>2011-09-27_1030_mysite.raw</td></tr>"
-                     "<tr><td>File name format:</td><td>yyyy-mm-dd_HHMM_mysite.raw</td></tr>"
-                     "</table></p><hr />");
+    populateDialog();
 
-    fileList_ = getRawFileTypeAvailable();
-
-    if (fileList_.count() > 1)
+    // recover existing prototype if possible
+    auto existingPrototype = ecProject_->generalFilePrototype();
+    if (!existingPrototype.isEmpty())
     {
-        desc->setText(baseDescText +
-                      tr("<p>In the 'Raw data directory' we found file names with the "
-                         "following extensions:</p>"));
-
-        createRadioButtons(fileList_);
-    }
-    else if (fileList_.count() == 1)
-    {
-        desc->setText(baseDescText +
-                      tr("\nIn the 'Raw data directory' we found file names of the "
-                         "following type:"));
-        createRadioButtons(fileList_);
-    }
-    else
-    {
-        desc->setText(baseDescText +
-                      tr("\nIn the 'Raw data directory' we found no files."));
+        rawFilenameFormatEdit->setText(existingPrototype);
     }
 
-    if (!fileList_.isEmpty())
+    // select corresponding radio button if possible
+    auto buttonsNumber = extRadioGroup->buttons().count();
+    qDebug() << "buttons #" << buttonsNumber;
+    if (buttonsNumber)
     {
-        qDebug() << fileList_.count() << fileList_;
-        QFileInfo fileInfo(fileList_.at(0));
-        rawFilenameFormatEdit->setText(fileInfo.fileName());
-        rawFilenameFormatEdit->selectAll();
+        auto selectionIndex = 0;
+        foreach (const auto btn, extRadioGroup->buttons())
+        {
+            // stop if found
+            // 1. GHG case
+            if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
+            {
+                if (rawFilenameFormatEdit->text().contains(btn->text()))
+                {
+                    break;
+                }
+            }
+            // 2. non GHG case
+            else
+            {
+                if (rawFilenameFormatEdit->text().section(QLatin1Char('.'), -1).contains(btn->text()))
+                {
+                    break;
+                }
+            }
+            ++selectionIndex;
+        }
+        qDebug() << "last selectionIndex" << selectionIndex;
+        // process all button
+        if (selectionIndex == extRadioGroup->buttons().length())
+        {
+            extRadioGroup->buttons().last()->toggle();
+        }
+        // standard buttons
+        else
+        {
+            extRadioGroup->buttons().at(selectionIndex)->toggle();
+        }
     }
-    okButton->setEnabled(ecProject_->isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
+
+    // update the ok button
+    updateOkButton();
 }
 
-QStringList RawFilenameDialog::getRawFileTypeAvailable()
+void RawFilenameDialog::populateDialog()
 {
     DEBUG_FUNC_NAME
-    QStringList list;
-    if (!ecProject_->screenDataPath().isEmpty())
+
+    QString baseDescText
+            = tr("<p>Your entry in this field will describe "
+                 "how the timestamp is encoded in the raw file name.<br />"
+                 "In the field below, replace the:"
+                 "<ul><li>Year with characters yy or yyyy</li>"
+                 "<li>Month with mm</li>"
+                 "<li>Day with dd (day of month) or ddd (day of year) (case sensitive)</li>"
+                 "<li>Hour and minute with HH and MM</li></ul></p>"
+                 "<p>You can also specify a wildcard matching any single character "
+                 "using the question mark (?).</p>"
+                 "<u>Example</u><br />"
+                 "<table><tr><td>File name: </td><td><tt>2015-05-27_1030_mysite-12.raw</tt></td></tr>"
+                 "<tr><td>File name format: </td><td><tt>yyyy-mm-dd_HHMM_mysite-??.raw</tt></td></tr>"
+                 "</table></p><hr />");
+
+    // GHG case
+    if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
     {
-        // set the flag according to the current raw data directory flag
-        QDirIterator::IteratorFlags recursionFlag = QDirIterator::Subdirectories;
-        if (!ecProject_->screenRecurse())
+        qDebug() << "ghgSuffixList_" << *ghgSuffixList_ << ghgSuffixList_;
+        qDebug() << "ghgSuffixList_ count" << ghgSuffixList_->count();
+
+        if (ghgSuffixList_->count() > 1)
         {
-            recursionFlag = QDirIterator::NoIteratorFlags;
+            desc->setText(baseDescText +
+                          tr("<p>In the 'Raw data directory' we found GHG file names with the "
+                             "following suffixes:</p>"));
+
+            createGhgSuffixRadioButtons();
+        }
+        else if (ghgSuffixList_->count() == 1)
+        {
+            desc->setText(baseDescText +
+                          tr("\nIn the 'Raw data directory' we found GHG file names with the "
+                             "following suffix:"));
+            createGhgSuffixRadioButtons();
+        }
+        else
+        {
+            desc->setText(baseDescText +
+                          tr("\nIn the 'Raw data directory' we found no GHG files."));
         }
 
-        QDirIterator dirIterator(ecProject_->screenDataPath(),
-                             QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot,
-                             recursionFlag);
-
-        QString currFile;
-        QString currExt;
-        QStringList prevExtList;
-        QFileInfo currFileInfo;
-        while (dirIterator.hasNext())
-        {
-            dirIterator.next();
-            currFileInfo = dirIterator.fileInfo();
-            currFile = currFileInfo.absoluteFilePath();
-            currExt = currFileInfo.suffix();
-
-            if (!prevExtList.contains(currExt))
-            {
-                list.append(currFile);
-                prevExtList.append(currExt);
-            }
-        }
+        // update prototype line edit
+        updateFormatEdit(0);
     }
-    return list;
+    // non GHG cases
+    else
+    {
+        fileList_ = getRawFileTypesAvailable();
+        qDebug() << "fileList_" << fileList_;
+
+        // filter fileList by selected extension for known cases
+        // notably SLT and TOB1
+        if (ecProject_->generalFileType() == Defs::RawFileType::SLT1
+            || ecProject_->generalFileType() == Defs::RawFileType::SLT2)
+        {
+            removeFileExtensionFromList(Defs::TOB1_NATIVE_DATA_FILE_EXT);
+        }
+        else if (ecProject_->generalFileType() == Defs::RawFileType::TOB1)
+        {
+            removeFileExtensionFromList(Defs::SLT_NATIVE_DATA_FILE_EXT);
+        }
+        else if (ecProject_->generalFileType() == Defs::RawFileType::ASCII
+                 || ecProject_->generalFileType() == Defs::RawFileType::BIN)
+        {
+            removeFileExtensionFromList(Defs::SLT_NATIVE_DATA_FILE_EXT);
+            removeFileExtensionFromList(Defs::TOB1_NATIVE_DATA_FILE_EXT);
+        }
+        // in all the cases remove GHG
+        removeFileExtensionFromList(Defs::GHG_NATIVE_DATA_FILE_EXT);
+
+        qDebug() << "filtered fileList_" << fileList_;
+
+        if (fileList_.count() > 1)
+        {
+            desc->setText(baseDescText +
+                          tr("<p>In the 'Raw data directory' we found file names with the "
+                             "following extensions:</p>"));
+
+            createFileExtensionRadioButtons(fileList_);
+        }
+        else if (fileList_.count() == 1)
+        {
+            desc->setText(baseDescText +
+                          tr("\nIn the 'Raw data directory' we found file names of the "
+                             "following type:"));
+            createFileExtensionRadioButtons(fileList_);
+        }
+        else
+        {
+            desc->setText(baseDescText +
+                          tr("\nIn the 'Raw data directory' we found no files."));
+        }
+
+        // update prototype line edit
+        updateFormatEdit(0);
+    }
 }
 
-void RawFilenameDialog::createRadioButtons(const QStringList& list)
+void RawFilenameDialog::removeFileExtensionFromList(const QString& ext)
+{
+    foreach (auto type, fileList_)
+    {
+        if (QFileInfo(type).suffix().contains(ext))
+        {
+            fileList_.removeOne(type);
+        }
+    }
+}
+
+QStringList RawFilenameDialog::getRawFileTypesAvailable()
+{
+    DEBUG_FUNC_NAME
+
+    // initial test
+    if (ecProject_->screenDataPath().isEmpty())
+    {
+        qDebug() << "no raw data dir set";
+        return QStringList();
+    }
+
+    // set the flag according to the current raw data directory flag
+    QDirIterator::IteratorFlags recursionFlag = QDirIterator::Subdirectories;
+    if (!ecProject_->screenRecurse())
+    {
+        recursionFlag = QDirIterator::NoIteratorFlags;
+    }
+
+    QDirIterator dirIterator(ecProject_->screenDataPath(),
+                     QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot,
+                     recursionFlag);
+
+    QString currFile;
+    QStringList currentFileList;
+    QString currExt;
+    QStringList currentExtensionList;
+    QFileInfo currFileInfo;
+    while (dirIterator.hasNext())
+    {
+        dirIterator.next();
+
+        currFileInfo = dirIterator.fileInfo();
+        currFile = currFileInfo.absoluteFilePath();
+        currExt = currFileInfo.suffix();
+
+        if (!currentExtensionList.contains(currExt))
+        {
+            currentFileList.append(currFile);
+            currentExtensionList.append(currExt);
+        }
+    }
+    return currentFileList;
+}
+
+void RawFilenameDialog::createGhgSuffixRadioButtons()
+{
+    auto firstSuffixLenght = ghgSuffixList_->first().length();
+    qDebug() << "firstSuffixLenght" << firstSuffixLenght << ghgSuffixList_->first();
+
+    auto i = 0;
+    auto equalLengthSuffix = true;
+    QRadioButton* button;
+    foreach (const auto& suffix, *ghgSuffixList_)
+    {
+        button = new QRadioButton(suffix);
+        extRadioGroup->addButton(button, i);
+        radioGroupBoxLayout->addWidget(button);
+        ++i;
+        if (equalLengthSuffix)
+        {
+            equalLengthSuffix = (suffix.length() == firstSuffixLenght);
+            qDebug() << "suffix.length()" << suffix << suffix.length();
+        }
+    }
+
+    // add button in case of equal length suffixes
+    if (equalLengthSuffix && ghgSuffixList_->size() > 1)
+    {
+        button = new QRadioButton(tr("Process all"));
+        extRadioGroup->addButton(button, i);
+        radioGroupBoxLayout->addWidget(button);
+    }
+
+    extRadioGroup->buttons().first()->setChecked(true);
+    radioGroupBox->setVisible(true);
+}
+
+void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
 {
     QRadioButton* button;
-    int i = 0;
+    auto i = 0;
     foreach (const QString& file, list)
     {
         qDebug() << QFileInfo(file).suffix();
@@ -218,22 +398,87 @@ void RawFilenameDialog::createRadioButtons(const QStringList& list)
     radioGroupBox->setVisible(true);
 }
 
+// update prototype line edit
 void RawFilenameDialog::updateFormatEdit(int id)
 {
-    QFileInfo fileInfo(fileList_.at(id));
+    if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
+    {
+        if (ghgSuffixList_->isEmpty())
+        {
+            return;
+        }
 
-    rawFilenameFormatEdit->setText(fileInfo.fileName());
-    rawFilenameFormatEdit->selectAll();
+        // standard buttons
+        if (id < ghgSuffixList_->length())
+        {
+            rawFilenameFormatEdit->setText(Defs::GHG_TIMESTAMP_FORMAT + ghgSuffixList_->at(id));
+            rawFilenameFormatEdit->selectAll();
+        }
+        // 'catch all' button ('Process all')
+        else
+        {
+            QString filledSuffix;
+            filledSuffix.fill(QLatin1Char('?'), ghgSuffixList_->first().length() - 4);
+            rawFilenameFormatEdit->setText(Defs::GHG_TIMESTAMP_FORMAT
+                                           + filledSuffix
+                                           + QLatin1Char('.')
+                                           + Defs::GHG_NATIVE_DATA_FILE_EXT);
+            rawFilenameFormatEdit->selectAll();
+        }
+    }
+    else
+    {
+        if (fileList_.isEmpty())
+        {
+            return;
+        }
+
+        QFileInfo fileInfo(fileList_.at(id));
+
+        rawFilenameFormatEdit->setText(fileInfo.fileName());
+        rawFilenameFormatEdit->selectAll();
+    }
+    updateOkButton();
 }
 
+// update the current list when the user edit the prototype
+// to keep in sync the changes and to avoid losing them
+// switching between different radio buttons
+// of course if the list changes, any synchronism would
+// be lost
+// in the GHG case the list is created and updated by
+// the parent class, no effort is made to keep it in sync
+// locally but local changes are not preserved
 void RawFilenameDialog::updateFileList(const QString& file)
 {
     DEBUG_FUNC_NAME
-    qDebug() << extRadioGroup->buttons().count()
-             << extRadioGroup->checkedId()
-             << file;
-    if (extRadioGroup->buttons().count())
-        fileList_.replace(extRadioGroup->checkedId(), file);
 
-    okButton->setEnabled(ecProject_->isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
+    if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
+    {
+        if (ghgSuffixList_->isEmpty())
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (fileList_.isEmpty())
+        {
+            return;
+        }
+
+        qDebug() << extRadioGroup->buttons().count()
+                 << extRadioGroup->checkedId()
+                 << file;
+        if (extRadioGroup->buttons().count())
+        {
+            fileList_.replace(extRadioGroup->checkedId(), file);
+        }
+    }
+    updateOkButton();
+}
+
+void RawFilenameDialog::updateOkButton()
+{
+    okButton->setEnabled(ecProject_->isGoodRawFilePrototype(rawFilenameFormatEdit->text()));
 }

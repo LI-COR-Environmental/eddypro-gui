@@ -28,7 +28,7 @@
 #include <QModelIndex>
 #include <QVariant>
 
-#include "irga_desc.h" // for IrgaDescList typedef
+#include "irga_desc.h" // NOTE: for IrgaDescList
 
 class IrgaModel : public QAbstractTableModel {
     Q_OBJECT
@@ -40,7 +40,6 @@ public:
         MODEL,
         SWVERSION,
         ID,
-//        HEIGHT,
         TUBELENGTH,
         TUBEDIAMETER,
         TUBEFLOWRATE,

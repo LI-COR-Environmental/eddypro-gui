@@ -51,13 +51,13 @@ class QSpinBox;
 class QStackedWidget;
 class QTabWidget;
 
-class QwwResetLineEdit;
-
 class ClickLabel;
 struct ConfigState;
+class CustomResetLineEdit;
 class DlProject;
 class EcProject;
 class PlanarFitSettingsDialog;
+class RichTextCheckBox;
 class TimeLagSettingsDialog;
 
 /// \class AdvlProcessingOptions
@@ -73,16 +73,11 @@ public:
                          ConfigState* config);
     ~AdvProcessingOptions();
 
-    void setEnabledAndCheckAngleOfAttack(int gillGroup);
-
     PlanarFitSettingsDialog* getPlanarFitSettingsDialog() { return pfDialog_; }
     TimeLagSettingsDialog* getTimeLagSettingsDialog() { return tlDialog_; }
 
-    void setSmartfluxUI();
-
 public slots:
     void reset();
-    void updateAngleOfAttack(const QString& s);
 
 private slots:
     void updateUOffset(double d);
@@ -98,8 +93,6 @@ private slots:
     void updateTlagMeth_1(bool b);
     void updateTlagMeth_2(int n);
     void updateTlSettingsButton(bool b);
-    void updateFilter(int n);
-    void updateNBins(int n);
 
     void onClickDetrendCombo(int detrendMethod);
     void onClickDetrendLabel();
@@ -107,8 +100,6 @@ private slots:
     void onClickAoaMethLabel();
     void onClickRotMethLabel();
     void onClickTimeLagMethLabel();
-    void onClickFilterLabel();
-    void onNBinsLabelClicked();
     void onULabelClicked();
     void onVLabelClicked();
     void onWLabelClicked();
@@ -120,9 +111,7 @@ private slots:
     void updateFpMeth_1(bool b);
     void updateFpMeth_2(int n);
 
-    void onClickWplMethLabel();
     void updateWplMeth_1(bool b);
-    void updateToMixingRatio(int n);
     void updateBurbaGroup(bool b);
     void updateBurbaType_2(int n);
     void enableBurbaCorrectionArea(bool b);
@@ -130,7 +119,6 @@ private slots:
     void on_setDefaultsButton_clicked();
 
     void refresh();
-    void refreshAngleOfAttack();
 
     void showPfSettingsDialog();
     void showTlSettingsDialog();
@@ -138,15 +126,7 @@ private slots:
     void updateTooltip(int i);
 
     void onlineHelpTrigger_1();
-    void onlineHelpTrigger_2();
-    void onlineHelpTrigger_3();
     void onlineHelpTrigger_4();
-    void onlineHelpTrigger_5();
-    void onlineHelpTrigger_6();
-    void onlineHelpTrigger_7();
-    void onlineHelpTrigger_8();
-    void onlineHelpTrigger_9();
-    void onlineHelpTrigger_10();
     void onlineHelpTrigger_11();
 
 private:
@@ -164,9 +144,6 @@ private:
     bool requestBurbaSettingsReset();
     void setBurbaDefaultValues();
 
-    int detectAngleOfAttackAnemGroups(const QString& anemModel);
-    void setEnabledAngleOfAttack();
-
     QLabel* windOffsetLabel;
     ClickLabel* uLabel;
     ClickLabel* vLabel;
@@ -174,42 +151,31 @@ private:
     QDoubleSpinBox* uOffsetSpin;
     QDoubleSpinBox* vOffsetSpin;
     QDoubleSpinBox* wOffsetSpin;
-    QCheckBox* aoaCheckBox;
-    ClickLabel* aoaLabel;
+    RichTextCheckBox* aoaCheckBox;
     ClickLabel* aoaMethLabel;
     QComboBox* aoaMethCombo;
-    QCheckBox* rotCheckBox;
+    RichTextCheckBox* rotCheckBox;
     ClickLabel* rotMethLabel;
     QComboBox* rotMethCombo;
     QPushButton* pfSettingsButton;
     QLabel* detrendLabel;
     ClickLabel* detrendMethLabel;
     QComboBox* detrendCombo;
-    QCheckBox* timeLagCheckBox;
+    RichTextCheckBox* timeLagCheckBox;
     ClickLabel* timeConstantLabel;
     QDoubleSpinBox* timeConstantSpin;
     ClickLabel* timeLagMethodLabel;
     QComboBox* timeLagMethodCombo;
     QPushButton* tlSettingsButton;
-    QCheckBox* fftCheckBox;
-    QCheckBox* qcCheckBox;
+    RichTextCheckBox* qcCheckBox;
     ClickLabel* qcLabel;
     QComboBox* qcMethodCombo;
-    QCheckBox* fpCheckBox;
+    RichTextCheckBox* fpCheckBox;
     ClickLabel* fpLabel;
     QComboBox* fpMethodCombo;
 
-    ClickLabel* filterLabel;
-    QComboBox* filterCombo;
-
-    ClickLabel* nBinsLabel;
-    QSpinBox* nBinsSpin;
-
-    QCheckBox* wplCheckBox;
-    ClickLabel* wplMethLabel;
-    QComboBox* wplMethCombo;
-    ClickLabel* burbaLabel;
-    QCheckBox* burbaCorrCheckBox;
+    RichTextCheckBox* wplCheckBox;
+    RichTextCheckBox* burbaCorrCheckBox;
     ClickLabel* burbaTypeLabel;
     QRadioButton* burbaSimpleRadio;
     QRadioButton* burbaMultiRadio;
@@ -223,54 +189,46 @@ private:
     QTabWidget* burbaMultiTab;
     QStackedWidget* burbaParamWidget;
 
-    QwwResetLineEdit* lDayBotGain;
-    QwwResetLineEdit* lDayBotOffset;
-    QwwResetLineEdit* lDayTopGain;
-    QwwResetLineEdit* lDayTopOffset;
-    QwwResetLineEdit* lDaySparGain;
-    QwwResetLineEdit* lDaySparOffset;
-    QwwResetLineEdit* lNightBotGain;
-    QwwResetLineEdit* lNightBotOffset;
-    QwwResetLineEdit* lNightTopGain;
-    QwwResetLineEdit* lNightTopOffset;
-    QwwResetLineEdit* lNightSparGain;
-    QwwResetLineEdit* lNightSparOffset;
+    CustomResetLineEdit* lDayBotGain;
+    CustomResetLineEdit* lDayBotOffset;
+    CustomResetLineEdit* lDayTopGain;
+    CustomResetLineEdit* lDayTopOffset;
+    CustomResetLineEdit* lDaySparGain;
+    CustomResetLineEdit* lDaySparOffset;
+    CustomResetLineEdit* lNightBotGain;
+    CustomResetLineEdit* lNightBotOffset;
+    CustomResetLineEdit* lNightTopGain;
+    CustomResetLineEdit* lNightTopOffset;
+    CustomResetLineEdit* lNightSparGain;
+    CustomResetLineEdit* lNightSparOffset;
 
-    QwwResetLineEdit* mDayBot1;
-    QwwResetLineEdit* mDayBot2;
-    QwwResetLineEdit* mDayBot3;
-    QwwResetLineEdit* mDayBot4;
-    QwwResetLineEdit* mDayTop1;
-    QwwResetLineEdit* mDayTop2;
-    QwwResetLineEdit* mDayTop3;
-    QwwResetLineEdit* mDayTop4;
-    QwwResetLineEdit* mDaySpar1;
-    QwwResetLineEdit* mDaySpar2;
-    QwwResetLineEdit* mDaySpar3;
-    QwwResetLineEdit* mDaySpar4;
-    QwwResetLineEdit* mNightBot1;
-    QwwResetLineEdit* mNightBot2;
-    QwwResetLineEdit* mNightBot3;
-    QwwResetLineEdit* mNightBot4;
-    QwwResetLineEdit* mNightTop1;
-    QwwResetLineEdit* mNightTop2;
-    QwwResetLineEdit* mNightTop3;
-    QwwResetLineEdit* mNightTop4;
-    QwwResetLineEdit* mNightSpar1;
-    QwwResetLineEdit* mNightSpar2;
-    QwwResetLineEdit* mNightSpar3;
-    QwwResetLineEdit* mNightSpar4;
+    CustomResetLineEdit* mDayBot1;
+    CustomResetLineEdit* mDayBot2;
+    CustomResetLineEdit* mDayBot3;
+    CustomResetLineEdit* mDayBot4;
+    CustomResetLineEdit* mDayTop1;
+    CustomResetLineEdit* mDayTop2;
+    CustomResetLineEdit* mDayTop3;
+    CustomResetLineEdit* mDayTop4;
+    CustomResetLineEdit* mDaySpar1;
+    CustomResetLineEdit* mDaySpar2;
+    CustomResetLineEdit* mDaySpar3;
+    CustomResetLineEdit* mDaySpar4;
+    CustomResetLineEdit* mNightBot1;
+    CustomResetLineEdit* mNightBot2;
+    CustomResetLineEdit* mNightBot3;
+    CustomResetLineEdit* mNightBot4;
+    CustomResetLineEdit* mNightTop1;
+    CustomResetLineEdit* mNightTop2;
+    CustomResetLineEdit* mNightTop3;
+    CustomResetLineEdit* mNightTop4;
+    CustomResetLineEdit* mNightSpar1;
+    CustomResetLineEdit* mNightSpar2;
+    CustomResetLineEdit* mNightSpar3;
+    CustomResetLineEdit* mNightSpar4;
 
     QPushButton* questionMark_1;
-    QPushButton* questionMark_2;
-    QPushButton* questionMark_3;
     QPushButton* questionMark_4;
-    QPushButton* questionMark_5;
-    QPushButton* questionMark_6;
-    QPushButton* questionMark_7;
-    QPushButton* questionMark_8;
-    QPushButton* questionMark_9;
-    QPushButton* questionMark_10;
     QPushButton* questionMark_11;
 
     DlProject* dlProject_;

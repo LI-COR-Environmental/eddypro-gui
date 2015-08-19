@@ -27,6 +27,7 @@
 #include <QMouseEvent>
 #include <QScrollBar>
 
+#include "clicklabel.h"
 #include "customheader.h"
 #include "dbghelper.h"
 
@@ -36,6 +37,7 @@ AnemTableView::AnemTableView(QWidget *parent) :
     DEBUG_FUNC_NAME
 
     horizontalHeader()->show();
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 
@@ -69,10 +71,8 @@ void AnemTableView::resizeEvent(QResizeEvent *event)
                           static_cast<int>(this->rowHeight(0) / 2.0),
                           m_header->sizeHint().width() + 10,
                           this->rowHeight(0) * m_header->sectionCount());
-
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
-
     horizontalScrollBar()->updateGeometry();
     viewport()->update();
     QWidget::resizeEvent(event);
@@ -88,7 +88,6 @@ void AnemTableView::showEvent(QShowEvent *event)
 
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
-
     horizontalScrollBar()->updateGeometry();
     viewport()->update();
     QWidget::showEvent(event);
@@ -98,7 +97,9 @@ void AnemTableView::mousePressEvent(QMouseEvent *event)
 {
     QModelIndex item = indexAt(event->pos());
     if (!item.isValid())
+    {
         reset();
+    }
 
     QAbstractItemView::mousePressEvent(event);
 }

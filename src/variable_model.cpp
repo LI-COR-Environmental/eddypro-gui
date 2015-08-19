@@ -773,6 +773,7 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
     qDebug() << "column" << column;
     qDebug() << "value.toString()" << value.toString();
     qDebug() << "role" << role;
+    qDebug() << "list_->count()" << list_->count();
 
     if (!index.isValid()) return false;
     if (role != Qt::EditRole) return false;
@@ -989,7 +990,7 @@ QVariant VariableModel::headerData(int section, Qt::Orientation orientation,
             case NOMTIMELAG:
             case MINTIMELAG:
             case MAXTIMELAG:
-                return QVariant(tr(""));
+                return QVariant(QString());
             default:
                 return QVariant();
         }
@@ -1034,6 +1035,9 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
                 currentFlags &= !Qt::ItemIsSelectable;
                 return currentFlags;
             }
+#if defined(Q_OS_MAC)
+            [[clang::fallthrough]];
+#endif
         case INSTRUMENT:
         case INPUTUNIT:
         case NOMTIMELAG:

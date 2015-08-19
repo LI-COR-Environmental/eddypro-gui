@@ -40,12 +40,14 @@
 /// \todo
 ////////////////////////////////////////////////////////////////////////////////
 
+class QButtonGroup;
 class QCheckBox;
 class QComboBox;
 class QDoubleSpinBox;
 class QGroupBox;
 class QLabel;
 class QPushButton;
+class QRadioButton;
 class QSpinBox;
 class QTabBar;
 class QToolBox;
@@ -67,7 +69,7 @@ public slots:
     void reset();
 
 protected:
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
 
 private slots:
     void refresh();
@@ -258,6 +260,9 @@ private slots:
 
     void updateTooltip(int i);
 
+    void despikingRadioClicked(int b);
+    void updateDespikingMethod(int b);
+
 private:
     void createTabWidget();
     bool atLeastOneCheckedTest();
@@ -271,6 +276,9 @@ private:
 
     QToolBox* testToolbox;
     QWidget* tab0;
+    QRadioButton *vickersDespikingRadio;
+    QRadioButton *mauderDespikingRadio;
+    QButtonGroup* despikingRadioGroup;
     QLabel* spikeGraphLabel;
     QSpinBox* despSpin_1;
     QDoubleSpinBox* despSpin_2;
@@ -281,7 +289,6 @@ private:
     QDoubleSpinBox* despSpin_7;
     QDoubleSpinBox* despSpin_8;
     QCheckBox* despFilterCheckBox;
-    ClickLabel* despFilterLabel;
 
     QWidget* tab1;
     QLabel* amplResGraphLabel;
@@ -312,7 +319,6 @@ private:
     QDoubleSpinBox* absLimSpin_13;
     QDoubleSpinBox* absLimSpin_14;
     QCheckBox* absLimFilterCheckBox;
-    ClickLabel* absLimFilterLabel;
 
     QWidget* tab4;
     QLabel* skewnessGraphLabel;

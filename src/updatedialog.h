@@ -60,8 +60,6 @@ public slots:
     void initialize();
 
 private slots:
-//    void ftpCommandFinished(int, bool error);
-//    void ftpStateChanged(int state);
     void showDownloadPage();
     void ftpTimeout();
 
@@ -79,7 +77,6 @@ private:
     void noConnection();
     void connectionError();
     void downloadError();
-//    void cleanFtpExit();
 
     bool isNewVersionAvailable_;
 

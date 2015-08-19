@@ -62,7 +62,7 @@ public:
     void start();
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
 private:
     QTimeLine *timeLine;

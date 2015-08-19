@@ -23,11 +23,13 @@
 
 #include "advstatisticaloptions.h"
 
+#include <QButtonGroup>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDebug>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QResizeEvent>
 #include <QScrollArea>
 #include <QSpinBox>
@@ -130,13 +132,13 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     qBox_2->addStretch();
     qBox_2->setContentsMargins(0, 0, 0, 15);
 
-    auto upFrame = new QWidget;
-    upFrame->setLayout(testSelectionAllLayout);
-    upFrame->setProperty("scrollContainerWidget", true);
+//    auto upFrame = new QWidget;
+//    upFrame->setLayout(testSelectionAllLayout);
+//    upFrame->setProperty("scrollContainerWidget", true);
 
-    auto upScrollArea = new QScrollArea;
-    upScrollArea->setWidget(upFrame);
-    upScrollArea->setWidgetResizable(true);
+//    auto upScrollArea = new QScrollArea;
+//    upScrollArea->setWidget(upFrame);
+//    upScrollArea->setWidgetResizable(true);
 
     randomErrorCheckBox = new QCheckBox(tr("Random uncertainty estimation"));
     randomErrorCheckBox->setToolTip(tr("<b>Random uncertainty estimation:</b> Check this box to instruct EddyPro to calculate flux random uncertainty due to sampling error. Select the preferred method and adjust settings to adapt to the specificity of your site/setup."));
@@ -205,7 +207,8 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     downFrame->setLayout(downLayout);
 
     auto splitter = new Splitter(Qt::Vertical, this);
-    splitter->addWidget(upScrollArea);
+//    splitter->addWidget(upScrollArea);
+    splitter->addWidget(WidgetUtils::getContainerScrollArea(this, testSelectionAllLayout));
     splitter->addWidget(downFrame);
     splitter->setStretchFactor(0, 2);
     splitter->setStretchFactor(1, 1);
@@ -278,6 +281,10 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(nonSteadyCheckBox, &QCheckBox::toggled,
             this, &AdvStatisticalOptions::updateTestNs);
 
+    connect(despikingRadioGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(despikingRadioClicked(int)));
+    connect(despikingRadioGroup, SIGNAL(buttonClicked(int)),
+            this, SLOT(updateDespikingMethod(int)));
     connect(despSpin_1, SIGNAL(valueChanged(int)),
             this, SLOT(updateParamSrNumSpk(int)));
     connect(despSpin_8, SIGNAL(valueChanged(double)),
@@ -558,7 +565,15 @@ void AdvStatisticalOptions::createTabWidget()
 {
     tab0 = new QWidget;
     tab0->setObjectName(QStringLiteral("toolboxContent"));
-//    tab0->setMaximumWidth(1200);
+
+    vickersDespikingRadio = new QRadioButton;
+    vickersDespikingRadio->setText(tr("Vickers and Mahrt, 1997"));
+    mauderDespikingRadio = new QRadioButton;
+    mauderDespikingRadio->setText(tr("Mauder et al., 2013"));
+
+    despikingRadioGroup = new QButtonGroup(this);
+    despikingRadioGroup->addButton(vickersDespikingRadio, 0);
+    despikingRadioGroup->addButton(mauderDespikingRadio, 1);
 
     despLabel_1 = new ClickLabel(tr("Maximum number of consecutive outliers : "));
     despLabel_1->setToolTip(tr("<b>Maximum number of consecutive outliers:</b> Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify <i>n</i>, the maximum number of consecutive outliers that define a spike. If more than <i>n</i> consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (<b><i>Absolute limits</i></b> test)."));
@@ -580,20 +595,7 @@ void AdvStatisticalOptions::createTabWidget()
 
     despFilterCheckBox = new QCheckBox;
     despFilterCheckBox->setToolTip(tr("<b>Replace spikes with linear interpolation:</b> Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points."));
-    despFilterLabel = new ClickLabel(tr("Replace spikes with linear interpolation"));
-    despFilterLabel->setToolTip(despFilterCheckBox->toolTip());
-    connect(despFilterLabel, &ClickLabel::clicked,
-            despFilterCheckBox, &QCheckBox::toggle);
-
-    auto checkboxContainerLayout = new QHBoxLayout;
-    checkboxContainerLayout->addWidget(despFilterCheckBox);
-    checkboxContainerLayout->addWidget(despFilterLabel);
-    checkboxContainerLayout->setSpacing(9);
-    checkboxContainerLayout->setContentsMargins(0, 0, 11, 0);
-    checkboxContainerLayout->addStretch();
-
-    auto checkboxContainer = new QWidget;
-    checkboxContainer->setLayout(checkboxContainerLayout);
+    despFilterCheckBox->setText(tr("Replace spikes with linear interpolation"));
 
     spikeGraphLabel = new QLabel;
     spikeGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/spike")));
@@ -663,28 +665,30 @@ void AdvStatisticalOptions::createTabWidget()
     despSpin_7->setToolTip(despLabel_7->toolTip());
 
     auto tab0Grid = new QGridLayout;
-    tab0Grid->addWidget(questionMark_2, 0, 0);
-    tab0Grid->addWidget(spikeGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
-    tab0Grid->addWidget(despLabel_1, 0, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_1, 0, 3);
-    tab0Grid->addWidget(despLabel_8, 1, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_8, 1, 3);
-    tab0Grid->addWidget(checkboxContainer, 2, 3);
-    tab0Grid->addWidget(plausibilityLabel, 4, 3, Qt::AlignRight);
-    tab0Grid->addWidget(despLabel_3, 5, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_3, 5, 3);
-    tab0Grid->addWidget(despLabel_4, 6, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_4, 6, 3);
-    tab0Grid->addWidget(despLabel_5, 7, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_5, 7, 3);
-    tab0Grid->addWidget(despLabel_6, 8, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_6, 8, 3);
-    tab0Grid->addWidget(despLabel_7, 9, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_7, 9, 3);
-    tab0Grid->addWidget(despLabel_2, 10, 2, Qt::AlignRight);
-    tab0Grid->addWidget(despSpin_2, 10, 3);
-    tab0Grid->setRowMinimumHeight(3, 21);
-    tab0Grid->setRowStretch(11, 1);
+    tab0Grid->addWidget(vickersDespikingRadio, 0, 0, 1, 2);
+    tab0Grid->addWidget(despLabel_8, 0, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_8, 0, 3);
+    tab0Grid->addWidget(mauderDespikingRadio, 1, 0, 1, 2);
+    tab0Grid->addWidget(despFilterCheckBox, 1, 3, 1, -1);
+    tab0Grid->addWidget(questionMark_2, 2, 0);
+    tab0Grid->addWidget(spikeGraphLabel, 2, 1, -1, 1, Qt::AlignTop);
+    tab0Grid->addWidget(spikeGraphLabel, 2, 1, -1, 1, Qt::AlignTop);
+    tab0Grid->addWidget(despLabel_1, 2, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_1, 2, 3);
+    tab0Grid->addWidget(plausibilityLabel, 3, 3, Qt::AlignRight);
+    tab0Grid->addWidget(despLabel_3, 4, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_3, 4, 3);
+    tab0Grid->addWidget(despLabel_4, 5, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_4, 5, 3);
+    tab0Grid->addWidget(despLabel_5, 6, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_5, 6, 3);
+    tab0Grid->addWidget(despLabel_6, 7, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_6, 7, 3);
+    tab0Grid->addWidget(despLabel_7, 8, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_7, 8, 3);
+    tab0Grid->addWidget(despLabel_2, 9, 2, Qt::AlignRight);
+    tab0Grid->addWidget(despSpin_2, 9, 3);
+    tab0Grid->setRowStretch(10, 1);
     tab0Grid->setColumnStretch(0, 0);
     tab0Grid->setColumnStretch(1, 0);
     tab0Grid->setColumnStretch(2, 1);
@@ -929,29 +933,25 @@ void AdvStatisticalOptions::createTabWidget()
     absLimSpin_14->setToolTip(minLabel->toolTip());
 
     absLimFilterCheckBox = new QCheckBox;
-    absLimFilterLabel = new ClickLabel(tr("Filter outranged values"));
-    absLimFilterLabel->setToolTip(tr("<b>Filter outranged values:</b> Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro\'s error code."));
-    connect(absLimFilterLabel, &ClickLabel::clicked,
-            absLimFilterCheckBox, &QCheckBox::toggle);
-
-    auto absLimContainerLayout = new QHBoxLayout;
-    absLimContainerLayout->addWidget(absLimFilterCheckBox);
-    absLimContainerLayout->addWidget(absLimFilterLabel);
-    absLimContainerLayout->setSpacing(9);
-    absLimContainerLayout->setContentsMargins(0, 0, 11, 0);
-    absLimContainerLayout->addStretch();
-
-    auto absLimContainer = new QWidget;
-    absLimContainer->setLayout(absLimContainerLayout);
+    absLimFilterCheckBox->setText(tr("Filter outranged values"));
+    absLimFilterCheckBox->setToolTip(tr("<b>Filter outranged values:</b> Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro\'s error code."));
 
     absLimGraphLabel = new QLabel;
     absLimGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/range")));
 
     auto lockedIcon_1 = new QLabel;
-    lockedIcon_1->setPixmap(QPixmap(QStringLiteral(":/icons/link")));
+    auto pixmap_1 = QPixmap(QStringLiteral(":/icons/link"));
+#if defined(Q_OS_MAC)
+    pixmap_1.setDevicePixelRatio(2.0);
+#endif
+    lockedIcon_1->setPixmap(pixmap_1);
 
     auto lockedIcon_2 = new QLabel;
-    lockedIcon_2->setPixmap(QPixmap(QStringLiteral(":/icons/link")));
+    auto pixmap_2 = QPixmap(QStringLiteral(":/icons/link"));
+#if defined(Q_OS_MAC)
+    pixmap_2.setDevicePixelRatio(2.0);
+#endif
+    lockedIcon_2->setPixmap(pixmap_2);
 
     auto tab3Grid = new QGridLayout;
     tab3Grid->addWidget(questionMark_5, 0, 0);
@@ -981,7 +981,7 @@ void AdvStatisticalOptions::createTabWidget()
     tab3Grid->addWidget(absLimLabel_11, 7, 3, Qt::AlignRight);
     tab3Grid->addWidget(absLimSpin_11, 7, 4);
     tab3Grid->addWidget(absLimSpin_12, 7, 6);
-    tab3Grid->addWidget(absLimContainer, 8, 3, 1, 2);
+    tab3Grid->addWidget(absLimFilterCheckBox, 8, 3, 1, 2);
     tab3Grid->setRowStretch(9, 1);
     tab3Grid->setColumnStretch(0, 0);
     tab3Grid->setColumnStretch(1, 0);
@@ -1294,7 +1294,7 @@ void AdvStatisticalOptions::createTabWidget()
     timeLagLabel_3 = new ClickLabel(tr("Nominal %1 time lag : ").arg(Defs::CO2_STRING));
     timeLagLabel_3->setToolTip(tr("<b>Nominal CO<sub>2</sub> time lag:</b> Set the nominal (best guess) time for CO<sub>2</sub>. You may want to use the same value entered in the <b><i>Metadata File Editor</i></b> or written inside your GHG files."));
     timeLagSpin_3 = new QDoubleSpinBox;
-    timeLagSpin_3->setDecimals(1);
+    timeLagSpin_3->setDecimals(2);
     timeLagSpin_3->setRange(0.0, 100.0);
     timeLagSpin_3->setSingleStep(1.0);
     timeLagSpin_3->setAccelerated(true);
@@ -1304,7 +1304,7 @@ void AdvStatisticalOptions::createTabWidget()
     timeLagLabel_4 = new ClickLabel(tr("Nominal %1 time lag : ").arg(Defs::H2O_STRING));
     timeLagLabel_4->setToolTip(tr("<b>Nominal H<sub>2</sub>O time lag:</b> Set the nominal (best guess) time for H<sub>2</sub>O. You may want to use the same value entered in the <b><i>Metadata File Editor</i></b> or written inside your GHG files. Note that the test may become highly unreliable for H<sub>2</sub>O in cases of closed path systems with unheated sampling line, due to the strong dependency of H<sub>2</sub>O time lag on relative humidity (e.g. Runkle et al. 2012, BLM)."));
     timeLagSpin_4 = new QDoubleSpinBox;
-    timeLagSpin_4->setDecimals(1);
+    timeLagSpin_4->setDecimals(2);
     timeLagSpin_4->setRange(0.0, 100.0);
     timeLagSpin_4->setSingleStep(1.0);
     timeLagSpin_4->setAccelerated(true);
@@ -1314,7 +1314,7 @@ void AdvStatisticalOptions::createTabWidget()
     timeLagLabel_5 = new ClickLabel(tr("Nominal %1 time lag : ").arg(Defs::CH4_STRING));
     timeLagLabel_5->setToolTip(tr("<b>Nominal CH<sub>4</sub> time lag:</b> Set the nominal (best guess) time for CH<sub>4</sub>. You may want to use the same value entered in the <b><i>Metadata File Editor</i></b>, or written inside your GHG files."));
     timeLagSpin_5 = new QDoubleSpinBox;
-    timeLagSpin_5->setDecimals(1);
+    timeLagSpin_5->setDecimals(2);
     timeLagSpin_5->setRange(0.0, 100.0);
     timeLagSpin_5->setSingleStep(1.0);
     timeLagSpin_5->setAccelerated(true);
@@ -1324,7 +1324,7 @@ void AdvStatisticalOptions::createTabWidget()
     timeLagLabel_6 = new ClickLabel(tr("Nominal %1 Gas time lag : ").arg(Defs::GAS4_STRING));
     timeLagLabel_6->setToolTip(tr("<b>Nominal 4<sup>th</sup> gas time lag:</b> Set the nominal (best guess) time for your customized 4<sup>th</sup> gas. You may want to use the same value entered in the <b><i>Metadata File Editor</i></b>."));
     timeLagSpin_6 = new QDoubleSpinBox;
-    timeLagSpin_6->setDecimals(1);
+    timeLagSpin_6->setDecimals(2);
     timeLagSpin_6->setRange(0.0, 100.0);
     timeLagSpin_6->setSingleStep(1.0);
     timeLagSpin_6->setAccelerated(true);
@@ -1495,9 +1495,10 @@ int AdvStatisticalOptions::findClosestEnabledTest(int indexDisabled)
 
 void AdvStatisticalOptions::on_spikeRemCheckBox_clicked(bool checked)
 {
-    DEBUG_FUNC_NAME
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(0, checked);
     testToolbox->widget(0)->setEnabled(checked);
 
@@ -1514,7 +1515,9 @@ void AdvStatisticalOptions::on_spikeRemCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_amplitudeResCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(1, checked);
     testToolbox->widget(1)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(1));
@@ -1532,7 +1535,9 @@ void AdvStatisticalOptions::on_amplitudeResCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_dropoutsCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(2, checked);
     testToolbox->widget(2)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(2));
@@ -1550,7 +1555,9 @@ void AdvStatisticalOptions::on_dropoutsCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_absLimCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(3, checked);
     testToolbox->widget(3)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(3));
@@ -1568,7 +1575,9 @@ void AdvStatisticalOptions::on_absLimCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_skewnessCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(4, checked);
     testToolbox->widget(4)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(4));
@@ -1586,7 +1595,9 @@ void AdvStatisticalOptions::on_skewnessCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_discontCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(5, checked);
     testToolbox->widget(5)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(5));
@@ -1604,7 +1615,9 @@ void AdvStatisticalOptions::on_discontCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_timeLagCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(6, checked);
     testToolbox->widget(6)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(6));
@@ -1622,7 +1635,9 @@ void AdvStatisticalOptions::on_timeLagCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_attackAngleCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(7, checked);
     testToolbox->widget(7)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(7));
@@ -1641,7 +1656,9 @@ void AdvStatisticalOptions::on_attackAngleCheckBox_clicked(bool checked)
 void AdvStatisticalOptions::on_nonSteadyCheckBox_clicked(bool checked)
 {
     if (checked)
+    {
         testToolbox->setEnabled(checked);
+    }
     testToolbox->setItemEnabled(8, checked);
     testToolbox->widget(8)->setEnabled(checked);
     testToolbox->setCurrentWidget(testToolbox->widget(8));
@@ -1658,137 +1675,140 @@ void AdvStatisticalOptions::on_nonSteadyCheckBox_clicked(bool checked)
 
 void AdvStatisticalOptions::setTestDefaultValues()
 {
-    despSpin_1->setValue(3);
-    despSpin_2->setValue(3.5);
-    despSpin_3->setValue(5.0);
-    despSpin_4->setValue(3.5);
-    despSpin_5->setValue(3.5);
-    despSpin_6->setValue(8.0);
-    despSpin_7->setValue(8.0);
-    despSpin_8->setValue(1.0);
-    despFilterCheckBox->setChecked(true);
-    updateParamSrNumSpk(3);
-    updateParamSrULim(3.5);
-    updateParamSrWLim(5.0);
-    updateParamSrCo2Lim(3.5);
-    updateParamSrH2oLim(3.5);
-    updateParamSrCh4Lim(8.0);
-    updateParamSrN2oLim(8.0);
-    updateParamSrHfLim(1.0);
-    updateDespFilter(1);
-    amplResSpin_1->setValue(7.0);
-    amplResSpin_2->setValue(100);
-    amplResSpin_3->setValue(70);
-    updateParamArLim(7.0);
-    updateParamArBins(100);
-    updateParamArHfLim(70);
+    vickersDespikingRadio->setChecked(true);
+    despikingRadioClicked(ecProject_->defaultSettings.screenParam.despike_vm);
 
-    dropoutsSpin_1->setValue(10);
-    dropoutsSpin_2->setValue(10.0);
-    dropoutsSpin_3->setValue(6.0);
-    updateParamDoExtLimDw(10);
-    updateParamDoHf1Lim(10.0);
-    updateParamDoHf2Lim(6.0);
+    despSpin_1->setValue(ecProject_->defaultSettings.screenParam.sr_num_spk);
+    despSpin_2->setValue(ecProject_->defaultSettings.screenParam.sr_lim_u);
+    despSpin_3->setValue(ecProject_->defaultSettings.screenParam.sr_lim_w);
+    despSpin_4->setValue(ecProject_->defaultSettings.screenParam.sr_lim_co2);
+    despSpin_5->setValue(ecProject_->defaultSettings.screenParam.sr_lim_h2o);
+    despSpin_6->setValue(ecProject_->defaultSettings.screenParam.sr_lim_ch4);
+    despSpin_7->setValue(ecProject_->defaultSettings.screenParam.sr_lim_n2o);
+    despSpin_8->setValue(ecProject_->defaultSettings.screenParam.sr_lim_hf);
+    despFilterCheckBox->setChecked(ecProject_->defaultSettings.screenSetting.filter_sr);
+    updateParamSrNumSpk(ecProject_->defaultSettings.screenParam.sr_num_spk);
+    updateParamSrULim(ecProject_->defaultSettings.screenParam.sr_lim_u);
+    updateParamSrWLim(ecProject_->defaultSettings.screenParam.sr_lim_w);
+    updateParamSrCo2Lim(ecProject_->defaultSettings.screenParam.sr_lim_co2);
+    updateParamSrH2oLim(ecProject_->defaultSettings.screenParam.sr_lim_h2o);
+    updateParamSrCh4Lim(ecProject_->defaultSettings.screenParam.sr_lim_ch4);
+    updateParamSrN2oLim(ecProject_->defaultSettings.screenParam.sr_lim_n2o);
+    updateParamSrHfLim(ecProject_->defaultSettings.screenParam.sr_lim_hf);
+    updateDespFilter(ecProject_->defaultSettings.screenSetting.filter_sr);
+    amplResSpin_1->setValue(ecProject_->defaultSettings.screenParam.ar_lim);
+    amplResSpin_2->setValue(ecProject_->defaultSettings.screenParam.ar_bins);
+    amplResSpin_3->setValue(ecProject_->defaultSettings.screenParam.ar_hf_lim);
+    updateParamArLim(ecProject_->defaultSettings.screenParam.ar_lim);
+    updateParamArBins(ecProject_->defaultSettings.screenParam.ar_bins);
+    updateParamArHfLim(ecProject_->defaultSettings.screenParam.ar_hf_lim);
 
-    absLimSpin_1->setValue(30.0);
-    absLimSpin_2->setValue(5.0);
-    absLimSpin_3->setValue(-40.0);
-    absLimSpin_4->setValue(50.0);
-    absLimSpin_5->setValue(200.0);
-    absLimSpin_6->setValue(900.0);
-    absLimSpin_7->setValue(0.0);
-    absLimSpin_8->setValue(40.0);
-    absLimSpin_9->setValue(0.17);
-    absLimSpin_10->setValue(1000.0);
-    absLimSpin_11->setValue(0.032);
-    absLimSpin_12->setValue(1000.0);
-    absLimFilterCheckBox->setChecked(true);
-    updateParamAlUMax(30.0);
-    updateParamAlWMax(5.0);
-    updateParamAlTsonMin(-40.0);
-    updateParamAlTsonMax(50.0);
-    updateParamAlCo2Min(200.0);
-    updateParamAlCo2Max(900.0);
-    updateParamAlH2oMin(0.0);
-    updateParamAlH2oMax(40.0);
-    updateParamAlCh4Min(0.17);
-    updateParamAlCh4Max(1000.0);
-    updateParamAlN2oMin(0.032);
-    updateParamAlN2oMax(1000.0);
-    updateAbsLimFilter(1);
+    dropoutsSpin_1->setValue(ecProject_->defaultSettings.screenParam.do_extlim_dw);
+    dropoutsSpin_2->setValue(ecProject_->defaultSettings.screenParam.do_hf1_lim);
+    dropoutsSpin_3->setValue(ecProject_->defaultSettings.screenParam.do_hf2_lim);
+    updateParamDoExtLimDw(ecProject_->defaultSettings.screenParam.do_extlim_dw);
+    updateParamDoHf1Lim(ecProject_->defaultSettings.screenParam.do_hf1_lim);
+    updateParamDoHf2Lim(ecProject_->defaultSettings.screenParam.do_hf2_lim);
 
-    skewnessSpin_1->setValue(-2.0);
-    skewnessSpin_2->setValue(2.0);
-    skewnessSpin_3->setValue(-1.0);
-    skewnessSpin_4->setValue(1.0);
-    skewnessSpin_5->setValue(1.0);
-    skewnessSpin_6->setValue(8.0);
-    skewnessSpin_7->setValue(2.0);
-    skewnessSpin_8->setValue(5.0);
-    updateParamSkHfSkmin(-2.0);
-    updateParamSkHfSkmax(2.0);
-    updateParamSkSfSkmin(-1.0);
-    updateParamSkSfSkmax(1.0);
-    updateParamSkHfKumin(1.0);
-    updateParamSkHfKumax(8.0);
-    updateParamSkSfKumin(2.0);
-    updateParamSkSfKumax(5.0);
+    absLimSpin_1->setValue(ecProject_->defaultSettings.screenParam.al_u_max);
+    absLimSpin_2->setValue(ecProject_->defaultSettings.screenParam.al_w_max);
+    absLimSpin_3->setValue(ecProject_->defaultSettings.screenParam.al_tson_min);
+    absLimSpin_4->setValue(ecProject_->defaultSettings.screenParam.al_tson_max);
+    absLimSpin_5->setValue(ecProject_->defaultSettings.screenParam.al_co2_min);
+    absLimSpin_6->setValue(ecProject_->defaultSettings.screenParam.al_co2_max);
+    absLimSpin_7->setValue(ecProject_->defaultSettings.screenParam.al_h2o_min);
+    absLimSpin_8->setValue(ecProject_->defaultSettings.screenParam.al_h2o_max);
+    absLimSpin_9->setValue(ecProject_->defaultSettings.screenParam.al_ch4_min);
+    absLimSpin_10->setValue(ecProject_->defaultSettings.screenParam.al_ch4_max);
+    absLimSpin_11->setValue(ecProject_->defaultSettings.screenParam.al_n2o_min);
+    absLimSpin_12->setValue(ecProject_->defaultSettings.screenParam.al_n2o_max);
+    absLimFilterCheckBox->setChecked(ecProject_->defaultSettings.screenSetting.filter_al);
+    updateParamAlUMax(ecProject_->defaultSettings.screenParam.al_u_max);
+    updateParamAlWMax(ecProject_->defaultSettings.screenParam.al_w_max);
+    updateParamAlTsonMin(ecProject_->defaultSettings.screenParam.al_tson_min);
+    updateParamAlTsonMax(ecProject_->defaultSettings.screenParam.al_tson_max);
+    updateParamAlCo2Min(ecProject_->defaultSettings.screenParam.al_co2_min);
+    updateParamAlCo2Max(ecProject_->defaultSettings.screenParam.al_co2_max);
+    updateParamAlH2oMin(ecProject_->defaultSettings.screenParam.al_h2o_min);
+    updateParamAlH2oMax(ecProject_->defaultSettings.screenParam.al_h2o_max);
+    updateParamAlCh4Min(ecProject_->defaultSettings.screenParam.al_ch4_min);
+    updateParamAlCh4Max(ecProject_->defaultSettings.screenParam.al_ch4_max);
+    updateParamAlN2oMin(ecProject_->defaultSettings.screenParam.al_n2o_min);
+    updateParamAlN2oMax(ecProject_->defaultSettings.screenParam.al_n2o_max);
+    updateAbsLimFilter(ecProject_->defaultSettings.screenSetting.filter_al);
 
-    discontSpin_1->setValue(4.0);
-    discontSpin_2->setValue(2.0);
-    discontSpin_3->setValue(4.0);
-    discontSpin_4->setValue(40.0);
-    discontSpin_5->setValue(3.26);
-    discontSpin_6->setValue(40.0);
-    discontSpin_7->setValue(40.0);
-    discontSpin_8->setValue(3.0);
-    discontSpin_9->setValue(2.7);
-    discontSpin_10->setValue(1.3);
-    discontSpin_11->setValue(2.7);
-    discontSpin_12->setValue(27.0);
-    discontSpin_13->setValue(2.2);
-    discontSpin_14->setValue(30.0);
-    discontSpin_15->setValue(30.0);
-    discontSpin_16->setValue(2.0);
-    updateParamDsHfUV(4.0);
-    updateParamDsHfW(2.0);
-    updateParamDsHfT(4.0);
-    updateParamDsHfCo2(40.0);
-    updateParamDsHfH2o(3.26);
-    updateParamDsHfCh4(40.0);
-    updateParamDsHfN2o(40.0);
-    updateParamDsHfVar(3.0);
-    updateParamDsSfUV(2.7);
-    updateParamDsSfW(1.3);
-    updateParamDsSfT(2.7);
-    updateParamDsSfCo2(27.0);
-    updateParamDsSfH2o(2.2);
-    updateParamDsSfCh4(30.0);
-    updateParamDsSfN2o(30.0);
-    updateParamDsSfVar(2.0);
+    skewnessSpin_1->setValue(ecProject_->defaultSettings.screenParam.sk_hf_skmin);
+    skewnessSpin_2->setValue(ecProject_->defaultSettings.screenParam.sk_hf_skmax);
+    skewnessSpin_3->setValue(ecProject_->defaultSettings.screenParam.sk_sf_skmin);
+    skewnessSpin_4->setValue(ecProject_->defaultSettings.screenParam.sk_sf_skmax);
+    skewnessSpin_5->setValue(ecProject_->defaultSettings.screenParam.sk_hf_kumin);
+    skewnessSpin_6->setValue(ecProject_->defaultSettings.screenParam.sk_hf_kumax);
+    skewnessSpin_7->setValue(ecProject_->defaultSettings.screenParam.sk_sf_kumin);
+    skewnessSpin_8->setValue(ecProject_->defaultSettings.screenParam.sk_sf_kumax);
+    updateParamSkHfSkmin(ecProject_->defaultSettings.screenParam.sk_hf_skmin);
+    updateParamSkHfSkmax(ecProject_->defaultSettings.screenParam.sk_hf_skmax);
+    updateParamSkSfSkmin(ecProject_->defaultSettings.screenParam.sk_sf_skmin);
+    updateParamSkSfSkmax(ecProject_->defaultSettings.screenParam.sk_sf_skmax);
+    updateParamSkHfKumin(ecProject_->defaultSettings.screenParam.sk_hf_kumin);
+    updateParamSkHfKumax(ecProject_->defaultSettings.screenParam.sk_hf_kumax);
+    updateParamSkSfKumin(ecProject_->defaultSettings.screenParam.sk_sf_kumin);
+    updateParamSkSfKumax(ecProject_->defaultSettings.screenParam.sk_sf_kumax);
 
-    timeLagSpin_1->setValue(20.0);
-    timeLagSpin_2->setValue(10.0);
-    timeLagSpin_3->setValue(3.5);
-    timeLagSpin_4->setValue(2.5);
-    timeLagSpin_5->setValue(3.5);
-    timeLagSpin_6->setValue(2.5);
-    updateParamTlHfLim(20.0);
-    updateParamTlSfLim(10.0);
-    updateParamTlDefCo2(3.5);
-    updateParamTlDefH2o(2.5);
-    updateParamTlDefCh4(3.5);
-    updateParamTlDefN2o(2.5);
+    discontSpin_1->setValue(ecProject_->defaultSettings.screenParam.ds_hf_uv);
+    discontSpin_2->setValue(ecProject_->defaultSettings.screenParam.ds_hf_w);
+    discontSpin_3->setValue(ecProject_->defaultSettings.screenParam.ds_hf_t);
+    discontSpin_4->setValue(ecProject_->defaultSettings.screenParam.ds_hf_co2);
+    discontSpin_5->setValue(ecProject_->defaultSettings.screenParam.ds_hf_h2o);
+    discontSpin_6->setValue(ecProject_->defaultSettings.screenParam.ds_hf_ch4);
+    discontSpin_7->setValue(ecProject_->defaultSettings.screenParam.ds_hf_n2o);
+    discontSpin_8->setValue(ecProject_->defaultSettings.screenParam.ds_hf_var);
+    discontSpin_9->setValue(ecProject_->defaultSettings.screenParam.ds_sf_uv);
+    discontSpin_10->setValue(ecProject_->defaultSettings.screenParam.ds_sf_w);
+    discontSpin_11->setValue(ecProject_->defaultSettings.screenParam.ds_sf_t);
+    discontSpin_12->setValue(ecProject_->defaultSettings.screenParam.ds_sf_co2);
+    discontSpin_13->setValue(ecProject_->defaultSettings.screenParam.ds_sf_h2o);
+    discontSpin_14->setValue(ecProject_->defaultSettings.screenParam.ds_sf_ch4);
+    discontSpin_15->setValue(ecProject_->defaultSettings.screenParam.ds_sf_n2o);
+    discontSpin_16->setValue(ecProject_->defaultSettings.screenParam.ds_sf_var);
+    updateParamDsHfUV(ecProject_->defaultSettings.screenParam.ds_hf_uv);
+    updateParamDsHfW(ecProject_->defaultSettings.screenParam.ds_hf_w);
+    updateParamDsHfT(ecProject_->defaultSettings.screenParam.ds_hf_t);
+    updateParamDsHfCo2(ecProject_->defaultSettings.screenParam.ds_hf_co2);
+    updateParamDsHfH2o(ecProject_->defaultSettings.screenParam.ds_hf_h2o);
+    updateParamDsHfCh4(ecProject_->defaultSettings.screenParam.ds_hf_ch4);
+    updateParamDsHfN2o(ecProject_->defaultSettings.screenParam.ds_hf_n2o);
+    updateParamDsHfVar(ecProject_->defaultSettings.screenParam.ds_hf_var);
+    updateParamDsSfUV(ecProject_->defaultSettings.screenParam.ds_sf_uv);
+    updateParamDsSfW(ecProject_->defaultSettings.screenParam.ds_sf_w);
+    updateParamDsSfT(ecProject_->defaultSettings.screenParam.ds_sf_t);
+    updateParamDsSfCo2(ecProject_->defaultSettings.screenParam.ds_sf_co2);
+    updateParamDsSfH2o(ecProject_->defaultSettings.screenParam.ds_sf_h2o);
+    updateParamDsSfCh4(ecProject_->defaultSettings.screenParam.ds_sf_ch4);
+    updateParamDsSfN2o(ecProject_->defaultSettings.screenParam.ds_sf_n2o);
+    updateParamDsSfVar(ecProject_->defaultSettings.screenParam.ds_sf_var);
 
-    attackAngleSpin_1->setValue(-30.0);
-    attackAngleSpin_2->setValue(30.0);
-    attackAngleSpin_3->setValue(10.0);
-    updateParamAaMin(-30.0);
-    updateParamAaMax(30.0);
-    updateParamAaLim(10.0);
+    timeLagSpin_1->setValue(ecProject_->defaultSettings.screenParam.tl_hf_lim);
+    timeLagSpin_2->setValue(ecProject_->defaultSettings.screenParam.tl_sf_lim);
+    timeLagSpin_3->setValue(ecProject_->defaultSettings.screenParam.tl_def_co2);
+    timeLagSpin_4->setValue(ecProject_->defaultSettings.screenParam.tl_def_h2o);
+    timeLagSpin_5->setValue(ecProject_->defaultSettings.screenParam.tl_def_ch4);
+    timeLagSpin_6->setValue(ecProject_->defaultSettings.screenParam.tl_def_n2o);
+    updateParamTlHfLim(ecProject_->defaultSettings.screenParam.tl_hf_lim);
+    updateParamTlSfLim(ecProject_->defaultSettings.screenParam.tl_sf_lim);
+    updateParamTlDefCo2(ecProject_->defaultSettings.screenParam.tl_def_co2);
+    updateParamTlDefH2o(ecProject_->defaultSettings.screenParam.tl_def_h2o);
+    updateParamTlDefCh4(ecProject_->defaultSettings.screenParam.tl_def_ch4);
+    updateParamTlDefN2o(ecProject_->defaultSettings.screenParam.tl_def_n2o);
 
-    nonSteadySpin_1->setValue(0.5);
-    updateParamNsHfLim(0.5);
+    attackAngleSpin_1->setValue(ecProject_->defaultSettings.screenParam.aa_min);
+    attackAngleSpin_2->setValue(ecProject_->defaultSettings.screenParam.aa_max);
+    attackAngleSpin_3->setValue(ecProject_->defaultSettings.screenParam.aa_lim);
+    updateParamAaMin(ecProject_->defaultSettings.screenParam.aa_min);
+    updateParamAaMax(ecProject_->defaultSettings.screenParam.aa_max);
+    updateParamAaLim(ecProject_->defaultSettings.screenParam.aa_lim);
+
+    nonSteadySpin_1->setValue(ecProject_->defaultSettings.screenParam.ns_hf_lim);
+    updateParamNsHfLim(ecProject_->defaultSettings.screenParam.ns_hf_lim);
 }
 
 void AdvStatisticalOptions::on_defaultValuesButton_clicked()
@@ -2382,11 +2402,15 @@ void AdvStatisticalOptions::reset()
 
     setTestDefaultValues();
 
-    selectAllTest(true);
-    discontCheckBox->setChecked(false);
-    timeLagCheckBox->setChecked(false);
-    attackAngleCheckBox->setChecked(false);
-    nonSteadyCheckBox->setChecked(false);
+    spikeRemCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_sr);
+    amplitudeResCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_ar);
+    dropoutsCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_do);
+    absLimCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_al);
+    skewnessCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_sk);
+    discontCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_ds);
+    timeLagCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_tl);
+    attackAngleCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_aa);
+    nonSteadyCheckBox->setChecked(ecProject_->defaultSettings.screenTest.test_ns);
 
     testToolbox->setCurrentIndex(0);
     randomErrorCheckBox->setChecked(false);
@@ -2403,10 +2427,10 @@ void AdvStatisticalOptions::reset()
 
     // NOTE: hack to prevent side effect setting from calling
     // WidgetUtils::resetComboToItem(randomMethodCombo, 0)
-    ecProject_->setRandomErrorMethod(0);
+    ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.randomError.method);
 
-    timelagMaxSpin->setValue(10.0);
-    securityCoeffSpin->setValue(20.0);
+    timelagMaxSpin->setValue(ecProject_->defaultSettings.randomError.its_tlag_max);
+    securityCoeffSpin->setValue(ecProject_->defaultSettings.randomError.its_sec_factor);
 
     // restore modified flag
     ecProject_->setModified(oldmod);
@@ -2444,6 +2468,16 @@ void AdvStatisticalOptions::refresh()
     despSpin_7->setValue(ecProject_->screenParamSrN2oLim());
     despSpin_2->setValue(ecProject_->screenParamSrULim());
     despFilterCheckBox->setChecked(ecProject_->screenFilterSr());
+
+    if (ecProject_->screenParamDespikeVm())
+    {
+        mauderDespikingRadio->setChecked(true);
+    }
+    else
+    {
+        vickersDespikingRadio->setChecked(true);
+    }
+    despikingRadioClicked(ecProject_->screenParamDespikeVm());
 
     amplResSpin_1->setValue(ecProject_->screenParamArLim());
     amplResSpin_2->setValue(ecProject_->screenParamArBins());
@@ -2506,23 +2540,25 @@ void AdvStatisticalOptions::refresh()
 
     nonSteadySpin_1->setValue(ecProject_->screenParamNsHfLim());
 
-    randomErrorCheckBox->setChecked(ecProject_->randErrorMethod());
+    auto randomError = ecProject_->randErrorMethod();
+    randomErrorCheckBox->setChecked(randomError);
     randomMethodLabel->setEnabled(randomErrorCheckBox->isChecked());
     randomMethodCombo->setEnabled(randomErrorCheckBox->isChecked());
+    if (randomError)
+    {
+        randomMethodCombo->setCurrentIndex(randomError - 1);
+    }
+    else
+    {
+        randomMethodCombo->setCurrentIndex(0);
+    }
+
     itsDefinitionLabel->setEnabled(randomErrorCheckBox->isChecked());
     itsDefinitionCombo->setEnabled(randomErrorCheckBox->isChecked());
     timelagMaxLabel->setEnabled(randomErrorCheckBox->isChecked());
     timelagMaxSpin->setEnabled(randomErrorCheckBox->isChecked());
     securityCoeffLabel->setEnabled(randomErrorCheckBox->isChecked());
     securityCoeffSpin->setEnabled(randomErrorCheckBox->isChecked());
-    if (ecProject_->randErrorMethod())
-    {
-        randomMethodCombo->setCurrentIndex(ecProject_->randErrorMethod() - 1);
-    }
-    else
-    {
-        randomMethodCombo->setCurrentIndex(0);
-    }
     itsDefinitionCombo->setCurrentIndex(ecProject_->randErrorItsMehod());
     timelagMaxSpin->setValue(ecProject_->randErrorTlagMax());
     securityCoeffSpin->setValue(ecProject_->randErrorSecFactor());
@@ -2786,57 +2822,57 @@ void AdvStatisticalOptions::createQuestionMark()
 
 void AdvStatisticalOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Spike")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Amplitude")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Drop")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Absolute")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Skewness")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Discontinuities")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Time")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Angle")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_10()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Steadiness")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Random_Uncertainty_Estimation.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Random_Uncertainty_Estimation.html")));
 }
 
 void AdvStatisticalOptions::updateRandomErrorArea(bool b)
@@ -3230,9 +3266,35 @@ void AdvStatisticalOptions::updateTooltip(int i)
 
 bool AdvStatisticalOptions::requestTestSettingsReset()
 {
-    return WidgetUtils::okToQuestion(nullptr,
+    return WidgetUtils::yesNoQuestion(this,
                 tr("Reset Statistical Analysis Settings"),
                 tr("<p>Do you want to reset the Statistical Analysis settings "
                    "to the default settings?</p>"),
                 tr("<p>You cannot undo this action.</p>"));
+}
+
+// Enable/disable Vickers despiking settings
+void AdvStatisticalOptions::despikingRadioClicked(int b)
+{
+    bool vickersSelected = !b;
+
+    despLabel_1->setEnabled(vickersSelected);
+    despLabel_2->setEnabled(vickersSelected);
+    despLabel_3->setEnabled(vickersSelected);
+    despLabel_4->setEnabled(vickersSelected);
+    despLabel_5->setEnabled(vickersSelected);
+    despLabel_6->setEnabled(vickersSelected);
+    despLabel_7->setEnabled(vickersSelected);
+    despSpin_1->setEnabled(vickersSelected);
+    despSpin_2->setEnabled(vickersSelected);
+    despSpin_3->setEnabled(vickersSelected);
+    despSpin_4->setEnabled(vickersSelected);
+    despSpin_5->setEnabled(vickersSelected);
+    despSpin_6->setEnabled(vickersSelected);
+    despSpin_7->setEnabled(vickersSelected);
+}
+
+void AdvStatisticalOptions::updateDespikingMethod(int b)
+{
+    ecProject_->setScreenParamDespikeVm(b);
 }

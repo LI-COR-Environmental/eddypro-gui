@@ -1,0 +1,207 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="qm-enabled">img/help/help-enabled.png</file>
+        <file alias="qm-hover">img/help/help-hover.png</file>
+        <file alias="qm-pressed">img/help/help-pressed.png</file>
+        <file>img/help/menu-help.png</file>
+
+        <file alias="splash-img">img/splash/splash-screen.png</file>
+
+        <file alias="amplitude">img/tests/amplitude_resolution.png</file>
+        <file alias="dropout">img/tests/dropout.png</file>
+        <file alias="skewkurt">img/tests/skew_kurt.png</file>
+        <file alias="spike">img/tests/spikes.png</file>
+        <file alias="timelag">img/tests/timelag.png</file>
+        <file alias="instat">img/tests/instationarity.png</file>
+        <file alias="range">img/tests/range.png</file>
+        <file alias="discont">img/tests/discontinuities.png</file>
+        <file alias="aoa">img/tests/angle_of_attack.png</file>
+        <file alias="amplitude_small">img/tests/amplitude_resolution_small.png</file>
+        <file alias="aoa_small">img/tests/angle_of_attack_small.png</file>
+        <file alias="discont_small">img/tests/discontinuities_small.png</file>
+        <file alias="dropout_small">img/tests/dropout_small.png</file>
+        <file alias="instat_small">img/tests/instationarity_small.png</file>
+        <file alias="range_small">img/tests/range_small.png</file>
+        <file alias="skewkurt_small">img/tests/skew_kurt_small.png</file>
+        <file alias="spike_small">img/tests/spikes_small.png</file>
+        <file alias="timelag_small">img/tests/timelag_small.png</file>
+
+        <file alias="adv-menu-output">img/advanced_menu/output-files.png</file>
+        <file alias="adv-menu-processing">img/advanced_menu/processing-options.png</file>
+        <file alias="adv-menu-spectra">img/advanced_menu/spectral-corrections.png</file>
+        <file alias="adv-menu-statistic">img/advanced_menu/statistical-tests.png</file>
+
+        <file alias="tips-float">img/tooltip/tips-float.png</file>
+        <file alias="tips-float-hover">img/tooltip/tips-float-hover.png</file>
+        <file alias="tips-close">img/tooltip/tips-close.png</file>
+        <file alias="tips-close-hover">img/tooltip/tips-close-hover.png</file>
+
+        <file alias="pause-adv">img/run_toolbar/pause-advanced.png</file>
+        <file alias="pause-exp">img/run_toolbar/pause-express.png</file>
+        <file alias="run-adv">img/run_toolbar/run-advanced.png</file>
+        <file alias="run-exp">img/run_toolbar/run-express.png</file>
+        <file alias="stop">img/run_toolbar/stop.png</file>
+        <file alias="resume-adv">img/run_toolbar/resume-advanced.png</file>
+        <file alias="resume-exp">img/run_toolbar/resume-express.png</file>
+        <file alias="stop-red">img/run_toolbar/stop-red.png</file>
+        <file alias="run-ret">img/run_toolbar/run-retriever.png</file>
+        <file alias="pause-ret">img/run_toolbar/pause-retriever.png</file>
+        <file alias="resume-ret">img/run_toolbar/resume-retriever.png</file>
+
+        <file alias="pause-adv-proc-hover">img/runpage/pause-adv-proc-hover.png</file>
+        <file alias="pause-exp-proc">img/runpage/pause-exp-proc.png</file>
+        <file alias="pause-exp-proc-hover">img/runpage/pause-exp-proc-hover.png</file>
+        <file alias="pause-ret-proc">img/runpage/pause-ret-proc.png</file>
+        <file alias="pause-ret-proc-hover">img/runpage/pause-ret-proc-hover.png</file>
+        <file alias="resume-adv-proc">img/runpage/resume-adv-proc.png</file>
+        <file alias="resume-adv-proc-hover">img/runpage/resume-adv-proc-hover.png</file>
+        <file alias="resume-exp-proc">img/runpage/resume-exp-proc.png</file>
+        <file alias="resume-exp-proc-hover">img/runpage/resume-exp-proc-hover.png</file>
+        <file alias="resume-ret-proc">img/runpage/resume-ret-proc.png</file>
+        <file alias="resume-ret-proc-hover">img/runpage/resume-ret-proc-hover.png</file>
+        <file alias="pause-adv-proc">img/runpage/pause-adv-proc.png</file>
+
+        <file alias="open">img/file_toolbar/open.png</file>
+        <file alias="new">img/file_toolbar/new.png</file>
+        <file alias="save">img/file_toolbar/save.png</file>
+        <file alias="save-as">img/file_toolbar/save-as.png</file>
+        <file alias="close">img/file_toolbar/close.png</file>
+
+        <file alias="sepleftsel">img/view_toolbar/arrow-left-selected.png</file>
+        <file alias="sep">img/view_toolbar/arrow-normal.png</file>
+        <file alias="seprightsel">img/view_toolbar/arrow-right-selected.png</file>
+        <file alias="tsep">img/view_toolbar/toolbutton_sep.png</file>
+        <file alias="handle">img/view_toolbar/handle.png</file>
+        <file alias="bgnormal">img/view_toolbar/background-normal.png</file>
+        <file alias="bgsel">img/view_toolbar/background-selected.png</file>
+        <file alias="welcome">img/view_toolbar/start.png</file>
+        <file alias="project">img/view_toolbar/project.png</file>
+        <file alias="basic-settings">img/view_toolbar/dataset-selection.png</file>
+        <file alias="advanced-settings">img/view_toolbar/advanced-settings.png</file>
+        <file alias="console">img/view_toolbar/console-output.png</file>
+
+        <file alias="clear-line">img/lineedit/clear-line.png</file>
+        <file alias="reset-line">img/lineedit/reset-line.png</file>
+
+        <file alias="new-big">img/welcome_page/new-project-start.png</file>
+        <file alias="open-big">img/welcome_page/open-project-start.png</file>
+
+        <file alias="article">img/news/article.png</file>
+        <file alias="ep">img/news/ep.png</file>
+        <file alias="poster">img/news/poster.png</file>
+        <file alias="techtip">img/news/techtip.png</file>
+        <file alias="video">img/news/video.png</file>
+        <file alias="grad">img/news/grad.png</file>
+        <file alias="wrench">img/news/wrench.png</file>
+
+        <file alias="minus">img/md_buttons/minus.png</file>
+        <file alias="minus-hover">img/md_buttons/minus-hover.png</file>
+        <file alias="minus-pressed">img/md_buttons/minus-pressed.png</file>
+        <file alias="minus-disabled">img/md_buttons/minus-disabled.png</file>
+        <file alias="plus">img/md_buttons/plus.png</file>
+        <file alias="plus-hover">img/md_buttons/plus-hover.png</file>
+        <file alias="plus-pressed">img/md_buttons/plus-pressed.png</file>
+        <file alias="plus-disabled">img/md_buttons/plus-disabled.png</file>
+
+        <file alias="licor-logo">img/licor/licor-logo.png</file>
+        <file alias="licor-logo-hover">img/licor/licor-logo-hover.png</file>
+
+        <file alias="spinup">img/spinbox/spinup.png</file>
+        <file alias="spinup-arrow">img/spinbox/spinup-arrow.png</file>
+        <file alias="spinup-hover">img/spinbox/spinup-hover.png</file>
+        <file alias="spinup-pressed">img/spinbox/spinup-pressed.png</file>
+        <file alias="spinup-disabled">img/spinbox/spinup-disabled.png</file>
+        <file alias="spinup-arrow-disabled">img/spinbox/spinup-arrow-disabled.png</file>
+        <file alias="spindown">img/spinbox/spindown.png</file>
+        <file alias="spindown-arrow">img/spinbox/spindown-arrow.png</file>
+        <file alias="spindown-hover">img/spinbox/spindown-hover.png</file>
+        <file alias="spindown-pressed">img/spinbox/spindown-pressed.png</file>
+        <file alias="spindown-disabled">img/spinbox/spindown-disabled.png</file>
+        <file alias="spindown-arrow-disabled">img/spinbox/spindown-arrow-disabled.png</file>
+
+        <file alias="combo-normal">img/combobox/combobox-normal.png</file>
+        <file alias="combo-selected">img/combobox/combobox-selected.png</file>
+        <file alias="combo-hover">img/combobox/combobox-hover.png</file>
+        <file alias="combo-disabled">img/combobox/combobox-disabled.png</file>
+
+        <file alias="fold-down">img/folding_buttons/fold-arrow-down.png</file>
+        <file alias="fold-down-hover">img/folding_buttons/fold-arrow-down-hover.png</file>
+        <file alias="fold-down-pressed">img/folding_buttons/fold-arrow-down-pressed.png</file>
+        <file alias="fold-up">img/folding_buttons/fold-arrow-up.png</file>
+        <file alias="fold-up-hover">img/folding_buttons/fold-arrow-up-hover.png</file>
+        <file alias="fold-up-pressed">img/folding_buttons/fold-arrow-up-pressed.png</file>
+
+        <file alias="checkbox-selected">img/checkbox/checkbox-selected.png</file>
+        <file alias="checkbox_active">img/checkbox/checkbox_active.png</file>
+        <file alias="checkbox_disabled">img/checkbox/checkbox_disabled.png</file>
+        <file alias="checkbox-hover">img/checkbox/checkbox-hover.png</file>
+        <file alias="checkbox-hover-checked">img/checkbox/checkbox-hover-checked.png</file>
+        <file alias="checkbox-disabled-checked">img/checkbox/checkbox-disabled-checked.png</file>
+
+        <file alias="cal-down">img/calendar/cal-dropdown.png</file>
+        <file alias="cal-down-pressed">img/calendar/cal-dropdown-pressed.png</file>
+        <file alias="cal-left-arrow">img/calendar/left-cal-arrow.png</file>
+        <file alias="cal-right-arrow">img/calendar/right-cal-arrow.png</file>
+
+        <file alias="exp-progress-bkg">img/progress/express-progress-bar-bkg.png</file>
+        <file alias="adv-progress-bkg">img/progress/adv-progress-bar-bkg.png</file>
+
+        <file alias="link">img/links/link.png</file>
+        <file alias="link-hover">img/links/link-hover.png</file>
+        <file alias="link-locked">img/links/link-locked.png</file>
+        <file alias="vlink-locked">img/links/vlink-locked.png</file>
+        <file alias="broken-vlink">img/links/broken-vlink.png</file>
+        <file alias="vlink">img/links/vlink.png</file>
+        <file alias="vlink-hover">img/links/vlink-hover.png</file>
+
+        <file alias="feedback-button">img/feedback/feedback-button.png</file>
+        <file alias="feedback-button-hover">img/feedback/feedback-button-hover.png</file>
+
+        <file alias="app-logo">img/logo/app-logo.png</file>
+        <file alias="app-logo-hover">img/logo/app-logo-hover.png</file>
+        <file alias="app-logo-small">img/logo/app-logo-small.png</file>
+        <file alias="app-logo-small-hover">img/logo/app-logo-small-hover.png</file>
+        <file alias="app-logo-about">img/logo/app-logo-about.png</file>
+
+        <file alias="8100-app">img/news/8100A-apps-icon.png</file>
+
+        <file alias="smartflux-grey">img/smartflux/SMARTFlux-wordmark-grey.png</file>
+        <file alias="smartflux-white">img/smartflux/SMARTFlux-wordmark-white.png</file>
+        <file alias="smartflux-close">img/smartflux/smartflux-close.png</file>
+        <file alias="smartflux-close-hover">img/smartflux/smartflux-close-hover.png</file>
+
+        <file alias="msg-critical">img/msgbox_icons/critical.png</file>
+        <file alias="msg-info">img/msgbox_icons/info.png</file>
+        <file alias="msg-question">img/msgbox_icons/question.png</file>
+        <file alias="msg-warning">img/msgbox_icons/warning.png</file>
+    </qresource>
+    <qresource prefix="/css">
+        <file alias="macstyle">css/eddypro-mac.qss</file>
+        <file alias="winstyle">css/eddypro-win.qss</file>
+    </qresource>
+    <qresource prefix="/docs">
+        <file alias="changelog">CHANGELOG</file>
+        <file alias="license">LICENSE</file>
+    </qresource>
+    <qresource prefix="/mac_files">
+        <file>mac_files/app.icns</file>
+    </qresource>
+    <qresource prefix="/win_files">
+        <file>win_files/app.ico</file>
+    </qresource>
+    <qresource prefix="/tra">
+        <file alias="en">tra/eddypro_en.qm</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>fonts/OpenSans-Bold.ttf</file>
+        <file>fonts/OpenSans-BoldItalic.ttf</file>
+        <file>fonts/OpenSans-ExtraBold.ttf</file>
+        <file>fonts/OpenSans-ExtraBoldItalic.ttf</file>
+        <file>fonts/OpenSans-Italic.ttf</file>
+        <file>fonts/OpenSans-Light.ttf</file>
+        <file>fonts/OpenSans-LightItalic.ttf</file>
+        <file>fonts/OpenSans-Regular.ttf</file>
+        <file>fonts/OpenSans-Semibold.ttf</file>
+        <file>fonts/OpenSans-SemiboldItalic.ttf</file>
+    </qresource>
+</RCC>

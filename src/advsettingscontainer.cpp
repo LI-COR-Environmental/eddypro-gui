@@ -49,8 +49,8 @@ AdvSettingsContainer::AdvSettingsContainer(QWidget *parent,
 
     mainLayout_ = new QStackedLayout(this);
     mainLayout_->addWidget(processingOptions_);
-    mainLayout_->addWidget(spectralOptions_);
     mainLayout_->addWidget(statisticalOptions_);
+    mainLayout_->addWidget(spectralOptions_);
     mainLayout_->addWidget(outputOptions_);
     mainLayout_->setSizeConstraint(QLayout::SetNoConstraint);
     mainLayout_->setSpacing(0);

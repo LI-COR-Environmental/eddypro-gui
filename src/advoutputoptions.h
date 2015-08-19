@@ -37,6 +37,7 @@ class QRadioButton;
 class ClickLabel;
 struct ConfigState;
 class EcProject;
+class RichTextCheckBox;
 
 class AdvOutputOptions : public QWidget
 {
@@ -93,8 +94,6 @@ private slots:
     void selectTypical();
     void selectFull();
 
-    void fullSpectraULabelClicked();
-
     void onlineHelpTrigger_1();
     void onlineHelpTrigger_2();
     void onlineHelpTrigger_3();
@@ -130,38 +129,26 @@ private:
 
     QCheckBox* outBinSpectraCheckBox;
     QCheckBox* outBinOgivesCheckBox;
+    QCheckBox* outMeanSpectraCheckBox;
     QCheckBox* outMeanCospCheckBox;
-    QCheckBox* outFullSpectraCheckBoxU;
-    ClickLabel* fullSpectraULabel;
-    QCheckBox* outFullSpectraCheckBoxV;
-    ClickLabel* fullSpectraVLabel;
-    QCheckBox* outFullSpectraCheckBoxW;
-    ClickLabel* fullSpectraWLabel;
-    QCheckBox* outFullSpectraCheckBoxTs;
-    ClickLabel* fullSpectraTsLabel;
-    QCheckBox* outFullSpectraCheckBoxCo2;
-    ClickLabel* fullSpectraCo2Label;
-    QCheckBox* outFullSpectraCheckBoxH2o;
-    ClickLabel* fullSpectraH2oLabel;
-    QCheckBox* outFullSpectraCheckBoxCh4;
-    ClickLabel* fullSpectraCh4Label;
-    QCheckBox* outFullSpectraCheckBoxN2o;
-    ClickLabel* fullSpectraN2oLabel;
-    QCheckBox* outFullSpectraAll;
-    QCheckBox* outFullCospectraCheckBoxU;
-    ClickLabel* fullCospectraULabel;
-    QCheckBox* outFullCospectraCheckBoxV;
-    ClickLabel* fullCospectraVLabel;
-    QCheckBox* outFullCospectraCheckBoxTs;
-    ClickLabel* fullCospectraTsLabel;
-    QCheckBox* outFullCospectraCheckBoxCo2;
-    ClickLabel* fullCospectraCo2Label;
-    QCheckBox* outFullCospectraCheckBoxH2o;
-    ClickLabel* fullCospectraH2oLabel;
-    QCheckBox* outFullCospectraCheckBoxCh4;
-    ClickLabel* fullCospectraCh4Label;
-    QCheckBox* outFullCospectraCheckBoxN2o;
-    ClickLabel* fullCospectraN2oLabel;
+
+    RichTextCheckBox* outFullSpectraCheckBoxU;
+    RichTextCheckBox* outFullSpectraCheckBoxV;
+    RichTextCheckBox* outFullSpectraCheckBoxW;
+    RichTextCheckBox* outFullSpectraCheckBoxTs;
+    RichTextCheckBox* outFullSpectraCheckBoxCo2;
+    RichTextCheckBox* outFullSpectraCheckBoxH2o;
+    RichTextCheckBox* outFullSpectraCheckBoxCh4;
+    RichTextCheckBox* outFullSpectraCheckBoxN2o;
+
+    RichTextCheckBox* outFullCospectraCheckBoxU;
+    RichTextCheckBox* outFullCospectraCheckBoxV;
+    RichTextCheckBox* outFullCospectraCheckBoxTs;
+    RichTextCheckBox* outFullCospectraCheckBoxCo2;
+    RichTextCheckBox* outFullCospectraCheckBoxH2o;
+    RichTextCheckBox* outFullCospectraCheckBoxCh4;
+    RichTextCheckBox* outFullCospectraCheckBoxN2o;
+
     QCheckBox* outFullCospectraAll;
     QCheckBox* outGhgEuCheckBox;
     QCheckBox* outAmFluxCheckBox;
@@ -183,16 +170,6 @@ private:
     ClickLabel* level5Label;
     ClickLabel* level6Label;
     ClickLabel* level7Label;
-    ClickLabel* rawULabel;
-    ClickLabel* rawVLabel;
-    ClickLabel* rawWLabel;
-    ClickLabel* rawTsLabel;
-    ClickLabel* rawCo2Label;
-    ClickLabel* rawH2oLabel;
-    ClickLabel* rawCh4Label;
-    ClickLabel* rawGas4Label;
-    ClickLabel* rawTairLabel;
-    ClickLabel* rawPairLabel;
     QCheckBox* outSt1CheckBox;
     QCheckBox* outSt2CheckBox;
     QCheckBox* outSt3CheckBox;
@@ -207,16 +184,16 @@ private:
     QCheckBox* outRaw5CheckBox;
     QCheckBox* outRaw6CheckBox;
     QCheckBox* outRaw7CheckBox;
-    QCheckBox* outRawUCheckBox;
-    QCheckBox* outRawVCheckBox;
-    QCheckBox* outRawWCheckBox;
-    QCheckBox* outRawTsCheckBox;
-    QCheckBox* outRawCo2CheckBox;
-    QCheckBox* outRawH2oCheckBox;
-    QCheckBox* outRawCh4CheckBox;
-    QCheckBox* outRawGas4CheckBox;
-    QCheckBox* outRawTairCheckBox;
-    QCheckBox* outRawPairCheckBox;
+    RichTextCheckBox* outRawUCheckBox;
+    RichTextCheckBox* outRawVCheckBox;
+    RichTextCheckBox* outRawWCheckBox;
+    RichTextCheckBox* outRawTsCheckBox;
+    RichTextCheckBox* outRawCo2CheckBox;
+    RichTextCheckBox* outRawH2oCheckBox;
+    RichTextCheckBox* outRawCh4CheckBox;
+    RichTextCheckBox* outRawGas4CheckBox;
+    RichTextCheckBox* outRawTairCheckBox;
+    RichTextCheckBox* outRawPairCheckBox;
     QCheckBox* outVarsAllCheckBox;
 
     QPushButton* questionMark_1;

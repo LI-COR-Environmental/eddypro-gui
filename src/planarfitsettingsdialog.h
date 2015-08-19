@@ -48,21 +48,21 @@ class QDateEdit;
 class QDoubleSpinBox;
 class QItemSelectionModel;
 class QLabel;
-class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QScrollArea;
 class QSpinBox;
+class QTimeEdit;
 class QToolButton;
 
-class QwwButtonLineEdit;
-
+class AncillaryFileTest;
 class AnglesView;
 class AngleTableModel;
 class AngleTableView;
 class ClickLabel;
 struct ConfigState;
 class EcProject;
+class FileBrowseWidget;
 
 class PlanarFitSettingsDialog : public QDialog
 {
@@ -79,20 +79,21 @@ public slots:
     void close();
     void reset();
     void refresh();
+    void partialRefresh();
     void setDateRange(QPair<QDateTime, QDateTime> dates);
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event);
 
 private slots:
     void updatePfMode(int radioButton);
     void radioClicked(int radioButton);
-    void updateFile(const QString& fp);
-    void fileLoad_clicked();
+    void testSelectedFile(const QString& fp);
+
     void onStartDateLabelClicked();
     void onEndDateLabelClicked();
     void updateStartDate(const QDate &d);
+    void updateStartTime(const QTime &t);
     void updateEndDate(const QDate &d);
+    void updateEndTime(const QTime &t);
+
     void onOffsetLabelClicked();
     void onItemPerSectorLabelClicked();
     void onMaxAvgWLabelClicked();
@@ -110,19 +111,31 @@ private slots:
     void modelModified();
     void updateModel();
     void updateSubsetSelection(bool b);
-    void clearFileEdit();
 
 private:
+    void forceEndDatePolicy();
+    void forceEndTimePolicy();
+
+    void setupModel();
+    void setupViews();
+
+    void insertAngleAt(int row);
+    void removeAngleAt(int row);
+
+    void resizeRows();
+    void updateFile(const QString& fp);
+
     QRadioButton* existingRadio;
     QRadioButton* nonExistingRadio;
     QCheckBox *subsetCheckBox;
     QLabel* lockedIcon;
     ClickLabel* startDateLabel;
     QDateEdit* startDateEdit;
+    QTimeEdit* startTimeEdit;
     ClickLabel* endDateLabel;
     QDateEdit* endDateEdit;
-    QwwButtonLineEdit* fileEdit;
-    QPushButton* fileLoad;
+    QTimeEdit* endTimeEdit;
+    FileBrowseWidget * fileBrowse;
     QButtonGroup* radioGroup;
 
     QScrollArea* propScrollArea;
@@ -153,16 +166,6 @@ private:
     AngleTableView *angleTableView_;
     AnglesView *anglesView_;
     QItemSelectionModel *angleSelectionModel_;
-
-    void forceEndDatePolicy();
-
-    void setupModel();
-    void setupViews();
-
-    void insertAngleAt(int row);
-    void removeAngleAt(int row);
-
-    void resizeRows();
 };
 
 #endif // PLANARFITSETTINGSDIALOG_H

@@ -41,10 +41,10 @@ public slots:
     void hHeaderClicked(int section);
 
 protected:
-    void resizeEvent(QResizeEvent *event);
-    void showEvent(QShowEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void closeEditor(QWidget * editor, QAbstractItemDelegate::EndEditHint hint);
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void closeEditor(QWidget * editor, QAbstractItemDelegate::EndEditHint hint) Q_DECL_OVERRIDE;
 
 private:
     CustomHeader *m_header;

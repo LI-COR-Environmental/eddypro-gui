@@ -100,10 +100,6 @@ public:
     const QString& id() const;
     void setId(const QString& i);
 
-    // get/set height
-//    qreal height() const;
-//    void setHeight(qreal h);
-
     // get/set tube length
     qreal tubeLength() const;
     void setTubeLength(qreal l);
@@ -152,17 +148,22 @@ public:
     static const QStringList otherModelStringList();
     static const QStringList allSwVersionStringList();
 
-    static bool isGoodIrga(IrgaDesc irga);
+    static bool isWellNamed(const IrgaDesc& irga);
+    static bool hasGoodSeparations(const IrgaDesc& irga);
+    static bool isAGoodClosedPath(const IrgaDesc& irga);
+    static bool hasGoodPathLength(const IrgaDesc& irga);
+    static bool isGoodIrga(const IrgaDesc& irga);
 
     static bool isOpenPathModel(const QString &model);
 
 private:
+    static bool isALicorModel(const QString& model);
+
     QString manufacturer_;
     QString model_;
     QString swVersion_;
     QString sn_;
     QString id_;
-//    qreal height_;
     qreal tubeLength_;
     qreal tubeDiameter_;
     qreal tubeFlowRate_;
@@ -176,7 +177,7 @@ private:
     qreal kOxygen_;
 };
 
-typedef QList<IrgaDesc> IrgaDescList;
+using IrgaDescList = QList<IrgaDesc>;
 
 // Inlined Methods
 inline bool IrgaDesc::operator<(const IrgaDesc& irga) const
@@ -205,12 +206,6 @@ inline const QString& IrgaDesc::id() const
 
 inline void IrgaDesc::setId(const QString& i)
     { id_ = i; }
-
-//inline qreal IrgaDesc::height() const
-//    { return height_; }
-
-//inline void IrgaDesc::setHeight(qreal h)
-//    { height_ = h; }
 
 inline qreal IrgaDesc::tubeLength() const
     { return tubeLength_; }

@@ -39,7 +39,7 @@
 #include "container_helpers.h"
 #include "widget_utils.h"
 
-const QString helpPage = QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Assessment_Tests.htm");
+const QString helpPage = QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Assessment_Tests.html");
 
 AncillaryFileTest::AncillaryFileTest(FileType type,
                                      QWidget *parent) :
@@ -87,9 +87,9 @@ AncillaryFileTest::AncillaryFileTest(FileType type,
     setLayout(dialogLayout);
 
     connect(cancelButton, &QPushButton::clicked,
-            [=](){ this->close(); this->setResult(QDialog::Rejected);});
+            [=](){ this->close(); this->setResult(QDialog::Rejected); });
     connect(continueButton, &QPushButton::clicked,
-            [=](){ this->close(); this->setResult(QDialog::Accepted);});
+            [=](){ this->close(); this->setResult(QDialog::Accepted); });
     connect(saveButton, &QPushButton::clicked, [=](){ this->saveResults(); });
 
     connect(testResults_, &QTextBrowser::anchorClicked,
@@ -112,7 +112,7 @@ QString AncillaryFileTest::formatPassFail(bool test_result)
 
 bool AncillaryFileTest::makeTest()
 {
-    DEBUG_FUNC_NAME;
+    DEBUG_FUNC_NAME
     qDebug() << "name_" << name_;
 
     auto result = testFile();
@@ -163,7 +163,7 @@ bool AncillaryFileTest::testFile()
     }
     qDebug() << "begin parsing...";
 
-    testResults_->append(QStringLiteral("<b>FORMAT test</b>"));
+    testResults_->append(QLatin1String("<b>FORMAT test</b>"));
     formalResult =
             (this->*testFileMap_.value(type_).formalTest)(templateLines_,
                                                           actualLines_);
@@ -224,11 +224,12 @@ bool AncillaryFileTest::parseFile(const QString& filename, LineList *lines)
     line = in.readLine();
     if (line.isNull()) { return false; }
 
-    *lines << line.split(QStringLiteral(" "), QString::SkipEmptyParts);
+    const auto space = QLatin1Char(' ');
+    *lines << line.split(space, QString::SkipEmptyParts);
     while (!line.isNull())
     {
         line = in.readLine();
-        *lines << line.split(QStringLiteral(" "), QString::SkipEmptyParts);
+        *lines << line.split(space, QString::SkipEmptyParts);
     }
 
     file.close();
@@ -239,7 +240,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 {
     // test total number of rows
     auto rowCountTest = (actualList.size() == templateList.size());
-    testResults_->append(QStringLiteral("Number of rows [")
+    testResults_->append(QLatin1String("Number of rows [")
                   + QString::number(actualList.size())
                   + QStringLiteral("]: ")
                   + formatPassFail(rowCountTest));
@@ -251,7 +252,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 
     // test header, rows 1-7
     test << ContainerHelper::rangeEqual(templateList, actualList, 0, 7);
-    testResults_->append(QStringLiteral("Header, rows 1-7: ")
+    testResults_->append(QLatin1String("Header, rows 1-7: ")
                                   + formatPassFail(last_test()));
 
     // test water vapour TFP labels, rows 8-16
@@ -259,7 +260,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
     {
         test << (StringUtils::subStringList(templateList.value(i), 0, 6)
                 == StringUtils::subStringList(actualList.value(i), 0, 6));
-        testResults_->append(QStringLiteral("<u>H<sub>2</sub>O</u> TFP label, row ")
+        testResults_->append(QLatin1String("<u>H<sub>2</sub>O</u> TFP label, row ")
                                       + QString::number(i + 1)
                                       + QStringLiteral(": ")
                                       + formatPassFail(last_test()));
@@ -267,7 +268,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 
     // test header rows 17-18
     test << ContainerHelper::rangeEqual(templateList, actualList, 16, 18);
-    testResults_->append(QStringLiteral("Header rows 17-18: ")
+    testResults_->append(QLatin1String("Header rows 17-18: ")
                                   + formatPassFail(last_test()));
 
     // test CO2 TFP labels, rows 19-30
@@ -276,7 +277,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
         test << (StringUtils::subStringList(templateList.value(i), 0, 2)
                 == StringUtils::subStringList(actualList.value(i), 0, 2));
 
-        testResults_->append(QStringLiteral("<u>CO<sub>2</sub></u> TFP label, row ")
+        testResults_->append(QLatin1String("<u>CO<sub>2</sub></u> TFP label, row ")
                                       + QString::number(i + 1)
                                       + QStringLiteral(": ")
                                       + formatPassFail(last_test()));
@@ -284,7 +285,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 
     // test header row 31-32
     test << ContainerHelper::rangeEqual(templateList, actualList, 30, 32);
-    testResults_->append(QStringLiteral("Header rows 31-32: ")
+    testResults_->append(QLatin1String("Header rows 31-32: ")
                                   + formatPassFail(last_test()));
 
     // test CH4 TFP labels, rows 33-44
@@ -293,7 +294,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
         test << (StringUtils::subStringList(templateList.value(i), 0, 2)
                 == StringUtils::subStringList(actualList.value(i), 0, 2));
 
-        testResults_->append(QStringLiteral("<u>CH<sub>4</sub></u> TFP label, row ")
+        testResults_->append(QLatin1String("<u>CH<sub>4</sub></u> TFP label, row ")
                                       + QString::number(i + 1)
                                       + QStringLiteral(": ")
                                       + formatPassFail(last_test()));
@@ -301,7 +302,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 
     // test header row 45-46
     test << ContainerHelper::rangeEqual(templateList, actualList, 44, 46);
-    testResults_->append(QStringLiteral("Header rows 45-46: ")
+    testResults_->append(QLatin1String("Header rows 45-46: ")
                                   + formatPassFail(last_test()));
 
     // test other gas TFP labels, rows 19-30
@@ -310,7 +311,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
         test << (StringUtils::subStringList(templateList.value(i), 0, 2)
                 == StringUtils::subStringList(actualList.value(i), 0, 2));
 
-        testResults_->append(QStringLiteral("<u>Other gas</u> TFP label, row ")
+        testResults_->append(QLatin1String("<u>Other gas</u> TFP label, row ")
                                       + QString::number(i + 1)
                                       + QStringLiteral(": ")
                                       + formatPassFail(last_test()));
@@ -318,12 +319,12 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
 
     // test header, rows 59-62
     test << ContainerHelper::rangeEqual(templateList, actualList, 58, 62);
-    testResults_->append(QStringLiteral("Header, rows 59-62: ")
+    testResults_->append(QLatin1String("Header, rows 59-62: ")
                                   + formatPassFail(last_test()));
 
     // test header, rows 64-69
     test << ContainerHelper::rangeEqual(templateList, actualList, 63, 69);
-    testResults_->append(QStringLiteral("Header, rows 64-69: ")
+    testResults_->append(QLatin1String("Header, rows 64-69: ")
                                   + formatPassFail(last_test()));
 
     // test high pass parameters labels, rows 70-71
@@ -332,7 +333,7 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
         test << (StringUtils::subStringList(templateList.value(i), 0, 2)
                 == StringUtils::subStringList(actualList.value(i), 0, 2));
 
-        testResults_->append(QStringLiteral("HP correction parameters label, row ")
+        testResults_->append(QLatin1String("HP correction parameters label, row ")
                                       + QString::number(i + 1)
                                       + QStringLiteral(": ")
                                       + formatPassFail(last_test()));
@@ -399,7 +400,7 @@ bool AncillaryFileTest::testSpectraS(const LineList &actualList)
 
     // test a.2
     test << std::any_of(fcH2o.begin(), fcH2o.end(),
-                        [](double d){ return (d != -9999.0); });
+                        [](double d){ return !qFuzzyCompare(d, -9999.0); });
     auto a2_label = QStringLiteral("<u>H<sub>2</sub>O</u> Column 'fc' "
                                    "shall not have all values set to -9999: ");
     testResults_->append(a2_label + formatPassFail(last_test()));
@@ -430,7 +431,7 @@ bool AncillaryFileTest::testSpectraS(const LineList &actualList)
 
     // test b.1
     test << std::all_of(fitParameters.begin(), fitParameters.end(),
-                [](double d){ return (d != -9999.0); });
+                [](double d){ return !qFuzzyCompare(d, -9999.0); });
     auto b1_label = QStringLiteral("<u>H<sub>2</sub>O</u> All spectral corrections RH/fc "
                                       "exponential fit parameters shall be != -9999.0: ");
     testResults_->append(b1_label + formatPassFail(last_test()));
@@ -514,7 +515,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
 {
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
-    testResults_->append(QStringLiteral("Number of rows [")
+    testResults_->append(QLatin1String("Number of rows [")
                                  + QString::number(actualList.size())
                                  + QStringLiteral("]: ")
                                  + formatPassFail(rowCountTest));
@@ -530,7 +531,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
     {
         test << (StringUtils::subStringList(templateList.value(i), 0, 1)
                 == StringUtils::subStringList(actualList.value(i), 0, 1));
-        testResults_->append(QStringLiteral("Header, row ")
+        testResults_->append(QLatin1String("Header, row ")
                              + QString::number(i + 1)
                              + QStringLiteral(": ")
                              + formatPassFail(last_test()));
@@ -538,14 +539,14 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
 
     // test a, header rows 8-10
     test << ContainerHelper::rangeEqual(templateList, actualList, 7, 10);
-    testResults_->append(QStringLiteral("Header, rows 8-10: ")
+    testResults_->append(QLatin1String("Header, rows 8-10: ")
                          + formatPassFail(last_test()));
 
     // wind sectors > 0
     auto windSectorsStr = StringUtils::subStringList(actualList.value(1), 1, 2).value(0);
     auto windSectors = windSectorsStr.toInt();
     test << (windSectors > 0);
-    testResults_->append(QStringLiteral("Wind sectors [")
+    testResults_->append(QLatin1String("Wind sectors [")
                          + QString::number(windSectors)
                          + QStringLiteral("]: ")
                          + formatPassFail(last_test()));
@@ -553,7 +554,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
 
     // test e, total number of rows (depending from wind sectors)
     rowCountTest = ((5 * windSectors + 13) == actualList.size());
-    testResults_->append(QStringLiteral("Total number of rows [")
+    testResults_->append(QLatin1String("Total number of rows [")
                          + QString::number(actualList.size())
                          + QStringLiteral("]: ")
                          + formatPassFail(rowCountTest));
@@ -569,20 +570,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             test.replace(last_test_index(), false);
             break;
         }
-        // column 2a
-        //QString valStr = actualList.value(10 + i).value(1);
-        //valStr.chop(1);
-        //if (valStr.toDouble() != (360.0 / windSectors) * i)
-        //{
-        //    test.replace(last_test_index(), false);
-        //    break;
-        //}
-        // column 2b
-        //if (actualList.value(10 + i).value(2).toDouble() != (360.0 / windSectors) * (i + 1))
-        //{
-        //    test.replace(last_test_index(), false);
-        //    break;
-        //}
+
         // columns 3-5
         auto conversionToDouble = false;
         for (auto j = 3; j < 6; ++j)
@@ -596,13 +584,13 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             }
         }
     }
-    testResults_->append(QStringLiteral("Wind sectors coefficients formal structure: ")
+    testResults_->append(QLatin1String("Wind sectors coefficients formal structure: ")
                          + formatPassFail(last_test()));
 
     // test c, header rows (11-12 + windSectors)
     test << std::equal(templateList.begin() + 10 + 4, templateList.begin() + 10 + 6,
                        actualList.begin() + 10 + windSectors);
-    testResults_->append(QStringLiteral("Header, rows ")
+    testResults_->append(QLatin1String("Header, rows ")
                          + QString::number(11 + windSectors)
                          + QStringLiteral("-")
                          + QString::number(12 + windSectors)
@@ -632,7 +620,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             break;
         }
     }
-    testResults_->append(QStringLiteral("Rotation matrices formal structure 1: ")
+    testResults_->append(QLatin1String("Rotation matrices formal structure 1: ")
                          + formatPassFail(last_test()));
 
     // test d2
@@ -655,7 +643,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             }
         }
     }
-    testResults_->append(QStringLiteral("Rotation matrices formal structure 2: ")
+    testResults_->append(QLatin1String("Rotation matrices formal structure 2: ")
                          + formatPassFail(last_test()));
 
     // test d3
@@ -668,7 +656,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             break;
         }
     }
-    testResults_->append(QStringLiteral("Rotation matrices formal structure 3: ")
+    testResults_->append(QLatin1String("Rotation matrices formal structure 3: ")
                          + formatPassFail(last_test()));
 
     auto res = true;
@@ -725,9 +713,9 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
         // test a
 //        if (std::all_of(fitParameters[i].begin(), fitParameters[i].end()),
 //                            [](double d){ return (d != -9999.0); })
-        if (fitParameters[i][0] != -9999.0
-            && fitParameters[i][1] != -9999.0
-            && fitParameters[i][2] != -9999.0)
+        if (!qFuzzyCompare(fitParameters[i][0], -9999.0)
+            && !qFuzzyCompare(fitParameters[i][1], -9999.0)
+            && !qFuzzyCompare(fitParameters[i][2], -9999.0))
         {
             test_full = true;
             test_detail.replace(0, true);
@@ -737,7 +725,7 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
             {
                 for (auto k = 0; k < 3; ++k)
                 {
-                    if (rotMatrices.value(i)[j][k] == -9999.0)
+                    if (qFuzzyCompare(rotMatrices.value(i)[j][k], -9999.0))
                     {
                         test_full = false;
                         test_detail.replace(1, false);
@@ -781,7 +769,7 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
         // print results
         auto wind_sector_test = std::all_of(test_detail.begin(), test_detail.end(),
                                             [](bool res){ return (res); });
-        testResults_->append(QStringLiteral("<u>Wind sector ")
+        testResults_->append(QLatin1String("<u>Wind sector ")
                              + QString::number(i + 1)
                              + QStringLiteral("</u>: ")
                              + formatPassFail(wind_sector_test));
@@ -789,7 +777,7 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
         {
             if (!test_detail.value(0))
             {
-                testResults_->append(QStringLiteral("At least one wind sector "
+                testResults_->append(QLatin1String("At least one wind sector "
                                      "should have all three coefficients "
                                      "!= -9999.0: ") + formatPassFail(false));
             }
@@ -797,13 +785,13 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
             {
                 if (!test_detail.value(1))
                 {
-                    testResults_->append(QStringLiteral("A wind sector having valid coefficients "
+                    testResults_->append(QLatin1String("A wind sector having valid coefficients "
                                          "shall have all rotations values "
                                          "!= -9999.0") + formatPassFail(false));
                 }
                 if (!test_detail.value(2))
                 {
-                    testResults_->append(QStringLiteral("A wind sector having valid coefficients "
+                    testResults_->append(QLatin1String("A wind sector having valid coefficients "
                                          "shall have at least one rotation value "
                                          "!= 0.0: ") + formatPassFail(false));
                 }
@@ -824,7 +812,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
 
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
-    testResults_->append(QStringLiteral("Number of rows [")
+    testResults_->append(QLatin1String("Number of rows [")
                                  + QString::number(actualList.size())
                                  + QStringLiteral("]: ")
                                  + formatPassFail(rowCountTest));
@@ -838,7 +826,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
     for (auto i = 0; i < 5; ++i)
     {
         test << (templateList.value(i).value(0) == actualList.value(i).value(0));
-        testResults_->append(QStringLiteral("Header, row ")
+        testResults_->append(QLatin1String("Header, row ")
                              + QString::number(i + 1)
                              + QStringLiteral(": ")
                              + formatPassFail(last_test()));
@@ -850,23 +838,23 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
     timelagValues.resize(3);
     while (actualList.value(5 + 5 * gasCount).value(0).contains(QStringLiteral("Number_of_timelags_used_for_"))
            && actualList.value(6 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(0) == QStringLiteral("Median")
+                        .split(QStringLiteral("_")).value(0) == QLatin1String("Median")
            && actualList.value(6 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(2) == QStringLiteral("timelag")
+                        .split(QStringLiteral("_")).value(2) == QLatin1String("timelag")
            && actualList.value(6 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(3) == QStringLiteral("[s]:")
+                        .split(QStringLiteral("_")).value(3) == QLatin1String("[s]:")
            && actualList.value(7 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(0) == QStringLiteral("Mimimum")
+                        .split(QStringLiteral("_")).value(0) == QLatin1String("Mimimum")
            && actualList.value(7 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(2) == QStringLiteral("timelag")
+                        .split(QStringLiteral("_")).value(2) == QLatin1String("timelag")
            && actualList.value(7 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(3) == QStringLiteral("[s]:")
+                        .split(QStringLiteral("_")).value(3) == QLatin1String("[s]:")
            && actualList.value(8 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(0) == QStringLiteral("Maximum")
+                        .split(QStringLiteral("_")).value(0) == QLatin1String("Maximum")
            && actualList.value(8 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(2) == QStringLiteral("timelag")
+                        .split(QStringLiteral("_")).value(2) == QLatin1String("timelag")
            && actualList.value(8 + 5 * gasCount).value(0)
-                        .split(QStringLiteral("_")).value(3) == QStringLiteral("[s]:"))
+                        .split(QStringLiteral("_")).value(3) == QLatin1String("[s]:"))
     {
         ++gasCount;
 
@@ -887,7 +875,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                    actualList.begin() + (5 + 5 * gasCount)))
     {
         test << true;
-        testResults_->append(QStringLiteral("Header of RH sorted H<sub>2</sub>O classes (3 rows): ")
+        testResults_->append(QLatin1String("Header of RH sorted H<sub>2</sub>O classes (3 rows): ")
                              + formatPassFail(last_test()));
 
         // test c1' (moved from scientific to formal)
@@ -898,7 +886,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
             ++rhClassCount;
             auto actualRhlClassIndex = actualList.value(8 + 5 * gasCount + rhClassCount - 1).value(0).toInt();
             test << (rhClassCount == actualRhlClassIndex);
-            testResults_->append(QStringLiteral("Consistent RH index [")
+            testResults_->append(QLatin1String("Consistent RH index [")
                                  + QString::number(actualRhlClassIndex)
                                  + QStringLiteral("]: ")
                                  + formatPassFail(last_test()));
@@ -909,8 +897,8 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         // test c2
         if (rhClassCount <= 20)
         {
-            test << (actualList.value(8 + 5 * gasCount).value(1) == QStringLiteral("0")
-                     && actualList.value(8 + 5 * gasCount + rhClassCount - 1).value(3) == QStringLiteral("100%"));
+            test << (actualList.value(8 + 5 * gasCount).value(1) == QLatin1String("0")
+                     && actualList.value(8 + 5 * gasCount + rhClassCount - 1).value(3) == QLatin1String("100%"));
 
             // collect values
             h2oTimelagValues.resize(4);
@@ -932,7 +920,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         else
         {
             test << false;
-            testResults_->append(QStringLiteral("RH classes <= 20: ") + formatPassFail(last_test()));
+            testResults_->append(QLatin1String("RH classes <= 20: ") + formatPassFail(last_test()));
         }
     }
     else
@@ -946,7 +934,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         if (!gasCount && rhIsEmpty)
         {
             test << false;
-            testResults_->append(QStringLiteral("Number of gases [0] and header of "
+            testResults_->append(QLatin1String("Number of gases [0] and header of "
                                                 "RH sorted H<sub>2</sub>O classes (3 rows): ")
                           + formatPassFail(last_test()));
         }
@@ -954,14 +942,21 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         else if (!gasCount && !rhIsEmpty)
         {
             test << false;
-            testResults_->append(QStringLiteral("Header of RH sorted H<sub>2</sub>O classes (3 rows): ")
+            testResults_->append(QLatin1String("Header of RH sorted H<sub>2</sub>O classes (3 rows): ")
                           + formatPassFail(last_test()));
         }
         // with gases and > 20 rh classes
         else if (gasCount && !rhIsEmpty)
         {
             test << false;
-            testResults_->append(QStringLiteral("Header of gases or RH sorted H<sub>2</sub>O classes (3 rows): ")
+            testResults_->append(QLatin1String("Header of gases or RH sorted H<sub>2</sub>O classes (3 rows): ")
+                          + formatPassFail(last_test()));
+        }
+        // with gases and no rh classes
+        else if (gasCount && rhIsEmpty)
+        {
+            test << true;
+            testResults_->append(QStringLiteral("Number of gases [0]: ")
                           + formatPassFail(last_test()));
         }
         // with gases and no rh classes
@@ -1003,7 +998,7 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
                 test.replace(last_test_index(), false);
             }
         }
-        testResults_->append(QStringLiteral("Gas time-lag median values inside the "
+        testResults_->append(QLatin1String("Gas time-lag median values inside the "
                              "[minimum; maximum] range: ")
                              + formatPassFail(last_test()));
 
@@ -1021,7 +1016,7 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
             }
         }
         end_loop:
-        testResults_->append(QStringLiteral("Time-lag values not larger than 60 seconds: ")
+        testResults_->append(QLatin1String("Time-lag values not larger than 60 seconds: ")
                              + formatPassFail(last_test()));
     }
 
@@ -1090,7 +1085,10 @@ QString AncillaryFileTest::typeToString(FileType type)
 void AncillaryFileTest::saveResults()
 {
     auto timestamp = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-ddThhmmss"));
-    auto filenameHint = typeToString(type_)
+    auto filenameHint =
+            WidgetUtils::getSearchPathHint()
+            + QStringLiteral("/")
+            + typeToString(type_)
             + QStringLiteral("-")
             + timestamp
             + Defs::TEMPLATE_FILE_EXT;

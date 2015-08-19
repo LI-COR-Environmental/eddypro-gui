@@ -23,7 +23,6 @@
 #include "advmenudelegate.h"
 
 #include <QApplication>
-#include <QDebug>
 #include <QPainter>
 
 AdvMenuDelegate::AdvMenuDelegate(QObject *parent) :
@@ -40,7 +39,7 @@ QSize AdvMenuDelegate::sizeHint(const QStyleOptionViewItem& option,
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
-    return QSize(195, 48);
+    return QSize(195, 68);
 }
 void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                        const QModelIndex &index) const
@@ -58,15 +57,47 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
     }
 
     auto icon = qvariant_cast<QIcon>(index.data(IconRole));
-    if (!icon.isNull()) {
+
+//#if defined(Q_OS_MAC)
+//    auto pixmap = icon.pixmap(icon.actualSize(QSize(42, 42)));
+//    auto pixmap = icon.pixmap(QSize(42, 42));
+//    pixmap.setDevicePixelRatio(2.0);
+//#endif
+//    icon.addPixmap(pixmap, QIcon::Normal, QIcon::On);
+
+    if (!icon.isNull())
+    {
         icon.paint(painter, r.adjusted(8, 0, 8, 0), Qt::AlignVCenter | Qt::AlignLeft);
     }
 
-    auto font = QFont(QStringLiteral("Open Sans"), 10, QFont::Normal);
+    auto fontSize = 10;
+#if defined(Q_OS_MAC)
+    fontSize = 13;
+#endif
+
+    auto font = QFont(QStringLiteral("Open Sans"), fontSize, QFont::Normal);
     QFontMetrics fm(font);
     auto text = qvariant_cast<QString>(index.data(TextRole));
 
     painter->setFont(font);
-    painter->drawText(r.adjusted(54, (r.height() - fm.height()) / 2, 54, (r.height() - fm.height()) / 2), text);
+
+    auto text_width = fm.width(text);
+
+    // manage text wrapping, centering the item text
+    if (text_width <= 185)
+    {
+        painter->drawText(r.adjusted(54,
+                                     (r.height() - fm.height()) / 2,
+                                     44,
+                                     (r.height() - fm.height()) / 2), text);
+    }
+    else
+    {
+        painter->drawText(r.adjusted(54,
+                                     (r.height() - fm.height()*2 - fm.leading()) / 2,
+                                     44,
+                                     (r.height() - fm.height()*2 - fm.leading()) / 2), text);
+    }
+
     painter->restore();
 }

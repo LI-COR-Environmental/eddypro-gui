@@ -25,14 +25,16 @@
 
 #include <QDialog>
 
+class QAction;
 class QLabel;
+class QLineEdit;
 class QPushButton;
-class QwwButtonLineEdit;
-class QwwClearLineEdit;
 
 class ClickLabel;
 struct ConfigState;
+class CustomClearLineEdit;
 class EcProject;
+class DirBrowseWidget;
 
 class CreatePackageDialog : public QDialog
 {
@@ -51,27 +53,24 @@ signals:
 public slots:
     void close();
 
-protected:
-    bool eventFilter(QObject *o, QEvent *e);
 private slots:
-    void clearOutpathEdit();
+    void clearOutpathBrowse();
     void updateOutpath(const QString &fp);
-    void outpathBrowse_clicked();
+    void outpathBrowseSelected(const QString &dir_path);
 
     void updateFilename(const QString &fn);
     void onFilenameLabelClicked();
 
     void clearFilenameEdit();
+
 private:
     EcProject *ecProject_;
     ConfigState* configState_;
 
     ClickLabel *filenameLabel;
-    QwwClearLineEdit* filenameEdit;
+    CustomClearLineEdit* filenameEdit;
     ClickLabel *outpathLabel;
-    QwwButtonLineEdit* outpathEdit;
-    QPushButton* outpathBrowse;
-//    QLabel* resultLabel;
+    DirBrowseWidget* outpathBrowse;
     QPushButton *createButton;
     QPushButton *okButton;
     QPushButton *cancelButton;

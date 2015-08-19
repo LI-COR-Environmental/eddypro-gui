@@ -36,14 +36,15 @@ VariableTableView::VariableTableView(QWidget *parent) :
 {
     DEBUG_FUNC_NAME
 
-    QHeaderView *hHeaderView = horizontalHeader();
-    hHeaderView->show();
-    connect(hHeaderView, &QHeaderView::sectionClicked,
-            this, &VariableTableView::hHeaderClicked);
+//    QHeaderView *hHeaderView = horizontalHeader();
+//    hHeaderView->show();
+//    connect(hHeaderView, &QHeaderView::sectionClicked,
+//            this, &VariableTableView::hHeaderClicked);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+
     m_header = new CustomHeader(this);
     m_header->addSection(tr("Ignore"), tr("<b>Ignore:</b> Select <i>no</i> to tell EddyPro that a column (variable) is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a <i>non-numeric</i> one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set <i>yes</i> in the ignore field."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarIgnoreDesc);
     m_header->addSection(tr("Numeric"), tr("<b>Numeric:</b> Select 'no' to tell EddyPro that a column is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a not numeric one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set 'yes' in the ignore field."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarNumericDesc);
@@ -74,6 +75,8 @@ void VariableTableView::resizeEvent(QResizeEvent *event)
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
+    horizontalScrollBar()->updateGeometry();
+    viewport()->update();
     QWidget::resizeEvent(event);
 }
 
@@ -86,6 +89,8 @@ void VariableTableView::showEvent(QShowEvent *event)
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
+    horizontalScrollBar()->updateGeometry();
+    viewport()->update();
     QWidget::showEvent(event);
 }
 

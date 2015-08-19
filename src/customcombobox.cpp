@@ -35,16 +35,17 @@ CustomComboBox::CustomComboBox(QWidget *parent) :
 {
 }
 
-QSize CustomComboBox::sizeHint(const QStyleOptionViewItem& option,
-                               const QModelIndex& index) const
-{
-    QString type = index.data(Qt::AccessibleDescriptionRole).toString();
-    if (type == QLatin1String("separator"))
-    {
-        return QSize(5, 5);
-    }
-    return itemDelegate()->sizeHint(option, index);
-}
+// it should override the ItemDelegate sizeHint
+//QSize CustomComboBox::sizeHint(const QStyleOptionViewItem& option,
+//                               const QModelIndex& index) const
+//{
+//    QString type = index.data(Qt::AccessibleDescriptionRole).toString();
+//    if (type == QLatin1String("separator"))
+//    {
+//        return QSize(5, 5);
+//    }
+//    return itemDelegate()->sizeHint(option, index);
+//}
 
 void CustomComboBox::addSeparator()
 {

@@ -32,9 +32,11 @@
 
 #ifndef QT_NO_DEBUG
 #    define DEBUG_FUNC_NAME DbgHelper dbgHelper(QLatin1String(Q_FUNC_INFO));
+#    define DEBUG_BLOCK QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO), QString());
 #    define DEBUG_FUNC_MSG(x) QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO), x);
 #else
 #    define DEBUG_FUNC_NAME
+#    define DEBUG_BLOCK
 #    define DEBUG_FUNC_MSG(x)
 #endif
 

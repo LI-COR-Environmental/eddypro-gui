@@ -29,6 +29,7 @@
 
 #include "faderwidget.h"
 
+class QAction;
 class QButtonGroup;
 class QCheckBox;
 class QComboBox;
@@ -41,15 +42,15 @@ class QRadioButton;
 class QSpinBox;
 class QStackedWidget;
 
-class QwwButtonLineEdit;
-class QwwClearLineEdit;
-
 class BinarySettingsDialog;
 class ClickLabel;
 struct ConfigState;
+class CustomClearLineEdit;
+class DirBrowseWidget;
 class DlIniDialog;
 class DlProject;
 class EcProject;
+class FileBrowseWidget;
 class MyTabWidget;
 //class SlowMeasureTab;
 class SmartFluxBar;
@@ -64,16 +65,13 @@ public:
 
     inline DlIniDialog* dlIniDialog() { return dlIniDialog_; }
     BinarySettingsDialog* getBinarySettingsDialog() { return binDialog_; }
+
     void updateSmartfluxBar();
-
     void setSmartfluxUI();
-
-protected:
-    bool eventFilter(QObject* watched, QEvent* event);
 
 private:
     ClickLabel *titleLabel;
-    QwwClearLineEdit *titleEdit;
+    CustomClearLineEdit *titleEdit;
 
     ClickLabel *fileTypeLabel;
     QButtonGroup *fileTypeRadioGroup;
@@ -90,21 +88,17 @@ private:
     QRadioButton *embMetadataFileRadio;
     ClickLabel *metadataLabel;
     QButtonGroup *metadataRadioGroup;
-    QwwButtonLineEdit *metadataFileEdit;
-    QPushButton *metadataFileLoad;
+    FileBrowseWidget *metadataFileBrowse;
 
     QCheckBox *dynamicMdCheckBox;
-    QwwButtonLineEdit *dynamicMdEdit;
-    QPushButton *dynamicMdLoad;
+    FileBrowseWidget *dynamicMdFileBrowse;
 
     QCheckBox *biomDataCheckBox;
     QRadioButton *biomEmbFileRadio;
     QRadioButton *biomExtFileRadio;
-    QwwButtonLineEdit *biomExtFileEdit;
-    QPushButton *biomExtFileLoad;
+    FileBrowseWidget* biometExtFileBrowse;
     QRadioButton *biomExtDirRadio;
-    QwwButtonLineEdit *biomExtDirEdit;
-    QPushButton *biomExtDirBrowse;
+    DirBrowseWidget* biometExtDirBrowse;
     QCheckBox* biomExtDirRecCheckBox;
     ClickLabel* biomExtDirSuffixLabel;
     QComboBox* biomExtDirCombo;
@@ -151,10 +145,9 @@ private slots:
     void fileTypeRadioClicked_1(int fileType);
     void fileTypeRadioClicked_2(int fileType);
     void fadeInWidget(int filetype);
-    void metadataFileLoad_clicked();
+    void metadataFileSelected(const QString& file_path);
     void onTitleLabelClicked();
-    void updateMetadataFileEdit(const QString &filename);
-    void updateBiomFileEdit(const QString &filename);
+    void updateMetadataFileBrowse(const QString &filename);
 
     void updateFileType(int filetype);
     void updateUseMetadataFile_1(int filetype);
@@ -163,7 +156,7 @@ private slots:
     void updateBiomFile(const QString& fp);
     void updateBiomDir(const QString& fp);
     void updateExtDirRec(bool b);
-    void on_biomDirBrowse_clicked();
+    void biometExtDirSelected(const QString &dir_path);
     void updateExtDirSuffix(const QString& s);
     void onBiomExtDirSuffixLabelClicked();
 
@@ -186,29 +179,23 @@ private slots:
     void tobSettingsUpdate(int n);
     void binSettingsDialog();
 
-    void timelineFileLoad_clicked();
-    void onTimelineFileCheckBoxClicked(bool b);
-    void updateUseTimelineFile(bool b);
     void updateTimelineFile(const QString& fp);
-
-    void mdReset();
+    void dynamicMdFileSelected(const QString &fp);
+    void mdEditorReset();
     void mdResetRequest();
     void updateTooltip(int i);
-    void clearDynamicMdEdit();
-    void clearBiomExtFileEdit();
-    void clearBiomExtDirEdit();
 
     void on_biomDataCheckBox_clicked(bool clicked);
     void on_biomRadioGroup_clicked_1(int button);
     void on_biomRadioGroup_clicked_2(int button);
-    void on_biomFileLoad_clicked();
+    void biomExtFileSelected(const QString &fp);
 
 signals:
     void updateMetadataReadRequest();
-    void updateRawFilenameFormatRequest();
     void connectBinarySettingsRequest();
     void setOutputBiometRequest();
     void requestBasicSettingsClear();
+    void mdCleanupRequest();
 };
 
 #endif // PROJECTPAGE_H

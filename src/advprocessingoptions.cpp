@@ -37,15 +37,15 @@
 #include <QUrl>
 #include <QVBoxLayout>
 
-#include <QwwResetLineEdit/QwwResetLineEdit>
-
 #include "clicklabel.h"
 #include "configstate.h"
+#include "customresetlineedit.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "infomessage.h"
 #include "planarfitsettingsdialog.h"
+#include "richtextcheckbox.h"
 #include "timelagsettingsdialog.h"
 #include "widget_utils.h"
 
@@ -128,20 +128,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     windComponentLayout->addWidget(wOffsetSpin, 1);
     windComponentLayout->addStretch(1);
 
-    aoaCheckBox = new QCheckBox;
+    aoaCheckBox = new RichTextCheckBox;
     aoaCheckBox->setToolTip(tr("<b>Angle-of-attack correction:</b> Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used."));
-    aoaLabel = new ClickLabel(tr("Angle-of-attack correction for wind components (Gill's only)"));
-    aoaLabel->setToolTip(aoaCheckBox->toolTip());
-    connect(aoaLabel, &ClickLabel::clicked,
-            aoaCheckBox, &QCheckBox::toggle);
-
-    auto aoaContainerLayout = new QHBoxLayout;
-    aoaContainerLayout->addWidget(aoaCheckBox);
-    aoaContainerLayout->addWidget(aoaLabel);
-    aoaContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    aoaContainerLayout->addWidget(questionMark_2);
-    aoaContainerLayout->setSpacing(0);
-    aoaContainerLayout->addStretch();
+    aoaCheckBox->setText(tr("Angle-of-attack correction for wind components (Gill's only)"));
+    aoaCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Angle_of_Attack_Correction.html"));
 
     aoaMethLabel = new ClickLabel(tr("Method :"));
     aoaMethLabel->setEnabled(false);
@@ -152,20 +142,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     aoaMethCombo->setItemData(1, tr("<b>Wind tunnel calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration."), Qt::ToolTipRole);
     aoaMethCombo->setEnabled(false);
 
-    rotCheckBox = new QCheckBox;
+    rotCheckBox = new RichTextCheckBox;
     rotCheckBox->setToolTip(tr("<b>Axis rotation for tilt correction:</b> Select the appropriate method for compensating anemometer tilt with respect to local streamlines. Uncheck the box to <i>not perform</i> any rotation (not recommnended). If your site has a complex or sloping topography, a planar-fit method is advisable. Click on the <b><i>Planar Fit Settings...</i></b> to configure the procedure."));
-    auto rotLabel = new ClickLabel(tr("Axis rotations for tilt correction"));
-    rotLabel->setToolTip(rotCheckBox->toolTip());
-    connect(rotLabel, &ClickLabel::clicked,
-            rotCheckBox, &QCheckBox::toggle);
-
-    auto rotContainerLayout = new QHBoxLayout;
-    rotContainerLayout->addWidget(rotCheckBox);
-    rotContainerLayout->addWidget(rotLabel);
-    rotContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    rotContainerLayout->addWidget(questionMark_3);
-    rotContainerLayout->setSpacing(0);
-    rotContainerLayout->addStretch();
+    rotCheckBox->setText(tr("Axis rotations for tilt correction"));
+    rotCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Anemometer_Tilt_Correction.html"));
 
     rotMethLabel = new ClickLabel(tr("Rotation method :"));
     rotMethCombo = new QComboBox;
@@ -212,20 +192,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     timeConstantSpin->setSpecialValueText(tr("Same as Flux averaging interval"));
     timeConstantSpin->setMaximumWidth(timeConstantSpin->sizeHint().width());
 
-    timeLagCheckBox = new QCheckBox;
+    timeLagCheckBox = new RichTextCheckBox;
     timeLagCheckBox->setToolTip(tr("<b>Time lags compensation:</b> Select the method to compensate time lags between anemometric measurements and any other high frequency measurements included in the raw files. Time lags arise due mainly to sensors physical distances and to the passage of air into sampling lines. Uncheck this box to instruct EddyPro not to compensate time lags (not recommended)."));
-    auto timeLagLabel = new ClickLabel(tr("Time lags compensation"));
-    timeLagLabel->setToolTip(timeLagCheckBox->toolTip());
-    connect(timeLagLabel, &ClickLabel::clicked,
-            timeLagCheckBox, &QCheckBox::toggle);
-
-    auto timeLagContainerLayout = new QHBoxLayout;
-    timeLagContainerLayout->addWidget(timeLagCheckBox);
-    timeLagContainerLayout->addWidget(timeLagLabel);
-    timeLagContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    timeLagContainerLayout->addWidget(questionMark_5);
-    timeLagContainerLayout->setSpacing(0);
-    timeLagContainerLayout->addStretch();
+    timeLagCheckBox->setText(tr("Time lags compensation"));
+    timeLagCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Time_Lag_Detect_Correct.html"));
 
     timeLagMethodLabel = new ClickLabel(tr("Time lag detection method :"));
     timeLagMethodCombo = new QComboBox;
@@ -243,43 +213,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     tlSettingsButton->setProperty("mdButton", true);
     tlSettingsButton->setMaximumWidth(tlSettingsButton->sizeHint().width());
 
-    filterLabel = new ClickLabel(tr("Tapering window :"));
-    filterLabel->setToolTip(tr("<b>Tapering window:</b> Select the shape of the window used to taper the time series before the Fast Fourier Transform. The tapering procedure is a sample-wise multiplication in the time domain between the time series and the window, performed to reduce the discontinuities of the time series at the boundaries and avoid spectral energy overestimation. Kaimal & Kristensen (1991) suggested the Hamming window."));
-    filterCombo = new QComboBox;
-    filterCombo->setToolTip(filterLabel->toolTip());
-    filterCombo->addItem(tr("Squared (no window)"));
-    filterCombo->addItem(tr("Bartlett"));
-    filterCombo->addItem(tr("Welch"));
-    filterCombo->addItem(tr("Hamming"));
-    filterCombo->addItem(tr("Hann"));
-
-    nBinsLabel = new ClickLabel(tr("Frequency bins for (co)spectra reduction :"));
-    nBinsLabel->setToolTip(tr("<b>Frequency bins for spectra and cospectra reduction:</b> Select the number of exponentially-spaced frequency bins to reduce spectra and cospectra. All spectral samples falling in a given bin are averaged, so that smoother curves result, greatly reduced in length. In EddyPro binned spectra are used for in-situ spectral assessments."));
-    nBinsSpin = new QSpinBox;
-    nBinsSpin->setToolTip(nBinsLabel->toolTip());
-    nBinsSpin->setRange(10, 3000);
-    nBinsSpin->setSingleStep(10);
-    nBinsSpin->setAccelerated(true);
-    nBinsSpin->setValue(50);
-    nBinsSpin->setMaximumWidth(nBinsSpin->sizeHint().width() * 2);
-    fftCheckBox = new QCheckBox(tr("Use power-of-two samples to speed up the FFT"));
-    fftCheckBox->setStyleSheet(QStringLiteral("QCheckBox {margin-left: 0px;}"));
-    fftCheckBox->setToolTip(tr("<b>Use power-of-two samples to speed up the FFT:</b> Check this box to instruct EddyPro to use a number of samples equal to the power-of-two closest to the currently available samples, for calculating spectra. This option greatly speeds up the FFT procedure and is therefore recommended."));
-
-    qcCheckBox = new QCheckBox;
+    qcCheckBox = new RichTextCheckBox;
     qcCheckBox->setToolTip(tr("<b>Quality check:</b> Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy."));
-    auto qccLabel = new ClickLabel(tr("Quality check"));
-    qccLabel->setToolTip(qcCheckBox->toolTip());
-    connect(qccLabel, &ClickLabel::clicked,
-            qcCheckBox, &QCheckBox::toggle);
-
-    auto qcContainerLayout = new QHBoxLayout;
-    qcContainerLayout->addWidget(qcCheckBox);
-    qcContainerLayout->addWidget(qccLabel);
-    qcContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    qcContainerLayout->addWidget(questionMark_9);
-    qcContainerLayout->setSpacing(0);
-    qcContainerLayout->addStretch();
+    qcCheckBox->setText(tr("Quality check"));
+    qcCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Flux_Quality_Flags.html"));
 
     qcLabel = new ClickLabel(tr("Flagging policy :"));
     qcMethodCombo = new QComboBox;
@@ -291,20 +228,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qcMethodCombo->setItemData(1, tr("<b>Foken 2003:</b> A system based on 9 quality grades. \"1\" is best, \"9\" is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system."), Qt::ToolTipRole);
     qcMethodCombo->setItemData(2, tr("<b>Goeckede et al., 2004:</b> A system based on 5 quality grades. \"1\" is best, \"5\" is worst."), Qt::ToolTipRole);
 
-    fpCheckBox = new QCheckBox;
+    fpCheckBox = new RichTextCheckBox;
     fpCheckBox->setToolTip(tr("<b>Footprint estimation:</b> Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given."));
-    auto fpcLabel = new ClickLabel(tr("Footprint estimation"));
-    fpcLabel->setToolTip(fpCheckBox->toolTip());
-    connect(fpcLabel, &ClickLabel::clicked,
-            fpCheckBox, &QCheckBox::toggle);
-
-    auto fpContainerLayout = new QHBoxLayout;
-    fpContainerLayout->addWidget(fpCheckBox);
-    fpContainerLayout->addWidget(fpcLabel);
-    fpContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    fpContainerLayout->addWidget(questionMark_10);
-    fpContainerLayout->setSpacing(0);
-    fpContainerLayout->addStretch();
+    fpCheckBox->setText(tr("Footprint estimation"));
+    fpCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Estimating_Flux_Footprint.html"));
 
     fpLabel = new ClickLabel(tr("Footprint method :"));
     fpMethodCombo = new QComboBox;
@@ -316,45 +243,15 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     fpMethodCombo->setItemData(1, tr("<b>Kormann and Meixner (2001):</b> A cross-wind integrated model based on the solution of the two dimensional advection-diffusion equation given by van Ulden (1978) and others for power-law profiles in wind velocity and eddy diffusivity."), Qt::ToolTipRole);
     fpMethodCombo->setItemData(2, tr("<b>Hsien et al. (2000):</b> A cross-wind integrated model based based on the former model of Gash (1986) and on simulations with a Lagrangian stochastic model."), Qt::ToolTipRole);
 
-    wplCheckBox = new QCheckBox;
+    wplCheckBox = new RichTextCheckBox;
     wplCheckBox->setToolTip(tr("<b>Compensate density fluctuations:</b> This is the so-called WPL correction (Webb et al., 1980). Choose whether to apply the compensation of density fluctuations to raw gas concentrations available as molar densities or mole fractions (moles gas per mole of wet air). The correction does not apply if raw concentrations are available as mixing ratios (mole gas per mole dry air)."));
-    auto wplLabel = new ClickLabel(tr("Compensate density fluctuations"));
-    wplLabel->setToolTip(wplCheckBox->toolTip());
-    connect(wplLabel, &ClickLabel::clicked,
-            wplCheckBox, &QCheckBox::toggle);
+    wplCheckBox->setText(tr("Compensate density fluctuations (WPL terms)"));
+    wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Converting_to_Mixing_Ratio.html"));
 
-    auto wplContainerLayout = new QHBoxLayout;
-    wplContainerLayout->addWidget(wplCheckBox);
-    wplContainerLayout->addWidget(wplLabel);
-    wplContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    wplContainerLayout->addWidget(questionMark_6);
-    wplContainerLayout->setSpacing(0);
-    wplContainerLayout->addStretch();
-
-    wplMethLabel = new ClickLabel(tr("Method :"));
-    wplMethCombo = new QComboBox;
-    wplMethCombo->addItem(tr("Use/convert to mixing ratio, if possible (Burba et al. 2012)"));
-    wplMethCombo->addItem(tr("Webb et al. 1980 (open-path) / Ibrom et al. 2007 (closed-path)"));
-    wplMethCombo->setItemData(0, 1);
-    wplMethCombo->setItemData(1, 0);
-    wplMethCombo->setItemData(0, tr("<b>Use/convert to mixing ratio, if possible:</b> Selecting this option, you instruct EddyPro to use mixing ratio (if selected in <b><i>Basic Settings</i></b>) or to convert available measurement into mixing ratio, at the raw data level, as a method to compensate air density fluctuations. This method is only applicable in closed path analyzers and is applied only if all necessary data is available (e.g., cell temperature and pressure, high frequency H<sub>2</sub>O measurement), otherwise EddyPro automatically switches to the alternative formulation."), Qt::ToolTipRole);
-    wplMethCombo->setItemData(1, tr("<b>Webb et al. 1980 / Ibrom et al. 2007:</b> The traditional \"WPL terms,\" implemented as an <i>a posteriori</i> correction. For open path systems, it corrects density fluctuations using measured sensible heat and evapotranspiration fluxes, corrected for spectral losses and water vapor effects, as applicable. For closed/enclosed path instruments, uses the formulation proposed by Ibrom et al. (2007). However, in EddyPro all terms are used, including the temperature-induced and pressure-induced expansion/contraction terms, neglected in the original publications."), Qt::ToolTipRole);
-    wplMethLabel->setToolTip(wplMethCombo->toolTip());
-
-    burbaCorrCheckBox = new QCheckBox;
+    burbaCorrCheckBox = new RichTextCheckBox;
     burbaCorrCheckBox->setToolTip(tr("<b>Add instrument sensible heat components, only for LI-7500:</b> Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008)."));
-    burbaLabel = new ClickLabel(tr("Add instrument sensible heat components, only for LI-7500"));
-    burbaLabel->setToolTip(burbaCorrCheckBox->toolTip());
-    connect(burbaLabel, &ClickLabel::clicked,
-            burbaCorrCheckBox, &QCheckBox::toggle);
-
-    auto burbaContainerLayout = new QHBoxLayout;
-    burbaContainerLayout->addWidget(burbaCorrCheckBox);
-    burbaContainerLayout->addWidget(burbaLabel);
-    burbaContainerLayout->addSpacerItem(new QSpacerItem(18, 1));
-    burbaContainerLayout->addWidget(questionMark_7);
-    burbaContainerLayout->setSpacing(0);
-    burbaContainerLayout->addStretch();
+    burbaCorrCheckBox->setText(tr("Add instrument sensible heat components, only for LI-7500 "));
+    burbaCorrCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Calculating_Off-season_Uptake_Correction.html"));
 
     burbaTypeLabel = new ClickLabel;
     burbaTypeLabel->setText(tr("Surface temperature estimation :"));
@@ -403,11 +300,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     burbaParamWidget->addWidget(burbaMultiTab);
     burbaParamWidget->setCurrentIndex(0);
 
-    auto wplTitle = new QLabel(tr("Compensation of density fluctuations (WPL terms)"));
+    auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
     wplTitle->setProperty("groupLabel", true);
-
-    auto fftTitle = new QLabel(tr("Fast Fourier Transform"));
-    fftTitle->setProperty("groupLabel", true);
 
     auto qcTitle = new QLabel(tr("Other options"));
     qcTitle->setProperty("groupLabel", true);
@@ -416,8 +310,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
     auto hrLabel_2 = new QLabel;
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
-    auto hrLabel_3 = new QLabel;
-    hrLabel_3->setObjectName(QStringLiteral("hrLabel"));
 
     auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(windOffsetLabel);
@@ -429,19 +321,14 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qBox_2->addWidget(questionMark_4);
     qBox_2->addStretch();
 
-    auto qBox_3 = new QHBoxLayout;
-    qBox_3->addWidget(fftTitle);
-    qBox_3->addWidget(questionMark_8);
-    qBox_3->addStretch();
-
     auto settingsLayout = new QGridLayout;
     settingsLayout->addWidget(rawProcessingTitle, 0, 0);
     settingsLayout->addLayout(qBox_1, 1, 0, 1, 2);
     settingsLayout->addLayout(windComponentLayout, 1, 2, 1, 1);
-    settingsLayout->addLayout(aoaContainerLayout, 2, 0, 1, -1);
+    settingsLayout->addWidget(aoaCheckBox, 2, 0);
     settingsLayout->addWidget(aoaMethLabel, 2, 1, Qt::AlignRight);
     settingsLayout->addWidget(aoaMethCombo, 2, 2);
-    settingsLayout->addLayout(rotContainerLayout, 3, 0);
+    settingsLayout->addWidget(rotCheckBox, 3, 0);
     settingsLayout->addWidget(rotMethLabel, 3, 1, Qt::AlignRight);
     settingsLayout->addWidget(rotMethCombo, 3, 2);
     settingsLayout->addWidget(pfSettingsButton, 3, 3);
@@ -450,49 +337,43 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(detrendCombo, 4, 2);
     settingsLayout->addWidget(timeConstantLabel, 5, 1, Qt::AlignRight);
     settingsLayout->addWidget(timeConstantSpin, 5, 2);
-    settingsLayout->addLayout(timeLagContainerLayout, 6, 0);
+    settingsLayout->addWidget(timeLagCheckBox, 6, 0);
     settingsLayout->addWidget(timeLagMethodLabel, 6, 1, Qt::AlignRight);
     settingsLayout->addWidget(timeLagMethodCombo, 6, 2);
     settingsLayout->addWidget(tlSettingsButton, 6, 3);
     settingsLayout->addWidget(hrLabel, 7, 0, 1, 4);
     settingsLayout->addWidget(wplTitle, 8, 0);
-    settingsLayout->addLayout(wplContainerLayout, 10, 0);
-    settingsLayout->addWidget(wplMethLabel, 10, 1, 1, 1, Qt::AlignRight);
-    settingsLayout->addWidget(wplMethCombo, 10, 2);
-    settingsLayout->addLayout(burbaContainerLayout, 11, 0);
-    settingsLayout->addWidget(burbaTypeLabel, 11, 1, 1, 1, Qt::AlignRight);
-    settingsLayout->addWidget(burbaSimpleRadio, 11, 2);
-    settingsLayout->addWidget(burbaMultiRadio, 12, 2);
-    settingsLayout->addWidget(burbaParamWidget, 13, 0, 1, 4);
-    settingsLayout->addWidget(defaultContainer, 14, 0, 1, 4);
-    settingsLayout->addWidget(hrLabel_2, 15, 0, 1, 4);
-    settingsLayout->addLayout(qBox_3, 16, 0, 1, 3);
-    settingsLayout->addWidget(filterLabel, 17, 1, Qt::AlignRight);
-    settingsLayout->addWidget(filterCombo, 17, 2);
-    settingsLayout->addWidget(nBinsLabel, 18, 1, Qt::AlignRight);
-    settingsLayout->addWidget(nBinsSpin, 18, 2);
-    settingsLayout->addWidget(fftCheckBox, 19, 2);
-    settingsLayout->addWidget(hrLabel_3, 20, 0, 1, 4);
-    settingsLayout->addWidget(qcTitle, 21, 0);
-    settingsLayout->addLayout(qcContainerLayout, 22, 0);
-    settingsLayout->addWidget(qcLabel, 22, 1, Qt::AlignRight);
-    settingsLayout->addWidget(qcMethodCombo, 22, 2);
-    settingsLayout->addLayout(fpContainerLayout, 23, 0);
-    settingsLayout->addWidget(fpLabel, 23, 1, Qt::AlignRight);
-    settingsLayout->addWidget(fpMethodCombo, 23, 2);
-    settingsLayout->setRowStretch(24, 1);
+    settingsLayout->addWidget(wplCheckBox, 10, 0);
+    settingsLayout->addWidget(burbaCorrCheckBox, 11, 0);
+    settingsLayout->addWidget(burbaTypeLabel, 12, 0, 1, 1, Qt::AlignRight);
+    settingsLayout->addWidget(burbaSimpleRadio, 12, 1);
+    settingsLayout->addWidget(burbaMultiRadio, 13, 1);
+    settingsLayout->addWidget(burbaParamWidget, 14, 0, 1, 4);
+    settingsLayout->addWidget(defaultContainer, 15, 0, 1, 4);
+    settingsLayout->addWidget(hrLabel_2, 16, 0, 1, 4);
+    settingsLayout->addWidget(qcTitle, 17, 0);
+    settingsLayout->addWidget(qcCheckBox, 18, 0);
+    settingsLayout->addWidget(qcLabel, 18, 1, Qt::AlignRight);
+    settingsLayout->addWidget(qcMethodCombo, 18, 2);
+    settingsLayout->addWidget(fpCheckBox, 19, 0);
+    settingsLayout->addWidget(fpLabel, 19, 1, Qt::AlignRight);
+    settingsLayout->addWidget(fpMethodCombo, 19, 2);
+    settingsLayout->setRowStretch(20, 1);
     settingsLayout->setColumnStretch(4, 1);
 
-    auto overallFrame = new QWidget;
-    overallFrame->setProperty("scrollContainerWidget", true);
-    overallFrame->setLayout(settingsLayout);
+//    auto overallFrame = new QWidget;
+//    overallFrame->setProperty("scrollContainerWidget", true);
+//    overallFrame->setLayout(settingsLayout);
 
-    auto scrollArea = new QScrollArea;
-    scrollArea->setWidget(overallFrame);
-    scrollArea->setWidgetResizable(true);
+//    auto scrollArea = new QScrollArea;
+//    scrollArea->setWidget(overallFrame);
+//    scrollArea->setWidgetResizable(true);
+
+//    auto settingsGroupLayout = new QHBoxLayout;
+//    settingsGroupLayout->addWidget(scrollArea);
 
     auto settingsGroupLayout = new QHBoxLayout;
-    settingsGroupLayout->addWidget(scrollArea);
+    settingsGroupLayout->addWidget(WidgetUtils::getContainerScrollArea(this, settingsLayout));
 
     auto settingsGroupTitle = new QLabel(tr("Raw Processing Options"));
     settingsGroupTitle->setProperty("groupTitle2", true);
@@ -505,7 +386,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     auto mainLayout = new QVBoxLayout(this);
     mainLayout->addLayout(qBox_11);
     mainLayout->addLayout(settingsGroupLayout);
-    mainLayout->setContentsMargins(15, 15, 0, 10);
+    mainLayout->setContentsMargins(15, 15, 15, 10);
     setLayout(mainLayout);
 
     connect(uLabel, &ClickLabel::clicked,
@@ -522,28 +403,28 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(wOffsetSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateWOffset(double)));
 
-    connect(aoaCheckBox, &QCheckBox::toggled,
+    connect(aoaCheckBox, &RichTextCheckBox::toggled,
             aoaMethLabel, &ClickLabel::setEnabled);
-    connect(aoaCheckBox, &QCheckBox::toggled,
+    connect(aoaCheckBox, &RichTextCheckBox::toggled,
             aoaMethCombo, &QComboBox::setEnabled);
     connect(aoaMethLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickAoaMethLabel);
-    connect(aoaCheckBox, &QCheckBox::toggled,
+    connect(aoaCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateAoaMethod_1);
     connect(aoaMethCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateAoaMethod_2(int)));
 
-    connect(rotCheckBox, &QCheckBox::toggled,
+    connect(rotCheckBox, &RichTextCheckBox::toggled,
             rotMethLabel, &ClickLabel::setEnabled);
-    connect(rotCheckBox, &QCheckBox::toggled,
+    connect(rotCheckBox, &RichTextCheckBox::toggled,
             rotMethCombo, &QComboBox::setEnabled);
     connect(rotMethLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickRotMethLabel);
-    connect(rotCheckBox, &QCheckBox::toggled,
+    connect(rotCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateRotMethod_1);
     connect(rotMethCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateRotMethod_2(int)));
-    connect(rotCheckBox, &QCheckBox::toggled,
+    connect(rotCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updatePfSettingsButton);
 
     connect(pfSettingsButton, &QPushButton::clicked,
@@ -563,69 +444,50 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(timeConstantSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateTimeConst(double)));
 
-    connect(timeLagCheckBox, &QCheckBox::toggled,
+    connect(timeLagCheckBox, &RichTextCheckBox::toggled,
             timeLagMethodLabel, &ClickLabel::setEnabled);
-    connect(timeLagCheckBox, &QCheckBox::toggled,
+    connect(timeLagCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateTlSettingsButton);
-    connect(timeLagCheckBox, &QCheckBox::toggled,
+    connect(timeLagCheckBox, &RichTextCheckBox::toggled,
             timeLagMethodCombo, &QComboBox::setEnabled);
     connect(timeLagMethodLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickTimeLagMethLabel);
-    connect(timeLagCheckBox, &QCheckBox::toggled,
+    connect(timeLagCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateTlagMeth_1);
     connect(timeLagMethodCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateTlagMeth_2(int)));
 
-    connect(filterLabel, &ClickLabel::clicked,
-            this, &AdvProcessingOptions::onClickFilterLabel);
-    connect(filterCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(updateFilter(int)));
-
-    connect(nBinsLabel, &ClickLabel::clicked,
-            this, &AdvProcessingOptions::onNBinsLabelClicked);
-    connect(nBinsSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(updateNBins(int)));
-
-    connect(fftCheckBox, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setScreenlPowerOfTwo(checked); });
-
-    connect(qcCheckBox, &QCheckBox::toggled,
+    connect(qcCheckBox, &RichTextCheckBox::toggled,
             qcLabel, &ClickLabel::setEnabled);
-    connect(qcCheckBox, &QCheckBox::toggled,
+    connect(qcCheckBox, &RichTextCheckBox::toggled,
             qcMethodCombo, &QComboBox::setEnabled);
     connect(qcLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickQcMethodLabel);
-    connect(qcCheckBox, &QCheckBox::toggled,
+    connect(qcCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateQcMeth_1);
     connect(qcMethodCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateQcMeth_2(int)));
 
-    connect(fpCheckBox, &QCheckBox::toggled,
+    connect(fpCheckBox, &RichTextCheckBox::toggled,
             fpLabel, &ClickLabel::setEnabled);
-    connect(fpCheckBox, &QCheckBox::toggled,
+    connect(fpCheckBox, &RichTextCheckBox::toggled,
             fpMethodCombo, &QComboBox::setEnabled);
     connect(fpLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickFpMethodLabel);
-    connect(fpCheckBox, &QCheckBox::toggled,
+    connect(fpCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateFpMeth_1);
     connect(fpMethodCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateFpMeth_2(int)));
 
-    connect(wplMethLabel, &ClickLabel::clicked,
-            this, &AdvProcessingOptions::onClickWplMethLabel);
-    connect(wplCheckBox, &QCheckBox::toggled,
-            wplMethLabel, &ClickLabel::setEnabled);
-    connect(wplCheckBox, &QCheckBox::toggled,
-            wplMethCombo, &QComboBox::setEnabled);
-    connect(wplCheckBox, &QCheckBox::toggled,
+    connect(wplCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateWplMeth_1);
-    connect(wplCheckBox, &QCheckBox::toggled,
+    connect(wplCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateBurbaGroup);
-    connect(wplMethCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(updateToMixingRatio(int)));
-    connect(burbaCorrCheckBox, &QCheckBox::toggled, [=](bool checked)
+    connect(wplCheckBox, &RichTextCheckBox::toggled,
+            [=](bool b){ burbaCorrCheckBox->setEnabled(b); });
+    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenBuCorr(checked); });
-    connect(burbaCorrCheckBox, &QCheckBox::toggled,
+    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::enableBurbaCorrectionArea);
     connect(burbaRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateBurbaType_2(int)));
@@ -642,7 +504,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
                                   << rotMethCombo
                                   << detrendCombo
                                   << timeLagMethodCombo
-                                  << wplMethCombo
                                   << qcMethodCombo
                                   << fpMethodCombo)
     {
@@ -771,26 +632,10 @@ void AdvProcessingOptions::updateTlagMeth_1(bool b)
     if (b)
     {
         ecProject_->setScreenTlagMeth(timeLagMethodCombo->currentIndex() + 1);
-        if (timeLagMethodCombo->currentIndex() == 3)
-        {
-//            toLabel->setEnabled(true);
-//            toEdit->setEnabled(true);
-//            toBrowse->setEnabled(true);
-//            meLabel->setEnabled(true);
-//            meEdit->setEnabled(true);
-//            meBrowse->setEnabled(true);
-        }
     }
     else
     {
         ecProject_->setScreenTlagMeth(0);
-
-//        toLabel->setEnabled(false);
-//        toEdit->setEnabled(false);
-//        toBrowse->setEnabled(false);
-//        meLabel->setEnabled(false);
-//        meEdit->setEnabled(false);
-//        meBrowse->setEnabled(false);
     }
 }
 
@@ -800,16 +645,6 @@ void AdvProcessingOptions::updateTlagMeth_2(int n)
 
     // timelag optimization button
     tlSettingsButton->setEnabled(n == 3);
-}
-
-void AdvProcessingOptions::updateFilter(int n)
-{
-    ecProject_->setScreenTapWin(n);
-}
-
-void AdvProcessingOptions::updateNBins(int n)
-{
-    ecProject_->setScreenNBins(n);
 }
 
 void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
@@ -842,10 +677,12 @@ void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
     }
     else if (currDetrendMethod == DetrendMethod::LinearDetrending)
     {
-        if (timeConstantSpin->value() == 4.2)
+        if (qFuzzyCompare(timeConstantSpin->value(), 4.2))
+        {
             timeConstantSpin->setValue(0.0);
+        }
         timeConstantSpin->setSingleStep(1.0);
-        timeConstantSpin->setSuffix(tr("  [m]", "Minute"));
+        timeConstantSpin->setSuffix(tr("  [min]", "Minute"));
         timeConstantLabel->setEnabled(true);
         timeConstantSpin->setEnabled(true);
         timeConstantSpin->setFocus();
@@ -904,14 +741,6 @@ void AdvProcessingOptions::onClickTimeLagMethLabel()
     }
 }
 
-void AdvProcessingOptions::onClickFilterLabel()
-{
-    if (filterCombo->isEnabled())
-    {
-        filterCombo->showPopup();
-    }
-}
-
 void AdvProcessingOptions::onULabelClicked()
 {
     uOffsetSpin->setFocus();
@@ -930,12 +759,6 @@ void AdvProcessingOptions::onWLabelClicked()
     wOffsetSpin->selectAll();
 }
 
-void AdvProcessingOptions::onNBinsLabelClicked()
-{
-    nBinsSpin->setFocus();
-    nBinsSpin->selectAll();
-}
-
 void AdvProcessingOptions::reset()
 {
     DEBUG_FUNC_NAME
@@ -944,24 +767,24 @@ void AdvProcessingOptions::reset()
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
 
-    uOffsetSpin->setValue(0.0);
-    vOffsetSpin->setValue(0.0);
-    wOffsetSpin->setValue(0.0);
-    aoaCheckBox->setChecked(false);
+    uOffsetSpin->setValue(ecProject_->defaultSettings.screenSetting.u_offset);
+    vOffsetSpin->setValue(ecProject_->defaultSettings.screenSetting.v_offset);
+    wOffsetSpin->setValue(ecProject_->defaultSettings.screenSetting.w_offset);
+
+    aoaCheckBox->setChecked(ecProject_->defaultSettings.screenSetting.flow_distortion);
     aoaMethCombo->setCurrentIndex(0);
-    // ecProject_->setScreenFlowDistortion(0);
 
     rotCheckBox->setChecked(true);
     rotMethCombo->setCurrentIndex(0);
     pfSettingsButton->setEnabled(false);
-    detrendCombo->setCurrentIndex(0);
-    timeConstantSpin->setValue(250.0);
+
+    detrendCombo->setCurrentIndex(ecProject_->defaultSettings.screenSetting.detrend_meth);
+
+    timeConstantSpin->setValue(ecProject_->defaultSettings.screenSetting.timeconst);
+
     timeLagCheckBox->setChecked(true);
     timeLagMethodCombo->setCurrentIndex(1);
     tlSettingsButton->setEnabled(false);
-    filterCombo->setCurrentIndex(3);
-    nBinsSpin->setValue(50);
-    fftCheckBox->setChecked(true);
 
     pfDialog_->reset();
     tlDialog_->reset();
@@ -974,13 +797,11 @@ void AdvProcessingOptions::reset()
     fpCheckBox->setChecked(true);
     fpMethodCombo->setCurrentIndex(0);
 
-    wplMethCombo->setCurrentIndex(0);
-    wplCheckBox->setChecked(true);
+    wplCheckBox->setChecked(ecProject_->defaultSettings.projectGeneral.wpl_meth);
 
     setBurbaDefaultValues();
 
-    burbaLabel->setEnabled(false);
-    burbaCorrCheckBox->setEnabled(false);
+    burbaCorrCheckBox->setEnabled(true);
     burbaCorrCheckBox->setChecked(false);
 
     enableBurbaCorrectionArea(false);
@@ -994,7 +815,6 @@ void AdvProcessingOptions::reset()
     WidgetUtils::updateComboItemTooltip(rotMethCombo, 0);
     WidgetUtils::updateComboItemTooltip(detrendCombo, 0);
     WidgetUtils::updateComboItemTooltip(timeLagMethodCombo, 1);
-    WidgetUtils::updateComboItemTooltip(wplMethCombo, 0);
     WidgetUtils::updateComboItemTooltip(qcMethodCombo, 0);
     WidgetUtils::updateComboItemTooltip(fpMethodCombo, 0);
 
@@ -1015,7 +835,16 @@ void AdvProcessingOptions::refresh()
     vOffsetSpin->setValue(ecProject_->screenVOffset());
     wOffsetSpin->setValue(ecProject_->screenWOffset());
 
-    refreshAngleOfAttack();
+    auto aoaCorrection = ecProject_->screenFlowDistortion();
+    aoaCheckBox->setChecked(aoaCorrection);
+    if (aoaCorrection)
+    {
+        aoaMethCombo->setCurrentIndex(aoaCorrection - 1);
+    }
+    else
+    {
+        aoaMethCombo->setCurrentIndex(0);
+    }
 
     rotCheckBox->setChecked(ecProject_->screenRotMethod());
     if (ecProject_->screenRotMethod())
@@ -1026,6 +855,7 @@ void AdvProcessingOptions::refresh()
     {
         rotMethCombo->setCurrentIndex(0);
     }
+
     pfSettingsButton->setEnabled((ecProject_->screenRotMethod() == 3)
                                  || (ecProject_->screenRotMethod() == 4));
 
@@ -1042,10 +872,6 @@ void AdvProcessingOptions::refresh()
         timeLagMethodCombo->setCurrentIndex(0);
     }
     tlSettingsButton->setEnabled(ecProject_->screenTlagMeth() == 4);
-
-    filterCombo->setCurrentIndex(ecProject_->screenTapWin());
-    nBinsSpin->setValue(ecProject_->screenNBins());
-    fftCheckBox->setChecked(ecProject_->screenPowerOfTwo());
 
     qcCheckBox->setChecked(ecProject_->generalQcfMeth());
     if (ecProject_->generalQcfMeth())
@@ -1068,11 +894,9 @@ void AdvProcessingOptions::refresh()
     }
 
     wplCheckBox->setChecked(ecProject_->generalWplMeth());
-    wplMethCombo->setCurrentIndex(wplMethCombo->findData(ecProject_->screenToMixRatio()));
 
     burbaCorrCheckBox->setChecked(ecProject_->screenBuCorr());
-    burbaCorrCheckBox->setEnabled(wplMethCombo->currentIndex());
-    burbaLabel->setEnabled(wplMethCombo->currentIndex());
+    burbaCorrCheckBox->setEnabled(ecProject_->generalWplMeth());
 
     burbaRadioGroup->buttons().at(ecProject_->screenBuMulti())->setChecked(true);
 
@@ -1080,48 +904,48 @@ void AdvProcessingOptions::refresh()
     burbaSimpleTab->setCurrentIndex(0);
     burbaMultiTab->setCurrentIndex(0);
 
-    burbaTypeLabel->setEnabled(burbaCorrCheckBox->isChecked());
-    burbaSimpleRadio->setEnabled(burbaCorrCheckBox->isChecked());
-    burbaParamWidget->setEnabled(burbaCorrCheckBox->isChecked());
-    burbaMultiTab->setEnabled(burbaCorrCheckBox->isChecked());
-    setDefaultsButton->setEnabled(burbaCorrCheckBox->isChecked());
+    burbaTypeLabel->setEnabled(wplCheckBox->isChecked() && burbaCorrCheckBox->isChecked());
+    burbaSimpleRadio->setEnabled(wplCheckBox->isChecked() && burbaCorrCheckBox->isChecked());
+    burbaParamWidget->setEnabled(wplCheckBox->isChecked() && burbaCorrCheckBox->isChecked());
+    burbaMultiTab->setEnabled(wplCheckBox->isChecked() && burbaCorrCheckBox->isChecked());
+    setDefaultsButton->setEnabled(wplCheckBox->isChecked() && burbaCorrCheckBox->isChecked());
 
-    lDayBotGain->setText(QString::number(ecProject_->screenLDayBotGain()));
-    lDayBotOffset->setText(QString::number(ecProject_->screenLDayBotOffset()));
-    lDayTopGain->setText(QString::number(ecProject_->screenLDayTopGain()));
-    lDayTopOffset->setText(QString::number(ecProject_->screenLDayTopOffset()));
-    lDaySparGain->setText(QString::number(ecProject_->screenLDaySparGain()));
-    lDaySparOffset->setText(QString::number(ecProject_->screenLDaySparOffset()));
-    lNightBotGain->setText(QString::number(ecProject_->screenLNightBotGain()));
-    lNightBotOffset->setText(QString::number(ecProject_->screenLNightBotOffset()));
-    lNightTopGain->setText(QString::number(ecProject_->screenLNightTopGain()));
-    lNightTopOffset->setText(QString::number(ecProject_->screenLNightTopOffset()));
-    lNightSparGain->setText(QString::number(ecProject_->screenLNightSparGain()));
-    lNightSparOffset->setText(QString::number(ecProject_->screenLNightSparOffset()));
-    mDayBot1->setText(QString::number(ecProject_->screenMDayBot1()));
-    mDayBot2->setText(QString::number(ecProject_->screenMDayBot2()));
-    mDayBot3->setText(QString::number(ecProject_->screenMDayBot3()));
-    mDayBot4->setText(QString::number(ecProject_->screenMDayBot4()));
-    mDayTop1->setText(QString::number(ecProject_->screenMDayTop1()));
-    mDayTop2->setText(QString::number(ecProject_->screenMDayTop2()));
-    mDayTop3->setText(QString::number(ecProject_->screenMDayTop3()));
-    mDayTop4->setText(QString::number(ecProject_->screenMDayTop4()));
-    mDaySpar1->setText(QString::number(ecProject_->screenMDaySpar1()));
-    mDaySpar2->setText(QString::number(ecProject_->screenMDaySpar2()));
-    mDaySpar3->setText(QString::number(ecProject_->screenMDaySpar3()));
-    mDaySpar4->setText(QString::number(ecProject_->screenMDaySpar4()));
-    mNightBot1->setText(QString::number(ecProject_->screenMNightBot1()));
-    mNightBot2->setText(QString::number(ecProject_->screenMNightBot2()));
-    mNightBot3->setText(QString::number(ecProject_->screenMNightBot3()));
-    mNightBot4->setText(QString::number(ecProject_->screenMNightBot4()));
-    mNightTop1->setText(QString::number(ecProject_->screenMNightTop1()));
-    mNightTop2->setText(QString::number(ecProject_->screenMNightTop2()));
-    mNightTop3->setText(QString::number(ecProject_->screenMNightTop3()));
-    mNightTop4->setText(QString::number(ecProject_->screenMNightTop4()));
-    mNightSpar1->setText(QString::number(ecProject_->screenMNightSpar1()));
-    mNightSpar2->setText(QString::number(ecProject_->screenMNightSpar2()));
-    mNightSpar3->setText(QString::number(ecProject_->screenMNightSpar3()));
-    mNightSpar4->setText(QString::number(ecProject_->screenMNightSpar4()));
+    lDayBotGain->setText(QString::number(ecProject_->screenLDayBotGain(), 'f', 3));
+    lDayBotOffset->setText(QString::number(ecProject_->screenLDayBotOffset(), 'f', 2));
+    lDayTopGain->setText(QString::number(ecProject_->screenLDayTopGain(), 'f', 3));
+    lDayTopOffset->setText(QString::number(ecProject_->screenLDayTopOffset(), 'f', 2));
+    lDaySparGain->setText(QString::number(ecProject_->screenLDaySparGain(), 'f', 3));
+    lDaySparOffset->setText(QString::number(ecProject_->screenLDaySparOffset(), 'f', 2));
+    lNightBotGain->setText(QString::number(ecProject_->screenLNightBotGain(), 'f', 3));
+    lNightBotOffset->setText(QString::number(ecProject_->screenLNightBotOffset(), 'f', 2));
+    lNightTopGain->setText(QString::number(ecProject_->screenLNightTopGain(), 'f', 3));
+    lNightTopOffset->setText(QString::number(ecProject_->screenLNightTopOffset(), 'f', 2));
+    lNightSparGain->setText(QString::number(ecProject_->screenLNightSparGain(), 'f', 3));
+    lNightSparOffset->setText(QString::number(ecProject_->screenLNightSparOffset(), 'f', 2));
+    mDayBot1->setText(QString::number(ecProject_->screenMDayBot1(), 'f', 1));
+    mDayBot2->setText(QString::number(ecProject_->screenMDayBot2(), 'f', 4));
+    mDayBot3->setText(QString::number(ecProject_->screenMDayBot3(), 'f', 4));
+    mDayBot4->setText(QString::number(ecProject_->screenMDayBot4(), 'f', 3));
+    mDayTop1->setText(QString::number(ecProject_->screenMDayTop1(), 'f', 1));
+    mDayTop2->setText(QString::number(ecProject_->screenMDayTop2(), 'f', 4));
+    mDayTop3->setText(QString::number(ecProject_->screenMDayTop3(), 'f', 4));
+    mDayTop4->setText(QString::number(ecProject_->screenMDayTop4(), 'f', 3));
+    mDaySpar1->setText(QString::number(ecProject_->screenMDaySpar1(), 'f', 1));
+    mDaySpar2->setText(QString::number(ecProject_->screenMDaySpar2(), 'f', 4));
+    mDaySpar3->setText(QString::number(ecProject_->screenMDaySpar3(), 'f', 4));
+    mDaySpar4->setText(QString::number(ecProject_->screenMDaySpar4(), 'f', 3));
+    mNightBot1->setText(QString::number(ecProject_->screenMNightBot1(), 'f', 1));
+    mNightBot2->setText(QString::number(ecProject_->screenMNightBot2(), 'f', 4));
+    mNightBot3->setText(QString::number(ecProject_->screenMNightBot3(), 'f', 4));
+    mNightBot4->setText(QString::number(ecProject_->screenMNightBot4(), 'f', 3));
+    mNightTop1->setText(QString::number(ecProject_->screenMNightTop1(), 'f', 1));
+    mNightTop2->setText(QString::number(ecProject_->screenMNightTop2(), 'f', 4));
+    mNightTop3->setText(QString::number(ecProject_->screenMNightTop3(), 'f', 4));
+    mNightTop4->setText(QString::number(ecProject_->screenMNightTop4(), 'f', 3));
+    mNightSpar1->setText(QString::number(ecProject_->screenMNightSpar1(), 'f', 1));
+    mNightSpar2->setText(QString::number(ecProject_->screenMNightSpar2(), 'f', 4));
+    mNightSpar3->setText(QString::number(ecProject_->screenMNightSpar3(), 'f', 4));
+    mNightSpar4->setText(QString::number(ecProject_->screenMNightSpar4(), 'f', 3));
 
     // restore modified flag
     ecProject_->setModified(oldmod);
@@ -1225,54 +1049,48 @@ void AdvProcessingOptions::createBurbaParamItems()
     auto multiDayGrid = new QGridLayout;
     auto multiNightGrid = new QGridLayout;
 
-    simpleDayGrid->addWidget(new QLabel(tr("Bottom :")), 0, 0, 1, 1, Qt::AlignRight);
-    simpleDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> = ")), 0, 1, 1, 1);
-    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 0, 3, 1, 1);
-    simpleDayGrid->addWidget(new QLabel(tr("Top :")), 1, 0, 1, 1, Qt::AlignRight);
-    simpleDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> = ")), 1, 1, 1, 1);
-    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 1, 3, 1, 1);
-    simpleDayGrid->addWidget(new QLabel(tr("Spar :")), 2, 0, 1, 1, Qt::AlignRight);
-    simpleDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> = ")), 2, 1, 1, 1);
-    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 2, 3, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
+    simpleDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> = "), this), 0, 1, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
+    simpleDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> = "), this), 1, 1, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    simpleDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> = "), this), 2, 1, 1, 1);
+    simpleDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
 
-    simpleNightGrid->addWidget(new QLabel(tr("Bottom :")), 0, 0, 1, 1, Qt::AlignRight);
-    simpleNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> = ")), 0, 1, 1, 1);
-    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 0, 3, 1, 1);
-    simpleNightGrid->addWidget(new QLabel(tr("Top :")), 1, 0, 1, 1, Qt::AlignRight);
-    simpleNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> = ")), 1, 1, 1, 1);
-    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 1, 3, 1, 1);
-    simpleNightGrid->addWidget(new QLabel(tr("Spar :")), 2, 0, 1, 1, Qt::AlignRight);
-    simpleNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> = ")), 2, 1, 1, 1);
-    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 2, 3, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
+    simpleNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> = "), this), 0, 1, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
+    simpleNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> = "), this), 1, 1, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    simpleNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> = "), this), 2, 1, 1, 1);
+    simpleNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
 
     // matching floating point number with no exponents
     QString floatingPointRegexp = QStringLiteral("[-+]?[0-9]*\\.?[0-9]+");
     // TODO: use a QDoubleValidator with also range specs
 
-    lDayBotGain = new QwwResetLineEdit;
+    lDayBotGain = new CustomResetLineEdit;
     lDayBotGain->setMaxLength(10);
     lDayBotGain->setRegExp(floatingPointRegexp);
-    lDayBotGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lDayBotOffset = new QwwResetLineEdit;
+    lDayBotOffset = new CustomResetLineEdit;
     lDayBotOffset->setMaxLength(10);
     lDayBotOffset->setRegExp(floatingPointRegexp);
-    lDayBotOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lDayTopGain = new QwwResetLineEdit;
+    lDayTopGain = new CustomResetLineEdit;
     lDayTopGain->setMaxLength(10);
     lDayTopGain->setRegExp(floatingPointRegexp);
-    lDayTopGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lDayTopOffset = new QwwResetLineEdit;
+    lDayTopOffset = new CustomResetLineEdit;
     lDayTopOffset->setMaxLength(10);
     lDayTopOffset->setRegExp(floatingPointRegexp);
-    lDayTopOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lDaySparGain = new QwwResetLineEdit;
+    lDaySparGain = new CustomResetLineEdit;
     lDaySparGain->setMaxLength(10);
     lDaySparGain->setRegExp(floatingPointRegexp);
-    lDaySparGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lDaySparOffset = new QwwResetLineEdit;
+    lDaySparOffset = new CustomResetLineEdit;
     lDaySparOffset->setMaxLength(10);
     lDaySparOffset->setRegExp(floatingPointRegexp);
-    lDaySparOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
 
     simpleDayGrid->addWidget(lDayBotGain, 0, 2, 1, 1);
     simpleDayGrid->addWidget(lDayBotOffset, 0, 4, 1, 1);
@@ -1282,30 +1100,24 @@ void AdvProcessingOptions::createBurbaParamItems()
     simpleDayGrid->addWidget(lDaySparOffset, 2, 4, 1, 1);
     simpleDayGrid->setColumnStretch(5, 1);
 
-    lNightBotGain = new QwwResetLineEdit;
+    lNightBotGain = new CustomResetLineEdit;
     lNightBotGain->setMaxLength(10);
     lNightBotGain->setRegExp(floatingPointRegexp);
-    lNightBotGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lNightBotOffset = new QwwResetLineEdit;
+    lNightBotOffset = new CustomResetLineEdit;
     lNightBotOffset->setMaxLength(10);
     lNightBotOffset->setRegExp(floatingPointRegexp);
-    lNightBotOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lNightTopGain = new QwwResetLineEdit;
+    lNightTopGain = new CustomResetLineEdit;
     lNightTopGain->setMaxLength(10);
     lNightTopGain->setRegExp(floatingPointRegexp);
-    lNightTopGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lNightTopOffset = new QwwResetLineEdit;
+    lNightTopOffset = new CustomResetLineEdit;
     lNightTopOffset->setMaxLength(10);
     lNightTopOffset->setRegExp(floatingPointRegexp);
-    lNightTopOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lNightSparGain = new QwwResetLineEdit;
+    lNightSparGain = new CustomResetLineEdit;
     lNightSparGain->setMaxLength(10);
     lNightSparGain->setRegExp(floatingPointRegexp);
-    lNightSparGain->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    lNightSparOffset = new QwwResetLineEdit;
+    lNightSparOffset = new CustomResetLineEdit;
     lNightSparOffset->setMaxLength(10);
     lNightSparOffset->setRegExp(floatingPointRegexp);
-    lNightSparOffset->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
 
     simpleNightGrid->addWidget(lNightBotGain, 0, 2, 1, 1);
     simpleNightGrid->addWidget(lNightBotOffset, 0, 4, 1, 1);
@@ -1315,70 +1127,58 @@ void AdvProcessingOptions::createBurbaParamItems()
     simpleNightGrid->addWidget(lNightSparOffset, 2, 4, 1, 1);
     simpleNightGrid->setColumnStretch(5, 1);
 
-    multiDayGrid->addWidget(new QLabel(tr("Bottom :")), 0, 0, 1, 1, Qt::AlignRight);
-    multiDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = ")), 0, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 0, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + ")), 0, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + ")), 0, 7, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr("Top :")), 1, 0, 1, 1, Qt::AlignRight);
-    multiDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = ")), 1, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 1, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + ")), 1, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + ")), 1, 7, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr("Spar :")), 2, 0, 1, 1, Qt::AlignRight);
-    multiDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = ")), 2, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 2, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + ")), 2, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + ")), 2, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
+    multiDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 0, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
+    multiDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 1, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    multiDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 2, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
 
-    mDayBot1 = new QwwResetLineEdit;
+    mDayBot1 = new CustomResetLineEdit;
     mDayBot1->setMaxLength(10);
     mDayBot1->setRegExp(floatingPointRegexp);
-    mDayBot1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayBot2 = new QwwResetLineEdit;
+    mDayBot2 = new CustomResetLineEdit;
     mDayBot2->setMaxLength(10);
     mDayBot2->setRegExp(floatingPointRegexp);
-    mDayBot2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayBot3 = new QwwResetLineEdit;
+    mDayBot3 = new CustomResetLineEdit;
     mDayBot3->setMaxLength(10);
     mDayBot3->setRegExp(floatingPointRegexp);
-    mDayBot3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayBot4 = new QwwResetLineEdit;
+    mDayBot4 = new CustomResetLineEdit;
     mDayBot4->setMaxLength(10);
     mDayBot4->setRegExp(floatingPointRegexp);
-    mDayBot4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayTop1 = new QwwResetLineEdit;
+    mDayTop1 = new CustomResetLineEdit;
     mDayTop1->setMaxLength(10);
     mDayTop1->setRegExp(floatingPointRegexp);
-    mDayTop1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayTop2 = new QwwResetLineEdit;
+    mDayTop2 = new CustomResetLineEdit;
     mDayTop2->setMaxLength(10);
     mDayTop2->setRegExp(floatingPointRegexp);
-    mDayTop2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayTop3 = new QwwResetLineEdit;
+    mDayTop3 = new CustomResetLineEdit;
     mDayTop3->setMaxLength(10);
     mDayTop3->setRegExp(floatingPointRegexp);
-    mDayTop3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDayTop4 = new QwwResetLineEdit;
+    mDayTop4 = new CustomResetLineEdit;
     mDayTop4->setMaxLength(10);
     mDayTop4->setRegExp(floatingPointRegexp);
-    mDayTop4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDaySpar1 = new QwwResetLineEdit;
+    mDaySpar1 = new CustomResetLineEdit;
     mDaySpar1->setMaxLength(10);
     mDaySpar1->setRegExp(floatingPointRegexp);
-    mDaySpar1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDaySpar2 = new QwwResetLineEdit;
+    mDaySpar2 = new CustomResetLineEdit;
     mDaySpar2->setMaxLength(10);
     mDaySpar2->setRegExp(floatingPointRegexp);
-    mDaySpar2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDaySpar3 = new QwwResetLineEdit;
+    mDaySpar3 = new CustomResetLineEdit;
     mDaySpar3->setMaxLength(10);
     mDaySpar3->setRegExp(floatingPointRegexp);
-    mDaySpar3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mDaySpar4 = new QwwResetLineEdit;
+    mDaySpar4 = new CustomResetLineEdit;
     mDaySpar4->setMaxLength(10);
     mDaySpar4->setRegExp(floatingPointRegexp);
-    mDaySpar4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
 
     multiDayGrid->addWidget(mDayBot1, 0, 2, 1, 1);
     multiDayGrid->addWidget(mDayBot2, 0, 4, 1, 1);
@@ -1398,70 +1198,58 @@ void AdvProcessingOptions::createBurbaParamItems()
     multiDayGrid->setColumnMinimumWidth(8, 75);
     multiDayGrid->setColumnStretch(9, 1);
 
-    multiNightGrid->addWidget(new QLabel(tr("Bottom :")), 0, 0, 1, 1, Qt::AlignRight);
-    multiNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = ")), 0, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 0, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + ")), 0, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + ")), 0, 7, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr("Top :")), 1, 0, 1, 1, Qt::AlignRight);
-    multiNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = ")), 1, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 1, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + ")), 1, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + ")), 1, 7, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr("Spar :")), 2, 0, 1, 1, Qt::AlignRight);
-    multiNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = ")), 2, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + ")), 2, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + ")), 2, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + ")), 2, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
+    multiNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 0, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
+    multiNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 1, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    multiNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 2, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
 
-    mNightBot1 = new QwwResetLineEdit;
+    mNightBot1 = new CustomResetLineEdit;
     mNightBot1->setMaxLength(10);
     mNightBot1->setRegExp(floatingPointRegexp);
-    mNightBot1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightBot2 = new QwwResetLineEdit;
+    mNightBot2 = new CustomResetLineEdit;
     mNightBot2->setMaxLength(10);
     mNightBot2->setRegExp(floatingPointRegexp);
-    mNightBot2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightBot3 = new QwwResetLineEdit;
+    mNightBot3 = new CustomResetLineEdit;
     mNightBot3->setMaxLength(10);
     mNightBot3->setRegExp(floatingPointRegexp);
-    mNightBot3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightBot4 = new QwwResetLineEdit;
+    mNightBot4 = new CustomResetLineEdit;
     mNightBot4->setMaxLength(10);
     mNightBot4->setRegExp(floatingPointRegexp);
-    mNightBot4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightTop1 = new QwwResetLineEdit;
+    mNightTop1 = new CustomResetLineEdit;
     mNightTop1->setMaxLength(10);
     mNightTop1->setRegExp(floatingPointRegexp);
-    mNightTop1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightTop2 = new QwwResetLineEdit;
+    mNightTop2 = new CustomResetLineEdit;
     mNightTop2->setMaxLength(10);
     mNightTop2->setRegExp(floatingPointRegexp);
-    mNightTop2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightTop3 = new QwwResetLineEdit;
+    mNightTop3 = new CustomResetLineEdit;
     mNightTop3->setMaxLength(10);
     mNightTop3->setRegExp(floatingPointRegexp);
-    mNightTop3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightTop4 = new QwwResetLineEdit;
+    mNightTop4 = new CustomResetLineEdit;
     mNightTop4->setMaxLength(10);
     mNightTop4->setRegExp(floatingPointRegexp);
-    mNightTop4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightSpar1 = new QwwResetLineEdit;
+    mNightSpar1 = new CustomResetLineEdit;
     mNightSpar1->setMaxLength(10);
     mNightSpar1->setRegExp(floatingPointRegexp);
-    mNightSpar1->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightSpar2 = new QwwResetLineEdit;
+    mNightSpar2 = new CustomResetLineEdit;
     mNightSpar2->setMaxLength(10);
     mNightSpar2->setRegExp(floatingPointRegexp);
-    mNightSpar2->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightSpar3 = new QwwResetLineEdit;
+    mNightSpar3 = new CustomResetLineEdit;
     mNightSpar3->setMaxLength(10);
     mNightSpar3->setRegExp(floatingPointRegexp);
-    mNightSpar3->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
-    mNightSpar4 = new QwwResetLineEdit;
+    mNightSpar4 = new CustomResetLineEdit;
     mNightSpar4->setMaxLength(10);
     mNightSpar4->setRegExp(floatingPointRegexp);
-    mNightSpar4->setIcon(QIcon(QStringLiteral(":/icons/reset-line")));
 
     multiNightGrid->addWidget(mNightBot1, 0, 2, 1, 1);
     multiNightGrid->addWidget(mNightBot2, 0, 4, 1, 1);
@@ -1486,129 +1274,129 @@ void AdvProcessingOptions::createBurbaParamItems()
     burbaMultiDay->setLayout(multiDayGrid);
     burbaMultiNight->setLayout(multiNightGrid);
 
-    connect(lDayBotGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDayBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDayBotGain(s.toDouble()); });
-    connect(lDayBotOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDayBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDayBotOffset(s.toDouble()); });
-    connect(lDayTopGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDayTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDayTopGain(s.toDouble()); });
-    connect(lDayTopOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDayTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDayTopOffset(s.toDouble()); });
-    connect(lDaySparGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDaySparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDaySparGain(s.toDouble()); });
-    connect(lDaySparOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lDaySparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLDaySparOffset(s.toDouble()); });
 
-    connect(lNightBotGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightBotGain(s.toDouble()); });
-    connect(lNightBotOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightBotOffset(s.toDouble()); });
-    connect(lNightTopGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightTopGain(s.toDouble()); });
-    connect(lNightTopOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightTopOffset(s.toDouble()); });
-    connect(lNightSparGain, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightSparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightSparGain(s.toDouble()); });
-    connect(lNightSparOffset, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(lNightSparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenLNightSparOffset(s.toDouble()); });
 
-    connect(mDayBot1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayBot1(s.toDouble()); });
-    connect(mDayBot2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayBot2(s.toDouble()); });
-    connect(mDayBot3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayBot3(s.toDouble()); });
-    connect(mDayBot4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayBot4(s.toDouble()); });
 
-    connect(mDayTop1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayTop1(s.toDouble()); });
-    connect(mDayTop2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayTop2(s.toDouble()); });
-    connect(mDayTop3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayTop3(s.toDouble()); });
-    connect(mDayTop4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDayTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDayTop4(s.toDouble()); });
 
-    connect(mDaySpar1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDaySpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDaySpar1(s.toDouble()); });
-    connect(mDaySpar2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDaySpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDaySpar2(s.toDouble()); });
-    connect(mDaySpar3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDaySpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDaySpar3(s.toDouble()); });
-    connect(mDaySpar4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mDaySpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMDaySpar4(s.toDouble()); });
 
-    connect(mNightBot1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightBot1(s.toDouble()); });
-    connect(mNightBot2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightBot2(s.toDouble()); });
-    connect(mNightBot3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightBot3(s.toDouble()); });
-    connect(mNightBot4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightBot4(s.toDouble()); });
 
-    connect(mNightTop1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightTop1(s.toDouble()); });
-    connect(mNightTop2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightTop2(s.toDouble()); });
-    connect(mNightTop3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightTop3(s.toDouble()); });
-    connect(mNightTop4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightTop4(s.toDouble()); });
 
-    connect(mNightSpar1, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightSpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightSpar1(s.toDouble()); });
-    connect(mNightSpar2, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightSpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightSpar2(s.toDouble()); });
-    connect(mNightSpar3, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightSpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightSpar3(s.toDouble()); });
-    connect(mNightSpar4, &QwwResetLineEdit::textChanged, [=](const QString &s)
+    connect(mNightSpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
             { ecProject_->setScreenMNightSpar4(s.toDouble()); });
 }
 
 void AdvProcessingOptions::setBurbaDefaultValues()
 {
     // init
-    lDayBotGain->setText(tr("0.944"));
-    lDayBotOffset->setText(tr("2.57"));
-    lDayTopGain->setText(tr("1.005"));
-    lDayTopOffset->setText(tr("0.24"));
-    lDaySparGain->setText(tr("1.010"));
-    lDaySparOffset->setText(tr("0.36"));
+    lDayBotGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_bot_gain, 'f', 3));
+    lDayBotOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_bot_offset, 'f', 2));
+    lDayTopGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_top_gain, 'f', 3));
+    lDayTopOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_top_offset, 'f', 2));
+    lDaySparGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_spar_gain, 'f', 3));
+    lDaySparOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_day_spar_offset, 'f', 2));
 
-    lNightBotGain->setText(tr("0.883"));
-    lNightBotOffset->setText(tr("2.17"));
-    lNightTopGain->setText(tr("1.008"));
-    lNightTopOffset->setText(tr("-0.41"));
-    lNightSparGain->setText(tr("1.010"));
-    lNightSparOffset->setText(tr("-0.17"));
+    lNightBotGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_bot_gain, 'f', 3));
+    lNightBotOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_bot_offset, 'f', 2));
+    lNightTopGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_top_gain, 'f', 3));
+    lNightTopOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_top_offset, 'f', 2));
+    lNightSparGain->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_spar_gain, 'f', 3));
+    lNightSparOffset->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.l_night_spar_offset, 'f', 2));
 
-    mNightBot1->setText(tr("0.5"));
-    mNightBot2->setText(tr("-0.1160"));
-    mNightBot3->setText(tr("0.0087"));
-    mNightBot4->setText(tr("-0.206"));
-    mNightTop1->setText(tr("-1.7"));
-    mNightTop2->setText(tr("-0.0160"));
-    mNightTop3->setText(tr("0.0051"));
-    mNightTop4->setText(tr("-0.029"));
-    mNightSpar1->setText(tr("-2.1"));
-    mNightSpar2->setText(tr("-0.0200"));
-    mNightSpar3->setText(tr("0.0070"));
-    mNightSpar4->setText(tr("0.026"));
+    mDayBot1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_bot1, 'f', 1));
+    mDayBot2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_bot2, 'f', 4));
+    mDayBot3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_bot3, 'f', 4));
+    mDayBot4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_bot4, 'f', 3));
+    mDayTop1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_top1, 'f', 1));
+    mDayTop2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_top2, 'f', 4));
+    mDayTop3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_top3, 'f', 4));
+    mDayTop4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_top4, 'f', 3));
+    mDaySpar1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_spar1, 'f', 1));
+    mDaySpar2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_spar2, 'f', 4));
+    mDaySpar3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_spar3, 'f', 4));
+    mDaySpar4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_day_spar4, 'f', 3));
 
-    mDayBot1->setText(tr("2.8"));
-    mDayBot2->setText(tr("-0.0681"));
-    mDayBot3->setText(tr("0.0021"));
-    mDayBot4->setText(tr("-0.334"));
-    mDayTop1->setText(tr("-0.1"));
-    mDayTop2->setText(tr("-0.0044"));
-    mDayTop3->setText(tr("0.0011"));
-    mDayTop4->setText(tr("-0.022"));
-    mDaySpar1->setText(tr("0.3"));
-    mDaySpar2->setText(tr("-0.0007"));
-    mDaySpar3->setText(tr("0.0006"));
-    mDaySpar4->setText(tr("-0.044"));
+    mNightBot1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_bot1, 'f', 1));
+    mNightBot2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_bot2, 'f', 4));
+    mNightBot3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_bot3, 'f', 4));
+    mNightBot4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_bot4, 'f', 3));
+    mNightTop1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_top1, 'f', 1));
+    mNightTop2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_top2, 'f', 4));
+    mNightTop3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_top3, 'f', 4));
+    mNightTop4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_top4, 'f', 3));
+    mNightSpar1->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_spar1, 'f', 1));
+    mNightSpar2->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_spar2, 'f', 4));
+    mNightSpar3->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_spar3, 'f', 4));
+    mNightSpar4->setDefaultText(QString::number(ecProject_->defaultSettings.screenSetting.m_night_spar4, 'f', 3));
 }
 
 void AdvProcessingOptions::on_setDefaultsButton_clicked()
@@ -1621,35 +1409,10 @@ void AdvProcessingOptions::on_setDefaultsButton_clicked()
     }
 }
 
-void AdvProcessingOptions::onClickWplMethLabel()
-{
-    wplMethCombo->setFocus();
-    wplMethCombo->showPopup();
-}
-
 void AdvProcessingOptions::updateWplMeth_1(bool b)
 {
     DEBUG_FUNC_NAME
     ecProject_->setGeneralWplMeth(b);
-}
-
-// update when change "Compensate density fluctuations Method" combobox
-void AdvProcessingOptions::updateToMixingRatio(int n)
-{
-    DEBUG_FUNC_NAME
-    ecProject_->setScreenToMixRatio(wplMethCombo->itemData(n).toInt());
-
-    burbaCorrCheckBox->setEnabled(n == 1);
-    burbaLabel->setEnabled(n == 1);
-
-    if (n == 1)
-    {
-        enableBurbaCorrectionArea(burbaCorrCheckBox->isChecked());
-    }
-    else
-    {
-        enableBurbaCorrectionArea(false);
-    }
 }
 
 void AdvProcessingOptions::enableBurbaCorrectionArea(bool b)
@@ -1672,340 +1435,40 @@ void AdvProcessingOptions::updateBurbaType_2(int n)
 // update when click "Compensate density fluctuations" checkbox
 void AdvProcessingOptions::updateBurbaGroup(bool b)
 {
-    if (b)
-    {
-        if (WidgetUtils::currentComboItemData(wplMethCombo).toInt() == 0)
-        {
-            burbaCorrCheckBox->setEnabled(true);
-            burbaLabel->setEnabled(true);
-            enableBurbaCorrectionArea(burbaCorrCheckBox->isChecked());
-        }
-        else
-        {
-            burbaCorrCheckBox->setEnabled(false);
-            burbaLabel->setEnabled(false);
-            enableBurbaCorrectionArea(false);
-        }
-    }
-    else
-    {
-        burbaCorrCheckBox->setEnabled(false);
-        burbaLabel->setEnabled(false);
-        enableBurbaCorrectionArea(false);
-    }
+    burbaCorrCheckBox->setEnabled(b);
+    enableBurbaCorrectionArea(b && burbaCorrCheckBox->isChecked());
 }
 
 void AdvProcessingOptions::createQuestionMark()
 {
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_2 = new QPushButton;
-    questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_3 = new QPushButton;
-    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_4 = new QPushButton;
     questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_5 = new QPushButton;
-    questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_6 = new QPushButton;
-    questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_7 = new QPushButton;
-    questionMark_7->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_8 = new QPushButton;
-    questionMark_8->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_9 = new QPushButton;
-    questionMark_9->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_10 = new QPushButton;
-    questionMark_10->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_11 = new QPushButton;
     questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_1);
-    connect(questionMark_2, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_2);
-    connect(questionMark_3, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_3);
     connect(questionMark_4, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_4);
-    connect(questionMark_5, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_5);
-    connect(questionMark_6, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_6);
-    connect(questionMark_7, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_7);
-    connect(questionMark_8, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_8);
-    connect(questionMark_9, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_9);
-    connect(questionMark_10, &QPushButton::clicked,
-            this, &AdvProcessingOptions::onlineHelpTrigger_10);
     connect(questionMark_11, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_11);
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Wind_Speed_Offsets.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_2()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Angle_of_Attack_Correction.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_3()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Anemometer_Tilt_Correction.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Wind_Speed_Offsets.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculate_Turbulent_Flux.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_5()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Time_Lag_Detect_Correct.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_6()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Converting_to_Mixing_Ratio.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_7()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculating_Off-season_Uptake_Correction.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_8()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculating_Spectra_Cospectra_and_Ogives.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_9()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Flux_Quality_Flags.htm")));
-}
-
-void AdvProcessingOptions::onlineHelpTrigger_10()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Estimating_Flux_Footprint.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Calculate_Turbulent_Flux.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Raw_Processing_Options.htm")));
-}
-
-// gillGroup == 0 -> no gill, generic sonic
-// gillGroup == 1 -> wm, wmpro
-// gillGroup == 2 -> r2, r3-50, r3-100
-// gillGroup == 3 -> r3a-100, hs-50, hs-100
-int AdvProcessingOptions::detectAngleOfAttackAnemGroups(const QString& anemModel)
-{
-    int gillGroup = 0;
-    // wm, wmpro
-    foreach (const QString& gillModel, DlProject::gillModelGroup_1())
-    {
-        if (anemModel.contains(gillModel))
-        {
-            gillGroup = 1;
-            break;
-        }
-    }
-
-    // test only if needed
-    // r2, r3-50, r3-100
-    if (gillGroup == 0)
-    {
-        foreach (const QString& gillModel, DlProject::gillModelGroup_2())
-        {
-            if (anemModel.contains(gillModel))
-            {
-                gillGroup = 2;
-                break;
-            }
-        }
-    }
-
-    // test only if needed
-    // r3a-100, hs-50, hs-100
-    if (gillGroup == 0)
-    {
-        foreach (const QString& gillModel, DlProject::gillModelGroup_3())
-        {
-            if (anemModel.contains(gillModel))
-            {
-                gillGroup = 3;
-                break;
-            }
-        }
-    }
-
-    qDebug() << "gillGroup"<< gillGroup;
-    return gillGroup;
-}
-
-void AdvProcessingOptions::updateAngleOfAttack(const QString& anemModel)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "anemModel" << anemModel;
-
-    if (anemModel.isEmpty())
-    {
-        setEnabledAngleOfAttack();
-        return;
-    }
-
-    setEnabledAndCheckAngleOfAttack(detectAngleOfAttackAnemGroups(anemModel));
-    InfoMessage::showAoaSelectionMsg();
-}
-
-void AdvProcessingOptions::setEnabledAndCheckAngleOfAttack(int gillGroup)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "gillGroup" << gillGroup;
-    qDebug() << "flow distorsion" << ecProject_->screenFlowDistortion();
-
-    aoaCheckBox->blockSignals(true);
-    aoaMethCombo->blockSignals(true);
-
-    switch (gillGroup)
-    {
-    case 1:
-        qDebug() << "case 1";
-        aoaLabel->setEnabled(true);
-        aoaCheckBox->setEnabled(true);
-        aoaCheckBox->setChecked(true);
-
-        aoaMethLabel->setEnabled(true);
-        aoaMethCombo->setEnabled(true);
-        // Nakai, 2012
-        aoaMethCombo->setCurrentIndex(0);
-
-        ecProject_->setScreenFlowDistortion(1);
-        break;
-    case 2:
-        qDebug() << "case 2";
-        aoaLabel->setEnabled(true);
-        aoaCheckBox->setEnabled(true);
-        aoaCheckBox->setChecked(true);
-
-        aoaMethLabel->setEnabled(true);
-        aoaMethCombo->setEnabled(true);
-        // Nakai, 2006
-        aoaMethCombo->setCurrentIndex(1);
-
-        ecProject_->setScreenFlowDistortion(2);
-        break;
-    case 3:
-        qDebug() << "case 3";
-        aoaLabel->setEnabled(true);
-        aoaCheckBox->setEnabled(true);
-        aoaCheckBox->setChecked(false);
-
-        aoaMethLabel->setEnabled(false);
-        aoaMethCombo->setEnabled(false);
-        // none
-        aoaMethCombo->setCurrentIndex(-1);
-
-        ecProject_->setScreenFlowDistortion(0);
-        break;
-    default:
-        qDebug() << "case default";
-        aoaLabel->setEnabled(false);
-        aoaCheckBox->setEnabled(false);
-        aoaCheckBox->setChecked(false);
-
-        aoaMethLabel->setEnabled(false);
-        aoaMethCombo->setEnabled(false);
-        // none
-        aoaMethCombo->setCurrentIndex(-1);
-
-        ecProject_->setScreenFlowDistortion(0);
-        break;
-    }
-
-    aoaCheckBox->blockSignals(false);
-    aoaMethCombo->blockSignals(false);
-}
-
-void AdvProcessingOptions::setSmartfluxUI()
-{
-
-}
-
-void AdvProcessingOptions::refreshAngleOfAttack()
-{
-    int gillGroup = detectAngleOfAttackAnemGroups(ecProject_->generalColMasterSonic());
-
-    aoaCheckBox->blockSignals(true);
-    aoaMethCombo->blockSignals(true);
-
-    switch (gillGroup)
-    {
-    case 1:
-    case 2:
-        aoaLabel->setEnabled(true);
-        aoaCheckBox->setEnabled(true);
-
-        aoaCheckBox->setChecked(ecProject_->screenFlowDistortion());
-        if (ecProject_->screenFlowDistortion())
-        {
-            aoaMethLabel->setEnabled(true);
-            aoaMethCombo->setEnabled(true);
-            aoaMethCombo->setCurrentIndex(ecProject_->screenFlowDistortion() - 1);
-        }
-        else
-        {
-            aoaMethLabel->setEnabled(false);
-            aoaMethCombo->setEnabled(false);
-            aoaMethCombo->setCurrentIndex(-1);
-        }
-        break;
-    case 3:
-        aoaLabel->setEnabled(true);
-        aoaCheckBox->setEnabled(true);
-
-        aoaCheckBox->setChecked(ecProject_->screenFlowDistortion());
-        if (ecProject_->screenFlowDistortion())
-        {
-            aoaMethLabel->setEnabled(true);
-            aoaMethCombo->setEnabled(true);
-            aoaMethCombo->setCurrentIndex(ecProject_->screenFlowDistortion() - 1);
-        }
-        else
-        {
-            aoaMethLabel->setEnabled(false);
-            aoaMethCombo->setEnabled(false);
-            aoaMethCombo->setCurrentIndex(-1);
-        }
-        break;
-    default:
-        aoaLabel->setEnabled(false);
-        aoaCheckBox->setEnabled(false);
-        aoaMethLabel->setEnabled(false);
-        aoaMethCombo->setEnabled(false);
-
-        aoaCheckBox->setChecked(false);
-        aoaMethCombo->setCurrentIndex(-1);
-        break;
-    }
-    aoaCheckBox->blockSignals(false);
-    aoaMethCombo->blockSignals(false);
-}
-
-void AdvProcessingOptions::setEnabledAngleOfAttack()
-{
-    aoaLabel->setEnabled(true);
-
-    aoaCheckBox->blockSignals(true);
-    aoaCheckBox->setEnabled(true);
-    aoaMethLabel->setEnabled(true);
-    aoaMethCombo->setEnabled(false);
-    aoaCheckBox->blockSignals(false);
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Raw_Processing_Options.html")));
 }
 
 void AdvProcessingOptions::updateTooltip(int i)
@@ -2017,7 +1480,7 @@ void AdvProcessingOptions::updateTooltip(int i)
 
 bool AdvProcessingOptions::requestBurbaSettingsReset()
 {
-    return WidgetUtils::okToQuestion(nullptr,
+    return WidgetUtils::yesNoQuestion(this,
                 tr("Reset Surface Heating Correction"),
                 tr("<p>Do you want to reset the surface heating correction "
                    "to the default values of Burba et al. (2008)?</p>"),

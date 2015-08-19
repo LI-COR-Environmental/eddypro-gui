@@ -60,6 +60,8 @@ public:
 
     void newEcProject(const ProjConfigState &project_config);
 
+    EcProjectState defaultSettings;
+
     // save the current project
     bool saveEcProject(const QString &filename);
 
@@ -147,7 +149,6 @@ public:
     void setScreenUseGeoNorth(bool b);
     void setScreenMagDec(double n);
     void setScreenDecDate(const QString &d);
-    void setScreenNFiles(int n);
     void setScreenAvrgLen(int n);
     void setScreenFlag1Col(int n);
     void setScreenFlag1Threshold(double n);
@@ -194,6 +195,7 @@ public:
     void setScreenNBins(int n);
     void setScreenOutBinSpectra(int n);
     void setScreenOutBinOgives(int n);
+    void setGeneralOutMeanSpectra(int n);
     void setGeneralOutMeanCosp(int n);
     void setGeneralBinSpectraAvail(int n);
     void setGeneralFullSpectraAvail(int n);
@@ -238,7 +240,6 @@ public:
     void setScreenOutFullCospectraCh4(int n);
     void setScreenOutFullCospectraN2o(int n);
     void setScreenlOutDetails(int n);
-    void setScreenToMixRatio(int n);
     void setScreenFilterSr(int n);
     void setScreenFilterAl(int n);
     void setScreenBuCorr(int n);
@@ -342,6 +343,7 @@ public:
     void setScreenParamDsSfCh4(double n);
     void setScreenParamDsSfN2o(double n);
     void setScreenParamDsSfVar(double n);
+    void setScreenParamDespikeVm(int n);
     void setScreenParamTlHfLim(double n);
     void setScreenParamTlSfLim(double n);
     void setScreenParamTlDefCo2(double n);
@@ -355,6 +357,8 @@ public:
 
     void setPlanarFitStartDate(const QString& date);
     void setPlanarFitEndDate(const QString& date);
+    void setPlanarFitStartTime(const QString& time);
+    void setPlanarFitEndTime(const QString& time);
     void setPlanarFitMode(int i);
     void setPlanarFitNorthOffset(double d);
     void setPlanarFitItemPerSector(int i);
@@ -367,6 +371,8 @@ public:
     void setSpectraMode(int i);
     void setSpectraStartDate(const QString& date);
     void setSpectraEndDate(const QString& date);
+    void setSpectraStartTime(const QString& time);
+    void setSpectraEndTime(const QString& time);
     void setSpectraFile(const QString& p);
     void setSpectraMinSmpl(int l);
     void setSpectraHorst(int n);
@@ -383,24 +389,37 @@ public:
     void setSpectraHfnH2o(double d);
     void setSpectraHfnCh4(double d);
     void setSpectraHfnGas4(double d);
-    void setSpectraMinCo2(double d);
-    void setSpectraMinCh4(double d);
-    void setSpectraMinGas4(double d);
-    void setSpectraMinLe(double d);
-    void setSpectraMinH(double d);
-    void setSpectraF10Co2(double d);
-    void setSpectraF10Ch4(double d);
-    void setSpectraF10Gas4(double d);
-    void setSpectraF10Le(double d);
-    void setSpectraF10H(double d);
+    void setSpectraMinUnstableUstar(double d);
+    void setSpectraMinUnstableH(double d);
+    void setSpectraMinUnstableLE(double d);
+    void setSpectraMinUnstableCo2(double d);
+    void setSpectraMinUnstableCh4(double d);
+    void setSpectraMinUnstableGas4(double d);
+    void setSpectraMinStableUstar(double d);
+    void setSpectraMinStableH(double d);
+    void setSpectraMinStableLE(double d);
+    void setSpectraMinStableCo2(double d);
+    void setSpectraMinStableCh4(double d);
+    void setSpectraMinStableGas4(double d);
+    void setSpectraMaxUstar(double d);
+    void setSpectraMaxH(double d);
+    void setSpectraMaxLE(double d);
+    void setSpectraMaxCo2(double d);
+    void setSpectraMaxCh4(double d);
+    void setSpectraMaxGas4(double d);
     void setSpectraExFile(const QString& p);
     void setSpectraBinSpectra(const QString& p);
     void setSpectraFullSpectra(const QString& p);
     void setSpectraExDir(const QString& p);
     void setSpectraSubset(int n);
+    void setSpectraUseVmFlags(int n);
+    void setSpectraUseFokenLow(int n);
+    void setSpectraUseFokenMid(int n);
 
     void setTimelagOptStartDate(const QString& date);
     void setTimelagOptEndDate(const QString& date);
+    void setTimelagOptStartTime(const QString& time);
+    void setTimelagOptEndTime(const QString& time);
     void setTimelagOptMode(int i);
     void setTimelagOptFile(const QString& p);
     void setTimelagOptH2oNClass(int n);
@@ -489,6 +508,7 @@ public:
     const QString& generalBiomDir() const { return ec_project_state_.projectGeneral.biom_dir; }
     int generalBiomRecurse() const { return ec_project_state_.projectGeneral.biom_recurse; }
     const QString& generalBiomExt() const { return ec_project_state_.projectGeneral.biom_ext; }
+    int generalOutMeanSpectra() const { return ec_project_state_.projectGeneral.out_mean_spectra; }
     int generalOutMeanCosp() const { return ec_project_state_.projectGeneral.out_mean_cosp; }
     int generalBinSpectraAvail() const { return ec_project_state_.projectGeneral.bin_sp_avail; }
     int generalFullSpectraAvail() const { return ec_project_state_.projectGeneral.full_sp_avail; }
@@ -499,7 +519,6 @@ public:
     bool screenUseGeoNorth() const { return ec_project_state_.screenGeneral.use_geo_north; }
     double screenMagDec() const { return ec_project_state_.screenGeneral.mag_dec; }
     const QString& screenDecDate() const { return ec_project_state_.screenGeneral.dec_date; }
-    int screenNFiles() const { return ec_project_state_.screenSetting.nfiles; }
     int screenAvrgLen() const { return ec_project_state_.screenSetting.avrg_len; }
     int screenFlag1Col() const { return ec_project_state_.screenGeneral.flag1_col; }
     double screenFlag1Threshold() const { return ec_project_state_.screenGeneral.flag1_threshold; }
@@ -585,7 +604,6 @@ public:
     int screenOutFullCospectraH2o() const { return ec_project_state_.screenSetting.out_full_cosp_h2o; }
     int screenOutFullCospectraCh4() const { return ec_project_state_.screenSetting.out_full_cosp_ch4; }
     int screenOutFullCospectraN2o() const { return ec_project_state_.screenSetting.out_full_cosp_n2o; }
-    int screenToMixRatio() const { return ec_project_state_.screenSetting.to_mixratio; }
     int screenFilterSr() const { return ec_project_state_.screenSetting.filter_sr; }
     int screenFilterAl() const { return ec_project_state_.screenSetting.filter_al; }
     int screenBuCorr() const { return ec_project_state_.screenSetting.bu_corr; }
@@ -694,6 +712,7 @@ public:
     double screenParamDsSfCh4() const { return ec_project_state_.screenParam.ds_sf_ch4; }
     double screenParamDsSfN2o() const { return ec_project_state_.screenParam.ds_sf_n2o; }
     double screenParamDsSfVar() const { return ec_project_state_.screenParam.ds_sf_var; }
+    int screenParamDespikeVm() const { return ec_project_state_.screenParam.despike_vm; }
 
     double screenParamTlHfLim() const { return ec_project_state_.screenParam.tl_hf_lim; }
     double screenParamTlSfLim() const { return ec_project_state_.screenParam.tl_sf_lim; }
@@ -710,6 +729,8 @@ public:
 
     const QString& planarFitStartDate() const { return ec_project_state_.screenTilt.start_date; }
     const QString& planarFitEndDate() const { return ec_project_state_.screenTilt.end_date; }
+    const QString& planarFitStartTime() const { return ec_project_state_.screenTilt.start_time; }
+    const QString& planarFitEndTime() const { return ec_project_state_.screenTilt.end_time; }
     int planarFitMode() const { return ec_project_state_.screenTilt.mode; }
     double planarFitNorthOffset() const { return ec_project_state_.screenTilt.north_offset; }
     int planarFitItemPerSector() const { return ec_project_state_.screenTilt.min_num_per_sec; }
@@ -722,6 +743,8 @@ public:
     int spectraMode() const { return ec_project_state_.spectraSettings.sa_mode; }
     const QString& spectraStartDate() const { return ec_project_state_.spectraSettings.start_sa_date; }
     const QString& spectraEndDate() const { return ec_project_state_.spectraSettings.end_sa_date; }
+    const QString& spectraStartTime() const { return ec_project_state_.spectraSettings.start_sa_time; }
+    const QString& spectraEndTime() const { return ec_project_state_.spectraSettings.end_sa_time; }
     const QString& spectraFile() const { return ec_project_state_.spectraSettings.sa_file; }
     int spectraMinSmpl() const { return ec_project_state_.spectraSettings.sa_min_smpl; }
     int spectraHorst() const { return ec_project_state_.spectraSettings.horst_lens; }
@@ -738,24 +761,37 @@ public:
     double spectraHfnCh4() const { return ec_project_state_.spectraSettings.sa_hfn_ch4_fmin; }
     double spectraHfnGas4() const { return ec_project_state_.spectraSettings.sa_hfn_gas4_fmin; }
     int spectraAddSonic() const { return ec_project_state_.spectraSettings.add_sonic_lptf; }
-    double spectraMinCo2() const { return ec_project_state_.spectraSettings.sa_min_co2; }
-    double spectraMinCh4() const { return ec_project_state_.spectraSettings.sa_min_ch4; }
-    double spectraMinGas4() const { return ec_project_state_.spectraSettings.sa_min_gas4; }
-    double spectraMinLe() const { return ec_project_state_.spectraSettings.sa_min_le; }
-    double spectraMinH() const { return ec_project_state_.spectraSettings.sa_min_h; }
-    double spectraF10Co2() const { return ec_project_state_.spectraSettings.f10_co2_trshld; }
-    double spectraF10Ch4() const { return ec_project_state_.spectraSettings.f10_ch4_trshld; }
-    double spectraF10Gas4() const { return ec_project_state_.spectraSettings.f10_gas4_trshld; }
-    double spectraF10Le() const { return ec_project_state_.spectraSettings.f10_le_trshld; }
-    double spectraF10H() const { return ec_project_state_.spectraSettings.f10_h_trshld; }
+    double spectraMinUnstableUstar() const { return ec_project_state_.spectraSettings.sa_min_un_ustar; }
+    double spectraMinUnstableH() const { return ec_project_state_.spectraSettings.sa_min_un_h; }
+    double spectraMinUnstableLE() const { return ec_project_state_.spectraSettings.sa_min_un_le; }
+    double spectraMinUnstableCo2() const { return ec_project_state_.spectraSettings.sa_min_un_co2; }
+    double spectraMinUnstableCh4() const { return ec_project_state_.spectraSettings.sa_min_un_ch4; }
+    double spectraMinUnstableGas4() const { return ec_project_state_.spectraSettings.sa_min_un_gas4; }
+    double spectraMinStableUstar() const { return ec_project_state_.spectraSettings.sa_min_st_ustar; }
+    double spectraMinStableH() const { return ec_project_state_.spectraSettings.sa_min_st_h; }
+    double spectraMinStableLE() const { return ec_project_state_.spectraSettings.sa_min_st_le; }
+    double spectraMinStableCo2() const { return ec_project_state_.spectraSettings.sa_min_st_co2; }
+    double spectraMinStableCh4() const { return ec_project_state_.spectraSettings.sa_min_st_ch4; }
+    double spectraMinStableGas4() const { return ec_project_state_.spectraSettings.sa_min_st_gas4; }
+    double spectraMaxUstar() const { return ec_project_state_.spectraSettings.sa_max_ustar; }
+    double spectraMaxH() const { return ec_project_state_.spectraSettings.sa_max_h; }
+    double spectraMaxLE() const { return ec_project_state_.spectraSettings.sa_max_le; }
+    double spectraMaxCo2() const { return ec_project_state_.spectraSettings.sa_max_co2; }
+    double spectraMaxCh4() const { return ec_project_state_.spectraSettings.sa_max_ch4; }
+    double spectraMaxGas4() const { return ec_project_state_.spectraSettings.sa_max_gas4; }
     const QString& spectraExFile() const { return ec_project_state_.spectraSettings.ex_file; }
     const QString& spectraBinSpectra() const { return ec_project_state_.spectraSettings.sa_bin_spectra; }
     const QString& spectraFullSpectra() const { return ec_project_state_.spectraSettings.sa_full_spectra; }
     const QString& spectraExDir() const { return ec_project_state_.spectraSettings.ex_dir; }
     int spectraSubset() const { return ec_project_state_.spectraSettings.subset; }
+    int spectraUseVmFlags() const { return ec_project_state_.spectraSettings.use_vm_flags; }
+    int spectraUseFokenLow() const { return ec_project_state_.spectraSettings.use_foken_low; }
+    int spectraUseFokenMid() const { return ec_project_state_.spectraSettings.use_foken_mid; }
 
     const QString& timelagOptStartDate() const { return ec_project_state_.timelagOpt.start_date; }
     const QString& timelagOptEndDate() const { return ec_project_state_.timelagOpt.end_date; }
+    const QString& timelagOptStartTime() const { return ec_project_state_.timelagOpt.start_time; }
+    const QString& timelagOptEndTime() const { return ec_project_state_.timelagOpt.end_time; }
     int timelagOptMode() const { return ec_project_state_.timelagOpt.mode; }
     const QString& timelagOptFile() const { return ec_project_state_.timelagOpt.file; }
     int timelagOptH2oNClass() const { return ec_project_state_.timelagOpt.to_h2o_nclass; }
@@ -799,9 +835,8 @@ public:
 //    SpecGroupList *specGroups();
 //    void addSpecGroup(const SpecGroup &sg);
 
-    const QString getFilenamePrototype() const;
     bool isEngineStep2Needed();
-    bool isGoodRawFileNameFormat(const QString& s);
+    bool isGoodRawFilePrototype(const QString& s);
 
 public slots:
     void setModified(bool mod);
@@ -817,8 +852,6 @@ signals:
     void updateInfo();
 
 private:
-    bool queryProjectImport(const QString& filename);
-
     bool modified_;
     EcProjectState ec_project_state_;
     ProjConfigState project_config_state_;

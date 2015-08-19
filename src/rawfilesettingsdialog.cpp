@@ -30,9 +30,8 @@
 #include <QSpinBox>
 #include <QUrl>
 
-#include <QwwClearLineEdit/QwwClearLineEdit>
-
 #include "clicklabel.h"
+#include "customclearlineedit.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "widget_utils.h"
@@ -77,10 +76,9 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     // NOTE: disabled for lack of use cases
     dataRecLabel = new ClickLabel;
     dataRecLabel->setText(tr("Label of data records :"));
-    dataRecLabelEdit = new QwwClearLineEdit;
-    dataRecLabelEdit->setToolTip(dataRecLabel->toolTip());
-    dataRecLabelEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     dataRecLabel->setVisible(false);
+    dataRecLabelEdit = new CustomClearLineEdit;
+    dataRecLabelEdit->setToolTip(dataRecLabel->toolTip());
     dataRecLabelEdit->setVisible(false);
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
@@ -127,7 +125,7 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
 
     connect(dataRecLabel, &ClickLabel::clicked,
             this, &RawFileSettingsDialog::onClickDataRecLabel);
-    connect(dataRecLabelEdit, &QwwClearLineEdit::textChanged,
+    connect(dataRecLabelEdit, &CustomClearLineEdit::textChanged,
             this, &RawFileSettingsDialog::updateDataRecLabel);
 
     connect(questionMark_1, &QPushButton::clicked,
@@ -136,6 +134,7 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     connect(okButton, &QPushButton::clicked,
             [=](){ if (this->isVisible()) hide(); });
 
+    // NOTE: not used
 //    initialize();
 }
 
@@ -222,5 +221,5 @@ void RawFileSettingsDialog::updateDataRecLabel(const QString& s)
 
 void RawFileSettingsDialog::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Label_Data_Records.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Label_Data_Records.html")));
 }

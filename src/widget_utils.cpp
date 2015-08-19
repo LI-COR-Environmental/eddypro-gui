@@ -27,6 +27,7 @@
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDir>
 #include <QDesktopServices>
 #include <QFontMetrics>
 #include <QLabel>
@@ -35,6 +36,7 @@
 #include <QProcess>
 #include <QProgressBar>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QSettings>
 #include <QStyle>
 #include <QTextEdit>
@@ -44,17 +46,19 @@
 #include <memory>
 #include "make_unique.h"
 
+#include "configstate.h"
 #include "dbghelper.h"
 #include "defs.h"
 #include "docchooser.h"
+#include "fileutils.h"
 #include "globalsettings.h"
 
 const QColor WidgetUtils::getColor(int step)
 {
     QColor c("#aae6ff");
-    int h = c.hue();
-    int s = c.saturation();
-    int v = c.value();
+    auto h = c.hue();
+    auto s = c.saturation();
+    auto v = c.value();
 
     c.setHsv(abs((h - (step * 10))) % 360, s, v);
 
@@ -63,6 +67,7 @@ const QColor WidgetUtils::getColor(int step)
 
 namespace {
 
+// Redraw widget recomputing Qt style-sheet based on Q_PROPERTY
 void updateStyle(QWidget* widget)
 {
     // update style
@@ -71,18 +76,19 @@ void updateStyle(QWidget* widget)
     widget->update();
 }
 
-void updatePropertyAndStyle(QWidget* widget,
-                            const char* name,
-                            const QVariant& value)
-{
-    // set property
-    widget->setProperty(name, value);
+// NOTE: not used, but possibly useful
+//void updatePropertyAndStyle(QWidget* widget,
+//                            const char* name,
+//                            const QVariant& value)
+//{
+//    // set property
+//    widget->setProperty(name, value);
 
-    // update the local style
-    updateStyle(widget);
-}
+//    // update the local style
+//    updateStyle(widget);
+//}
 
-}  // namespace
+}  // unnamed namespace
 
 void WidgetUtils::updatePropertyListAndStyle(QWidget* widget,
                                              QList<PropertyList> propertyList)
@@ -139,7 +145,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 {
     QFontMetrics fm(label->font());
     int realWidth = width - 40;
-    QString clippedText = fm.elidedText(text, mode, realWidth);
+    auto clippedText = fm.elidedText(text, mode, realWidth);
     label->setText(clippedText);
 }
 
@@ -151,7 +157,7 @@ void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
 {
     QFontMetrics fm(lineEdit->font());
     int realWidth = width - 40;
-    QString clippedText = fm.elidedText(text, mode, realWidth);
+    auto clippedText = fm.elidedText(text, mode, realWidth);
     lineEdit->setText(clippedText);
 }
 
@@ -160,25 +166,37 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
     cal->setVerticalHeaderFormat(QCalendarWidget::ISOWeekNumbers);
 
     QToolButton *btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_prevmonth"));
-    QIcon icon;
-    icon.addPixmap(QPixmap(QStringLiteral(":/icons/cal-left-arrow")), QIcon::Normal, QIcon::On);
-    btn->setIcon(icon);
+
+    QIcon icon_left;
+    auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
+//#if defined(Q_OS_MAC)
+//    left_arrow_pixmap.setDevicePixelRatio(2.0);
+//#endif
+    icon_left.addPixmap(left_arrow_pixmap, QIcon::Normal, QIcon::On);
+    btn->setIcon(icon_left);
 
     btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_nextmonth"));
-    icon.addPixmap(QPixmap(QStringLiteral(":/icons/cal-right-arrow")), QIcon::Normal, QIcon::On);
-    btn->setIcon(icon);
+
+    QIcon icon_right;
+    auto right_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-right-arrow"));
+//#if defined(Q_OS_MAC)
+//    right_arrow_pixmap.setDevicePixelRatio(2.0);
+//#endif
+    icon_right.addPixmap(right_arrow_pixmap, QIcon::Normal, QIcon::On);
+    btn->setIcon(icon_right);
 
     cal->setStyleSheet(QStringLiteral(
-    "QCalendarView {border: 1px solid #666; padding: 3px;}"
-    "QAbstractItemView {selection-background-color: #318ef4;}"
-    "QToolButton:hover {color: black; background: #2B7AE0;}"
-    "QToolButton#qt_calendar_monthbutton {padding-right: 10px;}"
-    "QToolButton::menu-indicator {"
-                           "width: 18px; height: 20px;"
-                           "image: url(:/icons/cal-down);}"
-    "QToolButton::menu-indicator:pressed,"
-    "QToolButton::menu-indicator:open { /*top:10px; left: 10px;*/"
-                           "image: url(:/icons/cal-down-pressed);}"));
+        "QCalendarView {border: 1px solid #666; padding-bottom: -3px;}"
+        "QAbstractItemView {selection-background-color: #318ef4; "
+                            "font: normal normal 11px \"Open Sans\"; }"
+        "QToolButton:hover {color: black; background: #2B7AE0;}"
+        "QToolButton#qt_calendar_monthbutton {padding-right: 15px;}"
+        "QToolButton::menu-indicator {"
+                               "width: 18px; height: 20px;"
+                               "image: url(:/icons/cal-down);}"
+        "QToolButton::menu-indicator:pressed,"
+        "QToolButton::menu-indicator:open { /*top:10px; left: 10px;*/"
+                               "image: url(:/icons/cal-down-pressed);}"));
 }
 
 // NOTE: hack to show the calendar,
@@ -197,9 +215,9 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
 // See https://bugreports.qt-project.org/browse/QTBUG-747
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
-    QTextCursor textCursor = te->textCursor();
-    QTextBlockFormat blockFmt = textCursor.blockFormat();
-    te->append(QStringLiteral("<hr>"));
+    auto textCursor = te->textCursor();
+    auto blockFmt = textCursor.blockFormat();
+    te->append(QLatin1String("<hr>"));
     te->textCursor().setBlockFormat(blockFmt);
 }
 
@@ -208,20 +226,21 @@ void WidgetUtils::openAppWebsite()
     QDesktopServices::openUrl(QUrl(Defs::APP_WEBSITE));
 }
 
-bool WidgetUtils::okToOverwrite(const QString& filename)
+bool WidgetUtils::okToOverwrite(QWidget* parent, const QString& filename)
 {
-    return okToQuestion(nullptr,
+    return yesNoQuestion(parent,
                     QObject::tr("Overwrite File"),
                     QObject::tr("<p>Are you sure you want to "
                                 "overwrite the following file?</p>"),
-                    QObject::tr("<p><b>\"%1\"</b></p>").arg(filename),
+                    QObject::tr("<p>\"%1\"</p>").arg(filename),
+                    QStringLiteral("overwriteMessage"),
                     QObject::tr("Yes"),
                     QObject::tr("Cancel"));
 }
 
 bool WidgetUtils::okToRemoveColumn(QWidget* parent)
 {
-    return okToQuestion(parent,
+    return yesNoQuestion(parent,
                     QObject::tr("Remove Column"),
                     QObject::tr("Do you want to remove this column?"));
 }
@@ -238,7 +257,11 @@ QMessageBox::ButtonRole WidgetUtils::requestToSave(QWidget* parent,
     {
         messageBox->setWindowModality(Qt::WindowModal);
     }
-    messageBox->setIconPixmap(QStringLiteral(":/icons/msg-question"));
+    auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
+#if defined(Q_OS_MAC)
+    pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+    messageBox->setIconPixmap(pixmap_2x);
     messageBox->setWindowTitle(title);
     messageBox->setText(text);
     if (!infoText.isEmpty())
@@ -276,7 +299,11 @@ bool WidgetUtils::information(QWidget* parent,
     {
         messageBox->setInformativeText(infoText);
     }
-    messageBox->setIconPixmap(QStringLiteral(":/icons/msg-info"));
+    auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-info"));
+#if defined(Q_OS_MAC)
+    pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+    messageBox->setIconPixmap(pixmap_2x);
     messageBox->addButton(QMessageBox::Ok);
     messageBox->setEscapeButton(QMessageBox::Ok);
 
@@ -289,9 +316,11 @@ bool WidgetUtils::information(QWidget* parent,
 void WidgetUtils::warning(QWidget* parent,
                           const QString& title,
                           const QString& text,
-                          const QString& infoText)
+                          const QString& infoText,
+                          const QString& objectName)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
+    messageBox.get()->setObjectName(objectName);
 
     // Mac OS X compatibility (to look like a sheet)
     if (parent)
@@ -304,7 +333,11 @@ void WidgetUtils::warning(QWidget* parent,
     {
         messageBox->setInformativeText(infoText);
     }
-    messageBox->setIconPixmap(QStringLiteral(":/icons/msg-warning"));
+    auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-warning"));
+#if defined(Q_OS_MAC)
+    pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+    messageBox->setIconPixmap(pixmap_2x);
     messageBox->addButton(QMessageBox::Ok);
     messageBox->setEscapeButton(QMessageBox::Ok);
 
@@ -331,8 +364,12 @@ void WidgetUtils::critical(QWidget* parent,
     {
         messageBox->setInformativeText(infoText);
     }
-    messageBox->setIconPixmap(QStringLiteral(":/icons/msg-critical"));
-    messageBox->addButton(QMessageBox::Ok);
+    auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-critical"));
+#if defined(Q_OS_MAC)
+    pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+    messageBox->setIconPixmap(pixmap_2x);
+        messageBox->addButton(QMessageBox::Ok);
     messageBox->setEscapeButton(QMessageBox::Ok);
 
     WidgetUtils::removeContextHelpButton(messageBox.get());
@@ -340,14 +377,16 @@ void WidgetUtils::critical(QWidget* parent,
     messageBox->exec();
 }
 
-bool WidgetUtils::okToQuestion(QWidget* parent,
+bool WidgetUtils::yesNoQuestion(QWidget* parent,
                            const QString& title,
                            const QString& text,
                            const QString& infoText,
+                           const QString& objectName,
                            const QString& yesText,
                            const QString& noText)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
+    messageBox.get()->setObjectName(objectName);
 
     // Mac OS X compatibility (to look like a sheet)
     if (parent)
@@ -360,7 +399,11 @@ bool WidgetUtils::okToQuestion(QWidget* parent,
     {
         messageBox->setInformativeText(infoText);
     }
-    messageBox->setIconPixmap(QStringLiteral(":/icons/msg-question"));
+    auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
+#if defined(Q_OS_MAC)
+    pixmap_2x.setDevicePixelRatio(2.0);
+#endif
+    messageBox->setIconPixmap(pixmap_2x);
     QPushButton *yesButton = messageBox->addButton(yesText,
             QMessageBox::AcceptRole);
     QPushButton* noButton = messageBox->addButton(noText, QMessageBox::RejectRole);
@@ -373,9 +416,11 @@ bool WidgetUtils::okToQuestion(QWidget* parent,
     return (messageBox->clickedButton() == yesButton);
 }
 
+#if defined(Q_OS_WIN)
 namespace {
 
 // http://stackoverflow.com/questions/2404449/process-starturl-with-anchor-in-the-url
+// NOTE: used only on Windows
 bool launchWinWebBrowser(const QUrl& url)
 {
     DEBUG_FUNC_NAME
@@ -408,19 +453,19 @@ bool launchWinWebBrowser(const QUrl& url)
 
         if (defaultBrowserPath.isEmpty())
         {
-            QSettings settings_3(QStringLiteral("HKCU\\Software\\Microsoft\\Windows"
+            QSettings settings_4(QStringLiteral("HKCU\\Software\\Microsoft\\Windows"
                                                 "\\Shell\\Associations\\UrlAssociations\\http\\UserChoice"),
                             QSettings::NativeFormat);
-            QString progId = settings_3.value(QStringLiteral("Progid")).toString();
+            QString progId = settings_4.value(QStringLiteral("Progid")).toString();
 
             defaultBrowserKey = QStringLiteral("HKEY_CLASSES_ROOT\\")
                                 + progId
                                 + QStringLiteral("\\shell\\open\\command");
             qDebug() << "defaultBrowserKey" << defaultBrowserKey;
 
-            QSettings settings_4(defaultBrowserKey,
+            QSettings settings_5(defaultBrowserKey,
                                 QSettings::NativeFormat);
-            defaultBrowserPath = settings_4.value(QStringLiteral("Default")).toString();
+            defaultBrowserPath = settings_5.value(QStringLiteral("Default")).toString();
         }
     }
 
@@ -444,15 +489,16 @@ bool launchWinWebBrowser(const QUrl& url)
         return false;
 }
 
-}  // namespace
+}  // unnamed namespace
+#endif
 
 void WidgetUtils::showHelp(const QUrl& url)
 {
     // read state
-    bool autoChooseHelp = GlobalSettings::getAppPersistentSettings(
+    auto autoChooseHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_AUTOHELP, false).toBool();
-    bool offlineHelp = GlobalSettings::getAppPersistentSettings(
+    auto offlineHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
 
@@ -466,41 +512,43 @@ void WidgetUtils::showHelp(const QUrl& url)
         else
         {
             // open local help
-            QString htmlHelpPath = qApp->applicationDirPath();
-            QString localUrlString = QString();
+            auto htmlHelpPath = qApp->applicationDirPath();
+            auto localUrlString = QString();
 
             if (url.toString().contains(QStringLiteral("EddyPro_Home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/index.htm#EddyPro_Home.htm");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
             }
-            else if (url.toString().contains(QStringLiteral("Getting_Started")))
+            else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro5_Getting_Started.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_Getting_Started.pdf");
             }
-            else if (url.toString().contains(QStringLiteral("User_Guide")))
+            else if (url.toString().contains(QStringLiteral("1ium2zmwm6hl36yz9bu4")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro5_User_Guide.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_User_Guide.pdf");
             }
             else if (url.toString().contains(QStringLiteral("Video_Library")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/index.htm#Video_Library.htm");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/Video_Library.html");
             }
             else
             {
+                qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/EddyPro5"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro6"));
                 qDebug() << "localUrlString" << localUrlString;
 
                 htmlHelpPath = htmlHelpPath + QString(QStringLiteral("/docs")) + localUrlString;
             }
 
-            QUrl localUrl = QUrl();
+            auto localUrl = QUrl();
 
             qDebug() << "htmlHelpPath" << htmlHelpPath;
             if (htmlHelpPath.contains(QStringLiteral("#")))
             {
-                QString localUrlHost = htmlHelpPath.section(QLatin1Char('#'), 0, 0);
-                QString localUrlFragment = htmlHelpPath.section(QLatin1Char('#'), 1, 1);
+                qDebug() << "localUrl with hash" << localUrl;
+                auto localUrlHost = htmlHelpPath.section(QLatin1Char('#'), 0, 0);
+                auto localUrlFragment = htmlHelpPath.section(QLatin1Char('#'), 1, 1);
 
                 qDebug() << "localUrlFragment" << localUrlFragment;
 
@@ -514,12 +562,7 @@ void WidgetUtils::showHelp(const QUrl& url)
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
                 qDebug() << "localUrl with no hash" << localUrl;
             }
-
-#if defined(Q_OS_WIN)
-            qDebug() << "localUrl osWin" << localUrl << launchWinWebBrowser(localUrl);
-#else
             qDebug() << "localUrl" << localUrl << QDesktopServices::openUrl(localUrl);
-#endif
         }
     }
     else
@@ -531,8 +574,56 @@ void WidgetUtils::showHelp(const QUrl& url)
 
 void WidgetUtils::setProgressValue(QProgressBar* bar, int value)
 {
-    int boundValue = qBound(bar->minimum(),
+    auto boundValue = qBound(bar->minimum(),
                             value,
                             bar->maximum());
     bar->setValue(boundValue);
+}
+
+QScrollArea *WidgetUtils::getContainerScrollArea(QWidget* parent, QLayout* layout)
+{
+    auto frame = new QWidget(parent);
+    frame->setLayout(layout);
+    frame->setProperty("scrollContainerWidget", true);
+    frame->setMinimumWidth(frame->sizeHint().width());
+
+    auto scrollArea = new QScrollArea(parent);
+    scrollArea->setWidget(frame);
+    scrollArea->setWidgetResizable(true);
+    return scrollArea;
+}
+
+QString WidgetUtils::getSearchPathHint(/*ConfigState *config*/)
+{
+    // default search path
+    auto searchPath = QDir::homePath();
+
+    auto lastDataPath = QString();
+
+    // a cached file path exists
+//    if (!config->window.last_data_path.isEmpty())
+//    {
+//        lastDataPath = config->window.last_data_path;
+//    }
+//    else
+//    {
+        // last available search path
+        lastDataPath = GlobalSettings::getAppPersistentSettings(
+                           Defs::CONFGROUP_WINDOW,
+                           Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
+//    }
+
+    if (!lastDataPath.isEmpty() && FileUtils::existsPath(lastDataPath))
+    {
+        searchPath = lastDataPath;
+    }
+
+    return searchPath;
+}
+
+bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
+{
+    return yesNoQuestion(parent,
+                         QObject::tr("Close SmartFlux Configuration"),
+                         QObject::tr("Do you want to leave the SmartFlux Configuration?"));
 }

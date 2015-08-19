@@ -21,8 +21,6 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-// http://qt-project.org/forums/viewthread/27981
-
 #include "updatedialog.h"
 
 #include <QDebug>
@@ -82,7 +80,7 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
     dialogLayout->addWidget(yesButton, 3, 0, 1, 1, Qt::AlignCenter);
     dialogLayout->addWidget(noButton, 3, 1, 1, 1, Qt::AlignCenter);
     dialogLayout->setVerticalSpacing(10);
-    dialogLayout->setContentsMargins(30, 30, 30, 30);
+    dialogLayout->setContentsMargins(30, 30, 15, 30);
     dialogLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(dialogLayout);
 
@@ -104,54 +102,7 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
 
 UpdateDialog::~UpdateDialog()
 {
-    DEBUG_FUNC_NAME
-
-//    if (ftpTimer_)
-//        delete ftpTimer_;
-
-//    if (ftp)
-//    {
-//        qDebug() << "clearing current ftp cmd...";
-//        ftp->abort();
-
-//        qDebug() << "clearing queued ftp cmd...";
-//        if (ftp->hasPendingCommands())
-//            ftp->clearPendingCommands();
-
-//        qDebug() << "closing ftp connection...";
-//        ftp->close();
-
-//        qDebug() << "deleting ftp...";
-//        delete ftp;
-//    }
-
-    if (ftp)
-    {
-        qDebug() << "deleting ftp...";
-//        delete ftp;
-    }
 }
-
-//void UpdateDialog::cleanFtpExit()
-//{
-//    DEBUG_FUNC_NAME
-
-//    if (ftpTimer_->isActive())
-//        ftpTimer_->stop();
-
-//    if (ftp)
-//    {
-//        qDebug() << "clearing current ftp cmd...";
-//        ftp->abort();
-
-//        qDebug() << "clearing queued ftp cmd...";
-//        if (ftp->hasPendingCommands())
-//            ftp->clearPendingCommands();
-
-//        qDebug() << "closing ftp connection...";
-//        ftp->close();
-//    }
-//}
 
 void UpdateDialog::initialize()
 {
@@ -176,12 +127,17 @@ void UpdateDialog::close()
 
 void UpdateDialog::getNewVersion(const QString& version)
 {
-    msgLabel->setText(tr("<b>A newer version of %1 (version %2) is available from %3.<br />"
-                         "Do you want to upgrade your copy?</b>"
+    msgLabel->setText(tr("<p><b>A newer version of %1 (version %2) is available from %3.<br />"
+                         "Do you want to upgrade your copy?</b></p>"
+                         "<p>If you have the <b>SMARTFlux<sup>&reg;</sup> System</b>, we also "
+                         "recommend that you <br />"
+                         "<a href=\"http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html\">"
+                         "check for updates</a> to the embedded SMARTFlux firmware.</p>"
                          "<p>%1 can automatically check for new and updated "
-                         "versions using its Software Update Notification feature.<br />"
+                         "versions using <br />its Software Update Notification feature.<br />"
                          "The new version does not overwrite previously installed versions."
                          "</p>").arg(Defs::APP_NAME).arg(version).arg(Defs::ORG_NAME));
+    msgLabel->setOpenExternalLinks(true);
     okButton->setVisible(false);
     yesButton->setVisible(true);
     noButton->setVisible(true);
@@ -228,120 +184,13 @@ void UpdateDialog::checkUpdate()
 
         ftp = new FtpManager(this);
 
-        connect(ftp, SIGNAL(getFinished()), this, SLOT(useFtpResults()));
+        connect(ftp, SIGNAL(requestComplete()), this, SLOT(useFtpResults()));
     }
     QTimer::singleShot(0, ftp, SLOT(execute()));
 
     ftpTimer_->start();
     qDebug() << "ftpTimer_->start()";
 }
-
-//void UpdateDialog::ftpCommandFinished(int, bool error)
-//{
-//    DEBUG_FUNC_NAME
-
-//    if (ftp->currentCommand() == QFtp::ConnectToHost)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            noConnection();
-//            cleanFtpExit();
-//            qDebug() << "QFtp::ConnectToHost error";
-//            return;
-//        }
-//        qDebug() << "QFtp::ConnectToHost";
-//        return;
-//    }
-//    else if (ftp->currentCommand() == QFtp::Login)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            connectionError();
-//            cleanFtpExit();
-//            qDebug() << "QFtp::Login error";
-//        }
-//        qDebug() << "QFtp::Login";
-//        return;
-//    }
-//    else if (ftp->currentCommand() == QFtp::Cd)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            connectionError();
-//            cleanFtpExit();
-//            qDebug() << "QFtp::Cd error";
-//        }
-//        qDebug() << "QFtp::Cd";
-//        return;
-//    }
-//    else if (ftp->currentCommand() == QFtp::Get)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            connectionError();
-//            qDebug() << "QFtp::Get error";
-//            cleanFtpExit();
-//        }
-
-//        QByteArray versionNr = ftp->readAll();
-//        qDebug() << "versionNr" << versionNr.trimmed().constData();
-
-//        QString newVersion(QStringLiteral(versionNr.trimmed().constData()));
-
-//        if (!newVersion.isEmpty() && StringUtils::isNewVersion(newVersion, Defs::APP_VERSION_STR))
-//        {
-//            qDebug() << "NEW VERSION";
-//            isNewVersionAvailable_ = true;
-//            getNewVersion(newVersion);
-//        }
-//        else if (newVersion.isEmpty() && newVersion != Defs::APP_VERSION_STR)
-//        {
-//            qDebug() << "EMPTY VERSION";
-//            isNewVersionAvailable_ = false;
-//            downloadError();
-//        }
-//        else
-//        {
-//            qDebug() << "NO NEW VERSION";
-//            isNewVersionAvailable_ = false;
-//            noNewVersion();
-//        }
-//        qDebug() << "QFtp::Get";
-//        return;
-//    }
-//    else if (ftp->currentCommand() == QFtp::Close)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            qDebug() << "QFtp::Close error";
-//        }
-
-//        if (ftpTimer_->isActive())
-//            ftpTimer_->stop();
-
-//        qDebug() << "QFtp::Close";
-//        return;
-//    }
-//    else if (ftp->currentCommand() == QFtp::None)
-//    {
-//        if (error)
-//        {
-//            qDebug() << ftp->errorString();
-//            qDebug() << "QFtp::None error";
-
-//            if (ftpTimer_->isActive())
-//                ftpTimer_->stop();
-//            ftp->close();
-//        }
-//        qDebug() << "QFtp::None";
-//        return;
-//    }
-//}
 
 bool UpdateDialog::hasNewVersion()
 {
@@ -357,12 +206,6 @@ void UpdateDialog::showDownloadPage()
 void UpdateDialog::ftpTimeout()
 {
     DEBUG_FUNC_NAME
-
-    qDebug() << "ftp" << ftp;
-//    if (ftp)
-//    {
-//        ftp->abort();
-//    }
 
     noConnection();
 }

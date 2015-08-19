@@ -52,21 +52,31 @@ class RawFilenameDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RawFilenameDialog(QWidget *parent, EcProject *ecProject);
+    explicit RawFilenameDialog(QWidget *parent,
+                               EcProject *ecProject,
+                               QStringList *suffixList,
+                               QStringList *rawFileList);
 
 signals:
     void updateFileFormatRequest(QString);
 
 public slots:
-    void close();
     void reset();
     void refresh();
 
 private slots:
+    void accept() Q_DECL_OVERRIDE;
     void updateFormatEdit(int id);
     void updateFileList(const QString& file);
 
 private:
+    void createFileExtensionRadioButtons(const QStringList& list);
+    QStringList getRawFileTypesAvailable();
+    void updateOkButton();
+    void populateDialog();
+    void createGhgSuffixRadioButtons();
+    void removeFileExtensionFromList(const QString &ext);
+
     QLabel* title;
     QLabel* desc;
     QFrame* radioGroupBox;
@@ -75,11 +85,10 @@ private:
     QLineEdit* rawFilenameFormatEdit;
     QPushButton* okButton;
 
-    void createRadioButtons(const QStringList& list);
-    QStringList getRawFileTypeAvailable();
-
     EcProject *ecProject_;
     QStringList fileList_;
+    QStringList* ghgSuffixList_;
+    QStringList* rawFileList_;
 };
 
 #endif // RAWFILENAMEDIALOG_H

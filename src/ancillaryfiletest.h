@@ -47,7 +47,7 @@ private slots:
     void saveResults();
 
 private:
-    typedef QList<QStringList> LineList;
+    using LineList = QList<QStringList>;
 
     struct FileTemplate {
         QString filepath;
@@ -76,7 +76,7 @@ private:
     QString name_ {};
     QTextBrowser* testResults_ {};
 
-    // NOTE: might use something else, for example std::unordered_map
+    // NOTE: we might use something else, for example std::unordered_map
     QMap<FileType, AncillaryFileTest::FileTemplate> testFileMap_ {
         { FileType::Spectra,
             { Defs::TEMPLATE_FILE_DIR + Defs::SPECTRA_FILE_TEMPLATE + Defs::TEMPLATE_FILE_EXT,

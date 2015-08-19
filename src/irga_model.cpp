@@ -118,8 +118,6 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                 }
             case ID:
                 return QVariant(irgaDesc.id());
-//            case HEIGHT:
-//                return QVariant(QString::number(irgaDesc.height(), 'f', 2) + QStringLiteral(" [m]"));
             case TUBELENGTH:
                 if (IrgaDesc::isOpenPathModel(irgaDesc.model()))
                 {
@@ -235,8 +233,6 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                 return QVariant(irgaDesc.swVersion());
             case ID:
                 return QVariant(irgaDesc.id());
-//            case HEIGHT:
-//                return QVariant(irgaDesc.height());
             case TUBELENGTH:
                 if (IrgaDesc::isOpenPathModel(irgaDesc.model()))
                 {
@@ -348,7 +344,6 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
             case MODEL:
             case SWVERSION:
             case ID:
-//            case HEIGHT:
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:
@@ -473,13 +468,6 @@ bool IrgaModel::setData(const QModelIndex& index, const QVariant& value, int rol
             }
             irgaDesc.setId(value.toString());
             break;
-//        case HEIGHT:
-//            if (value == irgaDesc.height())
-//            {
-//                return false;
-//            }
-//            irgaDesc.setHeight(value.toReal());
-//            break;
         case TUBELENGTH:
             if (value == irgaDesc.tubeLength())
             {
@@ -621,7 +609,6 @@ QVariant IrgaModel::headerData(int section, Qt::Orientation orientation,
             case MODEL:
             case SWVERSION:
             case ID:
-//            case HEIGHT:
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:
@@ -633,9 +620,9 @@ QVariant IrgaModel::headerData(int section, Qt::Orientation orientation,
             case TAU:
             case KWATER:
             case KOXYGEN:
-              return QVariant(tr(""));
+                return QVariant(QString());
             default:
-              return QVariant();
+                return QVariant();
         }
     }
 

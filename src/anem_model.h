@@ -29,7 +29,7 @@
 #include <QModelIndex>
 #include <QVariant>
 
-#include "anem_desc.h" // for AnemDescList typedef
+#include "anem_desc.h" // NOTE: for AnemDescList
 
 class AnemModel : public QAbstractTableModel {
     Q_OBJECT

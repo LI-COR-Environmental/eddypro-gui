@@ -47,13 +47,29 @@ void GlobalSettings::setAppPersistentSettings(const QString& group,
 {
     if (group.isEmpty() || key.isEmpty() || !value.isValid()) { return; }
 
+    qDebug() << "setting";
     QSettings settings;
 
     settings.beginGroup(group);
         settings.setValue(key, value);
+        qDebug() << settings.value(key);
     settings.endGroup();
 
     settings.sync();
+}
+
+QVariant GlobalSettings::getFirstAppPersistentSettings(const QString &group, const QString &key, const QVariant &defaultValue)
+{
+    auto value = GlobalSettings::getAppPersistentSettings(group, key);
+
+    // if the key is not present, create it
+    if (value == QVariant())
+    {
+        value = defaultValue;
+        setAppPersistentSettings(group, key, value);
+    }
+
+    return value;
 }
 
 void GlobalSettings::updateLastDatapath(const QString& dir)

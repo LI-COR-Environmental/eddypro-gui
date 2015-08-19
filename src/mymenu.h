@@ -23,45 +23,17 @@
 #ifndef MYMENU_H
 #define MYMENU_H
 
-#include <QDebug>
-#include <QHelpEvent>
 #include <QMenu>
-#include <QToolTip>
-
-#include "tooltipfilter.h"
 
 class MyMenu : public QMenu
 {
     Q_OBJECT
 
 public:
-    explicit MyMenu(QWidget* parent = nullptr)
-        : QMenu(parent)
-    {
-    }
+    explicit MyMenu(QWidget* parent = nullptr);
 
-    bool event(QEvent* e)
-    {
-        if (QEvent::ToolTip == e->type())
-        {
-            // show action tooltip instead of widget tooltip
-            QHelpEvent *he = static_cast<QHelpEvent*>(e);
-            QAction *action = he ? actionAt(he->pos()) : 0;
-            if (action)
-            {
-                if (action->property("show-tooltip").toBool())
-                {
-                    QToolTip::showText(he->globalPos(), action->toolTip(), this);
-                }
-                else
-                {
-                    QToolTip::hideText();
-                }
-                return true;
-            }
-        }
-        return QMenu::event(e);
-    }
+protected:
+    bool event(QEvent* e) Q_DECL_OVERRIDE;
 };
 
-#endif // MYMENU_H
+#endif  // MYMENU_H

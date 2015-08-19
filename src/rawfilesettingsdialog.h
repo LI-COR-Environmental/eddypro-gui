@@ -44,9 +44,8 @@ class QComboBox;
 class QLineEdit;
 class QSpinBox;
 
-class QwwClearLineEdit;
-
 class ClickLabel;
+class CustomClearLineEdit;
 class DlProject;
 
 /// \class RawFileSettingsDialog
@@ -78,7 +77,7 @@ private:
     ClickLabel* headerRowsLabel;
     QSpinBox* headerRowsSpin;
     ClickLabel* dataRecLabel;
-    QwwClearLineEdit* dataRecLabelEdit;
+    CustomClearLineEdit* dataRecLabelEdit;
     QPushButton *questionMark_1;
 
     DlProject *dlProject_;

@@ -26,7 +26,6 @@
 #ifndef DLINIDEFS_H
 #define DLINIDEFS_H
 
-#include <QByteArray>
 #include <QString>
 
 namespace DlIni

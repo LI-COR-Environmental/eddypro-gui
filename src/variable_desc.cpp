@@ -524,15 +524,15 @@ bool VariableDesc::operator==(const VariableDesc& fileDesc) const
             && (instrument_ == fileDesc.instrument_)
             && (measureType_ == fileDesc.measureType_)
             && (inputUnit_ == fileDesc.inputUnit_)
-            && (minValue_ == fileDesc.minValue_)
-            && (maxValue_ == fileDesc.maxValue_)
+            && qFuzzyCompare(minValue_, fileDesc.minValue_)
+            && qFuzzyCompare(maxValue_, fileDesc.maxValue_)
             && (conversionType_ == fileDesc.conversionType_)
             && (outputUnit_ == fileDesc.outputUnit_)
-            && (aValue_ == fileDesc.aValue_)
-            && (bValue_ == fileDesc.bValue_)
-            && (nomTimelag_ == fileDesc.nomTimelag_)
-            && (minTimelag_ == fileDesc.minTimelag_)
-            && (maxTimelag_ == fileDesc.maxTimelag_);
+            && qFuzzyCompare(aValue_, fileDesc.aValue_)
+            && qFuzzyCompare(bValue_, fileDesc.bValue_)
+            && qFuzzyCompare(nomTimelag_, fileDesc.nomTimelag_)
+            && qFuzzyCompare(minTimelag_, fileDesc.minTimelag_)
+            && qFuzzyCompare(maxTimelag_, fileDesc.maxTimelag_);
 }
 
 // Return string list of anem types
@@ -654,11 +654,11 @@ const QStringList VariableDesc::conversionTypeStringList()
 }
 
 // Return string list of anem types
-QStringList VariableDesc::yesNoStringList()
+const QStringList VariableDesc::yesNoStringList()
 {
     return (QStringList()
-            << QStringLiteral("yes")
-            << QStringLiteral("no"));
+            << tr("yes")
+            << tr("no"));
 }
 
 bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
@@ -1464,15 +1464,11 @@ bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
     // zero-full scale
     if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_0())
     {
-        return (aValue != bValue);
+        return !qFuzzyCompare(aValue, bValue);
     }
     // gain-offset
     else if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_1())
     {
-//        if (aValue == 0.0)
-//        {
-//            DEBUG_FUNC_MSG(QString::number(aValue));
-//        }
         return (aValue != 0.0);
     }
     else

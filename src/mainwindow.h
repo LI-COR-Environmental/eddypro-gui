@@ -33,18 +33,17 @@
 class QPlainTextEdit;
 class QDockWidget;
 class QActionGroup;
-class QSignalMapper;
 class QLabel;
 
-class MainWidget;
-class DlProject;
-class EcProject;
-class MdiChild;
-class TooltipFilter;
 class AboutDialog;
 class ClickLabel;
-class UpdateDialog;
+class DlProject;
+class EcProject;
 class InfoMessage;
+class MainWidget;
+class MdiChild;
+class TooltipFilter;
+class UpdateDialog;
 
 /// \class MainWindow
 /// \brief Class representing the main window of the application
@@ -58,12 +57,15 @@ public:
                QWidget* parent = nullptr);
     ~MainWindow();
 
+    bool queryEcProjectImport(const QString &filename);
+    bool queryDlProjectImport();
+
 protected:
-    void closeEvent(QCloseEvent* event);
-    void resizeEvent(QResizeEvent* event);
-    bool eventFilter(QObject* o, QEvent* e);
-    void wheelEvent(QWheelEvent* event);
-    void changeEvent(QEvent* event);
+    void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject* o, QEvent* e) Q_DECL_OVERRIDE;
+    void wheelEvent(QWheelEvent* event) Q_DECL_OVERRIDE;
+    void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
 
 private slots:
     void dbgViewConsoleOutputToggled(bool on);
@@ -126,6 +128,7 @@ private slots:
     void getRunExpress();
     void getRunAdvanced();
     void getRunRetriever();
+    void pauseResumeComputations(Defs::CurrRunStatus mode);
     bool pauseEngine(Defs::CurrRunStatus mode);
     bool resumeEngine(Defs::CurrRunStatus mode);
     void stopEngine();
@@ -156,13 +159,13 @@ private slots:
     void showAutoUpdateResults();
     void showUpdateDialog();
 
-    void openLicorSite();
+    void openLicorSite() const;
 
     void checkInternetConnection();
     void updateInfoMessages();
-    void showInfoMessages_1();
-    void showInfoMessages_2();
-    void showInfoMessages_3();
+    void showGuidedModeMessages_1();
+    void showGuidedModeMessages_2();
+    void showGuidedModeMessages_3();
 
     // restore application state
     void restorePreviousStatus();
@@ -172,6 +175,10 @@ private slots:
     void connectTimeLagDialog();
 
     void updateDockBorder(Qt::DockWidgetArea);
+
+    void scheduleMdCleanup();
+
+    void closeMainWindow();
 
 private:
     void runExpress();
@@ -210,11 +217,15 @@ private:
     bool okToStopRun();
     int testBeforeRunningPassed(int step);
     bool testForPreviousData();
-    bool alertChangesWhenRunning();
+    bool alertChangesWhileRunning();
     void togglePageButton(Defs::CurrPage page);
     void changeViewToolbarSeparators(Defs::CurrPage page);
 
     void checkUpdate();
+
+    void cleanOverdueMessageBox(const QString &messageBoxName);
+
+    void requestSmartFluxMode(bool on);
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -322,7 +333,7 @@ private:
     bool advancedClicked_;
     bool retrieverClicked_;
 
-    void showStatusTip(const QString &text);
+    void showStatusTip(const QString &text) const;
 
     Process* engineProcess_;
     int engineExit_;
@@ -334,6 +345,16 @@ private:
 
     void loadSmartfluxProjectCopy(const QString &filename);
     void cleanEnvTmpDir();
+    void silentMdClenaup();
+
+    bool scheduledSilentMdCleanup_;
+
+    void closeOpenDialogs();
+
+    bool getDatesRangeDialog(Defs::CurrRunMode mode);
+    bool showDatesRangeDialog(Defs::CurrRunMode mode);
+    QPair<QDateTime, QDateTime> getCurrentDateRange();
+
 signals:
     void updateMetadataReadRequest();
     void updateCrossWindRequest();

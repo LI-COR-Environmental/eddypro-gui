@@ -46,7 +46,7 @@ signals:
     void saveSilentlyRequest();
 
 protected:
-    void paintEvent(QPaintEvent* event); // override
+    void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
 
     static void paintLayout(QPainter* painter, QLayoutItem* item);
 

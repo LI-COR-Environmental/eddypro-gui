@@ -40,56 +40,16 @@
 /// \todo
 ////////////////////////////////////////////////////////////////////////////////
 
-/// \struct WinConfigState
-/// \brief Container structure for application status information to be
-/// preserved in the operating system
-struct WinConfigState
-{
-   WinConfigState()
-       : mainwin_state(QByteArray()),
-         mainwin_geometry(QByteArray()),
-         statusBar(true),
-         fullScreen(false),
-         logDock(false),
-         consoleDock(true),
-         tooltips(true),
-         infoDock(true),
-         autoChooseHelp(false),
-         offlineHelp(false),
-         last_data_path(QString()),
-         showRunMessages(true)
-    { ; }
-    QByteArray mainwin_state;
-    QByteArray mainwin_geometry;
-    bool statusBar;
-    bool fullScreen;
-    bool logDock;
-    bool consoleDock;
-    bool tooltips;
-    bool infoDock;
-    bool autoChooseHelp;
-    bool offlineHelp;
-    QString last_data_path;
-    bool showRunMessages;
-};
-
 /// \struct GenConfigState
 /// \brief Container structure for application preferences to be
 /// preserved in the operating system
 struct GenConfigState
 {
-    GenConfigState() :
-        showsplash(true),
-        recentnum(4),
-        recentfiles(QStringList()),
-        loadlastproject(false),
-        env(QString())
-    { ; }
-    bool showsplash;
-    int recentnum;
-    QStringList recentfiles;
-    bool loadlastproject;
-    QString env;
+    bool loadlastproject = false;
+    bool showsplash = true;
+    int recentnum = 4;
+    QString env = QString();
+    QStringList recentfiles = QStringList();
 };
 
 /// \struct ProjConfigState
@@ -97,14 +57,28 @@ struct GenConfigState
 /// preserved in the operating system
 struct ProjConfigState
 {
-    ProjConfigState() :
-        default_data_path(QString()),
-        custom_variables(QString()),
-        smartfluxMode(false)
-    { ; }
-    QString default_data_path;
-    QString custom_variables;
-    bool smartfluxMode;
+    bool smartfluxMode = false;
+    QString default_data_path = QString();
+    QString custom_variables = QString();
+};
+
+/// \struct WinConfigState
+/// \brief Container structure for application status information to be
+/// preserved in the operating system
+struct WinConfigState
+{
+    bool statusBar = true;
+    bool fullScreen = false;
+    bool logDock = false;
+    bool consoleDock = true;
+    bool tooltips = true;
+    bool infoDock = true;
+    bool autoChooseHelp = false;
+    bool offlineHelp = false;
+    bool showRunMessages = true;
+    QByteArray mainwin_state = QByteArray();
+    QByteArray mainwin_geometry = QByteArray();
+    QString last_data_path = QString();
 };
 
 /// \struct ConfigState
@@ -112,14 +86,9 @@ struct ProjConfigState
 /// parameters to be preserved in the operating system
 struct ConfigState
 {
-    ConfigState() :
-        window(WinConfigState()),
-        general(GenConfigState()),
-        project(ProjConfigState())
-    { ; }
-    WinConfigState window;
     GenConfigState general;
     ProjConfigState project;
+    WinConfigState window;
 };
 
 #endif // CONFIGSTATE_H

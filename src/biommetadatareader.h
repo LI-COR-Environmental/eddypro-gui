@@ -47,7 +47,6 @@ private:
     int countEmbVariables(const QStringList& list);
 
     QList<BiomItem>* biomMetadata_;
-
 };
 
 #endif // BIOMMETADATAREADER_H

@@ -24,118 +24,63 @@
 #ifndef DLPROJECTSTATE_H
 #define DLPROJECTSTATE_H
 
-#include "anem_desc.h"       // for AnemDescList typedef
+#include "anem_desc.h"       // NOTE: for AnemDescList
 #include "defs.h"
-#include "irga_desc.h"       // for IrgaDescList typedef
-#include "variable_desc.h"   // for VariableDescList typedef
+#include "irga_desc.h"       // NOTE: for IrgaDescList
+#include "variable_desc.h"   // NOTE: for VariableDescList
 
 struct GeneralState {
-    GeneralState() :
-        sw_version(Defs::APP_VERSION_STR),
-        ini_version(Defs::METADATA_FILE_VERSION_STR),
-        creation_date(QString()),
-        last_change_date(QString()),
-        start_date(QString()),
-        end_date(QString()),
-        file_name(QString()),
-        title(QString()),
-        id(QString())
-    { ; }
-    QString sw_version;
-    QString ini_version;
-    QString creation_date;
-    QString last_change_date;
-    QString start_date;
-    QString end_date;
-    QString file_name;
-    QString title;
-    QString id;
+    QString sw_version = Defs::APP_VERSION_STR;
+    QString ini_version = Defs::METADATA_FILE_VERSION_STR;
+    QString creation_date = QString();
+    QString last_change_date = QString();
+    QString start_date = QString();
+    QString end_date = QString();
+    QString file_name = QString();
+    QString title = QString();
+    QString id = QString();
 };
 
 struct FilesState {
-    FilesState() :
-        data_path(QString()),
-        saved_native(false),
-        timestamp(true),
-        isoformat(false),
-        end_of_line(QStringLiteral("lf")),
-        enable_processing(true),
-        tstamp_end(0)
-    { ; }
-    QString data_path;
-    bool saved_native;
-    bool timestamp;
-    bool isoformat;
-    QString end_of_line;
-    bool enable_processing;
-    int tstamp_end;             // 0 = start
+    bool saved_native = false;
+    bool timestamp = true;
+    bool isoformat = false;
+    bool enable_processing = true;
+    int tstamp_end = 0;             // 0 = start
+    QString data_path = QString();
+    QString end_of_line = QStringLiteral("lf");
 };
 
 struct SiteState {
-    SiteState() :
-        site_name(QString()),
-        site_id(QString()),
-        altitude(0.0),
-        latitude(0.0),
-        longitude(0.0),
-        canopy_height(0.0),
-        displacement_height(0.0),
-        roughness_length(0.0)
-    { ; }
-    QString site_name;
-    QString site_id;
-    double altitude;
-    double latitude;
-    double longitude;
-    double canopy_height;
-    double displacement_height;
-    double roughness_length;
+    double altitude = 0.0;
+    double latitude = 0.0;
+    double longitude = 0.0;
+    double canopy_height = 0.0;
+    double displacement_height = 0.0;
+    double roughness_length = 0.0;
+    QString site_name = QString();
+    QString site_id = QString();
 };
 
 struct StationState {
-    StationState() :
-        name(QString()),
-        id(QString())
-    { ; }
-    QString name;
-    QString id;
+    QString name = QString();
+    QString id = QString();
 };
 
 struct TimingState {
-    TimingState() :
-        acquisition_frequency(10.0),
-        file_duration(30),
-        pc_time_settings(QStringLiteral("utc"))
-    { ; }
-    double acquisition_frequency;
-    int file_duration;
-    QString pc_time_settings;
+    int file_duration = 30;
+    double acquisition_frequency = 10.0;
+    QString pc_time_settings = QStringLiteral("utc");
 };
 
 struct VarDescState {
-    VarDescState() :
-        separator(QString()),
-        header_rows(-1),
-        data_label(QObject::tr("Not set"))
-    { ; }
-    QString separator;
-    int header_rows;
-    QString data_label;
+    int header_rows = -1;
+    QString separator = QString();
+    QString data_label = QObject::tr("Not set");
 };
 
 struct ProjectState
 {
-    ProjectState() :
-        general(),
-        files(),
-        site(),
-        station(),
-        timing(),
-        anemometerList(),
-        irgaList(),
-        varDesc(),
-        variableList()
-    { ; }
     GeneralState general;
     FilesState files;
     SiteState site;

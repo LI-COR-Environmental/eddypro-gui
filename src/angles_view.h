@@ -32,42 +32,43 @@ class AnglesView : public QAbstractItemView
 public:
     explicit AnglesView(QWidget* parent = nullptr);
 
-    QRect visualRect(const QModelIndex &index) const;
-    void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible);
-    QModelIndex indexAt(const QPoint &point) const;
-    QSize sizeHint() const;
+    QRect visualRect(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible) Q_DECL_OVERRIDE;
+    QModelIndex indexAt(const QPoint &point) const Q_DECL_OVERRIDE;
+    QSize sizeHint() const Q_DECL_OVERRIDE;
 
 public slots:
     void updateValidItems();
 
 protected slots:
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> & roles = QVector<int> ());
-    void rowsInserted(const QModelIndex &parent, int start, int end);
-    void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end);
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> & roles = QVector<int> ()) Q_DECL_OVERRIDE;
+    void rowsInserted(const QModelIndex &parent, int start, int end) Q_DECL_OVERRIDE;
+    void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end) Q_DECL_OVERRIDE;
+    void updateGeometries() Q_DECL_OVERRIDE;
 
 protected:
-    bool edit(const QModelIndex &index, EditTrigger trigger, QEvent *event);
+    bool edit(const QModelIndex &index, EditTrigger trigger, QEvent *event) Q_DECL_OVERRIDE;
     QModelIndex moveCursor(QAbstractItemView::CursorAction cursorAction,
-                           Qt::KeyboardModifiers modifiers);
+                           Qt::KeyboardModifiers modifiers) Q_DECL_OVERRIDE;
 
-    int horizontalOffset() const;
-    int verticalOffset() const;
+    int horizontalOffset() const Q_DECL_OVERRIDE;
+    int verticalOffset() const Q_DECL_OVERRIDE;
 
-    bool isIndexHidden(const QModelIndex &index) const;
+    bool isIndexHidden(const QModelIndex &index) const Q_DECL_OVERRIDE;
 
-    void setSelection(const QRect&, QItemSelectionModel::SelectionFlags command);
+    void setSelection(const QRect&, QItemSelectionModel::SelectionFlags command) Q_DECL_OVERRIDE;
 
-    void mousePressEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
-    void paintEvent(QPaintEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    void scrollContentsBy(int dx, int dy);
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
+    void scrollContentsBy(int dx, int dy) Q_DECL_OVERRIDE;
 
-    QRegion visualRegionForSelection(const QItemSelection &selection) const;
-    bool viewportEvent(QEvent *event);
+    QRegion visualRegionForSelection(const QItemSelection &selection) const Q_DECL_OVERRIDE;
+    bool viewportEvent(QEvent *event) Q_DECL_OVERRIDE;
 
 signals:
     void fillPieRequest();
@@ -76,7 +77,6 @@ private:
     QRect itemRect(const QModelIndex &item) const;
     QRegion itemRegion(const QModelIndex &index) const;
     int rows(const QModelIndex &index = QModelIndex()) const;
-    void updateGeometries();
 
     int margin;
     int totalSize;

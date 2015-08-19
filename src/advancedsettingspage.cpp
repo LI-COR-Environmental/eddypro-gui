@@ -52,7 +52,7 @@ const QString AdvancedSettingsPage::PAGE_TITLE_2 =
 const QString AdvancedSettingsPage::PAGE_TITLE_3 =
         QObject::tr("Computation Options");
 const QString AdvancedSettingsPage::PAGE_TITLE_4 =
-        QObject::tr("Spectral Corrections");
+        QObject::tr("Spectral Analysis and Corrections");
 
 AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
                                            DlProject* dlProject,
@@ -153,15 +153,15 @@ void AdvancedSettingsPage::createIcons()
     processingItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-processing")));
     menuWidget->addItem(processingItem);
 
-    auto spectraItem = new QListWidgetItem;
-    spectraItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_4);
-    spectraItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-spectra")));
-    menuWidget->addItem(spectraItem);
-
     auto statisticItem = new QListWidgetItem;
     statisticItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_1);
     statisticItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-statistic")));
     menuWidget->addItem(statisticItem);
+
+    auto spectraItem = new QListWidgetItem;
+    spectraItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_4);
+    spectraItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-spectra")));
+    menuWidget->addItem(spectraItem);
 
     auto outputItem = new QListWidgetItem;
     outputItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_2);
@@ -176,7 +176,7 @@ void AdvancedSettingsPage::changePage(int index)
 
 bool AdvancedSettingsPage::requestSettingsReset()
 {
-    return WidgetUtils::okToQuestion(nullptr,
+    return WidgetUtils::yesNoQuestion(this,
                 tr("Reset Advanced Settings"),
                 tr("<p>Do you want to reset all the "
                    "Advanced Settings to the default settings?</p>"),
@@ -192,8 +192,6 @@ void AdvancedSettingsPage::resetButtonCLicked()
         advancedSettingContainer->statisticalOptions()->reset();
         advancedSettingContainer->spectralOptions()->reset();
         advancedSettingContainer->outputOptions()->reset();
-        advancedSettingContainer->processingOptions()
-                ->updateAngleOfAttack(ecProject_->generalColMasterSonic());
         ecProject_->setModified(true);
     }
 }
@@ -204,7 +202,6 @@ void AdvancedSettingsPage::updateSmartfluxBar()
     qDebug() << configState_->project.smartfluxMode;
     smartfluxBar->setVisible(configState_->project.smartfluxMode);
 
-    advancedSettingContainer->processingOptions()->setSmartfluxUI();
     advancedSettingContainer->processingOptions()->getPlanarFitSettingsDialog()
             ->setSmartfluxUI();
     advancedSettingContainer->processingOptions()->getTimeLagSettingsDialog()

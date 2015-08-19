@@ -23,6 +23,7 @@
 
 #include "projectpage.h"
 
+#include <QAction>
 #include <QButtonGroup>
 #include <QCheckBox>
 #include <QComboBox>
@@ -35,17 +36,17 @@
 #include <QTimer>
 #include <QUrl>
 
-#include <QwwButtonLineEdit/QwwButtonLineEdit>
-#include <QwwClearLineEdit/QwwClearLineEdit>
-
 #include "binarysettingsdialog.h"
 #include "clicklabel.h"
 #include "configstate.h"
+#include "customclearlineedit.h"
 #include "dbghelper.h"
+#include "dirbrowsewidget.h"
 #include "dlinidialog.h"
 #include "dlproject.h"
 #include "dlrawfiledesctab.h"
 #include "ecproject.h"
+#include "filebrowsewidget.h"
 #include "fileutils.h"
 #include "globalsettings.h"
 #include "mytabwidget.h"
@@ -56,31 +57,31 @@
 
 ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
     QWidget(parent),
-    metadataFileEdit(0),
-    dynamicMdEdit(0),
-    biomExtFileEdit(0),
-    biomExtDirEdit(0),
+    metadataFileBrowse(nullptr),
+    dynamicMdFileBrowse(nullptr),
+    biometExtFileBrowse(nullptr),
+    biometExtDirBrowse(nullptr),
     dlProject_(dlProject),
     ecProject_(ecProject),
     configState_(config),
-    helpGroup_(0),
-    dlIniDialog_(0),
-    faderWidget_(0),
+    helpGroup_(nullptr),
+    dlIniDialog_(nullptr),
+    faderWidget_(nullptr),
     fadingOn_(true),
     isMetadataEditorOn_(false),
     previousFileType_(0),
     currentFileType_(0),
     previousMetadataFile_(QString()),
     currentMetadataFile_(QString()),
-    binDialog_(0)
+    binDialog_(nullptr)
 {
     DEBUG_FUNC_NAME
 
     titleLabel = new ClickLabel(tr("Project name :"));
     titleLabel->setProperty("optionalField", true);
     titleLabel->setToolTip(tr("<b>Project name:</b> Enter a name for the flux computation project. This will be the default file name for this project, but you can edit it while saving the project. This field is optional."));
-    titleEdit = new QwwClearLineEdit;
-    titleEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
+
+    titleEdit = new CustomClearLineEdit();
     titleEdit->setToolTip(titleLabel->toolTip());
     titleEdit->setMaxLength(255);
 
@@ -144,33 +145,20 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     metadataLabel->setToolTip(tr("<b>Metadata:</b> Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format."));
     embMetadataFileRadio = new QRadioButton(tr("Use embedded file"));
     embMetadataFileRadio->setToolTip(tr("<b>Use embedded metadata file:</b> Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive."));
-    altMetadataFileRadio = new QRadioButton(tr("Use alternative file:"));
+    altMetadataFileRadio = new QRadioButton(tr("Use alternative file: "));
     altMetadataFileRadio->setToolTip(tr("<b>Use alternative metadata file:</b> Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the <b><i>Metadata File Editor</i></b>. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file <b><i>Load</i></b> button. Make changes if needed and save the file."));
+    altMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 0px; } "));
+
     metadataRadioGroup = new QButtonGroup(this);
     metadataRadioGroup->addButton(embMetadataFileRadio, 0);
     metadataRadioGroup->addButton(altMetadataFileRadio, 1);
 
-    metadataFileEdit = new QwwButtonLineEdit;
-    metadataFileEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    metadataFileEdit->setButtonVisible(false);
-    metadataFileEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
-    metadataFileEdit->setReadOnly(true);
-    metadataFileEdit->installEventFilter(const_cast<ProjectPage*>(this));
-    metadataFileEdit->setToolTip(tr("<b>Load:</b> Load an existing metadata file to edit it in the <i><b>Metadata File Editor</i></b>. If you use the <i><b>Metadata File Editor</i></b> to create and save a new metadata file from scratch, its path will appear here."));
-    metadataFileEdit->setProperty("asButtonLineEdit", true);
-
-    metadataFileLoad = new QPushButton(tr("Load..."));
-    metadataFileLoad->setProperty("loadButton", true);
-    metadataFileLoad->setToolTip(tr("<b>Load:</b> Load an existing metadata file to edit it in the <i><b>Metadata File Editor</i></b>. If you use the <i><b>Metadata File Editor</i></b> to create and save a new metadata file from scratch, its path will appear here."));
-
-    auto metadataContainerLayout = new QHBoxLayout;
-    metadataContainerLayout->addWidget(metadataFileEdit);
-    metadataContainerLayout->addWidget(metadataFileLoad);
-    metadataContainerLayout->setStretch(2, 1);
-    metadataContainerLayout->setContentsMargins(0, 0, 0, 0);
-    metadataContainerLayout->setSpacing(0);
-    auto metadataFileContainer = new QWidget;
-    metadataFileContainer->setLayout(metadataContainerLayout);
+    metadataFileBrowse = new FileBrowseWidget;
+    metadataFileBrowse->disableClearAction();
+    metadataFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing metadata file to edit it in the <i><b>Metadata File Editor</i></b>. If you use the <i><b>Metadata File Editor</i></b> to create and save a new metadata file from scratch, its path will appear here."));
+    metadataFileBrowse->setDialogTitle(tr("Select the Metadata File"));
+    metadataFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
+    metadataFileBrowse->setDialogFilter(tr("%1 Metadata Files (*.metadata);;All Files (*.*)").arg(Defs::APP_NAME));
 
     createQuestionMark();
 
@@ -182,35 +170,23 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
                                      "EddyPro to use an externally-created "
                                      "file that contains time changing "
                                      "metadata, such as canopy height, "
-                                     "instrument separations and more."));
+                                     "instrument separations and more."
+                                     "Click on the question mark at the right "
+                                     "side of the <b>Load</b> button to learn "
+                                     "more about dynamic metadata on the "
+                                     "EddyPro Help."));
     dynamicMdCheckBox->setProperty("optionalField", true);
 
-    dynamicMdEdit = new QwwButtonLineEdit;
-    dynamicMdEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    dynamicMdEdit->setButtonVisible(false);
-    dynamicMdEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
-    dynamicMdEdit->setReadOnly(true);
-    dynamicMdEdit->installEventFilter(const_cast<ProjectPage*>(this));
-    dynamicMdEdit->setProperty("asButtonLineEdit", true);
-
-    dynamicMdLoad = new QPushButton(tr("Load..."));
-    dynamicMdLoad->setProperty("loadButton", true);
-    dynamicMdLoad->setToolTip(tr("<b>Load:</b> Load an existing dynamic "
-                                 "metadata file."));
-
-    auto dynamicMdLayout = new QHBoxLayout;
-    dynamicMdLayout->addWidget(dynamicMdEdit);
-    dynamicMdLayout->addWidget(dynamicMdLoad);
-    dynamicMdLayout->setStretch(2, 1);
-    dynamicMdLayout->setContentsMargins(0, 0, 0, 0);
-    dynamicMdLayout->setSpacing(0);
-    auto dynamicMdContainer = new QWidget;
-    dynamicMdContainer->setLayout(dynamicMdLayout);
+    dynamicMdFileBrowse = new FileBrowseWidget;
+    dynamicMdFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing dynamic metadata file."));
+    dynamicMdFileBrowse->setDialogTitle(tr("Select the Dynamic Metadata File"));
+    dynamicMdFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
+    dynamicMdFileBrowse->setDialogFilter(tr("All Files (*.*)"));
 
     biomDataCheckBox = new QCheckBox;
     biomDataCheckBox->setText(tr("Biomet data :"));
     biomDataCheckBox->setProperty("optionalField", true);
-    biomDataCheckBox->setToolTip(tr("<b>Biomet data:</b> Select this option and choose the source of biomet data. Biomet data are slow (1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file."));
+    biomDataCheckBox->setToolTip(tr("<b>Biomet data:</b> Select this option and choose the source of biomet data. Biomet data are slow (< 1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file."));
 
     biomEmbFileRadio = new QRadioButton(tr("Use embedded files "));
     biomEmbFileRadio->setChecked(true);
@@ -218,54 +194,28 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
     biomExtFileRadio = new QRadioButton(tr("Use external file:"));
     biomExtFileRadio->setToolTip(tr("<b>Use external file:</b> Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the <b><i>Load...</i></b> button. <br /><b>IMPORTANT:</b> The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User\'s Guide. Click on the question mark at the right side of the <b><i>Load...</i></b> button to access the guidelines on EddyPro Help."));
-    biomExtFileEdit = new QwwButtonLineEdit;
-    biomExtFileEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    biomExtFileEdit->setButtonVisible(false);
-    biomExtFileEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
-    biomExtFileEdit->setReadOnly(true);
-    biomExtFileEdit->installEventFilter(const_cast<ProjectPage*>(this));
-    biomExtFileEdit->setProperty("asButtonLineEdit", true);
 
-    biomExtFileLoad = new QPushButton(tr("Load..."));
-    biomExtFileLoad->setProperty("loadButton", true);
-    biomExtFileLoad->setToolTip(tr("<b>Load:</b> Load an existing biomet external file."));
-
-    auto biomExtContainerLayout = new QHBoxLayout;
-    biomExtContainerLayout->addWidget(biomExtFileEdit);
-    biomExtContainerLayout->addWidget(biomExtFileLoad);
-    biomExtContainerLayout->setStretch(2, 1);
-    biomExtContainerLayout->setContentsMargins(0, 0, 0, 0);
-    biomExtContainerLayout->setSpacing(0);
-    auto biomExtContainer = new QWidget;
-    biomExtContainer->setLayout(biomExtContainerLayout);
+    biometExtFileBrowse = new FileBrowseWidget;
+    biometExtFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing biomet external file"));
+    biometExtFileBrowse->setDialogTitle(tr("Select the Biomet File"));
+    biometExtFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
+    biometExtFileBrowse->setDialogFilter(tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME));
 
     biomExtDirRadio = new QRadioButton(tr("Use external directory:"));
-    biomExtDirRadio->setToolTip(tr("<b>Use external directory:</b> Select this option if you have biomet data collected in more than one external file, and provide the path to directory that contains those files by using the <b><i>Browse...</i></b> button. <br /><b>IMPORTANT:</b> All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User\'s Guide. Click on the question mark at the right side of the <b><i>Browse...</i></b> button to access the guidelines page on EddyPro Help."));
+    biomExtDirRadio->setToolTip(tr("<b>Use external directory:</b> Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the <b><i>Browse...</i></b> button. <br /><b>IMPORTANT:</b> All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User\'s Guide. Click on the question mark at the right side of the <b><i>Browse...</i></b> button to access the guidelines page on EddyPro Help."));
 
-    biomExtDirEdit = new QwwButtonLineEdit;
-    biomExtDirEdit->setReadOnly(true);
-    biomExtDirEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    biomExtDirEdit->setButtonVisible(false);
-    biomExtDirEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
-    biomExtDirEdit->setProperty("asButtonLineEdit", true);
-    biomExtDirEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
-    biomExtDirEdit->installEventFilter(const_cast<ProjectPage*>(this));
-    biomExtDirBrowse = new QPushButton(tr("Browse..."));
-    biomExtDirBrowse->setProperty("loadButton", true);
-    biomExtDirBrowse->setToolTip(tr("<b>Browse :</b> Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the <i>Search in subfolders</i> box."));
-
-    auto biomExtDirContainerLayout = new QHBoxLayout;
-    biomExtDirContainerLayout->addWidget(biomExtDirEdit);
-    biomExtDirContainerLayout->addWidget(biomExtDirBrowse);
-    biomExtDirContainerLayout->setStretch(2, 1);
-    biomExtDirContainerLayout->setContentsMargins(0, 0, 0, 0);
-    biomExtDirContainerLayout->setSpacing(0);
-    auto biomExtDirContainer = new QWidget;
-    biomExtDirContainer->setLayout(biomExtDirContainerLayout);
+    biometExtDirBrowse = new DirBrowseWidget;
+    biometExtDirBrowse->setToolTip(tr("<b>Browse :</b> Use to specify the "
+                                      "folder that contains the external biomet "
+                                      "data. If data are also contained in "
+                                      "subfolders, select the <i>Search in "
+                                      "subfolders</i> box."));
+    biometExtDirBrowse->setDialogTitle(tr("Select the Biomet Files Directory"));
+    biometExtDirBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
 
     biomExtDirRecCheckBox = new QCheckBox;
     biomExtDirRecCheckBox->setText(tr("Search in subfolders"));
-    biomExtDirRecCheckBox->setToolTip(tr("<b>Search in subfolders:</b> Check this box if biomet data are in subfolders in the selected directory."));
+    biomExtDirRecCheckBox->setToolTip(tr("<b>Search in subfolders:</b> Check this box if biomet files are in subfolders in the selected directory."));
 
     biomExtDirSuffixLabel = new ClickLabel(tr("Files extension :"), this);
     biomExtDirSuffixLabel->setToolTip(tr("<b>Files extension :</b> Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts."));
@@ -290,6 +240,8 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     altMetadataFileRadioBox->addWidget(altMetadataFileRadio);
     altMetadataFileRadioBox->addWidget(questionMark_4);
     altMetadataFileRadioBox->addStretch();
+//    altMetadataFileRadioBox->setSpacing(0);
+//    altMetadataFileRadioBox->setContentsMargins(0, 0, 0, 0);
 
     auto gridLeft = new QGridLayout;
     gridLeft->addWidget(titleLabel, 0, 0, Qt::AlignRight);
@@ -320,17 +272,17 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     gridRight->addWidget(metadataLabel, 1, 0, Qt::AlignRight);
     gridRight->addWidget(embMetadataFileRadio, 1, 1, 1, 1, Qt::AlignLeft);
     gridRight->addLayout(altMetadataFileRadioBox, 2, 1);
-    gridRight->addWidget(metadataFileContainer, 3, 1, 1, 3);
+    gridRight->addWidget(metadataFileBrowse, 3, 1, 1, 3);
     gridRight->addWidget(dynamicMdCheckBox, 5, 0, Qt::AlignRight);
-    gridRight->addWidget(dynamicMdContainer, 5, 1, 1, 3);
+    gridRight->addWidget(dynamicMdFileBrowse, 5, 1, 1, 3);
     gridRight->addWidget(questionMark_3, 5, 4);
     gridRight->addWidget(biomDataCheckBox, 7, 0, Qt::AlignRight);
     gridRight->addWidget(biomEmbFileRadio, 7, 1, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(biomExtFileRadio, 8, 1, 1, 1, Qt::AlignLeft);
-    gridRight->addWidget(biomExtContainer, 8, 2, 1, 2);
+    gridRight->addWidget(biometExtFileBrowse, 8, 2, 1, 2);
     gridRight->addWidget(questionMark_7, 8, 4);
     gridRight->addWidget(biomExtDirRadio, 9, 1, 1, 1, Qt::AlignLeft);
-    gridRight->addWidget(biomExtDirContainer, 9, 2, 1, 2);
+    gridRight->addWidget(biometExtDirBrowse, 9, 2, 1, 2);
     gridRight->addWidget(questionMark_8, 9, 4);
     gridRight->addWidget(biomExtDirRecCheckBox, 10, 1, Qt::AlignRight);
     gridRight->addWidget(biomExtDirSuffixLabel, 10, 2, Qt::AlignRight);
@@ -357,19 +309,11 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     hBox->setColumnStretch(0, 1);
     hBox->setColumnStretch(1, 1);
 
-    auto upAreaWidget = new QWidget;
-    upAreaWidget->setLayout(hBox);
-    upAreaWidget->setProperty("scrollContainerWidget", true);
-
-    auto upScrollArea = new QScrollArea;
-    upScrollArea->setWidget(upAreaWidget);
-    upScrollArea->setWidgetResizable(true);
-
     auto upGroupTitle = new QLabel(tr("Project Info"));
     upGroupTitle->setProperty("groupTitle", true);
 
     auto splitter = new Splitter(Qt::Vertical, this);
-    splitter->addWidget(upScrollArea);
+    splitter->addWidget(WidgetUtils::getContainerScrollArea(this, hBox));
     splitter->addWidget(metadataEditors);
     splitter->setStretchFactor(0, 0);
     splitter->setStretchFactor(1, 1);
@@ -391,13 +335,13 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
             this, &ProjectPage::refresh);
 
     connect(dlIniDialog_, &DlIniDialog::metadataFileSaved,
-            this, &ProjectPage::updateMetadataFileEdit);
+            this, &ProjectPage::updateMetadataFileBrowse);
     connect(dlIniDialog_, &DlIniDialog::mdFileEditClearRequest,
-            metadataFileEdit, &QwwButtonLineEdit::clear);
+            metadataFileBrowse, &FileBrowseWidget::clear);
 
     connect(titleLabel, &ClickLabel::clicked,
             this, &ProjectPage::onTitleLabelClicked);
-    connect(titleEdit, &QwwClearLineEdit::textChanged, [=](const QString& s)
+    connect(titleEdit, &QLineEdit::textChanged, [=](const QString& s)
             { ecProject_->setGeneralTitle(s); });
 
     connect(fileTypeRadioGroup, SIGNAL(buttonClicked(int)),
@@ -424,23 +368,21 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     connect(metadataRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateUseMetadataFile_2(int)));
 
-    connect(metadataFileEdit, &QwwButtonLineEdit::buttonClicked,
+    connect(metadataFileBrowse, &FileBrowseWidget::clearRequested,
             this, &ProjectPage::mdResetRequest);
-    connect(metadataFileEdit, &QwwButtonLineEdit::textChanged,
+    connect(metadataFileBrowse, &FileBrowseWidget::pathChanged,
             this, &ProjectPage::updateMetadataFile);
-    connect(metadataFileLoad, &QPushButton::clicked,
-            this, &ProjectPage::metadataFileLoad_clicked);
+    connect(metadataFileBrowse, &FileBrowseWidget::pathSelected,
+            this, &ProjectPage::metadataFileSelected);
 
-    connect(dynamicMdCheckBox, &QCheckBox::toggled,
-            this, &ProjectPage::onTimelineFileCheckBoxClicked);
-    connect(dynamicMdCheckBox, &QCheckBox::toggled,
-            this, &ProjectPage::updateUseTimelineFile);
-    connect(dynamicMdEdit, &QwwButtonLineEdit::buttonClicked,
-            this, &ProjectPage::clearDynamicMdEdit);
-    connect(dynamicMdEdit, &QwwButtonLineEdit::textChanged,
+    connect(dynamicMdCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { dynamicMdFileBrowse->setEnabled(checked); });
+    connect(dynamicMdCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralUseTimelineFile(checked); });
+    connect(dynamicMdFileBrowse, &FileBrowseWidget::pathChanged,
             this, &ProjectPage::updateTimelineFile);
-    connect(dynamicMdLoad, &QPushButton::clicked,
-            this, &ProjectPage::timelineFileLoad_clicked);
+    connect(dynamicMdFileBrowse, &FileBrowseWidget::pathSelected,
+            this, &ProjectPage::dynamicMdFileSelected);
 
     connect(biomDataCheckBox, &QCheckBox::toggled,
             this, &ProjectPage::on_biomDataCheckBox_clicked);
@@ -449,19 +391,15 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     connect(biomRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(on_biomRadioGroup_clicked_2(int)));
 
-    connect(biomExtFileEdit, &QwwButtonLineEdit::buttonClicked,
-            this, &ProjectPage::clearBiomExtFileEdit);
-    connect(biomExtFileEdit, &QwwButtonLineEdit::textChanged,
+    connect(biometExtFileBrowse, &FileBrowseWidget::pathChanged,
             this, &ProjectPage::updateBiomFile);
-    connect(biomExtFileLoad, &QPushButton::clicked,
-            this, &ProjectPage::on_biomFileLoad_clicked);
+    connect(biometExtFileBrowse, &FileBrowseWidget::pathSelected,
+            this, &ProjectPage::biomExtFileSelected);
 
-    connect(biomExtDirEdit, &QwwButtonLineEdit::buttonClicked,
-            this, &ProjectPage::clearBiomExtDirEdit);
-    connect(biomExtDirEdit, &QwwButtonLineEdit::textChanged,
+    connect(biometExtDirBrowse, &DirBrowseWidget::pathChanged,
             this, &ProjectPage::updateBiomDir);
-    connect(biomExtDirBrowse, &QPushButton::clicked,
-            this, &ProjectPage::on_biomDirBrowse_clicked);
+    connect(biometExtDirBrowse, &DirBrowseWidget::pathSelected,
+            this, &ProjectPage::biometExtDirSelected);
 
     connect(biomExtDirRecCheckBox, &QCheckBox::toggled,
             this, &ProjectPage::updateExtDirRec);
@@ -509,6 +447,7 @@ void ProjectPage::createMetadataEditor()
     helpGroup_->setLayout(helpLayout);
 
     dlIniDialog_ = new DlIniDialog(this, dlProject_, configState_);
+    dlIniDialog_->setObjectName(QStringLiteral("DlIniDialog"));
 
     metadataTab = new QStackedWidget;
     metadataTab->addWidget(helpGroup_);
@@ -573,69 +512,37 @@ void ProjectPage::fadeInWidget(int filetype)
     }
 }
 
-void ProjectPage::metadataFileLoad_clicked()
+void ProjectPage::metadataFileSelected(const QString& file_path)
 {
     DEBUG_FUNC_NAME
 
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
-
-    QString mdFile = QFileDialog::getOpenFileName(this,
-                    tr("Select the Metadata File"),
-                    searchPath,
-                    tr("%1 Metadata Files (*.metadata);;All Files (*.*)").arg(Defs::APP_NAME),
-                    0
-                    );
-    if (mdFile.isEmpty()) { return; }
-
-    QFileInfo mdDir(mdFile);
-    QString mdPath = mdDir.canonicalPath();
-
+    QFileInfo mdDir(file_path);
+    auto mdPath = mdDir.canonicalPath();
     configState_->window.last_data_path = mdPath;
     GlobalSettings::updateLastDatapath(mdPath);
 
-    bool embedded = false;
-    if (dlIniDialog_->openFile(mdFile, embedded))
+    auto embedded = false;
+    if (dlIniDialog_->openFile(file_path, embedded))
     {
-        updateMetadataFileEdit(mdFile);
+        updateMetadataFileBrowse(file_path);
         altMetadataFileRadio->setChecked(true);
         isMetadataEditorOn_ = true;
         metadataTab->setCurrentIndex(1);
-        qDebug() << "metadataTab->setCurrentIndex(1)";
         fadeInWidget(1);
     }
 }
 
-void ProjectPage::on_biomFileLoad_clicked()
+void ProjectPage::biomExtFileSelected(const QString& fp)
 {
     DEBUG_FUNC_NAME
 
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
+    biometExtFileBrowse->setPath(fp);
+    updateMetadataLoading();
 
-    QString mdFile = QFileDialog::getOpenFileName(this,
-                    tr("Select the Biomet File"),
-                    searchPath,
-                    tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME),
-                    0
-                    );
-    if (mdFile.isEmpty()) { return; }
-
-    QFileInfo mdDir(mdFile);
-    QString mdPath = mdDir.canonicalPath();
-
+    QFileInfo mdDir(fp);
+    auto mdPath = mdDir.canonicalPath();
     configState_->window.last_data_path = mdPath;
     GlobalSettings::updateLastDatapath(mdPath);
-
-    updateBiomFileEdit(mdFile);
 }
 
 void ProjectPage::onTitleLabelClicked()
@@ -644,21 +551,10 @@ void ProjectPage::onTitleLabelClicked()
     titleEdit->selectAll();
 }
 
-void ProjectPage::updateMetadataFileEdit(const QString &filename)
+void ProjectPage::updateMetadataFileBrowse(const QString &filename)
 {
     DEBUG_FUNC_NAME
-    QFileInfo filePath(filename);
-    QString canonicalFilePath = filePath.canonicalFilePath();
-    metadataFileEdit->setText(QDir::toNativeSeparators(canonicalFilePath));
-    updateMetadataLoading();
-}
-
-void ProjectPage::updateBiomFileEdit(const QString &filename)
-{
-    DEBUG_FUNC_NAME
-    QFileInfo filePath(filename);
-    QString canonicalFilePath = filePath.canonicalFilePath();
-    biomExtFileEdit->setText(QDir::toNativeSeparators(canonicalFilePath));
+    metadataFileBrowse->setPath(filename);
     updateMetadataLoading();
 }
 
@@ -693,35 +589,20 @@ void ProjectPage::updateUseMetadataFile_2(int radio)
 
 void ProjectPage::updateMetadataFile(const QString& fp)
 {
-    qDebug() << "previousMetadataFile_" << previousMetadataFile_;
-    qDebug() << "currentMetadataFile_" << currentMetadataFile_;
-
     previousMetadataFile_ = currentMetadataFile_;
     currentMetadataFile_ = QDir::cleanPath(fp);
 
-    qDebug() << "previousMetadataFile_" << previousMetadataFile_;
-    qDebug() << "currentMetadataFile_" << currentMetadataFile_;
-
     ecProject_->setGeneralMdFilepath(currentMetadataFile_);
-    metadataFileEdit->setButtonVisible(metadataFileEdit->isEnabled()
-                                       && !metadataFileEdit->text().isEmpty());
-    WidgetUtils::updateLineEditToolip(metadataFileEdit);
 }
 
 void ProjectPage::updateBiomFile(const QString& fp)
 {
     ecProject_->setGeneralBiomFile(QDir::cleanPath(fp));
-    biomExtFileEdit->setButtonVisible(biomExtFileEdit->isEnabled()
-                                      && !biomExtFileEdit->text().isEmpty());
-    WidgetUtils::updateLineEditToolip(biomExtFileEdit);
 }
 
 void ProjectPage::updateBiomDir(const QString& fp)
 {
     ecProject_->setGeneralBiomDir(QDir::cleanPath(fp));
-    biomExtDirEdit->setButtonVisible(biomExtDirEdit->isEnabled()
-                                     && !biomExtDirEdit->text().isEmpty());
-    WidgetUtils::updateLineEditToolip(biomExtDirEdit);
 }
 
 void ProjectPage::onBiomExtDirSuffixLabelClicked()
@@ -755,18 +636,17 @@ void ProjectPage::reset()
     altMetadataFileRadio->setChecked(false);
     metadataRadioClicked(0);
 
-    mdReset();
-    metadataFileEdit->setEnabled(false);
+    mdEditorReset();
+    metadataFileBrowse->setEnabled(false);
 
-    dynamicMdEdit->clear();
-    dynamicMdEdit->setEnabled(false);
     dynamicMdCheckBox->setChecked(false);
-    dynamicMdLoad->setEnabled(false);
+    dynamicMdFileBrowse->setEnabled(false);
+    dynamicMdFileBrowse->clear();
 
     biomDataCheckBox->setChecked(false);
     biomEmbFileRadio->setChecked(true);
-    biomExtFileEdit->clear();
-    biomExtDirEdit->clear();
+    biometExtFileBrowse->clear();
+    biometExtDirBrowse->clear();
     biomExtDirRecCheckBox->setChecked(false);
     biomExtDirCombo->setCurrentIndex(0);
     on_biomDataCheckBox_clicked(false);
@@ -802,13 +682,10 @@ void ProjectPage::refresh()
     metadataRadioClicked(ecProject_->generalUseAltMdFile());
 
     refreshMetadata();
-    WidgetUtils::updateLineEditToolip(metadataFileEdit);
 
     dynamicMdCheckBox->setChecked(ecProject_->generalUseTimelineFile());
-    dynamicMdEdit->setText(QDir::toNativeSeparators(ecProject_->generalTimelineFilepath()));
-    WidgetUtils::updateLineEditToolip(dynamicMdEdit);
-    dynamicMdEdit->setEnabled(dynamicMdCheckBox->isChecked());
-    dynamicMdLoad->setEnabled(dynamicMdCheckBox->isChecked());
+    dynamicMdFileBrowse->setPath(ecProject_->generalTimelineFilepath());
+    dynamicMdFileBrowse->setEnabled(dynamicMdCheckBox->isChecked());
 
     int useBiom = ecProject_->generalUseBiomet();
     biomDataCheckBox->setChecked(useBiom);
@@ -828,11 +705,10 @@ void ProjectPage::refresh()
 //            biomRadioGroup->buttons().at(1)->setChecked(true);
         }
     }
-    biomExtFileEdit->setText(QDir::toNativeSeparators(ecProject_->generalBiomFile()));
-    WidgetUtils::updateLineEditToolip(biomExtFileEdit);
-    biomExtDirEdit->setText(QDir::toNativeSeparators(ecProject_->generalBiomDir()));
-    WidgetUtils::updateLineEditToolip(biomExtDirEdit);
+    biometExtFileBrowse->setPath(ecProject_->generalBiomFile());
+    biometExtDirBrowse->setPath(ecProject_->generalBiomDir());
     biomExtDirRecCheckBox->setChecked(ecProject_->generalBiomRecurse());
+
     QString s(ecProject_->generalBiomExt());
     if (!s.isEmpty())
     {
@@ -856,34 +732,40 @@ void ProjectPage::refresh()
     ecProject_->blockSignals(false);
 }
 
+// triggered by reset() and refresh()
 void ProjectPage::refreshMetadata()
 {
     DEBUG_FUNC_NAME
 
     QString mdFile(ecProject_->generalMdFilepath());
-    if (mdFile != metadataFileEdit->text())
+    if (mdFile != metadataFileBrowse->path())
     {
         if (!mdFile.isEmpty())
         {
-            qDebug() << "ecProject_->generalUseMetadataFile()" << ecProject_->generalUseAltMdFile();
             if (QFile::exists(mdFile))
             {
                 bool embedded = !ecProject_->generalUseAltMdFile();
                 if (dlIniDialog_->openFile(mdFile, embedded))
                 {
-                    updateMetadataFileEdit(mdFile);
+                    updateMetadataFileBrowse(mdFile);
                 }
-                // silently discard
+                // silently discard and clean metadata editor
                 else
                 {
-                    mdReset();
+                    mdEditorReset();
                 }
             }
+            else
+            {
+                // schedule a silent cleanup request
+                // at the end of a project file loading (refresh)
+                emit mdCleanupRequest();
+            }
         }
-        // silently discard
+        // silently discard and clean metadata editor
         else
         {
-            mdReset();
+            mdEditorReset();
         }
     }
 
@@ -891,13 +773,11 @@ void ProjectPage::refreshMetadata()
     {
         isMetadataEditorOn_ = true;
         metadataTab->setCurrentIndex(1);
-        qDebug() << "metadataTab->setCurrentIndex(1)";
     }
     else
     {
         isMetadataEditorOn_ = false;
         metadataTab->setCurrentIndex(0);
-        qDebug() << "metadataTab->setCurrentIndex(0)";
     }
 }
 
@@ -905,14 +785,15 @@ void ProjectPage::updateMetadataLoading()
 {
     DEBUG_FUNC_NAME
 
-    updateMetadataFile(metadataFileEdit->text());
+    updateMetadataFile(metadataFileBrowse->path());
+
     if (!currentMetadataFile_.isEmpty())
     {
         if (QFile::exists(currentMetadataFile_))
         {
+            dlIniDialog_->setNewFlag(false);
             emit updateMetadataReadRequest();
         }
-        emit updateRawFilenameFormatRequest();
     }
 }
 
@@ -954,10 +835,10 @@ void ProjectPage::fileTypeRadioClicked_2(int fileType)
     if (type == Defs::RawFileType::GHG)
     {
         embMetadataFileRadio->setEnabled(true);
-        embMetadataFileRadio->setChecked(metadataFileEdit->text().isEmpty());
-        altMetadataFileRadio->setChecked(!(metadataFileEdit->text()).isEmpty());
-        metadataFileEdit->setEnabled(altMetadataFileRadio->isChecked());
-        metadataFileLoad->setEnabled(altMetadataFileRadio->isChecked());
+        embMetadataFileRadio->setChecked(metadataFileBrowse->path().isEmpty());
+        altMetadataFileRadio->setChecked(!(metadataFileBrowse->path()).isEmpty());
+
+        metadataFileBrowse->setEnabled(altMetadataFileRadio->isChecked());
 
         biomEmbFileRadio->setEnabled(biomDataCheckBox->isChecked());
     }
@@ -966,8 +847,7 @@ void ProjectPage::fileTypeRadioClicked_2(int fileType)
         embMetadataFileRadio->setChecked(false);
         embMetadataFileRadio->setEnabled(false);
         altMetadataFileRadio->setChecked(true);
-        metadataFileEdit->setEnabled(true);
-        metadataFileLoad->setEnabled(true);
+        metadataFileBrowse->setEnabled(true);
 
         biomEmbFileRadio->setEnabled(false);
         if (biomEmbFileRadio->isChecked())
@@ -1006,13 +886,11 @@ void ProjectPage::metadataRadioClicked(int b)
     if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
     {
         // with or without alternative metadata
-        metadataFileEdit->setEnabled(b);
-        metadataFileLoad->setEnabled(b);
+        metadataFileBrowse->setEnabled(b);
     }
     else
     {
-        metadataFileEdit->setEnabled(true);
-        metadataFileLoad->setEnabled(true);
+        metadataFileBrowse->setEnabled(true);
     }
 }
 
@@ -1060,7 +938,7 @@ void ProjectPage::setSmartfluxUI()
     qDebug() << "on" << on;
 
     // block project modified() signal
-    bool oldmod;
+    auto oldmod = false;
     if (!on)
     {
         // save the modified flag to prevent side effects of setting widgets
@@ -1074,7 +952,7 @@ void ProjectPage::setSmartfluxUI()
         metadataRadioGroup->button(0)->click();
 
         dynamicMdCheckBox->setChecked(false);
-        dynamicMdEdit->clear();
+        dynamicMdFileBrowse->clear();
 
         biomDataCheckBox->setChecked(true);
         biomRadioGroup->button(0)->click();
@@ -1093,37 +971,37 @@ void ProjectPage::setSmartfluxUI()
 
 void ProjectPage::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#LI-COR_GHG_File_Format.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/LI-COR_GHG_File_Format.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Dynamic_Metadata.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Dynamic_Metadata.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Use_Alternative_Metadata_File.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Use_Alternative_Metadata_File.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#TOB1_Files.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/TOB1_Files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Generic_Binary_Files.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Generic_Binary_Files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Biomet_Data_Format.htm#ExternalBiomet")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Biomet_Data_Format.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Biomet_Data_Format.htm#ExternalBiomet")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Biomet_Data_Format.html")));
 }
 
 void ProjectPage::binSettingsDialog()
@@ -1141,104 +1019,39 @@ void ProjectPage::binSettingsDialog()
     binDialog_->activateWindow();
 }
 
-bool ProjectPage::eventFilter(QObject* watched, QEvent* event)
-{
-    QList<QwwButtonLineEdit*> buttonList;
-
-    if (metadataFileEdit)
-        buttonList << metadataFileEdit;
-    if (dynamicMdEdit)
-        buttonList << dynamicMdEdit;
-    if (biomExtFileEdit)
-        buttonList << biomExtFileEdit;
-    if (biomExtDirEdit)
-        buttonList << biomExtDirEdit;
-
-    if (!buttonList.isEmpty())
-    {
-        foreach (QwwButtonLineEdit* lineEdit,
-                 buttonList)
-        {
-            QwwButtonLineEdit *watchedLineEdit = static_cast<QwwButtonLineEdit*>(watched);
-            if (lineEdit && watchedLineEdit)
-            {
-                if (lineEdit == watchedLineEdit && event->type() == QEvent::EnabledChange)
-                {
-                    lineEdit->setButtonVisible(lineEdit->isEnabled()
-                                               && !lineEdit->text().isEmpty());
-                }
-            }
-        }
-    }
-
-    return QObject::eventFilter(watched, event);
-}
-
 void ProjectPage::tobSettingsUpdate(int n)
 {
     DEBUG_FUNC_NAME
     ecProject_->setGeneralTob1Format(n);
 }
 
-void ProjectPage::onTimelineFileCheckBoxClicked(bool b)
-{
-    dynamicMdEdit->setEnabled(b);
-    dynamicMdLoad->setEnabled(b);
-}
-
-void ProjectPage::updateUseTimelineFile(bool b)
-{
-    ecProject_->setGeneralUseTimelineFile(b);
-    dynamicMdEdit->setButtonVisible(dynamicMdEdit->isEnabled() && !dynamicMdEdit->text().isEmpty());
-}
-
 void ProjectPage::updateTimelineFile(const QString& fp)
 {
     ecProject_->setGeneralTimelineFilepath(QDir::cleanPath(fp));
-    dynamicMdEdit->setButtonVisible(dynamicMdEdit->isEnabled() && !dynamicMdEdit->text().isEmpty());
-    WidgetUtils::updateLineEditToolip(dynamicMdEdit);
 }
 
-void ProjectPage::timelineFileLoad_clicked()
+void ProjectPage::dynamicMdFileSelected(const QString& fp)
 {
     DEBUG_FUNC_NAME
 
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
+    dynamicMdFileBrowse->setPath(fp);
 
-    QString paramFile = QFileDialog::getOpenFileName(this,
-                    tr("Select the Dynamic Metadata File"),
-                    searchPath,
-                    tr("All Files (*.*)")
-                    );
-
-    if (paramFile.isEmpty()) { return; }
-
-    QFileInfo paramFilePath(paramFile);
-    QString canonicalParamFile = paramFilePath.canonicalFilePath();
-    QString lastPath = paramFilePath.canonicalPath();
-
+    QFileInfo paramFilePath(fp);
+    auto lastPath = paramFilePath.canonicalPath();
     configState_->window.last_data_path = lastPath;
     GlobalSettings::updateLastDatapath(lastPath);
-
-    dynamicMdEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 }
 
 void ProjectPage::mdResetRequest()
 {
-    if (dlProject_->requestMetadataReset())
-    {
-        mdReset();
-        WidgetUtils::updateLineEditToolip(metadataFileEdit);
-        emit requestBasicSettingsClear();
-    }
+    if (!dlIniDialog()->requestMetadataReset()) { return; }
+
+    mdEditorReset();
+    metadataFileBrowse->clear();
+    emit requestBasicSettingsClear();
 }
 
-void ProjectPage::mdReset()
+void ProjectPage::mdEditorReset()
 {
     dlIniDialog_->defaults_2();
 }
@@ -1255,8 +1068,8 @@ void ProjectPage::on_biomDataCheckBox_clicked(bool clicked)
 {
     DEBUG_FUNC_NAME
     foreach (QWidget *w,
-             QList<QWidget *>() << biomExtFileRadio
-                                << biomExtDirRadio)
+             QWidgetList() << biomExtFileRadio
+                         << biomExtDirRadio)
     {
         w->setEnabled(clicked);
     }
@@ -1282,11 +1095,8 @@ void ProjectPage::on_biomDataCheckBox_clicked(bool clicked)
         biomEmbFileRadio->setEnabled(false);
     }
 
-    biomExtFileEdit->setEnabled(ecProject_->generalUseBiomet() == 2);
-    biomExtFileLoad->setEnabled(ecProject_->generalUseBiomet() == 2);
-
-    biomExtDirEdit->setEnabled(ecProject_->generalUseBiomet() == 3);
-    biomExtDirBrowse->setEnabled(ecProject_->generalUseBiomet() == 3);
+    biometExtFileBrowse->setEnabled(ecProject_->generalUseBiomet() == 2);
+    biometExtDirBrowse->setEnabled(ecProject_->generalUseBiomet() == 3);
     biomExtDirRecCheckBox->setEnabled(ecProject_->generalUseBiomet() == 3);
     biomExtDirSuffixLabel->setEnabled(ecProject_->generalUseBiomet() == 3);
     biomExtDirCombo->setEnabled(ecProject_->generalUseBiomet() == 3);
@@ -1302,28 +1112,22 @@ void ProjectPage::on_biomRadioGroup_clicked_2(int button)
     switch (button)
     {
         case 0:
-            biomExtFileEdit->setEnabled(false);
-            biomExtFileLoad->setEnabled(false);
-            biomExtDirEdit->setEnabled(false);
-            biomExtDirBrowse->setEnabled(false);
+            biometExtFileBrowse->setEnabled(false);
+            biometExtDirBrowse->setEnabled(false);
             biomExtDirRecCheckBox->setEnabled(false);
             biomExtDirSuffixLabel->setEnabled(false);
             biomExtDirCombo->setEnabled(false);
             break;
         case 1:
-            biomExtFileEdit->setEnabled(true);
-            biomExtFileLoad->setEnabled(true);
-            biomExtDirEdit->setEnabled(false);
-            biomExtDirBrowse->setEnabled(false);
+            biometExtFileBrowse->setEnabled(true);
+            biometExtDirBrowse->setEnabled(false);
             biomExtDirRecCheckBox->setEnabled(false);
             biomExtDirSuffixLabel->setEnabled(false);
             biomExtDirCombo->setEnabled(false);
             break;
         case 2:
-            biomExtFileEdit->setEnabled(false);
-            biomExtFileLoad->setEnabled(false);
-            biomExtDirEdit->setEnabled(true);
-            biomExtDirBrowse->setEnabled(true);
+            biometExtFileBrowse->setEnabled(false);
+            biometExtDirBrowse->setEnabled(true);
             biomExtDirRecCheckBox->setEnabled(true);
             biomExtDirSuffixLabel->setEnabled(true);
             biomExtDirCombo->setEnabled(true);
@@ -1338,28 +1142,14 @@ void ProjectPage::updateExtDirRec(bool b)
     ecProject_->setGeneralBiomRecurse(b);
 }
 
-void ProjectPage::on_biomDirBrowse_clicked()
+void ProjectPage::biometExtDirSelected(const QString& dir_path)
 {
     DEBUG_FUNC_NAME
 
-    QString searchPath = QDir::homePath();
-    if (!configState_->window.last_data_path.isEmpty()
-        && FileUtils::existsPath(configState_->window.last_data_path))
-    {
-        searchPath = configState_->window.last_data_path;
-    }
+    biometExtDirBrowse->setPath(dir_path);
 
-    QString dir = QFileDialog::getExistingDirectory(this,
-                    tr("Select the Biomet Files Directory"),
-                    searchPath
-                    );
-
-    if (dir.isEmpty()) { return; }
-
-    QDir dataDir(dir);
-    QString canonicalDataDir = dataDir.canonicalPath();
-    biomExtDirEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
-
+    QDir dataDir(dir_path);
+    auto canonicalDataDir = dataDir.canonicalPath();
     configState_->window.last_data_path = canonicalDataDir;
     GlobalSettings::updateLastDatapath(canonicalDataDir);
 }
@@ -1369,7 +1159,7 @@ void ProjectPage::updateExtDirSuffix(const QString& s)
     DEBUG_FUNC_NAME
     if (s.isEmpty())
     {
-        WidgetUtils::warning(nullptr,
+        WidgetUtils::warning(this,
                              tr("Files suffix"),
                              tr("Enter a non empty string."));
 
@@ -1377,24 +1167,6 @@ void ProjectPage::updateExtDirSuffix(const QString& s)
         return;
     }
     ecProject_->setGeneralBiomExt(s);
-}
-
-void ProjectPage::clearDynamicMdEdit()
-{
-    dynamicMdEdit->clear();
-    WidgetUtils::updateLineEditToolip(dynamicMdEdit);
-}
-
-void ProjectPage::clearBiomExtFileEdit()
-{
-    biomExtFileEdit->clear();
-    WidgetUtils::updateLineEditToolip(biomExtFileEdit);
-}
-
-void ProjectPage::clearBiomExtDirEdit()
-{
-    biomExtDirEdit->clear();
-    WidgetUtils::updateLineEditToolip(biomExtDirEdit);
 }
 
 void ProjectPage::updateSmartfluxBar()

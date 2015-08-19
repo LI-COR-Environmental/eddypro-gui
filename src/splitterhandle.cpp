@@ -35,10 +35,10 @@ SplitterHandle::SplitterHandle(Qt::Orientation orientation, QSplitter *parent)
 {
 }
 
-// set the size of the handle to 3 px
+// set the height of the handle to 3 px
 QSize SplitterHandle::sizeHint() const
 {
-    return QSize(this->width(), 3);
+    return QSize(this->width(), 5);
 }
 
 void SplitterHandle::paintEvent(QPaintEvent *event)
@@ -54,13 +54,13 @@ void SplitterHandle::paintEvent(QPaintEvent *event)
     gradient.setColorAt(0.5, QColor(255,255,255,0));
     gradient.setColorAt(1, QColor(255,255,255,0));
 
-    // NOTE: simple line (old approach)
-//    painter.fillRect(event->rect(), QBrush(gradient));
-
-    // NOTE: parallel lines (new approach)
-    painter.fillRect(0, 0, rect().width(), 1, QBrush(gradient));
+    painter.fillRect(int(rect().width() / 2.0) - 10, 0, int(rect().width() / 2.0) + 10, 1, QBrush(gradient));
+    painter.fillRect(int(rect().width() / 2.0) + 10, 0, rect().width(), 1, Qt::white);
     painter.fillRect(0, 1, rect().width(), 2, Qt::white);
-    painter.fillRect(0, 2, rect().width(), 1, QBrush(gradient));
+    painter.fillRect(0, 2, rect().width(), 3, QBrush(gradient));
+    painter.fillRect(0, 3, rect().width(), 4, Qt::white);
+    painter.fillRect(int(rect().width() / 2.0) - 10, 4, int(rect().width() / 2.0) + 10, 5, QBrush(gradient));
+    painter.fillRect(int(rect().width() / 2.0) + 10, 4, rect().width(), 5, Qt::white);
 }
 
 void SplitterHandle::enterEvent(QEvent *e)

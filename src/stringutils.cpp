@@ -53,22 +53,30 @@ int StringUtils::daysToFromString(const QString& d_1, const QString& d_2)
 {
     QDate dStart(QDate::fromString(d_1, Qt::ISODate));
     QDate dEnd(QDate::fromString(d_2, Qt::ISODate));
-    return dStart.daysTo(dEnd);
+    return static_cast<int>(dStart.daysTo(dEnd));
 }
 
 bool StringUtils::isISODateTimeString(const QString& s)
 {
     QRegExp dateExp;
     dateExp.setPattern(QStringLiteral("([0-9]{,4})-([0-9]{,2})-([0-9]{,2})"));
+
     QRegExp timeExp;
     timeExp.setPattern(QStringLiteral("([0-9]{,2})([0-9]{,2})([0-9]{,2})"));
+
     QRegExp dateTimeExp;
     dateTimeExp.setPattern(dateExp.pattern() + QLatin1Char('T') + timeExp.pattern());
-    QRegExpValidator validator(dateTimeExp);
-    int pos = 0;
 
-    return (s.length() == 17
-            && validator.validate(const_cast<QString&>(s), pos) == QValidator::Acceptable);
+    QRegExpValidator validator(dateTimeExp);
+
+    const auto dateTimeLenght = 17;
+    auto pos = 0;
+
+    // Function validate() does not accept a const argument, but does not attempt to
+    // modify the content of the passed parameter. So, we do const_cast.
+    return (s.length() == dateTimeLenght
+            && validator.validate(const_cast<QString&>(s), pos) == QValidator::Acceptable
+            && pos != s.length());
 }
 
 bool StringUtils::stringBelongsToList(const QString& str, const QStringList& list)

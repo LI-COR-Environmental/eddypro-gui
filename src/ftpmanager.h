@@ -34,10 +34,6 @@ class FtpManager : public QObject
 {
     Q_OBJECT
 
-    QNetworkAccessManager manager;
-    QNetworkReply *reply;
-    QFile* data;
-
 public:
     explicit FtpManager(QObject* parent = nullptr);
     ~FtpManager();
@@ -49,19 +45,23 @@ public:
     QByteArray getVersionNr() const;
 
 signals:
-    void getFinished();
+    void requestComplete();
 
 public slots:
     void execute();
 
 private slots:
-    void transferFinished(QNetworkReply *reply);
+    void transferFinished(QNetworkReply *r);
     void uploadProgress(qint64 bytesSent, qint64 bytesTotal);
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
     void requestError(QNetworkReply::NetworkError error);
     void requestFinished();
     void uploadDone();
+
 private:
+    QNetworkAccessManager manager;
+    QNetworkReply* reply;
+    QFile* data;
     QByteArray versionNr;
 };
 

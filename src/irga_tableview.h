@@ -35,18 +35,13 @@ public:
     explicit IrgaTableView(QWidget* parent = nullptr);
     ~IrgaTableView();
 
-signals:
-
-public slots:
-
 protected:
-    void resizeEvent(QResizeEvent* event);
-    void showEvent(QShowEvent* event);
-    void mousePressEvent(QMouseEvent* event);
+    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
+    void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
 
 private:
     CustomHeader* m_header;
-
 };
 
 #endif // IRGA_TABLEVIEW_H
