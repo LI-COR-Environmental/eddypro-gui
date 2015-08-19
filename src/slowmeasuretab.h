@@ -29,7 +29,7 @@ class SlowMeasureTab : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SlowMeasureTab(QWidget *parent = 0);
+    explicit SlowMeasureTab(QWidget* parent = nullptr);
 
 signals:
 

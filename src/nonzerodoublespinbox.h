@@ -29,11 +29,10 @@ class NonZeroDoubleSpinBox : public QDoubleSpinBox
 {
     Q_OBJECT
 public:
-    explicit NonZeroDoubleSpinBox(QWidget *parent = 0);
+    explicit NonZeroDoubleSpinBox(QWidget* parent = nullptr);
 
 protected:
-    double valueFromText(const QString &text) const;
-
+    double valueFromText(const QString& text) const;
 };
 
 #endif // NONZERODOUBLESPINBOX_H

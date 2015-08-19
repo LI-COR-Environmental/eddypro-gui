@@ -25,13 +25,14 @@
 #define VARIABLE_DELEGATE_H
 
 #include <QItemDelegate>
+
 class QStringList;
 
 class VariableDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
-    VariableDelegate(QObject *parent = 0);
+    explicit VariableDelegate(QObject* parent = nullptr);
     ~VariableDelegate();
 
     QWidget *createEditor(QWidget* parent, const QStyleOptionViewItem& option,
@@ -44,6 +45,9 @@ public:
     void updateEditorGeometry(QWidget* editor,
                               const QStyleOptionViewItem& option,
                               const QModelIndex& index) const;
+
+    void clearCustomVariableBuffer();
+
 private slots:
     void commitAndCloseEditor();
     void commitAndCloseEditor(QObject* editor);

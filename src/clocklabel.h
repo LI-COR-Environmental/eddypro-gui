@@ -27,13 +27,29 @@
 #define CLOCKLABEL_H
 
 #include <QLabel>
-  
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/clocklabel.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+/// \class ClockLabel
+/// \brief QLabel derived class representing the textual clock on the status bar
 class ClockLabel : public QLabel
 {
     Q_OBJECT
 
 public:
-    ClockLabel(QWidget *parent = 0);
+    explicit ClockLabel(QWidget *parent = 0);
 
 private slots:
     void updateTime();

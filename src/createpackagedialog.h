@@ -25,26 +25,25 @@
 
 #include <QDialog>
 
-class EcProject;
-struct ConfigState;
-class ClickLabel;
 class QLabel;
-
 class QPushButton;
-
-class QwwClearLineEdit;
 class QwwButtonLineEdit;
+class QwwClearLineEdit;
+
+class ClickLabel;
+struct ConfigState;
+class EcProject;
 
 class CreatePackageDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit CreatePackageDialog(EcProject *ecProject,
+    explicit CreatePackageDialog(EcProject* ecProject,
                                  ConfigState* config,
-                                 QWidget *parent = 0);
+                                 QWidget* parent = nullptr);
     void refresh();
-    void showResult(bool ok, const QString &pkgname);
+    void showResult(bool ok, const QString& pkgname);
 
 signals:
     void createPackageRequest();
@@ -72,6 +71,7 @@ private:
     ClickLabel *outpathLabel;
     QwwButtonLineEdit* outpathEdit;
     QPushButton* outpathBrowse;
+//    QLabel* resultLabel;
     QPushButton *createButton;
     QPushButton *okButton;
     QPushButton *cancelButton;

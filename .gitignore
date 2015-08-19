@@ -33,9 +33,10 @@ thumbs.db
 
 # misc directories
 clang-checks
-# img*
-# quazip*
-# wwWidgets*
+img*
+quazip*
+wwWidgets*
+dist
 
 # dotfiles
 .*
@@ -47,4 +48,5 @@ clang-checks
 
 # exception for .gitignore
 !.gitignore
+!.gitattributes
 

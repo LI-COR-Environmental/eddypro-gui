@@ -31,7 +31,6 @@
         <file alias="skewkurt_small">img/tests/skew_kurt_small.png</file>
         <file alias="spike_small">img/tests/spikes_small.png</file>
         <file alias="timelag_small">img/tests/timelag_small.png</file>
-        <file alias="adv-menu-computation">img/advanced-menu/computation-options.png</file>
         <file alias="adv-menu-output">img/advanced-menu/output-files.png</file>
         <file alias="adv-menu-processing">img/advanced-menu/processing-options.png</file>
         <file alias="adv-menu-spectra">img/advanced-menu/spectral-corrections.png</file>
@@ -153,13 +152,18 @@
         <file alias="smartflux-close">img/smartflux-close.png</file>
         <file alias="smartflux-close-hover">img/smartflux-close-hover.png</file>
         <file>img/app.icns</file>
+        <file alias="msg-critical">img/msgbox-icons/critical.png</file>
+        <file alias="msg-info">img/msgbox-icons/info.png</file>
+        <file alias="msg-question">img/msgbox-icons/question.png</file>
+        <file alias="msg-warning">img/msgbox-icons/warning.png</file>
     </qresource>
     <qresource prefix="/css">
+        <file alias="macstyle">css/eddypro-mac.qss</file>
         <file alias="winstyle">css/eddypro-win.qss</file>
     </qresource>
     <qresource prefix="/docs">
-        <file alias="changelog">docs/CHANGELOG.txt</file>
-        <file alias="license">docs/LICENSE.txt</file>
+        <file alias="changelog">CHANGELOG</file>
+        <file alias="license">LICENSE</file>
     </qresource>
     <qresource prefix="/tra">
         <file alias="en">tra/eddypro_en.qm</file>

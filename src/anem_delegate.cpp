@@ -21,18 +21,19 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "anem_delegate.h"
+
+#include <QAbstractItemView>
 #include <QComboBox>
 #include <QDoubleSpinBox>
-#include <QAbstractItemView>
-#include <QLineEdit>
-#include <QLabel>
 #include <QKeyEvent>
+#include <QLabel>
+#include <QLineEdit>
 
-#include "defs.h"
-#include "dbghelper.h"
 #include "anem_desc.h"
 #include "anem_model.h"
-#include "anem_delegate.h"
+#include "defs.h"
+#include "dbghelper.h"
 
 AnemDelegate::AnemDelegate(QObject *parent) : QItemDelegate(parent)
 {
@@ -249,18 +250,18 @@ void AnemDelegate::setEditorData(QWidget* editor,
         case AnemModel::WINDFORMAT:
         case AnemModel::NORTHALIGNMENT:
             combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            if (!combo) { return; }
             combo->setCurrentIndex(combo->findText(value.toString()));
             break;
         case AnemModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
-            if (!ledit) return;
+            if (!ledit) { return; }
             ledit->setText(value.toString());
             break;
         case AnemModel::HEIGHT:
         case AnemModel::NORTHOFFSET:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             dspin->setValue(value.toReal());
             break;
         case AnemModel::VPATHLENGTH:
@@ -269,12 +270,12 @@ void AnemDelegate::setEditorData(QWidget* editor,
             if (currentModel != AnemDesc::getANEM_MODEL_STRING_12())
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
             break;
@@ -284,12 +285,12 @@ void AnemDelegate::setEditorData(QWidget* editor,
             if (index.column() == 0)
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
             break;
@@ -316,20 +317,20 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::WINDFORMAT:
         case AnemModel::NORTHALIGNMENT:
             combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            if (!combo) { return; }
             value = combo->currentText();
             model->setData(index, value);
             break;
         case AnemModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
-            if (!ledit) return;
+            if (!ledit) { return; }
             value = ledit->text();
             model->setData(index, value);
             break;
         case AnemModel::HEIGHT:
         case AnemModel::NORTHOFFSET:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
             break;
@@ -337,7 +338,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::HPATHLENGTH:
         case AnemModel::TAU:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
             break;
@@ -345,7 +346,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::ESEPARATION:
         case AnemModel::VSEPARATION:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
             break;
@@ -388,6 +389,7 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
                                                 || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
+//        qDebug() << eventType << combo;
         if (combo)
             combo->showPopup();
         return true;
@@ -395,6 +397,7 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
+//        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

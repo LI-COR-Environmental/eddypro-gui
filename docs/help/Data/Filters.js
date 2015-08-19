@@ -1,0 +1,14 @@
+var xmlFiltersData = "";
+xmlFiltersData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
+xmlFiltersData += '<CatapultSearchFilterSet>';
+xmlFiltersData += '    <SearchFilter Name=\"LI-COR GHG&#160;Files\" Concepts=\"GHG;LI-7500A/LI-7200\">';
+xmlFiltersData += '    </SearchFilter>';
+xmlFiltersData += '    <SearchFilter Comment=\"\" Name=\"SMARTFlux\" Concepts=\"SMARTFlux\" />';
+xmlFiltersData += '    <SearchFilter Name=\"Advanced Processing\" Comment=\"\" Concepts=\"Advanced\" />';
+xmlFiltersData += '    <SearchFilter Name=\"Biomet Data\" Comment=\"\" Concepts=\"Biomet Data\" />';
+xmlFiltersData += '    <SearchFilter Name=\"Express Processing\" Comment=\"\" Concepts=\"Express Mode\" />';
+xmlFiltersData += '    <SearchFilter Name=\"Results Files\" Comment=\"\" Concepts=\"Results\" />';
+xmlFiltersData += '    <SearchFilter Name=\"LI-7700 CH4 Analyzer\" Comment=\"\" Concepts=\"LI-7700 CH4 Analyzer\" />';
+xmlFiltersData += '    <SearchFilter Name=\"LI-7500A/LI-7200\" Comment=\"\" Concepts=\"LI-7500A/LI-7200\" />';
+xmlFiltersData += '</CatapultSearchFilterSet>';
+MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Filters', xmlFiltersData);

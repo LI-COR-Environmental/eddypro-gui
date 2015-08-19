@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Interface Feature Reference">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Raw File Name Format</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Raw_File_Name_Format.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Interface Feature Reference</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Raw File Name Format</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1>Raw File Name Format<a name="kanchor177"></a></h1>
+            <p>For each file type discovered in the <i style="font-weight: bold;">Raw data directory</i>, <span class="MyVariablesSoftwareName R">EddyPro®</span> will provide you a sample file name. The easiest way to enter the <i style="font-weight: bold;">Raw file name format</i> is to substitute timestamp information in the sample file name with the following characters:</p>
+            <ul class="bulleted">
+                <li value="1">yy for a 2-digit year;</li>
+                <li value="2">yyyy for a 4-digit year;</li>
+                <li value="3">dd for a 2-digit day-of-month;</li>
+                <li value="4">mm for a 2-digit month-of-the-year;</li>
+                <li value="5">ddd for a 3-digit day-of-year (DOY);</li>
+                <li value="6">HH for a 2-digit hour;</li>
+                <li value="7">MM for a 2-digit minute.</li>
+            </ul>
+            <p class="note"><b>Note:</b> All timestamp information must be present in raw file names. While day/month (or DOY) and hour information are virtually always available, years and minutes are sometimes not documented on file names. However, they are necessary to EddyPro. A tool is available on demand to automatically rename raw files including missing timestamp information;</p>
+            <p>For example, if the sample raw file name is:</p>
+            <p class="courier"><span class="courier">mysite_2009_001_0130.dat</span>,</p>
+            <p>acceptable prototypes would be:</p>
+            <p class="courier">mysite_yyyy_ddd_HHMM.dat, <span class="normal">or</span></p>
+            <p class="courier">xxxxxx_yyyy_ddd_HHMM.dat;</p>
+            <p>but if the filename is</p>
+            <p class="courier">mysite_0021200.R08,</p>
+            <p>then information about the year ('08' in the extension) cannot be retrieved because <span class="MyVariablesSoftwareName">EddyPro</span> does not interpret the extension. In this case the file should first be renamed to something like:</p>
+            <p class="courier">mysite_080021200.R08</p>
+            <p>Then, a valid prototype would be:</p>
+            <p class="courier">mysite_yydddHHMM.R08.</p>
+            <div class="note">
+                <p style="margin-left: 0;"><b>Note:</b> <span class="LI-COREddyPro">EddyPro</span> discriminates between files based upon the number of characters, not the specific characters in the first string. The first string of characters (<span class="courier">mysite</span> in the previous examples) must be the same length in order for <span class="LI-COREddyPro">EddyPro</span> to filter the files. If a file that you wish to exclude has the same number of characters, it will be processed in the dataset. For example, the three files below will all be considered in one dataset because they each have three characters at the beginning.</p>
+                <p class="courier" style="margin-left: 0.25in;">AIU-0177-2011-05-26T153000.txt</p>
+                <p class="courier" style="margin-left: 0.25in;">AIU-0255-2011-05-26T153000.txt</p>
+                <p class="courier" style="margin-left: 0.25in;">TG1-0177-2011-05-26T153000.txt</p>
+            </div>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

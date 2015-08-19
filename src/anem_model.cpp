@@ -21,14 +21,15 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "anem_model.h"
+
 #include <QApplication>
-#include <QMessageBox>
 #include <QDebug>
 
+#include "dbghelper.h"
 #include "defs.h"
 #include "stringutils.h"
-#include "dbghelper.h"
-#include "anem_model.h"
+#include "widget_utils.h"
 
 AnemModel::AnemModel(QObject *parent, AnemDescList *list) :
     QAbstractTableModel(parent),
@@ -44,6 +45,7 @@ AnemModel::~AnemModel()
 // Reset the model
 void AnemModel::flush()
 {
+//    DEBUG_FUNC_NAME
     beginResetModel();
     endResetModel();
 }
@@ -596,6 +598,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
 // Set data at index
 bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+//    DEBUG_FUNC_NAME
     qDebug() << "role" << role;
 
     int row = index.row();
@@ -718,6 +721,7 @@ bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int rol
 // Insert columns into table
 bool AnemModel::insertColumns(int column, int count, const QModelIndex& parent)
 {
+//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     if (count != 1) return false; // insert only one column at a time
     if ((column < 0) || (column >= list_->count()))
@@ -739,11 +743,7 @@ bool AnemModel::removeColumns(int column, int count, const QModelIndex& parent)
     if (count != 1) return false; // only remove one column at a time
     if ((column < 0) || (column >= list_->count())) return false;
 
-    int status = QMessageBox::question(QApplication::activeWindow(),
-                               tr("Remove Column"),
-                               tr("Do you want to remove this column?"),
-                               QMessageBox::Yes | QMessageBox::Cancel);
-    if (status == QMessageBox::Cancel)
+    if (!WidgetUtils::okToRemoveColumn(qApp->activeWindow()))
     {
         return false;
     }
@@ -760,6 +760,7 @@ bool AnemModel::removeColumns(int column, int count, const QModelIndex& parent)
 QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
                                 int role) const
 {
+//    DEBUG_FUNC_NAME
     if (orientation == Qt::Vertical && role == Qt::DisplayRole)
     {
         switch (section)
@@ -799,6 +800,7 @@ QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
 // Return flags at index
 Qt::ItemFlags AnemModel::flags(const QModelIndex& index) const
 {
+//    DEBUG_FUNC_NAME
     if (!index.isValid()) return Qt::ItemIsEnabled;
 
     Qt::ItemFlags currentFlags = QAbstractTableModel::flags(index);
@@ -848,6 +850,7 @@ Qt::ItemFlags AnemModel::flags(const QModelIndex& index) const
 // Return number of rows of data
 int AnemModel::rowCount(const QModelIndex& parent) const
 {
+//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     return ANEMNUMCOLS;
 }
@@ -855,6 +858,7 @@ int AnemModel::rowCount(const QModelIndex& parent) const
 // Return number of columns of data
 int AnemModel::columnCount(const QModelIndex& parent) const
 {
+//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     return list_->count();
 }

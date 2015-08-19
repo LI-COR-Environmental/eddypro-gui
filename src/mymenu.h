@@ -24,8 +24,8 @@
 #define MYMENU_H
 
 #include <QDebug>
-#include <QMenu>
 #include <QHelpEvent>
+#include <QMenu>
 #include <QToolTip>
 
 #include "tooltipfilter.h"
@@ -35,7 +35,7 @@ class MyMenu : public QMenu
     Q_OBJECT
 
 public:
-    explicit MyMenu(QWidget *parent = 0)
+    explicit MyMenu(QWidget* parent = nullptr)
         : QMenu(parent)
     {
     }
@@ -46,12 +46,12 @@ public:
         {
             // show action tooltip instead of widget tooltip
             QHelpEvent *he = static_cast<QHelpEvent*>(e);
-            QAction *act = he ? actionAt(he->pos()) : 0;
-            if (act)
+            QAction *action = he ? actionAt(he->pos()) : 0;
+            if (action)
             {
-                if (act->property("show-tooltip").toBool())
+                if (action->property("show-tooltip").toBool())
                 {
-                    QToolTip::showText(he->globalPos(), act->toolTip(), this);
+                    QToolTip::showText(he->globalPos(), action->toolTip(), this);
                 }
                 else
                 {

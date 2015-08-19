@@ -27,12 +27,13 @@
 #include "anem_tableview.h"
 
 class QAction;
+class QContextMenuEvent;
 
 class AnemView : public AnemTableView {
     Q_OBJECT
 
 public:
-    AnemView(QWidget *parent);
+    explicit AnemView(QWidget *parent);
     ~AnemView();
 
     int anemCount();
@@ -40,6 +41,9 @@ public:
 public slots:
     void addAnem();
     void removeAnem();
+
+private:
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
     QAction *addAction_;

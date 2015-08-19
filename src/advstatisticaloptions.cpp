@@ -21,26 +21,28 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QTimer>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QSpinBox>
-#include <QPushButton>
-#include <QScrollArea>
-#include <QGridLayout>
-#include <QUrl>
-#include <QToolBox>
-#include <QResizeEvent>
-
-#include "dbghelper.h"
-#include "alia.h"
-#include "splitter.h"
-#include "clicklabel.h"
-#include "ecproject.h"
 #include "advstatisticaloptions.h"
 
-AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProject) :
+#include <QCheckBox>
+#include <QComboBox>
+#include <QDebug>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QScrollArea>
+#include <QSpinBox>
+#include <QTimer>
+#include <QToolBox>
+#include <QUrl>
+
+#include "clicklabel.h"
+#include "dbghelper.h"
+#include "ecproject.h"
+#include "splitter.h"
+#include "widget_utils.h"
+
+AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
+                                             EcProject *ecProject) :
     QWidget(parent),
     ecProject_(ecProject)
 {
@@ -72,15 +74,15 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     nonSteadyCheckBox = new QCheckBox(tr("Steadiness of horizontal wind"));
     nonSteadyCheckBox->setToolTip(tr("<b>Steadiness of horizontal wind:</b> Assesses whether the along-wind and cross-wind components of the wind vector undergo a systematic reduction/increase throughout the file. If the quadratic combination of such systematic variations is beyond the user-selected limit, the flux-averaging period is hard-flagged for non stationary horizontal wind."));
 
-    QLabel *hrLabel_1 = new QLabel;
+    auto hrLabel_1 = new QLabel;
     hrLabel_1->setObjectName(QStringLiteral("hrLabel"));
 
-    QLabel *hrLabel_2 = new QLabel;
+    auto hrLabel_2 = new QLabel;
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
 
-    thumbnailGraphLabel = new QLabel();
+    thumbnailGraphLabel = new QLabel;
 
-    QGridLayout *testSelectionLayout = new QGridLayout;
+    auto testSelectionLayout = new QGridLayout;
     testSelectionLayout->addWidget(spikeRemCheckBox, 0, 0);
     testSelectionLayout->addWidget(amplitudeResCheckBox, 1, 0);
     testSelectionLayout->addWidget(dropoutsCheckBox, 2, 0);
@@ -103,36 +105,36 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
 
     createTabWidget();
 
-    QGridLayout *testSelectionAllLayout = new QGridLayout;
+    auto testSelectionAllLayout = new QGridLayout;
     testSelectionAllLayout->addLayout(testSelectionLayout, 0, 0);
     testSelectionAllLayout->addWidget(testToolbox, 0, 1, -1, 1);
-    testSelectionAllLayout->setContentsMargins(0, 0, 0, 5);
+    testSelectionAllLayout->setContentsMargins(0, 0, 0, 15);
 
-    QLabel* testSelectionGroupTitle = new QLabel(tr("Statistical tests for raw data screening, Vickers and Mahrt (1997)"));
+    auto testSelectionGroupTitle = new QLabel(tr("Statistical tests for raw data screening, Vickers and Mahrt (1997)"));
     testSelectionGroupTitle->setProperty("groupTitle2", true);
     testSelectionGroupTitle->setToolTip(tr("<b>Statistical tests for raw data screening:</b> Select (on the left side) and configure (on the right side) up to 9 tests for assessing statistical quality of raw time series. Use the results of these tests to filter out results, for which flags are turned on. All tests are implemented after Vickers and Mahrt (1997). See the original publication for more details and how to interpret results."));
 
-    QHBoxLayout* qBox_1 = new QHBoxLayout;
+    auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(testSelectionGroupTitle);
     qBox_1->addWidget(questionMark_1, 0, Qt::AlignLeft | Qt::AlignCenter);
     qBox_1->addStretch();
     qBox_1->setContentsMargins(0, 0, 0, 15);
 
-    QLabel* randomErrorGroupTitle = new QLabel(tr("Estimation of flux random uncertainty due to sampling error"));
+    auto randomErrorGroupTitle = new QLabel(tr("Estimation of flux random uncertainty due to sampling error"));
     randomErrorGroupTitle->setProperty("groupTitle2", true);
     randomErrorGroupTitle->setToolTip(tr("Estimation of flux random uncertainty due to sampling error"));
 
-    QHBoxLayout* qBox_2 = new QHBoxLayout;
+    auto qBox_2 = new QHBoxLayout;
     qBox_2->addWidget(randomErrorGroupTitle);
-    qBox_2->addWidget(questionMark_11, 0, Qt::AlignLeft | Qt::AlignBottom);
+    qBox_2->addWidget(questionMark_11, 0, Qt::AlignLeft | Qt::AlignVCenter);
     qBox_2->addStretch();
     qBox_2->setContentsMargins(0, 0, 0, 15);
 
-    QWidget* upFrame = new QWidget;
+    auto upFrame = new QWidget;
     upFrame->setLayout(testSelectionAllLayout);
     upFrame->setProperty("scrollContainerWidget", true);
 
-    QScrollArea* upScrollArea = new QScrollArea;
+    auto upScrollArea = new QScrollArea;
     upScrollArea->setWidget(upFrame);
     upScrollArea->setWidgetResizable(true);
 
@@ -142,19 +144,19 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
 
     randomMethodLabel = new ClickLabel(tr("Method :"));
     randomMethodLabel->setToolTip(tr("<b>Method:</b> Select the uncertainty computation method."));
-    randomMethodCombo = new QComboBox();
+    randomMethodCombo = new QComboBox;
     randomMethodCombo->addItem(tr("Finkelstein and Sims (2001)"));
     randomMethodCombo->addItem(tr("Mann and Lenschow (1994)"));
     randomMethodCombo->setItemData(0, tr("<b>Finkelstein and Sims (2001):</b> Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(1, tr("<b>Mann and Lenschow (1994):</b> Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001)."), Qt::ToolTipRole);
 
-    QLabel *itsLabel = new QLabel(tr("Integral turbulence scale (ITS)"));
+    auto itsLabel = new QLabel(tr("Integral turbulence scale (ITS)"));
     itsLabel->setProperty("blueLabel", true);
     itsLabel->setToolTip(tr(""));
 
     itsDefinitionLabel = new ClickLabel(tr("Definition of the ITS :"));
     itsDefinitionLabel->setToolTip(tr("<b>Definition of the ITS:</b> The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit."));
-    itsDefinitionCombo = new QComboBox();
+    itsDefinitionCombo = new QComboBox;
     itsDefinitionCombo->addItem(tr("Cross-correlation first crossing 1/e"));
     itsDefinitionCombo->addItem(tr("Cross-correlation first crossing zero"));
     itsDefinitionCombo->addItem(tr("Integrate over the whole correlation period"));
@@ -184,7 +186,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     securityCoeffSpin->setToolTip(securityCoeffLabel->toolTip());
     securityCoeffSpin->setVisible(false);
 
-    QGridLayout *downLayout = new QGridLayout();
+    auto downLayout = new QGridLayout;
     downLayout->addLayout(qBox_2, 0, 0, 1, 2);
     downLayout->addWidget(randomErrorCheckBox, 1, 0);
     downLayout->addWidget(randomMethodLabel, 1, 1, Qt::AlignRight);
@@ -199,65 +201,82 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     downLayout->setRowStretch(6, 1);
     downLayout->setColumnStretch(3, 1);
 
-    QWidget* downFrame = new QWidget;
+    auto downFrame = new QWidget;
     downFrame->setLayout(downLayout);
 
-    Splitter *splitter = new Splitter(Qt::Vertical, this);
+    auto splitter = new Splitter(Qt::Vertical, this);
     splitter->addWidget(upScrollArea);
     splitter->addWidget(downFrame);
     splitter->setStretchFactor(0, 2);
     splitter->setStretchFactor(1, 1);
     splitter->handle(1)->setToolTip(tr("Handle the separator."));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->addLayout(qBox_1);
     mainLayout->addWidget(splitter);
     mainLayout->setContentsMargins(15, 15, 15, 10);
     setLayout(mainLayout);
 
-    connect(spikeRemCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_spikeRemCheckBox_clicked(bool)));
-    connect(amplitudeResCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_amplitudeResCheckBox_clicked(bool)));
-    connect(dropoutsCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_dropoutsCheckBox_clicked(bool)));
-    connect(absLimCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_absLimCheckBox_clicked(bool)));
-    connect(skewnessCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_skewnessCheckBox_clicked(bool)));
-    connect(discontCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_discontCheckBox_clicked(bool)));
-    connect(timeLagCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_timeLagCheckBox_clicked(bool)));
-    connect(attackAngleCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_attackAngleCheckBox_clicked(bool)));
-    connect(nonSteadyCheckBox, SIGNAL(toggled(bool)), this, SLOT(on_nonSteadyCheckBox_clicked(bool)));
+    connect(spikeRemCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_spikeRemCheckBox_clicked);
+    connect(amplitudeResCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_amplitudeResCheckBox_clicked);
+    connect(dropoutsCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_dropoutsCheckBox_clicked);
+    connect(absLimCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_absLimCheckBox_clicked);
+    connect(skewnessCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_skewnessCheckBox_clicked);
+    connect(discontCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_discontCheckBox_clicked);
+    connect(timeLagCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_timeLagCheckBox_clicked);
+    connect(attackAngleCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_attackAngleCheckBox_clicked);
+    connect(nonSteadyCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::on_nonSteadyCheckBox_clicked);
 
-    connect(spikeRemCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(amplitudeResCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(dropoutsCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(absLimCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(skewnessCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(discontCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(timeLagCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(attackAngleCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
-    connect(nonSteadyCheckBox, SIGNAL(toggled(bool)), this, SLOT(updateSelectAllCheckbox()));
+    foreach (QCheckBox *checkbox,
+             QList<QCheckBox *>() << spikeRemCheckBox
+                                  << amplitudeResCheckBox
+                                  << dropoutsCheckBox
+                                  << absLimCheckBox
+                                  << skewnessCheckBox
+                                  << discontCheckBox
+                                  << timeLagCheckBox
+                                  << attackAngleCheckBox
+                                  << nonSteadyCheckBox)
+    {
+        connect(checkbox, &QCheckBox::toggled,
+                this, &AdvStatisticalOptions::updateSelectAllCheckbox);
+    }
 
-    connect(selectAllCheckBox, SIGNAL(toggled(bool)), defaultValuesButton, SLOT(setEnabled(bool)));
-    connect(selectAllCheckBox, SIGNAL(toggled(bool)), this, SLOT(selectAllTest(bool)));
+    connect(selectAllCheckBox, &QCheckBox::toggled,
+            defaultValuesButton, &QPushButton::setEnabled);
+    connect(selectAllCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::selectAllTest);
 
-    connect(defaultValuesButton, SIGNAL(clicked()), this, SLOT(on_defaultValuesButton_clicked()));
+    connect(defaultValuesButton, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::on_defaultValuesButton_clicked);
 
-    connect(spikeRemCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestSr(bool)));
-    connect(amplitudeResCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestAr(bool)));
-    connect(dropoutsCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestDo(bool)));
-    connect(absLimCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestAl(bool)));
-    connect(skewnessCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestSk(bool)));
-    connect(discontCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestDs(bool)));
-    connect(timeLagCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestTl(bool)));
-    connect(attackAngleCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestAa(bool)));
-    connect(nonSteadyCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateTestNs(bool)));
+    connect(spikeRemCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestSr);
+    connect(amplitudeResCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestAr);
+    connect(dropoutsCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestDo);
+    connect(absLimCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestAl);
+    connect(skewnessCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestSk);
+    connect(discontCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestDs);
+    connect(timeLagCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestTl);
+    connect(attackAngleCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestAa);
+    connect(nonSteadyCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateTestNs);
 
     connect(despSpin_1, SIGNAL(valueChanged(int)),
             this, SLOT(updateParamSrNumSpk(int)));
@@ -275,32 +294,32 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
             this, SLOT(updateParamSrN2oLim(double)));
     connect(despSpin_2, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamSrULim(double)));
-    connect(despFilterCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateDespFilter(bool)));
+    connect(despFilterCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateDespFilter);
 
-    connect(despLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_1()));
-    connect(despLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_2()));
-    connect(despLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_3()));
-    connect(despLabel_4, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_4()));
-    connect(despLabel_5, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_5()));
-    connect(despLabel_6, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_6()));
-    connect(despLabel_7, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_7()));
-    connect(despLabel_8, SIGNAL(clicked()),
-            this, SLOT(onClickDespLabel_8()));
+    connect(despLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_1);
+    connect(despLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_2);
+    connect(despLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_3);
+    connect(despLabel_4, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_4);
+    connect(despLabel_5, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_5);
+    connect(despLabel_6, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_6);
+    connect(despLabel_7, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_7);
+    connect(despLabel_8, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDespLabel_8);
 
-    connect(amplResLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickAmplResLabel_1()));
-    connect(amplResLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickAmplResLabel_2()));
-    connect(amplResLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickAmplResLabel_3()));
+    connect(amplResLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAmplResLabel_1);
+    connect(amplResLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAmplResLabel_2);
+    connect(amplResLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAmplResLabel_3);
 
     connect(amplResSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamArLim(double)));
@@ -309,12 +328,12 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(amplResSpin_3, SIGNAL(valueChanged(int)),
             this, SLOT(updateParamArHfLim(int)));
 
-    connect(dropoutsLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickDropoutsLabel_1()));
-    connect(dropoutsLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickDropoutsLabel_2()));
-    connect(dropoutsLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickDropoutsLabel_3()));
+    connect(dropoutsLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDropoutsLabel_1);
+    connect(dropoutsLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDropoutsLabel_2);
+    connect(dropoutsLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDropoutsLabel_3);
 
     connect(dropoutsSpin_1, SIGNAL(valueChanged(int)),
             this, SLOT(updateParamDoExtLimDw(int)));
@@ -323,20 +342,20 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(dropoutsSpin_3, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamDoHf2Lim(double)));
 
-    connect(absLimLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_1()));
-    connect(absLimLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_2()));
-    connect(absLimLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_3()));
-    connect(absLimLabel_5, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_5()));
-    connect(absLimLabel_7, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_7()));
-    connect(absLimLabel_9, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_9()));
-    connect(absLimLabel_11, SIGNAL(clicked()),
-            this, SLOT(onClickAbsLimLabel_11()));
+    connect(absLimLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_1);
+    connect(absLimLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_2);
+    connect(absLimLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_3);
+    connect(absLimLabel_5, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_5);
+    connect(absLimLabel_7, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_7);
+    connect(absLimLabel_9, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_9);
+    connect(absLimLabel_11, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAbsLimLabel_11);
 
     connect(absLimSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamAlUMax(double)));
@@ -366,17 +385,17 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
             this, SLOT(updateParamAlUMin(double)));
     connect(absLimSpin_14, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamAlWMin(double)));
-    connect(absLimFilterCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateAbsLimFilter(bool)));
+    connect(absLimFilterCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateAbsLimFilter);
 
-    connect(skewnessLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickSkewnessLabel_1()));
-    connect(skewnessLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickSkewnessLabel_2()));
-    connect(skewnessLabel_5, SIGNAL(clicked()),
-            this, SLOT(onClickSkewnessLabel_5()));
-    connect(skewnessLabel_6, SIGNAL(clicked()),
-            this, SLOT(onClickSkewnessLabel_6()));
+    connect(skewnessLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickSkewnessLabel_1);
+    connect(skewnessLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickSkewnessLabel_2);
+    connect(skewnessLabel_5, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickSkewnessLabel_5);
+    connect(skewnessLabel_6, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickSkewnessLabel_6);
 
     connect(skewnessSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamSkHfSkmin(double)));
@@ -395,22 +414,22 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(skewnessSpin_8, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamSkSfKumax(double)));
 
-    connect(discontLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_1()));
-    connect(discontLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_2()));
-    connect(discontLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_3()));
-    connect(discontLabel_4, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_4()));
-    connect(discontLabel_5, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_5()));
-    connect(discontLabel_6, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_6()));
-    connect(discontLabel_7, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_7()));
-    connect(discontLabel_8, SIGNAL(clicked()),
-            this, SLOT(onClickDiscontLabel_8()));
+    connect(discontLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_1);
+    connect(discontLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_2);
+    connect(discontLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_3);
+    connect(discontLabel_4, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_4);
+    connect(discontLabel_5, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_5);
+    connect(discontLabel_6, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_6);
+    connect(discontLabel_7, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_7);
+    connect(discontLabel_8, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickDiscontLabel_8);
 
     connect(discontSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamDsHfUV(double)));
@@ -445,18 +464,18 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(discontSpin_16, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamDsSfVar(double)));
 
-    connect(timeLagLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_1()));
-    connect(timeLagLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_2()));
-    connect(timeLagLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_3()));
-    connect(timeLagLabel_4, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_4()));
-    connect(timeLagLabel_5, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_5()));
-    connect(timeLagLabel_6, SIGNAL(clicked()),
-            this, SLOT(onClickTimeLagLabel_6()));
+    connect(timeLagLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_1);
+    connect(timeLagLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_2);
+    connect(timeLagLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_3);
+    connect(timeLagLabel_4, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_4);
+    connect(timeLagLabel_5, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_5);
+    connect(timeLagLabel_6, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickTimeLagLabel_6);
 
     connect(timeLagSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamTlHfLim(double)));
@@ -471,12 +490,12 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(timeLagSpin_6, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamTlDefN2o(double)));
 
-    connect(attackAngleLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickAttackAngleLabel_1()));
-    connect(attackAngleLabel_2, SIGNAL(clicked()),
-            this, SLOT(onClickAttackAngleLabel_2()));
-    connect(attackAngleLabel_3, SIGNAL(clicked()),
-            this, SLOT(onClickAttackAngleLabel_3()));
+    connect(attackAngleLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAttackAngleLabel_1);
+    connect(attackAngleLabel_2, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAttackAngleLabel_2);
+    connect(attackAngleLabel_3, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickAttackAngleLabel_3);
 
     connect(attackAngleSpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamAaMin(double)));
@@ -485,38 +504,38 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent, EcProject *ecProje
     connect(attackAngleSpin_3, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamAaLim(double)));
 
-    connect(nonSteadyLabel_1, SIGNAL(clicked()),
-            this, SLOT(onClickNonSteadyLabel_1()));
+    connect(nonSteadyLabel_1, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickNonSteadyLabel_1);
     connect(nonSteadySpin_1, SIGNAL(valueChanged(double)),
             this, SLOT(updateParamNsHfLim(double)));
 
-    connect(randomErrorCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateRandomErrorArea(bool)));
+    connect(randomErrorCheckBox, &QCheckBox::toggled,
+            this, &AdvStatisticalOptions::updateRandomErrorArea);
 
-    connect(randomMethodLabel, SIGNAL(clicked()),
-            this, SLOT(onClickRandomMethodLabel()));
+    connect(randomMethodLabel, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickRandomMethodLabel);
     connect(randomMethodCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateRandomMethod(int)));
 
-    connect(itsDefinitionLabel, SIGNAL(clicked()),
-            this, SLOT(onClickItsDefinitionLabel()));
+    connect(itsDefinitionLabel, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onClickItsDefinitionLabel);
     connect(itsDefinitionCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateItsDefinition(int)));
-    connect(timelagMaxLabel, SIGNAL(clicked()),
-            this, SLOT(onTimelagMaxLabelCLicked()));
+    connect(timelagMaxLabel, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onTimelagMaxLabelCLicked);
     connect(timelagMaxSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateTimelagMax(double)));
 
     // NOTE: temporarly disabled
-    connect(securityCoeffLabel, SIGNAL(clicked()),
-            this, SLOT(onSecurityCoeffLabelCLicked()));
+    connect(securityCoeffLabel, &ClickLabel::clicked,
+            this, &AdvStatisticalOptions::onSecurityCoeffLabelCLicked);
     connect(securityCoeffSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateSecurityCoeff(double)));
 
-    connect(ecProject_, SIGNAL(ecProjectNew()),
-            this, SLOT(reset()));
-    connect(ecProject_, SIGNAL(ecProjectChanged()),
-            this, SLOT(refresh()));
+    connect(ecProject_, &EcProject::ecProjectNew,
+            this, &AdvStatisticalOptions::reset);
+    connect(ecProject_, &EcProject::ecProjectChanged,
+            this, &AdvStatisticalOptions::refresh);
 
     foreach (QComboBox *combo,
              QList<QComboBox *>() << randomMethodCombo
@@ -539,10 +558,11 @@ void AdvStatisticalOptions::createTabWidget()
 {
     tab0 = new QWidget;
     tab0->setObjectName(QStringLiteral("toolboxContent"));
+//    tab0->setMaximumWidth(1200);
 
     despLabel_1 = new ClickLabel(tr("Maximum number of consecutive outliers : "));
     despLabel_1->setToolTip(tr("<b>Maximum number of consecutive outliers:</b> Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify <i>n</i>, the maximum number of consecutive outliers that define a spike. If more than <i>n</i> consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (<b><i>Absolute limits</i></b> test)."));
-    despSpin_1 = new QSpinBox();
+    despSpin_1 = new QSpinBox;
     despSpin_1->setRange(1, 1000);
     despSpin_1->setSingleStep(10);
     despSpin_1->setAccelerated(true);
@@ -558,27 +578,27 @@ void AdvStatisticalOptions::createTabWidget()
     despSpin_8->setSuffix(tr("  [%]", "Percentage"));
     despSpin_8->setToolTip(despLabel_8->toolTip());
 
-    despFilterCheckBox = new QCheckBox();
+    despFilterCheckBox = new QCheckBox;
     despFilterCheckBox->setToolTip(tr("<b>Replace spikes with linear interpolation:</b> Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points."));
     despFilterLabel = new ClickLabel(tr("Replace spikes with linear interpolation"));
     despFilterLabel->setToolTip(despFilterCheckBox->toolTip());
-    connect(despFilterLabel, SIGNAL(clicked()),
-            despFilterCheckBox, SLOT(toggle()));
+    connect(despFilterLabel, &ClickLabel::clicked,
+            despFilterCheckBox, &QCheckBox::toggle);
 
-    QHBoxLayout* checkboxContainerLayout = new QHBoxLayout;
+    auto checkboxContainerLayout = new QHBoxLayout;
     checkboxContainerLayout->addWidget(despFilterCheckBox);
     checkboxContainerLayout->addWidget(despFilterLabel);
     checkboxContainerLayout->setSpacing(9);
     checkboxContainerLayout->setContentsMargins(0, 0, 11, 0);
     checkboxContainerLayout->addStretch();
 
-    QWidget* checkboxContainer = new QWidget;
+    auto checkboxContainer = new QWidget;
     checkboxContainer->setLayout(checkboxContainerLayout);
 
-    spikeGraphLabel = new QLabel();
+    spikeGraphLabel = new QLabel;
     spikeGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/spike")));
 
-    QLabel* plausibilityLabel = new QLabel(tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::SIGMA));
+    auto plausibilityLabel = new QLabel(tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::SIGMA));
     plausibilityLabel->setProperty("blueLabel", true);
     plausibilityLabel->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
 
@@ -642,7 +662,7 @@ void AdvStatisticalOptions::createTabWidget()
     despSpin_7->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
     despSpin_7->setToolTip(despLabel_7->toolTip());
 
-    QGridLayout *tab0Grid = new QGridLayout();
+    auto tab0Grid = new QGridLayout;
     tab0Grid->addWidget(questionMark_2, 0, 0);
     tab0Grid->addWidget(spikeGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab0Grid->addWidget(despLabel_1, 0, 2, Qt::AlignRight);
@@ -703,10 +723,10 @@ void AdvStatisticalOptions::createTabWidget()
     amplResSpin_3->setSuffix(tr("  [%]", "Percentage"));
     amplResSpin_3->setToolTip(amplResLabel_3->toolTip());
 
-    amplResGraphLabel = new QLabel();
+    amplResGraphLabel = new QLabel;
     amplResGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/amplitude")));
 
-    QGridLayout *tab1Grid = new QGridLayout();
+    auto tab1Grid = new QGridLayout;
     tab1Grid->addWidget(questionMark_3, 0, 0);
     tab1Grid->addWidget(amplResGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab1Grid->addWidget(amplResLabel_1, 0, 2, Qt::AlignRight);
@@ -755,10 +775,10 @@ void AdvStatisticalOptions::createTabWidget()
     dropoutsSpin_3->setSuffix(tr("  [%]", "Percentage"));
     dropoutsSpin_3->setToolTip(dropoutsLabel_3->toolTip());
 
-    dropoutsGraphLabel = new QLabel();
+    dropoutsGraphLabel = new QLabel;
     dropoutsGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/dropout")));
 
-    QGridLayout *tab2Grid = new QGridLayout();
+    auto tab2Grid = new QGridLayout;
     tab2Grid->addWidget(questionMark_4, 0, 0);
     tab2Grid->addWidget(dropoutsGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab2Grid->addWidget(dropoutsLabel_1, 0, 2, Qt::AlignRight);
@@ -779,11 +799,11 @@ void AdvStatisticalOptions::createTabWidget()
     tab3 = new QWidget;
     tab3->setObjectName(QStringLiteral("toolboxContent"));
 
-    QLabel* minLabel = new QLabel(tr("Minimum"));
+    auto minLabel = new QLabel(tr("Minimum"));
     minLabel->setProperty("blueLabel", true);
     minLabel->setToolTip(tr("<b>Minimum:</b> Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged."));
 
-    QLabel* maxLabel = new QLabel(tr("Maximum"));
+    auto maxLabel = new QLabel(tr("Maximum"));
     maxLabel->setProperty("blueLabel", true);
     maxLabel->setToolTip(tr("<b>Maximum:</b> Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged."));
 
@@ -811,7 +831,7 @@ void AdvStatisticalOptions::createTabWidget()
     absLimSpin_3->setRange(-100.0, 20.0);
     absLimSpin_3->setSingleStep(10.0);
     absLimSpin_3->setAccelerated(true);
-    absLimSpin_3->setSuffix(tr("  [%1]", "").arg(Defs::C_DEG_STRING));
+    absLimSpin_3->setSuffix(tr("  [%1]", "").arg(Defs::DEGREE_C));
     absLimSpin_3->setToolTip(minLabel->toolTip());
 
     absLimSpin_4 = new QDoubleSpinBox;
@@ -819,7 +839,7 @@ void AdvStatisticalOptions::createTabWidget()
     absLimSpin_4->setRange(-20.0, 100.0);
     absLimSpin_4->setSingleStep(10.0);
     absLimSpin_4->setAccelerated(true);
-    absLimSpin_4->setSuffix(tr("  [%1]", "").arg(Defs::C_DEG_STRING));
+    absLimSpin_4->setSuffix(tr("  [%1]", "").arg(Defs::DEGREE_C));
     absLimSpin_4->setToolTip(maxLabel->toolTip());
 
     absLimLabel_5 = new ClickLabel(tr("%1 : ").arg(Defs::CO2_STRING));
@@ -911,29 +931,29 @@ void AdvStatisticalOptions::createTabWidget()
     absLimFilterCheckBox = new QCheckBox;
     absLimFilterLabel = new ClickLabel(tr("Filter outranged values"));
     absLimFilterLabel->setToolTip(tr("<b>Filter outranged values:</b> Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro\'s error code."));
-    connect(absLimFilterLabel, SIGNAL(clicked()),
-            absLimFilterCheckBox, SLOT(toggle()));
+    connect(absLimFilterLabel, &ClickLabel::clicked,
+            absLimFilterCheckBox, &QCheckBox::toggle);
 
-    QHBoxLayout* absLimContainerLayout = new QHBoxLayout;
+    auto absLimContainerLayout = new QHBoxLayout;
     absLimContainerLayout->addWidget(absLimFilterCheckBox);
     absLimContainerLayout->addWidget(absLimFilterLabel);
     absLimContainerLayout->setSpacing(9);
     absLimContainerLayout->setContentsMargins(0, 0, 11, 0);
     absLimContainerLayout->addStretch();
 
-    QWidget* absLimContainer = new QWidget;
+    auto absLimContainer = new QWidget;
     absLimContainer->setLayout(absLimContainerLayout);
 
-    absLimGraphLabel = new QLabel();
+    absLimGraphLabel = new QLabel;
     absLimGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/range")));
 
-    QLabel *lockedIcon_1 = new QLabel();
+    auto lockedIcon_1 = new QLabel;
     lockedIcon_1->setPixmap(QPixmap(QStringLiteral(":/icons/link")));
 
-    QLabel *lockedIcon_2 = new QLabel();
+    auto lockedIcon_2 = new QLabel;
     lockedIcon_2->setPixmap(QPixmap(QStringLiteral(":/icons/link")));
 
-    QGridLayout *tab3Grid = new QGridLayout();
+    auto tab3Grid = new QGridLayout;
     tab3Grid->addWidget(questionMark_5, 0, 0);
     tab3Grid->addWidget(absLimGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab3Grid->addWidget(minLabel, 0, 4, 1, 1);
@@ -979,11 +999,11 @@ void AdvStatisticalOptions::createTabWidget()
     tab4 = new QWidget;
     tab4->setObjectName(QStringLiteral("toolboxContent"));
 
-    QLabel* hardFlagLabel = new QLabel(tr("Hard-flag threshold"));
+    auto hardFlagLabel = new QLabel(tr("Hard-flag threshold"));
     hardFlagLabel->setProperty("blueLabel", true);
     hardFlagLabel->setToolTip(tr("<b>Hard-flag threshold:</b> Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged."));
 
-    QLabel* softFlagLabel = new QLabel(tr("Soft-flag threshold"));
+    auto softFlagLabel = new QLabel(tr("Soft-flag threshold"));
     softFlagLabel->setProperty("blueLabel", true);
     softFlagLabel->setToolTip(tr("<b>Soft-flag threshold:</b> Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged."));
 
@@ -1047,10 +1067,10 @@ void AdvStatisticalOptions::createTabWidget()
     skewnessSpin_8->setAccelerated(true);
     skewnessSpin_8->setToolTip(softFlagLabel->toolTip());
 
-    skewnessGraphLabel = new QLabel();
+    skewnessGraphLabel = new QLabel;
     skewnessGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/skewkurt")));
 
-    QGridLayout *tab4Grid = new QGridLayout();
+    auto tab4Grid = new QGridLayout;
     tab4Grid->addWidget(questionMark_6, 0, 0);
     tab4Grid->addWidget(skewnessGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab4Grid->addWidget(hardFlagLabel, 0, 3, 1, 1);
@@ -1078,11 +1098,11 @@ void AdvStatisticalOptions::createTabWidget()
     tab5 = new QWidget;
     tab5->setObjectName(QStringLiteral("toolboxContent"));
 
-    QLabel* hardFlagLabel_2 = new QLabel(tr("Hard-flag threshold"));
+    auto hardFlagLabel_2 = new QLabel(tr("Hard-flag threshold"));
     hardFlagLabel_2->setProperty("blueLabel", true);
     hardFlagLabel_2->setToolTip(tr("<b>Hard-flag threshold:</b> Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions."));
 
-    QLabel* softFlagLabel_2 = new QLabel(tr("Soft-flag threshold"));
+    auto softFlagLabel_2 = new QLabel(tr("Soft-flag threshold"));
     softFlagLabel_2->setProperty("blueLabel", true);
     softFlagLabel_2->setToolTip(tr("<b>Soft-flag threshold:</b> Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions."));
 
@@ -1206,10 +1226,10 @@ void AdvStatisticalOptions::createTabWidget()
     discontSpin_16->setAccelerated(true);
     discontSpin_16->setToolTip(softFlagLabel_2->toolTip());
 
-    discontGraphLabel = new QLabel();
+    discontGraphLabel = new QLabel;
     discontGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/discont")));
 
-    QGridLayout *tab5Grid = new QGridLayout();
+    auto tab5Grid = new QGridLayout;
     tab5Grid->addWidget(questionMark_7, 0, 0);
     tab5Grid->addWidget(discontGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab5Grid->addWidget(hardFlagLabel_2, 0, 3, 1, 1);
@@ -1311,10 +1331,10 @@ void AdvStatisticalOptions::createTabWidget()
     timeLagSpin_6->setSuffix(tr("  [s]", "Seconds"));
     timeLagSpin_6->setToolTip(timeLagLabel_6->toolTip());
 
-    timelagGraphLabel = new QLabel();
+    timelagGraphLabel = new QLabel;
     timelagGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/timelag")));
 
-    QGridLayout *tab6Grid = new QGridLayout();
+    auto tab6Grid = new QGridLayout;
     tab6Grid->addWidget(questionMark_8, 0, 0);
     tab6Grid->addWidget(timelagGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab6Grid->addWidget(timeLagLabel_1, 0, 2, Qt::AlignRight);
@@ -1371,10 +1391,10 @@ void AdvStatisticalOptions::createTabWidget()
     attackAngleSpin_3->setSuffix(tr("  [%]", "Percentage"));
     attackAngleSpin_3->setToolTip(attackAngleLabel_3->toolTip());
 
-    attackAngleGraphLabel = new QLabel();
+    attackAngleGraphLabel = new QLabel;
     attackAngleGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/aoa")));
 
-    QGridLayout *tab7Grid = new QGridLayout();
+    auto tab7Grid = new QGridLayout;
     tab7Grid->addWidget(questionMark_9, 0, 0);
     tab7Grid->addWidget(attackAngleGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab7Grid->addWidget(attackAngleLabel_1, 0, 2, Qt::AlignRight);
@@ -1404,10 +1424,10 @@ void AdvStatisticalOptions::createTabWidget()
     nonSteadySpin_1->setAccelerated(true);
     nonSteadySpin_1->setToolTip(nonSteadyLabel_1->toolTip());
 
-    nonSteadyGraphLabel = new QLabel();
+    nonSteadyGraphLabel = new QLabel;
     nonSteadyGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/instat")));
 
-    QGridLayout *tab8Grid = new QGridLayout();
+    auto tab8Grid = new QGridLayout;
     tab8Grid->addWidget(questionMark_10, 0, 0);
     tab8Grid->addWidget(nonSteadyGraphLabel, 0, 1, -1, 1, Qt::AlignTop);
     tab8Grid->addWidget(nonSteadyLabel_1, 0, 2, Qt::AlignRight);
@@ -1421,7 +1441,7 @@ void AdvStatisticalOptions::createTabWidget()
     tab8->setLayout(tab8Grid);
     tab8->setEnabled(false);
 
-    testToolbox = new QToolBox();
+    testToolbox = new QToolBox;
     testToolbox->addItem(tab0, tr("&Spike count/removal"));
     testToolbox->addItem(tab1, tr("&Amplitude resolution"));
     testToolbox->addItem(tab2, tr("D&rop-outs"));
@@ -1432,9 +1452,10 @@ void AdvStatisticalOptions::createTabWidget()
     testToolbox->addItem(tab7, tr("Angle of atta&ck"));
     testToolbox->addItem(tab8, tr("S&teadiness of horizontal wind"));
     testToolbox->setMinimumWidth(300);
+    testToolbox->setMaximumWidth(1000);
 
-    connect(testToolbox, SIGNAL(currentChanged(int)),
-            this, SLOT(updateThumbnailGraphLabel(int)));
+    connect(testToolbox, &QToolBox::currentChanged,
+            this, &AdvStatisticalOptions::updateThumbnailGraphLabel);
 }
 
 int AdvStatisticalOptions::findClosestEnabledTest(int indexDisabled)
@@ -1772,7 +1793,7 @@ void AdvStatisticalOptions::setTestDefaultValues()
 
 void AdvStatisticalOptions::on_defaultValuesButton_clicked()
 {
-    if (Alia::queryEcReset_3() == QMessageBox::Yes)
+    if (requestTestSettingsReset())
     {
         setTestDefaultValues();
     }
@@ -2377,10 +2398,11 @@ void AdvStatisticalOptions::reset()
     timelagMaxSpin->setEnabled(false);
     securityCoeffLabel->setEnabled(false);
     securityCoeffSpin->setEnabled(false);
-    Alia::resetComboToItem(randomMethodCombo, 0);
-    Alia::resetComboToItem(itsDefinitionCombo, 0);
+    WidgetUtils::resetComboToItem(randomMethodCombo, 0);
+    WidgetUtils::resetComboToItem(itsDefinitionCombo, 0);
 
-    // NOTE: hack to prevent side effect setting from calling Alia::resetComboToItem(randomMethodCombo, 0)
+    // NOTE: hack to prevent side effect setting from calling
+    // WidgetUtils::resetComboToItem(randomMethodCombo, 0)
     ecProject_->setRandomErrorMethod(0);
 
     timelagMaxSpin->setValue(10.0);
@@ -2587,7 +2609,7 @@ void AdvStatisticalOptions::updateAbsLimFilter(bool b)
     ecProject_->setScreenFilterAl(b);
 }
 
-void AdvStatisticalOptions::resizeEvent(QResizeEvent* event)
+void AdvStatisticalOptions::resizeEvent(QResizeEvent *event)
 {
     DEBUG_FUNC_NAME
 
@@ -2738,83 +2760,83 @@ void AdvStatisticalOptions::createQuestionMark()
     questionMark_11 = new QPushButton;
     questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
 
-    connect(questionMark_1, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_1()));
-    connect(questionMark_2, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_2()));
-    connect(questionMark_3, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_3()));
-    connect(questionMark_4, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_4()));
-    connect(questionMark_5, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_5()));
-    connect(questionMark_6, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_6()));
-    connect(questionMark_7, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_7()));
-    connect(questionMark_8, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_8()));
-    connect(questionMark_9, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_9()));
-    connect(questionMark_10, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_10()));
-    connect(questionMark_11, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_11()));
+    connect(questionMark_1, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_1);
+    connect(questionMark_2, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_2);
+    connect(questionMark_3, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_3);
+    connect(questionMark_4, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_4);
+    connect(questionMark_5, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_5);
+    connect(questionMark_6, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_6);
+    connect(questionMark_7, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_7);
+    connect(questionMark_8, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_8);
+    connect(questionMark_9, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_9);
+    connect(questionMark_10, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_10);
+    connect(questionMark_11, &QPushButton::clicked,
+            this, &AdvStatisticalOptions::onlineHelpTrigger_11);
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_1()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_2()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Spike")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Spike")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_3()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Amplitude")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Amplitude")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_4()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Drop")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Drop")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_5()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Absolute")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Absolute")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_6()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Skewness")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Skewness")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_7()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Discontinuities")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Discontinuities")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_8()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Time")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Time")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_9()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Angle")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Angle")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_10()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Steadiness")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Despiking_Raw_Stat_Screening.htm#Steadiness")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_11()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Random_Uncertainty_Estimation.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Random_Uncertainty_Estimation.htm")));
 }
 
 void AdvStatisticalOptions::updateRandomErrorArea(bool b)
@@ -3203,5 +3225,14 @@ void AdvStatisticalOptions::updateTooltip(int i)
 {
     QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
 
-    Alia::updateComboItemTooltip(senderCombo, i);
+    WidgetUtils::updateComboItemTooltip(senderCombo, i);
+}
+
+bool AdvStatisticalOptions::requestTestSettingsReset()
+{
+    return WidgetUtils::okToQuestion(nullptr,
+                tr("Reset Statistical Analysis Settings"),
+                tr("<p>Do you want to reset the Statistical Analysis settings "
+                   "to the default settings?</p>"),
+                tr("<p>You cannot undo this action.</p>"));
 }

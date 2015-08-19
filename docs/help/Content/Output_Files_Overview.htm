@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Output Files">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Overview of Output Files</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Output_Files_Overview.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Output Files</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Output Files Overview</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="section"><span class="ChapNum">​</span>Output Files Overview<a name="aanchor26"></a><MadCap:concept term="Results" /></h1>
+            <p><a name="kanchor156"></a>After clicking “Run,” <span class="MyVariablesSoftwareName R">EddyPro®</span> will generate some temporary intermediate files and compute fluxes based on the information provided in the data and metadata. These files are stored in folders and subfolders in the "Output Directory" you assigned in the <a href="Introduction_to_the_Interface.htm#Project3">Project Page</a>.</p>
+            <p>In these folders and files, you will find summary results. Each line in these files refers to a flux averaging period and starts with the corresponding raw file name and the timestamp of <i>the end</i> of the averaging period. File names are created with the <b>Output ID</b> that you entered in the Project Page.</p>
+            <p class="note"><b>Note:</b> Each run produces output files in the assigned directory. The output files are marked with the date and time of the run in the file name.
+				</p>
+            <h2><a name="kanchor157"></a>Time Structure of Output Files</h2>
+            <p>A fundamental concept behind the implementation of <span class="MyVariablesSoftwareName">EddyPro</span> is that you are attempting to obtain a dataset with a regular time step, which is the flux averaging period. To this aim, once <span class="MyVariablesSoftwareName">EddyPro</span> has read the names of all raw files to be processed, it will detect the first and the last one (in a chronological sense) and create a time structure (a timeline) where the beginning is given by the timestamp of the first file and the time step is given by the flux averaging period. Results of <span class="MyVariablesSoftwareName">EddyPro</span> calculations for each flux averaging period will be associated to the closest time step in the time structure, with the condition that the difference between the actual timestamp of the current averaging period and the closest timestamp in the time structure is less than half the averaging period.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Flux_Avg_Period2.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth300pt" data-mc-width="449" data-mc-height="116" src="Resources/Images/Flux_Avg_Period2_thumb_0_96.png" alt="" title="" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 6"><span class="autonumber"><span>Figure 6</span></span>. Timelines representing the handling of averaging periods by EddyPro.</caption>
+            <p>Consider the figure above. Two timelines are represented in the bottom part of the figure. They represent two different time structures, both of which have the same time step (40 minutes) but with an offset of 10 minutes between the two. For example, they might have been established with <span class="MyVariablesSoftwareName">EddyPro</span> by setting a flux averaging period of 40 minutes (in both cases) but having found a first chronological raw file with a timestamp such as 04:00 (upper case) and 4:10 (bottom case). In EddyPro, both time series would be filled with results for the averaging periods sketched on the upper part of the figure: results would be the same for the 08:00/08:10, 08:40/08:50 and 09:20/09:30 pairs. Some trials with the software will help you gain a better understanding of this feature of EddyPro. Currently, there is no option to force <span class="MyVariablesSoftwareName">EddyPro</span> to consider files timestamp as the actual timeline.</p>
+            <h2><a name="kanchor158"></a>Common Features of <span class="MyVariablesSoftwareName">EddyPro</span> Output Files</h2>
+            <p><span class="MyVariablesSoftwareName">EddyPro</span> output results are provided in comma separated ASCII data files. Based on certain processing options, <span class="MyVariablesSoftwareName">EddyPro</span> may force you to output certain files. This is the case, for instance, with the high-frequency spectral corrections. If any of the available in-situ methods are selected, <span class="MyVariablesSoftwareName">EddyPro</span> will automatically select certain spectral outputs and deactivate the corresponding entry, so that you cannot unselect them. This is because those outputs are essential to the spectral assessment and correction procedure.</p>
+            <p>All text is written without spaces, except where not applicable; spaces are replaced by “_” (underscores). Files may have a header that briefly describes the content of the file. Then the data columns begin, with a first line providing the labels and, in some cases, a second line providing units.</p>
+            <p>The names of output files produced by <span class="MyVariablesSoftwareName">EddyPro</span> follow the convention:</p>
+            <p class="courier">eddypro_projID_filecontent_<i>date</i>_<i>time</i>.csv</p>
+            <p>where <span class="monotype"><span class="MyVariablesSoftwareName">EddyPro</span></span>is a constant string, <span class="monotype">projID</span> is the Output ID entered in the <a href="Introduction_to_the_Interface.htm#Project3">Project Page</a>, <span class="courier">filecontent</span> gives a short description of the content of the file, and <span class="courier">date</span> and <span class="courier">time</span> are refer to the date and time that the data were processed.</p>
+            <p>All <span class="MyVariablesSoftwareName">EddyPro</span> results begin with the same three fields: the name of the raw file for which results are provided (or the name of the first file in case results come from several adjacent raw files), and the date and time of the <i>end</i> of the averaging period for the current result record. For example:</p>
+            <p class="courier">2011-01-29T130000_mysite.ghg,2011-01-29,13:30,</p>
+            <p>is the beginning of an output record referring to a dataset that ends at 13:30 of 29/01/2011, and is contained in the raw file <span class="courier">2011-01-29T130000_mysite.ghg</span> (or a set of files of which this is the first one).</p>
+            <p>An exception to this structure is necessary for output files in third-parties formats, such as <a href="Output_Files_Europe.htm">FLUXNET</a> and <a href="Output_Ameriflux.htm">AmeriFlux</a>, that require a different specification of results timestamps.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

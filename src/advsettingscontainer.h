@@ -29,25 +29,28 @@
 
 class QStackedLayout;
 
+class AdvOutputOptions;
+class AdvProcessingOptions;
+class AdvSpectralOptions;
+class AdvStatisticalOptions;
 class DlProject;
 class EcProject;
-class AdvProcessingOptions;
-class AdvStatisticalOptions;
-class AdvSpectralOptions;
-class AdvOutputOptions;
 
 class AdvSettingsContainer : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AdvSettingsContainer(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
+    explicit AdvSettingsContainer(QWidget* parent,
+                                  DlProject* dlProject,
+                                  EcProject* ecProject,
+                                  ConfigState* config);
     ~AdvSettingsContainer();
 
-    AdvProcessingOptions* processingOptions() { return processingOptions_; }
-    AdvSpectralOptions* spectralOptions() { return spectralOptions_; }
-    AdvStatisticalOptions* statisticalOptions() { return statisticalOptions_; }
-    AdvOutputOptions* outputOptions() { return outputOptions_; }
+    AdvProcessingOptions *processingOptions() { return processingOptions_; }
+    AdvSpectralOptions *spectralOptions() { return spectralOptions_; }
+    AdvStatisticalOptions *statisticalOptions() { return statisticalOptions_; }
+    AdvOutputOptions *outputOptions() { return outputOptions_; }
 
 signals:
     void checkMetadataOutputRequest();
@@ -56,15 +59,15 @@ public slots:
     void setCurrentPage(int page);
 
 private:
-    DlProject *dlProject_;
-    EcProject *ecProject_;
-    ConfigState* configState_;
+    AdvProcessingOptions* processingOptions_ {};
+    AdvStatisticalOptions* statisticalOptions_ {};
+    AdvOutputOptions* outputOptions_ {};
+    AdvSpectralOptions* spectralOptions_ {};
+    QStackedLayout* mainLayout_ {};
 
-    AdvProcessingOptions* processingOptions_;
-    AdvStatisticalOptions* statisticalOptions_;
-    AdvOutputOptions* outputOptions_;
-    AdvSpectralOptions* spectralOptions_;
-    QStackedLayout* mainLayout;
+    DlProject* dlProject_;
+    EcProject* ecProject_;
+    ConfigState* configState_;
 };
 
 #endif // ADVSETTINGSCONTAINER_H

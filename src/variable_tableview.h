@@ -32,7 +32,7 @@ class VariableTableView : public QTableView
 {
     Q_OBJECT
 public:
-    explicit VariableTableView(QWidget *parent = 0);
+    explicit VariableTableView(QWidget* parent = nullptr);
     ~VariableTableView();
 
 signals:

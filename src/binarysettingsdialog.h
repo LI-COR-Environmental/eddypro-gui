@@ -25,11 +25,27 @@
 
 #include <QDialog>
 
-class ClickLabel;
-class QSpinBox;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/binarysettingsdialog.h
+/// \brief
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QComboBox;
+class QSpinBox;
+
+class ClickLabel;
 class EcProject;
 
+/// \class BinarySettingsDialog
+/// \brief Class representing the Binary settings dialog
 class BinarySettingsDialog : public QDialog
 {
     Q_OBJECT

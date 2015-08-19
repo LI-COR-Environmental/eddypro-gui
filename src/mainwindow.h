@@ -26,8 +26,8 @@
 
 #include <QMainWindow>
 
-#include "defs.h"
 #include "configstate.h"
+#include "defs.h"
 #include "process.h"
 
 class QPlainTextEdit;
@@ -35,12 +35,10 @@ class QDockWidget;
 class QActionGroup;
 class QSignalMapper;
 class QLabel;
-class QMessageBox;
 
 class MainWidget;
 class DlProject;
 class EcProject;
-class ClockLabel;
 class MdiChild;
 class TooltipFilter;
 class AboutDialog;
@@ -48,20 +46,24 @@ class ClickLabel;
 class UpdateDialog;
 class InfoMessage;
 
+/// \class MainWindow
+/// \brief Class representing the main window of the application
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(const QString& filename = QString(), const QString& appEnvPath = QString(), QWidget *parent = 0);
+    MainWindow(const QString& filename = QString(),
+               const QString& appEnvPath = QString(),
+               QWidget* parent = nullptr);
     ~MainWindow();
 
 protected:
-    void closeEvent(QCloseEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    bool eventFilter(QObject *o, QEvent *e);
-    void wheelEvent(QWheelEvent *event);
-    void changeEvent(QEvent *event);
+    void closeEvent(QCloseEvent* event);
+    void resizeEvent(QResizeEvent* event);
+    bool eventFilter(QObject* o, QEvent* e);
+    void wheelEvent(QWheelEvent* event);
+    void changeEvent(QEvent* event);
 
 private slots:
     void dbgViewConsoleOutputToggled(bool on);
@@ -69,19 +71,19 @@ private slots:
 
     void initialize();
     void fileNew();
-    void fileOpen(const QString &fileName = QString());
+    void fileOpen(const QString& fileName = QString());
     void fileRecent();
-    void fileSave();
-    void fileSaveAs(const QString &fileName = QString());
+    bool fileSave(const bool quiet = false);
+    bool fileSaveAs(const QString& fileName = QString());
     void fileClose();
 
     void fileOpenRequest(QString file);
     void fileNewRequest();
 
-    int saveSilently();
+    bool fileSaveSilently();
 
     // add a file to recent file menu
-    void addRecent(const QString &filename);
+    void addRecent(const QString& filename);
 
     // Windows
     void updateMenuActionStatus(Defs::CurrPage page);
@@ -97,7 +99,6 @@ private slots:
     void showHelp();
     void showPdfHelp();
     void showStarterPdfHelp();
-    void showSwWebPage();
     void setOfflineHelp(bool yes);
     void setSmartfluxMode(bool on);
     void about();
@@ -144,7 +145,8 @@ private slots:
     void displayExitDialog();
     void onlineHelpTrigger_1();
 
-    void updateConsole(QByteArray& data);
+    void updateConsoleLine(QByteArray& data);
+    void updateConsoleChar(QByteArray& data);
     void updateConsoleReceived();
     void updateConsoleError();
 
@@ -170,6 +172,7 @@ private slots:
     void connectTimeLagDialog();
 
     void updateDockBorder(Qt::DockWidgetArea);
+
 private:
     void runExpress();
     void runAdvancedStep_1();
@@ -183,14 +186,14 @@ private:
     void createStatusBar();
     void createInfoDockWin();
     void createConsoleDockWin();
-    int continueBeforeClose();
+    bool continueBeforeClose();
     void saveEnvSettings(const QString& env);
 
     void setCurrentProjectFile(const QString& fileName, bool modified = false);
     const QString &currentProjectFile() const;
 
     // set window caption from file name
-    void setFileCaption(const QString &filename, bool clearStar = true);
+    void setFileCaption(const QString& filename, bool clearStar = true);
     void updateStatusBar();
 
     void readSettings();
@@ -204,14 +207,12 @@ private:
 
     void displayExitMsg(Process::ExitStatus exitReason);
     void displayExitMsg2(Process::ExitStatus exitReason);
-    int queryIfStopRun();
+    bool okToStopRun();
     int testBeforeRunningPassed(int step);
     bool testForPreviousData();
-    void noticeAboutChangesDuringRun();
+    bool alertChangesWhenRunning();
     void togglePageButton(Defs::CurrPage page);
     void changeViewToolbarSeparators(Defs::CurrPage page);
-
-    QString grabEssentialPath(const QString& fileName);
 
     void checkUpdate();
 
@@ -288,7 +289,6 @@ private:
     QString appEnvPath_;
     QLabel *currentProjectLabel;
 
-    int clockLabelWidth_;
     int versionLabelWidth_;
     int currentProjectLabelWidth_;
 
@@ -323,7 +323,6 @@ private:
     bool retrieverClicked_;
 
     void showStatusTip(const QString &text);
-    bool isOnline();
 
     Process* engineProcess_;
     int engineExit_;
@@ -334,6 +333,7 @@ private:
     bool argFilename_;
 
     void loadSmartfluxProjectCopy(const QString &filename);
+    void cleanEnvTmpDir();
 signals:
     void updateMetadataReadRequest();
     void updateCrossWindRequest();

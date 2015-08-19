@@ -24,34 +24,35 @@
 #ifndef PROJECTPAGE_H
 #define PROJECTPAGE_H
 
-#include <QWidget>
 #include <QPointer>
+#include <QWidget>
 
 #include "faderwidget.h"
 
-class QStackedWidget;
-class QRadioButton;
 class QButtonGroup;
-class QPushButton;
-class QLabel;
-class QGroupBox;
 class QCheckBox;
 class QComboBox;
-class QSpinBox;
 class QFrame;
+class QGroupBox;
+class QLabel;
 class QLineEdit;
+class QPushButton;
+class QRadioButton;
+class QSpinBox;
+class QStackedWidget;
+
 class QwwButtonLineEdit;
 class QwwClearLineEdit;
 
-class DlIniDialog;
+class BinarySettingsDialog;
 class ClickLabel;
+struct ConfigState;
+class DlIniDialog;
 class DlProject;
 class EcProject;
-class BinarySettingsDialog;
-//class SlowMeasureTab;
 class MyTabWidget;
+//class SlowMeasureTab;
 class SmartFluxBar;
-struct ConfigState;
 
 class ProjectPage : public QWidget
 {
@@ -125,6 +126,8 @@ private:
     DlIniDialog *dlIniDialog_;
     QStackedWidget *metadataTab;
 
+//    QStackedWidget* slowMeasuresTab;
+
     MyTabWidget* metadataEditors;
 
     QPointer<FaderWidget> faderWidget_;
@@ -138,7 +141,7 @@ private:
 
     void createQuestionMark();
 
-    BinarySettingsDialog *binDialog_;
+    BinarySettingsDialog* binDialog_;
     SmartFluxBar* smartfluxBar_;
 
 private slots:
@@ -153,7 +156,6 @@ private slots:
     void updateMetadataFileEdit(const QString &filename);
     void updateBiomFileEdit(const QString &filename);
 
-    void updateTitle(const QString& t);
     void updateFileType(int filetype);
     void updateUseMetadataFile_1(int filetype);
     void updateUseMetadataFile_2(int radio);

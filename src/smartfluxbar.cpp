@@ -20,53 +20,63 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include <QLabel>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVariant>
-#include <QPainter>
-#include <QStyleOption>
-#include <QMessageBox>
-#include <QDebug>
-#include <QSettings>
-#include <QScopedPointer>
-
-#include "dbghelper.h"
-#include "process.h"
-#include "fileutils.h"
-#include "alia.h"
-#include "ecproject.h"
-#include "clicklabel.h"
-#include "JlCompress.h"
-#include "createpackagedialog.h"
 #include "smartfluxbar.h"
 
-SmartFluxBar::SmartFluxBar(EcProject *ecProject, ConfigState* config, QWidget *parent) :
+#include <QApplication>
+#include <QDebug>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPainter>
+#include <QPushButton>
+#include <QScopedPointer>
+#include <QStyleOption>
+#include <QVariant>
+
+#include "JlCompress.h"
+
+#include "clicklabel.h"
+#include "createpackagedialog.h"
+#include "dbghelper.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "process.h"
+#include "widget_utils.h"
+
+SmartFluxBar::SmartFluxBar(EcProject* ecProject,
+                           ConfigState* config,
+                           QWidget* parent) :
     QWidget(parent),
     ecProject_(ecProject),
     configState_(config),
-    cpDialog_(0)
+    cpDialog_(nullptr)
 {
-    QLabel* smartfluxLogo = new QLabel;
+    auto smartfluxLogo = new QLabel;
     smartfluxLogo->setPixmap(QPixmap(QLatin1String(":/icons/smartflux-white")));
     smartfluxLogo->setProperty("smartfluxLogoWhite", true);
 
-    QLabel* smartfluxTitle = new QLabel;
+    auto smartfluxTitle = new QLabel;
     smartfluxTitle->setText(tr("Configuration"));
     smartfluxTitle->setProperty("smartfluxBarTitle", true);
 
-    QPushButton *createButton = new QPushButton;
+    auto createButton = new QPushButton;
     createButton->setText(tr("Create Package"));
     createButton->setProperty("smartfluxButton", true);
-    createButton->setToolTip(tr("Click to create the SMARTFlux configuration file package when you are done configuring EddyPro."));
-    connect(createButton, SIGNAL(clicked()), this, SLOT(showCreatePackageDialog()));
+    createButton->setToolTip(tr("Click to create the SMARTFlux configuration "
+                                "file package when you are done configuring "
+                                "EddyPro."));
+    connect(createButton, &QPushButton::clicked,
+            this, &SmartFluxBar::showCreatePackageDialog);
 
-    ClickLabel* closeButton = new ClickLabel;
+    auto closeButton = new ClickLabel;
     closeButton->setProperty("smartfluxBarClose", true);
-    closeButton->setToolTip(tr("Click to exit SMARTFlux configuration mode. You can enter SMARTFlux configuration mode under the File menu or with Ctrl+F."));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeRequest()));
+    closeButton->setToolTip(tr("Click to exit SMARTFlux configuration mode. "
+                               "You can enter SMARTFlux configuration mode "
+                               "under the File menu or with Ctrl+F."));
+    connect(closeButton, &ClickLabel::clicked,
+            this, &SmartFluxBar::closeRequest);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    auto layout = new QHBoxLayout(this);
     layout->addWidget(smartfluxLogo, 0, Qt::AlignLeft | Qt::AlignBottom);
     layout->addWidget(smartfluxTitle, 0, Qt::AlignLeft | Qt::AlignBottom);
     layout->addStretch(1);
@@ -78,6 +88,10 @@ SmartFluxBar::SmartFluxBar(EcProject *ecProject, ConfigState* config, QWidget *p
     setLayout(layout);
 
     makeCreatePackageDialog();
+
+    setToolTip(tr("EddyPro is in SMARTFlux "
+                  "configuration mode (Ctrl+F to exit)"));
+    setVisible(false);
 }
 
 SmartFluxBar::~SmartFluxBar()
@@ -93,18 +107,23 @@ SmartFluxBar::~SmartFluxBar()
 }
 
 // NOTE: necessary to accept styling with css files
-void SmartFluxBar::paintEvent(QPaintEvent *)
+void SmartFluxBar::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event)
+
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
+//    if (layout())
+//        paintLayout(&p, layout());
 }
 
 // NOTE: useful for visual inspection/debugging purpose
-void SmartFluxBar::paintLayout(QPainter *painter, QLayoutItem *item)
+void SmartFluxBar::paintLayout(QPainter* painter, QLayoutItem* item)
 {
-    QLayout *layout = item->layout();
+    QLayout* layout = item->layout();
     if (layout) {
         for (int i = 0; i < layout->count(); ++i)
             paintLayout(painter, layout->itemAt(i));
@@ -112,21 +131,14 @@ void SmartFluxBar::paintLayout(QPainter *painter, QLayoutItem *item)
     painter->drawRect(item->geometry());
 }
 
-// NOTE: not used
-void SmartFluxBar::mousePressEvent(QMouseEvent *event)
-{
-    QWidget::mousePressEvent(event);
-}
-
 void SmartFluxBar::closeRequest()
 {
-    int res = QMessageBox::question(0,
+    if (WidgetUtils::okToQuestion(nullptr,
                 tr("SmartFlux Configuration Exit"),
-                tr("Do you want to leave the SmartFlux Configuration?"),
-                QMessageBox::Yes | QMessageBox::Cancel,
-                QMessageBox::Cancel);
-
-    if (res == QMessageBox::Yes) emit showSmartfluxBarRequest(false);
+                tr("Do you want to leave the SmartFlux Configuration?")))
+    {
+        emit showSmartfluxBarRequest(false);
+    }
 }
 
 void SmartFluxBar::createPackage()
@@ -137,7 +149,7 @@ void SmartFluxBar::createPackage()
 
     qDebug() << "project file name" << ecProject_->generalFileName();
     if (ecProject_->generalFileName()
-        == QStringLiteral("project-untitled-smartflux.eddypro"))
+        == QLatin1String("project-untitled-smartflux.eddypro"))
     {
         emit saveRequest();
     }
@@ -153,18 +165,24 @@ void SmartFluxBar::createPackage()
                      + QStringLiteral("/")
                      + Defs::SMF_FILE_DIR;
 
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_PROJECT);
-    QString packageFilename = config.value(Defs::CONF_PROJ_SMARTFLUX_FILENAME, QString()).toString();
-    QString packageFilepath = QDir::fromNativeSeparators(config.value(Defs::CONF_PROJ_SMARTFLUX_FILEPATH, QString()).toString());
-    config.endGroup();
+    QString packageFilename = GlobalSettings::getAppPersistentSettings(
+                                        Defs::CONFGROUP_PROJECT,
+                                        Defs::CONF_PROJ_SMARTFLUX_FILENAME,
+                                        QString()).toString();
+
+    QString packageFilepath = QDir::fromNativeSeparators(
+                GlobalSettings::getAppPersistentSettings(
+                                        Defs::CONFGROUP_PROJECT,
+                                        Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
+                                        QString()).toString());
 
     QString smartfluxFilename = packageFilename;
+
     // append extension
     if (!smartfluxFilename.endsWith(QStringLiteral(".")
                                     + Defs::SMARTFLUX_FILE_EXT, Qt::CaseInsensitive))
     {
-        smartfluxFilename += QStringLiteral(".") + Defs::SMARTFLUX_FILE_EXT;
+        smartfluxFilename += QLatin1String(".") + Defs::SMARTFLUX_FILE_EXT;
     }
     // force lower case
     smartfluxFilename.replace(smartfluxFilename.lastIndexOf(Defs::SMARTFLUX_FILE_EXT, -1, Qt::CaseInsensitive),
@@ -217,6 +235,9 @@ void SmartFluxBar::createPackage()
         }
     }
 
+    // NOTE: soft cleaning (just files, not also subdirs, to fix...) required by quazip
+//    FileUtils::cleanDir(smfDir);
+
     // copy ancillary files in smf/ini
     QString saFile = ecProject_->spectraFile();
     qDebug() << "saFile" << ecProject_->spectraFile();
@@ -260,14 +281,11 @@ void SmartFluxBar::createPackage()
         // overwrite confirmation request
         if (QFile::exists(smartfluxFile))
         {
-            switch (Alia::queryOverwrite(smartfluxFile))
+            if (!WidgetUtils::okToOverwrite(smartfluxFile))
             {
-                case QMessageBox::Yes:
-                    break;
-                case QMessageBox::Cancel:
-                    // cleanup
-                    FileUtils::removeDir(smfIniDir);
-                    return;
+                // cleanup
+                FileUtils::removeDirRecursively(smfIniDir);
+                return;
             }
         }
 
@@ -301,7 +319,7 @@ void SmartFluxBar::createPackage()
 #endif
 
     // cleanup
-    FileUtils::removeDir(smfIniDir);
+    FileUtils::removeDirRecursively(smfIniDir);
 }
 
 void SmartFluxBar::makeCreatePackageDialog()
@@ -311,7 +329,8 @@ void SmartFluxBar::makeCreatePackageDialog()
     if (!cpDialog_)
     {
         cpDialog_ = new CreatePackageDialog(ecProject_, configState_, this);
-        connect(cpDialog_, SIGNAL(createPackageRequest()), this, SLOT(createPackage()));
+        connect(cpDialog_, &CreatePackageDialog::createPackageRequest,
+                this, &SmartFluxBar::createPackage);
     }
 }
 
@@ -321,7 +340,7 @@ void SmartFluxBar::showCreatePackageDialog()
 
     if (ecProject_->screenDataPath().isEmpty())
     {
-        Alia::information(this,
+        WidgetUtils::information(this,
                       tr("SMARTFlux package creation"),
                       tr("<p>Choose a Raw Data directory "
                          "from the Basic Settings page.</p>"),

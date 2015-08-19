@@ -23,43 +23,55 @@
 #ifndef FILEUTILS_H
 #define FILEUTILS_H
 
-#include <QString>
 #include <QDateTime>
-#include <QPair>
 #include <QDirIterator>
+#include <QPair>
+#include <QString>
 
-class FileUtils
+namespace FileUtils
 {
-public:
-    static bool isEmptyFile(const QString& fileName);
-    static bool projectFileForcedCopy(const QString& fileName, const QString &destDir);
+    bool existsPath(const QString& p);
 
-    static void createDir(const QString& dirName, const QString& absoluteDirDest = QString());
-    static bool removeDir(const QString& dirName);
-    static bool isDirEmpty(const QString& dirName);
-    static bool existsPath(const QString& p);
-    static void cleanDirRecursive(const QString& d);
-    static void cleanDirFromFileTypes(const QString& d, const QStringList& illegalFileTypes);
+    bool isFileEmpty(const QString& fileName);
+    bool isDirEmpty(const QString& dirName);
 
-    static const QStringList getFiles(const QString& dir,
-                                const QString& extension,
-                                bool recurse);
-    static QStringList getDirContent(const QString& dirPath,
-                                     QStringList nameFilter,
-                                     QDirIterator::IteratorFlag flag);
+    bool fileForcedCopy(const QString& fileName,
+                        const QString& destDir);
+    bool projectFileForcedCopy(const QString& fileName,
+                               const QString& destDir);
 
-    static QDate getDateFromDoY(int doy, int year);
-    static QDateTime getDateTimeFromFilename(const QString &filename, const QString &filenameFormat);
-    static QPair<QDateTime, QDateTime> getDateRangeFromFileList(const QStringList &fileList, const QString &filenameProtoype);
 
-    static void loadStyleSheetFile(const QString &sheetPath);
-    static QString setupEnv();
+    void createDir(const QString& dirName, const
+                   QString& absoluteDirDest = QString());
 
-    static bool zipContainsFiletype(const QString &fileName, const QString &filePattern);
-    static bool zipExtract(const QString &fileName, const QString &outDir);
-    static void cleanSmfDir(const QString &appEnvPath);
-    static bool forcedFileCopy(const QString &fileName, const QString &destDir);
-    static void cleanDir(const QString &d);
-};
+    bool removeDirRecursively(const QString& dirName);
+    void cleanDir(const QString& d);
+    void cleanDirRecursively(const QString& d);
+    void cleanDirRecursively_alt(const QString& d);
+    void cleanSmfDirRecursively(const QString& appEnvPath);
+    void cleanDirFromFileTypesRecursively(const QString& d,
+                                          const QStringList& illegalFileTypes);
+
+    const QStringList getFiles(const QString& dir,
+                               const QString& extension,
+                               bool recurse);
+    QStringList getDirContent(const QString& dirPath,
+                              QStringList nameFilter,
+                              QDirIterator::IteratorFlag flag);
+
+    QDate getDateFromDoY(int doy, int year);
+    QDateTime getDateTimeFromFilename(const QString& filename,
+                                      const QString& filenameFormat);
+    QPair<QDateTime, QDateTime> getDateRangeFromFileList(const QStringList& fileList,
+                                                         const QString& filenameProtoype);
+
+    void loadStyleSheetFile(const QString& sheetPath);
+    QString setupEnv();
+
+    bool zipContainsFiletype(const QString& fileName,
+                             const QString& filePattern);
+    bool zipExtract(const QString& fileName,
+                    const QString& outDir);
+} // FileUtils
 
 #endif // FILEUTILS_H

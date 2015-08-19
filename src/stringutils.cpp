@@ -20,20 +20,21 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "stringutils.h"
+
 #include <QByteArray>
 #include <QDate>
+#include <QDebug>
 #include <QRegExp>
 #include <QRegExpValidator>
 #include <QString>
 #include <QStringList>
-#include <QDebug>
 
 #include "dbghelper.h"
-#include "stringutils.h"
 
 const QString StringUtils::fromBool2YesNoString(bool b)
 {
-    return ((b) ? tr("yes") : tr("no"));
+    return ((b) ? QObject::tr("yes") : QObject::tr("no"));
 }
 
 const QString StringUtils::insertIndex(const QString& srcStr, int pos, const QString& str)
@@ -70,12 +71,12 @@ bool StringUtils::isISODateTimeString(const QString& s)
             && validator.validate(const_cast<QString&>(s), pos) == QValidator::Acceptable);
 }
 
-bool StringUtils::stringBelongsToList(const QString& string, const QStringList& list)
+bool StringUtils::stringBelongsToList(const QString& str, const QStringList& list)
 {
     bool ok = false;
     foreach (const QString& s, list)
     {
-        if (string == s)
+        if (str == s)
         {
             ok = true;
             break;
@@ -110,4 +111,15 @@ bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& loca
         return false;
 
     return false;
+}
+
+const QStringList StringUtils::subStringList(const QStringList& list, int begin, int end)
+{
+    QStringList sublist;
+
+    for (int i = begin; i < end; ++i)
+    {
+        sublist << list.value(i);
+    }
+    return sublist;
 }

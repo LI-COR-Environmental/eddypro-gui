@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Using EddyPro 5">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Processing LI-COR GHG Files with Incorrect Site Parameters</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#LI-COR_with_incorrect_parameters.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Using EddyPro 5</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Processing GHG Data with Incorrect or No Site Parameters</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="pgBrkBfr">Processing GHG Data with Incorrect or No Site Parameters<a name="kanchor137"></a></h1>
+            <p>If you collected eddy covariance data using LI&#8209;COR<sup>®</sup> data logging software, your dataset will be comprised of raw files in GHG format. Each GHG file contains a METADATA file with information needed for processing the paired DATA file. If, during the acquisition period, you changed settings in the data logging interface in order to account for modification of critical meta-information, the obtained dataset will contain dynamic, time-dependent metadata. EddyPro<sup>®</sup> allows you to account for this time dependency, processing each DATA file using meta-information retrieved from the paired METADATA file embedded in the GHG archive.</p>
+            <p>However, there are two situations, in which you might want or need to by-pass embedded METADATA files:</p>
+            <ul class="bulleted">
+                <li value="1">When embedded METADATA files have incorrect information (e.g., because they contain errors in critical meta-information);</li>
+                <li value="2">When all embedded METADATA files, correct or incorrect, are identical because no changes were made during data acquisition.</li>
+            </ul>
+            <p>In these cases EddyPro<sup>®</sup> provides a way to by-pass embedded METADATA files and use an alternative file.</p>
+            <p class="note"><b>Important:</b> Using an alternative METADATA file means that all GHG files are processed with the same meta-information (unless you provide a <a href="Dynamic_Metadata.htm">Time-varying metadata file</a>). It also implies that all DATA files must have the exact same format, which must be correctly described in the alternative METADATA file.</p>
+            <p>To use an alternative metadata file for your dataset:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="1.  "><span class="autonumber"><span class="LSteps">1.  </span></span>Start a <b>New Project</b> and select LI&#8209;COR GHG as the file type.</li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>Enter a <b>Project name</b> (optional).</li>
+                <li class="LilSteps" value="3" data-mc-autonum="3.  "><span class="autonumber"><span class="LSteps">3.  </span></span>In the <b>Basic Settings</b> page, enter the <b>Raw data directory</b>, where your raw data are stored.</li>
+                <li class="LilSteps" value="4" data-mc-autonum="4.  "><span class="autonumber"><span class="LSteps">4.  </span></span>Return to the <b>Project Creation</b> page and select the option <b>Metadata file: Use alternative file</b>. The <b>Metadata File Editor</b> will activate with the metadata from the first GHG file in your project.</li>
+                <li value="5">Make changes to the metadata file as needed.</li>
+                <li class="LilSteps" value="6" data-mc-autonum="5.  "><span class="autonumber"><span class="LSteps">5.  </span></span>Click <b>Save metadata as...</b> and save the file with a new file name. This file is the <b>Alternative metadata file</b>. You can modify it here or use it as it is.</li>
+                <li class="LilSteps" value="7" data-mc-autonum="6.  "><span class="autonumber"><span class="LSteps">6.  </span></span>When all mandatory meta-information is entered with plausible values, the <b>Basic Settings</b> button activates.</li>
+                <li value="8"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Dataset_Selection_btn.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img" data-mc-width="104" data-mc-height="47" src="Resources/Images/Dataset_Selection_btn_thumb_0_96.png" alt="" title="" tabindex="" /></a>
+                </li>
+                <li value="9">Click it to enter the <a href="Dataset_Selection_Page.htm">Basic Settings Page</a>. See .</li>
+                <br />
+            </ol>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

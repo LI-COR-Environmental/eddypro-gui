@@ -24,8 +24,8 @@
 #ifndef VARIABLE_DESC_H
 #define VARIABLE_DESC_H
 
+#include <QCoreApplication> // for Q_DECLARE_TR_FUNCTIONS
 #include <QList>
-#include <QCoreApplication>
 
 class QString;
 class QStringList;
@@ -105,7 +105,7 @@ public:
     static const QString getVARIABLE_CONVERSION_TYPE_STRING_1();
     static const QString getVARIABLE_CONVERSION_TYPE_STRING_2();
 
-    enum { SLOW = 0, FAST };
+    enum class AnalogType { SLOW = 0, FAST };
 
     VariableDesc();
 
@@ -206,23 +206,23 @@ public:
     // return a list of boolean strings
     static QStringList yesNoStringList();
 
-    static bool isGoodWindComponent(const VariableDesc &var);
-    static bool isGoodGas(const VariableDesc &var, bool isCustom = false);
-    static bool isGoodSonicTempOrSpeed(const VariableDesc &var);
-    static bool isGoodTemperature(const VariableDesc &var, int type = SLOW);
+    static bool isGoodWindComponent(const VariableDesc& var);
+    static bool isGoodGas(const VariableDesc& var, bool isCustom = false);
+    static bool isGoodSonicTempOrSpeed(const VariableDesc& var);
+    static bool isGoodTemperature(const VariableDesc& var, AnalogType type = AnalogType::SLOW);
     static bool isGoodPressure(const VariableDesc& var);
 
-    static bool goodGainOffsetTest(const VariableDesc &var);
+    static bool goodGainOffsetTest(const VariableDesc& var);
 
     static bool isGasVariable(const QString& var);
     static bool isCustomVariable(const QString& var);
     static bool isScalableVariable(const QString& inputUnit);
-    static bool isVelocityVar(const QString &var);
-    static bool isAngleVar(const QString &var);
-    static bool isTemperatureVar(const QString &var);
-    static bool isPressureVar(const QString &var);
-    static bool isFlowRateVar(const QString &var);
-    static bool isDiagnosticVar(const QString &var);
+    static bool isVelocityVar(const QString& var);
+    static bool isAngleVar(const QString& var);
+    static bool isTemperatureVar(const QString& var);
+    static bool isPressureVar(const QString& var);
+    static bool isFlowRateVar(const QString& var);
+    static bool isDiagnosticVar(const QString& var);
 
     static const QStringList angleInputUnitStringList();
     static const QStringList velocityInputUnitStringList();

@@ -21,12 +21,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
+#include "irga_view.h"
+
 #include <QAction>
+#include <QContextMenuEvent>
+#include <QMenu>
 
 #include "dbghelper.h"
 #include "irga_model.h"
-#include "irga_view.h"
 
 // Constructor
 IrgaView::IrgaView(QWidget *parent) :
@@ -37,16 +39,20 @@ IrgaView::IrgaView(QWidget *parent) :
 {
     // create context menu actions
     addAction_ = new QAction(tr("&Add Irga"), this);
-    addAction_->setShortcut(QKeySequence(tr("Ctrl+Insert")));
-    connect(addAction_, SIGNAL(triggered()), this, SLOT(addIrga()));
+    addAction_->setShortcut(QKeySequence(QKeySequence::ZoomIn));
+    addAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     removeAction_ = new QAction(tr("&Remove Irga"), this);
-    removeAction_->setShortcut(QKeySequence(tr("Ctrl+Delete")));
-    connect(removeAction_, SIGNAL(triggered()), this, SLOT(removeIrga()));
+    removeAction_->setShortcut(QKeySequence(QKeySequence::ZoomOut));
+    removeAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     clearAction_ = new QAction(tr("&Clear Selection"), this);
     clearAction_->setShortcut(QKeySequence(tr("Escape")));
-    connect(clearAction_, SIGNAL(triggered()), this, SLOT(clearSelection()));
+    clearAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+
+    connect(addAction_, &QAction::triggered, this, &IrgaView::addIrga);
+    connect(removeAction_, &QAction::triggered, this, &IrgaView::removeIrga);
+    connect(clearAction_, &QAction::triggered, this, &IrgaView::clearSelection);
 
     addAction(addAction_);
     addAction(removeAction_);
@@ -61,7 +67,12 @@ IrgaView::~IrgaView()
 // Create and show context menu
 void IrgaView::contextMenuEvent(QContextMenuEvent *event)
 {
-    Q_UNUSED(event)
+    QMenu menu(this);
+    menu.addAction(addAction_);
+    menu.addAction(removeAction_);
+    menu.addSeparator();
+    menu.addAction(clearAction_);
+    menu.exec(event->globalPos());
 }
 
 // Add a new blank irga after the selected or after the last if there is
@@ -78,10 +89,14 @@ void IrgaView::addIrga()
     else
         ++currCol;
 
-    ((IrgaModel *)model())->insertColumns(currCol, 1, QModelIndex());
+    // cast the model(), but it's not stricly necessary because
+    // model() already returns the setModel() assigned to the view instance
+    IrgaModel *concreteModel = static_cast<IrgaModel *>(model());
+
+    concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
-    ((IrgaModel *)model())->flush();
-    setCurrentIndex(model()->index(IrgaModel::MANUFACTURER, currCol));
+    concreteModel->flush();
+    setCurrentIndex(concreteModel->index(IrgaModel::MANUFACTURER, currCol));
 }
 
 // Remove the selected irga or the last if there is no selection
@@ -95,12 +110,12 @@ void IrgaView::removeIrga()
     if (currCol == -1)
         currCol = lastCol;
 
-    ((IrgaModel *)model())->removeColumns(currCol, 1, QModelIndex());
+    static_cast<IrgaModel *>(model())->removeColumns(currCol, 1, QModelIndex());
     updateGeometries();
     clearSelection();
 }
 
 int IrgaView::irgaCount()
 {
-    return ((IrgaModel *)model())->columnCount(QModelIndex());
+    return static_cast<IrgaModel *>(model())->columnCount(QModelIndex());
 }

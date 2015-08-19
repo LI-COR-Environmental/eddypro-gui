@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Using EddyPro 5">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Metadata File Editor</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Metadata_File_Editor.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Using EddyPro 5</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using the Metadata File Editor</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="pgBrkBefore">Using the Metadata File Editor</h1>
+            <p>The Metadata File Editor is used to enter site information, instrument information, and a description of the data file structure. This information is required for any dataset processed in <span class="MyVariablesSoftwareName R">EddyPro®</span>. You will use the Metadata File Editor under two circumstances:</p>
+            <ul class="bulleted">
+                <li value="1">when incorrect site information is included in an existing metadata file, or</li>
+                <li value="2">when you are processing ASCII plain text, Generic binary, TOB1, SLT (EddySoft), or SLT (EdiSol) files.</li>
+            </ul>
+            <p>The Metadata File Editor will activate when you select a raw file format other than LI&#8209;COR GHG or if you select <b>Use Alternative File</b>. It has three tabs: <b>Station</b>, <b>Instruments</b>, and <b>Raw File Description</b>, as well as a dialog box called <b>Raw File Settings</b>.</p>
+            <p>When you begin editing the Metadata File Editor, <span class="MyVariablesSoftwareName">EddyPro</span> will prompt you to save the metadata file. After you save it, all subsequent edits are saved automatically.</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="1.  "><span class="autonumber"><span class="LSteps">1.  </span></span>Configuring the Station Tab:<br /><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Project_Page_MetaSta.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth300pt" data-mc-width="1438" data-mc-height="900" src="Resources/Images/Project_Page_MetaSta_thumb_0_96.png" style="mc-thumbnail: popup;" alt="" title="" tabindex="" /></a></li>
+            </ol>
+            <ul class="ml96pt">
+                <li class="ml18pt" value="1"><b>Time Stamp Refers to:</b> Specify whether the time stamp in the file name refers to the beginning or end of the time series contained within the file. See <a href="Beginning_of_dataset.htm" class="TOCPageNumber MCXref xref xrefTOCPageNumber">Beginning of Dataset</a>.</li>
+                <li class="ml18pt" value="2"><b>File duration:</b> Set the duration of input files.</li>
+                <li class="ml18pt" value="3"><b>Acquisition frequency:</b> This refers to the number of samples per second in the data files.</li>
+                <li class="ml18pt" value="4"><b>Canopy height:</b> Distance between the soil surface and the top of the canopy.</li>
+                <li class="ml18pt" value="5"><b>Displacement height:</b> See <a href="Displacement_Height.htm" class="TOCPageNumber MCXref xref xrefTOCPageNumber">Displacement Height</a>.</li>
+                <li class="ml18pt" value="6"><b>Roughness length:</b> See <a href="Roughness_Length.htm" class="TOCPageNumber MCXref xref xrefTOCPageNumber">Roughness Length</a>.</li>
+                <li class="ml18pt" value="7"><b>Altitude:</b> Elevation above sea level of the flux site.</li>
+                <li class="ml18pt" value="8"><b>Latitude and Longitude:</b> WGS84 coordinates in decimal degrees.</li>
+            </ul>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>Configure the Instruments Tab. It has fields for anemometers and gas analyzers:</li>
+                <li value="2"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Project_Page_MetaInst.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth300pt" data-mc-width="1439" data-mc-height="900" src="Resources/Images/Project_Page_MetaInst_thumb_0_96.png" style="mc-thumbnail: popup;" alt="" title="" tabindex="" /></a>
+                </li>
+                <li value="3">For Anemometer Info, enter:</li>
+            </ol>
+            <ul class="ml96pt">
+                <li class="ml18pt" value="1"><b>Manufacturer:</b> The make of your anemometer.</li>
+                <li class="ml18pt" value="2"><b>Model:</b> The model of the anemometer.</li>
+                <li class="ml18pt" value="3"><b>Instrument ID:</b> This is for your records.</li>
+                <li class="ml18pt" value="4"><b>Height:</b> Distance between the ground and the anemometer.</li>
+                <li class="ml18pt" value="5"><b>Wind data format:</b> Output format for the anemometer. Choose from <i>U</i>, <i>V</i>, <i>W</i>: <i>Polar</i> and <i>W</i>; or <i>axis velocities</i>.</li>
+                <li class="ml18pt" value="6"><b>North alignment:</b> Set to Axis or Spar, if applicable.</li>
+                <li class="ml18pt" value="7"><b>North offset:</b> See <a href="North_Offset.htm" class="TOCPageNumber MCXref xref xrefTOCPageNumber">North Offset</a>.  </li>
+                <li class="ml18pt" value="8"><b>Northward, Eastward, or Vertical separation:</b> Used to specify the distance between sensors. For the anemometer you only need to use this field if the data file includes records from two anemometers. See <a href="Sensor_Separation.htm">Sensor Separation</a>.</li>
+                <li class="ml18pt" value="9"><b>Longitudinal path length:</b> Path length in the direction of a pair of transducers.</li>
+                <li class="ml18pt" value="10"><b>Transversal path length:</b> Path length in the direction orthogonal to the longitudinal path length.</li>
+                <li class="ml18pt" value="11"><b>Time response:</b> Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer’s specifications or user manual.</li>
+            </ul>
+            <ol class="LilSteps">
+                <li value="1">For Gas Analyzers Info:</li>
+            </ol>
+            <ul class="ml96pt">
+                <li class="ml18pt" value="1"><b>Manufacturer:</b> The make of your gas analyzer.</li>
+                <li class="ml18pt" value="2"><b>Model:</b> The model of your gas analyzer. See <a href="Gas_Analyzer_Model.htm">Gas Analyzer Model</a>.</li>
+                <li class="ml18pt" value="3"><b>Instrument ID:</b> This is for your records, to distinguish instruments.</li>
+                <li class="ml18pt" value="4"><b>Height:</b> The distance between the ground and the anemometer.</li>
+                <li class="ml18pt" value="5"><b>Tube length:</b> For closed path analyzers only, enter the length of the intake tube. Ignore for open path analyzers.</li>
+                <li class="ml18pt" value="6"><b>Tube inner diameter:</b> For closed path analyzers only, the inside diameter of the intake tube.</li>
+                <li class="ml18pt" value="7"><b>Nominal tube flow rate:</b> For closed path analyzers only, the flow rate setting. Ignore for open path analyzers.</li>
+                <li class="ml18pt" value="8"><b>Northward, Eastward, or Vertical separation:</b> Used to specify the distance between anemometer and gas analyzer. See <a href="Sensor_Separation.htm" class="TOCPageNumber MCXref xref xrefTOCPageNumber">Northward, Eastward, and Vertical Separation</a>.</li>
+                <li class="ml18pt" value="9"><b>Longitudinal path length:</b> Path length between the optical source and detector of the analyzer.</li>
+                <li class="ml18pt" value="10"><b>Transversal path length:</b> Path length in the direction orthogonal to the longitudinal path length.</li>
+                <li class="ml18pt" value="11"><b>Time response:</b> Time response of the gas analyzer. Its inverse defines the maximum frequency of the atmospheric turbulent concentration fluctuations that the instrument is able to resolve. Consult the analyzer’s specifications or user manual.</li>
+                <li class="ml18pt" value="12"><b>Extinction coefficient in water, K<sub>w</sub>:</b> In Krypton or Lyman-a hygrometers, the extinction coefficients for water vapor of the hygrometers, associated with the third-order Taylor expansion of the Lambert–Beer law around reference conditions (<a href="References.htm#vanDijk">van Dijk et al. 2003</a>).</li>
+                <li class="ml18pt" value="13"><b>Extinction coefficient in water, K<sub>o</sub>:</b> In Krypton or Lyman-a hygrometers, the extinction coefficients for oxygen of the hygrometers, associated with the third-order Taylor expansion of the Lambert–Beer law around reference conditions (<a href="References.htm#vanDijk">van Dijk et al. 2003</a>).</li>
+            </ul>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="3.  "><span class="autonumber"><span class="LSteps">3.  </span></span>Enter information in the Raw File Description tab:</li>
+                <li value="2"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Project_Page_MetaRaw.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth300pt" data-mc-width="1439" data-mc-height="900" src="Resources/Images/Project_Page_MetaRaw_thumb_0_96.png" style="mc-thumbnail: popup;" alt="" title="" tabindex="" /></a>
+                </li>
+                <li value="3">The Raw File Description tab is where you tell EddyPro how data are arranged in the raw data files. Click the plus button (+) to add columns. In each column specify the following:</li>
+            </ol>
+            <ul class="ml96pt">
+                <li class="ml18pt" value="1"><b>Ignore:</b> Select ‘yes’ to instruct <span class="MyVariablesSoftwareName">EddyPro</span> to ignore a column. Columns to be ignored include time stamps, line counters, etc.</li>
+                <li class="ml18pt" value="2"><b>Numeric:</b> Select ‘no’ to tell <span class="MyVariablesSoftwareName">EddyPro</span> that a column is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable not numeric. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. If a variable is not numeric, this must be specified even if you set ’yes’ in the ignore field.</li>
+                <li class="ml18pt" value="3"><b>Variable:</b> Specify the variable that is contained in the current column of the raw files or enter a custom variable of your choice. Custom variables are saved to the computer registry so they are available to you when you start a new project.</li>
+                <li class="ml18pt" value="4"><b>Instrument:</b> Select the instrument that measured the current variable. Instruments listed here are those you entered under the Instruments tab.</li>
+                <li class="ml18pt" value="5"><b>Measurement type:</b> Only applicable to gas concentrations, enter the units used to describe the gas concentration measurement. For other variables, leave the field blank or select <i>Other</i>.</li>
+                <li class="ml18pt" value="6"><b>Input unit:</b> Specify the units for the variable, as it is stored in the raw data file.</li>
+                <li class="ml18pt" value="7"><b>Linear scaling:</b> Specify a linear conversion type to rescale available data, if needed. Variables that are already in any of the supported physical units do not need to be rescaled.</li>
+                <li class="ml18pt" value="8"><b>Output unit:</b> Enter the output units (physical units after conversion). The following <i>A</i> and <i>B</i> values must be such that the input variable is converted into the selected output unit.</li>
+                <li class="ml18pt" value="9"><b>Gain value:</b> Enter the gain for the <i>Gain-Offset</i> conversion.</li>
+                <li class="ml18pt" value="10"><b>Offset value:</b> Enter the offset for the <i>Gain-Offset</i> conversion.</li>
+                <li class="ml18pt" value="11"><b>Nominal time lag:</b> Enter the expected (nominal) time lag of non-anemometric variables, with respect to the reference anemometer, where applicable. Time lags should be specified at least for gas concentrations and can be estimated based on instrument separation (open path) or the intake tube and flow rate (closed path).</li>
+                <li class="ml18pt" value="12"><b>Minimum time lag:</b> Enter the minimum plausible time lag for the current variable, with respect to the sonic anemometer.</li>
+                <li class="ml18pt" value="13"><b>Maximum time lag:</b> Enter the minimum plausible time lag for the current variable, with respect to the sonic anemometer.</li>
+            </ul>
+            <ol class="LilSteps">
+                <li value="1">More information on the metadata may be required in the <b>Raw File Settings</b> dialog:</li>
+                <li value="2"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Raw_File_Settings.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth150pt" data-mc-width="393" data-mc-height="230" src="Resources/Images/Raw_File_Settings_thumb_0_96.png" style="mc-thumbnail: popup;" alt="" title="" tabindex="" /></a>
+                </li>
+            </ol>
+            <ul class="ml96pt">
+                <li class="ml18pt" value="1"><b>Field separator character:</b> Specify the character that separates individual values within the same sample in the raw files (for ASCII formats only).</li>
+                <li class="ml18pt" value="2"><b>Number of header rows:</b> Enter the number of rows in the header of the file, if present. In most cases, the software will be able to filter away individual text lines that do not comply with the description provided here. Therefore, most files with a variable number of header lines are supported.</li>
+            </ul>
+            <p>The Metadata file will be saved automatically. After completing it, the Basic Settings tab will become active, and you can proceed with the project.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

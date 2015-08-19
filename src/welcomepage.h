@@ -24,9 +24,24 @@
 #ifndef MAINPAGE_H
 #define MAINPAGE_H
 
-#include <QWidget>
 #include <QAbstractButton>
+#include <QWidget>
+
 #include "configstate.h"
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/welcomepage.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
 class QPushButton;
 class QButtonGroup;
@@ -42,6 +57,8 @@ class ClickLabel;
 class SmartFluxBar;
 class EcProject;
 
+/// \class WelcomePage
+/// \brief Class representing the main page of the application (start page)
 class WelcomePage : public QWidget
 {
     Q_OBJECT
@@ -83,7 +100,6 @@ private slots:
     void helpItemRequested(QListWidgetItem* item);
     void supportItemRequested(QListWidgetItem* item);
     void updateRecentList();
-    void openWebSite();
     void openForumFeedback();
     void updateMainLayout(bool on);
     void onlineHelpTrigger_1();

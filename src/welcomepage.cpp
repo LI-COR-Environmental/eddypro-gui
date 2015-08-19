@@ -21,23 +21,24 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "welcomepage.h"
+
+#include <QCheckBox>
 #include <QDebug>
+#include <QDesktopServices>
+#include <QDir>
 #include <QGridLayout>
 #include <QListWidget>
-#include <QUrl>
-#include <QDir>
-#include <QDesktopServices>
-#include <QToolButton>
-#include <QCheckBox>
 #include <QPushButton>
+#include <QToolButton>
+#include <QUrl>
 
-#include "defs.h"
-#include "alia.h"
-#include "smartfluxbar.h"
-#include "dbghelper.h"
 #include "clicklabel.h"
+#include "dbghelper.h"
+#include "defs.h"
 #include "ecproject.h"
-#include "welcomepage.h"
+#include "smartfluxbar.h"
+#include "widget_utils.h"
 
 WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* configState) :
     QWidget(parent),
@@ -48,11 +49,13 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     appLogoLabel->setProperty("applogoLabel", true);
     appLogoLabel->setProperty("applogoSmallLabel", false);
 
-    connect(appLogoLabel, SIGNAL(clicked()), this, SLOT(openWebSite()));
+    connect(appLogoLabel, &ClickLabel::clicked,
+            this, &WidgetUtils::openAppWebsite);
 
     feedbackLabel = new ClickLabel;
     feedbackLabel->setProperty("feedbackLabel", true);
-    connect(feedbackLabel, SIGNAL(clicked()), this, SLOT(openForumFeedback()));
+    connect(feedbackLabel, &ClickLabel::clicked,
+            this, &WelcomePage::openForumFeedback);
 
     newButton = new QToolButton;
     newButton->setText(tr("New Project"));
@@ -68,16 +71,16 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     openButton->setIconSize(QSize(110, 105));
     openButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
-    QHBoxLayout* buttonsLayout = new QHBoxLayout;
-    buttonsLayout->addStretch(12);
-    buttonsLayout->addWidget(newButton);
-    buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(openButton);
-    buttonsLayout->addStretch(12);
-    buttonsLayout->setContentsMargins(0, 0, 0, 0);
-    buttonsLayout->setMargin(0);
+    auto mainButtonsLayout = new QHBoxLayout;
+    mainButtonsLayout->addStretch(12);
+    mainButtonsLayout->addWidget(newButton);
+    mainButtonsLayout->addStretch(1);
+    mainButtonsLayout->addWidget(openButton);
+    mainButtonsLayout->addStretch(12);
+    mainButtonsLayout->setContentsMargins(0, 0, 0, 0);
+    mainButtonsLayout->setMargin(0);
 
-    QLabel *recentListTitle = new QLabel(tr("Recent Projects"));
+    auto recentListTitle = new QLabel(tr("Recent Projects"));
     recentListTitle->setProperty("groupTitle3", true);
 
     recentListWidget = new QListWidget;
@@ -103,22 +106,24 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     smartfluxModeCheckbox_ = new QCheckBox;
     smartfluxModeCheckbox_->setToolTip(smartfluxTooltip);
 
-    ClickLabel* title = new ClickLabel;
+    auto title = new ClickLabel;
     title->setPixmap(QPixmap(QStringLiteral(":/icons/smartflux-grey")));
     title->setProperty("smartfluxLogoGrey", true);
     title->setToolTip(smartfluxTooltip);
 
-    ClickLabel* subTitle = new ClickLabel;
+    auto subTitle = new ClickLabel;
     subTitle->setObjectName(QStringLiteral("smartfluxSubtitle"));
     subTitle->setText(tr("Configuration "));
     subTitle->setToolTip(smartfluxTooltip);
 
-    connect(title, SIGNAL(clicked()), smartfluxModeCheckbox_, SLOT(toggle()));
-    connect(subTitle, SIGNAL(clicked()), smartfluxModeCheckbox_, SLOT(toggle()));
+    connect(title, &ClickLabel::clicked,
+            smartfluxModeCheckbox_, &QCheckBox::toggle);
+    connect(subTitle, &ClickLabel::clicked,
+            smartfluxModeCheckbox_, &QCheckBox::toggle);
 
     createQuestionMark();
 
-    QHBoxLayout* smartfluxLabelContainerLayout = new QHBoxLayout;
+    auto smartfluxLabelContainerLayout = new QHBoxLayout;
     smartfluxLabelContainerLayout->addSpacing(100);
     smartfluxLabelContainerLayout->addWidget(smartfluxModeCheckbox_);
     smartfluxLabelContainerLayout->addSpacing(5);
@@ -130,22 +135,22 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     smartfluxLabelContainerLayout->setContentsMargins(0, 0, 0, 0);
     smartfluxLabelContainerLayout->setMargin(0);
 
-    QGridLayout* projectsLayout = new QGridLayout;
+    auto projectsLayout = new QGridLayout;
     projectsLayout->addLayout(smartfluxLabelContainerLayout, 0, 1, 1, 1, Qt::AlignBottom);
-    projectsLayout->addLayout(buttonsLayout, 1, 1, Qt::AlignCenter);
+    projectsLayout->addLayout(mainButtonsLayout, 1, 1, Qt::AlignCenter);
     projectsLayout->addWidget(recentListTitle, 2, 0, 1, -1, Qt::AlignLeft);
     projectsLayout->addWidget(recentListWidget, 3, 0, 1, -1, Qt::AlignCenter);
     projectsLayout->setRowStretch(4, 1);
     projectsLayout->setRowMinimumHeight(0, 40);
 
-    QWidget* projectsWidget = new QWidget;
+    auto projectsWidget = new QWidget;
     projectsWidget->setMinimumWidth(600);
     projectsWidget->setLayout(projectsLayout);
 
-    QLabel *newsTitle = new QLabel(tr("What's New at LI-COR"));
+    auto newsTitle = new QLabel(tr("What's New at LI-COR"));
     newsTitle->setProperty("groupTitle3", true);
 
-    QWidget* newsWidget = new QWidget;
+    auto newsWidget = new QWidget;
 
     newsListWidget = new QListWidget;
     newsListWidget->setProperty("helpListItem", true);
@@ -155,28 +160,28 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     newsListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    QListWidgetItem* rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Design Your Own Eddy Covariance System"), newsListWidget);
+    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Design Your Own Eddy Covariance System"), newsListWidget);
     rssItem_1->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/system_build.html")));
 
-    QListWidgetItem* rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Case Studies and Applications"), newsListWidget);
+    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Case Studies and Applications"), newsListWidget);
     rssItem_2->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/applications.html")));
 
-    QListWidgetItem* rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Overview of Biological and Meteorological Sensors in Eddy Covariance Flux Research"), newsListWidget);
+    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Overview of Biological and Meteorological Sensors in Eddy Covariance Flux Research"), newsListWidget);
     rssItem_3->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#8-15-12")));
 
-    QListWidgetItem* rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Using Biomet Sensors in LI-COR Eddy Covariance Systems"), newsListWidget);
+    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Using Biomet Sensors in LI-COR Eddy Covariance Systems"), newsListWidget);
     rssItem_4->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#8-29-12")));
 
-    QListWidgetItem* rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Biomet Data Processing and Advanced Features of EddyPro 4"), newsListWidget);
+    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/video")), tr("Biomet Data Processing and Advanced Features of EddyPro 4"), newsListWidget);
     rssItem_5->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/webinars/index.html#9-5-12")));
 
-    QListWidgetItem* rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/8100-app")), tr("Wireless Application Available for LI-8100A"), newsListWidget);
-    rssItem_6->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/newsline/2012/06/new-wireless-application-available-for-li-8100a/")));
+    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/wrench")), tr("Small add-on provides big benefits for eddy covariance systems - The SMARTFlux (TM) System"), newsListWidget);
+    rssItem_6->setData(Qt::UserRole, QString(QStringLiteral("www.licor.com/SMARTFlux/")));
 
-    QListWidgetItem* rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("New Eddy Covariance Training course available"), newsListWidget);
+    auto rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("New Eddy Covariance Training course available"), newsListWidget);
     rssItem_7->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/products/eddy_covariance/training.html")));
 
-    QListWidgetItem* rssItem_8 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Mapping CO2 Concentrations and Fluxes with the LI-8100A"), newsListWidget);
+    auto rssItem_8 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Mapping CO2 Concentrations and Fluxes with the LI-8100A"), newsListWidget);
     rssItem_8->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/applications/mapping.html")));
 
     newsListWidget->addItem(rssItem_1);
@@ -188,26 +193,26 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->addItem(rssItem_7);
     newsListWidget->addItem(rssItem_8);
 
-    QGridLayout* newsLayout = new QGridLayout;
+    auto newsLayout = new QGridLayout;
     newsLayout->addWidget(newsTitle, 0, 0);
     newsLayout->addWidget(newsListWidget, 1, 0);
     newsWidget->setLayout(newsLayout);
     newsWidget->setMinimumWidth(600);
 
-    QWidget* helpWidget = new QWidget;
+    auto helpWidget = new QWidget;
 
-    QLabel *helpTitle = new QLabel(tr("Help resources"));
+    auto helpTitle = new QLabel(tr("Help resources"));
     helpTitle->setProperty("groupTitle3", true);
 
-    QListWidgetItem* item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
+    auto item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
     item_1->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#EddyPro_Home.htm")));
-    QListWidgetItem* item_2 = new QListWidgetItem(tr("Getting started"));
+    auto item_2 = new QListWidgetItem(tr("Getting started"));
     item_2->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_Getting_Started.pdf")));
-    QListWidgetItem* item_3 = new QListWidgetItem(tr("Video tutorials"));
+    auto item_3 = new QListWidgetItem(tr("Video tutorials"));
     item_3->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Video_Library.htm")));
-    QListWidgetItem* item_4 = new QListWidgetItem(tr("Printable manual (PDF version)"));
+    auto item_4 = new QListWidgetItem(tr("Printable manual (PDF version)"));
     item_4->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_User_Guide.pdf")));
-    QListWidgetItem* item_5 = new QListWidgetItem(tr("Download sample data files"));
+    auto item_5 = new QListWidgetItem(tr("Download sample data files"));
     item_5->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Data/")));
 
     helpListWidget = new QListWidget;
@@ -220,18 +225,18 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpListWidget->addItem(item_4);
     helpListWidget->addItem(item_5);
 
-    QLabel *supportTitle = new QLabel(tr("Support resources"));
+    auto supportTitle = new QLabel(tr("Support resources"));
     supportTitle->setProperty("groupTitle3", true);
 
-    QListWidgetItem* item_6 = new QListWidgetItem(tr("Forum"));
+    auto item_6 = new QListWidgetItem(tr("Forum"));
     item_6->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/forum.php?id=8")));
-    QListWidgetItem* item_7 = new QListWidgetItem(tr("Eddy Covariance Glossary"));
+    auto item_7 = new QListWidgetItem(tr("Eddy Covariance Glossary"));
     item_7->setData(Qt::UserRole, QString(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#skinName=Glossary")));
-    QListWidgetItem* item_8 = new QListWidgetItem(tr("LI-COR Newsline (EddyPro related articles and technical tips)"));
+    auto item_8 = new QListWidgetItem(tr("LI-COR Newsline (EddyPro related articles and technical tips)"));
     item_8->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/newsline/tag/eddypro/")));
-    QListWidgetItem* item_9 = new QListWidgetItem(tr("Features request"));
+    auto item_9 = new QListWidgetItem(tr("Features request"));
     item_9->setData(Qt::UserRole, QString(QStringLiteral("http://www.licor.com/env/forum/topic.php?id=15")));
-    QListWidgetItem* item_10 = new QListWidgetItem(tr("Check for updates"));
+    auto item_10 = new QListWidgetItem(tr("Check for updates"));
     item_10->setData(Qt::UserRole, QString(QStringLiteral("check_updates")));
 
     supportListWidget = new QListWidget;
@@ -244,7 +249,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     supportListWidget->addItem(item_9);
     supportListWidget->addItem(item_10);
 
-    QGridLayout* helpLayout = new QGridLayout;
+    auto helpLayout = new QGridLayout;
     helpLayout->addWidget(helpTitle, 0, 0);
     helpLayout->addWidget(helpListWidget, 1, 0);
     helpLayout->addWidget(supportTitle, 0, 1);
@@ -256,15 +261,15 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpWidget->setLayout(helpLayout);
     helpWidget->setMinimumWidth(600);
 
-    QTabWidget* welcomeTab = new QTabWidget;
+    auto welcomeTab = new QTabWidget;
     welcomeTab->addTab(projectsWidget, tr("Manage Projects"));
     welcomeTab->addTab(newsWidget, tr("News"));
     welcomeTab->addTab(helpWidget, tr("Help and Support"));
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
-    smartfluxBar_->setVisible(false);
-    smartfluxBar_->setToolTip(tr("EddyPro is in SMARTFlux configuration mode (Ctrl+F to exit)"));
-    smartfluxBar_->setMinimumHeight(35);
+
+    // TODO: verify if necessary: it seems no in windows
+//    smartfluxBar_->setMinimumHeight(35);
 
     smartfluxBarPlaceholder_ = new QWidget;
 #if defined(Q_OS_WIN)
@@ -288,26 +293,28 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     setLayout(mainLayout_);
 
-    connect(recentListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(recentOpenRequested(QListWidgetItem*)), Qt::QueuedConnection);
+    connect(recentListWidget, &QListWidget::itemClicked,
+            this, &WelcomePage::recentOpenRequested, Qt::QueuedConnection);
 
-    connect(recentListWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
-            this, SLOT(doNothing(QListWidgetItem*)));
+    connect(recentListWidget, &QListWidget::itemDoubleClicked,
+            this, &WelcomePage::doNothing);
 
-    connect(newsListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(newsItemRequested(QListWidgetItem*)));
+    connect(newsListWidget, &QListWidget::itemClicked,
+            this, &WelcomePage::newsItemRequested);
 
-    connect(helpListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(helpItemRequested(QListWidgetItem*)));
+    connect(helpListWidget, &QListWidget::itemClicked,
+            this, &WelcomePage::helpItemRequested);
 
-    connect(supportListWidget, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(supportItemRequested(QListWidgetItem*)));
+    connect(supportListWidget, &QListWidget::itemClicked,
+            this, &WelcomePage::supportItemRequested);
 
     connect(parent, SIGNAL(recentUpdated()),
             this, SLOT(updateRecentList()));
 
-    connect(openButton, SIGNAL(clicked()), this, SLOT(openProjectRequested()));
-    connect(newButton, SIGNAL(clicked()), this, SIGNAL(newProjectRequest()));
+    connect(openButton, &QToolButton::clicked,
+            this, &WelcomePage::openProjectRequested);
+    connect(newButton, &QToolButton::clicked,
+            this, &WelcomePage::newProjectRequest);
 
     // routing signal to parent
     connect(smartfluxBar_, SIGNAL(showSmartfluxBarRequest(bool)),
@@ -346,10 +353,10 @@ void WelcomePage::doNothing(QListWidgetItem* item)
     DEBUG_FUNC_NAME
 
 #ifdef QT_DEBUG
-    QMessageBox* msgBox = new QMessageBox();
-    msgBox->setWindowTitle(QStringLiteral("Troppi click, Ger :-)"));
-    msgBox->setText(QStringLiteral("Detected Double Open"));
-    msgBox->show();
+//    auto msgBox = new QMessageBox;
+//    msgBox->setWindowTitle(QStringLiteral("Troppi click, Ger :-)"));
+//    msgBox->setText(QStringLiteral("Detected Double Open"));
+//    msgBox->show();
 #endif
     qDebug() << "Detected Double Click";
 }
@@ -367,7 +374,7 @@ void WelcomePage::helpItemRequested(QListWidgetItem* item)
     }
     else
     {
-        Alia::showHelp(QUrl(item->data(Qt::UserRole).toString()));
+        WidgetUtils::showHelp(QUrl(item->data(Qt::UserRole).toString()));
     }
 }
 
@@ -390,7 +397,7 @@ void WelcomePage::updateRecentList()
     {
         if (QFile::exists(recentfile))
         {
-            QListWidgetItem* item = new QListWidgetItem(QDir::toNativeSeparators(recentfile), recentListWidget);
+            auto item = new QListWidgetItem(QDir::toNativeSeparators(recentfile), recentListWidget);
             Q_UNUSED(item)
         }
     }
@@ -398,25 +405,20 @@ void WelcomePage::updateRecentList()
 
 void WelcomePage::updateWelcomePage(bool small)
 {
-    QList<Alia::PropertyList> appLogoProp;
+    QList<WidgetUtils::PropertyList> appLogoProp;
 
     if (small)
     {
-        appLogoProp << Alia::PropertyList("applogoLabel", false)
-                    << Alia::PropertyList("applogoSmallLabel", true);
+        appLogoProp << WidgetUtils::PropertyList("applogoLabel", false)
+                    << WidgetUtils::PropertyList("applogoSmallLabel", true);
     }
     else
     {
-        appLogoProp << Alia::PropertyList("applogoLabel", true)
-                    << Alia::PropertyList("applogoSmallLabel", false);
+        appLogoProp << WidgetUtils::PropertyList("applogoLabel", true)
+                    << WidgetUtils::PropertyList("applogoSmallLabel", false);
     }
 
-    Alia::updatePropertyListAndStyle(appLogoLabel, appLogoProp);
-}
-
-void WelcomePage::openWebSite()
-{
-    Alia::openWebSite();
+    WidgetUtils::updatePropertyListAndStyle(appLogoLabel, appLogoProp);
 }
 
 void WelcomePage::openForumFeedback()
@@ -431,7 +433,6 @@ void WelcomePage::updateSmartfluxBar()
     smartfluxBar_->setVisible(configState_->project.smartfluxMode);
 }
 
-// NOTE: to complete
 void WelcomePage::updateSmartfluxCheckBox()
 {
     DEBUG_FUNC_NAME
@@ -465,11 +466,11 @@ void WelcomePage::createQuestionMark()
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_1->setProperty("smartfluxQuestionMark", true);
 
-    connect(questionMark_1, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_1()));
+    connect(questionMark_1, &QPushButton::clicked,
+            this, &WelcomePage::onlineHelpTrigger_1);
 }
 
 void WelcomePage::onlineHelpTrigger_1()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#smartfluxSettings.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#smartfluxSettings.htm")));
 }

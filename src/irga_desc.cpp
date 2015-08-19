@@ -21,11 +21,12 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QStringList>
+#include "irga_desc.h"
+
 #include <QDebug>
+#include <QStringList>
 
 #include "defs.h"
-#include "irga_desc.h"
 
 const QString IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
 {
@@ -89,7 +90,7 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_7()
 
 const QString IrgaDesc::getIRGA_MODEL_STRING_8()
 {
-    static const QString s(QT_TR_NOOP(QStringLiteral("OP Krypton Hygrometer")));
+    static const QString s(QObject::tr("OP Krypton Hygrometer"));
     return s;
 }
 
@@ -97,13 +98,13 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_9()
 {
     static const QString s(QStringLiteral("OP Lyman-")
                            + Defs::ALPHA
-                           + QT_TR_NOOP(QStringLiteral(" Hygrometer")));
+                           + QObject::tr(" Hygrometer"));
     return s;
 }
 
 const QString IrgaDesc::getIRGA_MODEL_STRING_10()
 {
-    static const QString s(QT_TR_NOOP(QStringLiteral("CP Krypton Hygrometer")));
+    static const QString s(QObject::tr("CP Krypton Hygrometer"));
     return s;
 }
 
@@ -111,7 +112,7 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_11()
 {
     static const QString s(QStringLiteral("CP Lyman-")
                            + Defs::ALPHA
-                           + QT_TR_NOOP(QStringLiteral(" Hygrometer")));
+                           + QObject::tr(" Hygrometer"));
     return s;
 }
 
@@ -145,6 +146,7 @@ IrgaDesc::IrgaDesc() :
     swVersion_(QString()),
     sn_(QString()),
     id_(QString()),
+//    height_(0.1),
     tubeLength_(0.0),
     tubeDiameter_(0.0),
     tubeFlowRate_(0.0),
@@ -162,6 +164,7 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
                    const QString& model,
                    const QString& swVersion,
                    const QString& id,
+//                   qreal height,
                    qreal tubeLength,
                    qreal tubeDiameter,
                    qreal tubeFlowRate,
@@ -177,6 +180,7 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
     model_(model),
     swVersion_(swVersion),
     id_(id),
+//    height_(height),
     tubeLength_(tubeLength),
     tubeDiameter_(tubeDiameter),
     tubeFlowRate_(tubeFlowRate),
@@ -198,6 +202,7 @@ IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     swVersion_(irga.swVersion_),
     sn_(irga.sn_),
     id_(irga.id_),
+//    height_(irga.height_),
     tubeLength_(irga.tubeLength_),
     tubeDiameter_(irga.tubeDiameter_),
     tubeFlowRate_(irga.tubeFlowRate_),
@@ -220,6 +225,7 @@ IrgaDesc& IrgaDesc::operator=(const IrgaDesc& irga)
         swVersion_ = irga.swVersion_;
         sn_ = irga.sn_;
         id_ = irga.id_;
+//        height_ = irga.height_;
         tubeLength_ = irga.tubeLength_;
         tubeDiameter_ = irga.tubeDiameter_;
         tubeFlowRate_ = irga.tubeFlowRate_;
@@ -242,6 +248,7 @@ bool IrgaDesc::operator==(const IrgaDesc& irga) const
             && (swVersion_ == irga.swVersion_)
             && (sn_ == irga.sn_)
             && (id_ == irga.id_)
+//            && (height_ == irga.height_)
             && (tubeLength_ == irga.tubeLength_)
             && (tubeDiameter_ == irga.tubeDiameter_)
             && (tubeFlowRate_ == irga.tubeFlowRate_)
@@ -319,6 +326,7 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
 {
     const QString manufacturer = irga.manufacturer();
     const QString model = irga.model();
+//    qreal height = irga.height();
     qreal tubeLength = irga.tubeLength();
     qreal tubeDiameter = irga.tubeDiameter();
     qreal tubeFlowRate = irga.tubeFlowRate();
@@ -359,6 +367,10 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
                 || (model == getIRGA_MODEL_STRING_11()));
         }
     }
+
+    // 3
+    // always true by min value
+//    bool isGoodHeight = height > 0;
 
     // 4
     bool isGoodTubeLength = tubeLength > 0;
@@ -421,6 +433,7 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
 
     qDebug() << ">> isGoodManufacturer" << isGoodManufacturer;
     qDebug() << ">> isGoodModel" << isGoodModel;
+//    qDebug() << ">> isGoodHeight" << isGoodHeight;
     qDebug() << ">> isGoodClosedPath" << isGoodClosedPath;
     qDebug() << ">> isGoodSeparation" << isGoodSeparation;
     qDebug() << ">> isGoodPathLength" << isGoodPathLength;
@@ -429,6 +442,7 @@ bool IrgaDesc::isGoodIrga(IrgaDesc irga)
     // all
     return (isGoodManufacturer
             && isGoodModel
+//            && isGoodHeight
             && isGoodClosedPath
             && isGoodSeparation
             && isGoodPathLength

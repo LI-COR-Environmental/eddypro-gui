@@ -29,7 +29,7 @@ class WheelEventFilter : public QObject
 {
     Q_OBJECT
 public:
-    explicit WheelEventFilter(QObject *parent = 0);
+    explicit WheelEventFilter(QObject* parent = nullptr);
 
 protected:
     bool eventFilter(QObject *o, QEvent *e);

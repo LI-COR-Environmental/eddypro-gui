@@ -20,17 +20,21 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QtConcurrentRun>
-#include <QApplication>
-#include <QProcessEnvironment>
-
-#include "defs.h"
-#include "dbghelper.h"
-#include "JlCompress.h"
 #include "fileutils.h"
 
-bool FileUtils::isEmptyFile(const QString& fileName)
+#include <QApplication>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QProcessEnvironment>
+#include <QtConcurrentRun>
+
+#include "JlCompress.h"
+
+#include "dbghelper.h"
+#include "defs.h"
+#include "widget_utils.h"
+
+bool FileUtils::isFileEmpty(const QString& fileName)
 {
     QFile f(fileName);
     QByteArray fileContentBa = f.readAll();
@@ -48,7 +52,8 @@ bool FileUtils::isEmptyFile(const QString& fileName)
     return false;
 }
 
-bool FileUtils::projectFileForcedCopy(const QString& fileName, const QString& destDir)
+bool FileUtils::projectFileForcedCopy(const QString& fileName,
+                                      const QString& destDir)
 {
     DEBUG_FUNC_NAME
     qDebug() << "fileName" << fileName;
@@ -64,10 +69,12 @@ bool FileUtils::projectFileForcedCopy(const QString& fileName, const QString& de
         qDebug() << "destFile exist: true";
         QFile::remove(destFile);
     }
-    return QFile::copy(fileName, destFile);
+    bool res = QFile::copy(fileName, destFile);
+    Q_ASSERT(res);
+    return res;
 }
 
-bool FileUtils::forcedFileCopy(const QString& fileName, const QString& destDir)
+bool FileUtils::fileForcedCopy(const QString& fileName, const QString& destDir)
 {
     DEBUG_FUNC_NAME
     qDebug() << "fileName" << fileName;
@@ -96,12 +103,26 @@ void FileUtils::createDir(const QString& dirName, const QString& absoluteDirDest
     QDir dir;
     if (!dir.exists(dirPath))
     {
-        qDebug() << "Created dir" << dir.mkdir(dirPath) << dirPath;
+        bool created = dir.mkdir(dirPath);
+        if (created)
+        {
+            qDebug() << "Created dir" << dirPath;
+        }
+        else
+        {
+            qDebug() << "Failed creating dir" << dirPath;
+            WidgetUtils::warning(nullptr,
+                                 QObject::tr("mkdir error"),
+                                 QObject::tr("Error creating dir %1").arg(dirPath));
+        }
     }
 }
 
-// delete a directory and all of its contents
-bool FileUtils::removeDir(const QString &dirName)
+// Delete a directory along with all of its contents.
+//
+// \param dirName Path of directory to remove.
+// \return true on success; false on error.
+bool FileUtils::removeDirRecursively(const QString &dirName)
 {
     DEBUG_FUNC_NAME
 
@@ -121,7 +142,7 @@ bool FileUtils::removeDir(const QString &dirName)
             if (info.isDir())
             {
                 // recursion
-                result = removeDir(absolutePath);
+                result = removeDirRecursively(absolutePath);
             }
             else
             {
@@ -154,19 +175,24 @@ bool FileUtils::existsPath(const QString& p)
 bool FileUtils::isDirEmpty(const QString& dirName)
 {
     QDir dir(dirName);
-    QStringList list = dir.entryList(QDir::Files);
+    QStringList list = dir.entryList(QDir::Dirs | QDir::Files);
     return list.isEmpty();
 }
 
-// NOTE: use QDir::removeRecursively()
-void FileUtils::cleanDirRecursive(const QString& d)
+void FileUtils::cleanDirRecursively(const QString& d)
 {
-    qDebug() << d;
+    QDir dir(d);
+    dir.removeRecursively();
+    createDir(d);
+}
+
+void FileUtils::cleanDirRecursively_alt(const QString& d)
+{
     if (existsPath(d))
     {
         if (!isDirEmpty(d))
         {
-            removeDir(d);
+            removeDirRecursively(d);
             createDir(d);
         }
     }
@@ -174,7 +200,6 @@ void FileUtils::cleanDirRecursive(const QString& d)
 
 void FileUtils::cleanDir(const QString& d)
 {
-    qDebug() << d;
     if (existsPath(d))
     {
         if (!isDirEmpty(d))
@@ -190,7 +215,7 @@ void FileUtils::cleanDir(const QString& d)
 }
 
 // recursive
-void FileUtils::cleanDirFromFileTypes(const QString &d, const QStringList &illegalFileTypes)
+void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QStringList &illegalFileTypes)
 {
     QDirIterator it(d, QDirIterator::Subdirectories);
 
@@ -259,7 +284,12 @@ QStringList FileUtils::getDirContent(const QString& dirPath,
 {
     DEBUG_FUNC_NAME
 
+    // test empty list
+    if (nameFilter.isEmpty()) return QStringList();
+
     QString extension = nameFilter.first();
+
+    // remove "*."
     extension.remove(0, 2);
 
     // append the filtered files to this list
@@ -503,9 +533,9 @@ bool FileUtils::zipExtract(const QString& fileName, const QString& outDir)
     return (!JlCompress::extractDir(fileName, outDir).isEmpty());
 }
 
-void FileUtils::cleanSmfDir(const QString& appEnvPath)
+void FileUtils::cleanSmfDirRecursively(const QString& appEnvPath)
 {
     // cleanup smf dir
     QString smfDir = appEnvPath + QStringLiteral("/") + Defs::SMF_FILE_DIR;
-    cleanDirRecursive(smfDir);
+    cleanDirRecursively(smfDir);
 }

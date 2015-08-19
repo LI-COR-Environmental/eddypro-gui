@@ -21,12 +21,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QAction>
-#include <QDebug>
-
-#include "dbghelper.h"
-#include "anem_model.h"
 #include "anem_view.h"
+
+#include <QAction>
+#include <QContextMenuEvent>
+#include <QMenu>
+
+#include "anem_model.h"
+#include "dbghelper.h"
 
 // Constructor
 AnemView::AnemView(QWidget *parent) :
@@ -37,15 +39,20 @@ AnemView::AnemView(QWidget *parent) :
 {
     // create context menu actions
     addAction_ = new QAction(tr("&Add Anemometer"), this);
-    addAction_->setShortcut(QKeySequence(tr("Ctrl+Insert")));
-    connect(addAction_, SIGNAL(triggered()), this, SLOT(addAnem()));
+    addAction_->setShortcut(QKeySequence(QKeySequence::ZoomIn));
+    addAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     removeAction_ = new QAction(tr("&Remove Anemometer"), this);
-    removeAction_->setShortcut(QKeySequence(tr("Ctrl+Delete")));
-    connect(removeAction_, SIGNAL(triggered()), this, SLOT(removeAnem()));
+    removeAction_->setShortcut(QKeySequence(QKeySequence::ZoomOut));
+    removeAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     clearAction_ = new QAction(tr("&Clear Selection"), this);
-    connect(clearAction_, SIGNAL(triggered()), this, SLOT(clearSelection()));
+    clearAction_->setShortcut(QKeySequence(tr("Escape")));
+    clearAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+
+    connect(addAction_, &QAction::triggered, this, &AnemView::addAnem);
+    connect(removeAction_, &QAction::triggered, this, &AnemView::removeAnem);
+    connect(clearAction_, &QAction::triggered, this, &AnemView::clearSelection);
 
     addAction(addAction_);
     addAction(removeAction_);
@@ -57,6 +64,17 @@ AnemView::~AnemView()
     DEBUG_FUNC_NAME
 }
 
+// Create and show context menu
+void AnemView::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu menu(this);
+    menu.addAction(addAction_);
+    menu.addAction(removeAction_);
+    menu.addSeparator();
+    menu.addAction(clearAction_);
+    menu.exec(event->globalPos());
+}
+
 // Add a new blank anemometer after the selected or after the last if there is
 // no selection
 void AnemView::addAnem()
@@ -66,20 +84,19 @@ void AnemView::addAnem()
     int currCol = currentIndex().column();
     int lastCol = anemCount();
 
-    qDebug() << "currCol (1):" << currCol
-             << "lastCol" << lastCol;
-
     if (currCol == -1)
         currCol = lastCol;
     else
         ++currCol;
 
-    qDebug() << "currCol (2):" << currCol;
+    // cast the model(), but it's not stricly necessary because
+    // model() already returns the setModel() assigned to the view instance
+    AnemModel *concreteModel = static_cast<AnemModel *>(model());
 
-    ((AnemModel *)model())->insertColumns(currCol, 1, QModelIndex());
+    concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
-    ((AnemModel *)model())->flush();
-    setCurrentIndex(model()->index(AnemModel::MANUFACTURER, currCol));
+    concreteModel->flush();
+    setCurrentIndex(concreteModel->index(AnemModel::MANUFACTURER, currCol));
 }
 
 // Remove the selected anemometer or the last if there is no selection
@@ -90,23 +107,15 @@ void AnemView::removeAnem()
     int currCol = currentIndex().column();
     int lastCol = anemCount() - 1;
 
-    qDebug() << "currCol (1):" << currCol
-             << "lastCol" << lastCol;
-
     if (currCol == -1)
         currCol = lastCol;
 
-    qDebug() << "currCol (2):" << currCol;
-
-    qDebug() << "currentIndex().row()" << currentIndex().row();
-    qDebug() << "currentIndex().column()" << currentIndex().column();
-
-    model()->removeColumns(currCol, 1);
+    static_cast<AnemModel *>(model())->removeColumns(currCol, 1);
     updateGeometries();
     clearSelection();
 }
 
 int AnemView::anemCount()
 {
-    return ((AnemModel *)model())->columnCount(QModelIndex());
+    return static_cast<AnemModel *>(model())->columnCount(QModelIndex());
 }

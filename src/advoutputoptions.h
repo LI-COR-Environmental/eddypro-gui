@@ -25,27 +25,29 @@
 
 #include <QWidget>
 
-class QRadioButton;
-class QButtonGroup;
-class QComboBox;
-class QPushButton;
-class QLabel;
+#include <vector>
 
-class EcProject;
-struct ConfigState;
+class QButtonGroup;
 class QCheckBox;
+class QComboBox;
+class QLabel;
+class QPushButton;
+class QRadioButton;
 
 class ClickLabel;
+struct ConfigState;
+class EcProject;
 
 class AdvOutputOptions : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AdvOutputOptions(QWidget *parent, EcProject *ecProject, ConfigState* config);
+    explicit AdvOutputOptions(QWidget* parent,
+                              EcProject* ecProject,
+                              ConfigState* config);
 
     void setSmartfluxUI();
-signals:
 
 public slots:
     void updateOutputs(int n);
@@ -57,47 +59,14 @@ private slots:
     void refresh();
 
     void updateOutBinSpectra(bool b);
-    void updateOutBinOgives(bool b);
-    void updateOutMeanCosp(bool b);
     void updateBinSpectra(bool b);
 
-    void updateOutGhgEu(bool b);
-    void updateOutAmFlux(bool b);
-    void updateOutRich(bool b);
-    void updateOutDetails(bool b);
-    void updateOutMd(bool b);
-    void updateOutBiomet(bool b);
-    void updateOutSlowVars(bool b);
-    void updateMakeDataset(bool b);
     void updateFixedOuputFormat(int n);
     void updateErrorLabel(const QString& s);
 
-    void updateFullSpectraU(bool b);
-    void updateFullSpectraV(bool b);
-    void updateFullSpectraW(bool b);
-    void updateFullSpectraTs(bool b);
-    void updateFullSpectraCo2(bool b);
-    void updateFullSpectraH2o(bool b);
-    void updateFullSpectraCh4(bool b);
-    void updateFullSpectraN2o(bool b);
     void checkFullSpectraAll(bool b);
-
-    void updateFullCospectraU(bool b);
-    void updateFullCospectraV(bool b);
-    void updateFullCospectraTs(bool b);
-    void updateFullCospectraCo2(bool b);
-    void updateFullCospectraH2o(bool b);
-    void updateFullCospectraCh4(bool b);
-    void updateFullCospectraN2o(bool b);
     void checkFullCospectraAll(bool b);
 
-    void updateOutputSt1(bool b);
-    void updateOutputSt2(bool b);
-    void updateOutputSt3(bool b);
-    void updateOutputSt4(bool b);
-    void updateOutputSt5(bool b);
-    void updateOutputSt6(bool b);
-    void updateOutputSt7(bool b);
     void updateOutputRaw1(bool b);
     void updateOutputRaw2(bool b);
     void updateOutputRaw3(bool b);
@@ -139,13 +108,18 @@ private slots:
     void onClickerrorFormatLabel();
 
 private:
-    EcProject *ecProject_;
-    ConfigState* configState_;
+    bool areAllCheckedFullSpectra();
+    bool areAllCheckedFullCospectra();
+    bool areAllCheckedVars();
+    void setVarsAvailable(bool ok);
+    bool areTimeSeriesChecked();
+    void updateVarsAvailable();
+    void restoreOutputs();
 
-    QList<bool> oldEnabled;
-    QList<bool> oldVisible;
-    QList<bool> oldChecked;
-    QList<bool> oldUnchecked;
+    void createQuestionMark();
+
+    std::vector<bool> oldEnabled{};
+    std::vector<bool> oldVisible{};
 
     QPushButton* fullSelectionButton;
     QLabel* fullSelectionDesc;
@@ -154,48 +128,48 @@ private:
     QPushButton* typicalSelectionButton;
     QLabel* typicalSelectionDesc;
 
-    QCheckBox *outBinSpectraCheckBox;
-    QCheckBox *outBinOgivesCheckBox;
-    QCheckBox *outMeanCospCheckBox;
-    QCheckBox *outFullSpectraCheckBoxU;
+    QCheckBox* outBinSpectraCheckBox;
+    QCheckBox* outBinOgivesCheckBox;
+    QCheckBox* outMeanCospCheckBox;
+    QCheckBox* outFullSpectraCheckBoxU;
     ClickLabel* fullSpectraULabel;
-    QCheckBox *outFullSpectraCheckBoxV;
+    QCheckBox* outFullSpectraCheckBoxV;
     ClickLabel* fullSpectraVLabel;
-    QCheckBox *outFullSpectraCheckBoxW;
+    QCheckBox* outFullSpectraCheckBoxW;
     ClickLabel* fullSpectraWLabel;
-    QCheckBox *outFullSpectraCheckBoxTs;
+    QCheckBox* outFullSpectraCheckBoxTs;
     ClickLabel* fullSpectraTsLabel;
-    QCheckBox *outFullSpectraCheckBoxCo2;
+    QCheckBox* outFullSpectraCheckBoxCo2;
     ClickLabel* fullSpectraCo2Label;
-    QCheckBox *outFullSpectraCheckBoxH2o;
+    QCheckBox* outFullSpectraCheckBoxH2o;
     ClickLabel* fullSpectraH2oLabel;
-    QCheckBox *outFullSpectraCheckBoxCh4;
+    QCheckBox* outFullSpectraCheckBoxCh4;
     ClickLabel* fullSpectraCh4Label;
-    QCheckBox *outFullSpectraCheckBoxN2o;
+    QCheckBox* outFullSpectraCheckBoxN2o;
     ClickLabel* fullSpectraN2oLabel;
-    QCheckBox *outFullSpectraAll;
-    QCheckBox *outFullCospectraCheckBoxU;
+    QCheckBox* outFullSpectraAll;
+    QCheckBox* outFullCospectraCheckBoxU;
     ClickLabel* fullCospectraULabel;
-    QCheckBox *outFullCospectraCheckBoxV;
+    QCheckBox* outFullCospectraCheckBoxV;
     ClickLabel* fullCospectraVLabel;
-    QCheckBox *outFullCospectraCheckBoxTs;
+    QCheckBox* outFullCospectraCheckBoxTs;
     ClickLabel* fullCospectraTsLabel;
-    QCheckBox *outFullCospectraCheckBoxCo2;
+    QCheckBox* outFullCospectraCheckBoxCo2;
     ClickLabel* fullCospectraCo2Label;
-    QCheckBox *outFullCospectraCheckBoxH2o;
+    QCheckBox* outFullCospectraCheckBoxH2o;
     ClickLabel* fullCospectraH2oLabel;
-    QCheckBox *outFullCospectraCheckBoxCh4;
+    QCheckBox* outFullCospectraCheckBoxCh4;
     ClickLabel* fullCospectraCh4Label;
-    QCheckBox *outFullCospectraCheckBoxN2o;
+    QCheckBox* outFullCospectraCheckBoxN2o;
     ClickLabel* fullCospectraN2oLabel;
-    QCheckBox *outFullCospectraAll;
-    QCheckBox *outGhgEuCheckBox;
-    QCheckBox *outAmFluxCheckBox;
-    QCheckBox *outDetailsCheckBox;
-    QCheckBox *outMdCheckBox;
-    QCheckBox *outBiometCheckBox;
-    QCheckBox *createDatasetCheckBox;
-    QCheckBox *outFullCheckBox;
+    QCheckBox* outFullCospectraAll;
+    QCheckBox* outGhgEuCheckBox;
+    QCheckBox* outAmFluxCheckBox;
+    QCheckBox* outDetailsCheckBox;
+    QCheckBox* outMdCheckBox;
+    QCheckBox* outBiometCheckBox;
+    QCheckBox* createDatasetCheckBox;
+    QCheckBox* outFullCheckBox;
     ClickLabel* fullOutformatLabel;
     QRadioButton* fixedVarsOutputRadio;
     QRadioButton* variableVarsOutputRadio;
@@ -219,39 +193,31 @@ private:
     ClickLabel* rawGas4Label;
     ClickLabel* rawTairLabel;
     ClickLabel* rawPairLabel;
-    QCheckBox *outSt1CheckBox;
-    QCheckBox *outSt2CheckBox;
-    QCheckBox *outSt3CheckBox;
-    QCheckBox *outSt4CheckBox;
-    QCheckBox *outSt5CheckBox;
-    QCheckBox *outSt6CheckBox;
-    QCheckBox *outSt7CheckBox;
-    QCheckBox *outRaw1CheckBox;
-    QCheckBox *outRaw2CheckBox;
-    QCheckBox *outRaw3CheckBox;
-    QCheckBox *outRaw4CheckBox;
-    QCheckBox *outRaw5CheckBox;
-    QCheckBox *outRaw6CheckBox;
-    QCheckBox *outRaw7CheckBox;
-    QCheckBox *outRawUCheckBox;
-    QCheckBox *outRawVCheckBox;
-    QCheckBox *outRawWCheckBox;
-    QCheckBox *outRawTsCheckBox;
-    QCheckBox *outRawCo2CheckBox;
-    QCheckBox *outRawH2oCheckBox;
-    QCheckBox *outRawCh4CheckBox;
-    QCheckBox *outRawGas4CheckBox;
-    QCheckBox *outRawTairCheckBox;
-    QCheckBox *outRawPairCheckBox;
-    QCheckBox *outVarsAllCheckBox;
-
-    bool areAllCheckedFullSpectra();
-    bool areAllCheckedFullCospectra();
-    bool areAllCheckedVars();
-    void setVarsAvailable(bool ok);
-    bool areTimeSeriesChecked();
-    void updateVarsAvailable();
-    void restoreOutputs();
+    QCheckBox* outSt1CheckBox;
+    QCheckBox* outSt2CheckBox;
+    QCheckBox* outSt3CheckBox;
+    QCheckBox* outSt4CheckBox;
+    QCheckBox* outSt5CheckBox;
+    QCheckBox* outSt6CheckBox;
+    QCheckBox* outSt7CheckBox;
+    QCheckBox* outRaw1CheckBox;
+    QCheckBox* outRaw2CheckBox;
+    QCheckBox* outRaw3CheckBox;
+    QCheckBox* outRaw4CheckBox;
+    QCheckBox* outRaw5CheckBox;
+    QCheckBox* outRaw6CheckBox;
+    QCheckBox* outRaw7CheckBox;
+    QCheckBox* outRawUCheckBox;
+    QCheckBox* outRawVCheckBox;
+    QCheckBox* outRawWCheckBox;
+    QCheckBox* outRawTsCheckBox;
+    QCheckBox* outRawCo2CheckBox;
+    QCheckBox* outRawH2oCheckBox;
+    QCheckBox* outRawCh4CheckBox;
+    QCheckBox* outRawGas4CheckBox;
+    QCheckBox* outRawTairCheckBox;
+    QCheckBox* outRawPairCheckBox;
+    QCheckBox* outVarsAllCheckBox;
 
     QPushButton* questionMark_1;
     QPushButton* questionMark_2;
@@ -263,9 +229,10 @@ private:
     QPushButton* questionMark_8;
     QPushButton* questionMark_9;
 
-    void createQuestionMark();
+    QLabel* hrLabel_1;
 
-    QLabel *hrLabel_1;
+    EcProject* ecProject_;
+    ConfigState* configState_;
 };
 
 #endif // ADVOUTPUTOPTIONS_H

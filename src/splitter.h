@@ -30,14 +30,14 @@ class Splitter : public QSplitter
     Q_OBJECT
 
 public:
-    explicit Splitter(Qt::Orientation orientation, QWidget *parent = 0);
+    explicit Splitter(Qt::Orientation orientation, QWidget* parent = nullptr);
 
 signals:
 
 public slots:
 
 protected:
-    QSplitterHandle *createHandle();
+    QSplitterHandle* createHandle();
 };
 
 #endif // SPLITTER_H

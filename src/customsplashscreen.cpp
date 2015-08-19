@@ -23,14 +23,15 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QProgressBar>
-#include <QPainter>
-#include <QVBoxLayout>
+#include "customsplashscreen.h"
+
 #include <QCheckBox>
-#include <QSettings>
+#include <QPainter>
+#include <QProgressBar>
+#include <QVBoxLayout>
 
 #include "defs.h"
-#include "customsplashscreen.h"
+#include "globalsettings.h"
 
 CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f) :
     QSplashScreen(pixmap, f)
@@ -41,7 +42,7 @@ CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f
 
     showSplashCheckbox_ = new QCheckBox(tr("Do not show again"));
 
-    QVBoxLayout* layout = new QVBoxLayout;
+    auto layout = new QVBoxLayout;
     layout->addSpacerItem(new QSpacerItem(100, 350));
     layout->addWidget(progressBar_);
     layout->addWidget(showSplashCheckbox_);
@@ -49,8 +50,8 @@ CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f
     layout->setMargin(50);
     setLayout(layout);
 
-    connect(showSplashCheckbox_, SIGNAL(toggled(bool)),
-            this, SLOT(updateShowSplash(bool)));
+    connect(showSplashCheckbox_, &QCheckBox::toggled,
+            this, &CustomSplashScreen::updateShowSplash);
 }
 
 CustomSplashScreen::~CustomSplashScreen()
@@ -83,11 +84,7 @@ void CustomSplashScreen::setMessageRect(QRect rect, int alignement)
 
 void CustomSplashScreen::updateShowSplash(bool notShow)
 {
-    QSettings settings;
-
-    // write general config
-    settings.beginGroup(Defs::CONFGROUP_GENERAL);
-        settings.setValue(Defs::CONF_GEN_SHOW_SPLASH, !notShow);
-    settings.endGroup();
-    settings.sync();
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_GENERAL,
+                                             Defs::CONF_GEN_SHOW_SPLASH,
+                                             !notShow);
 }

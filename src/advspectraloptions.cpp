@@ -20,34 +20,39 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QTimer>
-#include <QHBoxLayout>
-#include <QFileDialog>
-#include <QRadioButton>
-#include <QDateEdit>
+#include "advspectraloptions.h"
+
 #include <QButtonGroup>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QPushButton>
-#include <QScrollArea>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDateEdit>
+#include <QDebug>
+#include <QDoubleSpinBox>
+#include <QFileDialog>
+#include <QHBoxLayout>
 #include <QPushButton>
+#include <QRadioButton>
+#include <QScrollArea>
+#include <QSpinBox>
+#include <QTimer>
 #include <QUrl>
 
 #include <QwwButtonLineEdit/QwwButtonLineEdit>
 
+#include "ancillaryfiletest.h"
+#include "clicklabel.h"
 #include "customcombomodel.h"
 #include "dbghelper.h"
-#include "fileutils.h"
-#include "alia.h"
-#include "clicklabel.h"
-#include "ecproject.h"
 #include "dlproject.h"
-#include "advspectraloptions.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "widget_utils.h"
 
-AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
+AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
+                                       DlProject *dlProject,
+                                       EcProject *ecProject,
+                                       ConfigState *config) :
     QWidget(parent),
     dlProject_(dlProject),
     ecProject_(ecProject),
@@ -67,7 +72,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     spectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton {margin-right: 0px;}"));
     spectraNonExistingRadio->setToolTip(tr("<b>Spectral assessment file not available:</b> Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned spectra for the current dataset are calculated and before calculating and correcting fluxes."));
 
-    spectraFileEdit = new QwwButtonLineEdit();
+    spectraFileEdit = new QwwButtonLineEdit;
     spectraFileEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     spectraFileEdit->setButtonVisible(false);
     spectraFileEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -77,13 +82,13 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     spectraFileLoad->setProperty("loadButton", true);
     spectraFileLoad->setToolTip(tr("<b>Load:</b> Load an existing spectral assessment file"));
 
-    QHBoxLayout* spectraFileContainerLayout = new QHBoxLayout;
+    auto spectraFileContainerLayout = new QHBoxLayout;
     spectraFileContainerLayout->addWidget(spectraFileEdit);
     spectraFileContainerLayout->addWidget(spectraFileLoad);
     spectraFileContainerLayout->setStretch(2, 1);
     spectraFileContainerLayout->setContentsMargins(0, 0, 0, 0);
     spectraFileContainerLayout->setSpacing(0);
-    QWidget* spectraFileContainer = new QWidget();
+    auto spectraFileContainer = new QWidget;
     spectraFileContainer->setLayout(spectraFileContainerLayout);
 
     spectraRadioGroup = new QButtonGroup(this);
@@ -97,21 +102,23 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     hfMethodCheck->setToolTip(tr("<b>Correction of low-pass filtering effects:</b> Check this option to apply a high frequency spectral correction, to compensate flux losses due to finite sensors separation, signal attenuation, path averaging, time response, etc. Select the most appropriate method according to your EC setup."));
 
     hfMethLabel = new ClickLabel(tr("Method :"));
-    hfMethCombo = new QComboBox();
+    hfMethCombo = new QComboBox;
     hfMethCombo->setModel(new CustomComboModel(hfMethCombo));
     hfMethCombo->addItem(tr("Moncrieff et al. (1997) - Fully analytic"));
+    hfMethCombo->addItem(tr("Massmann (2000, 2001) - Fully analytic"));
     hfMethCombo->addItem(tr("Horst (1997) - Analytic with in situ parameterization"));
     hfMethCombo->addItem(tr("Ibrom et al. (2007) - In situ/analytic"));
     hfMethCombo->addItem(tr("Fratini et al. (2012) - In situ/analytic"));
     hfMethCombo->setItemData(0, tr("<b>Moncrieff et al. (1997):</b> This method models all major sources of flux attenuation by means of a mathematical formulation. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) - notably for water vapor - when the sampling line is long and/or not heated, because of the dependency of attenuation of H<sub>2</sub>O on relative humidity."), Qt::ToolTipRole);
-    hfMethCombo->setItemData(1, tr("<b>Horst (1997):</b> Correction method based on an analytical formulation of the spectral correction factor that requires an in-situ assessment of the system's cut-off frequency. Provide the information below to specify how to perform such assessment."), Qt::ToolTipRole);
-    hfMethCombo->setItemData(2, tr("<b>Ibrom et al. (2007):</b> Correction method based on an analytical formulation of the spectra correction factors, that requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. Provide the settings in the <i>Assessment of high-frequency attenuation</i> to specify how to perform the assessment. This method is recommended in most cases, notably for closed-path systems placed high over rough canopies."), Qt::ToolTipRole);
-    hfMethCombo->setItemData(3, tr("<b>Fratini et al. (2012):</b> Correction method based on the combination of a direct approach (similar to Hollinger et al., 2009) and the analytical formulation of Ibrom et al., 2007. It requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. It also requires full length cospectra of measured sensible heat. This method is recommendable in most cases, notably for closed-path systems placed low over smooth surfaces."), Qt::ToolTipRole);
+    hfMethCombo->setItemData(1, tr("<b>Massmann (2000, 2001):</b> This method provides a simple analytical expression for the spectral correction factors. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) for water vapor, when the sampling line is long and/or not heated, because of the dependency of attenuation of %2 on relative humidity. For closed path systems, this method is only applicable for %1, %2, %3, %4 and %5 fluxes.").arg(Defs::CO2_STRING).arg(Defs::H2O_STRING).arg(Defs::CH4_STRING).arg(Defs::N2O_STRING).arg(Defs::O3_STRING), Qt::ToolTipRole);
+    hfMethCombo->setItemData(3, tr("<b>Horst (1997):</b> Correction method based on an analytical formulation of the spectral correction factor that requires an in-situ assessment of the system's cut-off frequency. Provide the information below to specify how to perform such assessment."), Qt::ToolTipRole);
+    hfMethCombo->setItemData(4, tr("<b>Ibrom et al. (2007):</b> Correction method based on an analytical formulation of the spectra correction factors, that requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. Provide the settings in the <i>Assessment of high-frequency attenuation</i> to specify how to perform the assessment. This method is recommended in most cases, notably for closed-path systems placed high over rough canopies."), Qt::ToolTipRole);
+    hfMethCombo->setItemData(5, tr("<b>Fratini et al. (2012):</b> Correction method based on the combination of a direct approach (similar to Hollinger et al., 2009) and the analytical formulation of Ibrom et al., 2007. It requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. It also requires full length cospectra of measured sensible heat. This method is recommendable in most cases, notably for closed-path systems placed low over smooth surfaces."), Qt::ToolTipRole);
 
     horstCheck = new QCheckBox(tr("Correction for instruments separation"));
     horstCheck->setToolTip(tr("<b>Correction for instrument separation:</b> Check this option and select the corresponding method to add an extra correction term to that calculated with the method by Ibrom et al. (2007). This accounts for any separation between the inlet of the sampling line (closed path instruments) or the center of the open path instrument and the center of the anemometer."));
     horstMethodLabel = new ClickLabel(tr("Method :"));
-    horstCombo = new QComboBox();
+    horstCombo = new QComboBox;
     horstCombo->addItem(tr("Horst and Lenschow (2009), along-wind, crosswind and vertical"));
     horstCombo->addItem(tr("Horst and Lenschow (2009), only crosswind and vertical"));
     horstCombo->setItemData(0, tr("<b>Horst and Lenschow (2009), along-wind, crosswind and vertical:</b> Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected."), Qt::ToolTipRole);
@@ -128,7 +135,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     binnedSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton {margin-right: 65px;}"));
     binnedSpectraNonExistingRadio->setToolTip(tr("<b>Binned spectra files not available:</b> Select this option if you did not yet obtain &lt;i&gt;Binned spectra and cospectra files&lt;/i&gt; for the current dataset in a previous run of EddyPro. Note that such binned (co)spectra files do not need to correspond exactly to the current dataset, rather they need to be representative of it. Binned spectra are used to quantify the spectral attenuations, thus they must have been collected in conditions comparable to those of the current dataset (e.g., same EC system and similar canopy heights, measurement height, instrument spatial separations, etc.). At least one month of spectra files is needed for a robust spectral attenuation assessment. If you select this option, the option <i>All binned spectra and cospectra</i> in the Output Files page will be automatically selected."));
 
-    binnedSpectraDirEdit = new QwwButtonLineEdit();
+    binnedSpectraDirEdit = new QwwButtonLineEdit;
     binnedSpectraDirEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     binnedSpectraDirEdit->setButtonVisible(false);
     binnedSpectraDirEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -138,44 +145,45 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     binnedSpectraDirBrowse->setProperty("loadButton", true);
     binnedSpectraDirBrowse->setToolTip(tr("<b>Browse:</b> Specify the folder that contains the binned spectra files."));
 
-    QHBoxLayout* binnedSpectraFileContainerLayout = new QHBoxLayout;
+    auto binnedSpectraFileContainerLayout = new QHBoxLayout;
     binnedSpectraFileContainerLayout->addWidget(binnedSpectraDirEdit);
     binnedSpectraFileContainerLayout->addWidget(binnedSpectraDirBrowse);
     binnedSpectraFileContainerLayout->setStretch(2, 1);
     binnedSpectraFileContainerLayout->setContentsMargins(0, 0, 0, 0);
     binnedSpectraFileContainerLayout->setSpacing(0);
-    QWidget* binnedSpectraFileContainer = new QWidget();
+    auto binnedSpectraFileContainer = new QWidget;
     binnedSpectraFileContainer->setLayout(binnedSpectraFileContainerLayout);
 
     binnedSpectraRadioGroup = new QButtonGroup(this);
     binnedSpectraRadioGroup->addButton(binnedSpectraNonExistingRadio, 0);
     binnedSpectraRadioGroup->addButton(binnedSpectraExistingRadio, 1);
 
-    subsetCheckBox = new QCheckBox();
+    subsetCheckBox = new QCheckBox;
     subsetCheckBox->setText(tr("Select a subperiod"));
     subsetCheckBox->setToolTip(tr("<b>Select a subperiod:</b> Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all the raw data in the directory."));
     subsetCheckBox->setStyleSheet(QStringLiteral("QCheckBox {margin-left: 47px;}"));
 
-    lockedIcon = new QLabel();
+    lockedIcon = new QLabel;
     lockedIcon->setPixmap(QPixmap(QStringLiteral(":/icons/vlink-locked")));
 
+    // NOTE: file name format to detect: 20120716-1100_binned_cospectra_2012-08-15T201932
     startDateLabel = new ClickLabel(this);
     startDateLabel->setText(tr("Start :"));
     startDateLabel->setToolTip(tr("<b>Start:</b> Starting date of the dataset to be used for the spectral assessment. We recommend using a time period that is as long as possible. However, make sure that the instrument setup (sampling line, instrument separations) did not undergo any major change during the selected time period."));
-    startDateEdit = new QDateEdit();
+    startDateEdit = new QDateEdit;
     startDateEdit->setToolTip(startDateLabel->toolTip());
     startDateEdit->setCalendarPopup(true);
     startDateEdit->setDate(QDate(2000, 1, 1));
-    Alia::customizeCalendar(startDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(startDateEdit->calendarWidget());
 
     endDateLabel = new ClickLabel(this);
     endDateLabel->setText(tr("End :"));
     endDateLabel->setToolTip(tr("<b>End:</b> Ending date of the dataset to be used for the spectral assessment. We recommend using a time period that is as long as possible. However, make sure that the instrument setup (sampling line, instrument separations) did not undergo any major change during the selected time period."));
-    endDateEdit = new QDateEdit();
+    endDateEdit = new QDateEdit;
     endDateEdit->setToolTip(endDateLabel->toolTip());
     endDateEdit->setCalendarPopup(true);
     endDateEdit->setDate(QDate::currentDate());
-    Alia::customizeCalendar(endDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(endDateEdit->calendarWidget());
 
     minSmplLabel = new ClickLabel(tr("Minimum number of spectra for valid averages :"));
     minSmplLabel->setToolTip(tr("<b>Minimum number of spectra for valid averages:</b> Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H<sub>2</sub>O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed."));
@@ -352,7 +360,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     fullSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton {margin-right: 65px;}"));
     fullSpectraNonExistingRadio->setToolTip(tr("<b>Full w/T<sub>s</sub> cospectra files not available:</b> Select this option if you do not have <i>Full cospectra of w/T<sub>s</sub></i> for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T<sub>s</sub> (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option <i>Full length cospectra w/T<sub>s</sub></i> in the Output Files page will be automatically selected and deactivated."));
 
-    fullSpectraDirEdit = new QwwButtonLineEdit();
+    fullSpectraDirEdit = new QwwButtonLineEdit;
     fullSpectraDirEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     fullSpectraDirEdit->setButtonVisible(false);
     fullSpectraDirEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -362,13 +370,13 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     fullSpectraDirBrowse->setProperty("loadButton", true);
     fullSpectraDirBrowse->setToolTip(tr("<b>Browse:</b> Specify the folder that contains the full w/T<sub>s</sub> cospectra files."));
 
-    QHBoxLayout* fullSpectraFileContainerLayout = new QHBoxLayout;
+    auto fullSpectraFileContainerLayout = new QHBoxLayout;
     fullSpectraFileContainerLayout->addWidget(fullSpectraDirEdit);
     fullSpectraFileContainerLayout->addWidget(fullSpectraDirBrowse);
     fullSpectraFileContainerLayout->setStretch(2, 1);
     fullSpectraFileContainerLayout->setContentsMargins(0, 0, 0, 0);
     fullSpectraFileContainerLayout->setSpacing(0);
-    QWidget* fullSpectraFileContainer = new QWidget();
+    auto fullSpectraFileContainer = new QWidget;
     fullSpectraFileContainer->setLayout(fullSpectraFileContainerLayout);
 
     fullSpectraRadioGroup = new QButtonGroup(this);
@@ -382,6 +390,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
 
     fratiniTitle = new QLabel(tr("Fratini et al. (2012) method settings"));
     fratiniTitle->setProperty("groupLabel", true);
+//    fratiniTitle->setStyleSheet(QStringLiteral("QLabel {margin-left: 90px;"));
 
     addSonicCheck = new QCheckBox(tr("Include anemometer losses for path averaging and time response"));
     addSonicCheck->setToolTip(tr("<b>Include anemometer losses for path averaging and time response:</b> Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012)."));
@@ -432,19 +441,19 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     f10HSpin->setSuffix(tr(" [%1]").arg(Defs::W_M2_STRING));
     f10HSpin->setAccelerated(true);
 
-    QLabel *hrLabel_1 = new QLabel;
+    auto hrLabel_1 = new QLabel;
     hrLabel_1->setObjectName(QStringLiteral("hrLabel"));
-    QLabel *hrLabel_2 = new QLabel;
+    auto hrLabel_2 = new QLabel;
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
-    QLabel *hrLabel_3 = new QLabel;
+    auto hrLabel_3 = new QLabel;
     hrLabel_3->setObjectName(QStringLiteral("hrLabel"));
     hrLabel_3->setStyleSheet(QStringLiteral("QLabel {margin: 0px;}"));
 
-    QLabel *hrLabel_5 = new QLabel;
+    auto hrLabel_5 = new QLabel;
     hrLabel_5->setObjectName(QStringLiteral("hrLabel"));
     hrLabel_5->setStyleSheet(QStringLiteral("QLabel {margin: 0px 0px 10px 0px;}"));
 
-    QGridLayout* linkedLayout = new QGridLayout;
+    auto linkedLayout = new QGridLayout;
     linkedLayout->addWidget(lockedIcon, 0, 0, 2, 1, Qt::AlignHCenter | Qt::AlignVCenter);
     linkedLayout->addWidget(startDateEdit, 0, 1);
     linkedLayout->addWidget(endDateEdit, 1, 1);
@@ -455,22 +464,22 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
 
     createQuestionMark();
 
-    QHBoxLayout* qBox_1 = new QHBoxLayout;
+    auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(settingsGroupTitle);
     qBox_1->addWidget(questionMark_1, 0, Qt::AlignRight | Qt::AlignBottom);
     qBox_1->addStretch();
 
-    QHBoxLayout* qBox_2 = new QHBoxLayout;
+    auto qBox_2 = new QHBoxLayout;
     qBox_2->addWidget(lowFreqTitle);
     qBox_2->addWidget(questionMark_2, 0, Qt::AlignLeft | Qt::AlignVCenter);
     qBox_2->addStretch();
 
-    QHBoxLayout* qBox_3 = new QHBoxLayout;
+    auto qBox_3 = new QHBoxLayout;
     qBox_3->addWidget(highFreqTitle);
     qBox_3->addWidget(questionMark_3, 0, Qt::AlignLeft | Qt::AlignVCenter);
     qBox_3->addStretch();
 
-    QHBoxLayout* qBox_4 = new QHBoxLayout;
+    auto qBox_4 = new QHBoxLayout;
     qBox_4->addWidget(freqAttenuationTitle);
     qBox_4->addWidget(questionMark_4, 0, Qt::AlignLeft | Qt::AlignVCenter);
     qBox_4->addStretch();
@@ -480,7 +489,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     suggestedRangeButton->setText(tr("Set Suggested Ranges"));
     suggestedRangeButton->setToolTip(tr("<b>Set Suggested Ranges</b>."));
 
-    QGridLayout *hfLayout = new QGridLayout();
+    auto hfLayout = new QGridLayout;
     hfLayout->addLayout(qBox_4, 9, 0);
     hfLayout->addWidget(binnedSpectraNonExistingRadio, 10, 0, Qt::AlignRight);
     hfLayout->addWidget(binnedSpectraExistingRadio, 11, 0, Qt::AlignRight);
@@ -528,7 +537,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     hfLayout->setColumnStretch(5, 1);
     hfLayout->setContentsMargins(100, 0, 0, 0);
 
-    QGridLayout *hffLayout = new QGridLayout();
+    auto hffLayout = new QGridLayout;
     hffLayout->addWidget(fullSpectraNonExistingRadio, 0, 0, Qt::AlignRight);
     hffLayout->addWidget(fullSpectraExistingRadio, 1, 0, Qt::AlignRight);
     hffLayout->addWidget(fullSpectraFileContainer, 1, 1, 1, 2);
@@ -545,9 +554,10 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     hffLayout->addWidget(f10Spin5Label, 8, 0, Qt::AlignRight);
     hffLayout->addWidget(f10HSpin, 8, 1);
     hffLayout->setRowStretch(9, 1);
+//    hffLayout->setColumnStretch(5, 1);
     hffLayout->setContentsMargins(112, 0, 0, 0);
 
-    QGridLayout *settingsLayout = new QGridLayout();
+    auto settingsLayout = new QGridLayout;
     settingsLayout->addLayout(qBox_2, 0, 0);
     settingsLayout->addWidget(lfMethodCheck, 1, 0, 1, 2);
     settingsLayout->addWidget(hrLabel_1, 2, 0, 1, -1);
@@ -561,23 +571,24 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     settingsLayout->addWidget(spectraExistingRadio, 6, 0, Qt::AlignRight);
     settingsLayout->addWidget(spectraFileContainer, 6, 1, 1, 3);
     settingsLayout->addWidget(spectraNonExistingRadio, 7, 0, Qt::AlignRight);
+//    settingsLayout->addWidget(hrLabel_2, 8, 1, 1, 4);
     settingsLayout->addLayout(hfLayout, 8, 0, 1, 5);
     settingsLayout->addWidget(fratiniTitle, 9, 0);
     settingsLayout->addLayout(hffLayout, 10, 0, 1, 5);
     settingsLayout->setColumnStretch(4, 1);
 
-    QWidget *overallFrame = new QWidget();
+    auto overallFrame = new QWidget;
     overallFrame->setProperty("scrollContainerWidget", true);
     overallFrame->setLayout(settingsLayout);
 
-    QScrollArea* scrollArea = new QScrollArea;
+    auto scrollArea = new QScrollArea;
     scrollArea->setWidget(overallFrame);
     scrollArea->setWidgetResizable(true);
 
-    QHBoxLayout* settingsGroupLayout = new QHBoxLayout;
+    auto settingsGroupLayout = new QHBoxLayout;
     settingsGroupLayout->addWidget(scrollArea);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->addLayout(qBox_1);
     mainLayout->addLayout(settingsGroupLayout);
     mainLayout->setContentsMargins(15, 15, 0, 10);
@@ -586,93 +597,93 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     connect(spectraRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(spectraRadioClicked(int)));
 
-    connect(spectraFileEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearSpectraFileEdit()));
-    connect(spectraFileEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateSpectraFile(QString)));
-    connect(spectraFileLoad, SIGNAL(clicked()),
-            this, SLOT(spectraFileLoad_clicked()));
+    connect(spectraFileEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &AdvSpectralOptions::clearSpectraFileEdit);
+    connect(spectraFileEdit, &QwwButtonLineEdit::textChanged,
+            this, &AdvSpectralOptions::updateSpectraFile);
+    connect(spectraFileLoad, &QPushButton::clicked,
+            this, &AdvSpectralOptions::spectraFileLoad_clicked);
 
     connect(binnedSpectraRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(binnedSpectraRadioClicked(int)));
 
-    connect(binnedSpectraDirEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearBinnedSpectraDirEdit()));
-    connect(binnedSpectraDirEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateBinnedSpectraFile(QString)));
-    connect(binnedSpectraDirBrowse, SIGNAL(clicked()),
-            this, SLOT(binnedSpectraDirBrowse_clicked()));
+    connect(binnedSpectraDirEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &AdvSpectralOptions::clearBinnedSpectraDirEdit);
+    connect(binnedSpectraDirEdit, &QwwButtonLineEdit::textChanged,
+            this, &AdvSpectralOptions::updateBinnedSpectraFile);
+    connect(binnedSpectraDirBrowse, &QPushButton::clicked,
+            this, &AdvSpectralOptions::binnedSpectraDirBrowse_clicked);
 
-    connect(subsetCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateSubsetSelection(bool)));
+    connect(subsetCheckBox, &QCheckBox::toggled,
+            this, &AdvSpectralOptions::updateSubsetSelection);
 
-    connect(startDateLabel, SIGNAL(clicked()),
-            this, SLOT(onStartDateLabelClicked()));
-    connect(startDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateStartDate(QDate)));
+    connect(startDateLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onStartDateLabelClicked);
+    connect(startDateEdit, &QDateEdit::dateChanged,
+            this, &AdvSpectralOptions::updateStartDate);
 
-    connect(endDateLabel, SIGNAL(clicked()),
-            this, SLOT(onEndDateLabelClicked()));
-    connect(endDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateEndDate(QDate)));
+    connect(endDateLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onEndDateLabelClicked);
+    connect(endDateEdit, &QDateEdit::dateChanged,
+            this, &AdvSpectralOptions::updateEndDate);
 
-    connect(lfMethodCheck, SIGNAL(toggled(bool)),
-            this, SLOT(updateLfMethod(bool)));
+    connect(lfMethodCheck, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralLfMethod(checked); });
 
-    connect(hfMethodCheck, SIGNAL(toggled(bool)),
-            this, SLOT(updateHfMethod_1(bool)));
-    connect(hfMethodCheck, SIGNAL(toggled(bool)),
-            hfMethLabel, SLOT(setEnabled(bool)));
-    connect(hfMethodCheck, SIGNAL(toggled(bool)),
-            hfMethCombo, SLOT(setEnabled(bool)));
-    connect(hfMethLabel, SIGNAL(clicked()),
-            this, SLOT(onClickHfMethLabel()));
+    connect(hfMethodCheck, &QCheckBox::toggled,
+            this, &AdvSpectralOptions::updateHfMethod_1);
+    connect(hfMethodCheck, &QCheckBox::toggled,
+            hfMethLabel, &ClickLabel::setEnabled);
+    connect(hfMethodCheck, &QCheckBox::toggled,
+            hfMethCombo, &QComboBox::setEnabled);
+    connect(hfMethLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onClickHfMethLabel);
     connect(hfMethCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateHfMethod_2(int)));
 
-    connect(horstCheck, SIGNAL(toggled(bool)),
-            horstMethodLabel, SLOT(setEnabled(bool)));
-    connect(horstCheck, SIGNAL(toggled(bool)),
-            horstCombo, SLOT(setEnabled(bool)));
-    connect(horstMethodLabel, SIGNAL(clicked()),
-            this, SLOT(onClickHorstLabel()));
-    connect(horstCheck, SIGNAL(toggled(bool)),
-            this, SLOT(updateHorst_1(bool)));
+    connect(horstCheck, &QCheckBox::toggled,
+            horstMethodLabel, &ClickLabel::setEnabled);
+    connect(horstCheck, &QCheckBox::toggled,
+            horstCombo, &QComboBox::setEnabled);
+    connect(horstMethodLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onClickHorstLabel);
+    connect(horstCheck, &QCheckBox::toggled,
+            this, &AdvSpectralOptions::updateHorst_1);
     connect(horstCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateHorst_2(int)));
 
-    connect(minSmplLabel, SIGNAL(clicked()),
-            this, SLOT(onMinSmplLabelClicked()));
+    connect(minSmplLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinSmplLabelClicked);
     connect(minSmplSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateMinSmpl(int)));
 
-    connect(minSpinCo2Label, SIGNAL(clicked()),
-            this, SLOT(onMinCo2LabelClicked()));
+    connect(minSpinCo2Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinCo2LabelClicked);
     connect(minSpinCo2, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinCo2(double)));
 
-    connect(minSpinCh4Label, SIGNAL(clicked()),
-            this, SLOT(onMinCh4LabelClicked()));
+    connect(minSpinCh4Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinCh4LabelClicked);
     connect(minSpinCh4, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinCh4(double)));
 
-    connect(minSpinGas4Label, SIGNAL(clicked()),
-            this, SLOT(onMinGas4LabelClicked()));
+    connect(minSpinGas4Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinGas4LabelClicked);
     connect(minSpinGas4, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinGas4(double)));
 
-    connect(minSpinLeLabel, SIGNAL(clicked()),
-            this, SLOT(onMinLeLabelClicked()));
+    connect(minSpinLeLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinLeLabelClicked);
     connect(minSpinLe, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinLe(double)));
 
-    connect(minSpinHLabel, SIGNAL(clicked()),
-            this, SLOT(onMinHLabelClicked()));
+    connect(minSpinHLabel, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onMinHLabelClicked);
     connect(minSpinH, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinH(double)));
 
-    connect(spin10Label, SIGNAL(clicked()),
-            this, SLOT(onSpin10LabelClicked()));
+    connect(spin10Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onSpin10LabelClicked);
     connect(spin11, SIGNAL(valueChanged(double)),
             this, SLOT(updateFminCo2(double)));
     connect(spin12, SIGNAL(valueChanged(double)),
@@ -682,8 +693,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     connect(spin14, SIGNAL(valueChanged(double)),
             this, SLOT(updateFminGas4(double)));
 
-    connect(spin20Label, SIGNAL(clicked()),
-            this, SLOT(onSpin20LabelClicked()));
+    connect(spin20Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onSpin20LabelClicked);
     connect(spin21, SIGNAL(valueChanged(double)),
             this, SLOT(updateFmaxCo2(double)));
     connect(spin22, SIGNAL(valueChanged(double)),
@@ -693,8 +704,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     connect(spin24, SIGNAL(valueChanged(double)),
             this, SLOT(updateFmaxGas4(double)));
 
-    connect(spin30Label, SIGNAL(clicked()),
-            this, SLOT(onSpin30LabelClicked()));
+    connect(spin30Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onSpin30LabelClicked);
     connect(spin31, SIGNAL(valueChanged(double)),
             this, SLOT(updateHfnCo2(double)));
     connect(spin32, SIGNAL(valueChanged(double)),
@@ -704,51 +715,51 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent, DlProject *dlProject, Ec
     connect(spin34, SIGNAL(valueChanged(double)),
             this, SLOT(updateHfnGas4(double)));
 
-    connect(suggestedRangeButton, SIGNAL(clicked()),
-            this, SLOT(updateSuggestedFrequencyRanges()));
+    connect(suggestedRangeButton, &QPushButton::clicked,
+            this, &AdvSpectralOptions::updateSuggestedFrequencyRanges);
 
     connect(fullSpectraRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(fullSpectraRadioClicked(int)));
 
-    connect(fullSpectraDirEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearFullSpectraDirEdit()));
-    connect(fullSpectraDirEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateFullSpectraFile(QString)));
-    connect(fullSpectraDirBrowse, SIGNAL(clicked()),
-            this, SLOT(fullSpectraDirBrowse_clicked()));
+    connect(fullSpectraDirEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &AdvSpectralOptions::clearFullSpectraDirEdit);
+    connect(fullSpectraDirEdit, &QwwButtonLineEdit::textChanged,
+            this, &AdvSpectralOptions::updateFullSpectraFile);
+    connect(fullSpectraDirBrowse, &QPushButton::clicked,
+            this, &AdvSpectralOptions::fullSpectraDirBrowse_clicked);
 
-    connect(addSonicCheck, SIGNAL(toggled(bool)),
-            this, SLOT(updateAddSonic(bool)));
+    connect(addSonicCheck, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setSpectraAddSonic(checked); });
 
-    connect(f10Spin1Label, SIGNAL(clicked()),
-            this, SLOT(onF10Co2LabelClicked()));
+    connect(f10Spin1Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onF10Co2LabelClicked);
     connect(f10Co2Spin, SIGNAL(valueChanged(double)),
             this, SLOT(updateF10Co2(double)));
 
-    connect(f10Spin2Label, SIGNAL(clicked()),
-            this, SLOT(onF10Ch4LabelClicked()));
+    connect(f10Spin2Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onF10Ch4LabelClicked);
     connect(f10Ch4Spin, SIGNAL(valueChanged(double)),
             this, SLOT(updateF10Ch4(double)));
 
-    connect(f10Spin3Label, SIGNAL(clicked()),
-            this, SLOT(onF10Gas4LabelClicked()));
+    connect(f10Spin3Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onF10Gas4LabelClicked);
     connect(f10Gas4Spin, SIGNAL(valueChanged(double)),
             this, SLOT(updateF10Gas4(double)));
 
-    connect(f10Spin4Label, SIGNAL(clicked()),
-            this, SLOT(onF10LeLabelClicked()));
+    connect(f10Spin4Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onF10LeLabelClicked);
     connect(f10LeSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateF10Le(double)));
 
-    connect(f10Spin5Label, SIGNAL(clicked()),
-            this, SLOT(onF10HLabelClicked()));
+    connect(f10Spin5Label, &ClickLabel::clicked,
+            this, &AdvSpectralOptions::onF10HLabelClicked);
     connect(f10HSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateF10H(double)));
 
-    connect(ecProject_, SIGNAL(ecProjectNew()),
-            this, SLOT(reset()));
-    connect(ecProject_, SIGNAL(ecProjectChanged()),
-            this, SLOT(refresh()));
+    connect(ecProject_, &EcProject::ecProjectNew,
+            this, &AdvSpectralOptions::reset);
+    connect(ecProject_, &EcProject::ecProjectChanged,
+            this, &AdvSpectralOptions::refresh);
 
     foreach (QComboBox *combo,
              QList<QComboBox *>() << hfMethCombo
@@ -774,18 +785,35 @@ void AdvSpectralOptions::setSmartfluxUI()
     {
         spectraNonExistingRadioOldEnabled = spectraNonExistingRadio->isEnabled();
         spectraNonExistingRadio->setDisabled(on);
-        hfMethCombo->setItemData(3, QStringLiteral("disabled"), Qt::UserRole);
+        hfMethCombo->setItemData(4, QStringLiteral("disabled"), Qt::UserRole);
     }
     else
     {
         spectraNonExistingRadio->setEnabled(spectraNonExistingRadioOldEnabled);
-        hfMethCombo->setItemData(3, QStringLiteral("enabled"), Qt::UserRole);
+        hfMethCombo->setItemData(4, QStringLiteral("enabled"), Qt::UserRole);
     }
+
+    // block project modified() signal
+//    bool oldmod;
+//    if (!on)
+//    {
+//        // save the modified flag to prevent side effects of setting widgets
+//        oldmod = ecProject_->modified();
+//        ecProject_->blockSignals(true);
+//    }
 
     if (on)
     {
         spectraRadioGroup->button(0)->click();
     }
+
+//    // restore project modified() signal
+//    if (!on)
+//    {
+//        // restore modified flag
+//        ecProject_->setModified(oldmod);
+//        ecProject_->blockSignals(false);
+//    }
 }
 
 void AdvSpectralOptions::reset()
@@ -814,11 +842,11 @@ void AdvSpectralOptions::reset()
 
     lfMethodCheck->setChecked(true);
     hfMethodCheck->setChecked(true);
-    Alia::resetComboToItem(hfMethCombo, 0);
+    WidgetUtils::resetComboToItem(hfMethCombo, 0);
     horstMethodLabel->setEnabled(false);
     horstCheck->setEnabled(false);
     horstCheck->setChecked(false);
-    Alia::resetComboToItem(horstCombo, 1);
+    WidgetUtils::resetComboToItem(horstCombo, 1);
     horstCombo->setEnabled(false);
     subsetCheckBox->setEnabled(false);
     subsetCheckBox->setChecked(false);
@@ -917,10 +945,27 @@ void AdvSpectralOptions::refresh()
 
     lfMethodCheck->setChecked(ecProject_->generalLfMethod());
     hfMethodCheck->setChecked(ecProject_->generalHfMethod());
-    if (ecProject_->generalHfMethod() > 0)
-        hfMethCombo->setCurrentIndex(ecProject_->generalHfMethod() - 1);
-    else
+
+    int hfMethod = ecProject_->generalHfMethod();
+    switch(hfMethod)
+    {
+    case 0:
+    case 1: // moncrieff
         hfMethCombo->setCurrentIndex(0);
+        break;
+    case 2: // horst
+        hfMethCombo->setCurrentIndex(2);
+        break;
+    case 3: // ibrom
+        hfMethCombo->setCurrentIndex(3);
+        break;
+    case 4: // fratini
+        hfMethCombo->setCurrentIndex(4);
+        break;
+    case 5: // massmann
+        hfMethCombo->setCurrentIndex(1);
+        break;
+    }
 
     spectraExistingRadio->setEnabled(hfMethodCheck->isChecked()
                                      && isHorstIbromFratini());
@@ -928,11 +973,12 @@ void AdvSpectralOptions::refresh()
                                         && isHorstIbromFratini());
     spectraExistingRadio->setChecked(!ecProject_->spectraMode());
     spectraNonExistingRadio->setChecked(ecProject_->spectraMode());
-    spectraFileEdit->setEnabled(hfMethodCheck->isChecked()
+
+    spectraFileEdit->setEnabled(spectraExistingRadio->isEnabled()
                                 && spectraExistingRadio->isChecked());
     spectraFileEdit->setText(QDir::toNativeSeparators(ecProject_->spectraFile()));
-    Alia::updateLineEditToolip(spectraFileEdit);
-    spectraFileLoad->setEnabled(hfMethodCheck->isChecked()
+    WidgetUtils::updateLineEditToolip(spectraFileEdit);
+    spectraFileLoad->setEnabled(spectraExistingRadio->isEnabled()
                                 && spectraExistingRadio->isChecked());
 
     subsetCheckBox->setEnabled(isHorstIbromFratini()
@@ -947,7 +993,7 @@ void AdvSpectralOptions::refresh()
     binnedSpectraDirEdit->setEnabled(subsetCheckBox->isEnabled()
                                      && binnedSpectraExistingRadio->isChecked());
     binnedSpectraDirEdit->setText(QDir::toNativeSeparators(ecProject_->spectraBinSpectra()));
-    Alia::updateLineEditToolip(binnedSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(binnedSpectraDirEdit);
     binnedSpectraDirBrowse->setEnabled(subsetCheckBox->isEnabled()
                                        && binnedSpectraExistingRadio->isChecked());
 
@@ -1053,7 +1099,7 @@ void AdvSpectralOptions::refresh()
     fullSpectraDirEdit->setEnabled(thresholdLabel->isEnabled()
                                    && fullSpectraExistingRadio->isChecked());
     fullSpectraDirEdit->setText(QDir::toNativeSeparators(ecProject_->spectraFullSpectra()));
-    Alia::updateLineEditToolip(fullSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(fullSpectraDirEdit);
     fullSpectraDirBrowse->setEnabled(thresholdLabel->isEnabled()
                                      && fullSpectraExistingRadio->isChecked());
 
@@ -1087,29 +1133,29 @@ void AdvSpectralOptions::refresh()
     emit updateOutputsRequest(hfMethCombo->currentIndex());
 }
 
-void AdvSpectralOptions::updateSpectraFile(const QString& fp)
+void AdvSpectralOptions::updateSpectraFile(const QString &fp)
 {
     ecProject_->setSpectraFile(QDir::cleanPath(fp));
     spectraFileEdit->setButtonVisible(spectraFileEdit->isEnabled()
                                       && !spectraFileEdit->text().isEmpty());
-    Alia::updateLineEditToolip(spectraFileEdit);
+    WidgetUtils::updateLineEditToolip(spectraFileEdit);
 }
 
-void AdvSpectralOptions::updateBinnedSpectraFile(const QString& fp)
+void AdvSpectralOptions::updateBinnedSpectraFile(const QString &fp)
 {
     DEBUG_FUNC_NAME
     ecProject_->setSpectraBinSpectra(QDir::cleanPath(fp));
     binnedSpectraDirEdit->setButtonVisible(binnedSpectraDirEdit->isEnabled()
                                       && !binnedSpectraDirEdit->text().isEmpty());
-    Alia::updateLineEditToolip(binnedSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(binnedSpectraDirEdit);
 }
 
-void AdvSpectralOptions::updateFullSpectraFile(const QString& fp)
+void AdvSpectralOptions::updateFullSpectraFile(const QString &fp)
 {
     ecProject_->setSpectraFullSpectra(QDir::cleanPath(fp));
     fullSpectraDirEdit->setButtonVisible(fullSpectraDirEdit->isEnabled()
                                          && !fullSpectraDirEdit->text().isEmpty());
-    Alia::updateLineEditToolip(fullSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(fullSpectraDirEdit);
 }
 
 void AdvSpectralOptions::spectraFileLoad_clicked()
@@ -1126,15 +1172,32 @@ void AdvSpectralOptions::spectraFileLoad_clicked()
                         searchPath,
                         tr("All Files (*.*)")
                         );
-    if (!paramFile.isEmpty())
+
+    if (paramFile.isEmpty()) { return; }
+
+    QFileInfo paramFilePath(paramFile);
+    QString canonicalParamFile = paramFilePath.canonicalFilePath();
+
+    if (!test_)
     {
-        QFileInfo paramFilePath(paramFile);
-        QString canonicalParamFile = paramFilePath.canonicalFilePath();
+        qDebug() << "create test dialog";
+        test_ = new AncillaryFileTest(AncillaryFileTest::FileType::Spectra,
+                                      this);
+    }
+    test_->refresh(canonicalParamFile);
+    auto result = test_->makeTest();
+
+    if (result)
+    {
         spectraFileEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 
         QString lastPath = paramFilePath.canonicalPath();
         configState_->window.last_data_path = lastPath;
-        Alia::updateLastDatapath(lastPath);
+        GlobalSettings::updateLastDatapath(lastPath);
+    }
+    else
+    {
+        spectraFileEdit->setText(QString());
     }
 }
 
@@ -1154,15 +1217,14 @@ void AdvSpectralOptions::binnedSpectraDirBrowse_clicked()
                     searchPath
                     );
 
-    if (!dir.isEmpty())
-    {
-        QDir dataDir(dir);
-        QString canonicalDataDir = dataDir.canonicalPath();
-        binnedSpectraDirEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+    if (dir.isEmpty()) { return; }
 
-        configState_->window.last_data_path = canonicalDataDir;
-        Alia::updateLastDatapath(canonicalDataDir);
-    }
+    QDir dataDir(dir);
+    QString canonicalDataDir = dataDir.canonicalPath();
+    binnedSpectraDirEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+
+    configState_->window.last_data_path = canonicalDataDir;
+    GlobalSettings::updateLastDatapath(canonicalDataDir);
 }
 
 void AdvSpectralOptions::fullSpectraDirBrowse_clicked()
@@ -1181,15 +1243,14 @@ void AdvSpectralOptions::fullSpectraDirBrowse_clicked()
                     searchPath
                     );
 
-    if (!dir.isEmpty())
-    {
-        QDir dataDir(dir);
-        QString canonicalDataDir = dataDir.canonicalPath();
-        fullSpectraDirEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+    if (dir.isEmpty()) { return; }
 
-        configState_->window.last_data_path = canonicalDataDir;
-        Alia::updateLastDatapath(canonicalDataDir);
-    }
+    QDir dataDir(dir);
+    QString canonicalDataDir = dataDir.canonicalPath();
+    fullSpectraDirEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+
+    configState_->window.last_data_path = canonicalDataDir;
+    GlobalSettings::updateLastDatapath(canonicalDataDir);
 }
 
 void AdvSpectralOptions::spectraRadioClicked(int radioButton)
@@ -1344,14 +1405,14 @@ void AdvSpectralOptions::onStartDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     startDateEdit->setFocus();
-    Alia::showCalendarOf(startDateEdit);
+    WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void AdvSpectralOptions::onEndDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     endDateEdit->setFocus();
-    Alia::showCalendarOf(endDateEdit);
+    WidgetUtils::showCalendarOf(endDateEdit);
 }
 
 void AdvSpectralOptions::updateStartDate(const QDate &d)
@@ -1365,7 +1426,7 @@ void AdvSpectralOptions::updateEndDate(const QDate &d)
     ecProject_->setSpectraEndDate(d.toString(Qt::ISODate));
 }
 
-bool AdvSpectralOptions::eventFilter(QObject* watched, QEvent* event)
+bool AdvSpectralOptions::eventFilter(QObject *watched, QEvent *event)
 {
     QEvent::Type eventType = event->type();
     QwwButtonLineEdit* lineEdit1 = spectraFileEdit;
@@ -1398,11 +1459,6 @@ bool AdvSpectralOptions::eventFilter(QObject* watched, QEvent* event)
     return QObject::eventFilter(watched, event);
 }
 
-void AdvSpectralOptions::updateLfMethod(bool b)
-{
-    ecProject_->setGeneralLfMethod(b);
-}
-
 void AdvSpectralOptions::onClickHfMethLabel()
 {
     if (hfMethCombo->isEnabled())
@@ -1411,13 +1467,39 @@ void AdvSpectralOptions::onClickHfMethLabel()
     }
 }
 
+void AdvSpectralOptions::setHfMethod(int hfMethComboIndex)
+{
+    DEBUG_FUNC_NAME
+
+    switch (hfMethComboIndex)
+    {
+    case 0: // moncrieff
+        ecProject_->setGeneralHfMethod(1);
+        break;
+    case 1: // massmann
+        ecProject_->setGeneralHfMethod(5);
+        break;
+    case 2: // horst
+        ecProject_->setGeneralHfMethod(2);
+        break;
+    case 3: // ibrom
+        ecProject_->setGeneralHfMethod(3);
+        break;
+    case 4: // fratini
+        ecProject_->setGeneralHfMethod(4);
+        break;
+    }
+    qDebug() << "hfMethComboIndex" << hfMethComboIndex;
+    qDebug() << "ecProject_->generalHfMethod()" << ecProject_->generalHfMethod();
+}
+
 void AdvSpectralOptions::updateHfMethod_1(bool b)
 {
     bool smartfluxOn = configState_->project.smartfluxMode;
 
     if (b)
     {
-        ecProject_->setGeneralHfMethod(hfMethCombo->currentIndex() + 1);
+        setHfMethod(hfMethCombo->currentIndex());
 
         spectraExistingRadio->setEnabled(isHorstIbromFratini());
         spectraNonExistingRadio->setEnabled(isHorstIbromFratini()
@@ -1435,9 +1517,11 @@ void AdvSpectralOptions::updateHfMethod_1(bool b)
         endDateEdit->setEnabled(startDateLabel->isEnabled());
         minSmplLabel->setEnabled(subsetCheckBox->isEnabled());
         minSmplSpin->setEnabled(subsetCheckBox->isEnabled());
+
         horstCheck->setEnabled(isIbrom() || isFratini());
-        horstMethodLabel->setEnabled(horstCheck->isEnabled());
-        horstCombo->setEnabled(horstCheck->isEnabled());
+        horstMethodLabel->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
+        horstCombo->setEnabled(horstMethodLabel->isEnabled());
+
         binnedSpectraNonExistingRadio->setEnabled(subsetCheckBox->isEnabled());
         binnedSpectraExistingRadio->setEnabled(subsetCheckBox->isEnabled());
         binnedSpectraDirEdit->setEnabled(subsetCheckBox->isEnabled()
@@ -1581,12 +1665,12 @@ void AdvSpectralOptions::updateHfMethod_2(int n)
 {
     bool smartfluxOn = configState_->project.smartfluxMode;
 
-    ecProject_->setGeneralHfMethod(n + 1);
+    setHfMethod(n);
 
-    spectraExistingRadio->setEnabled(n != 0);
-    spectraNonExistingRadio->setEnabled((n != 0) && !smartfluxOn);
-    spectraFileEdit->setEnabled(n != 0 && spectraExistingRadio->isChecked());
-    spectraFileLoad->setEnabled(n != 0 && spectraExistingRadio->isChecked());
+    spectraExistingRadio->setEnabled(n > 1);
+    spectraNonExistingRadio->setEnabled((n > 1) && !smartfluxOn);
+    spectraFileEdit->setEnabled(n > 1 && spectraExistingRadio->isChecked());
+    spectraFileLoad->setEnabled(n > 1 && spectraExistingRadio->isChecked());
 
     subsetCheckBox->setEnabled(isHorstIbromFratini() && spectraNonExistingRadio->isChecked());
 
@@ -1597,16 +1681,19 @@ void AdvSpectralOptions::updateHfMethod_2(int n)
     binnedSpectraDirBrowse->setEnabled(subsetCheckBox->isEnabled()
                                        && binnedSpectraExistingRadio->isChecked());
 
-    startDateLabel->setEnabled(isHorstIbromFratini() && subsetCheckBox->isChecked());
+    startDateLabel->setEnabled(subsetCheckBox->isEnabled() && subsetCheckBox->isChecked());
     startDateEdit->setEnabled(startDateLabel->isEnabled());
     lockedIcon->setEnabled(startDateLabel->isEnabled());
     endDateLabel->setEnabled(startDateLabel->isEnabled());
     endDateEdit->setEnabled(startDateLabel->isEnabled());
+
     minSmplLabel->setEnabled(subsetCheckBox->isEnabled());
     minSmplSpin->setEnabled(subsetCheckBox->isEnabled());
+
     horstCheck->setEnabled(isIbrom() || isFratini());
     horstMethodLabel->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
-    horstCombo->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
+    horstCombo->setEnabled(horstMethodLabel->isEnabled());
+
     minSpinCo2Label->setEnabled(subsetCheckBox->isEnabled());
     minSpinCo2->setEnabled(subsetCheckBox->isEnabled());
     minSpinCh4Label->setEnabled(subsetCheckBox->isEnabled());
@@ -1640,7 +1727,8 @@ void AdvSpectralOptions::updateHfMethod_2(int n)
     spin34->setEnabled(subsetCheckBox->isEnabled());
     suggestedRangeButton->setEnabled(subsetCheckBox->isEnabled());
 
-    thresholdLabel->setEnabled(n == 3);
+    // fratini only
+    thresholdLabel->setEnabled(n == 4);
     fullSpectraExistingRadio->setEnabled(thresholdLabel->isEnabled());
     fullSpectraNonExistingRadio->setEnabled(thresholdLabel->isEnabled());
     fullSpectraDirEdit->setEnabled(thresholdLabel->isEnabled()
@@ -1746,11 +1834,6 @@ void AdvSpectralOptions::onMinHLabelClicked()
 {
     minSpinH->setFocus();
     minSpinH->selectAll();
-}
-
-void AdvSpectralOptions::updateAddSonic(bool b)
-{
-    ecProject_->setSpectraAddSonic(b);
 }
 
 void AdvSpectralOptions::onF10Co2LabelClicked()
@@ -1978,41 +2061,41 @@ void AdvSpectralOptions::createQuestionMark()
     questionMark_4 = new QPushButton;
     questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
 
-    connect(questionMark_1, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_1()));
-    connect(questionMark_2, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_2()));
-    connect(questionMark_3, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_3()));
-    connect(questionMark_4, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_4()));
+    connect(questionMark_1, &QPushButton::clicked,
+            this, &AdvSpectralOptions::onlineHelpTrigger_1);
+    connect(questionMark_2, &QPushButton::clicked,
+            this, &AdvSpectralOptions::onlineHelpTrigger_2);
+    connect(questionMark_3, &QPushButton::clicked,
+            this, &AdvSpectralOptions::onlineHelpTrigger_3);
+    connect(questionMark_4, &QPushButton::clicked,
+            this, &AdvSpectralOptions::onlineHelpTrigger_4);
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_1()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculating_Spectral_Correction_Factors.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Calculating_Spectral_Correction_Factors.htm")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_2()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#High-pass_Filtering.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#High-pass_Filtering.htm")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_3()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Low-pass_Filtering.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Low-pass_Filtering.htm")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_4()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Spectral_Corrections.htm#Assessme")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Spectral_Corrections.htm#Assessme")));
 }
 
 void AdvSpectralOptions::updateTooltip(int i)
 {
     QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
 
-    Alia::updateComboItemTooltip(senderCombo, i);
+    WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }
 
 void AdvSpectralOptions::updateSubsetSelection(bool b)
@@ -2082,18 +2165,18 @@ void AdvSpectralOptions::updateSuggestedFrequencyRanges()
 void AdvSpectralOptions::clearSpectraFileEdit()
 {
     spectraFileEdit->clear();
-    Alia::updateLineEditToolip(spectraFileEdit);
+    WidgetUtils::updateLineEditToolip(spectraFileEdit);
 }
 
 void AdvSpectralOptions::clearBinnedSpectraDirEdit()
 {
     DEBUG_FUNC_NAME
     binnedSpectraDirEdit->clear();
-    Alia::updateLineEditToolip(binnedSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(binnedSpectraDirEdit);
 }
 
 void AdvSpectralOptions::clearFullSpectraDirEdit()
 {
     fullSpectraDirEdit->clear();
-    Alia::updateLineEditToolip(fullSpectraDirEdit);
+    WidgetUtils::updateLineEditToolip(fullSpectraDirEdit);
 }

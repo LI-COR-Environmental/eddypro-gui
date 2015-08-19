@@ -30,7 +30,7 @@ class AnemDelegate : public QItemDelegate
 {
     Q_OBJECT
 public:
-    AnemDelegate(QObject *parent = 0);
+    explicit AnemDelegate(QObject* parent = nullptr);
     ~AnemDelegate();
 
     QWidget *createEditor(QWidget* parent, const QStyleOptionViewItem& option,

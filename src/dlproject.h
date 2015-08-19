@@ -24,14 +24,14 @@
 #ifndef DLPROJECT_H
 #define DLPROJECT_H
 
-#include <QObject>
 #include <QMultiHash>
+#include <QObject>
 
 #include "anem_desc.h"      // NOTE: for AnemDescList typedef, maybe to fix
-#include "irga_desc.h"      // NOTE: for IrgaDescList typedef, maybe to fix
-#include "variable_desc.h"  // NOTE: for VariableDescList typedef, maybe to fix
 #include "configstate.h"
 #include "dlprojectstate.h"
+#include "irga_desc.h"      // NOTE: for IrgaDescList typedef, maybe to fix
+#include "variable_desc.h"  // NOTE: for VariableDescList typedef, maybe to fix
 
 class QSettings;
 typedef QMultiHash<QString, int> AnemComponents;
@@ -41,8 +41,8 @@ class DlProject : public QObject
     Q_OBJECT
 
 public:
-    DlProject(QObject* parent);
-    DlProject(QObject* parent, ProjConfigState& project_config);
+    explicit DlProject(QObject* parent);
+    DlProject(QObject* parent, const ProjConfigState& project_config);
     DlProject(const DlProject& project);
     DlProject& operator=(const DlProject& project);
     virtual ~DlProject();
@@ -55,7 +55,7 @@ public:
     // start a new project
     void newProject(const ProjConfigState &project_config);
     // load a project
-    bool loadProject(const QString& filename, bool checkVersion = true, bool *modified = 0, bool firstReading = false);
+    bool loadProject(const QString& filename, bool checkVersion = true, bool *modified = nullptr, bool firstReading = false);
     // save the current project
     bool saveProject(const QString& filename);
     // insert tag for native format files
@@ -176,13 +176,12 @@ public:
     static const QString getANEM_MODEL_STRING_10();
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
-    static const QStringList restrictedGillModelStringList();    
+    static const QStringList restrictedGillModelStringList();
     static const QStringList gillModelGroup_1();
     static const QStringList gillModelGroup_2();
     static const QStringList gillModelGroup_3();
 
-public slots:
-
+    bool requestMetadataReset();
 signals:
     // send that a new project has been created
     void projectNew();
@@ -192,7 +191,9 @@ signals:
     void projectModified();
 
 private:
-    enum InstrType { UNDEFINED, ANEM, IRGA };
+    enum class InstrumentType { UNDEFINED, ANEM, IRGA };
+
+    bool queryProjectImport();
 
     QString toIniAnemManufacturer(const QString& s);
     QString toIniAnemWindFormat(const QString& s);
@@ -211,8 +212,8 @@ private:
     QString fromIniVariableInstrument(const QString& s);
 
     int countInstruments(const QStringList& list);
-    int getInstrumentType(const QSettings& iniGroup, const QString& prefix);
-    int getInstrumentTypeFromModel(const QString& model);
+    InstrumentType getInstrumentType(const QSettings& iniGroup, const QString& prefix);
+    InstrumentType getInstrumentTypeFromModel(const QString& model);
 
     QString fromIniIrgaManufacturer(const QString& s);
     QString fromIniIrgaModel(const QString& s);
@@ -221,7 +222,7 @@ private:
     QString toIniIrgaModel(const QString& s);
     QString toIniIrgaSwVersion(const QString& s);
 
-    bool checkAnemVars(const AnemComponents& hash, bool isFastTempAvailable, bool *anemHasTemp = 0);
+    bool checkAnemVars(const AnemComponents& hash, bool isFastTempAvailable, bool *anemHasTemp = nullptr);
 
 private:
     bool modified_;

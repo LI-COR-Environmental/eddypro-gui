@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Using EddyPro 5|Using Advanced Settings">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Advanced Spectral Corrections</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Advanced_Settings_Spec_Corrections.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Using EddyPro 5</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Using Advanced Settings</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Spectral Corrections</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="pgBrkBfr">Advanced Settings: Spectral Corrections<a name="aanchor23"></a><MadCap:concept term="Advanced" /></h1>
+            <p class="note"><b>Note:</b> The default settings in this section correspond with the settings used by Express Mode, meaning that you can process a dataset in Advanced Mode without altering these settings, and still compute reasonable results for most datasets.</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Adv_Settings_SC.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="1372" data-mc-height="900" src="Resources/Images/Adv_Settings_SC_thumb_0_96.png" style="mc-thumbnail: popup;" alt="" title="" tabindex="" /></a>
+            </p>
+            <p>Spectral corrections are needed to correct flux estimates for low and high frequency losses due to the instrumental setup, intrinsic sampling limits of the instruments, and some data processing choices. An overview and some details about the spectral correction methods available in <span class="MyVariablesSoftwareName R">EddyPro®</span> are provided here. This tutorial focuses on the items available to you, to select and tune the correction procedure.</p>
+            <p>The first choice is whether to correct for the high-pass filtering losses implied by the fact that fluxes are calculated on a finite time period, and possibly by the detrending operation (e.g., linear detrending, running mean). Select <i>Analytic correction for high-pass filtering effects (Moncrieff et al., 2004)</i> to instruct <span class="MyVariablesSoftwareName">EddyPro</span> to apply this correction, which affects the low frequency range of the flux cospectra.</p>
+            <p>The second choice regards the application of a correction for the low-pass filtering losses, mainly related to intrinsic instrumental limits (finite path lengths and time responses) and to the actual instruments deployment, such as the separation between anemometer and gas analyzer, the height above the underlying canopy or surface, the deployment of a sampling line for closed path analyzer and the way this is conditioned (e.g., insulated or heated).</p>
+            <p>Five methods are available:</p>
+            <ul class="bulleted">
+                <li value="1">The analytic method of <a href="References.htm#Moncrieff2">Moncrieff et al. (1997)</a>, </li>
+                <li value="2">The analytic method of <a href="References.htm#Massman2000">Massman (2000, 2001)</a>,</li>
+                <li value="3">The semi-analytic method of <a href="References.htm#Horst1997">Horst (1997)</a></li>
+                <li value="4">The in situ method of <a href="References.htm#Ibrom">Ibrom et al. (2007a)</a>, and</li>
+                <li value="5">The in situ method of <a href="References.htm#Fratini2012">Fratini et al. (2012)</a>.</li>
+            </ul>
+            <p>The methods by Moncrieff et al. (1997) and by Massman (2000, 2001) model all major sources of flux attenuation by means of a mathematical formulation. When using these methods, no further information is needed, so all of the fields in this page are deactivated. These methods are suggested for open path EC systems or for closed path systems if the sampling line is short and heated. The reason is that this method may seriously underestimate the attenuation (and hence the correction) - notably for water vapor - when the sampling line is long (and the attenuation is strong) and not heated because of the dependency of attenuation of H<sub>2</sub>O on relative humidity, which has been clearly recognized in recent research.</p>
+            <p>If the methods by Horst (1997), Ibrom et al. (2007), or Fratini et al. (2012) are selected, the “Assessment of high-frequency attenuation” section activates. In fact, all three methods require the preliminary, in situ assessment of the attenuation of scalar spectra. Such attenuation is quantified by determining the system low-pass transfer function. The procedure makes use of the temperature spectrum as a proxy for the unattenuated gas spectra (thereby assuming similarity of turbulent spectra among all gases and the air temperature) and fits a prescribed transfer function to the ratio of the gas to the temperature spectra. The assumed transfer function is that of the so-called Infinite Impulse Response (IIR) filter (Ibrom et al., 2007a). However, this procedure cannot be applied on individual spectra, which may be affected by noise or characteristics of the local turbulence. Instead, ensemble spectra are calculated for all variables involved (temperature and gas concentrations) using all available “high-quality” spectra and a least squared minimization is then used to fit the transfer function to the ratio of ensemble gas spectra to ensemble temperature spectra. This is what we call the “spectral assessment”. In this phase you need to instruct <span class="MyVariablesSoftwareName">EddyPro</span> on how to select the spectra to be used in this procedure.</p>
+            <p>To start with, select the starting and ending dates of the period to be used for the spectral assessment. The larger the time periods, the longer the procedure will take, but the more accurate the results will be. However, pay attention to select a period in which your instrumental setup did not undergo major modifications. You are going to average all spectra for this period to assess to what extent your instrumental configuration attenuated them compared to atmospheric conditions, thus you need to make sure that all spectra are representative of the same configuration.</p>
+            <p>The minimum number of spectra for valid ensemble averages is set to make sure that a sufficient amount of spectra are averaged, to level out noise and local turbulence characteristics, and highlight the main spectra features. Again, a large number here will ensure a more accurate assessment, but it will also require a longer period of time, because not all spectra are going to be valid and take part in the averaging procedure.</p>
+            <p>In fact, minimum flux values must also be set, to discriminate “good spectra.” A sufficient flux ensures that developed turbulent conditions are met and that spectra are well characterized in the inertial and dissipation ranges. Minimum water vapor minimum are indirectly set by specifying a lower limit for the latent heat flux. Similarly, good quality temperature spectra will be achieved when sensible heat flux will be above a certain threshold that you can specify.</p>
+            <p>The <b>Spectral Corrections</b> tab includes the following options:</p>
+            <ul class="bulleted">
+                <li value="1"><a href="Spectral_Corrections.htm#Low" data-mc-conditions="Default.WebHelp">Low Frequency Corrections</a> <![CDATA[ ]]></li>
+                <li value="2"><a href="Spectral_Corrections.htm#High" data-mc-conditions="Default.WebHelp">High Frequency Corrections</a> <![CDATA[ ]]></li>
+                <li value="3"><a href="Spectral_Corrections.htm#Assessme" data-mc-conditions="Default.WebHelp">Assessment of high-frequency attenuation</a> <![CDATA[ ]]></li>
+            </ul>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

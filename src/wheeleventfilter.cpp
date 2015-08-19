@@ -20,15 +20,15 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QEvent>
-#include <QAbstractSpinBox>
-#include <QComboBox>
-
 #include "wheeleventfilter.h"
 
+#include <QAbstractSpinBox>
+#include <QComboBox>
+#include <QDebug>
+#include <QEvent>
+
 // NOTE: workaround to avoid setting StrongFocus on each combo or spin
-// in order to avoid accidental changes
+// in order to avoid accidental changes using the mouse wheel
 
 WheelEventFilter::WheelEventFilter(QObject *parent) :
     QObject(parent)

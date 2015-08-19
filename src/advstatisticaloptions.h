@@ -26,222 +26,48 @@
 
 #include <QWidget>
 
-class EcProject;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/advstatisticaloptions.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QCheckBox;
 class QComboBox;
+class QDoubleSpinBox;
 class QGroupBox;
 class QLabel;
-class QSpinBox;
-class QDoubleSpinBox;
 class QPushButton;
-class QToolBox;
+class QSpinBox;
 class QTabBar;
+class QToolBox;
 
 class ClickLabel;
+class EcProject;
 
+/// \class AdvStatisticalOptions
+/// \brief Class representing the 'Statisticals Tests' tab in the 'RawProcess' page
 class AdvStatisticalOptions : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AdvStatisticalOptions(QWidget *parent, EcProject *project);
+    explicit AdvStatisticalOptions(QWidget* parent, EcProject* project);
     ~AdvStatisticalOptions();
 
 public slots:
     void reset();
 
-private:
-
-    QToolBox* testToolbox;
-    QWidget *tab0;
-    QLabel *spikeGraphLabel;
-    QSpinBox *despSpin_1;
-    QDoubleSpinBox *despSpin_2;
-    QDoubleSpinBox *despSpin_3;
-    QDoubleSpinBox *despSpin_4;
-    QDoubleSpinBox *despSpin_5;
-    QDoubleSpinBox *despSpin_6;
-    QDoubleSpinBox *despSpin_7;
-    QDoubleSpinBox *despSpin_8;
-    QCheckBox* despFilterCheckBox;
-    ClickLabel* despFilterLabel;
-
-    QWidget *tab1;
-    QLabel *amplResGraphLabel;
-    QDoubleSpinBox *amplResSpin_1;
-    QSpinBox *amplResSpin_2;
-    QSpinBox *amplResSpin_3;
-
-    QWidget *tab2;
-    QLabel *dropoutsGraphLabel;
-    QSpinBox *dropoutsSpin_1;
-    QDoubleSpinBox *dropoutsSpin_2;
-    QDoubleSpinBox *dropoutsSpin_3;
-
-    QWidget *tab3;
-    QLabel *absLimGraphLabel;
-    QDoubleSpinBox *absLimSpin_1;
-    QDoubleSpinBox *absLimSpin_2;
-    QDoubleSpinBox *absLimSpin_3;
-    QDoubleSpinBox *absLimSpin_4;
-    QDoubleSpinBox *absLimSpin_5;
-    QDoubleSpinBox *absLimSpin_6;
-    QDoubleSpinBox *absLimSpin_7;
-    QDoubleSpinBox *absLimSpin_8;
-    QDoubleSpinBox *absLimSpin_9;
-    QDoubleSpinBox *absLimSpin_10;
-    QDoubleSpinBox *absLimSpin_11;
-    QDoubleSpinBox *absLimSpin_12;
-    QDoubleSpinBox *absLimSpin_13;
-    QDoubleSpinBox *absLimSpin_14;
-    QCheckBox* absLimFilterCheckBox;
-    ClickLabel* absLimFilterLabel;
-
-    QWidget *tab4;
-    QLabel *skewnessGraphLabel;
-    QDoubleSpinBox *skewnessSpin_1;
-    QDoubleSpinBox *skewnessSpin_2;
-    QDoubleSpinBox *skewnessSpin_3;
-    QDoubleSpinBox *skewnessSpin_4;
-    QDoubleSpinBox *skewnessSpin_5;
-    QDoubleSpinBox *skewnessSpin_6;
-    QDoubleSpinBox *skewnessSpin_7;
-    QDoubleSpinBox *skewnessSpin_8;
-
-    QWidget *tab5;
-    QLabel *discontGraphLabel;
-    QDoubleSpinBox *discontSpin_1;
-    QDoubleSpinBox *discontSpin_2;
-    QDoubleSpinBox *discontSpin_3;
-    QDoubleSpinBox *discontSpin_4;
-    QDoubleSpinBox *discontSpin_5;
-    QDoubleSpinBox *discontSpin_6;
-    QDoubleSpinBox *discontSpin_7;
-    QDoubleSpinBox *discontSpin_8;
-    QDoubleSpinBox *discontSpin_9;
-    QDoubleSpinBox *discontSpin_10;
-    QDoubleSpinBox *discontSpin_11;
-    QDoubleSpinBox *discontSpin_12;
-    QDoubleSpinBox *discontSpin_13;
-    QDoubleSpinBox *discontSpin_14;
-    QDoubleSpinBox *discontSpin_15;
-    QDoubleSpinBox *discontSpin_16;
-
-    QWidget *tab6;
-    QLabel *timelagGraphLabel;
-    QDoubleSpinBox *timeLagSpin_1;
-    QDoubleSpinBox *timeLagSpin_2;
-    QDoubleSpinBox *timeLagSpin_3;
-    QDoubleSpinBox *timeLagSpin_4;
-    QDoubleSpinBox *timeLagSpin_5;
-    QDoubleSpinBox *timeLagSpin_6;
-
-    QWidget *tab7;
-    QLabel *attackAngleGraphLabel;
-    QDoubleSpinBox *attackAngleSpin_1;
-    QDoubleSpinBox *attackAngleSpin_2;
-    QDoubleSpinBox *attackAngleSpin_3;
-
-    QWidget *tab8;
-    QLabel *nonSteadyGraphLabel;
-    QDoubleSpinBox *nonSteadySpin_1;
-
-    EcProject *ecProject_;
-
-    void createTabWidget();
-
-    QCheckBox *spikeRemCheckBox;
-    QCheckBox *amplitudeResCheckBox;
-    QCheckBox *dropoutsCheckBox;
-    QCheckBox *absLimCheckBox;
-    QCheckBox *skewnessCheckBox;
-    QCheckBox *discontCheckBox;
-    QCheckBox *timeLagCheckBox;
-    QCheckBox *attackAngleCheckBox;
-    QCheckBox *nonSteadyCheckBox;
-
-    QCheckBox *selectAllCheckBox;
-    QPushButton *defaultValuesButton;
-
-    QLabel* thumbnailGraphLabel;
-
-    ClickLabel *despLabel_1;
-    ClickLabel *despLabel_2;
-    ClickLabel *despLabel_3;
-    ClickLabel *despLabel_4;
-    ClickLabel *despLabel_5;
-    ClickLabel *despLabel_6;
-    ClickLabel *despLabel_7;
-    ClickLabel *despLabel_8;
-    ClickLabel *amplResLabel_1;
-    ClickLabel *amplResLabel_2;
-    ClickLabel *amplResLabel_3;
-    ClickLabel *dropoutsLabel_1;
-    ClickLabel *dropoutsLabel_2;
-    ClickLabel *dropoutsLabel_3;
-    ClickLabel *absLimLabel_1;
-    ClickLabel *absLimLabel_2;
-    ClickLabel *absLimLabel_3;
-    ClickLabel *absLimLabel_5;
-    ClickLabel *absLimLabel_7;
-    ClickLabel *absLimLabel_9;
-    ClickLabel *absLimLabel_11;
-    ClickLabel *skewnessLabel_1;
-    ClickLabel *skewnessLabel_2;
-    ClickLabel *skewnessLabel_5;
-    ClickLabel *skewnessLabel_6;
-    ClickLabel *discontLabel_1;
-    ClickLabel *discontLabel_2;
-    ClickLabel *discontLabel_3;
-    ClickLabel *discontLabel_4;
-    ClickLabel *discontLabel_5;
-    ClickLabel *discontLabel_6;
-    ClickLabel *discontLabel_7;
-    ClickLabel *discontLabel_8;
-    ClickLabel *timeLagLabel_1;
-    ClickLabel *timeLagLabel_2;
-    ClickLabel *timeLagLabel_3;
-    ClickLabel *timeLagLabel_4;
-    ClickLabel *timeLagLabel_5;
-    ClickLabel *timeLagLabel_6;
-    ClickLabel *attackAngleLabel_1;
-    ClickLabel *attackAngleLabel_2;
-    ClickLabel *attackAngleLabel_3;
-    ClickLabel *nonSteadyLabel_1;
-
-    QGroupBox *acquisitionGroup;
-
-    QPushButton* questionMark_1;
-    QPushButton* questionMark_2;
-    QPushButton* questionMark_3;
-    QPushButton* questionMark_4;
-    QPushButton* questionMark_5;
-    QPushButton* questionMark_6;
-    QPushButton* questionMark_7;
-    QPushButton* questionMark_8;
-    QPushButton* questionMark_9;
-    QPushButton* questionMark_10;
-    QPushButton* questionMark_11;
-
-    QCheckBox* randomErrorCheckBox;
-    ClickLabel* randomMethodLabel;
-    QComboBox* randomMethodCombo;
-    ClickLabel* itsDefinitionLabel;
-    QComboBox* itsDefinitionCombo;
-    ClickLabel* timelagMaxLabel;
-    QDoubleSpinBox* timelagMaxSpin;
-    ClickLabel* securityCoeffLabel;
-    QDoubleSpinBox* securityCoeffSpin;
-
-    bool atLeastOneCheckedTest();
-    bool areAllCheckedTests();
-
-    int findClosestEnabledTest(int indexDisabled);
-
-    void hideGraphLabels(bool hidden);
-    void showThumbnailGraphLabel(bool visible);
-    void createQuestionMark();
-    void setTestDefaultValues();
+protected:
+    void resizeEvent(QResizeEvent* event);
 
 private slots:
     void refresh();
@@ -432,8 +258,195 @@ private slots:
 
     void updateTooltip(int i);
 
-protected:
-    void resizeEvent(QResizeEvent* event);
+private:
+    void createTabWidget();
+    bool atLeastOneCheckedTest();
+    bool areAllCheckedTests();
+    int findClosestEnabledTest(int indexDisabled);
+    void hideGraphLabels(bool hidden);
+    void showThumbnailGraphLabel(bool visible);
+    void createQuestionMark();
+    bool requestTestSettingsReset();
+    void setTestDefaultValues();
+
+    QToolBox* testToolbox;
+    QWidget* tab0;
+    QLabel* spikeGraphLabel;
+    QSpinBox* despSpin_1;
+    QDoubleSpinBox* despSpin_2;
+    QDoubleSpinBox* despSpin_3;
+    QDoubleSpinBox* despSpin_4;
+    QDoubleSpinBox* despSpin_5;
+    QDoubleSpinBox* despSpin_6;
+    QDoubleSpinBox* despSpin_7;
+    QDoubleSpinBox* despSpin_8;
+    QCheckBox* despFilterCheckBox;
+    ClickLabel* despFilterLabel;
+
+    QWidget* tab1;
+    QLabel* amplResGraphLabel;
+    QDoubleSpinBox* amplResSpin_1;
+    QSpinBox* amplResSpin_2;
+    QSpinBox* amplResSpin_3;
+
+    QWidget* tab2;
+    QLabel* dropoutsGraphLabel;
+    QSpinBox* dropoutsSpin_1;
+    QDoubleSpinBox* dropoutsSpin_2;
+    QDoubleSpinBox* dropoutsSpin_3;
+
+    QWidget* tab3;
+    QLabel* absLimGraphLabel;
+    QDoubleSpinBox* absLimSpin_1;
+    QDoubleSpinBox* absLimSpin_2;
+    QDoubleSpinBox* absLimSpin_3;
+    QDoubleSpinBox* absLimSpin_4;
+    QDoubleSpinBox* absLimSpin_5;
+    QDoubleSpinBox* absLimSpin_6;
+    QDoubleSpinBox* absLimSpin_7;
+    QDoubleSpinBox* absLimSpin_8;
+    QDoubleSpinBox* absLimSpin_9;
+    QDoubleSpinBox* absLimSpin_10;
+    QDoubleSpinBox* absLimSpin_11;
+    QDoubleSpinBox* absLimSpin_12;
+    QDoubleSpinBox* absLimSpin_13;
+    QDoubleSpinBox* absLimSpin_14;
+    QCheckBox* absLimFilterCheckBox;
+    ClickLabel* absLimFilterLabel;
+
+    QWidget* tab4;
+    QLabel* skewnessGraphLabel;
+    QDoubleSpinBox* skewnessSpin_1;
+    QDoubleSpinBox* skewnessSpin_2;
+    QDoubleSpinBox* skewnessSpin_3;
+    QDoubleSpinBox* skewnessSpin_4;
+    QDoubleSpinBox* skewnessSpin_5;
+    QDoubleSpinBox* skewnessSpin_6;
+    QDoubleSpinBox* skewnessSpin_7;
+    QDoubleSpinBox* skewnessSpin_8;
+
+    QWidget* tab5;
+    QLabel* discontGraphLabel;
+    QDoubleSpinBox* discontSpin_1;
+    QDoubleSpinBox* discontSpin_2;
+    QDoubleSpinBox* discontSpin_3;
+    QDoubleSpinBox* discontSpin_4;
+    QDoubleSpinBox* discontSpin_5;
+    QDoubleSpinBox* discontSpin_6;
+    QDoubleSpinBox* discontSpin_7;
+    QDoubleSpinBox* discontSpin_8;
+    QDoubleSpinBox* discontSpin_9;
+    QDoubleSpinBox* discontSpin_10;
+    QDoubleSpinBox* discontSpin_11;
+    QDoubleSpinBox* discontSpin_12;
+    QDoubleSpinBox* discontSpin_13;
+    QDoubleSpinBox* discontSpin_14;
+    QDoubleSpinBox* discontSpin_15;
+    QDoubleSpinBox* discontSpin_16;
+
+    QWidget* tab6;
+    QLabel* timelagGraphLabel;
+    QDoubleSpinBox* timeLagSpin_1;
+    QDoubleSpinBox* timeLagSpin_2;
+    QDoubleSpinBox* timeLagSpin_3;
+    QDoubleSpinBox* timeLagSpin_4;
+    QDoubleSpinBox* timeLagSpin_5;
+    QDoubleSpinBox* timeLagSpin_6;
+
+    QWidget* tab7;
+    QLabel* attackAngleGraphLabel;
+    QDoubleSpinBox* attackAngleSpin_1;
+    QDoubleSpinBox* attackAngleSpin_2;
+    QDoubleSpinBox* attackAngleSpin_3;
+
+    QWidget* tab8;
+    QLabel* nonSteadyGraphLabel;
+    QDoubleSpinBox* nonSteadySpin_1;
+
+    QCheckBox* spikeRemCheckBox;
+    QCheckBox* amplitudeResCheckBox;
+    QCheckBox* dropoutsCheckBox;
+    QCheckBox* absLimCheckBox;
+    QCheckBox* skewnessCheckBox;
+    QCheckBox* discontCheckBox;
+    QCheckBox* timeLagCheckBox;
+    QCheckBox* attackAngleCheckBox;
+    QCheckBox* nonSteadyCheckBox;
+
+    QCheckBox* selectAllCheckBox;
+    QPushButton* defaultValuesButton;
+
+    QLabel* thumbnailGraphLabel;
+
+    ClickLabel* despLabel_1;
+    ClickLabel* despLabel_2;
+    ClickLabel* despLabel_3;
+    ClickLabel* despLabel_4;
+    ClickLabel* despLabel_5;
+    ClickLabel* despLabel_6;
+    ClickLabel* despLabel_7;
+    ClickLabel* despLabel_8;
+    ClickLabel* amplResLabel_1;
+    ClickLabel* amplResLabel_2;
+    ClickLabel* amplResLabel_3;
+    ClickLabel* dropoutsLabel_1;
+    ClickLabel* dropoutsLabel_2;
+    ClickLabel* dropoutsLabel_3;
+    ClickLabel* absLimLabel_1;
+    ClickLabel* absLimLabel_2;
+    ClickLabel* absLimLabel_3;
+    ClickLabel* absLimLabel_5;
+    ClickLabel* absLimLabel_7;
+    ClickLabel* absLimLabel_9;
+    ClickLabel* absLimLabel_11;
+    ClickLabel* skewnessLabel_1;
+    ClickLabel* skewnessLabel_2;
+    ClickLabel* skewnessLabel_5;
+    ClickLabel* skewnessLabel_6;
+    ClickLabel* discontLabel_1;
+    ClickLabel* discontLabel_2;
+    ClickLabel* discontLabel_3;
+    ClickLabel* discontLabel_4;
+    ClickLabel* discontLabel_5;
+    ClickLabel* discontLabel_6;
+    ClickLabel* discontLabel_7;
+    ClickLabel* discontLabel_8;
+    ClickLabel* timeLagLabel_1;
+    ClickLabel* timeLagLabel_2;
+    ClickLabel* timeLagLabel_3;
+    ClickLabel* timeLagLabel_4;
+    ClickLabel* timeLagLabel_5;
+    ClickLabel* timeLagLabel_6;
+    ClickLabel* attackAngleLabel_1;
+    ClickLabel* attackAngleLabel_2;
+    ClickLabel* attackAngleLabel_3;
+    ClickLabel* nonSteadyLabel_1;
+
+    QGroupBox* acquisitionGroup;
+
+    QPushButton* questionMark_1;
+    QPushButton* questionMark_2;
+    QPushButton* questionMark_3;
+    QPushButton* questionMark_4;
+    QPushButton* questionMark_5;
+    QPushButton* questionMark_6;
+    QPushButton* questionMark_7;
+    QPushButton* questionMark_8;
+    QPushButton* questionMark_9;
+    QPushButton* questionMark_10;
+    QPushButton* questionMark_11;
+
+    QCheckBox* randomErrorCheckBox;
+    ClickLabel* randomMethodLabel;
+    QComboBox* randomMethodCombo;
+    ClickLabel* itsDefinitionLabel;
+    QComboBox* itsDefinitionCombo;
+    ClickLabel* timelagMaxLabel;
+    QDoubleSpinBox* timelagMaxSpin;
+    ClickLabel* securityCoeffLabel;
+    QDoubleSpinBox* securityCoeffSpin;
+
+    EcProject* ecProject_;
 };
 
 #endif // ADVSTATISTICALOPTIONS_H

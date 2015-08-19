@@ -20,8 +20,9 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "splitterhandle.h"
 #include "splitter.h"
+
+#include "splitterhandle.h"
 
 Splitter::Splitter(Qt::Orientation orientation, QWidget *parent) :
     QSplitter(orientation, parent)

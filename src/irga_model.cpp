@@ -21,15 +21,17 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QColor>
-#include <QBrush>
-#include <QApplication>
+#include "irga_model.h"
 
+#include <QApplication>
+#include <QBrush>
+#include <QColor>
+#include <QDebug>
+
+#include "dbghelper.h"
 #include "defs.h"
 #include "stringutils.h"
-#include "dbghelper.h"
-#include "irga_model.h"
+#include "widget_utils.h"
 
 IrgaModel::IrgaModel(QObject *parent, IrgaDescList *list) :
     QAbstractTableModel(parent),
@@ -116,6 +118,8 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                 }
             case ID:
                 return QVariant(irgaDesc.id());
+//            case HEIGHT:
+//                return QVariant(QString::number(irgaDesc.height(), 'f', 2) + QStringLiteral(" [m]"));
             case TUBELENGTH:
                 if (IrgaDesc::isOpenPathModel(irgaDesc.model()))
                 {
@@ -231,6 +235,8 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                 return QVariant(irgaDesc.swVersion());
             case ID:
                 return QVariant(irgaDesc.id());
+//            case HEIGHT:
+//                return QVariant(irgaDesc.height());
             case TUBELENGTH:
                 if (IrgaDesc::isOpenPathModel(irgaDesc.model()))
                 {
@@ -342,6 +348,7 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
             case MODEL:
             case SWVERSION:
             case ID:
+//            case HEIGHT:
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:
@@ -466,6 +473,13 @@ bool IrgaModel::setData(const QModelIndex& index, const QVariant& value, int rol
             }
             irgaDesc.setId(value.toString());
             break;
+//        case HEIGHT:
+//            if (value == irgaDesc.height())
+//            {
+//                return false;
+//            }
+//            irgaDesc.setHeight(value.toReal());
+//            break;
         case TUBELENGTH:
             if (value == irgaDesc.tubeLength())
             {
@@ -551,6 +565,8 @@ bool IrgaModel::setData(const QModelIndex& index, const QVariant& value, int rol
     emit modified();
 
     // whole column may have changed
+//    emit dataChanged(index.sibling(column, MANUFACTURER),
+//                     index.sibling(column, KOXYGEN));
     emit dataChanged(index.sibling(MANUFACTURER, column),
                      index.sibling(KOXYGEN, column));
     return true;
@@ -581,11 +597,7 @@ bool IrgaModel::removeColumns(int column, int count, const QModelIndex& parent)
     if (count != 1) return false; // only remove one column at a time
     if ((column < 0) || (column >= list_->count())) return false;
 
-    int status = QMessageBox::question(QApplication::activeWindow(),
-                              tr("Remove Column"),
-                              tr("Do you want to remove this column?"),
-                              QMessageBox::Yes | QMessageBox::Cancel);
-    if (status == QMessageBox::Cancel)
+    if (!WidgetUtils::okToRemoveColumn(qApp->activeWindow()))
     {
         return false;
     }
@@ -609,6 +621,7 @@ QVariant IrgaModel::headerData(int section, Qt::Orientation orientation,
             case MODEL:
             case SWVERSION:
             case ID:
+//            case HEIGHT:
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:

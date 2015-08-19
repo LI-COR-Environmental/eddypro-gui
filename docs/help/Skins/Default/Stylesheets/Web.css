@@ -1,0 +1,144 @@
+/* MadCap Styles */
+#contentBody.nav-closed
+{
+    width: 100%;
+}
+
+button, .button
+{
+    border-color: none;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea
+{
+    margin: 0;
+}
+
+.contain-to-grid
+{
+    background: none;
+}
+
+.top-bar
+{
+    height: 60px;
+    background: none;
+}
+
+    .top-bar .toggle-topbar.menu-icon
+    {
+        right: 0;
+        margin-top: -25px;
+    }
+
+        .top-bar .toggle-topbar.menu-icon a
+        {
+            width: 60px;
+            height: 70px;
+        }
+
+        .top-bar .toggle-topbar.menu-icon a
+        {
+            right: 50%;
+            top: 25px;
+        }
+
+.complementary
+{
+    padding: 0;
+}
+
+.expand-for-small-10
+{
+    width: 83%;
+}
+
+.search-submit-wrapper
+{
+    box-sizing: content-box;
+}
+
+.search-submit
+{
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+}
+
+.row
+{
+    max-width: 100%;
+}
+
+.menu-icon
+{
+    margin-top: -10px;
+    width: 60px;
+}
+
+    .menu-icon a
+    {
+        text-indent: -48px;
+        width:60px;
+        height: 70px;
+        line-height: 33px;
+        padding: 0;
+        color: white;
+    }
+
+        .menu-icon a span
+        {
+            position: absolute;
+            display: block;
+            width: 60px;
+            height: 28px;
+            top: 25px;
+            background: url('Images/ResponsiveMenuButton.png') no-repeat center center;
+        }
+
+.content div
+{
+}
+
+
+/* Accordion */
+.content, .content ul, .content li, .content a, .content span
+{
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+    .content li
+    {
+        list-style: none;
+    }
+
+    .hide-extras [role="main"]
+    {
+        width: 83%;
+    }
+
+    #search-sidebar
+    {
+        display: none;
+    }
+
+    #responsiveLoginBtn
+    {
+        display: none;
+    }

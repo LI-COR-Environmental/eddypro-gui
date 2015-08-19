@@ -23,29 +23,27 @@
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
 
-#include <QCoreApplication>  // for Q_DECLARE_TR_FUNCTIONS
-
 class QString;
 class QStringList;
 
-class StringUtils
+namespace StringUtils
 {
-    Q_DECLARE_TR_FUNCTIONS(StringUtils)
+    const QString fromBool2YesNoString(bool b);
 
-public:
-    static const QString fromBool2YesNoString(bool b);
+    const QString insertIndex(const QString& srcStr, int pos, const QString& str);
 
-    static const QString insertIndex(const QString& srcStr, int pos, const QString& str);
+    const char* qString2Char(const QString& str);
 
-    static const char* qString2Char(const QString& str);
+    int daysToFromString(const QString& d_1, const QString& d_2);
 
-    static int daysToFromString(const QString& d_1, const QString& d_2);
+    bool isISODateTimeString(const QString &s);
 
-    static bool isISODateTimeString(const QString &s);
+    bool stringBelongsToList(const QString &str, const QStringList &list);
 
-    static bool stringBelongsToList(const QString &string, const QStringList &list);
+    bool isNewVersion(const QString &remoteVersion, const QString &localVersion);
 
-    static bool isNewVersion(const QString &remoteVersion, const QString &localVersion);
-};
+    const QStringList subStringList(const QStringList &list, int begin, int end);
+
+} // StringUtils
 
 #endif // STRINGUTILS_H

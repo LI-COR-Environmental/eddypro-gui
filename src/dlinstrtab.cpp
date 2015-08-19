@@ -21,22 +21,23 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include <QDebug>
-#include <QHBoxLayout>
-#include <QGroupBox>
-#include <QHeaderView>
-#include <QToolButton>
-#include <QScrollArea>
+#include "dlinstrtab.h"
 
-#include "dbghelper.h"
-#include "dlproject.h"
+#include <QDebug>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QScrollArea>
+#include <QToolButton>
+
 #include "anem_delegate.h"
 #include "anem_model.h"
 #include "anem_view.h"
+#include "dbghelper.h"
+#include "dlproject.h"
 #include "irga_delegate.h"
 #include "irga_model.h"
 #include "irga_view.h"
-#include "dlinstrtab.h"
 
 DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
     QWidget(parent),
@@ -71,25 +72,25 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
         anemView_->verticalHeader()->resizeSection(i, 20);
     }
 
-    QToolButton *addAnemButton = new QToolButton();
+    auto addAnemButton = new QToolButton;
     addAnemButton->setObjectName(QStringLiteral("plusButton"));
     addAnemButton->setToolTip(tr("<b>+</b> Add a new anemometer."));
 
-    QToolButton *removeAnemButton = new QToolButton();
+    auto removeAnemButton = new QToolButton;
     removeAnemButton->setObjectName(QStringLiteral("minusButton"));
     removeAnemButton->setToolTip(tr("<b>-</b> Remove the currently selected anemometer."));
 
-    QVBoxLayout *anemButtonsLayout = new QVBoxLayout;
+    auto anemButtonsLayout = new QVBoxLayout;
     anemButtonsLayout->addWidget(addAnemButton);
     anemButtonsLayout->addWidget(removeAnemButton);
     anemButtonsLayout->addStretch();
 
-    QHBoxLayout *anemLayout = new QHBoxLayout;
+    auto anemLayout = new QHBoxLayout;
     anemLayout->addWidget(anemView_);
     anemLayout->addLayout(anemButtonsLayout);
     anemLayout->setSizeConstraint(QLayout::SetNoConstraint);
 
-    QGroupBox *anemGroup = new QGroupBox(tr("Anemometers Info"));
+    auto anemGroup = new QGroupBox(tr("Anemometers Info"));
     anemGroup->setObjectName(QStringLiteral("simpleGroupBox"));
     anemGroup->setFlat(true);
     anemGroup->setToolTip(tr("<b>Anemometers info:</b> Describe anemometers used at the flux station to collect data you want to process."));
@@ -122,70 +123,70 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
         irgaView_->verticalHeader()->resizeSection(i, 20);
     }
 
-    QToolButton *addIrgaButton = new QToolButton();
+    auto addIrgaButton = new QToolButton;
     addIrgaButton->setObjectName(QStringLiteral("plusButton"));
     addIrgaButton->setToolTip(tr("<b>+</b> Add a new gas analyzer."));
 
-    QToolButton *removeIrgaButton = new QToolButton();
+    auto removeIrgaButton = new QToolButton;
     removeIrgaButton->setObjectName(QStringLiteral("minusButton"));
     removeIrgaButton->setToolTip(tr("<b>-</b>Remove the currently selected gas analyzer."));
 
-    QVBoxLayout *irgaButtonsLayout = new QVBoxLayout;
+    auto irgaButtonsLayout = new QVBoxLayout;
     irgaButtonsLayout->addWidget(addIrgaButton);
     irgaButtonsLayout->addWidget(removeIrgaButton);
     irgaButtonsLayout->addStretch();
 
-    QHBoxLayout *irgaLayout = new QHBoxLayout;
+    auto irgaLayout = new QHBoxLayout;
     irgaLayout->addWidget(irgaView_);
     irgaLayout->addLayout(irgaButtonsLayout);
     irgaLayout->setSizeConstraint(QLayout::SetNoConstraint);
 
-    QGroupBox *irgaGroup = new QGroupBox(tr("Gas Analyzers Info"));
+    auto irgaGroup = new QGroupBox(tr("Gas Analyzers Info"));
     irgaGroup->setObjectName(QStringLiteral("simpleGroupBox"));
     irgaGroup->setFlat(true);
     irgaGroup->setToolTip(tr("<b>Gas analyzers info:</b> Describe gas analyzers used to collect the data you want to process."));
     irgaGroup->setMinimumHeight(378);
     irgaGroup->setLayout(irgaLayout);
 
-    QHBoxLayout *instrLayout = new QHBoxLayout;
+    auto instrLayout = new QHBoxLayout;
     instrLayout->addWidget(anemGroup);
     instrLayout->addWidget(irgaGroup);
     instrLayout->setSpacing(0);
     instrLayout->setContentsMargins(0, 0, 0, 0);
 
-    QFrame* instrContainer = new QFrame();
+    auto instrContainer = new QFrame;
     instrContainer->setFrameStyle(QFrame::NoFrame);
     instrContainer->setObjectName(QStringLiteral("instrContainer"));
     instrContainer->setLayout(instrLayout);
 
-    QScrollArea* instrumentScrollArea = new QScrollArea;
+    auto instrumentScrollArea = new QScrollArea;
     instrumentScrollArea->setWidget(instrContainer);
     instrumentScrollArea->setWidgetResizable(true);
 
-    QHBoxLayout *mainlayout = new QHBoxLayout(this);
+    auto mainlayout = new QHBoxLayout(this);
     mainlayout->addWidget(instrumentScrollArea);
     mainlayout->setSizeConstraint(QLayout::SetNoConstraint);
     setLayout(mainlayout);
 
-    connect(anemModel_, SIGNAL(modified()),
-            this, SLOT(anemModelModified()));
-    connect(addAnemButton, SIGNAL(clicked()),
-            anemView_, SLOT(addAnem()));
-    connect(removeAnemButton, SIGNAL(clicked()),
-            anemView_, SLOT(removeAnem()));
+    connect(anemModel_, &AnemModel::modified, [=]()
+            { dlProject_->setModified(true); });
+    connect(addAnemButton, &QToolButton::clicked,
+            anemView_, &AnemView::addAnem);
+    connect(removeAnemButton, &QToolButton::clicked,
+            anemView_, &AnemView::removeAnem);
 
-    connect(irgaModel_, SIGNAL(modified()),
-            this, SLOT(irgaModelModified()));
-    connect(addIrgaButton, SIGNAL(clicked()),
-            irgaView_, SLOT(addIrga()));
-    connect(addIrgaButton, SIGNAL(clicked()),
-            this, SLOT(updateScrollBars()));
-    connect(removeIrgaButton, SIGNAL(clicked()),
-            irgaView_, SLOT(removeIrga()));
+    connect(irgaModel_, &IrgaModel::modified, [=]()
+            { dlProject_->setModified(true); });
+    connect(addIrgaButton, &QToolButton::clicked,
+            irgaView_, &IrgaView::addIrga);
+    connect(addIrgaButton, &QToolButton::clicked,
+            this, &DlInstrTab::updateScrollBars);
+    connect(removeIrgaButton, &QToolButton::clicked,
+            irgaView_, &IrgaView::removeIrga);
 
     // NOTE: to trigger table editing with single click without altering the
     // editTriggers property, because that way the column selection
-    // clicking on the header trigger the first cell editor
+    // clicking on the header triggers the first cell editor
     connect(anemView_, SIGNAL(clicked(const QModelIndex &)),
             anemView_, SLOT(edit(const QModelIndex &)));
     connect(irgaView_, SIGNAL(clicked(const QModelIndex &)),
@@ -230,21 +231,12 @@ void DlInstrTab::anemViewRefresh()
     anemView_->clearSelection();
 }
 
-void DlInstrTab::anemModelModified()
-{
-    dlProject_->setModified(true);
-}
-
 void DlInstrTab::irgaViewRefresh()
 {
     irgaView_->clearSelection();
 }
 
-void DlInstrTab::irgaModelModified()
-{
-    dlProject_->setModified(true);
-}
-
+// NOTE: verify if it's still necessary
 void DlInstrTab::updateScrollBars()
 {
     DEBUG_FUNC_NAME

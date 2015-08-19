@@ -27,11 +27,12 @@
 #include "irga_tableview.h"
 
 class QAction;
+class QContextMenuEvent;
 
 class IrgaView : public IrgaTableView {
     Q_OBJECT
 public:
-    IrgaView(QWidget *parent);
+    explicit IrgaView(QWidget *parent);
     ~IrgaView();
 
     int irgaCount();

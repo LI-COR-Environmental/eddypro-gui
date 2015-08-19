@@ -20,48 +20,48 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QStackedLayout>
+#include "advsettingscontainer.h"
+
 #include <QDebug>
+#include <QStackedLayout>
 
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "advstatisticaloptions.h"
-#include "advprocessingoptions.h"
 #include "advoutputoptions.h"
+#include "advprocessingoptions.h"
 #include "advspectraloptions.h"
-#include "advsettingscontainer.h"
+#include "advstatisticaloptions.h"
 
-AdvSettingsContainer::AdvSettingsContainer(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
+AdvSettingsContainer::AdvSettingsContainer(QWidget *parent,
+                                           DlProject *dlProject,
+                                           EcProject *ecProject,
+                                           ConfigState *config) :
     QWidget(parent),
     dlProject_(dlProject),
     ecProject_(ecProject),
-    configState_(config),
-    processingOptions_(0),
-    statisticalOptions_(0),
-    outputOptions_(0),
-    spectralOptions_(0)
+    configState_(config)
 {
     processingOptions_ = new AdvProcessingOptions(this, dlProject_, ecProject_, configState_);
     spectralOptions_ = new AdvSpectralOptions(this, dlProject_, ecProject_, configState_);
     statisticalOptions_ = new AdvStatisticalOptions(this, ecProject_);
     outputOptions_ = new AdvOutputOptions(this, ecProject_, configState_);
 
-    mainLayout = new QStackedLayout(this);
-    mainLayout->addWidget(processingOptions_);
-    mainLayout->addWidget(spectralOptions_);
-    mainLayout->addWidget(statisticalOptions_);
-    mainLayout->addWidget(outputOptions_);
-    mainLayout->setSizeConstraint(QLayout::SetNoConstraint);
-    mainLayout->setSpacing(0);
-    mainLayout->setContentsMargins(15, 15, 0, 10);
-    setLayout(mainLayout);
+    mainLayout_ = new QStackedLayout(this);
+    mainLayout_->addWidget(processingOptions_);
+    mainLayout_->addWidget(spectralOptions_);
+    mainLayout_->addWidget(statisticalOptions_);
+    mainLayout_->addWidget(outputOptions_);
+    mainLayout_->setSizeConstraint(QLayout::SetNoConstraint);
+    mainLayout_->setSpacing(0);
+    mainLayout_->setContentsMargins(15, 15, 0, 10);
+    setLayout(mainLayout_);
 
-    connect(spectralOptions_, SIGNAL(updateOutputsRequest(int)),
-            outputOptions_, SLOT(updateOutputs(int)));
+    connect(spectralOptions_, &AdvSpectralOptions::updateOutputsRequest,
+            outputOptions_, &AdvOutputOptions::updateOutputs);
 
-    connect(this, SIGNAL(checkMetadataOutputRequest()),
-            outputOptions_, SLOT(checkMetadataOutput()));
+    connect(this, &AdvSettingsContainer::checkMetadataOutputRequest,
+            outputOptions_, &AdvOutputOptions::checkMetadataOutput);
 }
 
 AdvSettingsContainer::~AdvSettingsContainer()
@@ -71,5 +71,5 @@ AdvSettingsContainer::~AdvSettingsContainer()
 
 void AdvSettingsContainer::setCurrentPage(int page)
 {
-    mainLayout->setCurrentIndex(page);
+    mainLayout_->setCurrentIndex(page);
 }

@@ -21,22 +21,23 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include <QDialogButtonBox>
-#include <QApplication>
-#include <QTabWidget>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QDebug>
-
-#include "dlsitetab.h"
-#include "dlinstrtab.h"
-#include "dlrawfiledesctab.h"
-#include "fileutils.h"
-#include "alia.h"
-#include "dbghelper.h"
-#include "dlproject.h"
 #include "dlinidialog.h"
+
+#include <QApplication>
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QTabWidget>
+#include <QVBoxLayout>
+
+#include "dbghelper.h"
+#include "dlinstrtab.h"
+#include "dlproject.h"
+#include "dlrawfiledesctab.h"
+#include "dlsitetab.h"
+#include "fileutils.h"
+#include "widget_utils.h"
 
 DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* config) :
     QDialog(parent),
@@ -73,15 +74,15 @@ DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* con
     resetButton->setEnabled(false);
     resetButton->setMaximumWidth(resetButton->sizeHint().width());
 
-    connect(resetButton, SIGNAL(clicked()),
-            this, SLOT(defaults()));
-    connect(saveAsButton, SIGNAL(clicked()),
-            this, SLOT(saveAsButtonClicked()));
+    connect(resetButton, &QPushButton::clicked,
+            this, &DlIniDialog::defaults);
+    connect(saveAsButton, &QPushButton::clicked,
+            this, &DlIniDialog::saveAsButtonClicked);
 
-    connect(dlProject_, SIGNAL(projectNew()),
-            this, SLOT(reset()));
-    connect(dlProject_, SIGNAL(projectChanged()),
-            this, SLOT(refresh()));
+    connect(dlProject_, &DlProject::projectNew,
+            this, &DlIniDialog::reset);
+    connect(dlProject_, &DlProject::projectChanged,
+            this, &DlIniDialog::refresh);
 
     // NOTE: queued connection prevents double call to saveAvailable()
     // which triggers a crash when changing input unit on a unsaved
@@ -89,12 +90,12 @@ DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* con
     connect(dlProject_, SIGNAL(projectModified()),
             this, SLOT(saveAvailable()), Qt::QueuedConnection);
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    auto buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(resetButton);
     buttonLayout->addWidget(saveAsButton);
     buttonLayout->addStretch();
 
-    QVBoxLayout *mainlayout = new QVBoxLayout();
+    auto mainlayout = new QVBoxLayout;
     mainlayout->addWidget(tabwidget_);
     mainlayout->addLayout(buttonLayout);
     mainlayout->setSpacing(0);
@@ -168,7 +169,7 @@ void DlIniDialog::defaults()
     DEBUG_FUNC_NAME
     if (!newFlag_)
     {
-        if (Alia::queryMdReset() == QMessageBox::Yes)
+        if (dlProject_->requestMetadataReset())
         {
             defaults_2();
         }
@@ -208,19 +209,21 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
                     if (modified && !embedded)
                     {
                         // load was successful
-                        QMessageBox::information(this,
-                                             tr("Load Information"),
-                                             tr("The metadata file was successfully imported and updated."));
+                        WidgetUtils::information(
+                            nullptr,
+                            tr("Load Metadata"),
+                            tr("The metadata file was successfully imported "
+                               "and updated."));
                     }
                     return true;
                 }
                 else
                 {
                     // load was unsuccessful
-                    QMessageBox::warning(0,
-                                         tr("Load Error"),
-                                         tr("Unable to load the project <p>%1</p>")
-                                         .arg(QFileInfo(filename_).fileName()));
+                    WidgetUtils::warning(nullptr,
+                        tr("Load Metadata Error"),
+                        tr("Unable to load the project <p>%1</p>")
+                        .arg(QFileInfo(filename_).fileName()));
 
                     // close the current open project to prevent partial loading
                     // of ec project settings (currently there is no roll-back
@@ -261,8 +264,8 @@ void DlIniDialog::apply()
         if (!saveFile(filename_))
         {
             // error in saving file
-            QMessageBox::warning(0,
-                                 tr("Save Error"),
+            WidgetUtils::warning(nullptr,
+                                 tr("Save Metadata Error"),
                                  tr("%1 was unable to save <b>%2</b>")
                                  .arg(Defs::APP_NAME).arg(filename_));
         }
@@ -334,13 +337,7 @@ void DlIniDialog::fileSaveAs()
         // overwrite?
         if (QFile::exists(fname))
         {
-            switch (Alia::queryOverwrite(fname))
-            {
-              case QMessageBox::Yes:
-                  break;
-              case QMessageBox::Cancel:
-                  return;
-            }
+            if (!WidgetUtils::okToOverwrite(fname)) { return; }
         }
 
         if (saveFile(fname))
@@ -354,8 +351,8 @@ void DlIniDialog::fileSaveAs()
         else
         {
             // error in saving
-            QMessageBox::warning(0,
-                                 tr("Save Error"),
+            WidgetUtils::warning(nullptr,
+                                 tr("Save Metadata Error"),
                                  tr("Unable to save <b>%1</b>")
                                  .arg(QFileInfo(filename_).fileName()));
         }
@@ -369,12 +366,10 @@ void DlIniDialog::saveAvailable()
 
     if (newFlag_)
     {
-        int retButton = QMessageBox::question(QApplication::activeWindow(),
-                                 tr("Save Metadata"),
-                                 tr("Please save the Metadata file before editing.<br /><br />"
-                                    "Subsequent edits will be saved automatically."),
-                                 QMessageBox::Ok);
-        qDebug() << "retButton" << retButton;
+        WidgetUtils::information(QApplication::activeWindow(),
+                 tr("Save Metadata"),
+                 tr("Please save the Metadata file before editing."),
+                 tr("Subsequent edits will be saved automatically."));
     }
     apply();
 }

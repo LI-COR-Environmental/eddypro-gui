@@ -24,8 +24,8 @@
 #ifndef ANEM_DESC_H
 #define ANEM_DESC_H
 
+#include <QCoreApplication> // for Q_DECLARE_TR_FUNCTIONS
 #include <QList>
-#include <QCoreApplication>
 
 class QString;
 class QStringList;
@@ -78,7 +78,7 @@ public:
              qreal vPathLength,
              qreal hPathLength,
              qreal tau,
-             bool hasGoodWindComponents, 
+             bool hasGoodWindComponents,
              bool hasGoodTemp);
 
     AnemDesc(const AnemDesc& anem);

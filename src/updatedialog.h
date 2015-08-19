@@ -26,27 +26,42 @@
 
 #include <QDialog>
 
-class FtpManager;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/updatedialog.h
+/// \brief
+/// \version
+/// \date
+/// \author Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QLabel;
 class QTimer;
+
+class FtpManager;
 
 class UpdateDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit UpdateDialog(QWidget *parent = 0);
+    explicit UpdateDialog(QWidget* parent = nullptr);
     ~UpdateDialog();
 
     void checkUpdate();
     bool hasNewVersion();
-
-signals:
 
 public slots:
     void close();
     void initialize();
 
 private slots:
+//    void ftpCommandFinished(int, bool error);
+//    void ftpStateChanged(int state);
     void showDownloadPage();
     void ftpTimeout();
 
@@ -64,6 +79,7 @@ private:
     void noConnection();
     void connectionError();
     void downloadError();
+//    void cleanFtpExit();
 
     bool isNewVersionAvailable_;
 

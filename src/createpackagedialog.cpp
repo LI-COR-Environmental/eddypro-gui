@@ -22,22 +22,22 @@
 
 #include "createpackagedialog.h"
 
-#include "ecproject.h"
-#include "configstate.h"
-#include "dbghelper.h"
-#include "alia.h"
-#include "fileutils.h"
-#include "clicklabel.h"
-
 #include <QDebug>
-#include <QLabel>
 #include <QFileDialog>
 #include <QGridLayout>
+#include <QLabel>
 #include <QPushButton>
-#include <QSettings>
 
 #include <QwwButtonLineEdit/QwwButtonLineEdit>
 #include <QwwClearLineEdit/QwwClearLineEdit>
+
+#include "clicklabel.h"
+#include "configstate.h"
+#include "dbghelper.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "widget_utils.h"
 
 CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
                                          ConfigState* config,
@@ -46,13 +46,11 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     ecProject_(ecProject),
     configState_(config)
 {
-    setWindowTitle(tr("SmartFLux Package Creation"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("SmartFLux Package Creation"));
+    WidgetUtils::removeContextHelpButton(this);
 
-    QLabel *groupTitle = new QLabel();
+    auto groupTitle = new QLabel;
     groupTitle->setText(tr("Choose a name and a location for "
                            "your .smartflux bundle. <br>This file "
                            "will need to be uploaded to the "
@@ -61,7 +59,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
                            "The .smartflux extension will "
                            "be automatically appended if needed."));
 
-    QLabel *hrLabel = new QLabel;
+    auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
 
     filenameLabel = new ClickLabel(tr("Package name :"));
@@ -74,7 +72,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     // '|', '\', '/', ':', ';', '?', '*', '"', ''', '`', '<', '>'
     QString filenameRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
 
-    filenameEdit = new QwwClearLineEdit();
+    filenameEdit = new QwwClearLineEdit;
     filenameEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     filenameEdit->setToolTip(filenameLabel->toolTip());
     filenameEdit->setMaxLength(200);
@@ -87,7 +85,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
     outpathLabel = new ClickLabel(tr("Save package to :"), this);
     outpathLabel->setToolTip(tr("<b>Save package to:</b> Specify where the package file will be stored. Click the <i>Browse...</i> button and navigate to the desired directory."));
-    outpathEdit = new QwwButtonLineEdit();
+    outpathEdit = new QwwButtonLineEdit;
     outpathEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     outpathEdit->setButtonVisible(false);
     outpathEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -99,24 +97,26 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     outpathBrowse->setProperty("loadButton", true);
     outpathBrowse->setToolTip(outpathLabel->toolTip());
 
-    QHBoxLayout* outpathContainerLayout = new QHBoxLayout;
+    auto outpathContainerLayout = new QHBoxLayout;
     outpathContainerLayout->addWidget(outpathEdit);
     outpathContainerLayout->addWidget(outpathBrowse);
     outpathContainerLayout->setStretch(2, 1);
     outpathContainerLayout->setContentsMargins(0, 0, 0, 0);
     outpathContainerLayout->setSpacing(0);
-    QWidget* outpathContainer = new QWidget();
+    auto outpathContainer = new QWidget;
     outpathContainer->setLayout(outpathContainerLayout);
 
     createButton = new QPushButton(tr("Create"));
+//    createButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     createButton->setDefault(true);
     createButton->setAutoDefault(true);
     createButton->setProperty("commonButton", true);
 
     cancelButton = new QPushButton(tr("Cancel"));
+//    cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     cancelButton->setProperty("commonButton", true);
 
-    QGridLayout *propertiesLayout = new QGridLayout();
+    auto propertiesLayout = new QGridLayout;
     propertiesLayout->addWidget(filenameLabel, 0, 0);
     propertiesLayout->addWidget(filenameEdit, 0, 1);
     propertiesLayout->addWidget(outpathLabel, 1, 0);
@@ -125,15 +125,15 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     propertiesLayout->setRowMinimumHeight(1, 10);
     propertiesLayout->setContentsMargins(3, 3, 3, 3);
 
-    QWidget *propertiesFrame = new QWidget();
+    auto propertiesFrame = new QWidget;
     propertiesFrame->setLayout(propertiesLayout);
 
-    QHBoxLayout* buttonsLayout = new QHBoxLayout;
+    auto buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(createButton);
     buttonsLayout->addSpacing(20);
     buttonsLayout->addWidget(cancelButton);
 
-    QGridLayout *mainLayout = new QGridLayout(this);
+    auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0, Qt::AlignCenter);
     mainLayout->addWidget(hrLabel, 1, 0);
     mainLayout->addWidget(propertiesFrame, 2, 0);
@@ -144,34 +144,40 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(mainLayout);
 
-    connect(filenameLabel, SIGNAL(clicked()),
-            this, SLOT(onFilenameLabelClicked()));
-    connect(filenameEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateFilename(QString)));
-    connect(filenameEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearFilenameEdit()));
+    connect(filenameLabel, &ClickLabel::clicked,
+            this, &CreatePackageDialog::onFilenameLabelClicked);
+    connect(filenameEdit, &QwwClearLineEdit::textChanged,
+            this, &CreatePackageDialog::updateFilename);
+    connect(filenameEdit, &QwwClearLineEdit::buttonClicked,
+            this, &CreatePackageDialog::clearFilenameEdit);
 
-    connect(outpathEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearOutpathEdit()));
-    connect(outpathEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateOutpath(QString)));
-    connect(outpathBrowse, SIGNAL(clicked()),
-            this, SLOT(outpathBrowse_clicked()));
+    connect(outpathEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &CreatePackageDialog::clearOutpathEdit);
+    connect(outpathEdit, &QwwButtonLineEdit::textChanged,
+            this, &CreatePackageDialog::updateOutpath);
+    connect(outpathBrowse, &QPushButton::clicked,
+            this, &CreatePackageDialog::outpathBrowse_clicked);
 
-    connect(createButton, SIGNAL(clicked()), this, SIGNAL(createPackageRequest()));
+    connect(createButton, &QPushButton::clicked,
+            this, &CreatePackageDialog::createPackageRequest);
 
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(cancelButton, &QPushButton::clicked,
+            this, &CreatePackageDialog::close);
 
     refresh();
 }
 
 void CreatePackageDialog::refresh()
 {
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_PROJECT);
-    QString lastFilename = config.value(Defs::CONF_PROJ_SMARTFLUX_FILENAME, QString()).toString();
-    QString lastOutpath = config.value(Defs::CONF_PROJ_SMARTFLUX_FILEPATH, QString()).toString();
-    config.endGroup();
+    QString lastFilename = GlobalSettings::getAppPersistentSettings(
+                                            Defs::CONFGROUP_PROJECT,
+                                            Defs::CONF_PROJ_SMARTFLUX_FILENAME,
+                                            QString()).toString();
+
+    QString lastOutpath = GlobalSettings::getAppPersistentSettings(
+                                            Defs::CONFGROUP_PROJECT,
+                                            Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
+                                            QString()).toString();
 
     filenameEdit->setText(lastFilename);
     outpathEdit->setText(lastOutpath);
@@ -184,7 +190,7 @@ void CreatePackageDialog::showResult(bool ok, const QString& pkgname)
     DEBUG_FUNC_NAME
     if (ok)
     {
-        Alia::information(this,
+        WidgetUtils::information(this,
                       tr("SMARTFlux package creation"),
                       tr("<p>SMARTFlux package <b>'%1'</b> "
                          "created successfully.</p>").arg(pkgname),
@@ -195,7 +201,7 @@ void CreatePackageDialog::showResult(bool ok, const QString& pkgname)
     }
     else
     {
-        Alia::information(this,
+        WidgetUtils::information(this,
                       tr("SMARTFlux package creation"),
                       tr("<p>An error occurred during the package creation."),
                       tr("<p>Please double check your settings and try again. "
@@ -212,6 +218,32 @@ void CreatePackageDialog::refreshButtonStatus()
 
 bool CreatePackageDialog::eventFilter(QObject *o, QEvent *e)
 {
+//    if (o == this)
+//    {
+//        bool previousHidden = isHidden();
+
+////        if (e->type() == QEvent::WindowStateChange)
+////        {
+////            toggleConsoleOutputAct->setChecked(previousVisible);
+////            return true;
+////        }
+
+//        if ( e->type() == QEvent::ActivationChange
+//            || e->type() == QEvent::ApplicationActivate
+//            || e->type() == QEvent::ApplicationStateChange
+//            || e->type() == QEvent::Show
+//             || e->type() == QEvent::WindowActivate
+//            || e->type() == QEvent::WindowStateChange)
+//        {
+//            qDebug() << "create filter" << e->type();
+//            if (previousHidden)
+//                hide();
+
+////            activateWindow();
+//            return true;
+//        }
+//    }
+
     return QDialog::eventFilter(o, e);
 }
 
@@ -235,41 +267,29 @@ void CreatePackageDialog::onFilenameLabelClicked()
 void CreatePackageDialog::clearFilenameEdit()
 {
     filenameEdit->clear();
-
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_PROJECT);
-    config.setValue(Defs::CONF_PROJ_SMARTFLUX_FILENAME, QString());
-    config.endGroup();
-    config.sync();
-
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
+                                             Defs::CONF_PROJ_SMARTFLUX_FILENAME,
+                                             QString());
     refreshButtonStatus();
 }
 
 void CreatePackageDialog::updateFilename(const QString& fn)
 {
-    if (!fn.isEmpty())
-    {
-        QSettings config;
-        config.beginGroup(Defs::CONFGROUP_PROJECT);
-            config.setValue(Defs::CONF_PROJ_SMARTFLUX_FILENAME, fn);
-        config.endGroup();
-        config.sync();
+    if (fn.isEmpty()) { return; }
 
-        refreshButtonStatus();
-    }
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
+                                             Defs::CONF_PROJ_SMARTFLUX_FILENAME,
+                                             fn);
+    refreshButtonStatus();
 }
 
 void CreatePackageDialog::clearOutpathEdit()
 {
     outpathEdit->clear();
-    Alia::updateLineEditToolip(outpathEdit);
-
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_PROJECT);
-    config.setValue(Defs::CONF_PROJ_SMARTFLUX_FILEPATH, QString());
-    config.endGroup();
-    config.sync();
-
+    WidgetUtils::updateLineEditToolip(outpathEdit);
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
+                                             Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
+                                             QString());
     refreshButtonStatus();
 }
 
@@ -277,19 +297,14 @@ void CreatePackageDialog::updateOutpath(const QString& fp)
 {
     DEBUG_FUNC_NAME
 
-    if (!fp.isEmpty())
-    {
-        QSettings config;
-        config.beginGroup(Defs::CONFGROUP_PROJECT);
-            config.setValue(Defs::CONF_PROJ_SMARTFLUX_FILEPATH, fp);
-        config.endGroup();
-        config.sync();
+    if (fp.isEmpty()) { return; }
 
-        refreshButtonStatus();
-    }
-
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
+                                             Defs::CONF_PROJ_SMARTFLUX_FILEPATH,
+                                             fp);
+    refreshButtonStatus();
     outpathEdit->setButtonVisible(outpathEdit->isEnabled() && !outpathEdit->text().isEmpty());
-    Alia::updateLineEditToolip(outpathEdit);
+    WidgetUtils::updateLineEditToolip(outpathEdit);
 }
 
 void CreatePackageDialog::outpathBrowse_clicked()
@@ -305,13 +320,13 @@ void CreatePackageDialog::outpathBrowse_clicked()
     QString dir = QFileDialog::getExistingDirectory(this,
                         tr("Select the Output Directory"),
                         searchPath);
-    if (!dir.isEmpty())
-    {
-        QDir outDir(dir);
-        QString canonicalOutDir = outDir.canonicalPath();
-        outpathEdit->setText(QDir::toNativeSeparators(canonicalOutDir));
 
-        configState_->window.last_data_path = canonicalOutDir;
-        Alia::updateLastDatapath(canonicalOutDir);
-    }
+    if (dir.isEmpty()) { return; }
+
+    QDir outDir(dir);
+    QString canonicalOutDir = outDir.canonicalPath();
+    outpathEdit->setText(QDir::toNativeSeparators(canonicalOutDir));
+
+    configState_->window.last_data_path = canonicalOutDir;
+    GlobalSettings::updateLastDatapath(canonicalOutDir);
 }

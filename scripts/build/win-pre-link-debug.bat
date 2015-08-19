@@ -1,4 +1,3 @@
 echo Copying libs in the binary destination folder...
-copy /Y ..\libs\build-quazip-trunk-2013-10-15-Desktop_Qt_5_2_0_MinGW_32bit\debug\quazipd.dll debug
-copy /Y ..\libs\build-wwwidgets-Desktop_Qt_5_2_0_MinGW_32bit\debug\wwwidgets5d.dll debug
-
+copy /Y ..\libs\build-quazip-qt-5.3.2-mingw-4.8.2-x86\debug\quazipd.dll debug
+copy /Y ..\libs\build-wwwidgets-qt-5.3.2-mingw-4.8.2-x86\debug\wwwidgets5d.dll debug

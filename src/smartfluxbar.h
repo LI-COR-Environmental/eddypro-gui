@@ -26,15 +26,18 @@
 #include <QWidget>
 
 class QLayoutItem;
-class EcProject;
+
 struct ConfigState;
 class CreatePackageDialog;
+class EcProject;
 
 class SmartFluxBar : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SmartFluxBar(EcProject *ecProject, ConfigState* config, QWidget *parent = 0);
+    explicit SmartFluxBar(EcProject* ecProject,
+                          ConfigState* config,
+                          QWidget* parent = nullptr);
     ~SmartFluxBar();
 
 signals:
@@ -43,15 +46,15 @@ signals:
     void saveSilentlyRequest();
 
 protected:
-    void paintEvent(QPaintEvent *);
-    void mousePressEvent(QMouseEvent *event);
+    void paintEvent(QPaintEvent* event); // override
 
-    static void paintLayout(QPainter *painter, QLayoutItem *item);
+    static void paintLayout(QPainter* painter, QLayoutItem* item);
 
 private:
-    EcProject *ecProject_;
+    EcProject* ecProject_;
     ConfigState* configState_;
     CreatePackageDialog* cpDialog_;
+//    QScopedPointer<CreatePackageDialog> cpDialog_;
 
     void makeCreatePackageDialog();
 

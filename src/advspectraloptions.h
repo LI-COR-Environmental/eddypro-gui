@@ -27,21 +27,21 @@
 
 #include "configstate.h"
 
-class QRadioButton;
 class QButtonGroup;
-class QSpinBox;
-class QDoubleSpinBox;
-class QLineEdit;
-class QPushButton;
-class QDate;
-class QDateEdit;
 class QCheckBox;
 class QComboBox;
+class QDate;
+class QDateEdit;
+class QDoubleSpinBox;
 class QLabel;
+class QLineEdit;
 class QPushButton;
+class QRadioButton;
+class QSpinBox;
 
 class QwwButtonLineEdit;
 
+class AncillaryFileTest;
 class ClickLabel;
 class DlProject;
 class EcProject;
@@ -50,7 +50,10 @@ class AdvSpectralOptions : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AdvSpectralOptions(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
+    explicit AdvSpectralOptions(QWidget* parent,
+                                DlProject* dlProject,
+                                EcProject* ecProject,
+                                ConfigState* config);
     ~AdvSpectralOptions();
 
     void setSmartfluxUI();
@@ -64,7 +67,101 @@ public slots:
 protected:
     bool eventFilter(QObject* watched, QEvent* event);
 
+private slots:
+    void refresh();
+    void updateSpectraFile(const QString& fp);
+    void updateBinnedSpectraFile(const QString& fp);
+    void updateFullSpectraFile(const QString& fp);
+    void spectraFileLoad_clicked();
+    void binnedSpectraDirBrowse_clicked();
+    void fullSpectraDirBrowse_clicked();
+    void spectraRadioClicked(int radioButton);
+    void binnedSpectraRadioClicked(int radioButton);
+    void fullSpectraRadioClicked(int radioButton);
+
+    void onClickHfMethLabel();
+    void updateHfMethod_1(bool b);
+    void updateHfMethod_2(int n);
+
+    void onClickHorstLabel();
+    void updateHorst_1(bool b);
+    void updateHorst_2(int n);
+
+    void onMinCo2LabelClicked();
+    void onMinCh4LabelClicked();
+    void onMinGas4LabelClicked();
+    void onMinLeLabelClicked();
+    void onMinHLabelClicked();
+
+    void updateMinCo2(double d);
+    void updateMinCh4(double d);
+    void updateMinGas4(double d);
+    void updateMinLe(double d);
+    void updateMinH(double d);
+
+    void updateFminCo2(double d);
+    void updateFminH2o(double d);
+    void updateFminCh4(double d);
+    void updateFminGas4(double d);
+    void updateFmaxCo2(double d);
+    void updateFmaxH2o(double d);
+    void updateFmaxCh4(double d);
+    void updateFmaxGas4(double d);
+    void updateHfnCo2(double d);
+    void updateHfnH2o(double d);
+    void updateHfnCh4(double d);
+    void updateHfnGas4(double d);
+
+    void updateF10Co2(double d);
+    void updateF10Ch4(double d);
+    void updateF10Gas4(double d);
+    void updateF10Le(double d);
+    void updateF10H(double d);
+
+    void onF10Co2LabelClicked();
+    void onF10Ch4LabelClicked();
+    void onF10Gas4LabelClicked();
+    void onF10LeLabelClicked();
+    void onF10HLabelClicked();
+
+    void onSpin10LabelClicked();
+    void onSpin20LabelClicked();
+    void onSpin30LabelClicked();
+
+    void onStartDateLabelClicked();
+    void onEndDateLabelClicked();
+    void updateStartDate(const QDate& d);
+    void updateEndDate(const QDate& d);
+
+    void onMinSmplLabelClicked();
+    void updateMinSmpl(int n);
+
+    void onlineHelpTrigger_1();
+    void onlineHelpTrigger_2();
+    void onlineHelpTrigger_3();
+    void onlineHelpTrigger_4();
+
+    void updateTooltip(int i);
+    void clearSpectraFileEdit();
+    void clearBinnedSpectraDirEdit();
+    void clearFullSpectraDirEdit();
+
+    void updateSubsetSelection(bool b);
+    void updateSuggestedFrequencyRanges();
+
 private:
+    bool isHorstIbromFratini();
+    bool isIbrom();
+    bool isFratini();
+    void forceEndDatePolicy();
+
+    void createQuestionMark();
+
+    double getLowestFrequencyValue();
+    double getHighestFrequencyValue();
+
+    void setHfMethod(int hfMethComboIndex);
+
     QRadioButton* spectraExistingRadio;
     QRadioButton* spectraNonExistingRadio;
     QRadioButton* binnedSpectraExistingRadio;
@@ -152,107 +249,12 @@ private:
 
     QPushButton* suggestedRangeButton;
 
-    DlProject *dlProject_;
-    EcProject *ecProject_;
+    DlProject* dlProject_;
+    EcProject* ecProject_;
     ConfigState* configState_;
 
-    bool spectraNonExistingRadioOldEnabled;
-
-    bool isHorstIbromFratini();
-    bool isIbrom();
-    bool isFratini();
-    void forceEndDatePolicy();
-
-    void createQuestionMark();
-
-    double getLowestFrequencyValue();
-    double getHighestFrequencyValue();
-
-private slots:
-    void refresh();
-    void updateSpectraFile(const QString& fp);
-    void updateBinnedSpectraFile(const QString& fp);
-    void updateFullSpectraFile(const QString& fp);
-    void spectraFileLoad_clicked();
-    void binnedSpectraDirBrowse_clicked();
-    void fullSpectraDirBrowse_clicked();
-    void spectraRadioClicked(int radioButton);
-    void binnedSpectraRadioClicked(int radioButton);
-    void fullSpectraRadioClicked(int radioButton);
-
-    void updateLfMethod(bool b);
-
-    void onClickHfMethLabel();
-    void updateHfMethod_1(bool b);
-    void updateHfMethod_2(int n);
-
-    void onClickHorstLabel();
-    void updateHorst_1(bool b);
-    void updateHorst_2(int n);
-
-    void onMinCo2LabelClicked();
-    void onMinCh4LabelClicked();
-    void onMinGas4LabelClicked();
-    void onMinLeLabelClicked();
-    void onMinHLabelClicked();
-
-    void updateMinCo2(double d);
-    void updateMinCh4(double d);
-    void updateMinGas4(double d);
-    void updateMinLe(double d);
-    void updateMinH(double d);
-
-    void updateFminCo2(double d);
-    void updateFminH2o(double d);
-    void updateFminCh4(double d);
-    void updateFminGas4(double d);
-    void updateFmaxCo2(double d);
-    void updateFmaxH2o(double d);
-    void updateFmaxCh4(double d);
-    void updateFmaxGas4(double d);
-    void updateHfnCo2(double d);
-    void updateHfnH2o(double d);
-    void updateHfnCh4(double d);
-    void updateHfnGas4(double d);
-
-    void updateAddSonic(bool b);
-
-    void updateF10Co2(double d);
-    void updateF10Ch4(double d);
-    void updateF10Gas4(double d);
-    void updateF10Le(double d);
-    void updateF10H(double d);
-
-    void onF10Co2LabelClicked();
-    void onF10Ch4LabelClicked();
-    void onF10Gas4LabelClicked();
-    void onF10LeLabelClicked();
-    void onF10HLabelClicked();
-
-    void onSpin10LabelClicked();
-    void onSpin20LabelClicked();
-    void onSpin30LabelClicked();
-
-    void onStartDateLabelClicked();
-    void onEndDateLabelClicked();
-    void updateStartDate(const QDate &d);
-    void updateEndDate(const QDate &d);
-
-    void onMinSmplLabelClicked();
-    void updateMinSmpl(int n);
-
-    void onlineHelpTrigger_1();
-    void onlineHelpTrigger_2();
-    void onlineHelpTrigger_3();
-    void onlineHelpTrigger_4();
-
-    void updateTooltip(int i);
-    void clearSpectraFileEdit();
-    void clearBinnedSpectraDirEdit();
-    void clearFullSpectraDirEdit();
-
-    void updateSubsetSelection(bool b);
-    void updateSuggestedFrequencyRanges();
+    AncillaryFileTest* test_ {};
+    bool spectraNonExistingRadioOldEnabled = false;
 };
 
 #endif // ADVSPECTRALOPTIONS_H

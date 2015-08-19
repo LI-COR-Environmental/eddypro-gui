@@ -25,15 +25,33 @@
 #define ECPROJECT_H
 
 #include <QObject>
+
 #include "configstate.h"
+#include "defs.h"
 #include "ecprojectstate.h"
-  
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/ecproject.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+/// \class EcProject
+/// \brief Class representing a processing project
 class EcProject : public QObject
 {
     Q_OBJECT
 
 public:
-    EcProject(QObject *parent, ProjConfigState& project_config);
+    EcProject(QObject *parent, const ProjConfigState& project_config);
     EcProject(const EcProject &project);
 
     virtual ~EcProject();
@@ -46,7 +64,7 @@ public:
     bool saveEcProject(const QString &filename);
 
     // load a project
-    bool loadEcProject(const QString &filename, bool checkVersion = true, bool *modified = 0);
+    bool loadEcProject(const QString &filename, bool checkVersion = true, bool *modified = nullptr);
 
     // is the file in native format?
     bool nativeFormat(const QString &filename);
@@ -55,12 +73,12 @@ public:
     bool fuzzyCompare(const EcProject& previousProject);
 
     // set project
-    void setGeneralRunMode(int n);
-    void setGeneralRunFcc(int n);
+    void setGeneralRunMode(Defs::CurrRunMode mode);
+    void setGeneralRunFcc(bool yes);
     void setGeneralTitle(const QString &s);
     void setGeneralFileName(const QString &id);
     void setGeneralId(const QString &id);
-    void setGeneralFileType(int n);
+    void setGeneralFileType(Defs::RawFileType type);
     void setGeneralBinaryHNLines(int n);
     void setGeneralBinaryEol(int n);
     void setGeneralBinaryNBytes(int n);
@@ -220,7 +238,6 @@ public:
     void setScreenOutFullCospectraCh4(int n);
     void setScreenOutFullCospectraN2o(int n);
     void setScreenlOutDetails(int n);
-    void setScreenlOutSlowVars(int n);
     void setScreenToMixRatio(int n);
     void setScreenFilterSr(int n);
     void setScreenFilterAl(int n);
@@ -415,14 +432,14 @@ public:
     void setBiomParamColPpfd(int n);
 
     // get project
-    int generalRunMode() const { return ec_project_state_.projectGeneral.run_mode; }
-    int generalRunFcc() const { return ec_project_state_.projectGeneral.run_fcc; }
+    Defs::CurrRunMode generalRunMode() const { return ec_project_state_.projectGeneral.run_mode; }
+    bool generalRunFcc() const { return ec_project_state_.projectGeneral.run_fcc; }
     const QString& generalTitle() const { return ec_project_state_.projectGeneral.project_title; }
     const QString& generalFileName() const { return ec_project_state_.projectGeneral.file_name; }
     const QString& generalId() const { return ec_project_state_.projectGeneral.project_id; }
     const QString& generalFilePrototype() const { return ec_project_state_.projectGeneral.file_prototype; }
     bool generalUseAltMdFile() const { return ec_project_state_.projectGeneral.use_alt_md_file; }
-    int generalFileType() const { return ec_project_state_.projectGeneral.file_type; }
+    Defs::RawFileType generalFileType() const { return ec_project_state_.projectGeneral.file_type; }
     int generalBinaryHNLines() const { return ec_project_state_.projectGeneral.binary_hnlines; }
     int generalBinaryEol() const { return ec_project_state_.projectGeneral.binary_eol; }
     int generalBinaryNBytes() const { return ec_project_state_.projectGeneral.binary_nbytes; }
@@ -610,7 +627,6 @@ public:
     double screenMNightSpar3() const { return ec_project_state_.screenSetting.m_night_spar3; }
     double screenMNightSpar4() const { return ec_project_state_.screenSetting.m_night_spar4; }
     int screenOutDetails() const { return ec_project_state_.screenSetting.out_details; }
-    int screenOutSlowVars() const { return ec_project_state_.screenSetting.out_biomet; }
     int screenPowerOfTwo() const { return ec_project_state_.screenSetting.power_of_two; }
 
     int screenTestSr() const { return ec_project_state_.screenTest.test_sr; }
@@ -785,6 +801,7 @@ public:
 
     const QString getFilenamePrototype() const;
     bool isEngineStep2Needed();
+    bool isGoodRawFileNameFormat(const QString& s);
 
 public slots:
     void setModified(bool mod);
@@ -800,6 +817,8 @@ signals:
     void updateInfo();
 
 private:
+    bool queryProjectImport(const QString& filename);
+
     bool modified_;
     EcProjectState ec_project_state_;
     ProjConfigState project_config_state_;

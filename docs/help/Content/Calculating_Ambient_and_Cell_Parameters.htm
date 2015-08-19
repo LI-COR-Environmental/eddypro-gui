@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Processing Reference|Preliminary Processing">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Calculating Ambient and Cell Parameters</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Calculating_Ambient_and_Cell_Parameters.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Data Processing Reference</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Preliminary Processing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Calculating Ambient and Cell Parameters</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1>Calculating Ambient and Cell Parameters</h1>
+            <p>The time lag compensation is the last step of raw data reduction. Covariances calculated after time lag compensation will be used to calculate uncorrected and corrected fluxes. Before actually calculating fluxes, <span class="MyVariablesSoftwareName R">EddyPro®</span> evaluates some key average ambient variables such as temperature, pressure, and molar volume. The same quantities are calculated for the cell of each closed path gas analyzer in use (if any).</p>
+            <h2>Average ambient temperature</h2>
+            <p>                In order of priority, ambient temperature (<i>T<sub>a</sub></i>, <i>K</i>) is calculated as:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="1.  "><span class="autonumber"><span class="LSteps">1.  </span></span>The average ambient temperature, if ambient temperature is available as a raw measurement; or</li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>The average sonic temperature. In this case, it will be corrected later to account for effects of ambient humidity (<a href="References.htm#Schot">Schotanus et al., 1983</a>).</li>
+            </ol>
+            <h2>Average ambient air pressure</h2>
+            <p>                In order of priority, ambient pressure (<i>P<sub>a</sub></i>, <i>Pa</i>) is computed as:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" style="mc-auto-number-format: '{n=1}.     ';" value="1" data-mc-autonum="1.     "><span class="autonumber"><span class="LSteps">1.     </span></span>The average ambient pressure, if ambient pressure is available as a raw measurement; or</li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>The site barometric pressure, calculated based on site altitude as (<a href="References.htm#Campbell">Campbell and Norman, 1998</a>):</li>
+            </ol>
+            <p>P<sub>a</sub>=P<sub>a0</sub>e<span style="vertical-align: super;">-Site Altitude/8200</span></p>
+            <p>where <i>P</i><sub style="font-style: italic;">a0</sub>=101.3 <i>kPa</i>.</p>
+            <h2>Average ambient air molar volume</h2>
+            <p>Ambient air molar volume (<i>v</i><sub style="font-style: italic;">a</sub>, m<sup>3</sup>mol<sup>-1</sup>) is calculated using ambient air temperature and pressure as:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation65.png" style="width: 64px;height: 33px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>where <img src="GeneratedImages/Equations/Equation66.png" style="width: 68px;height: 15px;" alt="R=8.314" class="MCEquation_0 mcReset" /> J mol<sup>-1</sup>K<sup>-1</sup>, the universal gas constant.</p>
+            <h2>Average cell temperature (closed path systems only)             </h2>
+            <p>In order of priority, cell temperature (<i>T</i><sub style="font-style: italic;">c</sub>, <i>K</i>) is calculated as:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" style="mc-auto-number-format: '{n=1}.     ';" value="1" data-mc-autonum="1.     "><span class="autonumber"><span class="LSteps">1.     </span></span>The average cell temperature, if cell temperature is available as a raw measurement or as calculated in <a href="Calculating_Cell_Temp.htm">calculating cell temperature</a>, or</li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>The average ambient temperature as calculated above.</li>
+            </ol>
+            <h2>Average cell pressure (closed path systems only)  </h2>
+            <p>In order of priority, cell pressure (<i>P<sub>c</sub></i>, <i>Pa</i>) is calculated as:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" style="mc-auto-number-format: '{n=1}.     ';" value="1" data-mc-autonum="1.     "><span class="autonumber"><span class="LSteps">1.     </span></span>The average cell pressure, if cell pressure is available as a raw measurement; or</li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>The average ambient pressure as calculated above.</li>
+            </ol>
+            <h2>Average cell molar volume (closed path systems only)</h2>
+            <p>Cell air molar volume (<i>v</i><sub style="font-style: italic;">c</sub>, m<sup>3</sup> mol<sup>-1</sup>) is calculated using cell temperature and pressure as:<img src="GeneratedImages/Equations/Equation67.png" style="width: 61px;height: 33px;" alt="" class="MCEquation_0 mcReset" />where <img src="GeneratedImages/Equations/Equation68.png" style="width: 68px;height: 15px;" alt="R=8.314" class="MCEquation_0 mcReset" /> J mol<sup>-1</sup>K<sup>-1</sup>, the universal gas constant.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

@@ -23,10 +23,10 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QTimer>
-#include <QDateTime>
-
 #include "clocklabel.h"
+
+#include <QDateTime>
+#include <QTimer>
 
 ClockLabel::ClockLabel(QWidget *parent) : QLabel(parent)
 {

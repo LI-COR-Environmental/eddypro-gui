@@ -268,7 +268,6 @@ namespace EcIni
     const QString INI_SCREEN_SETTINGS_97   = QStringLiteral("out_raw_t_air");
     const QString INI_SCREEN_SETTINGS_98   = QStringLiteral("out_raw_p_air");
     const QString INI_SCREEN_SETTINGS_99   = QStringLiteral("out_qc_details");
-    const QString INI_SCREEN_SETTINGS_100  = QStringLiteral("out_biomet");
     const QString INI_SCREEN_SETTINGS_101  = QStringLiteral("power_of_two");
 
     const QString INIGROUP_SCREEN_TESTS = QStringLiteral("RawProcess_Tests");

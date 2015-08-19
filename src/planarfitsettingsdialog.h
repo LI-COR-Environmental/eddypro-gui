@@ -23,32 +23,47 @@
 #ifndef PLANARFITSETTINGSDIALOG_H
 #define PLANARFITSETTINGSDIALOG_H
 
-#include <QDialog>
 #include <QDateTime>
+#include <QDialog>
 
-class QRadioButton;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/planarfitsettingsdialog.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QButtonGroup;
-class QSpinBox;
-class QDoubleSpinBox;
-class QLineEdit;
-class QPushButton;
+class QCheckBox;
+class QComboBox;
 class QDate;
 class QDateEdit;
-class QComboBox;
+class QDoubleSpinBox;
 class QItemSelectionModel;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QRadioButton;
 class QScrollArea;
-
-class QwwButtonLineEdit;
+class QSpinBox;
 class QToolButton;
 
-class TableView;
-class PieView;
-class TableModel;
+class QwwButtonLineEdit;
+
+class AncillaryFileTest;
+class AnglesView;
+class AngleTableModel;
+class AngleTableView;
 class ClickLabel;
-class QLabel;
-class EcProject;
-class QCheckBox;
 struct ConfigState;
+class EcProject;
 
 class PlanarFitSettingsDialog : public QDialog
 {
@@ -134,11 +149,12 @@ private:
 
     EcProject *ecProject_;
     ConfigState* configState_;
+    AncillaryFileTest *test_ {};
 
-    TableModel *model_;
-    TableView *table_;
-    PieView *pieChart_;
-    QItemSelectionModel *selectionModel_;
+    AngleTableModel *angleTableModel_;
+    AngleTableView *angleTableView_;
+    AnglesView *anglesView_;
+    QItemSelectionModel *angleSelectionModel_;
 
     void forceEndDatePolicy();
 
@@ -149,8 +165,6 @@ private:
     void removeAngleAt(int row);
 
     void resizeRows();
-
-    QList<bool> oldEnabled;
 };
 
 #endif // PLANARFITSETTINGSDIALOG_H

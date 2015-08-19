@@ -20,30 +20,30 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "binarysettingsdialog.h"
+
+#include <QComboBox>
+#include <QDebug>
 #include <QGridLayout>
 #include <QPushButton>
-#include <QDebug>
 #include <QSpinBox>
-#include <QComboBox>
 
 #include "clicklabel.h"
 #include "ecproject.h"
-#include "binarysettingsdialog.h"
+#include "widget_utils.h"
 
 BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject)
     : QDialog(parent),
     ecProject_(ecProject)
 {
-    setWindowTitle(tr("Generic Binary File Settings"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("Generic Binary File Settings"));
+    WidgetUtils::removeContextHelpButton(this);
 
-    QLabel *groupTitle = new QLabel();
+    auto groupTitle = new QLabel;
     groupTitle->setText(tr("Please provide details of your binary format."));
 
-    QLabel *hrLabel = new QLabel;
+    auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
 
     binaryHLinesLabel = new ClickLabel(tr("Number of ASCII header lines :"));
@@ -59,7 +59,7 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
 
     binaryEolLabel = new ClickLabel(tr("ASCII header end of line :"));
     binaryEolLabel->setToolTip(tr("<b>ASCII header end of line:</b> If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses <i>CR+LF</i> (0x0D+0x0A), Linux OS and Mac OS X use <i>LF</i> (0x0A), while Mac OS up to version 9 and OS-9 use <i>CR</i> (0x0D)."));
-    binaryEolCombo = new QComboBox();
+    binaryEolCombo = new QComboBox;
     binaryEolCombo->addItem(tr("CR+LF"));
     binaryEolCombo->addItem(tr("CR"));
     binaryEolCombo->addItem(tr("LF"));
@@ -76,13 +76,13 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
 
     binaryEndianessLabel = new ClickLabel(tr("Endianess :"));
     binaryEndianessLabel->setToolTip(tr("<b>Endianess:</b> In a multi-bytes binary word, <i>Little endian</i> means that the most significant byte is the last byte (highest address); <i>Big endian</i> means that the most significant byte is the first byte (lowest address)."));
-    binaryEndianessCombo = new QComboBox();
+    binaryEndianessCombo = new QComboBox;
     binaryEndianessCombo->addItem(tr("Big endian"));
     binaryEndianessCombo->addItem(tr("Little endian"));
     binaryEndianessCombo->setMinimumWidth(10);
     binaryEndianessCombo->setToolTip(binaryEndianessLabel->toolTip());
 
-    QGridLayout *binPropertiesLayout = new QGridLayout();
+    auto binPropertiesLayout = new QGridLayout;
     binPropertiesLayout->addWidget(binaryHLinesLabel, 0, 0, 1, 1, Qt::AlignRight);
     binPropertiesLayout->addWidget(binaryHLinesSpin, 0, 1);
     binPropertiesLayout->addWidget(binaryEolLabel, 1, 0, 1, 1, Qt::AlignRight);
@@ -94,15 +94,15 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     binPropertiesLayout->setVerticalSpacing(3);
     binPropertiesLayout->setContentsMargins(3, 3, 3, 3);
 
-    QWidget *binPropertiesWidget = new QWidget();
+    auto binPropertiesWidget = new QWidget;
     binPropertiesWidget->setLayout(binPropertiesLayout);
 
-    QPushButton *okButton = new QPushButton(tr("&Ok"));
+    auto okButton = new QPushButton(tr("&Ok"));
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     okButton->setDefault(true);
     okButton->setProperty("commonButton", true);
 
-    QGridLayout *mainLayout = new QGridLayout(this);
+    auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0);
     mainLayout->addWidget(hrLabel, 1, 0);
     mainLayout->addWidget(binPropertiesWidget, 2, 0);
@@ -112,27 +112,28 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(mainLayout);
 
-    connect(binaryHLinesLabel, SIGNAL(clicked()),
-            this, SLOT(onBinaryHLinesLabelClicked()));
+    connect(binaryHLinesLabel, &ClickLabel::clicked,
+            this, &BinarySettingsDialog::onBinaryHLinesLabelClicked);
     connect(binaryHLinesSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateBinaryHLine(int)));
 
-    connect(binaryEolLabel, SIGNAL(clicked()),
-            this, SLOT(onBinaryClickEolLabel()));
+    connect(binaryEolLabel, &ClickLabel::clicked,
+            this, &BinarySettingsDialog::onBinaryClickEolLabel);
     connect(binaryEolCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateBinaryEol(int)));
 
-    connect(binaryNBytesLabel, SIGNAL(clicked()),
-            this, SLOT(onBinaryNBytesLabelClicked()));
+    connect(binaryNBytesLabel, &ClickLabel::clicked,
+            this, &BinarySettingsDialog::onBinaryNBytesLabelClicked);
     connect(binaryNBytesSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateBinaryNBytes(int)));
 
-    connect(binaryEndianessLabel, SIGNAL(clicked()),
-            this, SLOT(onBinaryClickEndianessLabel()));
+    connect(binaryEndianessLabel, &ClickLabel::clicked,
+            this, &BinarySettingsDialog::onBinaryClickEndianessLabel);
     connect(binaryEndianessCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateBinaryEndianess(int)));
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(okButton, &QPushButton::clicked,
+            this, &BinarySettingsDialog::close);
 }
 
 BinarySettingsDialog::~BinarySettingsDialog()

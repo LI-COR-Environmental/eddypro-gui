@@ -20,44 +20,46 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QFileDialog>
-#include <QGridLayout>
-#include <QDateEdit>
-#include <QPushButton>
-#include <QRadioButton>
+#include "timelagsettingsdialog.h"
+
 #include <QButtonGroup>
 #include <QCheckBox>
-#include <QSpinBox>
+#include <QDateEdit>
+#include <QDebug>
 #include <QDoubleSpinBox>
+#include <QEvent>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
 
 #include <QwwButtonLineEdit/QwwButtonLineEdit>
 
-#include "dbghelper.h"
-#include "fileutils.h"
-#include "alia.h"
+#include "ancillaryfiletest.h"
 #include "clicklabel.h"
-#include "ecproject.h"
 #include "configstate.h"
-#include "timelagsettingsdialog.h"
+#include "dbghelper.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "widget_utils.h"
 
 TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProject, ConfigState* config) :
     QDialog(parent),
     ecProject_(ecProject),
     configState_(config)
 {
-    setWindowTitle(tr("Time Lag Optimization Settings"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("Time Lag Optimization Settings"));
+    WidgetUtils::removeContextHelpButton(this);
 
-    QLabel *groupTitle = new QLabel();
+    auto groupTitle = new QLabel;
     groupTitle->setText(tr("Configure smart time lag detection, "
                            "providing quality selection criteria and initial "
                            "time lag windows"));
 
-    QLabel *hrLabel = new QLabel;
+    auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
 
     existingRadio = new QRadioButton(tr("Time lag file available :"));
@@ -66,10 +68,10 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     nonExistingRadio = new QRadioButton(tr("Time lag file not available :"));
     nonExistingRadio->setToolTip(tr("<b>Time lag file not available:</b> Choose this option and provide the following information if you need to optimize time lags for your dataset. EddyPro will complete the time lag optimization first and then complete the raw data processing and flux computation procedures."));
 
-    lockedIcon = new QLabel();
+    lockedIcon = new QLabel;
     lockedIcon->setPixmap(QPixmap(QStringLiteral(":/icons/vlink-locked")));
 
-    subsetCheckBox = new QCheckBox();
+    subsetCheckBox = new QCheckBox;
     subsetCheckBox->setProperty("subperiod", true);
     subsetCheckBox->setText(tr("Select a subperiod"));
     subsetCheckBox->setToolTip(tr("<b>Select a subperiod:</b> Select this option and set the corresponding dates, to identify the time period EddyPro will use for the Time lag optimization. This subperiod must fall within the time period defined by the available raw data."));
@@ -77,28 +79,28 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     startDateLabel = new ClickLabel(this);
     startDateLabel->setText(tr("Start :"));
     startDateLabel->setToolTip(tr("<b>Start:</b> Starting date of the time period to be used for time lag optimization. This time should not be shorter than about 1-2 months. As a general recommendation, select a time period during which the instrument setup did not undergo major modifications. Results obtained using a given time period (e.g., 2 months) can be used for processing a longer time period, in which major modifications did not occur in the setup. The stricter the threshold setup in this dialogue, the longer the period should be in order to get robust results."));
-    startDateEdit = new QDateEdit();
+    startDateEdit = new QDateEdit;
     startDateEdit->setToolTip(startDateLabel->toolTip());
     startDateEdit->setCalendarPopup(true);
     startDateEdit->setDate(QDate(2000, 1, 1));
-    Alia::customizeCalendar(startDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(startDateEdit->calendarWidget());
 
     endDateLabel = new ClickLabel(this);
     endDateLabel->setText(tr("End :"));
     endDateLabel->setToolTip(tr("<b>End:</b> End date of the time period to be used for time lag optimization. This time should not be shorter than about 1-2 months As a general recommendation, select a time period during which the instrumental setup did not undergo major modifications. Results obtained using a given time period (e.g., 2 months) can be used for processing a longer time period, in which major modifications did not occur in the setup. The stricter the threshold setup in this dialogue, the longer the period should be in order to get robust results."));
-    endDateEdit = new QDateEdit();
+    endDateEdit = new QDateEdit;
     endDateEdit->setToolTip(endDateLabel->toolTip());
     endDateEdit->setCalendarPopup(true);
     endDateEdit->setDate(QDate::currentDate());
-    Alia::customizeCalendar(endDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(endDateEdit->calendarWidget());
 
-    QGridLayout* linkedLayout = new QGridLayout;
+    auto linkedLayout = new QGridLayout;
     linkedLayout->addWidget(lockedIcon, 0, 0, 2, 1, Qt::AlignHCenter | Qt::AlignVCenter);
     linkedLayout->addWidget(startDateEdit, 0, 1);
     linkedLayout->addWidget(endDateEdit, 1, 1);
     linkedLayout->setVerticalSpacing(3);
 
-    fileEdit = new QwwButtonLineEdit();
+    fileEdit = new QwwButtonLineEdit;
     fileEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     fileEdit->setButtonVisible(false);
     fileEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -110,13 +112,13 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     fileLoad->setProperty("loadButton", true);
     fileLoad->setToolTip(tr("<b>Load:</b> Load an existing time lag file"));
 
-    QHBoxLayout* fileContainerLayout = new QHBoxLayout;
+    auto fileContainerLayout = new QHBoxLayout;
     fileContainerLayout->addWidget(fileEdit);
     fileContainerLayout->addWidget(fileLoad);
     fileContainerLayout->setStretch(2, 1);
     fileContainerLayout->setContentsMargins(0, 0, 0, 0);
     fileContainerLayout->setSpacing(0);
-    QWidget* fileContainer = new QWidget();
+    auto fileContainer = new QWidget;
     fileContainer->setLayout(fileContainerLayout);
 
     radioGroup = new QButtonGroup(this);
@@ -281,7 +283,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     maxGas4TlSpin->setSuffix(tr("  [s]"));
     maxGas4TlSpin->setToolTip(maxLabel->toolTip());
 
-    QGridLayout *propertiesLayout = new QGridLayout();
+    auto propertiesLayout = new QGridLayout;
     propertiesLayout->addWidget(existingRadio, 0, 0);
     propertiesLayout->addWidget(fileContainer, 0, 1, 1, 3);
     propertiesLayout->addWidget(nonExistingRadio, 2, 0);
@@ -328,15 +330,15 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     propertiesLayout->setRowMinimumHeight(1, 10);
     propertiesLayout->setContentsMargins(3, 3, 3, 3);
 
-    QWidget *propertiesFrame = new QWidget();
+    auto propertiesFrame = new QWidget;
     propertiesFrame->setLayout(propertiesLayout);
 
-    QPushButton *okButton = new QPushButton(tr("&Ok"));
+    auto okButton = new QPushButton(tr("&Ok"));
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     okButton->setDefault(true);
     okButton->setProperty("commonButton", true);
 
-    QGridLayout *mainLayout = new QGridLayout(this);
+    auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0);
     mainLayout->addWidget(hrLabel, 1, 0);
     mainLayout->addWidget(propertiesFrame, 2, 0);
@@ -352,85 +354,86 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     connect(radioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(radioClicked(int)));
 
-    connect(fileEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearFileEdit()));
-    connect(fileEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateFile(QString)));
-    connect(fileLoad, SIGNAL(clicked()),
-            this, SLOT(fileLoad_clicked()));
+    connect(fileEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &TimeLagSettingsDialog::clearFileEdit);
+    connect(fileEdit, &QwwButtonLineEdit::textChanged,
+            this, &TimeLagSettingsDialog::updateFile);
+    connect(fileLoad, &QPushButton::clicked,
+            this, &TimeLagSettingsDialog::fileLoad_clicked);
 
-    connect(subsetCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateSubsetSelection(bool)));
+    connect(subsetCheckBox, &QCheckBox::toggled,
+            this, &TimeLagSettingsDialog::updateSubsetSelection);
 
-    connect(startDateLabel, SIGNAL(clicked()),
-            this, SLOT(onStartDateLabelClicked()));
-    connect(startDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateStartDate(QDate)));
+    connect(startDateLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onStartDateLabelClicked);
+    connect(startDateEdit, &QDateEdit::dateChanged,
+            this, &TimeLagSettingsDialog::updateStartDate);
 
-    connect(endDateLabel, SIGNAL(clicked()),
-            this, SLOT(onEndDateLabelClicked()));
-    connect(endDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateEndDate(QDate)));
+    connect(endDateLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onEndDateLabelClicked);
+    connect(endDateEdit, &QDateEdit::dateChanged,
+            this, &TimeLagSettingsDialog::updateEndDate);
 
-    connect(rhClassLabel, SIGNAL(clicked()),
-            this, SLOT(onRhClassClicked()));
+    connect(rhClassLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onRhClassClicked);
     connect(rhClassSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateRhClass(int)));
 
-    connect(co2MinFluxLabel, SIGNAL(clicked()),
-            this, SLOT(onCo2MinFluxClicked()));
+    connect(co2MinFluxLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onCo2MinFluxClicked);
     connect(co2MinFluxSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateCo2MinFlux(double)));
 
-    connect(ch4MinFluxLabel, SIGNAL(clicked()),
-            this, SLOT(onCh4MinFluxClicked()));
+    connect(ch4MinFluxLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onCh4MinFluxClicked);
     connect(ch4MinFluxSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateCh4MinFlux(double)));
 
-    connect(gas4MinFluxLabel, SIGNAL(clicked()),
-            this, SLOT(onGas4MinFluxClicked()));
+    connect(gas4MinFluxLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onGas4MinFluxClicked);
     connect(gas4MinFluxSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateGas4MinFlux(double)));
 
-    connect(leMinFluxLabel, SIGNAL(clicked()),
-            this, SLOT(onLeMinFluxClicked()));
+    connect(leMinFluxLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onLeMinFluxClicked);
     connect(leMinFluxSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateLeMinFlux(double)));
 
-    connect(pgRangeLabel, SIGNAL(clicked()),
-            this, SLOT(onPgRangeLabelClicked()));
+    connect(pgRangeLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onPgRangeLabelClicked);
     connect(pgRangeSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updatePgRange(double)));
 
-    connect(co2Label, SIGNAL(clicked()),
-            this, SLOT(onCo2LabelClicked()));
+    connect(co2Label, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onCo2LabelClicked);
     connect(minCo2TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinCo2Tl(double)));
     connect(maxCo2TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMaxCo2Tl(double)));
 
-    connect(h2oLabel, SIGNAL(clicked()),
-            this, SLOT(onH2oLabelClicked()));
+    connect(h2oLabel, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onH2oLabelClicked);
     connect(minH2oTlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinH2oTl(double)));
     connect(maxH2oTlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMaxH2oTl(double)));
 
-    connect(ch4Label, SIGNAL(clicked()),
-            this, SLOT(onCh4LabelClicked()));
+    connect(ch4Label, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onCh4LabelClicked);
     connect(minCh4TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinCh4Tl(double)));
     connect(maxCh4TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMaxCh4Tl(double)));
 
-    connect(gas4Label, SIGNAL(clicked()),
-            this, SLOT(onGas4LabelClicked()));
+    connect(gas4Label, &ClickLabel::clicked,
+            this, &TimeLagSettingsDialog::onGas4LabelClicked);
     connect(minGas4TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinGas4Tl(double)));
     connect(maxGas4TlSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMaxGas4Tl(double)));
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(okButton, &QPushButton::clicked,
+            this, &TimeLagSettingsDialog::close);
 
     // init
     forceEndDatePolicy();
@@ -443,6 +446,7 @@ TimeLagSettingsDialog::~TimeLagSettingsDialog()
 
 void TimeLagSettingsDialog::close()
 {
+    DEBUG_FUNC_NAME;
     if (isVisible())
         hide();
     emit saveRequest();
@@ -491,7 +495,7 @@ void TimeLagSettingsDialog::refresh()
     existingRadio->setChecked(!ecProject_->timelagOptMode());
     nonExistingRadio->setChecked(ecProject_->timelagOptMode());
     fileEdit->setText(QDir::toNativeSeparators(ecProject_->timelagOptFile()));
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 
     subsetCheckBox->setChecked(ecProject_->timelagOptSubset());
     if (ecProject_->timelagOptSubset())
@@ -622,14 +626,14 @@ void TimeLagSettingsDialog::onStartDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     startDateEdit->setFocus();
-    Alia::showCalendarOf(startDateEdit);
+    WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void TimeLagSettingsDialog::onEndDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     endDateEdit->setFocus();
-    Alia::showCalendarOf(endDateEdit);
+    WidgetUtils::showCalendarOf(endDateEdit);
 }
 
 void TimeLagSettingsDialog::updateStartDate(const QDate &d)
@@ -674,7 +678,7 @@ void TimeLagSettingsDialog::updateFile(const QString& fp)
 
     ecProject_->setTimelagOptFile(QDir::cleanPath(fp));
     fileEdit->setButtonVisible(fileEdit->isEnabled() && !fileEdit->text().isEmpty());
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 }
 
 void TimeLagSettingsDialog::fileLoad_clicked()
@@ -692,15 +696,32 @@ void TimeLagSettingsDialog::fileLoad_clicked()
                         searchPath,
                         tr("All Files (*.*)")
                         );
-    if (!paramFile.isEmpty())
+
+    if (paramFile.isEmpty()) { return; }
+
+    QFileInfo paramFilePath(paramFile);
+    QString canonicalParamFile = paramFilePath.canonicalFilePath();
+
+    if (!test_)
     {
-        QFileInfo paramFilePath(paramFile);
-        QString canonicalParamFile = paramFilePath.canonicalFilePath();
+        qDebug() << "create test dialog";
+        test_ = new AncillaryFileTest(AncillaryFileTest::FileType::TimeLag,
+                                      this);
+    }
+    test_->refresh(canonicalParamFile);
+    auto result = test_->makeTest();
+
+    if (result)
+    {
         fileEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 
         QString lastPath = paramFilePath.canonicalPath();
         configState_->window.last_data_path = lastPath;
-        Alia::updateLastDatapath(lastPath);
+        GlobalSettings::updateLastDatapath(lastPath);
+    }
+    else
+    {
+        fileEdit->setText(QString());
     }
 }
 
@@ -900,7 +921,7 @@ void TimeLagSettingsDialog::updateSubsetSelection(bool b)
 void TimeLagSettingsDialog::clearFileEdit()
 {
     fileEdit->clear();
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 }
 
 void TimeLagSettingsDialog::setSmartfluxUI()

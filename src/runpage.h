@@ -23,18 +23,20 @@
 #ifndef RUNPAGE_H
 #define RUNPAGE_H
 
+#include <QElapsedTimer>
 #include <QWidget>
-#include <QTime>
 
-#include "defs.h"
 #include "configstate.h"
+#include "defs.h"
 
-class QProgressIndicator;
-class QProgressBar;
 class QLabel;
-class ClickLabel;
+class QProgressBar;
+class QProgressIndicator;
+class QPushButton;
 class QTextEdit;
+class QTimer;
 
+class ClickLabel;
 class EcProject;
 class SmartFluxBar;
 
@@ -52,31 +54,27 @@ public:
     void stopRun();
     void updateSmartfluxBar();
 
+public slots:
+    void resetBuffer();
+    void bufferData(QByteArray &data);
+
+signals:
+    void updateConsoleLineRequest(QByteArray &data);
+    void updateConsoleCharRequest(QByteArray &data);
+    void runExpRequest();
+    void runAdvRequest();
+    void runRetRequest();
+
+private slots:
+    void pauseLabel();
+    void resumeLabel();
+    void runModeIconClicked();
+    void updateElapsedTime();
+    void updateMiniProgress();
+    void openOutputDir();
+
 private:
-    Defs::CurrRunStatus runMode_;
-    QProgressIndicator *progressWidget_;
-    QProgressBar* progressBar_;
-    QProgressBar* miniProgressBar_;
-    ClickLabel* runModeIcon_;
-    QLabel* runModeLabel_;
-    QLabel* progressLabel_;
-    QLabel* fileLabel_;
-    QLabel* fileProgressLabel_;
-    QLabel* timeEstimateLabels_;
-    QLabel* pauseResumeLabel_;
-
-    EcProject *ecProject_;
-    ConfigState* configState_;
-    int progressValue_;
-    QByteArray rxBuffer_;
-    QTimer* delayTimer_;
-    QTimer* elapsedTimer_;
-    QTextEdit *errorEdit_;
-
-    QTime overallTime_;
-
-    SmartFluxBar* smartfluxBar_;
-
+    bool filterData(const QByteArray &data);
     QByteArray cleanupEngineOutput(QByteArray data);
     void parseEngineOutput(const QByteArray& data);
     void resetProgressSoft();
@@ -85,22 +83,38 @@ private:
     void resetLabels();
     void resetFileLabels();
     void resetTimeEstimateLabels();
+    int updateETC(int *mean_processing_time,
+                  const int current_processing_time, const int index, const int num_steps);
 
-private slots:
-    void pauseLabel();
-    void resumeLabel();
-    void runModeIconClicked();
+    Defs::CurrRunStatus runMode_;
+    QProgressIndicator* progressWidget_;
+    QProgressBar* main_progress_bar;
+    QProgressBar* mini_progress_bar_;
+    ClickLabel* runModeIcon_;
+    QLabel* runModeLabel_;
+    QLabel* progressLabel_;
+    QLabel* avgPeriodLabel_;
+    QLabel* fileListLabel_;
+    QLabel* fileProgressLabel_;
+    QLabel* timeEstimateLabels_;
+    QLabel* pauseResumeLabel_;
+    QPushButton* open_output_dir;
 
-    void updateElapsedTime();
-signals:
-    void updateConsoleRequest(QByteArray &data);
-    void runExpRequest();
-    void runAdvRequest();
-    void runRetRequest();
+    EcProject* ecProject_;
+    ConfigState* configState_;
+    int progressValue_;
+    QByteArray rxBuffer_;
+    QTextEdit* errorEdit_;
 
-public slots:
-    void resetBuffer();
-    void bufferData(QByteArray &data);
+    QTimer* pauseResumeDelayTimer_;        // delay and control the pause/resume operations
+    QTimer* total_elapsed_update_timer_;   // update the overall elapsed time shown during a run
+    QElapsedTimer overall_progress_timer_; // measure the total run time
+    QElapsedTimer main_progress_timer_; // measure the main steps run time
+
+    SmartFluxBar* smartfluxBar_;
+
+    bool inPlanarFit_ = false;
+    bool inTimeLag_ = false;
 };
 
 #endif // RUNPAGE_H

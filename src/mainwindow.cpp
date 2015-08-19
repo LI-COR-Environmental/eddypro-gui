@@ -21,63 +21,68 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QSettings>
-#include <QTimer>
-#include <QUrl>
-#include <QTextDocumentFragment>
-#include <QNetworkProxyFactory>
-#include <QApplication>
-#include <QMenuBar>
-#include <QFileDialog>
-#include <QStatusBar>
-#include <QToolBar>
-#include <QDockWidget>
-#include <QPlainTextEdit>
-#include <QDesktopServices>
-#include <QScrollBar>
-#include <QWhatsThis>
-#include <QPushButton>
-#include <QErrorMessage>
-#include <QGridLayout>
-
-#include "infomessage.h"
-#include "projectpage.h"
-#include "basicsettingspage.h"
-#include "tooltipfilter.h"
-#include "wheeleventfilter.h"
-#include "dbghelper.h"
-#include "alia.h"
-#include "stringutils.h"
-#include "clicklabel.h"
-#include "runpage.h"
-#include "dlproject.h"
-#include "ecproject.h"
-#include "mainwidget.h"
-#include "welcomepage.h"
-#include "clocklabel.h"
-#include "updatedialog.h"
-#include "aboutdialog.h"
-#include "mymenu.h"
-#include "fileutils.h"
-#include "advancedsettingspage.h"
-#include "advsettingscontainer.h"
-#include "advprocessingoptions.h"
-#include "planarfitsettingsdialog.h"
-#include "timelagsettingsdialog.h"
-#include "binarysettingsdialog.h"
 #include "mainwindow.h"
 
-MainWindow::MainWindow(const QString& filename, const QString& appEnvPath, QWidget *parent) :
+#include <QApplication>
+#include <QDebug>
+#include <QDesktopServices>
+#include <QDockWidget>
+#include <QErrorMessage>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QMenuBar>
+#include <QNetworkProxyFactory>
+#include <QPlainTextEdit>
+#include <QPushButton>
+#include <QSettings>
+#include <QScreen>
+#include <QScrollBar>
+#include <QStatusBar>
+#include <QTextDocumentFragment>
+#include <QTimer>
+#include <QToolBar>
+#include <QUrl>
+#include <QWhatsThis>
+
+#include "aboutdialog.h"
+#include "alia.h"
+#include "advancedsettingspage.h"
+#include "advprocessingoptions.h"
+#include "advsettingscontainer.h"
+#include "basicsettingspage.h"
+#include "binarysettingsdialog.h"
+#include "clicklabel.h"
+#include "dbghelper.h"
+#include "dlproject.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "infomessage.h"
+#include "mainwidget.h"
+#include "mymenu.h"
+#include "planarfitsettingsdialog.h"
+#include "projectpage.h"
+#include "runpage.h"
+#include "stringutils.h"
+#include "timelagsettingsdialog.h"
+#include "tooltipfilter.h"
+#include "updatedialog.h"
+#include "welcomepage.h"
+#include "wheeleventfilter.h"
+#include "widget_utils.h"
+
+MainWindow::MainWindow(const QString& filename,
+                       const QString& appEnvPath,
+                       QWidget* parent) :
     QMainWindow(parent),
-    aboutDialog(0),
-    mainWidget_(0),
+    aboutDialog(nullptr),
+    mainWidget_(nullptr),
     configState_(ConfigState()),
-    dlProject_(0),
-    ecProject_(0),
+    dlProject_(nullptr),
+    ecProject_(nullptr),
     currEcProjectFilename_(filename),
     appEnvPath_(appEnvPath),
-    notificationTimer_(0),
+    notificationTimer_(nullptr),
     newFlag_(true),
     modifiedFlag_(false),
     openingFlag_(false),
@@ -89,15 +94,15 @@ MainWindow::MainWindow(const QString& filename, const QString& appEnvPath, QWidg
     runExpressAvailable_(false),
     runAdvancedAvailable_(false),
     newClicked_(false),
-    previousPage_(Defs::CurrPageWelcome),
-    currentPage_(Defs::CurrPageWelcome),
-    currentStatus_(Defs::CurrStatusReady),
-    currentRunStatus_(Defs::CurrRunStatusExp),
+    previousPage_(Defs::CurrPage::Welcome),
+    currentPage_(Defs::CurrPage::Welcome),
+    currentStatus_(Defs::CurrStatus::Ready),
+    currentRunStatus_(Defs::CurrRunStatus::Express),
     expressClicked_(false),
     advancedClicked_(false),
     retrieverClicked_(false),
-    engineProcess_(0),
-    updateDialog(0),
+    engineProcess_(nullptr),
+    updateDialog(nullptr),
     argFilename_(false)
 {
     DEBUG_FUNC_NAME
@@ -111,8 +116,12 @@ MainWindow::MainWindow(const QString& filename, const QString& appEnvPath, QWidg
     tooltipFilter_ = new TooltipFilter(configState_.window.tooltips, this);
     qApp->installEventFilter(tooltipFilter_);
 
-    WheelEventFilter* wheelFilter_ = new WheelEventFilter(this);
+    auto wheelFilter_ = new WheelEventFilter(this);
     qApp->installEventFilter(wheelFilter_);
+
+    // NOTE: not used
+//    connect(tooltipFilter_, SIGNAL(updateTooltipRequest(QString)),
+//            this, SLOT(updateTooltipDock(QString)));
 
     // create metadata file
     dlProject_ = new DlProject(this, configState_.project);
@@ -174,61 +183,59 @@ MainWindow::MainWindow(const QString& filename, const QString& appEnvPath, QWidg
     createEngineProcess();
 
     // connections
-    connect(ecProject_, SIGNAL(ecProjectNew()),
-            this, SLOT(updateInfoMessages()));
-    connect(ecProject_, SIGNAL(ecProjectModified()),
-            this, SLOT(setEcProjectModified()));
-    connect(ecProject_, SIGNAL(ecProjectChanged()),
-            this, SLOT(updateInfoMessages()));
-    connect(ecProject_, SIGNAL(updateInfo()),
-            this, SLOT(updateInfoMessages()));
-    connect(ecProject_, SIGNAL(updateInfo()),
-            this, SLOT(updateRunButtonsAvailability()));
-    connect(fileMenuOpenRecent, SIGNAL(aboutToShow()),
-            this, SLOT(recentMenuShow()));
+    connect(ecProject_, &EcProject::ecProjectNew,
+            this, &MainWindow::updateInfoMessages);
+    connect(ecProject_, &EcProject::ecProjectModified,
+            this, &MainWindow::setEcProjectModified);
+    connect(ecProject_, &EcProject::ecProjectChanged,
+            this, &MainWindow::updateInfoMessages);
+    connect(ecProject_, &EcProject::updateInfo,
+            this, &MainWindow::updateInfoMessages);
+    connect(ecProject_, &EcProject::updateInfo,
+            this, &MainWindow::updateRunButtonsAvailability);
+    connect(fileMenuOpenRecent, &QMenu::aboutToShow,
+            this, &MainWindow::recentMenuShow);
 
-    connect(dlProject_, SIGNAL(projectModified()),
-            this, SLOT(updateInfoMessages()));
-    connect(dlProject_, SIGNAL(projectChanged()),
-            this, SLOT(updateInfoMessages()));
+    connect(dlProject_, &DlProject::projectModified,
+            this, &MainWindow::updateInfoMessages);
+    connect(dlProject_, &DlProject::projectChanged,
+            this, &MainWindow::updateInfoMessages);
 
     // from MainWidget
-    connect(mainWidget_->runPage(), SIGNAL(updateConsoleRequest(QByteArray&)),
-            this, SLOT(updateConsole(QByteArray&)));
-    connect(mainWidget_->runPage(), SIGNAL(runExpRequest()),
-            this, SLOT(getRunExpress()));
-    connect(mainWidget_->runPage(), SIGNAL(runAdvRequest()),
-            this, SLOT(getRunAdvanced()));
-    connect(mainWidget_->runPage(), SIGNAL(runRetRequest()),
-            this, SLOT(getRunRetriever()));
-    connect(mainWidget_, SIGNAL(showSmartfluxBarRequest(bool)),
-            this, SLOT(setSmartfluxMode(bool)));
-    connect(mainWidget_, SIGNAL(saveSilentlyRequest()),
-            this, SLOT(saveSilently()));
+    connect(mainWidget_->runPage(), &RunPage::updateConsoleLineRequest,
+            this, &MainWindow::updateConsoleLine);
+    connect(mainWidget_->runPage(), &RunPage::updateConsoleCharRequest,
+            this, &MainWindow::updateConsoleChar);
+    connect(mainWidget_->runPage(), &RunPage::runExpRequest,
+            this, &MainWindow::getRunExpress);
+    connect(mainWidget_->runPage(), &RunPage::runAdvRequest,
+            this, &MainWindow::getRunAdvanced);
+    connect(mainWidget_->runPage(), &RunPage::runRetRequest,
+            this, &MainWindow::getRunRetriever);
+    connect(mainWidget_, &MainWidget::showSmartfluxBarRequest,
+            this, &MainWindow::setSmartfluxMode);
+    connect(mainWidget_, &MainWidget::saveSilentlyRequest,
+            this, &MainWindow::fileSaveSilently);
     connect(mainWidget_, SIGNAL(saveRequest()),
             this, SLOT(fileSave()));
 
-    qDebug() << "dialogs connections"
-             << mainWidget_->advancedPage()->advancedSettingPages()->processingOptions();
-
     // dialogs connections
-    connect(mainWidget_->projectPage(),
-            SIGNAL(connectBinarySettingsRequest()),
-            this, SLOT(connectBinarySettingsDialog()));
+    connect(mainWidget_->projectPage(), &ProjectPage::connectBinarySettingsRequest,
+            this, &MainWindow::connectBinarySettingsDialog);
 
     // from BasicSettingsPage
-    connect(mainWidget_, SIGNAL(updateMetadataReadResult(bool)),
-            this, SLOT(setMetadataRead(bool)));
+    connect(mainWidget_, &MainWidget::updateMetadataReadResult,
+            this, &MainWindow::setMetadataRead);
 
-    connect(this, SIGNAL(recentUpdated()),
-            mainWidget_, SIGNAL(recentUpdated()));
+    connect(this, &MainWindow::recentUpdated,
+            mainWidget_, &MainWidget::recentUpdated);
 
-    connect(mainWidget_, SIGNAL(openProjectRequest(QString)),
-            this, SLOT(fileOpenRequest(QString)));
-    connect(mainWidget_, SIGNAL(newProjectRequest()),
-            this, SLOT(fileNewRequest()));
-    connect(mainWidget_, SIGNAL(checkUpdatesRequest()),
-            this, SLOT(showUpdateDialog()));
+    connect(mainWidget_, &MainWidget::openProjectRequest,
+            this, &MainWindow::fileOpenRequest);
+    connect(mainWidget_, &MainWidget::newProjectRequest,
+            this, &MainWindow::fileNewRequest);
+    connect(mainWidget_, &MainWidget::checkUpdatesRequest,
+            this, &MainWindow::showUpdateDialog);
 
     connectPlanarFitDialog();
     connectTimeLagDialog();
@@ -244,12 +251,18 @@ MainWindow::MainWindow(const QString& filename, const QString& appEnvPath, QWidg
 
     // notify every 24 hrs from the last start
     notificationTimer_ = new QTimer(this);
-    connect(notificationTimer_, SIGNAL(timeout()),
-            this, SLOT(showAutoUpdateDialog()));
+    connect(notificationTimer_, &QTimer::timeout,
+            this, &MainWindow::showAutoUpdateDialog);
     notificationTimer_->start(1000 * 60 * 60 * 24);
 
     // NOTE: for testing only
 //    notificationTimer_->start(5000);
+
+//    QStringList list;
+//    Process::getProcessIdsByProcessName(QStringLiteral("eddypro_debug"), list);
+//    qDebug() << "eddypro_debug" << list;
+//    Process::getProcessIdsByProcessName(QStringLiteral("firefox"), list);
+//    qDebug() << "firefox" << list;
 }
 
 MainWindow::~MainWindow()
@@ -299,7 +312,7 @@ void MainWindow::initialize()
         viewRunPageAction->setCheckable(true);
 
         // must be after restorePreviousStatus()
-        updatePage(Defs::CurrPageWelcome);
+        updatePage(Defs::CurrPage::Welcome);
         showInfoMessages_1();
 
         QNetworkProxyFactory::setUseSystemConfiguration(true);
@@ -319,10 +332,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     writeSettings();
 
-    int continueAction = continueBeforeClose();
-
     // cancel the operation
-    if (continueAction == QMessageBox::Cancel)
+    if (!continueBeforeClose())
     {
         event->ignore();
         return;
@@ -330,12 +341,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     // continue the operation
     // NOTE: hack prevent non interactive changes
-    disconnect(toggleInfoOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewInfoOutput(bool)));
-    disconnect(toggleTooltipOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewTooltipOutput(bool)));
-    disconnect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewConsoleOutput(bool)));
+    disconnect(toggleInfoOutputAct, &QAction::toggled,
+            this, &MainWindow::viewInfoOutput);
+    disconnect(toggleTooltipOutputAct, &QAction::toggled,
+            this, &MainWindow::viewTooltipOutput);
+    disconnect(toggleConsoleOutputAct, &QAction::toggled,
+            this, &MainWindow::viewConsoleOutput);
 
     event->accept();
 }
@@ -416,29 +427,21 @@ void MainWindow::fileNew()
 {
     DEBUG_FUNC_NAME
 
-    int continueAction = QMessageBox::Yes;
-
     if (!configState_.project.smartfluxMode)
     {
-        continueAction = continueBeforeClose();
-    }
-
-    // cancel the operation
-    if (continueAction == QMessageBox::Cancel)
-    {
-        return;
+        if (!continueBeforeClose()) { return; }
     }
 
     // continue the operation
     newFile();
     if (configState_.project.smartfluxMode)
     {
-        changePage(Defs::CurrPageBasicSettings, false);
+        changePage(Defs::CurrPage::BasicSettings, false);
         mainWidget_->updateSmartfluxBarStatus();
     }
     else
     {
-        changePage(Defs::CurrPageProjectCreation, false);
+        changePage(Defs::CurrPage::ProjectCreation, false);
     }
     showStatusTip(tr("New project created"));
     updateInfoDock(false);
@@ -446,25 +449,23 @@ void MainWindow::fileNew()
     newClicked_ = true;
 }
 
+/// \fn void MainWindow::fileOpen(const QString &filename)
+/// \param[in] filename not used
+/// \return void
 void MainWindow::fileOpen(const QString &fileName)
 {
     DEBUG_FUNC_NAME
 
+    // cancel the operation
+    if (!continueBeforeClose()) { return; }
+
     qDebug() << "fileName" << fileName;
     QString fileStr;
-
-    int continueAction = continueBeforeClose();
-
-    // cancel the operation
-    if (continueAction == QMessageBox::Cancel)
-    {
-        return;
-    }
 
     // continue the operation
     showStatusTip(tr("Opening..."));
 
-    FileUtils::cleanSmfDir(configState_.general.env);
+    FileUtils::cleanSmfDirRecursively(configState_.general.env);
 
     // action triggered by user interaction
     if (fileName.isEmpty())
@@ -482,6 +483,7 @@ void MainWindow::fileOpen(const QString &fileName)
                         0
                         // , QFileDialog::DontUseNativeDialog
                         );
+        if (fileStr.isEmpty()) { return; }
     }
     // programmatically
     else
@@ -489,33 +491,29 @@ void MainWindow::fileOpen(const QString &fileName)
         fileStr = fileName;
     }
 
-    // NOTE: redundant check?
-    if (!fileStr.isEmpty())
-    {
-        QFileInfo projectDir(fileStr);
-        QString projectPath = projectDir.canonicalPath();
-        configState_.window.last_data_path = projectPath;
-        Alia::updateLastDatapath(projectPath);
-    }
+    QFileInfo projectDir(fileStr);
+    QString projectPath = projectDir.canonicalPath();
+    configState_.window.last_data_path = projectPath;
+    GlobalSettings::updateLastDatapath(projectPath);
 
     if (openFile(fileStr))
     {
         showStatusTip(tr("Project loaded"));
         consoleOutput->clear();
 
-        if (currentPage() != Defs::CurrPageProjectCreation)
+        if (currentPage() != Defs::CurrPage::ProjectCreation)
         {
             if (configState_.project.smartfluxMode)
             {
-                if (currentPage() == Defs::CurrPageWelcome)
+                if (currentPage() == Defs::CurrPage::Welcome)
                 {
-                    changePage(Defs::CurrPageBasicSettings);
+                    changePage(Defs::CurrPage::BasicSettings);
                 }
                 mainWidget_->updateSmartfluxBarStatus();
             }
             else
             {
-                changePage(Defs::CurrPageProjectCreation);
+                changePage(Defs::CurrPage::ProjectCreation);
             }
         }
         updateInfoDock(true);
@@ -555,18 +553,19 @@ bool MainWindow::openFile(const QString& filename)
                         if (modified)
                         {
                             // load was successful
-                            QMessageBox::warning(this,
-                                                 tr("Load Information"),
-                                                 tr("The project was successfully imported and updated.<br />"
-                                                    "Save the project to complete the update."));
+                            WidgetUtils::warning(this,
+                                tr("Load Project"),
+                                tr("The project was successfully imported "
+                                   "and updated."),
+                                tr("Save the project to complete the update."));
                         }
                         return true;
                     }
                     else
                     {
                         // load was unsuccessful
-                        QMessageBox::warning(this,
-                                             tr("Load Error"),
+                        WidgetUtils::warning(this,
+                                             tr("Load Project Error"),
                                              tr("Unable to load the project."));
 
                         // close the current open project to prevent partial loading
@@ -589,6 +588,15 @@ bool MainWindow::openFile(const QString& filename)
             }
         }
     }
+    else
+    {
+#ifdef QT_DEBUG
+//    auto msgBox = new QMessageBox;
+//    msgBox->setWindowTitle(QStringLiteral("Troppi click, Ger :-)"));
+//    msgBox->setText(QStringLiteral("Detected Double Open"));
+//    msgBox->show();
+#endif
+    }
     // empty file name
     return false;
 }
@@ -598,7 +606,7 @@ void MainWindow::fileRecent()
     DEBUG_FUNC_NAME
 
     QAction *action = qobject_cast<QAction *>(sender());
-    if (!action) return;
+    if (!action) { return; }
 
     QString fname = action->text();
 
@@ -610,12 +618,8 @@ void MainWindow::fileRecent()
     }
     else
     {
-        int continueAction = continueBeforeClose();
         // cancel the operation
-        if (continueAction == QMessageBox::Cancel)
-        {
-            return;
-        }
+        if (!continueBeforeClose()) { return; }
 
         // continue the operation
         if (openFile(fname))
@@ -623,9 +627,9 @@ void MainWindow::fileRecent()
             showStatusTip(tr("Recent project loaded"));
             consoleOutput->clear();
 
-            if (currentPage() != Defs::CurrPageProjectCreation)
+            if (currentPage() != Defs::CurrPage::ProjectCreation)
             {
-                changePage(Defs::CurrPageProjectCreation);
+                changePage(Defs::CurrPage::ProjectCreation);
             }
             updateInfoDock(true);
             if (configState_.project.smartfluxMode)
@@ -641,18 +645,26 @@ void MainWindow::fileRecent()
     }
 }
 
-// Save a project
-void MainWindow::fileSave()
+// Return true if it saved successfully, false if the operation was canceled
+// or if an error occurred.
+bool MainWindow::fileSave(const bool quiet)
 {
     DEBUG_FUNC_NAME
 
     if (newFlag_)
     {
-        fileSaveAs();
+        return fileSaveAs();
     }
     else
     {
-        noticeAboutChangesDuringRun();
+        if (!quiet)
+        {
+            if (alertChangesWhenRunning())
+            {
+                showStatusTip(tr("Canceled..."));
+                return false;
+            }
+        }
 
         if (saveFile(currentProjectFile()))
         {
@@ -661,24 +673,27 @@ void MainWindow::fileSave()
             saveAction->setEnabled(false);
             setCurrentProjectFile(currentProjectFile());
             showStatusTip(tr("Project saved"));
+            return true;
         }
         else
         {
-            // error in saving file
-            QMessageBox::warning(this,
-                                 tr("Save Error"),
-                                 tr("%1 was unable to save %2")
-                                 .arg(Defs::APP_NAME).arg(currentProjectFile()));
+            // error in saving
+            WidgetUtils::warning(this,
+                                 tr("Save Project Error"),
+                                 tr("%1 was unable to save to %2")
+                                 .arg(Defs::APP_NAME)
+                                 .arg(currentProjectFile()));
             showStatusTip(tr("Error in saving project"));
+            return false;
         }
     }
 }
 
-void MainWindow::fileSaveAs(const QString& fileName)
+// Return true if it saved successfully, false if the operation was canceled
+// or if an error occurred.
+bool MainWindow::fileSaveAs(const QString& fileName)
 {
     DEBUG_FUNC_NAME
-
-    noticeAboutChangesDuringRun();
 
     QString searchPath = QDir::homePath();
     if (!configState_.window.last_data_path.isEmpty()
@@ -740,10 +755,7 @@ void MainWindow::fileSaveAs(const QString& fileName)
     {
         // add suffix if there is none
         QString epExt = QStringLiteral(".") + Defs::PROJECT_FILE_EXT;
-        if (fileToSave.indexOf(epExt) == -1)
-        {
-            fileToSave += epExt;
-        }
+        if (fileToSave.indexOf(epExt) == -1) { fileToSave += epExt; }
 
         qDebug() << "fname" << fileToSave;
 
@@ -751,13 +763,16 @@ void MainWindow::fileSaveAs(const QString& fileName)
         // overwrite?
         if (QFile::exists(fileToSave))
         {
-            switch (Alia::queryOverwrite(fileToSave))
+            if (alertChangesWhenRunning())
             {
-                case QMessageBox::Yes:
-                    break;
-                case QMessageBox::Cancel:
-                    showStatusTip(tr("Canceled..."));
-                    return;
+                showStatusTip(tr("Canceled..."));
+                return false;
+            }
+
+            if (!WidgetUtils::okToOverwrite(fileToSave))
+            {
+                showStatusTip(tr("Canceled..."));
+                return false;
             }
         }
 
@@ -768,42 +783,58 @@ void MainWindow::fileSaveAs(const QString& fileName)
             saveAction->setEnabled(false);
             setCurrentProjectFile(fileToSave);
             showStatusTip(tr("Project saved"));
+            return true;
         }
         else
         {
             // error in saving
-            QMessageBox::warning(this,
-                                 tr("Save Error"),
-                                 tr("Unable to save to %1").arg(QFileInfo(fileToSave).fileName()));
+            WidgetUtils::warning(QApplication::activeWindow(),
+                                 tr("Save Project Error"),
+                                 tr("%1 was unable to save to %2")
+                                     .arg(Defs::APP_NAME)
+                                     .arg(QFileInfo(fileToSave).fileName()),
+                                 tr("Make sure the file is not in use "
+                                    "by another application."
+                                    "If the problem persists, contact "
+                                    "envsupport@licor.com ."));
             showStatusTip(tr("Error in saving project"));
+            return false;
         }
     }
-    else
+
+    // fileToSave.isEmpty(), i.e. no file chosen
+    showStatusTip(tr("Saving aborted"));
+    return false;
+}
+
+// return true if it saved successfully, false if an error occurred
+// the only message being in case of error
+bool MainWindow::fileSaveSilently()
+{
+    DEBUG_FUNC_NAME
+
+    if (modifiedFlag_)
     {
-        // no file chosen
-        showStatusTip(tr("Saving aborted"));
+        bool quiet = true;
+        return fileSave(quiet);
     }
+    return true;
 }
 
 void MainWindow::fileClose()
 {
     DEBUG_FUNC_NAME
 
-    int continueAction = continueBeforeClose();
-
     // cancel the operation
-    if (continueAction == QMessageBox::Cancel)
-    {
-        return;
-    }
+    if (!continueBeforeClose()) { return; }
 
     newFile();
     newClicked_ = false;
-    changePage(Defs::CurrPageWelcome, false);
+    changePage(Defs::CurrPage::Welcome, false);
     showStatusTip(tr("Project closed"));
     updateInfoDock(false);
     updateRunButtonsAvailability();
-    FileUtils::cleanSmfDir(configState_.general.env);
+    FileUtils::cleanSmfDirRecursively(configState_.general.env);
 }
 
 void MainWindow::newFile()
@@ -819,90 +850,78 @@ void MainWindow::newFile()
     runAdvancedAvailable_ = false;
 }
 
-void MainWindow::noticeAboutChangesDuringRun()
+bool MainWindow::alertChangesWhenRunning()
 {
-    if (currentStatus() == Defs::CurrStatusRun)
+    if (currentStatus() == Defs::CurrStatus::Run)
     {
-        QErrorMessage* changesMsgDialog = new QErrorMessage(this);
-        changesMsgDialog->setWindowTitle(Defs::APP_NAME);
-        changesMsgDialog->showMessage(tr("The changes will take effect during next runs."));
+        WidgetUtils::warning(nullptr,
+                             tr("Changes During Run"),
+                             tr("You can not save changes "
+                                "while EddyPro is running. ",
+                                "Wait until run has finished "
+                                "before saving."));
+        return true;
     }
+    return false;
 }
 
-int MainWindow::continueBeforeClose()
+bool MainWindow::continueBeforeClose()
 {
     DEBUG_FUNC_NAME
 
-    if (currentStatus() != Defs::CurrStatusReady)
+    // stop if processing
+    if (currentStatus() != Defs::CurrStatus::Ready)
     {
-        int ret = QMessageBox::question(this,
-                      tr("Stop EddyPro"),
-                      tr("EddyPro is processing.\n"
-                      "Do you want to stop the computations before proceeding?"),
-                      QMessageBox::Yes | QMessageBox::Cancel,
-                      QMessageBox::Cancel);
-        // engine needs to be stopped
-        switch (ret)
+        if (WidgetUtils::okToQuestion(this,
+                                  tr("Stop EddyPro"),
+                                  tr("EddyPro is processing (running or in pause)."),
+                                  tr("Do you want to stop the computations "
+                                     "before proceeding?")))
         {
-            case QMessageBox::Yes:
-                stopEngineProcess();
-                break;
-            case QMessageBox::Cancel:
-                showStatusTip(tr("Canceled..."));
-                return QMessageBox::Cancel;
+            stopEngineProcess();
+        }
+        else
+        {
+            showStatusTip(tr("Canceled..."));
+            return false;
         }
     }
 
-    if (modifiedFlag_)
+    // save if project modified
+    if (!modifiedFlag_) return true;
+
+    int buttonRole = WidgetUtils::requestToSave(this,
+                           tr("Save Project"),
+                           tr("Current project has been modified."),
+                           tr("Do you want to save your changes?"));
+
+    qDebug() << "buttonRole" << buttonRole;
+    switch (buttonRole)
     {
-        int ret = QMessageBox::question(this,
-                      tr("Save Project"),
-                      tr("Current project has been modified.\n"
-                      "Do you want to save your changes?"),
-                      QMessageBox::Save | QMessageBox::No | QMessageBox::Cancel,
-                      QMessageBox::Save);
-        // file needs to be saved
-        switch (ret)
-        {
-            case QMessageBox::Save:
-                fileSave();
-                break;
-            case QMessageBox::No:
-                return QMessageBox::No;
-            case QMessageBox::Cancel:
-                showStatusTip(tr("Canceled..."));
-                return QMessageBox::Cancel;
-        }
+    case QMessageBox::NoRole:
+        showStatusTip(tr("Canceled..."));
+        return false;
+    case QMessageBox::AcceptRole:
+        return fileSave();
+    case QMessageBox::RejectRole:
+        break;
     }
-    return QMessageBox::Yes;
+    return true;
 }
 
 bool MainWindow::saveFile(const QString& fileName)
 {
     DEBUG_FUNC_NAME
 
-    bool status = false;
+    bool saved = ecProject_->saveEcProject(fileName);
 
-    qDebug() << "ecProject_" << ecProject_;
-    status = ecProject_->saveEcProject(fileName);
-    qDebug() << "status" << status;
-
-    if (status)
+    if (saved)
     {
-        if (!FileUtils::projectFileForcedCopy(fileName,
-                                              appEnvPath_
-                                              + QStringLiteral("/")
-                                              + Defs::INI_FILE_DIR
-                                              ))
-        {
-            qDebug() << "Unable to create default proc ini file";
-        }
-
         // new
         currEcProjectFilename_ = fileName;
         addRecent(currentProjectFile());
     }
-    return status;
+    return saved;
 }
 
 void MainWindow::about()
@@ -933,15 +952,15 @@ void MainWindow::updateInfoMessages()
 {
     DEBUG_FUNC_NAME
 
-    if (currentPage() == Defs::CurrPageProjectCreation)
+    if (currentPage() == Defs::CurrPage::ProjectCreation)
     {
         showInfoMessages_1();
     }
-    else if (currentPage() == Defs::CurrPageBasicSettings)
+    else if (currentPage() == Defs::CurrPage::BasicSettings)
     {
         showInfoMessages_2();
     }
-    else if (currentPage() == Defs::CurrPageAdvancedSettings)
+    else if (currentPage() == Defs::CurrPage::AdvancedSettings)
     {
         showInfoMessages_3();
     }
@@ -951,77 +970,98 @@ void MainWindow::createActions()
 {
     newAction = new QAction(this);
     newAction->setText(tr("&New\nProject"));
-    newAction->setToolTip(tr("<b>New Project:</b> Start a new project."));
     newAction->setIcon(QIcon(QStringLiteral(":/icons/new")));
-    newAction->setShortcut(tr("Ctrl+N"));
+    newAction->setShortcut(QKeySequence(QKeySequence::New));
+    newAction->setToolTip(tr("Start a new project. (%1)")
+                          .arg((newAction->shortcut().toString())));
 
     openAction = new QAction(this);
     openAction->setText(tr("&Open\nProject..."));
-    openAction->setToolTip(tr("<b>Open Project:</b> Open an existing project."));
     openAction->setIcon(QIcon(QStringLiteral(":/icons/open")));
-    openAction->setShortcut(tr("Ctrl+O"));
+    openAction->setShortcut(QKeySequence(QKeySequence::Open));
+    openAction->setToolTip(tr("Open an existing project. (%1)")
+                           .arg((openAction->shortcut().toString())));
 
     closeAction = new QAction(this);
     closeAction->setText(tr("&Close"));
-    closeAction->setToolTip(tr("<b>Close Project:</b> Close the current project."));
     closeAction->setIcon(QIcon(QStringLiteral(":/icons/close")));
-    closeAction->setShortcut(tr("Ctrl+W"));
+    closeAction->setShortcut(QKeySequence(tr("Ctrl+W")));
     closeAction->setShortcutContext(Qt::ApplicationShortcut);
+    closeAction->setToolTip(tr("Close the current project. (%1)")
+                            .arg((closeAction->shortcut().toString())));
 
     recentOpenAction = new QAction(this);
     recentOpenAction->setText(tr("Open &Recent..."));
-    recentOpenAction->setToolTip(tr("<b>Open Recent:</b> Open a recent project."));
     recentOpenAction->setIcon(QIcon(QStringLiteral(":/icons/open")));
+    recentOpenAction->setToolTip(tr("Open a recent project."));
 
     saveAction = new QAction(this);
     saveAction->setText(tr("&Save\n"));
-    saveAction->setToolTip(tr("<b>Save:</b> Save the current project."));
     saveAction->setIcon(QIcon(QStringLiteral(":/icons/save")));
-    saveAction->setShortcut(tr("Ctrl+S"));
+    saveAction->setShortcut(QKeySequence(QKeySequence::Save));
+    saveAction->setToolTip(tr("Save the current project. (%1)")
+                           .arg((saveAction->shortcut().toString())));
 
     saveAsAction = new QAction(this);
     saveAsAction->setText(tr("Save\n&As..."));
-    saveAsAction->setToolTip(tr("<b>Save As:</b> Save the current project with a new name."));
     saveAsAction->setIcon(QIcon(QStringLiteral(":/icons/save-as")));
+    // Extend to Windows the other platforms' standard shortcut
     saveAsAction->setShortcut(tr("Ctrl+Shift+S"));
+    saveAsAction->setToolTip(tr("Save the current project "
+                                "with a new name. (%1)")
+                             .arg((saveAsAction->shortcut().toString())));
 
     smartfluxAction = new QAction(this);
     smartfluxAction->setCheckable(true);
     smartfluxAction->setText(tr("SmartFlux Configuration"));
-    smartfluxAction->setToolTip(tr("<b>SmartFlux Configuration:</b> ..."));
     smartfluxAction->setShortcut(tr("Ctrl+F"));
+    smartfluxAction->setToolTip(tr("<b>SmartFlux Configuration</b>. (%1)")
+                                .arg((smartfluxAction->shortcut().toString())));
 
     quitAction = new QAction(this);
     quitAction->setText(tr("&Quit"));
-    quitAction->setToolTip(tr("<b>Quit:</b> Quit the application"));
+    // Extend to Windows the other platforms' standard shortcut
     quitAction->setShortcut(tr("Ctrl+Q"));
     quitAction->setMenuRole(QAction::QuitRole);
+    quitAction->setToolTip(tr("<b>Quit:</b> Quit the application. (%1)")
+                           .arg((quitAction->shortcut().toString())));
 
     // view start menu action
     viewWelcomeAction = new QAction(this);
     viewWelcomeAction->setText(tr("Welcome"));
     viewWelcomeAction->setIcon(QIcon(QStringLiteral(":/icons/welcome")));
-    viewWelcomeAction->setToolTip(tr("Go to the <i>Welcome page</i>"));
+    viewWelcomeAction->setShortcut(tr("Alt+1"));
+    viewWelcomeAction->setToolTip(tr("Go to the <i>Welcome page</i>. (%1)")
+                                  .arg((viewWelcomeAction->shortcut().toString())));
 
     viewProjectCreationAction = new QAction(this);
     viewProjectCreationAction->setText(tr("Project\nCreation"));
     viewProjectCreationAction->setIcon(QIcon(QStringLiteral(":/icons/project")));
-    viewProjectCreationAction->setToolTip(tr("Go to the <i>Project Creation Page</i>"));
+    viewProjectCreationAction->setShortcut(tr("Alt+2"));
+    viewProjectCreationAction->setToolTip(tr("Go to the <i>Project Creation Page</i>. (%1)")
+                                          .arg((viewProjectCreationAction
+                                                ->shortcut().toString())));
 
     viewBasicSettingsAction = new QAction(this);
     viewBasicSettingsAction->setText(tr("Basic\nSettings"));
     viewBasicSettingsAction->setIcon(QIcon(QStringLiteral(":/icons/dataset")));
-    viewBasicSettingsAction->setToolTip(tr("Go to the <i>Basic Settings Page</i>"));
+    viewBasicSettingsAction->setShortcut(tr("Alt+3"));
+    viewBasicSettingsAction->setToolTip(tr("Go to the <i>Basic Settings Page</i>. (%1)")
+                                        .arg((viewBasicSettingsAction->shortcut().toString())));
 
     viewAdvancedAction = new QAction(this);
     viewAdvancedAction->setText(tr("Advanced\nSettings"));
     viewAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/advanced")));
-    viewAdvancedAction->setToolTip(tr("Go to the <i>Advanced Settings Page</i>"));
+    viewAdvancedAction->setShortcut(tr("Alt+4"));
+    viewAdvancedAction->setToolTip(tr("Go to the <i>Advanced Settings Page</i>. (%1)")
+                                   .arg((viewAdvancedAction->shortcut().toString())));
 
     viewRunPageAction = new QAction(this);
     viewRunPageAction->setText(tr("Output\nConsole"));
     viewRunPageAction->setIcon(QIcon(QStringLiteral(":/icons/console")));
-    viewRunPageAction->setToolTip(tr("Go to the <i>Output Console Page</i>"));
+    viewRunPageAction->setShortcut(tr("Alt+5"));
+    viewRunPageAction->setToolTip(tr("Go to the <i>Output Console Page</i>. (%1)")
+                                  .arg((viewRunPageAction->shortcut().toString())));
 
     viewActionGroup = new QActionGroup(this);
     viewActionGroup->addAction(viewWelcomeAction);
@@ -1033,41 +1073,52 @@ void MainWindow::createActions()
     runExpressAction = new QAction(this);
     runExpressAction->setText(tr("Express\nMode"));
     runExpressAction->setIcon(QIcon(QStringLiteral(":/icons/run-exp")));
-    runExpressAction->setToolTip(tr("<i>Process in Express mode</i>"));
     runExpressAction->setPriority(QAction::HighPriority);
-    runExpressAction->setProperty("show-tooltip", false);
     runExpressAction->setShortcut(tr("Ctrl+E"));
+    runExpressAction->setProperty("show-tooltip", false);
+    runExpressAction->setToolTip(tr("Process in <i>Express mode</i>. (%1)")
+                                 .arg((runExpressAction->shortcut().toString())));
 
     runAdvancedAction = new QAction(this);
     runAdvancedAction->setText(tr("Advanced\nMode"));
     runAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/run-adv")));
-    runAdvancedAction->setToolTip(tr("<i>Process in Advanced mode</i>"));
     runAdvancedAction->setPriority(QAction::HighPriority);
-    runAdvancedAction->setProperty("show-tooltip", false);
     runAdvancedAction->setShortcut(tr("Ctrl+A"));
+    runAdvancedAction->setProperty("show-tooltip", false);
+    runAdvancedAction->setToolTip(tr("Process in <i>Advanced mode</i>. (%1)")
+                                  .arg((runAdvancedAction->shortcut().toString())));
 
     runRetrieverAction = new QAction(this);
     runRetrieverAction->setText(tr("Metadata\nRetriever"));
     runRetrieverAction->setIcon(QIcon(QStringLiteral(":/icons/run-ret")));
-    runRetrieverAction->setToolTip(tr("<b>Metadata retriever:</b> Only available for GHG files, this tool retrieves metadata from GHG files and organizes them into a unique file that can be examined (e.g., to create a time series of canopy heights at the site) and can also be provided to EddyPro as a dynamic metadata file."));
     runRetrieverAction->setPriority(QAction::HighPriority);
-    runRetrieverAction->setProperty("show-tooltip", true);
     runRetrieverAction->setShortcut(tr("Ctrl+R"));
+    runRetrieverAction->setProperty("show-tooltip", true);
+    runRetrieverAction->setToolTip(tr("<b>Metadata retriever:</b> "
+                                      "Only available for GHG files, this tool "
+                                      "retrieves metadata from GHG files and "
+                                      "organizes them into a unique file that "
+                                      "can be examined (e.g., to create a "
+                                      "time series of canopy heights at the "
+                                      "site) and can also be provided to "
+                                      "EddyPro as a dynamic metadata file. (%1)")
+                                      .arg((runRetrieverAction->shortcut().toString())));
 
     stopAction = new QAction(this);
     stopAction->setText(tr("Stop"));
     stopAction->setIcon(QIcon(QStringLiteral(":/icons/stop")));
-    stopAction->setToolTip(tr("<i>Stop processing</i>"));
     stopAction->setPriority(QAction::HighPriority);
-    stopAction->setProperty("show-tooltip", false);
     stopAction->setShortcut(tr("Ctrl+T"));
+    stopAction->setProperty("show-tooltip", false);
+    stopAction->setToolTip(tr("Stop processing. (%1)")
+                           .arg((stopAction->shortcut().toString())));
 
 #if 1 // !defined(Q_OS_MAC)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
     toggleFullScreenAction->setCheckable(true);
-    toggleFullScreenAction->setShortcut(QKeySequence(tr("F11")));
+    toggleFullScreenAction->setShortcut(QKeySequence(QKeySequence::FullScreen));
     toggleFullScreenAction->setStatusTip(tr("Full screen mode view"));
 #endif
 
@@ -1093,12 +1144,12 @@ void MainWindow::createActions()
     helpAction = new QAction(this);
     helpAction->setText(tr("%1 Help").arg(Defs::APP_NAME));
     helpAction->setIcon(QIcon(QStringLiteral(":/icons/img/menu-help.png")));
-    helpAction->setShortcut(QKeySequence(tr("F1")));
+    helpAction->setShortcut(QKeySequence(tr("Ctrl+F1")));
 
     pdfHelpAction = new QAction(this);
     pdfHelpAction->setText(tr("Instruction Manual (PDF)"));
     pdfHelpAction->setIcon(QIcon(QStringLiteral(":/icons/img/menu-help.png")));
-    pdfHelpAction->setShortcut(tr("Ctrl+H"));
+    pdfHelpAction->setShortcut(tr("Ctrl+H")); // change
 
     starterPdfHelpAction = new QAction(this);
     starterPdfHelpAction->setText(tr("Getting Started (PDF)"));
@@ -1132,77 +1183,83 @@ void MainWindow::connectActions()
     DEBUG_FUNC_NAME
 
     // File actions
-    connect(newAction, SIGNAL(triggered()), this, SLOT(fileNew()));
+    connect(newAction, &QAction::triggered, this, &MainWindow::fileNew);
     connect(openAction, SIGNAL(triggered()), this, SLOT(fileOpen()));
-    connect(closeAction, SIGNAL(triggered()), this, SLOT(fileClose()));
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(fileSave()));
+    connect(closeAction, &QAction::triggered, this, &MainWindow::fileClose);
+    connect(saveAction, &QAction::triggered, this, &MainWindow::fileSave);
     connect(saveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(quitAction, &QAction::triggered, this, &MainWindow::close);
 
-    connect(smartfluxAction, SIGNAL(triggered(bool)), this, SLOT(setSmartfluxMode(bool)));
-//    connect(smartfluxAction, SIGNAL(triggered(bool)), mainDialog_->startPage(), SLOT(updateSmartfluxCheckBox()));
+    connect(smartfluxAction, &QAction::triggered,
+            this, &MainWindow::setSmartfluxMode);
 
     // View actions
-    connect(viewWelcomeAction, SIGNAL(triggered()),
-            this, SLOT(viewWelcomePage()));
-    connect(viewProjectCreationAction, SIGNAL(triggered()),
-            this, SLOT(viewProjectPage()));
-    connect(viewBasicSettingsAction, SIGNAL(triggered()),
-            this, SLOT(viewBasicSettingsPage()));
-    connect(viewAdvancedAction, SIGNAL(triggered()),
-            this, SLOT(viewAdvancedSettingsPage()));
-    connect(viewRunPageAction, SIGNAL(triggered()),
-            this, SLOT(viewRunPage()));
+    connect(viewWelcomeAction, &QAction::triggered,
+            this, &MainWindow::viewWelcomePage);
+    connect(viewProjectCreationAction, &QAction::triggered,
+            this, &MainWindow::viewProjectPage);
+    connect(viewBasicSettingsAction, &QAction::triggered,
+            this, &MainWindow::viewBasicSettingsPage);
+    connect(viewAdvancedAction, &QAction::triggered,
+            this, &MainWindow::viewAdvancedSettingsPage);
+    connect(viewRunPageAction, &QAction::triggered,
+            this, &MainWindow::viewRunPage);
 
-    connect(runExpressAction, SIGNAL(triggered()),
-            this, SLOT(getRunExpress()));
-    connect(runAdvancedAction, SIGNAL(triggered()),
-            this, SLOT(getRunAdvanced()));
-    connect(runRetrieverAction, SIGNAL(triggered()),
-            this, SLOT(getRunRetriever()));
-    connect(stopAction, SIGNAL(triggered()),
-            this, SLOT(stopEngine()));
+    connect(runExpressAction, &QAction::triggered,
+            this, &MainWindow::getRunExpress);
+    connect(runAdvancedAction, &QAction::triggered,
+            this, &MainWindow::getRunAdvanced);
+    connect(runRetrieverAction, &QAction::triggered,
+            this, &MainWindow::getRunRetriever);
+    connect(stopAction, &QAction::triggered,
+            this, &MainWindow::stopEngine);
 
 #if 1 // !defined(Q_OS_MAC)
-    connect(toggleFullScreenAction, SIGNAL(toggled(bool)),
-            this, SLOT(setFullScreen(bool)));
+    connect(toggleFullScreenAction, &QAction::toggled,
+            this, &MainWindow::setFullScreen);
 #endif
 
-    connect(toggleStatusbarAct, SIGNAL(triggered(bool)),
-            this, SLOT(toggleStatusbar(bool)));
+    connect(toggleStatusbarAct, &QAction::triggered,
+            this, &MainWindow::toggleStatusbar);
 
     // Tools actions
-    connect(toggleInfoOutputAct, SIGNAL(triggered(bool)),
-            this, SLOT(viewInfoOutput(bool)));
-    connect(toggleTooltipOutputAct, SIGNAL(triggered(bool)),
-            this, SLOT(viewTooltipOutput(bool)));
-    connect(toggleConsoleOutputAct, SIGNAL(triggered(bool)),
-            this, SLOT(viewConsoleOutput(bool)));
+    connect(toggleInfoOutputAct, &QAction::triggered,
+            this, &MainWindow::viewInfoOutput);
+    connect(toggleTooltipOutputAct, &QAction::triggered,
+            this, &MainWindow::viewTooltipOutput);
+    connect(toggleConsoleOutputAct, &QAction::triggered,
+            this, &MainWindow::viewConsoleOutput);
 
-    connect(toggleInfoOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewInfoOutput(bool)));
-    connect(toggleTooltipOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewTooltipOutput(bool)));
-    connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-            this, SLOT(viewConsoleOutput(bool)));
+    // test only
+//    connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
+//            this, SLOT(dbgViewConsoleOutputToggled(bool)));
+//    connect(toggleConsoleOutputAct, SIGNAL(triggered(bool)),
+//            this, SLOT(dbgViewConsoleOutputTriggered(bool)));
+
+    connect(toggleInfoOutputAct, &QAction::toggled,
+            this, &MainWindow::viewInfoOutput);
+    connect(toggleTooltipOutputAct, &QAction::toggled,
+            this, &MainWindow::viewTooltipOutput);
+    connect(toggleConsoleOutputAct, &QAction::toggled,
+            this, &MainWindow::viewConsoleOutput);
 
     // Help actions
-    connect(helpAction, SIGNAL(triggered()),
-            this, SLOT(showHelp()));
-    connect(pdfHelpAction, SIGNAL(triggered()),
-            this, SLOT(showPdfHelp()));
-    connect(starterPdfHelpAction, SIGNAL(triggered()),
-            this, SLOT(showStarterPdfHelp()));
-    connect(toggleOfflineHelpAct, SIGNAL(triggered(bool)),
-            this, SLOT(setOfflineHelp(bool)));
-    connect(swWebpageAction, SIGNAL(triggered()),
-            this, SLOT(showSwWebPage()));
-    connect(checkUpdateAction, SIGNAL(triggered()),
-            this, SLOT(showUpdateDialog()));
-    connect(aboutAction, SIGNAL(triggered()),
-            this, SLOT(about()));
-    connect(aboutQtAction, SIGNAL(triggered()),
-            qApp, SLOT(aboutQt()));
+    connect(helpAction, &QAction::triggered,
+            this, &MainWindow::showHelp);
+    connect(pdfHelpAction, &QAction::triggered,
+            this, &MainWindow::showPdfHelp);
+    connect(starterPdfHelpAction, &QAction::triggered,
+            this, &MainWindow::showStarterPdfHelp);
+    connect(toggleOfflineHelpAct, &QAction::triggered,
+            this, &MainWindow::setOfflineHelp);
+    connect(swWebpageAction, &QAction::triggered,
+            this, &WidgetUtils::openAppWebsite);
+    connect(checkUpdateAction, &QAction::triggered,
+            this, &MainWindow::showUpdateDialog);
+    connect(aboutAction, &QAction::triggered,
+            this, &MainWindow::about);
+    connect(aboutQtAction, &QAction::triggered,
+            qApp, &QApplication::aboutQt);
 }
 
 void MainWindow::createMenus()
@@ -1241,7 +1298,7 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleFullScreenAction);
 #endif
 
-    MyMenu *toolsMenu = new MyMenu(this);
+    auto toolsMenu = new MyMenu(this);
     toolsMenu->setTitle(tr("&Run"));
     menuBar()->addMenu(toolsMenu);
     toolsMenu->addAction(runExpressAction);
@@ -1277,13 +1334,13 @@ void MainWindow::createToolBars()
     fileToolBar->setObjectName(QStringLiteral("fileToolBar"));
     fileToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
 
-    sep1 = new ClickLabel();
+    sep1 = new ClickLabel;
     sep1->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-    sep2 = new ClickLabel();
+    sep2 = new ClickLabel;
     sep2->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-    sep3 = new ClickLabel();
+    sep3 = new ClickLabel;
     sep3->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-    sep4 = new ClickLabel();
+    sep4 = new ClickLabel;
     sep4->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
 
     viewToolBar = addToolBar(tr("&View ToolBar"));
@@ -1303,18 +1360,18 @@ void MainWindow::createToolBars()
 
     runToolBar = addToolBar(tr("&Tools ToolBar"));
 
-    QLabel* runLabel = new QLabel(tr("  Run:  "));
+    auto runLabel = new QLabel(tr("  Run:  "));
     runLabel->setObjectName(QStringLiteral("runLabel"));
 
-    QAction* tSep = new QAction(this);
+    auto tSep = new QAction(this);
     tSep->setSeparator(true);
     tSep->setIcon(QIcon(QStringLiteral(":/icons/sep")));
 
-    QLabel* sep5 = new QLabel();
+    auto sep5 = new QLabel;
     sep5->setPixmap(QPixmap(QStringLiteral(":/icons/tsep")));
-    QLabel* sep6 = new QLabel();
+    auto sep6 = new QLabel;
     sep6->setPixmap(QPixmap(QStringLiteral(":/icons/tsep")));
-    QLabel* sep7 = new QLabel();
+    auto sep7 = new QLabel;
     sep7->setPixmap(QPixmap(QStringLiteral(":/icons/tsep")));
 
     runToolBar->addWidget(runLabel);
@@ -1333,14 +1390,14 @@ void MainWindow::createToolBars()
     runToolBar->setIconSize(QSize(32, 42));
 
     // to add small licor logo right aligned
-    QWidget* spacer = new QWidget();
+    auto spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    ClickLabel *licorLogo = new ClickLabel();
+    auto licorLogo = new ClickLabel;
     licorLogo->setObjectName(QStringLiteral("licorLogo"));
 
     runToolBar->addWidget(spacer);
     runToolBar->addWidget(licorLogo);
-    connect(licorLogo, SIGNAL(clicked()), this, SLOT(openLicorSite()));
+    connect(licorLogo, &ClickLabel::clicked, this, &MainWindow::openLicorSite);
 }
 
 void MainWindow::createStatusBar()
@@ -1359,14 +1416,14 @@ void MainWindow::createStatusBar()
 
 void MainWindow::updateStatusBar()
 {
-    Alia::setTextToLabel(currentProjectLabel, currentProjectFile(), Qt::ElideMiddle, this->size().width());
+    WidgetUtils::setElidedTextToLabel(currentProjectLabel, currentProjectFile(), Qt::ElideMiddle, this->size().width());
     statusBar()->setToolTip(currentProjectFile());
 }
 
 void MainWindow::createConsoleDockWin()
 {
     DEBUG_FUNC_NAME
-    consoleOutput = new QPlainTextEdit();
+    consoleOutput = new QPlainTextEdit;
     consoleOutput->setObjectName(QStringLiteral("consoleDockEdit"));
     consoleOutput->setReadOnly(true);
     consoleOutput->setLineWrapMode(QPlainTextEdit::NoWrap);
@@ -1374,18 +1431,19 @@ void MainWindow::createConsoleDockWin()
     consoleOutput->setUndoRedoEnabled(false);
     consoleOutput->setMinimumWidth(this->width() / 2);
 
-    QPushButton *clearConsoleButton = new QPushButton(tr("Clear"));
+    auto clearConsoleButton = new QPushButton(tr("Clear"));
     clearConsoleButton->setProperty("mdButton", true);
+    clearConsoleButton->setStyleSheet(QStringLiteral("QPushButton { margin-right: 4px; }"));
     clearConsoleButton->setMaximumWidth(clearConsoleButton->sizeHint().width());
 
-    connect(clearConsoleButton, SIGNAL(clicked()),
-            consoleOutput, SLOT(clear()));
+    connect(clearConsoleButton, &QPushButton::clicked,
+            consoleOutput, &QPlainTextEdit::clear);
 
-    QVBoxLayout* consoleLayout = new QVBoxLayout;
+    auto consoleLayout = new QVBoxLayout;
     consoleLayout->addWidget(consoleOutput);
     consoleLayout->addWidget(clearConsoleButton, 0, Qt::AlignBottom | Qt::AlignRight);
 
-    QWidget *consoleFrame = new QWidget(this);
+    auto consoleFrame = new QWidget(this);
     consoleFrame->setLayout(consoleLayout);
 
     consoleDock = new QDockWidget(tr("Output Console"), this);
@@ -1398,7 +1456,7 @@ void MainWindow::createConsoleDockWin()
 
 void MainWindow::createInfoDockWin()
 {
-    infoOutput = new QPlainTextEdit();
+    infoOutput = new QPlainTextEdit;
     infoOutput->setObjectName(QStringLiteral("infoDockEdit"));
     infoOutput->setReadOnly(true);
     infoOutput->setUndoRedoEnabled(false);
@@ -1412,8 +1470,8 @@ void MainWindow::createInfoDockWin()
     infoDock->setVisible(false);
 
     addDockWidget(Qt::BottomDockWidgetArea, infoDock, Qt::Horizontal);
-    connect(infoDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)),
-                               this, SLOT(updateDockBorder(Qt::DockWidgetArea)));
+    connect(infoDock, &QDockWidget::dockLocationChanged,
+            this, &MainWindow::updateDockBorder);
 }
 
 void MainWindow::updateHtmlDock(QPlainTextEdit* dock, const QString& htmlMsg)
@@ -1507,7 +1565,7 @@ void MainWindow::writeSettings()
     // write general state
     settings.beginGroup(Defs::CONFGROUP_GENERAL);
         settings.setValue(Defs::CONF_GEN_RECENTFILES, configState_.general.recentfiles);
-        settings.setValue(Defs::CONF_GEN_RECENTNUM, (int)configState_.general.recentnum);
+        settings.setValue(Defs::CONF_GEN_RECENTNUM, configState_.general.recentnum);
         settings.setValue(Defs::CONF_GEN_LOADLAST, configState_.general.loadlastproject);
     settings.endGroup();
 
@@ -1524,14 +1582,10 @@ void MainWindow::saveEnvSettings(const QString& env)
 {
     configState_.general.env = env;
 
-    QSettings settings;
-
     // write project config
-    settings.beginGroup(Defs::CONFGROUP_GENERAL);
-        settings.setValue(Defs::CONF_GEN_ENV, configState_.general.env);
-    settings.endGroup();
-
-    settings.sync();
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_GENERAL,
+                                             Defs::CONF_GEN_ENV,
+                                             configState_.general.env);
 }
 
 void MainWindow::restorePreviousStatus()
@@ -1619,33 +1673,24 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#EddyPro_Home.htm"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#EddyPro_Home.htm"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
 {
-    Alia::showHelp(QUrl(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_User_Guide.pdf"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_User_Guide.pdf"), QUrl::StrictMode));
 }
 
 void MainWindow::showStarterPdfHelp()
 {
-    Alia::showHelp(QUrl(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_Getting_Started.pdf"), QUrl::StrictMode));
-}
-
-void MainWindow::showSwWebPage()
-{
-    Alia::openWebSite();
+    WidgetUtils::showHelp(QUrl(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Manual/EddyPro5_Getting_Started.pdf"), QUrl::StrictMode));
 }
 
 void MainWindow::setOfflineHelp(bool yes)
 {
-    QSettings config;
-
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        config.setValue(Defs::CONF_WIN_OFFLINEHELP, yes);
-    config.endGroup();
-    config.sync();
-
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                             Defs::CONF_WIN_OFFLINEHELP,
+                                             yes);
     toggleOfflineHelpAct->setChecked(yes);
 }
 
@@ -1654,24 +1699,18 @@ void MainWindow::setSmartfluxMode(bool on)
     DEBUG_FUNC_NAME
 
     configState_.project.smartfluxMode = on;
-
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_PROJECT);
-        config.setValue(Defs::CONF_PROJ_SMARTFLUX, on);
-    config.endGroup();
-    config.sync();
-
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
+                                             Defs::CONF_PROJ_SMARTFLUX,
+                                             on);
     updateInfoMessages();
     updateRunButtonsAvailability();
 
     if (on)
     {
-        bool showDialog = false;
-
-        QSettings config;
-        config.beginGroup(Defs::CONFGROUP_WINDOW);
-            showDialog = config.value(Defs::CONF_WIN_SMARTFLUX_CONFIG_MSG, true).toBool();
-        config.endGroup();
+        bool showDialog
+            = GlobalSettings::getAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                Defs::CONF_WIN_SMARTFLUX_CONFIG_MSG,
+                true).toBool();
 
         qDebug() << "showDialog" << showDialog;
         if (showDialog)
@@ -1679,7 +1718,7 @@ void MainWindow::setSmartfluxMode(bool on)
             // info message
             InfoMessage smartfluxConfigDialog(QDialogButtonBox::Ok, this);
             smartfluxConfigDialog.setTitle(tr("SmartFlux"));
-            smartfluxConfigDialog.setType(InfoMessage::SMARTFLUX_CONFIG);
+            smartfluxConfigDialog.setType(InfoMessage::Type::SMARTFLUX_CONFIG);
             smartfluxConfigDialog.setMessage(tr("The SmartFlux configuration will use "
                 "a renamed copy of your current project file. <br />"));
             smartfluxConfigDialog.refresh();
@@ -1699,7 +1738,7 @@ void MainWindow::setSmartfluxMode(bool on)
     viewProjectCreationAction->setEnabled(!on);
     viewProjectCreationAction->setCheckable(!on);
 
-    if (currentPage() == Defs::CurrPageWelcome)
+    if (currentPage() == Defs::CurrPage::Welcome)
     {
         viewBasicSettingsAction->setEnabled(on);
         viewBasicSettingsAction->setCheckable(on);
@@ -1711,10 +1750,10 @@ void MainWindow::setSmartfluxMode(bool on)
 
         windowTitleUpdate(currentPage());
     }
-    else if (currentPage() == Defs::CurrPageProjectCreation
-             || currentPage() == Defs::CurrPageRun)
+    else if (currentPage() == Defs::CurrPage::ProjectCreation
+             || currentPage() == Defs::CurrPage::Run)
     {
-        changePage(Defs::CurrPageBasicSettings, false);
+        changePage(Defs::CurrPage::BasicSettings, false);
         viewRunPageAction->setEnabled(!on);
         viewRunPageAction->setCheckable(!on);
     }
@@ -1768,15 +1807,17 @@ void MainWindow::loadSmartfluxProjectCopy(const QString& filename)
 // Add a file to the recent files list
 void MainWindow::addRecent(const QString &filename)
 {
-    if (configState_.general.recentnum == 0) return;
+    if (configState_.general.recentnum == 0) { return; }
 
     QFileInfo finfo(filename);
     QString filepath = finfo.absoluteFilePath();
 
     if (configState_.general.recentfiles.contains(filepath))
         configState_.general.recentfiles.removeAll(filepath);
+
     if (configState_.general.recentfiles.count() >= configState_.general.recentnum)
         configState_.general.recentfiles.removeLast();
+
     configState_.general.recentfiles.prepend(filepath);
 
     currEcProjectFilename_ = filename;
@@ -1794,7 +1835,7 @@ void MainWindow::recentMenuShow()
         if (QFile::exists(recentfile))
         {
             action = new QAction(recentfile, fileMenuOpenRecent);
-            connect(action, SIGNAL(triggered()), this, SLOT(fileRecent()));
+            connect(action, &QAction::triggered, this, &MainWindow::fileRecent);
             fileMenuOpenRecent->addAction(action);
         }
     }
@@ -1803,11 +1844,11 @@ void MainWindow::recentMenuShow()
 void MainWindow::viewWelcomePage()
 {
     DEBUG_FUNC_NAME
-    qDebug() << currentPage();
+    qDebug() << static_cast<int>(currentPage());
 
-    if (currentPage() != Defs::CurrPageWelcome)
+    if (currentPage() != Defs::CurrPage::Welcome)
     {
-        changePage(Defs::CurrPageWelcome);
+        changePage(Defs::CurrPage::Welcome);
         writeSettings();
         emit recentUpdated();
     }
@@ -1816,18 +1857,18 @@ void MainWindow::viewWelcomePage()
 void MainWindow::viewProjectPage()
 {
     DEBUG_FUNC_NAME
-    qDebug() << currentPage();
+    qDebug() << static_cast<int>(currentPage());
 
-    if (currentPage() != Defs::CurrPageProjectCreation)
+    if (currentPage() != Defs::CurrPage::ProjectCreation)
     {
         if (configState_.project.smartfluxMode)
         {
-            changePage(Defs::CurrPageBasicSettings);
+            changePage(Defs::CurrPage::BasicSettings);
             showInfoMessages_2();
         }
         else
         {
-            changePage(Defs::CurrPageProjectCreation);
+            changePage(Defs::CurrPage::ProjectCreation);
             showInfoMessages_1();
         }
     }
@@ -1838,13 +1879,13 @@ void MainWindow::viewBasicSettingsPage()
     DEBUG_FUNC_NAME
 
 //    updateInfoDock(true);
-    qDebug() << currentPage() << basicSettingsPageAvailable_;
+    qDebug() << static_cast<int>(currentPage()) << basicSettingsPageAvailable_;
 
     if (basicSettingsPageAvailable_)
     {
-        if (currentPage() != Defs::CurrPageBasicSettings)
+        if (currentPage() != Defs::CurrPage::BasicSettings)
         {
-            changePage(Defs::CurrPageBasicSettings);
+            changePage(Defs::CurrPage::BasicSettings);
             showInfoMessages_2();
         }
     }
@@ -1853,29 +1894,29 @@ void MainWindow::viewBasicSettingsPage()
 void MainWindow::viewAdvancedSettingsPage()
 {
     DEBUG_FUNC_NAME
-    qDebug() << currentPage();
+    qDebug() << static_cast<int>(currentPage());
 
-    if (currentPage() != Defs::CurrPageAdvancedSettings)
+    if (currentPage() != Defs::CurrPage::AdvancedSettings)
     {
         showInfoMessages_3();
-        changePage(Defs::CurrPageAdvancedSettings);
+        changePage(Defs::CurrPage::AdvancedSettings);
     }
 }
 
 void MainWindow::viewRunPage()
 {
     DEBUG_FUNC_NAME
-    qDebug() << currentPage();
+    qDebug() << static_cast<int>(currentPage());
 
-    if (currentPage() != Defs::CurrPageRun)
+    if (currentPage() != Defs::CurrPage::Run)
     {
         if (configState_.project.smartfluxMode)
         {
-            changePage(Defs::CurrPageAdvancedSettings);
+            changePage(Defs::CurrPage::AdvancedSettings);
         }
         else
         {
-            changePage(Defs::CurrPageRun);
+            changePage(Defs::CurrPage::Run);
         }
     }
 }
@@ -1930,7 +1971,7 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
 {
     DEBUG_FUNC_NAME
 
-    qDebug() << "page" << page;
+    qDebug() << "page" << static_cast<int>(page);
 
     bool loadedProject = (currentProjectFile() != Defs::DEFAULT_PROJECT_FILENAME
                              && currentProjectFile() != Defs::DEFAULT_SMARTFLUX_PROJECT_FILENAME)
@@ -1949,7 +1990,7 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
     qDebug() << "loadedProject" << loadedProject;
 
     // show or hide objects depending on previous settings and current page status
-    if (page == Defs::CurrPageWelcome)
+    if (page == Defs::CurrPage::Welcome)
     {
         newAction->setEnabled(true);
         openAction->setEnabled(true);
@@ -1979,10 +2020,10 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         viewRunPageAction->setCheckable(false);
 
         // NOTE: hack to prevent temporarly the effect of non interactive change of visibility
-        disconnect(toggleInfoOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewInfoOutput(bool)));
-        disconnect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        disconnect(toggleInfoOutputAct, &QAction::toggled,
+                this, &MainWindow::viewInfoOutput);
+        disconnect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleInfoOutputAct->setEnabled(false);
         infoDock->setVisible(false);
@@ -1991,15 +2032,15 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         consoleDock->setVisible(false);
 
         // NOTE: hack to permit non interactive changes
-        connect(toggleInfoOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewInfoOutput(bool)));
-        connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        connect(toggleInfoOutputAct, &QAction::toggled,
+                this, &MainWindow::viewInfoOutput);
+        connect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleStatusbarAct->setEnabled(false);
         statusBar()->setVisible(false);
     }
-    else if (page == Defs::CurrPageProjectCreation)
+    else if (page == Defs::CurrPage::ProjectCreation)
     {
         qDebug() << "modifiedFlag_" << modifiedFlag_;
         newAction->setEnabled(true);
@@ -2034,20 +2075,20 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         infoDock->setVisible(configState_.window.infoDock);
 
         // NOTE: hack to prevent temporarly the effect of non interactive change of visibility
-        disconnect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        disconnect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleConsoleOutputAct->setEnabled(false);
         consoleDock->setVisible(false);
 
         // NOTE: hack to permit non interactive changes
-        connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        connect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleStatusbarAct->setEnabled(true);
         toggleStatusbar(configState_.window.statusBar);
     }
-    else if (page == Defs::CurrPageBasicSettings)
+    else if (page == Defs::CurrPage::BasicSettings)
     {
         newAction->setEnabled(true);
         openAction->setEnabled(true);
@@ -2081,20 +2122,20 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         infoDock->setVisible(configState_.window.infoDock);
 
         // NOTE: hack to prevent temporarly the effect of non interactive change of visibility
-        disconnect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        disconnect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleConsoleOutputAct->setEnabled(false);
         consoleDock->setVisible(false);
 
         // NOTE: hack to permit non interactive changes
-        connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        connect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleStatusbarAct->setEnabled(true);
         toggleStatusbar(configState_.window.statusBar);
     }
-    else if (page == Defs::CurrPageAdvancedSettings)
+    else if (page == Defs::CurrPage::AdvancedSettings)
     {
         newAction->setEnabled(true);
         openAction->setEnabled(true);
@@ -2129,20 +2170,20 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         infoDock->setVisible(configState_.window.infoDock);
 
         // NOTE: hack to prevent temporarly the effect of non interactive change of visibility
-        disconnect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        disconnect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleConsoleOutputAct->setEnabled(false);
         consoleDock->setVisible(false);
 
         // NOTE: hack to permit non interactive changes
-        connect(toggleConsoleOutputAct, SIGNAL(toggled(bool)),
-                this, SLOT(viewConsoleOutput(bool)));
+        connect(toggleConsoleOutputAct, &QAction::toggled,
+                this, &MainWindow::viewConsoleOutput);
 
         toggleStatusbarAct->setEnabled(true);
         toggleStatusbar(configState_.window.statusBar);
     }
-    else if (page == Defs::CurrPageRun)
+    else if (page == Defs::CurrPage::Run)
     {
         newAction->setEnabled(true);
         openAction->setEnabled(true);
@@ -2190,8 +2231,10 @@ void MainWindow::whatsHelp()
     QWhatsThis::enterWhatsThisMode();
 }
 
+// NOTE: not used
 void MainWindow::showStatusTip(const QString &text)
 {
+    // NOTE: test this offending code, apparently triggering a crash
     statusBar()->showMessage(text, 2000);
 }
 
@@ -2199,16 +2242,16 @@ void MainWindow::windowTitleUpdate(Defs::CurrPage page)
 {
     DEBUG_FUNC_NAME
 
-    qDebug() << "page" << page;
+    qDebug() << "page" << static_cast<int>(page);
     switch (page)
     {
-        case Defs::CurrPageWelcome:
+        case Defs::CurrPage::Welcome:
             setWindowTitle(Defs::APP_NAME);
             break;
-        case Defs::CurrPageProjectCreation:
-        case Defs::CurrPageBasicSettings:
-        case Defs::CurrPageAdvancedSettings:
-        case Defs::CurrPageRun:
+        case Defs::CurrPage::ProjectCreation:
+        case Defs::CurrPage::BasicSettings:
+        case Defs::CurrPage::AdvancedSettings:
+        case Defs::CurrPage::Run:
             setFileCaption(currentProjectFile(), false);
             break;
         default:
@@ -2282,10 +2325,10 @@ void MainWindow::showInfoMessages_1()
             qDebug() << "doFix" << doFix;
         }
 
-        qDebug() << "ecProject_->generalFileType()" << ecProject_->generalFileType();
+//        qDebug() << "ecProject_->generalFileType()" << ecProject_->generalFileType();
         qDebug() << "dlProject_->fieldSep()" << dlProject_->fieldSep();
-        if ((ecProject_->generalFileType() == Defs::RawFileTypeGHG
-            || ecProject_->generalFileType() == Defs::RawFileTypeASCII)
+        if ((ecProject_->generalFileType() == Defs::RawFileType::GHG
+            || ecProject_->generalFileType() == Defs::RawFileType::ASCII)
             && dlProject_->fieldSep().isEmpty())
         {
             msg += tr("<li><span style=\"color: red;\">Metadata File Editor - Raw File Description:</span> Field separator required. Click the \"Raw File Settings...\" button.</li>");
@@ -2294,8 +2337,8 @@ void MainWindow::showInfoMessages_1()
         }
 
         qDebug() << "dlProject_->headerRows()" << dlProject_->headerRows();
-        if ((ecProject_->generalFileType() == Defs::RawFileTypeGHG
-            || ecProject_->generalFileType() == Defs::RawFileTypeASCII)
+        if ((ecProject_->generalFileType() == Defs::RawFileType::GHG
+            || ecProject_->generalFileType() == Defs::RawFileType::ASCII)
             && dlProject_->headerRows() < 0)
         {
             msg += tr("<li><span style=\"color: red;\">Metadata File Editor - Raw File Description:</span> Number of header rows required. Click the \"Raw File Settings...\" button.</li>");
@@ -2326,7 +2369,7 @@ void MainWindow::showInfoMessages_1()
             qDebug() << "doFix" << doFix;
         }
 
-        if (ecProject_->generalFileType() == Defs::RawFileTypeBIN)
+        if (ecProject_->generalFileType() == Defs::RawFileType::BIN)
         {
             qDebug() << "ecProject_->generalBinaryNBytes"
                      << ecProject_->generalBinaryNBytes();
@@ -2451,10 +2494,9 @@ void MainWindow::showInfoMessages_2()
         doFix = true;
     }
 
-    qDebug() << "ecProject_->generalFileType()" << ecProject_->generalFileType();
-    qDebug() << "Alia::isGoodRawFileNameFormat(ecProject_->generalFilePrototype())" << Alia::isGoodRawFileNameFormat(ecProject_->generalFilePrototype());
-    if (ecProject_->generalFileType() != Defs::RawFileTypeGHG
-        && !Alia::isGoodRawFileNameFormat(ecProject_->generalFilePrototype()))
+    qDebug() << "ecProject_->isGoodRawFileNameFormat(ecProject_->generalFilePrototype())" << ecProject_->isGoodRawFileNameFormat(ecProject_->generalFilePrototype());
+    if (ecProject_->generalFileType() != Defs::RawFileType::GHG
+        && !ecProject_->isGoodRawFileNameFormat(ecProject_->generalFilePrototype()))
     {
         msg += tr("<li><span style=\"color: red;\">Files Info:</span> Raw file name format not well described.</li>");
         doFix = true;
@@ -2525,6 +2567,12 @@ void MainWindow::showInfoMessages_2()
         doFix = false;
         qDebug() << "doFix" << doFix;
     }
+//    else if (!doFix && !runAdvancedAvailable_ && configState_.project.smartfluxMode)
+//    {
+//        intro.clear();
+//        msg = tr("<ul>");
+//        doFix = false;
+//    }
 
     if (!doFix)
     {
@@ -2534,7 +2582,10 @@ void MainWindow::showInfoMessages_2()
     qDebug() << "title" << intro;
     qDebug() << "msg" << msg;
 
-    runExpressAvailable_ = intro.contains(tr("You are ready"));
+//    if (!configState_.project.smartfluxMode)
+//    {
+        runExpressAvailable_ = intro.contains(tr("You are ready"));
+//    }
 
     updateMenuActionStatus(currentPage());
 
@@ -2651,7 +2702,7 @@ void MainWindow::showInfoMessages_3()
     }
 
     qDebug() << "ecProject_->generalHfMethod()" << ecProject_->generalHfMethod();
-    if (ecProject_->generalHfMethod() >= 2)
+    if (ecProject_->generalHfMethod() > 1 && ecProject_->generalHfMethod() < 5)
     {
         qDebug() << "ecProject_->spectraMode()" << ecProject_->spectraMode();
         if (ecProject_->spectraMode() == 0)
@@ -2726,7 +2777,7 @@ void MainWindow::updateRunButtonsAvailability()
     qDebug() << "runExpressAvailable_" << runExpressAvailable_;
     qDebug() << "runAdvancedAvailable_" << runAdvancedAvailable_;
 
-    if (currentPage() == Defs::CurrPageWelcome
+    if (currentPage() == Defs::CurrPage::Welcome
         || configState_.project.smartfluxMode)
     {
         runExpressAction->setEnabled(false);
@@ -2736,28 +2787,32 @@ void MainWindow::updateRunButtonsAvailability()
     }
     else
     {
+        Defs::CurrStatus status = currentStatus();
+        Defs::CurrRunStatus run_status = currentRunStatus();
+
         runExpressAction->setEnabled(basicSettingsPageAvailable_
             && runExpressAvailable_
-            && (currentStatus() == Defs::CurrStatusReady
-             || (currentStatus() == Defs::CurrStatusRun
-                 && currentRunStatus() == Defs::CurrRunStatusExp)
-             || (currentStatus() == Defs::CurrStatusPause
-                 && currentRunStatus() == Defs::CurrRunStatusExp)));
+            && (status == Defs::CurrStatus::Ready
+             || (status == Defs::CurrStatus::Run
+                 && run_status == Defs::CurrRunStatus::Express)
+             || (status == Defs::CurrStatus::Pause
+                 && run_status == Defs::CurrRunStatus::Express)));
         runAdvancedAction->setEnabled(basicSettingsPageAvailable_
             && runExpressAvailable_
             && runAdvancedAvailable_
-            && (currentStatus() == Defs::CurrStatusReady
-                || (currentStatus() == Defs::CurrStatusRun
-                    && currentRunStatus() == Defs::CurrRunStatusAdv)
-                || (currentStatus() == Defs::CurrStatusPause
-                    && currentRunStatus() == Defs::CurrRunStatusAdv)));
+            && (status == Defs::CurrStatus::Ready
+                || (status == Defs::CurrStatus::Run
+                    && run_status == Defs::CurrRunStatus::Advanced_RP)
+                || (status == Defs::CurrStatus::Pause
+                    && run_status == Defs::CurrRunStatus::Advanced_RP)));
         runRetrieverAction->setEnabled(runExpressAction->isEnabled()
             && !ecProject_->generalUseAltMdFile()
-            && (currentStatus() == Defs::CurrStatusReady
-                || (currentStatus() == Defs::CurrStatusRun
-                    && currentRunStatus() == Defs::CurrRunStatusRet)
-                || (currentStatus() == Defs::CurrStatusPause
-                    && currentRunStatus() == Defs::CurrRunStatusRet)));
+            && (status == Defs::CurrStatus::Ready
+                || (status == Defs::CurrStatus::Run
+                    && run_status == Defs::CurrRunStatus::Retriever)
+                || (status == Defs::CurrStatus::Pause
+                    && run_status
+                    == Defs::CurrRunStatus::Retriever)));
         stopAction->setEnabled(basicSettingsPageAvailable_
             && (runExpressAvailable_ || runAdvancedAvailable_));
     }
@@ -2777,7 +2832,7 @@ void MainWindow::changePage(Defs::CurrPage page, bool testCurrentPage)
             updatePage(page);
             windowTitleUpdate(page);
 
-            if (page == Defs::CurrPageRun)
+            if (page == Defs::CurrPage::Run)
             {
                 consoleDock->raise();
             }
@@ -2797,7 +2852,7 @@ void MainWindow::updatePage(Defs::CurrPage page)
     DEBUG_FUNC_NAME
     qDebug() << "dlProject_" << dlProject_;
 
-    if (page == Defs::CurrPageBasicSettings)
+    if (page == Defs::CurrPage::BasicSettings)
     {
         emit updateMetadataReadRequest();
     }
@@ -2814,23 +2869,23 @@ void MainWindow::togglePageButton(Defs::CurrPage page)
 
     switch (page)
     {
-        case Defs::CurrPageWelcome:
+        case Defs::CurrPage::Welcome:
             if (!viewWelcomeAction->isChecked())
                 viewWelcomeAction->setChecked(true);
             break;
-        case Defs::CurrPageProjectCreation:
+        case Defs::CurrPage::ProjectCreation:
             if (!viewProjectCreationAction->isChecked())
                 viewProjectCreationAction->setChecked(true);
             break;
-        case Defs::CurrPageBasicSettings:
+        case Defs::CurrPage::BasicSettings:
             if (!viewBasicSettingsAction->isChecked())
                 viewBasicSettingsAction->setChecked(true);
             break;
-        case Defs::CurrPageAdvancedSettings:
+        case Defs::CurrPage::AdvancedSettings:
             if (!viewAdvancedAction->isChecked())
                 viewAdvancedAction->setChecked(true);
             break;
-        case Defs::CurrPageRun:
+        case Defs::CurrPage::Run:
             if (!viewRunPageAction->isChecked())
                 viewRunPageAction->setChecked(true);
             break;
@@ -2845,63 +2900,76 @@ void MainWindow::changeViewToolbarSeparators(Defs::CurrPage page)
 
     switch (page)
     {
-        case Defs::CurrPageWelcome:
+        case Defs::CurrPage::Welcome:
             sep1->setPixmap(QPixmap(QStringLiteral(":/icons/sepleftsel")));
             sep2->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep3->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep4->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-            connect(sep1, SIGNAL(clicked()), viewProjectCreationAction, SLOT(trigger()));
-            sep2->disconnect();
-            sep3->disconnect();
-            sep4->disconnect();
+            connect(sep1, &ClickLabel::clicked,
+                    viewProjectCreationAction, &QAction::trigger);
+            disconnect(sep2);
+            disconnect(sep3);
+            disconnect(sep4);
             break;
-        case Defs::CurrPageProjectCreation:
+        case Defs::CurrPage::ProjectCreation:
             sep1->setPixmap(QPixmap(QStringLiteral(":/icons/seprightsel")));
             sep2->setPixmap(QPixmap(QStringLiteral(":/icons/sepleftsel")));
             sep3->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep4->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-            sep1->disconnect();
+            disconnect(sep1);
             if (basicSettingsPageAvailable_)
             {
-                connect(sep2, SIGNAL(clicked()), viewBasicSettingsAction, SLOT(trigger()));
-                connect(sep3, SIGNAL(clicked()), viewAdvancedAction, SLOT(trigger()));
+                connect(sep2, &ClickLabel::clicked,
+                        viewBasicSettingsAction, &QAction::trigger);
+                connect(sep3, &ClickLabel::clicked,
+                        viewAdvancedAction, &QAction::trigger);
             }
             else
             {
-                sep2->disconnect();
-                sep3->disconnect();
+                disconnect(sep2);
+                disconnect(sep3);
             }
-            connect(sep4, SIGNAL(clicked()), viewRunPageAction, SLOT(trigger()));
+            connect(sep4, &ClickLabel::clicked,
+                    viewRunPageAction, &QAction::trigger);
             break;
-        case Defs::CurrPageBasicSettings:
+        case Defs::CurrPage::BasicSettings:
             sep1->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep2->setPixmap(QPixmap(QStringLiteral(":/icons/seprightsel")));
             sep3->setPixmap(QPixmap(QStringLiteral(":/icons/sepleftsel")));
             sep4->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
-            connect(sep1, SIGNAL(clicked()), viewBasicSettingsAction, SLOT(trigger()));
-            sep2->disconnect();
-            connect(sep3, SIGNAL(clicked()), viewAdvancedAction, SLOT(trigger()));
-            connect(sep4, SIGNAL(clicked()), viewRunPageAction, SLOT(trigger()));
+            connect(sep1, &ClickLabel::clicked,
+                    viewBasicSettingsAction, &QAction::trigger);
+            disconnect(sep2);
+            connect(sep3, &ClickLabel::clicked,
+                    viewAdvancedAction, &QAction::trigger);
+            connect(sep4, &ClickLabel::clicked,
+                    viewRunPageAction, &QAction::trigger);
             break;
-        case Defs::CurrPageAdvancedSettings:
+        case Defs::CurrPage::AdvancedSettings:
             sep1->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep2->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep3->setPixmap(QPixmap(QStringLiteral(":/icons/seprightsel")));
             sep4->setPixmap(QPixmap(QStringLiteral(":/icons/sepleftsel")));
-            connect(sep1, SIGNAL(clicked()), viewProjectCreationAction, SLOT(trigger()));
-            connect(sep2, SIGNAL(clicked()), viewBasicSettingsAction, SLOT(trigger()));
-            sep3->disconnect();
-            connect(sep4, SIGNAL(clicked()), viewRunPageAction, SLOT(trigger()));
+            connect(sep1, &ClickLabel::clicked,
+                    viewProjectCreationAction, &QAction::trigger);
+            connect(sep2, &ClickLabel::clicked,
+                    viewBasicSettingsAction, &QAction::trigger);
+            disconnect(sep3);
+            connect(sep4, &ClickLabel::clicked,
+                    viewRunPageAction, &QAction::trigger);
             break;
-        case Defs::CurrPageRun:
+        case Defs::CurrPage::Run:
             sep1->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep2->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep3->setPixmap(QPixmap(QStringLiteral(":/icons/sep")));
             sep4->setPixmap(QPixmap(QStringLiteral(":/icons/seprightsel")));
-            connect(sep1, SIGNAL(clicked()), viewProjectCreationAction, SLOT(trigger()));
-            connect(sep2, SIGNAL(clicked()), viewBasicSettingsAction, SLOT(trigger()));
-            connect(sep3, SIGNAL(clicked()), viewAdvancedAction, SLOT(trigger()));
-            sep4->disconnect();
+            connect(sep1, &ClickLabel::clicked,
+                    viewProjectCreationAction, &QAction::trigger);
+            connect(sep2, &ClickLabel::clicked,
+                    viewBasicSettingsAction, &QAction::trigger);
+            connect(sep3, &ClickLabel::clicked,
+                    viewAdvancedAction, &QAction::trigger);
+            disconnect(sep4);
             break;
         default:
             break;
@@ -2945,20 +3013,20 @@ void MainWindow::createEngineProcess()
     env << QStringLiteral("GFORTRAN_SHOW_LOCUS=n");
     engineProcess_->setEnv(env);
 
-    connect(engineProcess_, SIGNAL(processFailure()),
-            this, SLOT(displayExitDialog()));
-    connect(engineProcess_, SIGNAL(processSuccess()),
-            this, SLOT(displayExitDialog()));
+    connect(engineProcess_, &Process::processFailure,
+            this, &MainWindow::displayExitDialog);
+    connect(engineProcess_, &Process::processSuccess,
+            this, &MainWindow::displayExitDialog);
 
-    connect(engineProcess_, SIGNAL(processFailure()),
-            mainWidget_->runPage(), SLOT(resetBuffer()));
-    connect(engineProcess_, SIGNAL(processSuccess()),
-            mainWidget_->runPage(), SLOT(resetBuffer()));
+    connect(engineProcess_, &Process::processFailure,
+            mainWidget_->runPage(), &RunPage::resetBuffer);
+    connect(engineProcess_,&Process::processSuccess,
+            mainWidget_->runPage(), &RunPage::resetBuffer);
 
-    connect(engineProcess_, SIGNAL(readyReadStdOut()),
-            this, SLOT(updateConsoleReceived()));
-    connect(engineProcess_, SIGNAL(readyReadStdErr()),
-            this, SLOT(updateConsoleError()));
+    connect(engineProcess_, &Process::readyReadStdOut,
+            this, &MainWindow::updateConsoleReceived);
+    connect(engineProcess_, &Process::readyReadStdErr,
+            this, &MainWindow::updateConsoleError);
 }
 
 void MainWindow::setMetadataRead(bool b)
@@ -2976,7 +3044,7 @@ int MainWindow::testBeforeRunningPassed(int step)
     if (!metadataReadFlag_)
     {
         qDebug() << "md read";
-        changePage(Defs::CurrPageBasicSettings);
+        changePage(Defs::CurrPage::BasicSettings);
     }
     qDebug() << "metadataReadFlag_" << metadataReadFlag_;
 
@@ -2990,25 +3058,18 @@ int MainWindow::testBeforeRunningPassed(int step)
             if (testForPreviousData())
             {
                 qDebug() << "previous data test";
-                int ret = QMessageBox::question(QApplication::activeWindow(),
+                if(!WidgetUtils::okToQuestion(QApplication::activeWindow(),
                     tr("Previous Results Available"),
-                    tr("Previous results available!\n\n"
-                       "Most likely results of this run will be identical "
+                    tr("Previous results available!"),
+                    tr("Most likely results of this run will be identical "
                        "to results of a previous run available in the \"Previous "
                        "Output Directory\", so you wouldn't need to proceed.\n\n"
-                       "Do you prefer to proceed anyway?"),
-                    QMessageBox::Yes | QMessageBox::No,
-                    QMessageBox::No);
-
-                switch (ret)
+                       "Do you prefer to proceed anyway?")))
                 {
-                    case QMessageBox::Yes:
-                        break;
-                    case QMessageBox::No:
-                        expressClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        saveSilently();
-                        return QMessageBox::Cancel;
+                    expressClicked_ = false;
+                    showStatusTip(tr("Canceled..."));
+                    fileSaveSilently();
+                    return QMessageBox::Cancel;
                 }
             }
             else
@@ -3026,7 +3087,7 @@ int MainWindow::testBeforeRunningPassed(int step)
                     case QMessageBox::Cancel:
                         expressClicked_ = false;
                         showStatusTip(tr("Canceled..."));
-                        saveSilently();
+                        fileSaveSilently();
                         return ret;
                 }
             }
@@ -3055,7 +3116,7 @@ int MainWindow::testBeforeRunningPassed(int step)
                     case QMessageBox::Cancel:
                         advancedClicked_ = false;
                         showStatusTip(tr("Canceled..."));
-                        saveSilently();
+                        fileSaveSilently();
                         return ret;
                 }
             }
@@ -3074,7 +3135,7 @@ int MainWindow::testBeforeRunningPassed(int step)
                     case QMessageBox::Cancel:
                         advancedClicked_ = false;
                         showStatusTip(tr("Canceled..."));
-                        saveSilently();
+                        fileSaveSilently();
                         return ret;
                 }
             }
@@ -3085,9 +3146,9 @@ int MainWindow::testBeforeRunningPassed(int step)
         }
     }
 
-    if (saveSilently() == QMessageBox::No)
+    if (!fileSaveSilently())
     {
-        return QMessageBox::No;
+        return QMessageBox::Cancel;
     }
     else
     {
@@ -3095,51 +3156,24 @@ int MainWindow::testBeforeRunningPassed(int step)
     }
 }
 
-int MainWindow::saveSilently()
-{
-    DEBUG_FUNC_NAME
-
-    if (modifiedFlag_)
-    {
-        // silent saving
-        fileSave();
-
-        // if saving failed
-        if (modifiedFlag_)
-        {
-            QMessageBox::warning(QApplication::activeWindow(),
-                                 Defs::APP_NAME,
-                                 tr("The program was unable to save "
-                                    "the project file. "
-                                    "Make sure the file is not in use "
-                                    "by another application."
-                                    "If the problem persists, contact envsupport@licor.com ."));
-            return QMessageBox::No;
-        }
-    }
-    return QMessageBox::Yes;
-}
-
 void MainWindow::getRunExpress()
 {
     DEBUG_FUNC_NAME
 
-    bool showDialog = false;
-
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        showDialog = config.value(Defs::CONF_WIN_RUN_EXP_MSG, true).toBool();
-    config.endGroup();
-
+    bool showDialog = GlobalSettings::getAppPersistentSettings(
+                                        Defs::CONFGROUP_WINDOW,
+                                        Defs::CONF_WIN_RUN_EXP_MSG,
+                                        true).toBool();
     qDebug() << "showDialog" << showDialog;
 
-    if (showDialog && currentStatus() == Defs::CurrStatusReady)
+    if (showDialog && currentStatus() == Defs::CurrStatus::Ready)
     {
         qDebug() << "create dialog";
         InfoMessage runExpressDialog(QDialogButtonBox::Ok
                                       | QDialogButtonBox::Cancel, this);
         runExpressDialog.setTitle(tr("Running"));
-        runExpressDialog.setType(InfoMessage::RUN_EXPRESS);
+        runExpressDialog.setType(InfoMessage::Type::RUN_EXPRESS);
+        runExpressDialog.setIcon(QPixmap(QStringLiteral(":/icons/msg-question")));
         runExpressDialog.setMessage(tr("Note that running in Express Mode means "
                                       "EddyPro will ignore all your entries in "
                                       "the Advanced Settings pages. <br />"
@@ -3151,10 +3185,7 @@ void MainWindow::getRunExpress()
                                       "mode?"));
         runExpressDialog.refresh();
 
-        if (runExpressDialog.exec() == QMessageBox::Cancel)
-        {
-            return;
-        }
+        if (runExpressDialog.exec() == QMessageBox::Cancel) { return; }
     }
     emit updateMetadataReadRequest();
     runExpress();
@@ -3167,56 +3198,61 @@ void MainWindow::runExpress()
     Defs::CurrStatus status = currentStatus();
     expressClicked_ = true;
 
-    if (status == Defs::CurrStatusReady)
+    if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Yes)
+        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+
+        changePage(Defs::CurrPage::Run);
+        QString workingDir = qApp->applicationDirPath()
+                             + QStringLiteral("/")
+                             + Defs::BIN_FILE_DIR
+                             + QStringLiteral("/");
+        QString engineFilePath(workingDir + Defs::ENGINE_1_BIN);
+        qDebug() << "engineFilePath" << engineFilePath;
+
+        ecProject_->setGeneralRunMode(Defs::CurrRunMode::Express);
+        if (!fileSaveSilently()) { return; }
+
+        QStringList args;
+
+#if defined(Q_OS_WIN)
+        args << QStringLiteral("-c");
+        args << QStringLiteral("gui");
+        args << QStringLiteral("-s");
+        args << Defs::HOST_OS;
+        args << QStringLiteral("-e");
+        args << appEnvPath_;
+        args << ecProject_->generalFileName();
+
+        engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
+#elif defined(Q_OS_MAC)
+        args << QStringLiteral("/Users/antonioforgione1/devel/ep-5/ep5/scripts/test/engine-output-example.txt");
+        engineProcess_->engineProcessStart(QStringLiteral("/Users/antonioforgione1/devel/ep-5/ep5/scripts/test/fake-engine-rp.sh"),
+                                           QStringLiteral("/Users/antonioforgione1/devel/ep-5/ep5/scripts/test"),
+                                           args);
+#endif
+        if (engineProcess_->isRunning())
         {
-            changePage(Defs::CurrPageRun);
-            QString workingDir = QCoreApplication::applicationDirPath()
-                                 + QStringLiteral("/")
-                                 + Defs::BIN_FILE_DIR
-                                 + QStringLiteral("/");
-            QString engineFilePath(workingDir + Defs::ENGINE_1_BIN);
-            qDebug() << "engineFilePath" << engineFilePath;
-
-            ecProject_->setGeneralRunMode(Defs::CurrRunModeExp);
-            fileSave();
-
-            QStringList args;
-            args << QStringLiteral("-s");
-            args << Defs::HOST_OS;
-            args << QStringLiteral("-e");
-            args << appEnvPath_;
-            engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
-
-            if (engineProcess_->isRunning())
-            {
-                setCurrentStatus(Defs::CurrStatusRun);
-                setCurrentRunStatus(Defs::CurrRunStatusExp);
-                mainWidget_->runPage()->startRun(Defs::CurrRunStatusExp);
-                setRunExpIcon2Pause();
-            }
-        }
-        // case QMessageBox::Cancel
-        else
-        {
-            return;
+            setCurrentStatus(Defs::CurrStatus::Run);
+            setCurrentRunStatus(Defs::CurrRunStatus::Express);
+            mainWidget_->runPage()->startRun(Defs::CurrRunStatus::Express);
+            setRunExpIcon2Pause();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusRun)
+    else if (status == Defs::CurrStatus::Run)
     {
-        if (pauseEngine(Defs::CurrRunStatusExp))
+        if (pauseEngine(Defs::CurrRunStatus::Express))
         {
-            setCurrentStatus(Defs::CurrStatusPause);
+            setCurrentStatus(Defs::CurrStatus::Pause);
             engineResumableFlag_ = true;
             setRunExpIcon2Resume();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusPause)
+    else if (status == Defs::CurrStatus::Pause)
     {
-        if (resumeEngine(Defs::CurrRunStatusExp))
+        if (resumeEngine(Defs::CurrRunStatus::Express))
         {
-            setCurrentStatus(Defs::CurrStatusRun);
+            setCurrentStatus(Defs::CurrStatus::Run);
             engineResumableFlag_ = false;
             setRunExpIcon2Pause();
         }
@@ -3227,19 +3263,18 @@ void MainWindow::getRunAdvanced()
 {
     DEBUG_FUNC_NAME
 
-    bool showDialog = false;
+    bool showDialog = GlobalSettings::getAppPersistentSettings(
+                                        Defs::CONFGROUP_WINDOW,
+                                        Defs::CONF_WIN_RUN_ADV_MSG,
+                                        true).toBool();
 
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        showDialog = config.value(Defs::CONF_WIN_RUN_ADV_MSG, true).toBool();
-    config.endGroup();
-
-    if (showDialog && currentStatus() == Defs::CurrStatusReady)
+    if (showDialog && currentStatus() == Defs::CurrStatus::Ready)
     {
         InfoMessage runAdvancedDialog(QDialogButtonBox::Ok
                                        | QDialogButtonBox::Cancel, this);
         runAdvancedDialog.setTitle(tr("Running"));
-        runAdvancedDialog.setType(InfoMessage::RUN_ADVANCED);
+        runAdvancedDialog.setType(InfoMessage::Type::RUN_ADVANCED);
+        runAdvancedDialog.setIcon(QPixmap(QStringLiteral(":/icons/msg-question")));
         runAdvancedDialog.setMessage(tr("Running in Advanced mode means you "
                                        "run using the <br />"
                                        "advanced settings of EddyPro"));
@@ -3259,41 +3294,45 @@ void MainWindow::runAdvancedStep_1()
 {
     DEBUG_FUNC_NAME
 
-    int status = currentStatus();
+    Defs::CurrStatus status = currentStatus();
 
     advancedClicked_ = true;
 
-    if (status == Defs::CurrStatusReady)
+    if (status == Defs::CurrStatus::Ready)
     {
         int ret = testBeforeRunningPassed(0);
+        if (ret == QMessageBox::Cancel) { return; }
 
         // start from step 1
         if (ret == QMessageBox::Yes)
         {
             qDebug() << "go to step 1 (rp)";
-            changePage(Defs::CurrPageRun);
-            QString workingDir = QCoreApplication::applicationDirPath()
+            changePage(Defs::CurrPage::Run);
+            QString workingDir = qApp->applicationDirPath()
                                  + QStringLiteral("/")
                                  + Defs::BIN_FILE_DIR
                                  + QStringLiteral("/");
             QString engine1FilePath(workingDir + Defs::ENGINE_1_BIN);
 
-            ecProject_->setGeneralRunMode(Defs::CurrRunModeAdv);
-            fileSave();
+            ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
+            if (!fileSaveSilently()) { return; }
 
             QStringList args;
+            args << QStringLiteral("-c");
+            args << QStringLiteral("gui");
             args << QStringLiteral("-s");
             args << Defs::HOST_OS;
             args << QStringLiteral("-e");
             args << appEnvPath_;
+            args << ecProject_->generalFileName();
             engineProcess_->engineProcessStart(engine1FilePath, workingDir, args);
 
             qDebug() << "engineFilePath" << engine1FilePath;
             if (engineProcess_->isRunning())
             {
-                setCurrentStatus(Defs::CurrStatusRun);
-                setCurrentRunStatus(Defs::CurrRunStatusAdv);
-                mainWidget_->runPage()->startRun(Defs::CurrRunStatusAdv);
+                setCurrentStatus(Defs::CurrStatus::Run);
+                setCurrentRunStatus(Defs::CurrRunStatus::Advanced_RP);
+                mainWidget_->runPage()->startRun(Defs::CurrRunStatus::Advanced_RP);
                 setRunAdvIcon2Pause();
 
                 neededEngineStep2_ = ecProject_->isEngineStep2Needed();
@@ -3306,27 +3345,21 @@ void MainWindow::runAdvancedStep_1()
             runAdvancedStep_2();
             return;
         }
-        // case QMessageBox::Cancel
-        else
-        {
-            qDebug() << "stop: run canceled";
-            return;
-        }
     }
-    else if (currentStatus() == Defs::CurrStatusRun)
+    else if (status == Defs::CurrStatus::Run)
     {
-        if (pauseEngine(Defs::CurrRunStatusAdv))
+        if (pauseEngine(Defs::CurrRunStatus::Advanced_RP))
         {
-            setCurrentStatus(Defs::CurrStatusPause);
+            setCurrentStatus(Defs::CurrStatus::Pause);
             engineResumableFlag_ = true;
             setRunAdvIcon2Resume();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusPause)
+    else if (status == Defs::CurrStatus::Pause)
     {
-        if (resumeEngine(Defs::CurrRunStatusAdv))
+        if (resumeEngine(Defs::CurrRunStatus::Advanced_RP))
         {
-            setCurrentStatus(Defs::CurrStatusRun);
+            setCurrentStatus(Defs::CurrStatus::Run);
             engineResumableFlag_ = false;
             setRunAdvIcon2Pause();
         }
@@ -3337,61 +3370,61 @@ void MainWindow::runAdvancedStep_2()
 {
     DEBUG_FUNC_NAME
 
-    int status = currentStatus();
+    Defs::CurrStatus status = currentStatus();
 
     advancedClicked_ = true;
 
-    if (status == Defs::CurrStatusReady)
-    {
-        if (testBeforeRunningPassed(1) == QMessageBox::Yes)
+    if (status == Defs::CurrStatus::Ready)
+    {        
+        updateSpectraPaths();
+
+        if (testBeforeRunningPassed(1) == QMessageBox::Cancel) { return; }
+
+        changePage(Defs::CurrPage::Run);
+        QString workingDir = qApp->applicationDirPath()
+                             + QStringLiteral("/")
+                             + Defs::BIN_FILE_DIR
+                             + QStringLiteral("/");
+        QString engineFilePath(workingDir + Defs::ENGINE_2_BIN);
+
+        ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
+
+        if (!fileSaveSilently()) { return; }
+
+        QStringList args;
+        args << QStringLiteral("-c");
+        args << QStringLiteral("gui");
+        args << QStringLiteral("-s");
+        args << Defs::HOST_OS;
+        args << QStringLiteral("-e");
+        args << appEnvPath_;
+        args << ecProject_->generalFileName();
+        engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
+
+        qDebug() << "engineFilePath" << engineFilePath;
+        if (engineProcess_->isRunning())
         {
-            changePage(Defs::CurrPageRun);
-            QString workingDir = QCoreApplication::applicationDirPath()
-                                 + QStringLiteral("/")
-                                 + Defs::BIN_FILE_DIR
-                                 + QStringLiteral("/");
-            QString engineFilePath(workingDir + Defs::ENGINE_2_BIN);
-
-            ecProject_->setGeneralRunMode(Defs::CurrRunModeAdv);
-            fileSave();
-
-            QStringList args;
-            args << QStringLiteral("-s");
-            args << Defs::HOST_OS;
-            args << QStringLiteral("-e");
-            args << appEnvPath_;
-            engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
-
-            qDebug() << "engineFilePath" << engineFilePath;
-            if (engineProcess_->isRunning())
-            {
-                setCurrentStatus(Defs::CurrStatusRun);
-                setCurrentRunStatus(Defs::CurrRunStatusAdv);
-                mainWidget_->runPage()->startRun(Defs::CurrRunStatusAdv);
-                setRunAdvIcon2Pause();
-                neededEngineStep2_ = false;
-            }
-        }
-        // case QMessageBox::Cancel
-        else
-        {
-            return;
+            setCurrentStatus(Defs::CurrStatus::Run);
+            setCurrentRunStatus(Defs::CurrRunStatus::Advanced_RP);
+            mainWidget_->runPage()->startRun(Defs::CurrRunStatus::Advanced_FCC);
+            setRunAdvIcon2Pause();
+            neededEngineStep2_ = false;
         }
     }
-    else if (currentStatus() == Defs::CurrStatusRun)
+    else if (status == Defs::CurrStatus::Run)
     {
-        if (pauseEngine(Defs::CurrRunStatusAdv))
+        if (pauseEngine(Defs::CurrRunStatus::Advanced_RP))
         {
-            setCurrentStatus(Defs::CurrStatusPause);
+            setCurrentStatus(Defs::CurrStatus::Pause);
             engineResumableFlag_ = true;
             setRunAdvIcon2Resume();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusPause)
+    else if (status == Defs::CurrStatus::Pause)
     {
-        if (resumeEngine(Defs::CurrRunStatusAdv))
+        if (resumeEngine(Defs::CurrRunStatus::Advanced_RP))
         {
-            setCurrentStatus(Defs::CurrStatusRun);
+            setCurrentStatus(Defs::CurrStatus::Run);
             engineResumableFlag_ = false;
             setRunAdvIcon2Pause();
         }
@@ -3400,20 +3433,19 @@ void MainWindow::runAdvancedStep_2()
 
 void MainWindow::getRunRetriever()
 {
-    bool showDialog = false;
+    bool showDialog = GlobalSettings::getAppPersistentSettings(
+                                        Defs::CONFGROUP_WINDOW,
+                                        Defs::CONF_WIN_RUN_RET_MSG,
+                                        true).toBool();
 
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        showDialog = config.value(Defs::CONF_WIN_RUN_RET_MSG, true).toBool();
-    config.endGroup();
-
-    if (showDialog && currentStatus() == Defs::CurrStatusReady)
+    if (showDialog && currentStatus() == Defs::CurrStatus::Ready)
     {
         qDebug() << "create dialog";
         InfoMessage runRetrieverDialog(QDialogButtonBox::Ok
                                         | QDialogButtonBox::Cancel, this);
         runRetrieverDialog.setTitle(tr("Running"));
-        runRetrieverDialog.setType(InfoMessage::RUN_RETRIEVER);
+        runRetrieverDialog.setType(InfoMessage::Type::RUN_RETRIEVER);
+        runRetrieverDialog.setIcon(QPixmap(QStringLiteral(":/icons/msg-question")));
         runRetrieverDialog.setMessage(tr("The metadata retriever is a running mode. "
                                         "It will assess the metadata in all GHG "
                                         "files and provide the metadata in a single "
@@ -3423,10 +3455,7 @@ void MainWindow::getRunRetriever()
                                         "Retriever?"));
         runRetrieverDialog.refresh();
 
-        if (runRetrieverDialog.exec() == QMessageBox::Cancel)
-        {
-            return;
-        }
+        if (runRetrieverDialog.exec() == QMessageBox::Cancel) { return; }
         emit updateMetadataReadRequest();
     }
     runRetriever();
@@ -3437,57 +3466,54 @@ void MainWindow::runRetriever()
     Defs::CurrStatus status = currentStatus();
     retrieverClicked_ = true;
 
-    if (status == Defs::CurrStatusReady)
+    if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Yes)
+        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+
+        changePage(Defs::CurrPage::Run);
+        QString workingDir = qApp->applicationDirPath()
+                             + QStringLiteral("/")
+                             + Defs::BIN_FILE_DIR
+                             + QStringLiteral("/");
+        QString engineFilePath(workingDir + Defs::ENGINE_1_BIN);
+
+        ecProject_->setGeneralRunMode(Defs::CurrRunMode::Retriever);
+        emit checkMetadataOutputRequest();
+        if (!fileSaveSilently()) { return; }
+
+        QStringList args;
+        args << QStringLiteral("-c");
+        args << QStringLiteral("gui");
+        args << QStringLiteral("-s");
+        args << Defs::HOST_OS;
+        args << QStringLiteral("-e");
+        args << appEnvPath_;
+        args << ecProject_->generalFileName();
+        engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
+
+        qDebug() << "engineFilePath" << engineFilePath;
+        if (engineProcess_->isRunning())
         {
-            changePage(Defs::CurrPageRun);
-            QString workingDir = QCoreApplication::applicationDirPath()
-                                 + QStringLiteral("/")
-                                 + Defs::BIN_FILE_DIR
-                                 + QStringLiteral("/");
-            QString engineFilePath(workingDir + Defs::ENGINE_1_BIN);
-
-            ecProject_->setGeneralRunMode(Defs::CurrRunModeRet);
-            emit checkMetadataOutputRequest();
-            fileSave();
-
-            QStringList args;
-            args << QStringLiteral("-s");
-            args << Defs::HOST_OS;
-            args << QStringLiteral("-e");
-            args << appEnvPath_;
-            engineProcess_->engineProcessStart(engineFilePath, workingDir, args);
-
-            qDebug() << "engineFilePath" << engineFilePath;
-            if (engineProcess_->isRunning())
-            {
-                setCurrentStatus(Defs::CurrStatusRun);
-                setCurrentRunStatus(Defs::CurrRunStatusRet);
-                mainWidget_->runPage()->startRun(Defs::CurrRunStatusRet);
-                setRunRetIcon2Pause();
-            }
-        }
-        // case QMessageBox::Cancel
-        else
-        {
-            return;
+            setCurrentStatus(Defs::CurrStatus::Run);
+            setCurrentRunStatus(Defs::CurrRunStatus::Retriever);
+            mainWidget_->runPage()->startRun(Defs::CurrRunStatus::Retriever);
+            setRunRetIcon2Pause();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusRun)
+    else if (status == Defs::CurrStatus::Run)
     {
-        if (pauseEngine(Defs::CurrRunStatusRet))
+        if (pauseEngine(Defs::CurrRunStatus::Retriever))
         {
-            setCurrentStatus(Defs::CurrStatusPause);
+            setCurrentStatus(Defs::CurrStatus::Pause);
             engineResumableFlag_ = true;
             setRunRetIcon2Resume();
         }
     }
-    else if (currentStatus() == Defs::CurrStatusPause)
+    else if (status == Defs::CurrStatus::Pause)
     {
-        if (resumeEngine(Defs::CurrRunStatusRet))
+        if (resumeEngine(Defs::CurrRunStatus::Retriever))
         {
-            setCurrentStatus(Defs::CurrStatusRun);
+            setCurrentStatus(Defs::CurrStatus::Run);
             engineResumableFlag_ = false;
             setRunRetIcon2Pause();
         }
@@ -3516,9 +3542,10 @@ bool MainWindow::resumeEngine(Defs::CurrRunStatus mode)
 
 void MainWindow::stopEngine()
 {
+    DEBUG_FUNC_NAME
     if (engineProcess_->isRunning())
     {
-        if (queryIfStopRun() == QMessageBox::Yes)
+        if (okToStopRun())
         {
             stopEngineProcess();
         }
@@ -3527,16 +3554,29 @@ void MainWindow::stopEngine()
 
 void MainWindow::stopEngineProcess()
 {
+    DEBUG_FUNC_NAME
     engineProcess_->processStop();
 
-    ecProject_->setGeneralRunMode(Defs::CurrRunModeAdv);
+    // return to default running mode
+    ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
 
     displayExitDialog();
-    fileSave();
 
     expressClicked_ = false;
     advancedClicked_ = false;
     retrieverClicked_ = false;
+
+    fileSave();
+
+    cleanEnvTmpDir();
+}
+
+void MainWindow::cleanEnvTmpDir()
+{
+    DEBUG_FUNC_NAME
+    FileUtils::cleanDirRecursively(appEnvPath_
+                                   + QStringLiteral("/")
+                                   + Defs::TMP_FILE_DIR);
 }
 
 void MainWindow::resetRunIcons()
@@ -3597,15 +3637,16 @@ void MainWindow::setRunRetIcon2Pause()
 void MainWindow::displayExitDialog()
 {
     updateConsoleReceived();
-    setCurrentStatus(Defs::CurrStatusReady);
-    setCurrentRunStatus(Defs::CurrRunStatusExp);
+    setCurrentStatus(Defs::CurrStatus::Ready);
+    setCurrentRunStatus(Defs::CurrRunStatus::Express);
     mainWidget_->runPage()->stopRun();
 
     if (!neededEngineStep2_)
     {
         resetRunIcons();
         updateMenuActionStatus(currentPage());
-        qDebug() << "engineProcess_->processExit()" << engineProcess_->processExit();
+        qDebug() << "engineProcess_->processExit()" <<
+                    static_cast<int>(engineProcess_->processExit());
         displayExitMsg(engineProcess_->processExit());
     }
     else
@@ -3618,29 +3659,30 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
 {
     DEBUG_FUNC_NAME
     QMessageBox msgBox(this);
+    msgBox.setWindowModality(Qt::WindowModal);
 
-    // remove the context help button
+    // set dialog flags
     Qt::WindowFlags winFflags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint;
     msgBox.setWindowFlags(winFflags);
-    winFflags = msgBox.windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    msgBox.setWindowFlags(winFflags);
+
+    WidgetUtils::removeContextHelpButton(&msgBox);
+
     msgBox.setTextFormat(Qt::RichText);
     msgBox.setWindowTitle(tr("EddyPro Results"));
 
-    QPushButton *openOutDirButton = new QPushButton(tr("Open the output folder"));
-    QPushButton *questionMark_1 = new QPushButton();
+    auto openOutDirButton = new QPushButton(tr("Open the output folder"));
+    auto questionMark_1 = new QPushButton;
     questionMark_1->setIcon(QIcon(QStringLiteral(":/icons/qm-enabled")));
     questionMark_1->setFixedSize(77, 25);
 
-    connect(questionMark_1, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_1()));
+    connect(questionMark_1, &QPushButton::clicked,
+            this, &MainWindow::onlineHelpTrigger_1);
 
     QProcess::ProcessError last_error = engineProcess_->processError();
 
     switch (exitReason)
     {
-    case Process::exitSuccess:
+    case Process::ExitStatus::Success:
         msgBox.setText(tr("<b>Data processed successfully!"
                           "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                           "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -3648,22 +3690,25 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.addButton(openOutDirButton, QMessageBox::ActionRole);
         msgBox.setDefaultButton(openOutDirButton);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         break;
-    case Process::exitFailureToStart:
+    case Process::ExitStatus::FailureToStart:
         msgBox.setText(tr("<b>Engine (eddypro_rp) not found!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         break;
-    case Process::exitFailure:
+    case Process::ExitStatus::Failure:
         msgBox.setText(tr("<b>Oops, an error has occurred.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                           "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>"));
         msgBox.setInformativeText(tr("<p>Double check the project parameters and check "
                                      "the output console for more information.</p>"));
         msgBox.addButton(questionMark_1, QMessageBox::ActionRole);
         msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         msgBox.setDefaultButton(questionMark_1);
         break;
-    case Process::exitError:
+    case Process::ExitStatus::Error:
     {
         qDebug() << engineProcess_->processErrorString();
         msgBox.setText(tr("<b>Oops, an error has occurred.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -3702,10 +3747,11 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
         msgBox.setInformativeText(infoText);
         msgBox.addButton(questionMark_1, QMessageBox::ActionRole);
         msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         msgBox.setDefaultButton(questionMark_1);
         break;
     }
-    case Process::exitStopped:
+    case Process::ExitStatus::Stopped:
         msgBox.setText(tr("<b>Program stopped!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br /><br />"
                           "Preliminary results have been stored "
                           "in the selected output folder. Depending on your "
@@ -3716,8 +3762,10 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
                           "use them in subsequent runs.</p>"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         break;
     }
+
     msgBox.exec();
 
     if (msgBox.clickedButton() == openOutDirButton)
@@ -3744,46 +3792,48 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 {
     DEBUG_FUNC_NAME
     QMessageBox msgBox(this);
+    msgBox.setWindowModality(Qt::WindowModal);
 
-    // remove the context help button
+    // set dialog flags
     Qt::WindowFlags winFflags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint;
     msgBox.setWindowFlags(winFflags);
-    winFflags = msgBox.windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    msgBox.setWindowFlags(winFflags);
+
+    WidgetUtils::removeContextHelpButton(&msgBox);
+
     msgBox.setTextFormat(Qt::RichText);
     msgBox.setWindowTitle(tr("EddyPro Results"));
 
-    QPushButton *questionMark_1 = new QPushButton();
+    auto questionMark_1 = new QPushButton;
     questionMark_1->setIcon(QIcon(QStringLiteral(":/icons/qm-enabled")));
     questionMark_1->setFixedSize(77, 25);
 
-    connect(questionMark_1, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_1()));
+    connect(questionMark_1, &QPushButton::clicked,
+            this, &MainWindow::onlineHelpTrigger_1);
 
     QProcess::ProcessError last_error = engineProcess_->processError();
 
     switch (exitReason)
     {
-    case Process::exitSuccess:
-        updateSpectraPaths();
+    case Process::ExitStatus::Success:
         runAdvancedStep_2();
         break;
-    case Process::exitFailureToStart:
+    case Process::ExitStatus::FailureToStart:
         msgBox.setText(tr("<b>Engine (eddypro_fcc) not found!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         break;
-    case Process::exitFailure:
+    case Process::ExitStatus::Failure:
         msgBox.setText(tr("<b>Oops, an error has occurred.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                           "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>"));
         msgBox.setInformativeText(tr("<p>Double check the project parameters and check "
                                      "the output console for more information.</p>"));
         msgBox.addButton(questionMark_1, QMessageBox::ActionRole);
         msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         msgBox.setDefaultButton(questionMark_1);
         break;
-    case Process::exitError:
+    case Process::ExitStatus::Error:
     {
         qDebug() << engineProcess_->processErrorString();
         msgBox.setText(tr("<b>Oops, an error has occurred.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -3822,10 +3872,11 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
         msgBox.setInformativeText(infoText);
         msgBox.addButton(questionMark_1, QMessageBox::ActionRole);
         msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         msgBox.setDefaultButton(questionMark_1);
         break;
     }
-    case Process::exitStopped:
+    case Process::ExitStatus::Stopped:
         msgBox.setText(tr("<b>Program stopped!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br />"
                           "Preliminary results have been stored "
                           "in the selected output folder. Depending on your "
@@ -3836,10 +3887,11 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
                           "use them in subsequent runs.</p>"));
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setEscapeButton(QMessageBox::Ok);
         break;
     }
 
-    if (exitReason != Process::exitSuccess)
+    if (exitReason != Process::ExitStatus::Success)
     {
         resetRunIcons();
         updateMenuActionStatus(currentPage());
@@ -3858,13 +3910,18 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Error_Codes.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Error_Codes.htm")));
 }
 
 // qt5
-void MainWindow::updateConsole(QByteArray &data)
+void MainWindow::updateConsoleLine(QByteArray &data)
 {
     consoleOutput->appendPlainText(QLatin1String(data.trimmed().constData()));
+}
+
+void MainWindow::updateConsoleChar(QByteArray &data)
+{
+    consoleOutput->insertPlainText(QLatin1String(data.trimmed().constData()));
 }
 
 void MainWindow::updateConsoleReceived()
@@ -3884,18 +3941,16 @@ void MainWindow::updateConsoleError()
 
     if (!newData.isEmpty())
     {
-        updateConsole(newData);
+        updateConsoleLine(newData);
     }
 }
 
-int MainWindow::queryIfStopRun()
+bool MainWindow::okToStopRun()
 {
-    return QMessageBox::question(0,
-                        tr("Stop Data Processing"),
-                        tr("<p>Do you really want to "
-                           "stop data processing?</p>"),
-                        QMessageBox::Yes,
-                        QMessageBox::Cancel);
+    return WidgetUtils::okToQuestion(nullptr,
+                                tr("Stop Data Processing"),
+                                tr("Do you really want to "
+                                   "stop data processing?"));
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event)
@@ -3913,7 +3968,9 @@ void MainWindow::resizeEvent(QResizeEvent* event)
         runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
         mainWidget_->startPage()->updateWelcomePage(true);
+//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
 
+        // NOTE: to complete
         configState_.general.recentnum = 2;
     }
     else
@@ -3923,73 +3980,60 @@ void MainWindow::resizeEvent(QResizeEvent* event)
         runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
         mainWidget_->startPage()->updateWelcomePage(false);
+//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
 
         updateMenuActionStatus(currentPage());
 
+        // NOTE: to complete
         configState_.general.recentnum = 4;
     }
 
     updateStatusBar();
 
+//    {
+//        DEBUG_FUNC_NAME
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        toggleFullScreenAction->setChecked(isFullScreen());
+//    }
+
     event->accept();
-}
+//    QWidget::resizeEvent(event);
 
-QString MainWindow::grabEssentialPath(const QString& fileName)
-{
-    DEBUG_FUNC_NAME
-
-    qDebug() << "fileName" << fileName;
-
-    // open ini file
-    QFile dataFile(fileName);
-    if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        // error opening file
-        qDebug() << "Error: Cannot open" << fileName << "file";
-        return QString();
-    }
-
-    // read ini file
-    QSettings logIni(fileName, QSettings::IniFormat);
-    QString essentialPath = logIni.value(QStringLiteral("ex_file")).toString();
-    dataFile.close();
-
-    QString canonicalPath = QDir::fromNativeSeparators(essentialPath);
-    qDebug() << canonicalPath;
-
-    if (canonicalPath.endsWith(QStringLiteral(".tmp")))
-        canonicalPath.chop(4);
-
-    return canonicalPath;
+//    {
+//        DEBUG_FUNC_NAME
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        toggleFullScreenAction->setChecked(isFullScreen());
+//    }
 }
 
 void MainWindow::updateSpectraPaths()
 {
     DEBUG_FUNC_NAME
 
-    QString logPath = appEnvPath_ + QStringLiteral("/") + Defs::ENGINE_RP_LOGFILE;
-    QString exFilePath = grabEssentialPath(logPath);
-    ecProject_->setSpectraExFile(exFilePath);
+    // reload after engine_rp updates the ex_file_path, i.e. when it finishes
+    bool modified = false;
+    if (ecProject_->loadEcProject(ecProject_->generalFileName(), false, &modified))
+    {
+        if (ecProject_->generalBinSpectraAvail())
+        {
+            ecProject_->setSpectraBinSpectra(ecProject_->spectraBinSpectra());
+        }
+        else
+        {
+            ecProject_->setSpectraBinSpectra(ecProject_->generalOutPath() + QStringLiteral("/eddypro_binned_cospectra"));
+        }
 
-    if (ecProject_->generalBinSpectraAvail())
-    {
-        ecProject_->setSpectraBinSpectra(ecProject_->spectraBinSpectra());
-    }
-    else
-    {
-        ecProject_->setSpectraBinSpectra(ecProject_->generalOutPath() + QStringLiteral("/eddypro_binned_cospectra"));
-    }
+        if (ecProject_->generalFullSpectraAvail())
+        {
+            ecProject_->setSpectraFullSpectra(ecProject_->spectraFullSpectra());
+        }
+        else
+        {
+            ecProject_->setSpectraFullSpectra(ecProject_->generalOutPath() + QStringLiteral("/eddypro_full_cospectra"));
+        }
 
-    if (ecProject_->generalFullSpectraAvail())
-    {
-        ecProject_->setSpectraFullSpectra(ecProject_->spectraFullSpectra());
+        fileSaveSilently();
     }
-    else
-    {
-        ecProject_->setSpectraFullSpectra(ecProject_->generalOutPath() + QStringLiteral("/eddypro_full_cospectra"));
-    }
-
-    fileSave();
 }
 
 void MainWindow::updateSpectraPathFromPreviousData(const QString& exFilePath)
@@ -4134,7 +4178,7 @@ bool MainWindow::testForPreviousData()
         qDebug() << "begin iteration --------------------";
         if (currEcProject->loadEcProject(ecProject_->generalFileName(), false, &modified)
             && prevEcProject->loadEcProject(processingFile, false, &modified)
-            && prevEcProject->generalRunMode() == Defs::CurrRunModeAdv)
+            && prevEcProject->generalRunMode() == Defs::CurrRunMode::Advanced)
         {
             qDebug() << "loading";
             if (currEcProject->fuzzyCompare(*prevEcProject))
@@ -4159,6 +4203,10 @@ bool MainWindow::testForPreviousData()
         }
         else
         {
+            // NOTE: for testing only
+//            qDebug() << "load_1:" << currEcProject->loadEcProject(ecProject_->generalFileName());
+//            qDebug() << "load_2:" << prevEcProject->loadEcProject(processingFile);
+//            qDebug() << "run mode:" << prevEcProject->generalRunMode();
             qDebug() << "loading FAIL";
         }
 
@@ -4177,7 +4225,9 @@ void MainWindow::openLicorSite()
 void MainWindow::checkInternetConnection()
 {
     DEBUG_FUNC_NAME
+//    qDebug() << "start" << QTime::currentTime();
     qDebug() << Alia::isOnline_2();
+//    qDebug() << "stop" << QTime::currentTime();
 }
 
 // NOTE: hack to prevent that WindowStateChange events can change visibility of
@@ -4201,47 +4251,68 @@ bool MainWindow::eventFilter(QObject *o, QEvent *e)
 
 void MainWindow::connectBinarySettingsDialog()
 {
-    connect(mainWidget_->projectPage()->getBinarySettingsDialog(),
-            SIGNAL(saveRequest()),
+    BinarySettingsDialog* binary_settings_dialog =
+            mainWidget_->projectPage()->getBinarySettingsDialog();
+
+    connect(binary_settings_dialog, SIGNAL(saveRequest()),
             this, SLOT(fileSave()));
 }
 
 void MainWindow::connectPlanarFitDialog()
 {
     DEBUG_FUNC_NAME
-    connect(mainWidget_->advancedPage()->advancedSettingPages()
-            ->processingOptions()->getPlanarFitSettingsDialog(),
-            SIGNAL(saveRequest()),
-            this, SLOT(fileSave()));
 
-    connect(mainWidget_->processingPage(),
-            SIGNAL(setDateRangeRequest(QPair<QDateTime, QDateTime>)),
-            mainWidget_->advancedPage()->advancedSettingPages()
-            ->processingOptions()->getPlanarFitSettingsDialog(),
-            SLOT(setDateRange(QPair<QDateTime, QDateTime>)));
+    PlanarFitSettingsDialog* planar_fit_dialog =
+            mainWidget_->advancedPage()
+                       ->advancedSettingPages()
+                       ->processingOptions()
+                       ->getPlanarFitSettingsDialog();
+
+    bool c1 = connect(planar_fit_dialog, SIGNAL(saveRequest()),
+                      this, SLOT(fileSave()));
+    Q_ASSERT(c1);
+
+    bool c2 = connect(mainWidget_->processingPage(), &BasicSettingsPage::setDateRangeRequest,
+                      planar_fit_dialog, &PlanarFitSettingsDialog::setDateRange);
+    Q_ASSERT(c2);
 }
 
 void MainWindow::connectTimeLagDialog()
 {
     DEBUG_FUNC_NAME
-    connect(mainWidget_->advancedPage()->advancedSettingPages()
-            ->processingOptions()->getTimeLagSettingsDialog(),
-            SIGNAL(saveRequest()),
-            this, SLOT(fileSave()));
 
-    connect(mainWidget_->processingPage(),
-            SIGNAL(setDateRangeRequest(QPair<QDateTime, QDateTime>)),
-            mainWidget_->advancedPage()->advancedSettingPages()
-            ->processingOptions()->getTimeLagSettingsDialog(),
-            SLOT(setDateRange(QPair<QDateTime, QDateTime>)));
+    TimeLagSettingsDialog* time_lag_dialog =
+            mainWidget_->advancedPage()
+                       ->advancedSettingPages()
+                       ->processingOptions()
+                       ->getTimeLagSettingsDialog();
+
+    bool c1 = connect(time_lag_dialog, SIGNAL(saveRequest()),
+                      this, SLOT(fileSave()));
+    Q_ASSERT(c1);
+
+    bool c2 = connect(mainWidget_->processingPage(), &BasicSettingsPage::setDateRangeRequest,
+                      time_lag_dialog, &TimeLagSettingsDialog::setDateRange);
+    Q_ASSERT(c2);
 }
 
-void MainWindow::wheelEvent(QWheelEvent * event)
+// Reimplement wheel event handler to support resizing with Ctl+Wheel
+void MainWindow::wheelEvent(QWheelEvent* event)
 {
     if (Qt::ControlModifier == QApplication::keyboardModifiers())
     {
-        if (event->delta() > 0)
+        if (event->angleDelta().y() > 0)
         {
+            // limit the maximum resize
+            auto screen = QGuiApplication::screens().first();
+            auto maxDesktopWidth = screen->availableVirtualSize().width();
+            qDebug() << "maxDesktopWidth" << maxDesktopWidth;
+
+            if (this->size().width() > maxDesktopWidth - 100)
+            {
+                QWidget::wheelEvent(event);
+                return;
+            }
             resize(width() + width() / 10, height() + height() / 10);
         }
         else
@@ -4254,6 +4325,14 @@ void MainWindow::wheelEvent(QWheelEvent * event)
 void MainWindow::changeEvent(QEvent *event)
 {
     QWidget::changeEvent(event);
+
+//    if (event->type() == QEvent::WindowStateChange)
+//    {
+//        DEBUG_FUNC_NAME
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        toggleFullScreenAction->setChecked(isFullScreen());
+//    }
+//    event->accept();
 }
 
 // NOTE: to implement

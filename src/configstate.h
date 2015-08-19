@@ -26,6 +26,23 @@
 
 #include <QStringList>
 
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/configstate.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+/// \struct WinConfigState
+/// \brief Container structure for application status information to be
+/// preserved in the operating system
 struct WinConfigState
 {
    WinConfigState()
@@ -56,8 +73,9 @@ struct WinConfigState
     bool showRunMessages;
 };
 
-// Container structure for application preferences to be
-// preserved in the operating system
+/// \struct GenConfigState
+/// \brief Container structure for application preferences to be
+/// preserved in the operating system
 struct GenConfigState
 {
     GenConfigState() :
@@ -74,8 +92,9 @@ struct GenConfigState
     QString env;
 };
 
-// Container structure for project parameters to be
-// preserved in the operating system
+/// \struct ProjConfigState
+/// \brief Container structure for project parameters to be
+/// preserved in the operating system
 struct ProjConfigState
 {
     ProjConfigState() :
@@ -88,8 +107,9 @@ struct ProjConfigState
     bool smartfluxMode;
 };
 
-// Container structure for application status, options and
-// parameters to be preserved in the operating system
+/// \struct ConfigState
+/// \brief Container structure for application status, options and
+/// parameters to be preserved in the operating system
 struct ConfigState
 {
     ConfigState() :

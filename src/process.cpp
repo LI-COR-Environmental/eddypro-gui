@@ -21,9 +21,11 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "process.h"
+
+#include <QApplication>
 #include <QDebug>
 #include <QDir>
-#include <QCoreApplication>
 #include <QFileInfo>
 #include <QTimer>
 
@@ -33,23 +35,22 @@
 #endif
 
 #include "dbghelper.h"
-#include "process.h"
 
 Process::Process(QWidget* parent, const QString &fullPath) :
     QObject(parent),
     process_(0),
     fullPath_(fullPath),
-    processExit_(exitSuccess),
+    processExit_(ExitStatus::Success),
     processPid_(0),
     freezerUtility_(0),
     pid_(QString()),
     rxBuffer_(QByteArray())
 {
     process_ = new QProcess(this);
-    connect(process_, SIGNAL(readyReadStandardOutput()),
-             this, SIGNAL(readyReadStdOut()));
-    connect(process_, SIGNAL(readyReadStandardError()),
-             this, SIGNAL(readyReadStdErr()));
+    connect(process_, &QProcess::readyReadStandardOutput,
+             this, &Process::readyReadStdOut);
+    connect(process_, &QProcess::readyReadStandardError,
+             this, &Process::readyReadStdErr);
 
     freezerUtility_ = new QProcess(this);
 }
@@ -63,8 +64,8 @@ bool Process::engineProcessStart(const QString& fullPath, const QString& working
 {
     DEBUG_FUNC_NAME
 
-    connect(process_, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(processFinished(int,QProcess::ExitStatus)));
+    connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(processFinished(int, QProcess::ExitStatus)));
     connect(process_, SIGNAL(error(QProcess::ProcessError)),
              this, SLOT(processError(QProcess::ProcessError)));
 
@@ -133,8 +134,8 @@ bool Process::zipProcessAddStart(const QString &fileName, const QString &toArchi
     qDebug() << "args" << args;
     qDebug() << "workDir" << workDir;
 
-    connect(process_, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(processFinished(int,QProcess::ExitStatus)));
+    connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(processFinished(int, QProcess::ExitStatus)));
     connect(process_, SIGNAL(error(QProcess::ProcessError)),
              this, SLOT(processError(QProcess::ProcessError)));
 
@@ -199,8 +200,8 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
                 + QStringLiteral("/")
                 + Defs::COMPRESSOR_BIN);
 
-    connect(process_, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(processFinished(int,QProcess::ExitStatus)));
+    connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(processFinished(int, QProcess::ExitStatus)));
     connect(process_, SIGNAL(error(QProcess::ProcessError)),
              this, SLOT(processError(QProcess::ProcessError)));
 
@@ -210,6 +211,7 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
         return false;
 
     QByteArray dataList = process_->readAllStandardOutput();
+//    qDebug() << "dataList" << dataList;
     return dataList.contains(filePattern.mid(1).toLatin1());
 }
 
@@ -220,7 +222,7 @@ void Process::processPause(Defs::CurrRunStatus mode)
     Q_UNUSED(mode)
 
     // file path of the program
-    QString fp(QCoreApplication::applicationDirPath()
+    QString fp(qApp->applicationDirPath()
             + QStringLiteral("/")
             + Defs::BIN_FILE_DIR
             + QStringLiteral("/")
@@ -229,10 +231,10 @@ void Process::processPause(Defs::CurrRunStatus mode)
     QStringList args;
     qDebug() << "fp" << fp << "args" << args;
 
-    connect(freezerUtility_, SIGNAL(readyReadStandardOutput()),
-             this, SLOT(bufferFreezerOutput()));
+    connect(freezerUtility_, &QProcess::readyReadStandardOutput,
+             this, &Process::bufferFreezerOutput);
 
-    freezerUtility_->setWorkingDirectory(QCoreApplication::applicationDirPath()
+    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath()
                                          + QStringLiteral("/")
                                          + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
@@ -243,7 +245,7 @@ void Process::processPause_2()
     DEBUG_FUNC_NAME
 
     // file path of the program
-    QString fp(QCoreApplication::applicationDirPath()
+    QString fp(qApp->applicationDirPath()
             + QStringLiteral("/")
             + Defs::BIN_FILE_DIR
             + QStringLiteral("/")
@@ -261,7 +263,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
     Q_UNUSED(mode)
 
     // file path of the program
-    QString fp(QCoreApplication::applicationDirPath()
+    QString fp(qApp->applicationDirPath()
             + QStringLiteral("/")
             + Defs::BIN_FILE_DIR
             + QStringLiteral("/")
@@ -271,7 +273,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
     args << pid_;
     args << QStringLiteral("/r");
 
-    freezerUtility_->setWorkingDirectory(QCoreApplication::applicationDirPath()
+    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath()
                                          + QStringLiteral("/")
                                          + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
@@ -282,13 +284,13 @@ void Process::processStop()
     DEBUG_FUNC_NAME
 
     // to avoid crash message error in windows
-    disconnect(process_, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(processFinished(int,QProcess::ExitStatus)));
+    disconnect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(processFinished(int, QProcess::ExitStatus)));
     disconnect(process_, SIGNAL(error(QProcess::ProcessError)),
              this, SLOT(processError(QProcess::ProcessError)));
 
     process_->kill();
-    processExit_ = exitStopped;
+    processExit_ = ExitStatus::Stopped;
 }
 
 void Process::processError(QProcess::ProcessError error)
@@ -297,11 +299,11 @@ void Process::processError(QProcess::ProcessError error)
     if (error == QProcess::FailedToStart)
     {
         qWarning() << tr("program not found.");
-        processExit_ = exitFailureToStart;
+        processExit_ = ExitStatus::FailureToStart;
     }
     else
     {
-        processExit_ = exitError;
+        processExit_ = ExitStatus::Error;
     }
     // to avoid multiple call
     disconnect(process_, SIGNAL(error(QProcess::ProcessError)),
@@ -313,22 +315,22 @@ void Process::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     DEBUG_FUNC_NAME
     // to avoid multiple call
-    disconnect(process_, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(processFinished(int,QProcess::ExitStatus)));
+    disconnect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
+             this, SLOT(processFinished(int, QProcess::ExitStatus)));
 
     if (exitStatus == QProcess::CrashExit)
     {
-        processExit_ = exitError;
+        processExit_ = ExitStatus::Error;
         qWarning() << tr("process crashed.");
     }
     else if (exitCode != 0)
     {
-        processExit_ = exitFailure;
+        processExit_ = ExitStatus::Failure;
         qWarning() << tr("process failed.");
     }
     else
     {
-        processExit_ = exitSuccess;
+        processExit_ = ExitStatus::Success;
         qWarning() << tr("process ok.");
         emit processSuccess();
         return;
@@ -414,8 +416,8 @@ void Process::parseFreezerPid(const QByteArray& data)
 
         freezerUtility_->kill();
 
-        disconnect(freezerUtility_, SIGNAL(readyReadStandardOutput()),
-                 this, SLOT(bufferFreezerOutput()));
+        disconnect(freezerUtility_, &QProcess::readyReadStandardOutput,
+                 this, &Process::bufferFreezerOutput);
         QTimer::singleShot(1000, this, SLOT(processPause_2()));
     }
 }
@@ -424,3 +426,96 @@ bool::Process::isRunning()
 {
     return (process_->state() == QProcess::Running);
 }
+
+#if 0
+// from http://www.qtcentre.org/threads/44489-Get-Process-ID-for-a-running-application
+unsigned int Process::getProcessIdsByProcessName(const QString& processName, QStringList &listOfPids)
+{
+    DEBUG_FUNC_NAME
+    // Clear content of returned list of PIDS
+    listOfPids.clear();
+
+#if defined(Q_OS_WIN)
+    // Get the list of process identifiers.
+    DWORD aProcesses[1024], cbNeeded, cProcesses;
+    unsigned int i;
+
+    if (!EnumProcesses(aProcesses, sizeof(aProcesses), &cbNeeded))
+    {
+        return 0;
+    }
+
+    // Calculate how many process identifiers were returned.
+    cProcesses = cbNeeded / sizeof(DWORD);
+
+    // Search for a matching name for each process
+    for (i = 0; i < cProcesses; i++)
+    {
+        if (aProcesses[i] != 0)
+        {
+            char szProcessName[MAX_PATH] = {0};
+
+            DWORD processID = aProcesses[i];
+
+            // Get a handle to the process.
+            HANDLE hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
+                PROCESS_VM_READ,
+                FALSE, processID);
+
+            // Get the process name
+            if (NULL != hProcess)
+            {
+                HMODULE hMod;
+                DWORD cbNeeded;
+
+                if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded))
+                {
+                    GetModuleBaseNameA(hProcess, hMod, szProcessName, sizeof(szProcessName)/sizeof(char));
+                }
+
+                // Release the handle to the process.
+                CloseHandle(hProcess);
+
+                QByteArray ba = processName.toLocal8Bit();
+                const char *processName_str = ba.data();
+
+                if (*szProcessName != 0 && strcmp(processName_str, szProcessName) == 0)
+                {
+                    listOfPids.append(QString::number(processID));
+                }
+            }
+        }
+    }
+
+    return listOfPids.count();
+
+#else
+
+    // Run pgrep, which looks through the currently running processses and lists the process IDs
+    // which match the selection criteria to stdout.
+    QProcess process;
+    process.start(QStringLiteral("pgrep"),  QStringList() << processName);
+    process.waitForReadyRead();
+
+    QByteArray bytes = process.readAllStandardOutput();
+
+    process.terminate();
+    process.waitForFinished();
+    process.kill();
+
+    // Output is something like "2472\n2323" for multiple instances
+    if (bytes.isEmpty())
+        return 0;
+
+    // Remove trailing CR
+    if (bytes.endsWith("\n"))
+        bytes.resize(bytes.size() - 1);
+
+    qDebug() << bytes;
+
+    listOfPids = QString(QLatin1String(bytes)).split(QStringLiteral("\n"));
+    return listOfPids.count();
+
+#endif
+}
+#endif

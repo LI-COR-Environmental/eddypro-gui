@@ -21,24 +21,25 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QStackedLayout>
-#include <QMainWindow>
+#include "mainwidget.h"
 
+#include <QDebug>
+#include <QMainWindow>
+#include <QStackedLayout>
+
+#include "advancedsettingspage.h"
+#include "advoutputoptions.h"
+#include "advprocessingoptions.h"
+#include "advsettingscontainer.h"
+#include "advspectraloptions.h"
+#include "basicsettingspage.h"
+#include "configstate.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "welcomepage.h"
-#include "basicsettingspage.h"
 #include "projectpage.h"
-#include "advancedsettingspage.h"
-#include "advsettingscontainer.h"
-#include "advprocessingoptions.h"
-#include "advoutputoptions.h"
-#include "advspectraloptions.h"
 #include "runpage.h"
-#include "configstate.h"
-#include "mainwidget.h"
+#include "welcomepage.h"
 
 MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* configState) :
     QWidget(parent),
@@ -90,8 +91,8 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
 
     setLayout(mainWidgetLayout);
 
-    connect(mainWidgetLayout, SIGNAL(currentChanged(int)),
-            this, SLOT(fadeInWidget(int)));
+    connect(mainWidgetLayout, &QStackedLayout::currentChanged,
+            this, &MainWidget::fadeInWidget);
 
     // from MainWindow
     connect(static_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
@@ -101,17 +102,20 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
 
     connect(projectPage_, SIGNAL(updateMetadataReadRequest()),
             basicSettingsPage_, SLOT(updateMetadataRead()));
-    connect(projectPage_, SIGNAL(updateRawFilenameFormatRequest()),
-            basicSettingsPage_, SLOT(updateRawFilenameFormat()));
-    connect(projectPage_, SIGNAL(requestBasicSettingsClear()),
-            basicSettingsPage_, SLOT(clearSelectedItems()));
-    connect(projectPage_, SIGNAL(setOutputBiometRequest()),
+    connect(projectPage_, &ProjectPage::updateRawFilenameFormatRequest,
+            basicSettingsPage_, &BasicSettingsPage::updateRawFilenameFormat);
+    connect(projectPage_, &ProjectPage::requestBasicSettingsClear,
+            basicSettingsPage_, &BasicSettingsPage::clearSelectedItems);
+    connect(projectPage_, &ProjectPage::setOutputBiometRequest,
             advancedPage()->advancedSettingPages()->outputOptions(),
-            SLOT(setOutputBiomet()));
+            &AdvOutputOptions::setOutputBiomet);
 
-    connect(welcomePage_, SIGNAL(openProjectRequest(QString)), this, SIGNAL(openProjectRequest(QString)));
-    connect(welcomePage_, SIGNAL(newProjectRequest()), this, SIGNAL(newProjectRequest()));
-    connect(welcomePage_, SIGNAL(checkUpdatesRequest()), this, SIGNAL(checkUpdatesRequest()));
+    connect(welcomePage_, &WelcomePage::openProjectRequest,
+            this, &MainWidget::openProjectRequest);
+    connect(welcomePage_, &WelcomePage::newProjectRequest,
+            this, &MainWidget::newProjectRequest);
+    connect(welcomePage_, &WelcomePage::checkUpdatesRequest,
+            this, &MainWidget::checkUpdatesRequest);
 }
 
 MainWidget::~MainWidget()
@@ -121,13 +125,13 @@ MainWidget::~MainWidget()
 void MainWidget::setCurrentPage(Defs::CurrPage page)
 {
     DEBUG_FUNC_NAME
-    if (mainWidgetLayout->currentIndex() != page)
+    if (mainWidgetLayout->currentIndex() != static_cast<int>(page))
     {
         mainWidgetLayout->currentWidget()->setSizePolicy(QSizePolicy::Ignored,
                                                          QSizePolicy::Ignored);
     }
 
-    mainWidgetLayout->setCurrentIndex(page);
+    mainWidgetLayout->setCurrentIndex(static_cast<int>(page));
 
     mainWidgetLayout->currentWidget()->setSizePolicy(QSizePolicy::Expanding,
                                                      QSizePolicy::Expanding);
@@ -168,3 +172,9 @@ void MainWidget::updateSmartfluxBarStatus()
     advancedSettingsPage_->updateSmartfluxBar();
     runPage_->updateSmartfluxBar();
 }
+
+//void MainWidget::routeSmartfluxBarRequests()
+//{
+//    emit saveSilentlyRequest();
+//    emit saveRequest();
+//}

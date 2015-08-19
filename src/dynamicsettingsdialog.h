@@ -27,11 +27,27 @@
 
 #include <QDialog>
 
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/dynamicsettingsdialog.h
+/// \brief Declares the DynamicSettingsDialog class
+/// \version     1.6.3
+/// \date        2010-12-01
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QLineEdit;
 class QCheckBox;
 class QPushButton;
 class EcProject;
 
+/// \class DynamicSettingsDialog
+/// \brief Class representing the Dynamic settings dialog
 class DynamicSettingsDialog : public QDialog
 {
     Q_OBJECT

@@ -20,31 +20,30 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QPushButton>
-#include <QGridLayout>
-#include <QLineEdit>
-#include <QLabel>
+#include "rawfilenamedialog.h"
+
 #include <QButtonGroup>
-#include <QRadioButton>
-#include <QFrame>
-#include <QScrollArea>
+#include <QDebug>
 #include <QDirIterator>
+#include <QLabel>
+#include <QLineEdit>
+#include <QFrame>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QScrollArea>
 
 #include "dbghelper.h"
-#include "alia.h"
 #include "ecproject.h"
-#include "rawfilenamedialog.h"
+#include "widget_utils.h"
 
 RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
     QDialog(parent),
     ecProject_(ecProject)
 {
-    setWindowTitle(tr("Raw File Name Format"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("Raw File Name Format"));
+    WidgetUtils::removeContextHelpButton(this);
 
     title = new QLabel(tr("Raw file name format"));
     title->setProperty("groupTitle", true);
@@ -56,7 +55,7 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
     radioGroupBox->setProperty("scrollContainerWidget", true);
     radioGroupBox->setLayout(radioGroupBoxLayout);
 
-    QScrollArea* radioScrollArea = new QScrollArea;
+    auto radioScrollArea = new QScrollArea;
     radioScrollArea->setWidget(radioGroupBox);
     radioScrollArea->setWidgetResizable(true);
     radioScrollArea->setMinimumWidth(radioGroupBox->sizeHint().width());
@@ -71,7 +70,7 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
     okButton->setProperty("commonButton", true);
     okButton->setEnabled(false);
 
-    QGridLayout *dialogLayout = new QGridLayout(this);
+    auto dialogLayout = new QGridLayout(this);
     dialogLayout->addWidget(title, 0, 0);
     dialogLayout->addWidget(desc, 1, 0);
     dialogLayout->addWidget(radioScrollArea, 2, 0);
@@ -79,13 +78,15 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent, EcProject *ecProject) :
     dialogLayout->addWidget(okButton, 4, 0, 1, 1, Qt::AlignCenter);
     dialogLayout->setVerticalSpacing(10);
     dialogLayout->setContentsMargins(30, 30, 30, 30);
+//    dialogLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(dialogLayout);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(okButton, &QPushButton::clicked,
+            this, &RawFilenameDialog::close);
     connect(extRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateFormatEdit(int)));
-    connect(rawFilenameFormatEdit, SIGNAL(textEdited(QString)),
-            this, SLOT(updateFileList(QString)));
+    connect(rawFilenameFormatEdit, &QLineEdit::textEdited,
+            this, &RawFilenameDialog::updateFileList);
 }
 
 void RawFilenameDialog::close()
@@ -160,7 +161,7 @@ void RawFilenameDialog::refresh()
         rawFilenameFormatEdit->setText(fileInfo.fileName());
         rawFilenameFormatEdit->selectAll();
     }
-    okButton->setEnabled(Alia::isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
+    okButton->setEnabled(ecProject_->isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
 }
 
 QStringList RawFilenameDialog::getRawFileTypeAvailable()
@@ -234,5 +235,5 @@ void RawFilenameDialog::updateFileList(const QString& file)
     if (extRadioGroup->buttons().count())
         fileList_.replace(extRadioGroup->checkedId(), file);
 
-    okButton->setEnabled(Alia::isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
+    okButton->setEnabled(ecProject_->isGoodRawFileNameFormat(rawFilenameFormatEdit->text()));
 }

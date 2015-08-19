@@ -21,19 +21,23 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+// http://qt-project.org/forums/viewthread/27981
+
+#include "updatedialog.h"
+
 #include <QDebug>
+#include <QDesktopServices>
 #include <QLabel>
 #include <QGridLayout>
 #include <QPushButton>
-#include <QUrl>
 #include <QTimer>
-#include <QDesktopServices>
+#include <QUrl>
 
+#include "dbghelper.h"
+#include "defs.h"
 #include "ftpmanager.h"
 #include "stringutils.h"
-#include "defs.h"
-#include "dbghelper.h"
-#include "updatedialog.h"
+#include "widget_utils.h"
 
 UpdateDialog::UpdateDialog(QWidget *parent) :
     QDialog(parent),
@@ -41,16 +45,14 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
     isNewVersionAvailable_(false),
     ftpTimer_(0)
 {
-    setWindowTitle(tr("Check for Updates"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("Check for Updates"));
+    WidgetUtils::removeContextHelpButton(this);
 
-    QLabel *groupTitle = new QLabel;
+    auto groupTitle = new QLabel;
     groupTitle->setText(tr("Checking for newer versions."));
 
-    QLabel *hrLabel = new QLabel;
+    auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
     hrLabel->setMinimumWidth(400);
 
@@ -72,7 +74,7 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
     noButton->setDefault(true);
     noButton->setProperty("commonButton", true);
 
-    QGridLayout *dialogLayout = new QGridLayout(this);
+    auto dialogLayout = new QGridLayout(this);
     dialogLayout->addWidget(groupTitle, 0, 0, 1, -1);
     dialogLayout->addWidget(hrLabel, 1, 0, 1, -1);
     dialogLayout->addWidget(msgLabel, 2, 0, 1, -1);
@@ -84,27 +86,72 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
     dialogLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(dialogLayout);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
-    connect(yesButton, SIGNAL(clicked()), this, SLOT(showDownloadPage()));
-    connect(noButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(okButton, &QPushButton::clicked,
+            this, &UpdateDialog::close);
+    connect(yesButton, &QPushButton::clicked,
+            this, &UpdateDialog::showDownloadPage);
+    connect(noButton, &QPushButton::clicked,
+            this, &UpdateDialog::close);
 
     QTimer::singleShot(0, this, SLOT(initialize()));
 
     ftpTimer_ = new QTimer(this);
     ftpTimer_->setInterval(10000);
     ftpTimer_->setSingleShot(true);
-    connect(ftpTimer_, SIGNAL(timeout()), this, SLOT(ftpTimeout()));
+    connect(ftpTimer_, &QTimer::timeout,
+            this, &UpdateDialog::ftpTimeout);
 }
 
 UpdateDialog::~UpdateDialog()
 {
     DEBUG_FUNC_NAME
 
+//    if (ftpTimer_)
+//        delete ftpTimer_;
+
+//    if (ftp)
+//    {
+//        qDebug() << "clearing current ftp cmd...";
+//        ftp->abort();
+
+//        qDebug() << "clearing queued ftp cmd...";
+//        if (ftp->hasPendingCommands())
+//            ftp->clearPendingCommands();
+
+//        qDebug() << "closing ftp connection...";
+//        ftp->close();
+
+//        qDebug() << "deleting ftp...";
+//        delete ftp;
+//    }
+
     if (ftp)
     {
         qDebug() << "deleting ftp...";
+//        delete ftp;
     }
 }
+
+//void UpdateDialog::cleanFtpExit()
+//{
+//    DEBUG_FUNC_NAME
+
+//    if (ftpTimer_->isActive())
+//        ftpTimer_->stop();
+
+//    if (ftp)
+//    {
+//        qDebug() << "clearing current ftp cmd...";
+//        ftp->abort();
+
+//        qDebug() << "clearing queued ftp cmd...";
+//        if (ftp->hasPendingCommands())
+//            ftp->clearPendingCommands();
+
+//        qDebug() << "closing ftp connection...";
+//        ftp->close();
+//    }
+//}
 
 void UpdateDialog::initialize()
 {
@@ -189,6 +236,113 @@ void UpdateDialog::checkUpdate()
     qDebug() << "ftpTimer_->start()";
 }
 
+//void UpdateDialog::ftpCommandFinished(int, bool error)
+//{
+//    DEBUG_FUNC_NAME
+
+//    if (ftp->currentCommand() == QFtp::ConnectToHost)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            noConnection();
+//            cleanFtpExit();
+//            qDebug() << "QFtp::ConnectToHost error";
+//            return;
+//        }
+//        qDebug() << "QFtp::ConnectToHost";
+//        return;
+//    }
+//    else if (ftp->currentCommand() == QFtp::Login)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            connectionError();
+//            cleanFtpExit();
+//            qDebug() << "QFtp::Login error";
+//        }
+//        qDebug() << "QFtp::Login";
+//        return;
+//    }
+//    else if (ftp->currentCommand() == QFtp::Cd)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            connectionError();
+//            cleanFtpExit();
+//            qDebug() << "QFtp::Cd error";
+//        }
+//        qDebug() << "QFtp::Cd";
+//        return;
+//    }
+//    else if (ftp->currentCommand() == QFtp::Get)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            connectionError();
+//            qDebug() << "QFtp::Get error";
+//            cleanFtpExit();
+//        }
+
+//        QByteArray versionNr = ftp->readAll();
+//        qDebug() << "versionNr" << versionNr.trimmed().constData();
+
+//        QString newVersion(QStringLiteral(versionNr.trimmed().constData()));
+
+//        if (!newVersion.isEmpty() && StringUtils::isNewVersion(newVersion, Defs::APP_VERSION_STR))
+//        {
+//            qDebug() << "NEW VERSION";
+//            isNewVersionAvailable_ = true;
+//            getNewVersion(newVersion);
+//        }
+//        else if (newVersion.isEmpty() && newVersion != Defs::APP_VERSION_STR)
+//        {
+//            qDebug() << "EMPTY VERSION";
+//            isNewVersionAvailable_ = false;
+//            downloadError();
+//        }
+//        else
+//        {
+//            qDebug() << "NO NEW VERSION";
+//            isNewVersionAvailable_ = false;
+//            noNewVersion();
+//        }
+//        qDebug() << "QFtp::Get";
+//        return;
+//    }
+//    else if (ftp->currentCommand() == QFtp::Close)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            qDebug() << "QFtp::Close error";
+//        }
+
+//        if (ftpTimer_->isActive())
+//            ftpTimer_->stop();
+
+//        qDebug() << "QFtp::Close";
+//        return;
+//    }
+//    else if (ftp->currentCommand() == QFtp::None)
+//    {
+//        if (error)
+//        {
+//            qDebug() << ftp->errorString();
+//            qDebug() << "QFtp::None error";
+
+//            if (ftpTimer_->isActive())
+//                ftpTimer_->stop();
+//            ftp->close();
+//        }
+//        qDebug() << "QFtp::None";
+//        return;
+//    }
+//}
+
 bool UpdateDialog::hasNewVersion()
 {
     return isNewVersionAvailable_;
@@ -205,6 +359,10 @@ void UpdateDialog::ftpTimeout()
     DEBUG_FUNC_NAME
 
     qDebug() << "ftp" << ftp;
+//    if (ftp)
+//    {
+//        ftp->abort();
+//    }
 
     noConnection();
 }
