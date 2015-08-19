@@ -598,9 +598,11 @@
 
 	.note
 	{
+		margin: 10px;
 		padding: 3pt;
 		border: solid 1px #7a5f9b;
 		background-color: #b5dbf3;
+		margin-left: 0px;
 	}
 
 	span.monotype
@@ -2143,9 +2145,11 @@ caption
 
 .note
 {
+	margin: 10px;
 	padding: 3pt;
 	border: solid 1px #7a5f9b;
 	background-color: #b5dbf3;
+	margin-left: 0px;
 }
 
 span.monotype

@@ -1,7 +1,7 @@
 /***************************************************************************
   proxystyle.h
   -------------------
-  Copyright (C) 2013-2014, LI-COR Biosciences
+  Copyright (C) 2013-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).

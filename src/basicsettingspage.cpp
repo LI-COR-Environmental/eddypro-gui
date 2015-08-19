@@ -2,7 +2,7 @@
   basicsettingspage.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -345,9 +345,9 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     declinationDateEdit->setMinimumWidth(70);
     declinationDateEdit->setMaximumWidth(70);
     WidgetUtils::customizeCalendar(declinationDateEdit->calendarWidget());
-    // NOTE: manage NOAA website API limitation, where current last day available is 2015-12-31
+    // NOTE: manage NOAA website API limitation, where current last day available is 2019-12-31
     // compare http://www.ngdc.noaa.gov/geomag-web/#declination
-    declinationDateEdit->setMaximumDate(QDate(2015, 12, 31));
+    declinationDateEdit->setMaximumDate(QDate(2019, 12, 31));
 
     decChangingLabel = new QLabel;
     decChangingLabel->setObjectName(QStringLiteral("citeLabel"));
@@ -3060,17 +3060,17 @@ void BasicSettingsPage::refresh()
         declinationDateLabel->setEnabled(false);
         declinationDateEdit->setEnabled(false);
 
-        // NOTE: manage NOAA website API limitation, where current last day available is 2014-12-31
+        // NOTE: manage NOAA website API limitation, where current last day available is 2019-12-31
         // compare http://www.ngdc.noaa.gov/geomag-web/#declination
         if (ecProject_->generalSubset())
         {
-            if (endDateEdit->date().year() <= 2015)
+            if (endDateEdit->date().year() <= 2019)
             {
                 declinationDateEdit->setDate(endDateEdit->date());
             }
             else
             {
-                declinationDateEdit->setDate(QDate(2015, 12, 31));
+                declinationDateEdit->setDate(QDate(2019, 12, 31));
             }
         }
         else
@@ -3245,13 +3245,13 @@ void BasicSettingsPage::updateFourthGasSettings(const QString& s)
 {
     DEBUG_FUNC_NAME
 
-    const QString N2OStr = QStringLiteral("N2O");
+    const QString N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
     const QString COStr = QStringLiteral("CO");
-    const QString SO2Str = QStringLiteral("SO2");
-    const QString O3Str = QStringLiteral("O3");
-    const QString NH3Str = QStringLiteral("NH3");
+    const QString SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
+    const QString O3Str = QLatin1Char('O') + Defs::SUBTHREE;
+    const QString NH3Str = QStringLiteral("NH") + Defs::SUBTHREE;
     const QString NOStr = QStringLiteral("NO");
-    const QString NO2Str = QStringLiteral("NO2");
+    const QString NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
 
     QString gasStr(s.split(QLatin1Char(' ')).at(0));
 
@@ -4901,7 +4901,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
         if (columnList.size() > 1)
         {
             // declination in decimal degrees
-            declination_ = QVariant(columnList.at(3)).toString();
+            declination_ = QVariant(columnList.at(4)).toString();
 
             QString decStr = strDeclination(declination_.toDouble());
             qDebug() << "declination_" << declination_
@@ -4909,11 +4909,11 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
                      << "decStr" << decStr;
             declinationEdit->setText(decStr);
 
-            // variation of declination in decimal minutes / year
-            double variation = QVariant(columnList.at(4)).toDouble();
             // variation of declination in decimal degrees / year
-            QString variationDecValue = strDeclination(variation / 60.0);
-            qDebug() << "variation value" << columnList.at(4)
+            double variation = QVariant(columnList.at(5)).toDouble();
+            // variation of declination in decimal minutes / year
+            QString variationDecValue = strDeclination(variation);
+            qDebug() << "variation value" << columnList.at(5)
                      << "variationDecValue" << variationDecValue;
 
             QString variationStr = tr("Changing by %1 per year").arg(variationDecValue);
@@ -4957,7 +4957,7 @@ void BasicSettingsPage::updateMagDec(const QString& dec)
     ecProject_->setScreenMagDec(dec_str.toDouble());
 }
 
-// get longitude in signed decimal degrees from dddmmss.sss string
+// get declination in signed decimal degrees from degree, minutes (dddmm.sss) string
 double BasicSettingsPage::numDeclination(const QString &text)
 {
     double dec = 0.0;
@@ -5002,7 +5002,8 @@ void BasicSettingsPage::onClickDeclinationLabel()
     declinationEdit->selectAll();
 }
 
-// get declination in dddmmss.sss string from signed decimal degrees
+// get declination in degree, minutes (dddmm.sss) string
+// from signed decimal degrees
 QString BasicSettingsPage::strDeclination(double dec)
 {
     QString dms = QString();

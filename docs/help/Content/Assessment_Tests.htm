@@ -61,8 +61,13 @@
                 </ul>
             </div>
             <h1 class="pgBrkBfr">Assessment Tests</h1>
-            <p>Assessment tests evaluate ancillary files to ensure that they meet certain requirements before processing. The purpose of assessment tests is to reduce processing errors when using <span class="LI-COREddyPro">EddyPro</span> in for desktop processing, and to ensure the validity of ancillary files prior to uploading them to the <span class="MyVariablesSMARTFlux">SMARTFlux</span> system. The <span class="pop">Format Test</span> evaluates the file format by comparing it to a standard, and the <span class="pop">Scientific Test</span> evaluates data by comparing values in the file with known acceptable values.</p>
-            <p>If the test fails for any reason, you will be notified and provided with information that will help you solve the problem, either by choosing another file or correcting the file that you selected.</p>
+            <p>Assessment tests evaluate ancillary files to ensure that they meet certain requirements before processing. The purpose of assessment tests is to reduce processing errors when using <span class="LI-COREddyPro">EddyPro</span> for desktop processing, and to ensure the validity of ancillary files prior to uploading them to the <span class="MyVariablesSMARTFlux">SMARTFlux</span> system. The <span class="pop">Format Test</span> evaluates the file format by comparing it to a standard, and the <span class="pop">Scientific Test</span> evaluates data by comparing values in the file with known acceptable values.</p>
+            <p>If the test fails for any reason, you will be notified and provided with information that will help you solve the problem, either by choosing another file or correcting the file that you selected. If you click <b>Continue</b> after a test fails, <span class="LI-COREddyPro">EddyPro</span> will use the default method and will probably not use the file that failed. The default methods are as follows:</p>
+            <ul class="bulleted">
+                <li value="1">Spectral Correction defaults to <b>Moncrieff</b></li>
+                <li value="2">Planar Fit (Rotation method) defaults to <b>Double Rotation</b></li>
+                <li value="3">Automatic time lag optimization (Time lag detection method) defaults to <b>Covariance maximization with default</b></li>
+            </ul>
             <h2>Spectral Assessment File</h2>
             <h3>Format Test</h3>
             <p>This file has a strictly fixed format: the number of lines and all textual (i.e., not numeric) content is strictly fixed, with the only exception of the first word at line 46 (‘none’ in the sample file), which can change if <span class="LI-COREddyPro">EddyPro</span> processed a 4th gas. Thus, any textual information can be used to make sure the file is ‘well formatted’. Note that also the RH classes (lines 8-16) are predefined, including their percentage indications (‘5 – 15%’, etc.).</p>
@@ -87,9 +92,9 @@
                 <li value="2">The user may edit the file manually. In this case, all values shall be in the range 0.001 – 10.</li>
                 <li value="3">Column ‘Fc’ shall be in the range 0.01 – 10 for good values of column ‘fc.’</li>
             </ol>
-            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_Spectral.png"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="830" data-mc-height="269" src="Resources/Images/Test_Spectral_thumb_0_96.png" tabindex="" /></a>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_Spectral_New.PNG"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="835" data-mc-height="271" src="Resources/Images/Test_Spectral_New_thumb_0_96.png" tabindex="" /></a>
             </p>
-            <p class="figure" data-mc-autonum="Figure 3"><span class="autonumber"><span>Figure 3</span></span>. If the Spectral Assessment file fails a test you will need to correct the file or select a different file.</p>
+            <p class="figure" data-mc-autonum="Figure 3"><span class="autonumber"><span>Figure 3</span></span>. If the Spectral Assessment file fails a test, you can  correct the file, choose a different file, or choose an alternate method. If you click <b>Continue</b>, the default method will be used, and EddyPro will probably not use the file.</p>
             <h2>Planar Fit File</h2>
             <h3>Format Test</h3>
             <p>This file does not have a strictly predefined structure. However, the number of lines can be calculated based on the value at line 2, ‘Number of wind sectors.’ Let this number be N in the following example:</p>
@@ -105,9 +110,9 @@
                 <li class="ml96pt" value="1">At least one wind sector (lines 10 + 1 thru 10+N) should have all three coefficients (B0, B1, B2) ≠ -9999.</li>
                 <li class="ml96pt" value="2">For each wind sector having valid coefficients, the corresponding 4-lines group shall contain only numbers ≠ -9999. and at least one number ≠ 0.</li>
             </ol>
-            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_Planar_Fit.png"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="830" data-mc-height="269" src="Resources/Images/Test_Planar_Fit_thumb_0_96.png" tabindex="" /></a>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_Planar_Fit_New.PNG"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="835" data-mc-height="275" src="Resources/Images/Test_Planar_Fit_New_thumb_0_96.png" tabindex="" /></a>
             </p>
-            <p class="figure" data-mc-autonum="Figure 4"><span class="autonumber"><span>Figure 4</span></span>. If the planar fit file fails the test you will either need to select a different file or correct the file and reload it.</p>
+            <p class="figure" data-mc-autonum="Figure 4"><span class="autonumber"><span>Figure 4</span></span>. If the planar fit file fails the test, you can  correct the file, choose a different file, or choose an alternate method. If you click <b>Continue</b>, the default method will be used, and EddyPro will probably not use the file.</p>
             <h2>Timelag Optimization File</h2>
             <h3>Format Test</h3>
             <p>This file does not have a strictly predefined structure and the amount of lines to be expected cannot be univocally calculated. Below some criteria that can be tested:</p>
@@ -122,9 +127,9 @@
                 <li value="2">All time lags in the small groups shall not be larger than 60 seconds.</li>
                 <li value="3">In the RH-sorted h2o classes:<ol class="ml18pt" style="list-style-type: lower-roman;"><li value="1">The “class” index shall be continuous, starting from 1 and up to a maximum of 20 (but the could be less than 20).</li><li value="2">In each line it shall be true that; “min _h2o” &lt; “med_h2o” &lt; “max_h2o” (note the header: the “med” is the left one, not the central one!).</li><li value="3">There shall be at least 3 classes with “class_num” &gt; 30.</li></ol></li>
             </ol>
-            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_timelag.png"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="830" data-mc-height="269" src="Resources/Images/Test_timelag_thumb_0_96.png" tabindex="" /></a>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Test_timelag_new.PNG"><img class="MCPopupThumbnail img imgwidth350pt" data-mc-width="835" data-mc-height="271" src="Resources/Images/Test_timelag_new_thumb_0_96.png" tabindex="" /></a>
             </p>
-            <p class="figure" data-mc-autonum="Figure 5"><span class="autonumber"><span>Figure 5</span></span>. If the Timelag Optimization file fails the test you will either need to select a different file or correct the file and reload it.</p>
+            <p class="figure" data-mc-autonum="Figure 5"><span class="autonumber"><span>Figure 5</span></span>. If the Timelag Optimization file fails the test, you can  correct the file, choose a different file, or choose an alternate method. If you click <b>Continue</b>, the default method will be used, and EddyPro will probably not use the file.</p>
             <div class="push">
             </div>
         </div>
@@ -133,9 +138,9 @@
                 <p class="footer">Product Information:</p>
                 <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
                     <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
-                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">1/27/2015</span></li>
                 </ul>
-                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+                <p class="footer">© 2011 - 2015 LI-COR, Inc.</p>
             </div>
             <div style="float:right;">
                 <p class="footer">Contact Us:</p>

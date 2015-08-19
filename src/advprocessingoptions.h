@@ -2,7 +2,7 @@
   advprocessingoptions.h
   -------------------
   Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   All rights reserved.
 
   This program is free software: you can redistribute it and/or modify

@@ -1,7 +1,7 @@
 /***************************************************************************
   timelagsettingsdialog.h
   -------------------
-  Copyright (C) 2013-2014, LI-COR Biosciences
+  Copyright (C) 2013-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -53,7 +53,6 @@ class QSpinBox;
 
 class QwwButtonLineEdit;
 
-class AncillaryFileTest;
 class ClickLabel;
 struct ConfigState;
 class EcProject;
@@ -165,7 +164,6 @@ private:
 
     EcProject *ecProject_;
     ConfigState* configState_;
-    AncillaryFileTest *test_ {};
 
     void forceEndDatePolicy();
 

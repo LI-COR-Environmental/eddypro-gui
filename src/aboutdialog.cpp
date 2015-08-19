@@ -2,7 +2,7 @@
   aboutdialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -81,7 +81,7 @@ AboutDialog::AboutDialog(QWidget* parent)
            "development team, the University of Tuscia (Italy) and scientists "
            "around the world who assisted with development and testing of the "
            "original version of this software."
-           "<p>Copyright &copy; 2011-2014 LI-COR Inc.</p>"
+           "<p>Copyright &copy; 2011-%2 LI-COR Inc.</p>"
            "<div>Contact LI-COR Inc.:</div><br />"
            "<div style=\"text-indent: 20px;\">4647 Superior Street</div>"
            "<div style=\"text-indent: 20px;\">P.O. Box 4000</div>"
@@ -89,9 +89,9 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<div style=\"text-indent: 20px;\">Phone: 1-402-467-3576</div>"
            "<div style=\"text-indent: 20px;\">Toll Free: 800-447-3576</div>"
            "<div style=\"text-indent: 20px;\">Fax: 1-402-467-2819</div>"
-           "<div style=\"text-indent: 20px;\">Email: <a href=\"mailto:envsupport@licor.com?subject=EddyPro %2\">envsupport@licor.com</a></div>"
+           "<div style=\"text-indent: 20px;\">Email: <a href=\"mailto:envsupport@licor.com?subject=EddyPro %3\">envsupport@licor.com</a></div>"
            "<div style=\"text-indent: 20px;\">Website: <a href=\"http://www.licor.com\">http://www.licor.com</a></div>"
-           ).arg(Defs::APP_NAME).arg(Defs::APP_VERSION_STR)
+           ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR)
         );
     infoLabel->setOpenExternalLinks(true);
     infoLabel->setWordWrap(true);
@@ -202,17 +202,17 @@ AboutDialog::AboutDialog(QWidget* parent)
     auto licenseWidget = new QWidget;
     auto licenseLabel = new QLabel;
     licenseLabel->setText(
-        tr("<br />The %1 software application is Copyright &copy; 2011-2014 "
+        tr("<br />The %1 software application is Copyright &copy; 2011-%2 "
            "LI-COR Inc.\n\n"
            "You may use, distribute and copy the %1 programs suite under "
            "the terms of the GNU General Public License version 3, "
            "which is displayed below. If you would like to obtain "
            "a copy of the source package please contact LI-COR "
            "Biosciences at "
-           "<a href=\"mailto:envsupport@licor.com?subject=%1 %2&body="
+           "<a href=\"mailto:envsupport@licor.com?subject=%1 %3&body="
            "Please, send me a copy of the source package."
            "\">envsupport@licor.com</a>."
-        ).arg(Defs::APP_NAME).arg(Defs::APP_VERSION_STR));
+        ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR));
     licenseLabel->setWordWrap(true);
     licenseLabel->setOpenExternalLinks(true);
 

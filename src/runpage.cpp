@@ -1,7 +1,7 @@
 /***************************************************************************
   runpage.cpp
   -------------------
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -164,18 +164,18 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     connect(open_output_dir, &QPushButton::clicked,
             this, &RunPage::openOutputDir);
 
-    auto open_output = [=]() {
+    auto open_output_lambda = [=]() {
         open_output_dir->setDisabled(ecProject_->generalOutPath().isEmpty());
     };
 
     connect(ecProject_, &EcProject::ecProjectNew,
-            this, open_output);
+            this, open_output_lambda);
 
     connect(ecProject_, &EcProject::ecProjectModified,
-            this, open_output);
+            this, open_output_lambda);
 
     connect(ecProject_, &EcProject::ecProjectChanged,
-            this, open_output);
+            this, open_output_lambda);
 
     QList<WidgetUtils::PropertyList> progressBarProp;
     progressBarProp << WidgetUtils::PropertyList("expRun", false)

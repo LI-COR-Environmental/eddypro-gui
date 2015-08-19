@@ -1,7 +1,7 @@
 /***************************************************************************
   advspectraloptions.h
   -------------------
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -41,7 +41,6 @@ class QSpinBox;
 
 class QwwButtonLineEdit;
 
-class AncillaryFileTest;
 class ClickLabel;
 class DlProject;
 class EcProject;
@@ -253,7 +252,6 @@ private:
     EcProject* ecProject_;
     ConfigState* configState_;
 
-    AncillaryFileTest* test_ {};
     bool spectraNonExistingRadioOldEnabled = false;
 };
 

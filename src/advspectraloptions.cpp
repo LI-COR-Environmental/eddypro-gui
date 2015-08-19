@@ -1,7 +1,7 @@
 /***************************************************************************
   advspectraloptions.cpp
   -------------------
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -1160,6 +1160,7 @@ void AdvSpectralOptions::updateFullSpectraFile(const QString &fp)
 
 void AdvSpectralOptions::spectraFileLoad_clicked()
 {
+    DEBUG_FUNC_NAME;
     QString searchPath = QDir::homePath();
     if (!configState_->window.last_data_path.isEmpty()
         && FileUtils::existsPath(configState_->window.last_data_path))
@@ -1172,22 +1173,26 @@ void AdvSpectralOptions::spectraFileLoad_clicked()
                         searchPath,
                         tr("All Files (*.*)")
                         );
-
     if (paramFile.isEmpty()) { return; }
 
     QFileInfo paramFilePath(paramFile);
     QString canonicalParamFile = paramFilePath.canonicalFilePath();
 
-    if (!test_)
-    {
-        qDebug() << "create test dialog";
-        test_ = new AncillaryFileTest(AncillaryFileTest::FileType::Spectra,
-                                      this);
-    }
-    test_->refresh(canonicalParamFile);
-    auto result = test_->makeTest();
+    AncillaryFileTest test_dialog(AncillaryFileTest::FileType::Spectra, this);
+    test_dialog.refresh(canonicalParamFile);
 
-    if (result)
+    auto test_result = test_dialog.makeTest();
+    qDebug() << "test_result" << test_result;
+
+    auto dialog_result = true;
+
+    // blocking behavior if test fails
+    if (!test_result)
+    {
+        dialog_result = test_dialog.exec();
+    }
+
+    if (dialog_result)
     {
         spectraFileEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 

@@ -1,7 +1,7 @@
 /***************************************************************************
   ancillaryfiletest.h
   -------------------
-  Copyright (C) 2014, LI-COR Biosciences
+  Copyright (C) 2014-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -43,6 +43,9 @@ public:
     bool makeTest();
     void refresh(const QString &file);
 
+private slots:
+    void saveResults();
+
 private:
     typedef QList<QStringList> LineList;
 
@@ -65,6 +68,8 @@ private:
 
     bool testTimeLagF(const LineList &templateList, const LineList &actualList);
     bool testTimeLagS(const LineList &actualList);
+
+    QString typeToString(FileType type);
 
     FileType type_;
 

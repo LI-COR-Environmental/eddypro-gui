@@ -1,7 +1,7 @@
 /***************************************************************************
   ancillaryfiletest.cpp
   -------------------
-  Copyright (C) 2014, LI-COR Biosciences
+  Copyright (C) 2014-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -22,10 +22,14 @@
 
 #include "ancillaryfiletest.h"
 
+#include <QDateTime>
 #include <QDebug>
+#include <QDialogButtonBox>
 #include <QFile>
+#include <QFileDialog>
 #include <QTextBrowser>
 #include <QPushButton>
+#include <QSaveFile>
 #include <QVBoxLayout>
 
 #include <algorithm>
@@ -34,6 +38,8 @@
 #include "stringutils.h"
 #include "container_helpers.h"
 #include "widget_utils.h"
+
+const QString helpPage = QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Assessment_Tests.htm");
 
 AncillaryFileTest::AncillaryFileTest(FileType type,
                                      QWidget *parent) :
@@ -55,17 +61,36 @@ AncillaryFileTest::AncillaryFileTest(FileType type,
     // expected behavior
     testResults_->setOpenLinks(false);
 
-    auto okButton = new QPushButton(tr("Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto cancelButton = new QPushButton(tr("Cancel"));
+    cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    cancelButton->setDefault(true);
+    cancelButton->setProperty("commonButton", true);
+
+    auto continueButton = new QPushButton(tr("Continue"));
+    continueButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    continueButton->setDefault(true);
+    continueButton->setProperty("commonButton", true);
+
+    auto saveButton = new QPushButton(tr("Save to file"));
+    saveButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    saveButton->setDefault(true);
+    saveButton->setProperty("commonButton", true);
+
+    auto buttonBox = new QDialogButtonBox;
+    buttonBox->addButton(continueButton, QDialogButtonBox::AcceptRole);
+    buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+    buttonBox->addButton(saveButton, QDialogButtonBox::ActionRole);
 
     auto dialogLayout = new QVBoxLayout(this);
     dialogLayout->addWidget(testResults_);
-    dialogLayout->addWidget(okButton, 0, Qt::AlignCenter);
+    dialogLayout->addWidget(buttonBox, 0, Qt::AlignCenter);
     setLayout(dialogLayout);
 
-    connect(okButton, &QPushButton::clicked, [=](){ this->close(); });
+    connect(cancelButton, &QPushButton::clicked,
+            [=](){ this->close(); this->setResult(QDialog::Rejected);});
+    connect(continueButton, &QPushButton::clicked,
+            [=](){ this->close(); this->setResult(QDialog::Accepted);});
+    connect(saveButton, &QPushButton::clicked, [=](){ this->saveResults(); });
 
     connect(testResults_, &QTextBrowser::anchorClicked,
             [=](const QUrl& link){ WidgetUtils::showHelp(link); });
@@ -87,7 +112,9 @@ QString AncillaryFileTest::formatPassFail(bool test_result)
 
 bool AncillaryFileTest::makeTest()
 {
+    DEBUG_FUNC_NAME;
     qDebug() << "name_" << name_;
+
     auto result = testFile();
     if (!result)
     {
@@ -106,13 +133,13 @@ bool AncillaryFileTest::testFile()
     bool scientificResult = false;
 
     const QString parseErrorStr_1 =
-            QStringLiteral("<b>The formatting and content of the selected file "
-                           "could not be assessed due to missing "
-                           "template files. Please, re-install the software.</b>");
+            tr("<b>The formatting and content of the selected file "
+               "could not be assessed due to missing "
+               "template files. Please, re-install the software.</b>");
 
     const QString parseErrorStr_2 =
-            QStringLiteral("<b>Unable to open the selected file or the file "
-                           "is empty. Please, select another file.</b>");
+            tr("<b>Unable to open the selected file or the file "
+               "is empty. Please, select another file.</b>");
 
     // if not already read the template file
     if (templateLines_.isEmpty())
@@ -127,29 +154,32 @@ bool AncillaryFileTest::testFile()
         }
     }
 
+    qDebug() << "begin parsing...";
     parseResult = parseFile(name_, &actualLines_);
     if (!parseResult)
     {
         testResults_->append(parseErrorStr_2);
         return false;
     }
+    qDebug() << "begin parsing...";
 
     testResults_->append(QStringLiteral("<b>FORMAT test</b>"));
     formalResult =
             (this->*testFileMap_.value(type_).formalTest)(templateLines_,
                                                           actualLines_);
     const QString formalErrorStr =
-            QStringLiteral("<b>FORMAT test <font color=\"#FF3300\">failed</font>.</b><br />");
+            tr("<b>FORMAT test <font color=\"#FF3300\">failed</font>.</b><br />");
     const QString formalSuccessStr =
-            QStringLiteral("<b>FORMAT test <font color=\"#0066FF\">passed</font>.</b><br />");
+            tr("<b>FORMAT test <font color=\"#0066FF\">passed</font>.</b><br />");
     const QString finalErrorStr =
-            QStringLiteral("<b>The selected file does not match the expected "
-                           "formatting or scientific content. Please, "
-                           "upload a well-formed file or choose an alternate method. "
-                           "More information about the testing performed "
-                           "can be found in the help.</b>&nbsp;"
-                           "<a href=\"http://envsupport.licor.com/help/EddyPro5/index.htm#Assessment_Tests.htm\">"
-                           "<img src=\"qrc:/icons/qm-enabled\"></img></a>");
+            tr("<b>The selected file does not match the expected "
+               "formatting or scientific content. "
+               "<p>If you would like to upload a different file or choose an alternate method, please click <i>Cancel</i>. "
+               "If you click <i>Continue</i>, EddyPro will probably not use the file and will resort to the default method.</p>"
+               "<p>More information about the testing performed "
+               "can be found in the help.</b>&nbsp;"
+               "<a href=\"%1\"><img src=\"qrc:/icons/qm-enabled\"></img></a>").arg(helpPage);
+
     if (!formalResult)
     {
         testResults_->append(formalErrorStr);
@@ -160,11 +190,11 @@ bool AncillaryFileTest::testFile()
         testResults_->append(formalSuccessStr);
         testResults_->insertHtml(QStringLiteral("<br>"));
 
-        testResults_->append(QStringLiteral("<b>SCIENTIFIC test</b>"));
+        testResults_->append(tr("<b>SCIENTIFIC test</b>"));
         scientificResult =
                 (this->*testFileMap_.value(type_).scientificTest)(actualLines_);
         const QString scientificErrorStr =
-                QStringLiteral("<b>SCIENTIFIC test <font color=\"#FF3300\">failed</font>.</b><br />");
+                tr("<b>SCIENTIFIC test <font color=\"#FF3300\">failed</font>.</b><br />");
 
         if (!scientificResult)
         {
@@ -540,19 +570,19 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
             break;
         }
         // column 2a
-        QString valStr = actualList.value(10 + i).value(1);
-        valStr.chop(1);
-        if (valStr.toDouble() != (360.0 / windSectors) * i)
-        {
-            test.replace(last_test_index(), false);
-            break;
-        }
+        //QString valStr = actualList.value(10 + i).value(1);
+        //valStr.chop(1);
+        //if (valStr.toDouble() != (360.0 / windSectors) * i)
+        //{
+        //    test.replace(last_test_index(), false);
+        //    break;
+        //}
         // column 2b
-        if (actualList.value(10 + i).value(2).toDouble() != (360.0 / windSectors) * (i + 1))
-        {
-            test.replace(last_test_index(), false);
-            break;
-        }
+        //if (actualList.value(10 + i).value(2).toDouble() != (360.0 / windSectors) * (i + 1))
+        //{
+        //    test.replace(last_test_index(), false);
+        //    break;
+        //}
         // columns 3-5
         auto conversionToDouble = false;
         for (auto j = 3; j < 6; ++j)
@@ -790,6 +820,8 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
 
 bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineList &actualList)
 {
+    qDebug() << "begin testTimeLagF...";
+
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
     testResults_->append(QStringLiteral("Number of rows [")
@@ -797,6 +829,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                  + QStringLiteral("]: ")
                                  + formatPassFail(rowCountTest));
     if (!rowCountTest) { return false; }
+    qDebug() << "begin testTimeLagF 1";
 
     QList<bool> test;
     auto last_test = [&](){ return test.value(test.size() - 1); };
@@ -810,6 +843,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                              + QStringLiteral(": ")
                              + formatPassFail(last_test()));
     }
+    qDebug() << "begin testTimeLagF a";
 
     // test b
     auto gasCount = 0;
@@ -844,6 +878,8 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         timelagValues[1][gasCount - 1] = actualList.value(7 + 5 * (gasCount - 1)).value(1).toDouble();
         timelagValues[2][gasCount - 1] = actualList.value(8 + 5 * (gasCount - 1)).value(1).toDouble();
     }
+    qDebug() << "begin testTimeLagF b";
+    qDebug() << "gasCount" << gasCount;
 
     // test c1
     // compare 3 lines of RH headers
@@ -856,6 +892,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
 
         // test c1' (moved from scientific to formal)
         auto rhClassCount = 0;
+
         while (!actualList.value(8 + 5 * gasCount + rhClassCount).isEmpty())
         {
             ++rhClassCount;
@@ -866,6 +903,8 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                  + QStringLiteral("]: ")
                                  + formatPassFail(last_test()));
         }
+        qDebug() << "begin testTimeLagF c1";
+        qDebug() << "rhClassCount" << rhClassCount;
 
         // test c2
         if (rhClassCount <= 20)
@@ -888,6 +927,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
             }
 
             testResults_->append(QStringLiteral("Consistent RH ranges: ") + formatPassFail(last_test()));
+            qDebug() << "begin testTimeLagF c2";
         }
         else
         {
@@ -900,6 +940,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         auto rhIsEmpty = actualList.value(5 + 5 * gasCount).isEmpty()
                          && actualList.value(6 + 5 * gasCount).isEmpty()
                          && actualList.value(7 + 5 * gasCount).isEmpty();
+        qDebug() << "rhIsEmpty" << rhIsEmpty;
 
         // with no gases and no rh classes
         if (!gasCount && rhIsEmpty)
@@ -909,18 +950,25 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                                 "RH sorted H<sub>2</sub>O classes (3 rows): ")
                           + formatPassFail(last_test()));
         }
-        // with no gases and not good rh classes
+        // with no gases and > 20 rh classes
         else if (!gasCount && !rhIsEmpty)
         {
             test << false;
             testResults_->append(QStringLiteral("Header of RH sorted H<sub>2</sub>O classes (3 rows): ")
                           + formatPassFail(last_test()));
         }
-        // with gases and not good rh classes
+        // with gases and > 20 rh classes
         else if (gasCount && !rhIsEmpty)
         {
             test << false;
             testResults_->append(QStringLiteral("Header of gases or RH sorted H<sub>2</sub>O classes (3 rows): ")
+                          + formatPassFail(last_test()));
+        }
+        // with gases and no rh classes
+        else if (gasCount && rhIsEmpty)
+        {
+            test << true;
+            testResults_->append(QStringLiteral("Number of gases [0]: ")
                           + formatPassFail(last_test()));
         }
     }
@@ -936,6 +984,7 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
 bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
 {
     Q_UNUSED(actualList);
+    qDebug() << "begin testTimeLagS...";
 
     QList<bool> test;
     auto last_test_index = [&](){ return (test.size() - 1); };
@@ -976,39 +1025,44 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
                              + formatPassFail(last_test()));
     }
 
-    // test c.2
-    test << true;
-    auto rhClassCount = h2oTimelagValues[0].size();
-    for (auto i = 0; i < rhClassCount; ++i)
+    // if there are RH classes
+    if (h2oTimelagValues.size())
     {
-        if (!((h2oTimelagValues[0][i] >= h2oTimelagValues[1][i])
-              && (h2oTimelagValues[0][i] <= h2oTimelagValues[2][i])))
+        // test c.2
+        test << true;
+        auto rhClassCount = h2oTimelagValues[0].size();
+        qDebug() << "rhClassCount" << rhClassCount;
+        for (auto i = 0; i < rhClassCount; ++i)
         {
-            test.replace(last_test_index(), false);
-            break;
+            if (!((h2oTimelagValues[0][i] >= h2oTimelagValues[1][i])
+                  && (h2oTimelagValues[0][i] <= h2oTimelagValues[2][i])))
+            {
+                test.replace(last_test_index(), false);
+                break;
+            }
         }
-    }
-    testResults_->append(QStringLiteral("H<sub>2</sub>O RH-sorted median values inside the "
-                         "[minimum; maximum] range: ")
-                         + formatPassFail(last_test()));
+        testResults_->append(QStringLiteral("H<sub>2</sub>O RH-sorted median values inside the "
+                             "[minimum; maximum] range: ")
+                             + formatPassFail(last_test()));
 
-    // test c.3
-    test << false;
-    auto classNumCount = 0;
-    for (auto i = 0; i < rhClassCount; ++i)
-    {
-        if (h2oTimelagValues[3][i] > 30)
+        // test c.3
+        test << false;
+        auto classNumCount = 0;
+        for (auto i = 0; i < rhClassCount; ++i)
         {
-            ++classNumCount;
+            if (h2oTimelagValues[3][i] > 30)
+            {
+                ++classNumCount;
+            }
+            if (classNumCount >= 3)
+            {
+                test.replace(last_test_index(), true);
+                break;
+            }
         }
-        if (classNumCount >= 3)
-        {
-            test.replace(last_test_index(), true);
-            break;
-        }
+        testResults_->append(QStringLiteral("At least 3 H<sub>2</sub>O classes with numerosity > 30: ")
+                             + formatPassFail(last_test()));
     }
-    testResults_->append(QStringLiteral("At least 3 H<sub>2</sub>O classes with numerosity > 30: ")
-                         + formatPassFail(last_test()));
 
     auto res = true;
     for (auto i = 0; i < test.size(); ++i)
@@ -1016,4 +1070,63 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
         res &= test.value(i);
     }
     return res;
+}
+
+QString AncillaryFileTest::typeToString(FileType type)
+{
+    switch (type)
+    {
+    case FileType::Spectra:
+        return QStringLiteral("spectral-assessment-file-check");
+    case FileType::PlanarFit:
+        return QStringLiteral("planar-fit-assessment-file-check");
+    case FileType::TimeLag:
+        return QStringLiteral("time-lag-assessment-file-check");
+    }
+    return QString();
+}
+
+// TODO: Use sheet on Mac with getSaveFileName
+void AncillaryFileTest::saveResults()
+{
+    auto timestamp = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-ddThhmmss"));
+    auto filenameHint = typeToString(type_)
+            + QStringLiteral("-")
+            + timestamp
+            + Defs::TEMPLATE_FILE_EXT;
+    auto filename = QFileDialog::getSaveFileName(this,
+                                         tr("Save the test results as..."),
+                                         filenameHint,
+                                         tr("%1 assessment file check results (*.txt);;All files (*)").arg(Defs::APP_NAME));
+
+    if (!filename.isEmpty())
+    {
+        QSaveFile file(filename);
+        file.open(QIODevice::WriteOnly | QIODevice::Text);
+
+        QTextStream out(&file);
+
+        // add header
+        out << tr("%1 check of assessment file %2 against %3").arg(Defs::APP_NAME)
+               .arg(name_)
+               .arg(testFileMap_.value(type_).filepath);
+        out << "\n\n";
+
+        // get text
+        auto text = testResults_->toPlainText();
+
+        // remove question mark
+        text.chop(1);
+
+        // write text
+        out << text;
+
+        // add online help address
+        out << "\nSee ";
+        out << helpPage;
+        out << ".\n";
+
+        // flush data to file
+        file.commit();
+    }
 }

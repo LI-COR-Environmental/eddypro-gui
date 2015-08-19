@@ -4,7 +4,7 @@
   Global application resources. Constants, enumerations and strings.
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2014, LI-COR Biosciences
+  Copyright (C) 2011-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -51,12 +51,13 @@ class QStringLiteral;
 /// \brief Contains global string literals
 namespace Defs
 {
-    const QString APP_VERSION_STR = QStringLiteral("5.2.0");
+    const QString APP_VERSION_STR = QStringLiteral("5.2.1");
     const QString APP_STAGE_STR = QStringLiteral("");
     const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.3");
     const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.1");
     const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86_32");
     const QString MAC_COMPILER = QStringLiteral("Clang 4.2 x86_64");
+    const QString CURRENT_COPYRIGHT_YEAR = QStringLiteral("2015");
 
     enum class CurrPage
     {

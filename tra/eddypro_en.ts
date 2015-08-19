@@ -14,23 +14,14 @@
         <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; version %2 %3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;Based on Qt %6 (%7)&lt;br /&gt;&lt;/h6&gt;</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="76"/>
-        <source>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-2014 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %2&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</source>
-        <translation>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-2014 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %2&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/aboutdialog.cpp" line="108"/>
         <source>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</source>
         <translation>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="205"/>
-        <source>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-2014 LI-COR Inc.
-
-You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %2&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
-        <translation>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-2014 LI-COR Inc.
-
-You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %2&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
+        <location filename="../src/aboutdialog.cpp" line="76"/>
+        <source>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-%2 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %3&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</source>
+        <translation>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-%2 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %3&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="117"/>
@@ -38,6 +29,15 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
 &lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;Digia Plc: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class and wwWidgtes library&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;Digia Plc: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/aboutdialog.cpp" line="205"/>
+        <source>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
+
+You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
+        <translation>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
+
+You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="235"/>
@@ -1733,22 +1733,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Set Suggested Ranges&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="1171"/>
+        <location filename="../src/advspectraloptions.cpp" line="1172"/>
         <source>Select the Spectral Correction File</source>
         <translation>Select the Spectral Correction File</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="1173"/>
+        <location filename="../src/advspectraloptions.cpp" line="1174"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="1216"/>
+        <location filename="../src/advspectraloptions.cpp" line="1221"/>
         <source>Select the Binned Spectra Files Directory</source>
         <translation>Select the Binned Spectra Files Directory</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="1242"/>
+        <location filename="../src/advspectraloptions.cpp" line="1247"/>
         <source>Select the Full Spectra Files Directory</source>
         <translation>Select the Full Spectra Files Directory</translation>
     </message>
@@ -2470,14 +2470,74 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AncillaryFileTest</name>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="46"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="52"/>
         <source>Assessment file test results</source>
         <translation>Assessment file test results</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="58"/>
-        <source>Ok</source>
-        <translation>Ok</translation>
+        <location filename="../src/ancillaryfiletest.cpp" line="64"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="69"/>
+        <source>Continue</source>
+        <translation>Continue</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="74"/>
+        <source>Save to file</source>
+        <translation>Save to file</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="136"/>
+        <source>&lt;b&gt;The formatting and content of the selected file could not be assessed due to missing template files. Please, re-install the software.&lt;/b&gt;</source>
+        <translation>&lt;b&gt;The formatting and content of the selected file could not be assessed due to missing template files. Please, re-install the software.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="141"/>
+        <source>&lt;b&gt;Unable to open the selected file or the file is empty. Please, select another file.&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Unable to open the selected file or the file is empty. Please, select another file.&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="171"/>
+        <source>&lt;b&gt;FORMAT test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
+        <translation>&lt;b&gt;FORMAT test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="173"/>
+        <source>&lt;b&gt;FORMAT test &lt;font color=&quot;#0066FF&quot;&gt;passed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
+        <translation>&lt;b&gt;FORMAT test &lt;font color=&quot;#0066FF&quot;&gt;passed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="1098"/>
+        <source>Save the test results as...</source>
+        <translation>Save the test results as...</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="1100"/>
+        <source>%1 assessment file check results (*.txt);;All files (*)</source>
+        <translation>%1 assessment file check results (*.txt);;All files (*)</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="1110"/>
+        <source>%1 check of assessment file %2 against %3</source>
+        <translation>%1 check of assessment file %2 against %3</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="193"/>
+        <source>&lt;b&gt;SCIENTIFIC test&lt;/b&gt;</source>
+        <translation>&lt;b&gt;SCIENTIFIC test&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="175"/>
+        <source>&lt;b&gt;The selected file does not match the expected formatting or scientific content. &lt;p&gt;If you would like to upload a different file or choose an alternate method, please click &lt;i&gt;Cancel&lt;/i&gt;. If you click &lt;i&gt;Continue&lt;/i&gt;, EddyPro will probably not use the file and will resort to the default method.&lt;/p&gt;&lt;p&gt;More information about the testing performed can be found in the help.&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;%1&quot;&gt;&lt;img src=&quot;qrc:/icons/qm-enabled&quot;&gt;&lt;/img&gt;&lt;/a&gt;</source>
+        <translation>&lt;b&gt;The selected file does not match the expected formatting or scientific content. &lt;p&gt;If you would like to upload a different file or choose an alternate method, please click &lt;i&gt;Cancel&lt;/i&gt;. If you click &lt;i&gt;Continue&lt;/i&gt;, EddyPro will probably not use the file and will resort to the default method.&lt;/p&gt;&lt;p&gt;More information about the testing performed can be found in the help.&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;%1&quot;&gt;&lt;img src=&quot;qrc:/icons/qm-enabled&quot;&gt;&lt;/img&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/ancillaryfiletest.cpp" line="197"/>
+        <source>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
+        <translation>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
 </context>
 <context>
@@ -3044,22 +3104,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5371"/>
+        <location filename="../src/basicsettingspage.cpp" line="5372"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5372"/>
+        <location filename="../src/basicsettingspage.cpp" line="5373"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5386"/>
+        <location filename="../src/basicsettingspage.cpp" line="5387"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5388"/>
+        <location filename="../src/basicsettingspage.cpp" line="5389"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -3441,18 +3501,18 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5030"/>
-        <location filename="../src/basicsettingspage.cpp" line="5071"/>
+        <location filename="../src/basicsettingspage.cpp" line="5031"/>
+        <location filename="../src/basicsettingspage.cpp" line="5072"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5203"/>
+        <location filename="../src/basicsettingspage.cpp" line="5204"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5207"/>
+        <location filename="../src/basicsettingspage.cpp" line="5208"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
@@ -3639,113 +3699,113 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>DlIniDialog</name>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="56"/>
+        <location filename="../src/dlinidialog.cpp" line="55"/>
         <source>&lt;b&gt;Station:&lt;/b&gt; Enter information that describes the flux station.</source>
         <translation>&lt;b&gt;Station:&lt;/b&gt; Enter information that describes the flux station.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="57"/>
+        <location filename="../src/dlinidialog.cpp" line="56"/>
         <source>Station</source>
         <translation>Station</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="59"/>
+        <location filename="../src/dlinidialog.cpp" line="58"/>
         <source>&lt;b&gt;Instruments:&lt;/b&gt; Enter information that describes all anemometer(s) and gas analyzer(s) used at the flux station to collect raw data you want to process.</source>
         <translation>&lt;b&gt;Instruments:&lt;/b&gt; Enter information that describes all anemometer(s) and gas analyzer(s) used at the flux station to collect raw data you want to process.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="60"/>
+        <location filename="../src/dlinidialog.cpp" line="59"/>
         <source>Instruments</source>
         <translation>Instruments</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="62"/>
+        <location filename="../src/dlinidialog.cpp" line="61"/>
         <source>&lt;b&gt;Raw file description:&lt;/b&gt; Here you specify the order of variables in the raw files, scaling or converting values, flag thresholds for individual samples, and time lags.</source>
         <translation>&lt;b&gt;Raw file description:&lt;/b&gt; Specify the order of variables in the raw files, scaling or converting values, flag thresholds for individual samples, and time lags.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="63"/>
+        <location filename="../src/dlinidialog.cpp" line="62"/>
         <source>Raw File Description</source>
         <translation>Raw File Description</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="66"/>
+        <location filename="../src/dlinidialog.cpp" line="65"/>
         <source>Save Metadata As...</source>
         <translation>Save Metadata As...</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="68"/>
+        <location filename="../src/dlinidialog.cpp" line="67"/>
         <source>&lt;b&gt;Save as...:&lt;/b&gt; Saves the metadata file with a new file name.</source>
         <translation>&lt;b&gt;Save as...:&lt;/b&gt; Saves the metadata file with a new file name.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="71"/>
+        <location filename="../src/dlinidialog.cpp" line="70"/>
         <source>Reset Metadata</source>
         <translation>Reset Metadata</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="73"/>
+        <location filename="../src/dlinidialog.cpp" line="72"/>
         <source>&lt;b&gt;Reset:&lt;/b&gt; Reset the default settings in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Reset:&lt;/b&gt; Reset the default settings in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="214"/>
+        <location filename="../src/dlinidialog.cpp" line="213"/>
         <source>Load Metadata</source>
         <translation>Load Metadata</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="224"/>
+        <location filename="../src/dlinidialog.cpp" line="223"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="268"/>
-        <location filename="../src/dlinidialog.cpp" line="355"/>
+        <location filename="../src/dlinidialog.cpp" line="267"/>
+        <location filename="../src/dlinidialog.cpp" line="354"/>
         <source>Save Metadata Error</source>
         <translation>Save Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="371"/>
+        <location filename="../src/dlinidialog.cpp" line="370"/>
         <source>Please save the Metadata file before editing.</source>
         <translation>Please save the Metadata file before editing.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="372"/>
+        <location filename="../src/dlinidialog.cpp" line="371"/>
         <source>Subsequent edits will be saved automatically.</source>
         <translation>Subsequent edits will be saved automatically.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="215"/>
+        <location filename="../src/dlinidialog.cpp" line="214"/>
         <source>The metadata file was successfully imported and updated.</source>
         <translation>The metadata file was successfully imported and updated.</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="225"/>
+        <location filename="../src/dlinidialog.cpp" line="224"/>
         <source>Unable to load the project &lt;p&gt;%1&lt;/p&gt;</source>
         <translation>Unable to load the project &lt;p&gt;%1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="269"/>
+        <location filename="../src/dlinidialog.cpp" line="268"/>
         <source>%1 was unable to save &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>%1 was unable to save &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="319"/>
+        <location filename="../src/dlinidialog.cpp" line="318"/>
         <source>Save the Metadata File As...</source>
         <translation>Save the Metadata File As...</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="321"/>
+        <location filename="../src/dlinidialog.cpp" line="320"/>
         <source>%1 Metadata Files (*.metadata);;All files (*)</source>
         <translation>%1 Metadata Files (*.metadata);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="356"/>
+        <location filename="../src/dlinidialog.cpp" line="355"/>
         <source>Unable to save &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>Unable to save &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlinidialog.cpp" line="370"/>
+        <location filename="../src/dlinidialog.cpp" line="369"/>
         <source>Save Metadata</source>
         <translation>Save Metadata</translation>
     </message>
@@ -5631,22 +5691,22 @@ Do you prefer to proceed anyway?</translation>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="649"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="654"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="653"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="658"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="663"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="668"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="667"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="672"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</translation>
     </message>
@@ -6100,22 +6160,22 @@ Do you prefer to proceed anyway?</translation>
         <translation>Below threshold</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="181"/>
+        <location filename="../src/defs.h" line="182"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="182"/>
+        <location filename="../src/defs.h" line="183"/>
         <source>LI-COR EddyPro software suite.</source>
         <translation>LI-COR EddyPro software suite.</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="239"/>
+        <location filename="../src/defs.h" line="240"/>
         <source>project-untitled.%1</source>
         <translation>project-untitled.%1</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="242"/>
+        <location filename="../src/defs.h" line="243"/>
         <source>project-untitled%1.%2</source>
         <translation>project-untitled%1.%2</translation>
     </message>

@@ -1,7 +1,7 @@
 /***************************************************************************
   timelagsettingsdialog.cpp
   -------------------
-  Copyright (C) 2013-2014, LI-COR Biosciences
+  Copyright (C) 2013-2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -696,22 +696,26 @@ void TimeLagSettingsDialog::fileLoad_clicked()
                         searchPath,
                         tr("All Files (*.*)")
                         );
-
     if (paramFile.isEmpty()) { return; }
 
     QFileInfo paramFilePath(paramFile);
     QString canonicalParamFile = paramFilePath.canonicalFilePath();
 
-    if (!test_)
-    {
-        qDebug() << "create test dialog";
-        test_ = new AncillaryFileTest(AncillaryFileTest::FileType::TimeLag,
-                                      this);
-    }
-    test_->refresh(canonicalParamFile);
-    auto result = test_->makeTest();
+    AncillaryFileTest test_dialog(AncillaryFileTest::FileType::TimeLag, this);
+    test_dialog.refresh(canonicalParamFile);
 
-    if (result)
+    auto test_result = test_dialog.makeTest();
+    qDebug() << "test_result" << test_result;
+
+    auto dialog_result = true;
+
+    // blocking behavior if test fails
+    if (!test_result)
+    {
+        dialog_result = test_dialog.exec();
+    }
+
+    if (dialog_result)
     {
         fileEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 

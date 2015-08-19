@@ -1,6 +1,6 @@
 # EddyPro
 TEMPLATE = app
-VERSION = 5.2.0
+VERSION = 5.2.1
 
 # config
 QT += core gui widgets network xml help concurrent
@@ -35,7 +35,7 @@ CONFIG(debug, debug|release) {
     macx {
         QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../Frameworks/wwwidgets5.framework/Versions/1/wwwidgets5
         # requires an absolute path
-        QMAKE_LFLAGS += -v -F/Users/antonioforgione1/devel/ep-5/ep5-github/build/libs/build-widgets-Desktop_Qt_5_3_1_clang_64bit
+        QMAKE_LFLAGS += -v -F/Users/antonioforgione1/devel/ep-5/ep5-github/build/libs/build-widgets-Desktop_Qt_5_3_2_clang_64bit
         LIBS += -framework wwwidgets5
 
         # working but each build delete the install name in the executable, so it requires run install_name_tool after each build
@@ -70,7 +70,7 @@ CONFIG(debug, debug|release) {
 
     macx {
         QMAKE_LFLAGS_SONAME  = -Wl,-install_name,@executable_path/../Frameworks/wwwidgets5.framework/Versions/1/wwwidgets5
-        QMAKE_LFLAGS += -F/Users/antonioforgione1/devel/ep-5/ep5/libs/wwwidgets-qt-5.3.2/widgets
+        QMAKE_LFLAGS += -F/Users/antonioforgione1/devel/ep-5/ep5/libs/wwwidgets-patched/widgets
         LIBS += -framework wwwidgets5
 
         QMAKE_LFLAGS += -F/Users/antonioforgione1/devel/ep-5/ep5-github/build/libs/build-quazip-qt-5.3.2-mingw-4.8.2-x86
@@ -93,7 +93,7 @@ macx {
 }
 
 INCLUDEPATH += .
-INCLUDEPATH += ./libs/wwwidgets-qt-5.3.2/widgets
+INCLUDEPATH += ./libs/wwwidgets-patched/widgets
 INCLUDEPATH += ./libs/quazip-trunk-2013-10-15/quazip
 win32:INCLUDEPATH += c:/devel/libs/c++/boost_1_55_0
 macx:INCLUDEPATH += /Users/antonioforgione1/devel/libs/c++/boost_1_55_0
