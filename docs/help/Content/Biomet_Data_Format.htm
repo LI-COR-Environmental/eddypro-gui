@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Using EddyPro 5|Biomet Data">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Biomet Data Format</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/TableStyles/Basic.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Biomet_Data_Format.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Using EddyPro 5</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Biomet Data</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Biomet Data Format</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1>Supported Biomet File Formats<a name="aanchor20"></a><MadCap:concept term="Biomet Data" /></h1>
+            <p><span class="MyVariablesSoftwareName R">EddyPro®</span> supports biomet data in two main formats: embedded in compressed GHG eddy covariance data files and as external text files. These are described in some detail:</p>
+            <h2><a name="kanchor140"></a>Biomet Data Files Embedded in GHG Files</h2>
+            <p>The preferred, easiest, and most robust system to store and process biomet data is to collect them with LI&#8209;COR biomet station. When collected through the LI&#8209;7550 interface box, biomet data are stored in an ASCII, tab-separated file in a format that closely resembles that of the <span class="MyVariablesSoftwareName">EddyPro</span> data files, featuring a preamble and a header with variable names and units. This biomet file, identified by the suffix <code>-biomet.data</code>, comes with a paired <code>-biomet.metadata</code> file, which describes the format and, more importantly, the content of the file, with identification of the variables, their units, the sampling and averaging rates, etc. This structure closely replicates that of the <span class="LI-COREddyPro">EddyPro</span> <code>.data</code> and <code>.metadata</code>. If the LI&#8209;7550 is collecting both eddy and biomet data, all four files are bundled together in a unique GHG file containing all data corresponding to every time period of the specified length, and the corresponding metadata.</p>
+            <p>You can download a sample GHG file including eddy and biomet files from the LI&#8209;COR web site. We suggest taking a few minutes to explore its content. Unzip the GHG file using, for example, 7-zip (after installation, right-click → 7zip → Extract here..) and open any of the files with a text editor. You will quickly figure out the format of both the “.data” and “.metadata” files and the organization of the content.</p>
+            <h2><a name="ExternalBiomet"></a>External Biomet File(s)<a name="kanchor141"></a></h2>
+            <p>If you don’t have biomet data collected in the GHG format, or if you want to process data collected as text files, you can still do so by formatting your biomet file(s) as described below.</p>
+            <p class="note"><b>Important: </b><span class="MyVariablesSoftwareName">EddyPro</span> accepts biomet data stored in one or more (as many as you have) external files. The files are read in alphanumeric order and the file name order <b style="font-style: italic;">must</b> match the chronological order (see <a href="#names" class="ContextSensitive MCXref xref xrefContextSensitive">Table 3</a>). </p>
+            <table style="width: 100%;mc-table-style: url('Resources/TableStyles/Basic.css');margin-left: 1in;caption-side: top;" class="TableStyle-Basic" cellspacing="0">
+                <caption class="table" data-mc-autonum="&lt;b&gt;Table 3&lt;/b&gt;"><span class="autonumber"><span><b>Table 3</b></span></span><a name="names"></a>. Examples of file names. Biomet files are read in alphanumeric order.</caption>
+                <col class="TableStyle-Basic-Column-Column1" style="width: 50%;" />
+                <col class="TableStyle-Basic-Column-Column1" style="width: 50%;" />
+                <thead>
+                    <tr class="TableStyle-Basic-Head-Header1">
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Correct Naming</th>
+                        <th class="TableStyle-Basic-HeadD-Column1-Header1">Incorrect Naming</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">
+                            <p style="margin-left:0;"><span class="courier">01biomet.data<br />02biomet.data<br />03biomet.data<br />04biomet.data<br />05biomet.data<br />06biomet.data<br />07biomet.data<br />08biomet.data<br />09biomet.data<br />10biomet.data</span>
+                            </p>
+                        </td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">
+                            <p style="margin-left:0;"><span class="courier">10biomet.data<br />1biomet.data<br />2biomet.data<br />3biomet.data<br />4biomet.data<br />5biomet.data<br />6biomet.data<br />7biomet.data<br />8biomet.data<br />9biomet.data</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">In this case, the files will be processes from <span class="courier">01biomet</span> to <span class="courier">10biomet</span>.</td>
+                        <td class="TableStyle-Basic-BodyA-Column1-Body1">In this case, file <span class="courier">10biomet</span> will be processed first, followed by <span class="courier">1biomet</span>, even if <span class="courier">10biomet</span> is the 10th in the dataset.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>External biomet files must be formatted (outside EddyPro, for example using MS Excel) in such a way that <span class="MyVariablesSoftwareName">EddyPro</span> can interpret them without the need to specify anything in the <span class="MyVariablesSoftwareName">EddyPro</span> GUI. This means that extreme care must be given in correctly labeling variables, writing units, defining timestamps, etc.</p>
+            <p><a name="kanchor142"></a>Hereafter you can find detailed guidelines that should allow you to correctly format your biomet file(s):</p>
+            <ul class="bulleted">
+                <li value="1">Files are formatted as ASCII, comma-separated files;</li>
+                <li value="2">Each line (terminated by an CR/LF control pair, the usual Windows line terminator) is a record of biomet measurements, identified by a timestamp;</li>
+                <li value="3">The file starts with a 2-line header:<ul class="ml18pt"><li value="1">In the first line, a label is associated to each data column (including the timestamp) to identify the variable. Please refer to this table for the naming convention;</li><li value="2">In the second line, a label is associated to each data column (including the timestamp) to identify the unit of each measurement. Please refer to this table for the unit convention;</li><li value="3">Capitalization in the header is irrelevant;</li><li value="4">Each label in the first line of the header is composed of a variable identifier and a series of 3 numbers separated by underscores such as (for air temperature):</li></ul></li>
+            </ul>
+            <p><span class="courier">TA_1_1_1</span>
+            </p>
+            <p>Where, “<span class="courier">TA</span>” is the variable identifier. If you have multiple readings of the same variable, increase the first number first, until you get to 10:</p>
+            <p><span class="courier">TA_1_1_1, TA_2_1_1,  ..., TA_10_1_1</span>
+            </p>
+            <p>If you have more than 10 readings of the same variable, increase the second number:</p>
+            <p><span class="courier">TA_10_1_1, TA_1_2_1, TA_2_2_1 ..., TA_10_2_1, ...</span>
+            </p>
+            <p class="note"><b>Note:</b> This naming convention is similar to that used by the GHG-Europe project. However, the policy specified in the GHG-Europe labeling system is not fully implemented here. In the GHG-Europe specification the three indices have specific meanings and are designed to unequivocally identify data coming from a specific sensor (a metadata file will be developed to assign meanings to the three numbers). We require you to stick to our labeling convention, which is designed to meet the GHG-Europe specification in the long term.</p>
+            <ul class="bulleted">
+                <li value="1">Timestamps: Timestamps can occupy up to 7 (comma-separated) fields, that can appear anywhere in the file (i.e., not necessarily in the first columns). In the first header line, timestamp columns are identified by the labels:</li>
+            </ul>
+            <p><span class="courier">TIMESTAMP_1, TIMESTAMP_2, ..., TIMESTAMP_7</span>
+            </p>
+            <p>In the second header line, the format of the timestamp is specified according to the following conventions:</p>
+            <table style="border-spacing: 0px 0px;border-bottom-style: solid;border-bottom-width: 1pt;border-bottom-color: #000000;mc-table-style: url('Resources/TableStyles/Basic.css');" class="TableStyle-Basic" cellspacing="0">
+                <caption class="table" data-mc-autonum="&lt;b&gt;Table 4&lt;/b&gt;"><span class="autonumber"><span><b>Table 4</b></span></span>. Timestamp formats for biomet data in <span class="MyVariablesSoftwareName">EddyPro</span>.</caption>
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Basic-Head-Header1">
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Variable</th>
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1"><span class="MyVariablesSoftwareName">EddyPro</span> Label</th>
+                        <th class="TableStyle-Basic-HeadD-Column1-Header1">Description of corresponding data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">yyyy</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">year</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">4-digit integer number</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">mm</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">month of year</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">1- or 2-digit integer number, between 1 and 366</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">ddd</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">day of year</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">1-, 2- or 3-digit integer number, between 1 and 366</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">dd</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">day of month</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">1- or 2-digit integer number, between 1 and 12</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HH</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">hour of the day</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">1- or 2-digit number between 0 and 23</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">MM</td>
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">minute of the hour</td>
+                        <td class="TableStyle-Basic-BodyA-Column1-Body1">1- or 2-digit integer number between 0 and 59</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The following examples are of valid timestamp headers and data:</p>
+            <p class="courier">TIMESTAMP_1, ...<br />yyyy-mm-dd HHMM, ...<br />2012-04-05 0800, ...<br /></p>
+            <p class="courier">TIMESTAMP_1, TiMeStAmP_2, ...<br />yyyy-mm-dd, HHMM, ...<br />2012-04-05, 0800, ...<br /></p>
+            <p class="courier">TIMESTAMP_1, TIMESTAMP_2, Timestamp_3, ...<br />yyyy, ddd, HHMM, ...<br />2012, 96, 0800, ...</p>
+            <p class="courier">TIMESTAMP_1, Timestamp_2, TIMESTAMP_3, Timestamp_4, ...<br style="mc-tag-and-class: span;" />      yyyy, ddd, HH, MM, ...<br style="mc-tag-and-class: span;" />      2012, 096, 8, 00, ...<br /></p>
+            <p>Labeling and units conventions for formatting external biomet files:</p>
+            <table style="width: 100%;border-spacing: 0px 0px;mc-table-style: url('Resources/TableStyles/Basic.css');margin-left: 0;margin-right: auto;caption-side: top;" class="TableStyle-Basic" cellspacing="0">
+                <caption class="table" data-mc-autonum="&lt;b&gt;Table 5&lt;/b&gt;"><span class="autonumber"><span><b>Table 5</b></span></span>. Biomet variables supported by <span class="MyVariablesSoftwareName">EddyPro</span>.</caption>
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Basic-Head-Header1">
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Variable</th>
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1"><span class="MyVariablesSoftwareName">EddyPro</span> Label</th>
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1"><span class="MyVariablesSoftwareName">EddyPro</span> Units</th>
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">How to Write Units</th>
+                        <th class="TableStyle-Basic-HeadD-Column1-Header1">Other Supported Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Air Temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Ta</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">C, cC, F, cF, cK</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Atmospheric pressure</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">hPa, kPa, PSI, Torr, mmHg, Atm, Bar</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Relative humidity</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">RH</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">%</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">#</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Canopy temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tc</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">C, cC, F, cF, cK</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Air temperature below canopy</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tbc</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">C, cC, F, cF, cK</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Diffuse radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Rd</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Reflected radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Rr</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Global radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Rg</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Net radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Rn</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">UVA radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">R_uva</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">UVB radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">R_uvb</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Longwave incoming radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">LWin</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Longwave outgoing radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">LWout</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Shortwave incoming radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SWin</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Shortwave outgoing radiation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SWout</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Shortwave below canopy</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SWbc</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Shortwave incoming diffuse</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SWdif</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Photosynthetic photon flux density</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">PPFD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">μmol m<sup>-2</sup> s<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">umol+1m-2s-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">μE m<sup>-2</sup> s<u style="vertical-align: super; text-decoration: none;">-1</u></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Diffuse PPFD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">PPFDd</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">μmol m<sup>-2</sup> s<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">umol+1m-2s-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">μE m<sup>-2</sup> s<u style="vertical-align: super; text-decoration: none;">-1</u></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Reflected PPFD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">PPFDr</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">μmol m<sup>-2</sup> s<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">umol+1m-2s-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">μE m<sup>-2</sup> s<u style="vertical-align: super; text-decoration: none;">-1</u></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Below Canopy PPFD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">PPFDbc</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">μmol m<sup>-2</sup> s<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">umol+1m-2s-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">μE m<sup>-2</sup> s<u style="vertical-align: super; text-decoration: none;">-1</u></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Total precipitation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">P</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">um, μm, mm, cm, km</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Rain precipitation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">P_rain</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">um, μm, mm, cm, km</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Snow precipitation</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">P_snow</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">um, μm, mm, cm, km</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Snow depth</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SNOWd</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">um, μm, mm, cm, km</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Maximum wind speed</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">MWS</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m+1m-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">cm s<sup>-1</sup>, km h<sup>-1</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Wind direction</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">WD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">deg. from N</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">degrees</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Bole temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tbole</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">C, cC, F, cF, cK</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SapFlow</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SapFlow</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">g h<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">g+1h-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">StemFlow</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">StemFlow</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">g h<sup>-1</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">g+1h-1</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Soil temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Ts</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">C, cC, F, cF, cK</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Soil heat flux</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">SHF</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W+1m-2</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">J s<sup>-1</sup> m<sup>-2</sup></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">Soil water content</td>
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">SWC</td>
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">m<sup>3</sup> m<sup>-3</sup></td>
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">m+3m-3</td>
+                        <td class="TableStyle-Basic-BodyA-Column1-Body1">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

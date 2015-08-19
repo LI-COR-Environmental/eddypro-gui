@@ -23,9 +23,9 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QApplication>
-
 #include "clicklabel.h"
+
+#include <QApplication>
 
 ClickLabel::ClickLabel(QWidget* parent, Qt::WindowFlags flags)
     : QLabel(parent, flags),

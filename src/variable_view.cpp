@@ -21,11 +21,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "variable_view.h"
+
 #include <QAction>
+#include <QContextMenuEvent>
+#include <QMenu>
 
 #include "dbghelper.h"
 #include "variable_model.h"
-#include "variable_view.h"
 
 VariableView::VariableView(QWidget *parent) :
     VariableTableView(parent),
@@ -35,16 +38,20 @@ VariableView::VariableView(QWidget *parent) :
 {
     // create context menu actions
     addAction_ = new QAction(tr("&Add Variable"), this);
-    addAction_->setShortcut(QKeySequence(tr("Ctrl+Insert")));
-    connect(addAction_, SIGNAL(triggered()), this, SLOT(addVar()));
+    addAction_->setShortcut(QKeySequence(QKeySequence::ZoomIn));
+    addAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     removeAction_ = new QAction(tr("&Remove Variable"), this);
-    removeAction_->setShortcut(QKeySequence(tr("Ctrl+Delete")));
-    connect(removeAction_, SIGNAL(triggered()), this, SLOT(removeVar()));
+    removeAction_->setShortcut(QKeySequence(QKeySequence::ZoomOut));
+    removeAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     clearAction_ = new QAction(tr("&Clear Selection"), this);
     clearAction_->setShortcut(QKeySequence(tr("Escape")));
-    connect(clearAction_, SIGNAL(triggered()), this, SLOT(clearSelection()));
+    clearAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+
+    connect(addAction_, &QAction::triggered, this, &VariableView::addVar);
+    connect(removeAction_, &QAction::triggered, this, &VariableView::removeVar);
+    connect(clearAction_, &QAction::triggered, this, &VariableView::clearSelection);
 
     addAction(addAction_);
     addAction(removeAction_);
@@ -59,7 +66,12 @@ VariableView::~VariableView()
 // Create and show context menu
 void VariableView::contextMenuEvent(QContextMenuEvent *event)
 {
-    Q_UNUSED(event)
+    QMenu menu(this);
+    menu.addAction(addAction_);
+    menu.addAction(removeAction_);
+    menu.addSeparator();
+    menu.addAction(clearAction_);
+    menu.exec(event->globalPos());
 }
 
 // Add a new blank anemometer after the selected or after the first if there is
@@ -74,10 +86,14 @@ void VariableView::addVar()
     else
         ++currCol;
 
-    ((VariableModel *)model())->insertColumns(currCol, 1, QModelIndex());
+    // cast the model(), but it's not stricly necessary because
+    // model() already returns the setModel() assigned to the view instance
+    VariableModel *concreteModel = static_cast<VariableModel *>(model());
+
+    concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
-    ((VariableModel *)model())->flush();
-    setCurrentIndex(model()->index(0, currCol));
+    concreteModel->flush();
+    setCurrentIndex(concreteModel->index(0, currCol));
 }
 
 // Remove the selected anemometer or the last if there is no selection
@@ -89,12 +105,12 @@ void VariableView::removeVar()
     if (currCol == -1)
         currCol = lastCol;
 
-    model()->removeColumns(currCol, 1, QModelIndex());
+    static_cast<VariableModel *>(model())->removeColumns(currCol, 1, QModelIndex());
     updateGeometries();
     clearSelection();
 }
 
 int VariableView::varCount()
 {
-    return model()->columnCount(QModelIndex());
+    return static_cast<VariableModel *>(model())->columnCount(QModelIndex());
 }

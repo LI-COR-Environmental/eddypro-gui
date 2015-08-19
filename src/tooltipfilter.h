@@ -32,16 +32,16 @@ class TooltipFilter : public QObject
 {
     Q_OBJECT
 
-    enum TooltipType { NoTooltip, StdTooltip, CustomTooltip };
+    enum class TooltipType { NoTooltip, StdTooltip, CustomTooltip };
     bool tooltipOn_;
     TooltipType tooltipType_;
 
 public:
-    explicit TooltipFilter(bool tooltipOn, QObject *parent = 0);
+    explicit TooltipFilter(bool tooltipOn, QObject* parent = nullptr);
     void setTooltipAvailable(bool available);
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject* obj, QEvent* event);
 
 signals:
     void updateTooltipRequest(const QString&);

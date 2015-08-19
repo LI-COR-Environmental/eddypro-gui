@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Processing Reference|Preliminary Processing">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Anemometer Tilt Correction</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Anemometer_Tilt_Correction.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Data Processing Reference</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Preliminary Processing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Axis Rotation for Tilt Correction</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1>Axis Rotation for Tilt Correction</h1>
+            <p class="note">See <a href="Selecting_Advanced_Options.htm#Axis" class="TOCPageNumber MCXref xref xrefTOCPageNumber">Axis rotation for tilt correction</a> for more information.</p>
+            <p><a name="Axis"></a><a name="kanchor195"></a>Tilt correction algorithms have been developed to correct wind statistics for any misalignment of the sonic anemometer with respect to the local wind streamlines. In particular, this implies that stresses and fluxes evaluated perpendicular to the local streamlines are affected by spurious contributions from the variance of along-streamlines components. Based mostly on <a href="References.htm#Wilczak">Wilczak et al. (2001)</a>, <span class="MyVariablesSoftwareName R">EddyPro®</span> supports three options for addressing anemometer tilting: the double rotation, triple rotation, and the planar fit method. Furthermore, the planar fit method is implemented in two different versions, as detailed in the following section.</p>
+            <h2><a name="Double"></a>Double Rotation Method</h2>
+            <p>With this method, the anemometer tilt is compensated by rotating raw wind components to nullify the average cross-stream and vertical wind components, evaluated on the time period defined by the flux averaging length. The rationale is that cross and perpendicular wind components average to zero during such time period. In the first rotation, the measured wind vector <i>u</i><sub style="font-style: italic;">m</sub>≡(<i>u</i><sub style="font-style: italic;">m</sub>,<i>v</i><sub style="font-style: italic;">m</sub>,<i>w</i><sub style="font-style: italic;">m</sub>)  is rotated about the <i>z</i> axis into a temporary vector <i>u</i><sub style="font-style: italic;">tmp</sub>, using a rotation angle <i>θ</i>  such that the average crosswind wind component vanishes (<i>v</i><sub style="font-style: italic;">tmp</sub>=0).</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation18.png" style="width: 106px;height: 27px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The first rotation equations are:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation19.png" style="width: 172px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation20.png" style="width: 180px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation21.png" style="width: 75px;height: 17px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The second rotation is performed about the new <i>y</i>-axis, using the angle <i>ϕ</i> that nullifies <i>w</i><sub style="font-style: italic;">tmp</sub>:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation22.png" style="width: 130px;height: 34px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The second rotation equations are:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation23.png" style="width: 188px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation24.png" style="width: 73px;height: 17px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation25.png" style="width: 199px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The rotated vector <i><b>u</b><sub>rot</sub></i><img src="GeneratedImages/Equations/Equation26.png" style="width: 11px;height: 9px;" alt="" class="MCEquation_0 mcReset" />(<i>u<sub>rot</sub></i>, <i>v<sub>rot</sub></i>, <i>w</i><sub style="font-style: italic;">rot</sub>) has zero <i>v</i> and <i>w</i> components, while its <i>u</i> component holds the value of the mean wind speed over the flux averaging interval.</p>
+            <p class="note"><b>Note:</b> In <span class="MyVariablesSoftwareName">EddyPro</span> rotation angles are evaluated using average wind components, but the rotation is applied sample-wise. That is, after the rotation the wind dataset is modified.</p>
+            <h2>Triple Rotation Method</h2>
+            <p>The "triple rotation" method involves the first two rotations as described in 2.9.1 and a third rotation around the new x axis, where the roll rotation angle <i>ψ</i> is defined to nullify the cross-stream stress component <img src="GeneratedImages/Equations/Equation27.png" style="width: 70px;height: 19px;" alt="" class="MCEquation_inline_0 mcReset" />:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation28.png" style="width: 160px;height: 47px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The third rotation equations are:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation29.png" style="width: 69px;height: 18px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation30.png" style="width: 177px;height: 18px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation31.png" style="width: 188px;height: 18px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>Where <img src="GeneratedImages/Equations/Equation32.png" style="width: 126px;height: 18px;" alt="" class="MCEquation_inline_0 mcReset" /> is the triple rotated wind vector.</p>
+            <h2>The "Traditional" Planar Fit Method</h2>
+            <p>The planar fit method (<a href="References.htm#Wilczak">Wilczak et al., 2001</a>) is based on the assessment of the anemometer tilt with respect to long-term local streamlines. This method is deemed more suitable in case of complex or sloping topography, when the mean vertical wind component or cross-stream stresses might actually differ from zero (<a href="References.htm#Lee">Lee et al., 2004</a>). In the planar fit method, the tilting is assessed by fitting a plane to the actual measurements of the average vertical wind component <img src="GeneratedImages/Equations/Equation33.png" style="width: 22px;height: 15px;" alt="" class="MCEquation_inline_0 mcReset" />, as a function of the horizontal components, <img src="GeneratedImages/Equations/Equation34.png" style="width: 20px;height: 15px;" alt="" class="MCEquation_inline_0 mcReset" /> and <img src="GeneratedImages/Equations/Equation35.png" style="width: 21px;height: 15px;" alt="" class="MCEquation_inline_0 mcReset" />. The rationale is that if the anemometer is tilted with respect to the local streamlines, a certain amount of the horizontal wind speed will be found in the measured vertical component, and <img src="GeneratedImages/Equations/Equation36.png" style="width: 15px;height: 12px;" alt="" class="MCEquation_inline_0 mcReset" /> will show a certain proportionality to (a linear combination of) <img src="GeneratedImages/Equations/Equation37.png" style="width: 13px;height: 12px;" alt="" class="MCEquation_inline_0 mcReset" /> and <img src="GeneratedImages/Equations/Equation38.png" style="width: 14px;height: 12px;" alt="" class="MCEquation_inline_0 mcReset" />:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation39.png" style="width: 158px;height: 18px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>The fitting procedure involves a bilinear regression to determine the fitting parameters <i>b</i><sub style="font-style: italic;">0</sub>, <i>b</i><sub style="font-style: italic;">1</sub> and <i>b</i><sub style="font-style: italic;">2</sub>. The two (partial) planar fit rotation angles are then defined so as to place the <i>z</i> axis perpendicular to the plane of the local streamlines and thus to nullify the long-term mean of the individual <img src="GeneratedImages/Equations/Equation40.png" style="width: 15px;height: 12px;" alt="" class="MCEquation_inline_0 mcReset" /> values:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation41.png" style="width: 97px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>where the rotation matrix <i>M</i><sub style="font-style: italic;">pf</sub> is defined as:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation42.png" style="width: 438px;height: 65px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>and angles α and β are linked to the fitting plane coefficients by:</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation43.png" style="width: 133px;height: 41px;" alt="" class="MCEquation_0 mcReset" />
+                <img src="GeneratedImages/Equations/Equation44.png" style="width: 102px;height: 41px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation45.png" style="width: 139px;height: 50px;" alt="" class="MCEquation_0 mcReset" />
+                <img src="GeneratedImages/Equations/Equation46.png" style="width: 108px;height: 40px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>Equations 42-44 in <a href="References.htm#Wilczak">Wilczak et al., (2001)</a> provide a different formulation for the elements <i>m</i><sub style="font-style: italic;">ij</sub>, valid also for large tilt angles. This is the formulation implemented in EddyPro.</p>
+            <p>A third rotation, similar to the first rotation in <a href="#Double">the Double Rotation Method</a>, will align the wind vector with the main wind direction.</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation47.png" style="width: 170px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation48.png" style="width: 178px;height: 20px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation49.png" style="width: 70px;height: 17px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>with <img src="GeneratedImages/Equations/Equation50.png" style="width: 81px;height: 35px;" alt="" class="MCEquation_inline_0 mcReset" />.</p>
+            <p>The planar fit method can be applied “sector-wise”. In <span class="MyVariablesSoftwareName">EddyPro</span> you can define a number of (equally wide) wind sectors. The calculations will then be performed for each sector independently, and the appropriate rotation matrix will be applied, depending on the current wind direction.</p>
+            <h2>Planar Fit with no Velocity Bias</h2>
+            <p>After verifying that the coefficient b<sub>0</sub> is not a proper estimator of the anemometer bias in the measurement of vertical wind component as suggested by <a href="References.htm#Wilczak">Wiczak et al (2001)</a>, <a href="References.htm#vanDijk">van Dijk et al. (2004)</a> proposed a revision of the method, which assumes that any bias in the measurement of w is already accounted for in the anemometer calibration and thus that the fitting plane passes through the origin (b<sub>0</sub>=0). Under these hypothesis the planar fit method reduces to</p>
+            <p>
+                <img src="GeneratedImages/Equations/Equation51.png" style="width: 127px;height: 18px;" alt="" class="MCEquation_0 mcReset" />
+            </p>
+            <p>with the same relations between <i>b</i><sub style="font-style: italic;">1</sub> and <i>b</i><sub style="font-style: italic;">2</sub> and the tilt angles as with the original planar fit. Both planar fit methods are available in EddyPro, with customizable planar fit settings, sectors, and more.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

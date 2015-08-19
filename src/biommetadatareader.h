@@ -24,6 +24,8 @@
 #define BIOMMETADATAREADER_H
 
 #include <QList>
+#include <QStringList>
+
 #include "biomitem.h"
 
 class BiomMetadataReader

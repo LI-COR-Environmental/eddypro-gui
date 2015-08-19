@@ -21,9 +21,9 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QStringList>
-
 #include "specgroup.h"
+
+#include <QStringList>
 
 // custom relation (not useful for lexical ordering)
 bool SpecGroup::operator<(const SpecGroup &sg) const

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Using SmartFlux">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | SMARTFlux Systems with Additional Sensors</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Additional_Sensors.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Using SmartFlux</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Systems with Additional Networked Sensors</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 class="pgBrkBfr">Configuring Systems with Additional Networked Sensors</h1>
+            <p>If your eddy covariance system has additional networked devices, such as an <span class="LI-CORLI-7700">LI&#8209;7700</span> Open Path CH<sub>4</sub> Analyzer, <span class="LI-COR7900">7900</span> Biomet system, and/or a cellular communication system, it is likely that all the Ethernet ports will be occupied by the additional components. How do you connect over Ethernet when all the Ethernet ports are taken? Keep reading to find out.</p>
+            <p class="note"><b>Note:</b> This simplest solution is to connect to the LI-7550 with the RS-232 cable and configure the networked connections.</p>
+            <p>Another solution is to acquire a 5-port Ethernet switch (LI&#8209;COR part # 616-12721) and install it in the <span class="LI-COR7900">7900</span> Biomet enclosure or a small weather-proof enclosure.</p>
+            <p>If you cannot connect with RS-232 and you do not have an Ethernet switch, you can still connect two networked devices and the <span class="LI-CORSmartFlux">SMARTFlux system</span>. Here is how:</p>
+            <ol class="LilSteps">
+                <li class="LilSteps" value="1" data-mc-autonum="1.  "><span class="autonumber"><span class="LSteps">1.  </span></span>Unplug the Ethernet cable for one of your devices (e.g., the Biomet system) and install an Ethernet cable between your computer and the vacated Ethernet port. </li>
+                <li class="LilSteps" value="2" data-mc-autonum="2.  "><span class="autonumber"><span class="LSteps">2.  </span></span>In the GHG software, <span class="pop">Connect</span> with the device that is still attached to the other Ethernet port (e.g., the LI-7700). </li>
+                <li class="LilSteps" value="3" data-mc-autonum="3.  "><span class="autonumber"><span class="LSteps">3.  </span></span>Then, you can unplug the Ethernet cable for that device (e.g., the <span class="LI-CORLI-7700">LI&#8209;7700</span>) and install the Ethernet cable between your computer to the newly-vacated port. </li>
+                <li class="LilSteps" value="4" data-mc-autonum="4.  "><span class="autonumber"><span class="LSteps">4.  </span></span>Reconnect the Ethernet cable for the device that was disconnected in step 1. Now, <span class="pop">Connect</span> with that device (e.g., the Biomet system) in the GHG software.</li>
+                <li class="LilSteps" value="5" data-mc-autonum="5.  "><span class="autonumber"><span class="LSteps">5.  </span></span>Unplug the computer's Ethernet cable from the <span class="LI-CORLI-7550">LI&#8209;7550</span> and reinstall the Ethernet cables for the networked sensors. </li>
+            </ol>
+            <p>When you've configured the connection for a device in the software, you can unplug and plug in the Ethernet cable without risk. The devices will automatically resume communication shortly after the cable is reinstalled.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

@@ -28,6 +28,7 @@
 
 class QModelIndex;
 class QToolButton;
+
 class AnemDelegate;
 class AnemModel;
 class AnemView;
@@ -52,8 +53,6 @@ public:
     IrgaView *irgaView_;
 
 private slots:
-    void anemModelModified();
-    void irgaModelModified();
     void updateScrollBars();
 
 private:

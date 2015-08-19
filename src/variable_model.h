@@ -26,8 +26,8 @@
 
 #include <QAbstractTableModel>
 #include <QModelIndex>
-#include <QVariant>
 #include <QStringList>
+#include <QVariant>
 
 #include "variable_desc.h" // FIXME: for VariableDescList typedef, maybe to fix
 
@@ -36,7 +36,7 @@ class VariableModel : public QAbstractTableModel
     Q_OBJECT
 public:
     // variable columns definition
-    enum VARITEM
+    enum VarItem
     {
         IGNORE,
         NUMERIC,

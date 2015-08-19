@@ -29,11 +29,10 @@
 #include "configstate.h"
 
 class QListWidget;
-class QListWidgetItem;
 
+class AdvSettingsContainer;
 class DlProject;
 class EcProject;
-class AdvSettingsContainer;
 class SmartFluxBar;
 
 class AdvancedSettingsPage : public QWidget
@@ -41,13 +40,19 @@ class AdvancedSettingsPage : public QWidget
     Q_OBJECT
 
 public:
-    AdvancedSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
+    AdvancedSettingsPage(QWidget* parent,
+                         DlProject* dlProject,
+                         EcProject* ecProject,
+                         ConfigState* config);
     virtual ~AdvancedSettingsPage();
 
-    AdvSettingsContainer* advancedSettingPages() { return advancedSettingPages_; }
+    AdvSettingsContainer* advancedSettingPages()
+                            { return advancedSettingContainer; }
     void updateSmartfluxBar();
 
-public slots:
+private slots:
+    void changePage(int index);
+    void resetButtonCLicked();
 
 private:
     static const QString PAGE_TITLE_0;
@@ -56,22 +61,17 @@ private:
     static const QString PAGE_TITLE_3;
     static const QString PAGE_TITLE_4;
 
-    DlProject *dlProject_;
-    EcProject *ecProject_;
-    ConfigState* configState_;
-    SmartFluxBar* smartfluxBar_;
-
-    QListWidget* menuWidget;
-    AdvSettingsContainer* advancedSettingPages_;
-
     void createMenu();
     void createIcons();
+    bool requestSettingsReset();
 
-private slots:
-    void changePage(int index);
-    void resetButtonCLicked();
+    DlProject* dlProject_;
+    EcProject* ecProject_;
+    ConfigState* configState_;
 
-signals:
+    SmartFluxBar* smartfluxBar {};
+    QListWidget* menuWidget {};
+    AdvSettingsContainer*  advancedSettingContainer {};
 };
 
 #endif // ADVANCEDSETTINGSPAGE_H

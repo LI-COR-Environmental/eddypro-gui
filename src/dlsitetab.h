@@ -26,12 +26,12 @@
 
 #include <QWidget>
 
-class QSpinBox;
 class QDoubleSpinBox;
+class QLabel;
+class QLineEdit;
 class QPushButton;
 class QRadioButton;
-class QLineEdit;
-class QLabel;
+class QSpinBox;
 
 class ClickLabel;
 class DlProject;

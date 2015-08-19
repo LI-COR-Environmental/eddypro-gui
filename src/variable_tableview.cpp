@@ -21,14 +21,15 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "variable_tableview.h"
+
 #include <QDebug>
 #include <QHeaderView>
-#include <QScrollBar>
 #include <QMouseEvent>
+#include <QScrollBar>
 
-#include "dbghelper.h"
 #include "customheader.h"
-#include "variable_tableview.h"
+#include "dbghelper.h"
 
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)
@@ -37,26 +38,26 @@ VariableTableView::VariableTableView(QWidget *parent) :
 
     QHeaderView *hHeaderView = horizontalHeader();
     hHeaderView->show();
-    connect(hHeaderView, SIGNAL(sectionClicked(int)),
-            this, SLOT(hHeaderClicked(int)));
+    connect(hHeaderView, &QHeaderView::sectionClicked,
+            this, &VariableTableView::hHeaderClicked);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
     m_header = new CustomHeader(this);
-    m_header->addSection(tr("Ignore"), tr("<b>Ignore:</b> Select <i>no</i> to tell EddyPro that a column (variable) is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a <i>non-numeric</i> one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set <i>yes</i> in the ignore field."), CustomHeader::QuestionMark, ClickLabel::VarIgnoreDesc);
-    m_header->addSection(tr("Numeric"), tr("<b>Numeric:</b> Select 'no' to tell EddyPro that a column is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a not numeric one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set 'yes' in the ignore field."), CustomHeader::QuestionMark, ClickLabel::VarNumericDesc);
-    m_header->addSection(tr("Variable"), tr("<b>Variable:</b> Specify the variable that is contained in the current column of the raw files (or position, for binary files). Purely numerical variables only contain numbers and the decimal dot (full stop)."), CustomHeader::QuestionMark, ClickLabel::VarDesc);
+    m_header->addSection(tr("Ignore"), tr("<b>Ignore:</b> Select <i>no</i> to tell EddyPro that a column (variable) is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a <i>non-numeric</i> one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set <i>yes</i> in the ignore field."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarIgnoreDesc);
+    m_header->addSection(tr("Numeric"), tr("<b>Numeric:</b> Select 'no' to tell EddyPro that a column is not purely numeric. Purely numeric variables are strings included within two consecutive field separators and containing only digits from 0 to 9 and, at most, the decimal dot. Any other character makes a variable a not numeric one. For example, time stamps in the form of 2011-09-26 or times as 23:20:562 are not numeric variables. Note that if a variable is not numeric, this must be specified even if you set 'yes' in the ignore field."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarNumericDesc);
+    m_header->addSection(tr("Variable"), tr("<b>Variable:</b> Specify the variable that is contained in the current column of the raw files (or position, for binary files). Purely numerical variables only contain numbers and the decimal dot (full stop)."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarDesc);
     m_header->addSection(tr("Instrument"), tr("<b>Instrument:</b> Select the instrument that measured the current variable. Instruments listed here are those entered under the instruments tab."));
     m_header->addSection(tr("Measurement type"), tr("<b>Measurement type:</b> Only applicable to gas concentrations. Enter the description of the concentration measurement (either <i>Molar/Mass density</i>, <i>Mole fraction</i>, or <i>Mixing ratio</i>). For all other variables, either leave the field blank or select <i>Other</i>. <i>Molar/Mass density</i> is a measure of mass per unit volume of air. <i>Mole fraction</i> is a measure of mass per mass of wet air. <i>Mixing ratio</i> is a measure of mass per mass of dry air. Measures of mass can be expressed as number of moles, grams, etc."));
     m_header->addSection(tr("Input unit"), tr("<b>Input unit:</b> Specify the units of the variable as it is stored in the raw file."));
-    m_header->addSection(tr("Linear scaling"), tr("<b>Linear scaling:</b> Specify whether to perform a linear conversion to rescale data. Variables that are already in any of the supported physical units do not need to be rescaled."), CustomHeader::QuestionMark, ClickLabel::VarConv);
+    m_header->addSection(tr("Linear scaling"), tr("<b>Linear scaling:</b> Specify whether to perform a linear conversion to rescale data. Variables that are already in any of the supported physical units do not need to be rescaled."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarConv);
     m_header->addSection(tr("Output unit"), tr("<b>Output units:</b> Enter the output units (physical units after conversion). The following <b><i>Gain</i></b> and <b><i>Offset</i></b> values must be such that the input variable is converted into the selected output unit."));
     m_header->addSection(tr("Gain value"), tr("<b>Gain value:</b> Enter the gain (angular coefficient) of the linear relation between input and output units."));
     m_header->addSection(tr("Offset value"), tr("<b>Offset value:</b> Enter the offset (y-axis intercept) of the linear relation between input and output units."));
-    m_header->addSection(tr("<i>Nominal time lag</i>"), tr("<b>Nominal time lag:</b> Enter the expected (nominal) time lag of the variable, with respect to the measurements of the anemometer that you plan to use for flux computation, as applicable. Time lags should be specified at least for gas concentrations and can be estimated based on instrument separation (open path) or on the sampling line characteristics and the flow rate (closed path)."), CustomHeader::QuestionMark, ClickLabel::VarNomTLag);
-    m_header->addSection(tr("<i>Minimum time lag</i>"), tr("<b>Minimum time lag:</b> Enter the minimum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMark, ClickLabel::VarMinTLag);
-    m_header->addSection(tr("<i>Maximum time lag</i>"), tr("<b>Maximum time lag:</b> Enter the maximum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMark, ClickLabel::VarMaxTLag);
+    m_header->addSection(tr("<i>Nominal time lag</i>"), tr("<b>Nominal time lag:</b> Enter the expected (nominal) time lag of the variable, with respect to the measurements of the anemometer that you plan to use for flux computation, as applicable. Time lags should be specified at least for gas concentrations and can be estimated based on instrument separation (open path) or on the sampling line characteristics and the flow rate (closed path)."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarNomTLag);
+    m_header->addSection(tr("<i>Minimum time lag</i>"), tr("<b>Minimum time lag:</b> Enter the minimum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMinTLag);
+    m_header->addSection(tr("<i>Maximum time lag</i>"), tr("<b>Maximum time lag:</b> Enter the maximum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMaxTLag);
 }
 
 VariableTableView::~VariableTableView()
@@ -103,6 +104,8 @@ void VariableTableView::mousePressEvent(QMouseEvent *event)
     QAbstractItemView::mousePressEvent(event);
 }
 
+// NOTE: to finish http://www.hardcoded.net/articles/how-to-customize-qtableview-editing-behavior
+// http://stackoverflow.com/questions/12380107/in-qtableview-what-signal-triggers-the-editing-mode
 void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndEditHint hint)
 {
     DEBUG_FUNC_NAME
@@ -111,6 +114,30 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
     {
         QAbstractItemView::closeEditor(editor, QAbstractItemDelegate::SubmitModelCache);
     }
+//    else if (hint == QAbstractItemDelegate::EditNextItem
+//             || hint == QAbstractItemDelegate::EditPreviousItem)
+//    {
+//        int editableIndex;
+//        if (hint == QAbstractItemDelegate::EditNextItem)
+//        {
+//            editableIndex = nextEditableIndex(currentIndex());
+//        }
+//        else
+//        {
+//            editableIndex = previousEditableIndex(currentIndex());
+//        }
+
+//        if (editableIndex == -1)
+//        {
+//            closeEditor(editor, QAbstractItemDelegate::SubmitModelCache);
+//        }
+//        else
+//        {
+//            closeEditor(editor, 0);
+//            setCurrentIndex(editableIndex);
+//            edit(editableIndex);
+//        }
+//    }
     else
     {
         QAbstractItemView::closeEditor(editor, hint);
@@ -122,4 +149,10 @@ void VariableTableView::hHeaderClicked(int section)
 {
     DEBUG_FUNC_NAME
     qDebug() << "section" << section;
+
+//    if (selectionModel()->isColumnSelected(section, QModelIndex()))
+//    {
+//        reset();
+////        clearSelection();
+//    }
 }

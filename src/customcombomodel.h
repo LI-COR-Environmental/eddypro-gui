@@ -28,11 +28,27 @@
 
 #include <QStandardItemModel>
 
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/customcombomodel.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+/// \class CustomComboModel
+/// \brief Class that reimplement QStandardItemModel with disabled item feature
 class CustomComboModel : public QStandardItemModel
 {
 public:
-    CustomComboModel(QObject *parent = 0);
-    Qt::ItemFlags flags(const QModelIndex & index) const;
+    explicit CustomComboModel(QObject* parent = nullptr);
+    Qt::ItemFlags flags(const QModelIndex& index) const;
 };
 
 #endif // CUSTOMCOMBOMODEL_H

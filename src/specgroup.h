@@ -24,13 +24,28 @@
 #ifndef SPECGROUP_H
 #define SPECGROUP_H
 
-#include <QMap>
+#include <QCoreApplication> // for Q_DECLARE_TR_FUNCTIONS
 #include <QDebug>
-#include <QCoreApplication>
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/specgroup.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
 class QString;
 class QStringList;
 
+/// \class SpecGroup
+/// \brief Class representing the spectral month groups
 class SpecGroup
 {
     Q_DECLARE_TR_FUNCTIONS(SpecGroup)

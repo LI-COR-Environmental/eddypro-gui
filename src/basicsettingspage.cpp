@@ -21,64 +21,63 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QUrl>
+#include "basicsettingspage.h"
+
 #include <QApplication>
-#include <QSettings>
-#include <QInputDialog>
-#include <QPushButton>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
+#include <QButtonGroup>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QGroupBox>
-#include <QFileDialog>
-#include <QHBoxLayout>
-#include <QScrollArea>
 #include <QDateEdit>
-#include <QTimeEdit>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QTimer>
+#include <QDebug>
+#include <QDoubleSpinBox>
+#include <QFileDialog>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QInputDialog>
 #include <QNetworkReply>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QScrollArea>
+#include <QSpinBox>
 #include <QtConcurrentRun>
+#include <QTimeEdit>
+#include <QTimer>
+#include <QUrl>
+#include <QUrlQuery>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-#   include <QUrlQuery>
-#endif
+#include <cmath>
 
 #include <boost/math/common_factor.hpp>
 
 #include <QwwButtonLineEdit/QwwButtonLineEdit>
 #include <QwwClearLineEdit/QwwClearLineEdit>
 
-#include "defs.h"
-#include "dbghelper.h"
-#include "fileutils.h"
-#include "infomessage.h"
-#include "splitter.h"
-#include "biommetadatareader.h"
-#include "alia.h"
-#include "dlproject.h"
-#include "process.h"
-#include "rawfilenamedialog.h"
 #include "QProgressIndicator.h"
+
+#include "advancedsettingspage.h"
+#include "advprocessingoptions.h"
+#include "advsettingscontainer.h"
+#include "biommetadatareader.h"
 #include "clicklabel.h"
 #include "configstate.h"
+#include "dbghelper.h"
+#include "defs.h"
 #include "dlproject.h"
 #include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "infomessage.h"
+#include "process.h"
+#include "rawfilenamedialog.h"
 #include "smartfluxbar.h"
+#include "splitter.h"
+#include "widget_utils.h"
 
 // for the qobject_cast in handleCrossWindAndAngleOfAttackUpdate()
 #include "mainwidget.h"
-#include "advancedsettingspage.h"
-#include "advsettingscontainer.h"
-#include "advprocessingoptions.h"
 
-#include "basicsettingspage.h"
-
-const QString BasicSettingsPage::FLAG_POLICY_STRING_0 = QT_TR_NOOP(QStringLiteral("Above threshold"));
-const QString BasicSettingsPage::FLAG_POLICY_STRING_1 = QT_TR_NOOP(QStringLiteral("Below threshold"));
+const QString BasicSettingsPage::FLAG_POLICY_STRING_0 = QObject::tr("Above threshold");
+const QString BasicSettingsPage::FLAG_POLICY_STRING_1 = QObject::tr("Below threshold");
 
 BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
     QWidget(parent),
@@ -96,19 +95,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 {
     DEBUG_FUNC_NAME
 
-    progressWidget_1 = new QProgressIndicator();
+    progressWidget_1 = new QProgressIndicator;
     progressWidget_1->setAnimationDelay(40);
     progressWidget_1->setDisplayedWhenStopped(false);
     progressWidget_1->setFixedSize(21, 21);
     progressWidget_1->setColor(QColor(46, 98, 152));
 
-    progressWidget_2 = new QProgressIndicator();
+    progressWidget_2 = new QProgressIndicator;
     progressWidget_2->setAnimationDelay(40);
     progressWidget_2->setDisplayedWhenStopped(false);
     progressWidget_2->setFixedSize(21, 21);
     progressWidget_2->setColor(QColor(46, 98, 152));
 
-    progressWidget_3 = new QProgressIndicator();
+    progressWidget_3 = new QProgressIndicator;
     progressWidget_3->setAnimationDelay(40);
     progressWidget_3->setDisplayedWhenStopped(false);
     progressWidget_3->setFixedSize(21, 21);
@@ -116,7 +115,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     datapathLabel = new ClickLabel(tr("Raw data directory :"), this);
     datapathLabel->setToolTip(tr("<b>Raw data directory:</b> Use the <i>Browse...</i> button to specify the folder that contains the raw data. If data are also contained in subfolders, select the <i>Search in subfolders</i> box."));
-    datapathEdit = new QwwButtonLineEdit();
+    datapathEdit = new QwwButtonLineEdit;
     datapathEdit->setReadOnly(true);
     datapathEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     datapathEdit->setButtonVisible(false);
@@ -129,26 +128,26 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     qDebug() << "BROWSE BUTTON" << datapathBrowse->width();
 
-    QHBoxLayout* datapathContainerLayout = new QHBoxLayout;
+    auto datapathContainerLayout = new QHBoxLayout;
     datapathContainerLayout->addWidget(datapathEdit);
     datapathContainerLayout->addWidget(datapathBrowse);
     datapathContainerLayout->setStretch(2, 1);
     datapathContainerLayout->setContentsMargins(0, 0, 0, 0);
     datapathContainerLayout->setSpacing(0);
-    QWidget* datapathContainer = new QWidget();
+    auto datapathContainer = new QWidget;
     datapathContainer->setLayout(datapathContainerLayout);
 
-    recursionCheckBox = new QCheckBox();
+    recursionCheckBox = new QCheckBox;
     recursionCheckBox->setText(tr("Search in subfolders"));
     recursionCheckBox->setToolTip(tr("<b>Search in subfolders:</b> Check this box if data are in subfolders in the selected directory. EddyPro will process files that are in the <i>Raw data directory</i> and <i>subfolders</i> if you check this box."));
 
     filesFound = new QLabel;
     filesFound->setProperty("greyLabel", true);
 
-    fileFormatLabel = new ClickLabel();
+    fileFormatLabel = new ClickLabel;
     fileFormatLabel->setText(tr("Raw file name format :"));
     fileFormatLabel->setToolTip(tr("<b>Raw file name format:</b> For raw files other than GHG, your entry in this field should provide a template of the file names that EddyPro uses to retrieve the timestamp. You must indicate which part of the file name represent the year (<i>yy</i> or <i>yyyy</i>), month (<i>mm</i>, if using <i>dd</i> for the day, omit if using <i>ddd</i>), day (<i>dd</i> for the day of the month, <i>ddd</i> for the day of the year), hour (<i>HH</i>), minute (<i>MM</i>), and the extension of the file. For example, for a file name of the type: '2011-09-27_1030_mysite.raw', a valid raw file name format is: 'yyyy-mm-dd_HH.30_mysite.raw'. Remember to include the file extension!"));
-    fileFormatEdit = new QwwButtonLineEdit();
+    fileFormatEdit = new QwwButtonLineEdit;
     fileFormatEdit->setEnabled(false);
     fileFormatEdit->setToolTip(fileFormatLabel->toolTip());
     fileFormatEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
@@ -163,26 +162,26 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     outpathLabel = new ClickLabel(tr("Output directory :"), this);
     outpathLabel->setToolTip(tr("<b>Output directory:</b> Specify where the output files will be stored. Click the <i>Browse...</i> button and navigate to the desired directory. You can also type/edit it directly from this text box. Note that the software will create subfolders inside the selected output directory."));
-    outpathEdit = new QwwClearLineEdit();
+    outpathEdit = new QwwClearLineEdit;
     outpathEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     outpathEdit->setProperty("asButtonLineEdit", true);
     outpathBrowse = new QPushButton(tr("Browse..."));
     outpathBrowse->setProperty("loadButton", true);
     outpathBrowse->setToolTip(outpathLabel->toolTip());
 
-    QHBoxLayout* outpathContainerLayout = new QHBoxLayout;
+    auto outpathContainerLayout = new QHBoxLayout;
     outpathContainerLayout->addWidget(outpathEdit);
     outpathContainerLayout->addWidget(outpathBrowse);
     outpathContainerLayout->setStretch(2, 1);
     outpathContainerLayout->setContentsMargins(0, 0, 0, 0);
     outpathContainerLayout->setSpacing(0);
-    QWidget* outpathContainer = new QWidget();
+    auto outpathContainer = new QWidget;
     outpathContainer->setLayout(outpathContainerLayout);
 
     previousDatapathLabel = new ClickLabel(tr("Previous results directory :"), this);
     previousDatapathLabel->setToolTip(tr("<b>Previous results directory:</b> Path of the directory containing results from previous run(s). EddyPro will attempt to speed up the flux computation by checking for any partial results obtained from previous run(s). If settings used in the previous runs match the current settings, EddyPro will use the results as an intermediate starting point in the current data processing session."));
     previousDatapathLabel->setProperty("optionalField", true);
-    previousDatapathEdit = new QwwButtonLineEdit();
+    previousDatapathEdit = new QwwButtonLineEdit;
     previousDatapathEdit->setReadOnly(true);
     previousDatapathEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     previousDatapathEdit->setButtonVisible(false);
@@ -192,13 +191,13 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     previousDatapathBrowse->setProperty("loadButton", true);
     previousDatapathBrowse->setToolTip(previousDatapathLabel->toolTip());
 
-    QHBoxLayout* previousContainerLayout = new QHBoxLayout;
+    auto previousContainerLayout = new QHBoxLayout;
     previousContainerLayout->addWidget(previousDatapathEdit);
     previousContainerLayout->addWidget(previousDatapathBrowse);
     previousContainerLayout->setStretch(2, 1);
     previousContainerLayout->setContentsMargins(0, 0, 0, 0);
     previousContainerLayout->setSpacing(0);
-    QWidget* previousContainer = new QWidget();
+    auto previousContainer = new QWidget;
     previousContainer->setLayout(previousContainerLayout);
 
     // requires previousDatapathEdit
@@ -214,7 +213,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     // '|', '\', '/', ':', ';', '?', '*', '"', ''', '`', '<', '>'
     QString idRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
 
-    idEdit = new QwwClearLineEdit();
+    idEdit = new QwwClearLineEdit;
     idEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     idEdit->setToolTip(idLabel->toolTip());
     idEdit->setMaxLength(200);
@@ -235,7 +234,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     maxLackLabel = new ClickLabel(tr("Missing samples allowance :"), this);
     maxLackLabel->setToolTip(tr("<b>Missing sample allowance:</b> Select the maximum percent of missing samples that are allowed in each output file. If the number of missing values exceeds this setting the file will be ignored in the dataset."));
-    maxLackSpin = new QSpinBox();
+    maxLackSpin = new QSpinBox;
     maxLackSpin->setRange(0, 100);
     maxLackSpin->setSingleStep(1);
     maxLackSpin->setValue(10);
@@ -245,27 +244,27 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     maxLackSpin->setMinimumWidth(110);
     maxLackSpin->setMaximumWidth(125);
 
-    lockedIcon_1 = new QLabel();
+    lockedIcon_1 = new QLabel;
     lockedIcon_1->setPixmap(QPixmap(QStringLiteral(":/icons/vlink-locked")));
 
     startDateLabel = new ClickLabel(this);
     startDateLabel->setText(tr("Start :"));
     startDateLabel->setToolTip(tr("<b>Start:</b> Starting date of the dataset to process. This may or may not coincide with the date of the first raw file. It is used to select a subset of available raw data for processing."));
-    startDateEdit = new QDateEdit();
+    startDateEdit = new QDateEdit;
     startDateEdit->setToolTip(startDateLabel->toolTip());
     startDateEdit->setCalendarPopup(true);
     startDateEdit->setMinimumWidth(70);
     startDateEdit->setMaximumWidth(70);
-    Alia::customizeCalendar(startDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(startDateEdit->calendarWidget());
     startDateEdit->installEventFilter(const_cast<BasicSettingsPage*>(this));
 
-    startTimeEdit = new QTimeEdit();
+    startTimeEdit = new QTimeEdit;
     startTimeEdit->setDisplayFormat(QStringLiteral("hh:mm"));
     startTimeEdit->setMinimumWidth(70);
     startTimeEdit->setMaximumWidth(70);
     startTimeEdit->setAccelerated(true);
 
-    QHBoxLayout* startDateContainer = new QHBoxLayout;
+    auto startDateContainer = new QHBoxLayout;
     startDateContainer->addWidget(startDateEdit);
     startDateContainer->insertSpacing(1, 10);
     startDateContainer->addWidget(startTimeEdit);
@@ -275,27 +274,27 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     endDateLabel = new ClickLabel(this);
     endDateLabel->setText(tr("End :"));
     endDateLabel->setToolTip(tr("<b>End:</b> Ending date of the dataset to process. This may or may not coincide with the date of the last raw file. It is used to select a subset of available raw data for processing."));
-    endDateEdit = new QDateEdit();
+    endDateEdit = new QDateEdit;
     endDateEdit->setToolTip(endDateLabel->toolTip());
     endDateEdit->setCalendarPopup(true);
     endDateEdit->setMinimumWidth(70);
     endDateEdit->setMaximumWidth(70);
-    Alia::customizeCalendar(endDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(endDateEdit->calendarWidget());
 
-    endTimeEdit = new QTimeEdit();
+    endTimeEdit = new QTimeEdit;
     endTimeEdit->setDisplayFormat(QStringLiteral("hh:mm"));
     endTimeEdit->setMinimumWidth(70);
     endTimeEdit->setMaximumWidth(70);
     endTimeEdit->setAccelerated(true);
 
-    QHBoxLayout* endDateContainer = new QHBoxLayout;
+    auto endDateContainer = new QHBoxLayout;
     endDateContainer->addWidget(endDateEdit);
     endDateContainer->insertSpacing(1, 10);
     endDateContainer->addWidget(endTimeEdit);
     endDateContainer->addStretch();
     endDateContainer->setContentsMargins(0, 0, 0, 0);
 
-    subsetCheckBox = new QCheckBox();
+    subsetCheckBox = new QCheckBox;
     subsetCheckBox->setText(tr("Select a subperiod"));
     subsetCheckBox->setToolTip(tr("<b>Select a subperiod:</b> Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all the raw data in the directory."));
     subsetCheckBox->setStyleSheet(QStringLiteral("QCheckBox {margin-left: 13px}"));
@@ -324,13 +323,13 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     northRadioGroup->addButton(useGeographicNRadio, 1);
 
     declinationLabel = new ClickLabel(tr("Magnetic declination :"));
-    declinationEdit = new QLineEdit();
+    declinationEdit = new QLineEdit;
     declinationEdit->setText(tr("000%1 00' E").arg(Defs::DEGREE));
     QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
     QRegExp decRx(dec_pattern);
-    QValidator *decValidator = new QRegExpValidator(decRx, declinationEdit);
+    auto decValidator = new QRegExpValidator(decRx, declinationEdit);
     declinationEdit->setValidator(decValidator);
     declinationEdit->setInputMask(tr("000%1 00' >A;x").arg(Defs::DEGREE));
     declinationEdit->setAlignment(Qt::AlignRight);
@@ -340,12 +339,12 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     declinationDateLabel = new ClickLabel(this);
     declinationDateLabel->setText(tr("On :"));
     declinationDateLabel->setToolTip(tr("<b> Date :</b> Date used to retrieve the magnetic declination from the NOAA website."));
-    declinationDateEdit = new QDateEdit();
+    declinationDateEdit = new QDateEdit;
     declinationDateEdit->setToolTip(declinationDateLabel->toolTip());
     declinationDateEdit->setCalendarPopup(true);
     declinationDateEdit->setMinimumWidth(70);
     declinationDateEdit->setMaximumWidth(70);
-    Alia::customizeCalendar(declinationDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(declinationDateEdit->calendarWidget());
     // NOTE: manage NOAA website API limitation, where current last day available is 2015-12-31
     // compare http://www.ngdc.noaa.gov/geomag-web/#declination
     declinationDateEdit->setMaximumDate(QDate(2015, 12, 31));
@@ -360,10 +359,10 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     createQuestionMark();
 
-    QLabel* fileGroupTitle = new QLabel(tr("Files Info"));
+    auto fileGroupTitle = new QLabel(tr("Files Info"));
     fileGroupTitle->setProperty("groupTitle", true);
 
-    QGridLayout *filesInfoLayout = new QGridLayout();
+    auto filesInfoLayout = new QGridLayout;
     filesInfoLayout->addWidget(datapathLabel, 1, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(datapathContainer, 1, 2, 1, 3);
     filesInfoLayout->addWidget(filesFound, 2, 4, 1, 1, Qt::AlignRight);
@@ -431,46 +430,46 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->setVerticalSpacing(3);
     filesInfoLayout->setContentsMargins(0, 0, 50, 15);
 
-    QWidget* filesInfoContainer = new QWidget;
+    auto filesInfoContainer = new QWidget;
     filesInfoContainer->setLayout(filesInfoLayout);
     filesInfoContainer->setProperty("scrollContainerWidget", true);
 
-    QScrollArea* filesInfoScrollArea = new QScrollArea;
+    auto filesInfoScrollArea = new QScrollArea;
     filesInfoScrollArea->setWidget(filesInfoContainer);
     filesInfoScrollArea->setWidgetResizable(true);
 
     anemRefLabel = new ClickLabel(tr("Master Anemometer :"), this);
     anemRefLabel->setToolTip(tr("<b>Master anemometer:</b> Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes."));
-    anemRefCombo = new QComboBox();
+    anemRefCombo = new QComboBox;
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
     tsRefLabel = new ClickLabel(tr("Fast temperature reading (alternative to sonic temp) :"), this);
     tsRefLabel->setToolTip(tr("<b>Fast temperature reading:</b> If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied."));
-    tsRefCombo = new QComboBox();
+    tsRefCombo = new QComboBox;
     tsRefCombo->setToolTip(tsRefLabel->toolTip());
 
     co2RefLabel = new ClickLabel(tr("%1 :").arg(Defs::CO2_STRING), this);
     co2RefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    co2RefCombo = new QComboBox();
+    co2RefCombo = new QComboBox;
     co2RefCombo->setToolTip(co2RefLabel->toolTip());
 
     h2oRefLabel = new ClickLabel(tr("%1 :").arg(Defs::H2O_STRING), this);
     h2oRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    h2oRefCombo = new QComboBox();
+    h2oRefCombo = new QComboBox;
     h2oRefCombo->setToolTip(h2oRefLabel->toolTip());
 
     ch4RefLabel = new ClickLabel(tr("%1 :").arg(Defs::CH4_STRING), this);
     ch4RefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    ch4RefCombo = new QComboBox();
+    ch4RefCombo = new QComboBox;
     ch4RefCombo->setToolTip(ch4RefLabel->toolTip());
 
     fourthGasRefLabel = new ClickLabel(tr("%1 trace gas (passive scalar) :").arg(Defs::GAS4_STRING), this);
     fourthGasRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    fourthGasRefCombo = new QComboBox();
+    fourthGasRefCombo = new QComboBox;
     fourthGasRefCombo->setToolTip(fourthGasRefLabel->toolTip());
 
     gasMwLabel = new ClickLabel(tr("Molecular weight :"), this);
-    gasMw = new QDoubleSpinBox();
+    gasMw = new QDoubleSpinBox;
     gasMw->setDecimals(4);
     gasMw->setRange(0.0, 1000.0);
     gasMw->setSingleStep(1.0);
@@ -479,7 +478,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     gasMw->setMinimumWidth(130);
 
     gasDiffLabel = new ClickLabel(tr("Molecular diffusivity in air :"), this);
-    gasDiff = new QDoubleSpinBox();
+    gasDiff = new QDoubleSpinBox;
     gasDiff->setDecimals(5);
     gasDiff->setRange(0.0, 1.0);
     gasDiff->setSingleStep(0.1);
@@ -487,104 +486,104 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     gasDiff->setSuffix(QString(QStringLiteral(" [%1]")).arg(Defs::CM2_S_STRING));
     gasDiff->setMinimumWidth(130);
 
-    moreButton = new QPushButton();
+    moreButton = new QPushButton;
     moreButton->setObjectName(QStringLiteral("foldButton"));
     moreButton->setCheckable(true);
     moreButton->setChecked(false);
     moreButton->setAutoDefault(false);
 
-    QGridLayout *extensionLayout = new QGridLayout;
+    auto extensionLayout = new QGridLayout;
     extensionLayout->setContentsMargins(0, 0, 0, 0);
     extensionLayout->addWidget(gasMwLabel, 0, 0, Qt::AlignRight);
     extensionLayout->addWidget(gasMw, 0, 1);
     extensionLayout->addWidget(gasDiffLabel, 1, 0, Qt::AlignRight);
     extensionLayout->addWidget(gasDiff, 1, 1);
-    gasExtension = new QWidget();
+    gasExtension = new QWidget;
     gasExtension->setLayout(extensionLayout);
     gasExtension->hide();
 
     intTcRefLabel = new ClickLabel(tr("Average Cell Temperature :"), this);
     intTcRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    intTcRefCombo = new QComboBox();
+    intTcRefCombo = new QComboBox;
     intTcRefCombo->setToolTip(intTcRefLabel->toolTip());
 
     intT1RefLabel = new ClickLabel(tr("Cell Temperature In :"), this);
     intT1RefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    intT1RefCombo = new QComboBox();
+    intT1RefCombo = new QComboBox;
     intT1RefCombo->setToolTip(intT1RefLabel->toolTip());
 
     intT2RefLabel = new ClickLabel(tr("Cell Temperature Out :"), this);
     intT2RefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    intT2RefCombo = new QComboBox();
+    intT2RefCombo = new QComboBox;
     intT2RefCombo->setToolTip(intT2RefLabel->toolTip());
 
     intPRefLabel = new ClickLabel(tr("Cell Pressure :"), this);
     intPRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    intPRefCombo = new QComboBox();
+    intPRefCombo = new QComboBox;
     intPRefCombo->setToolTip(intPRefLabel->toolTip());
 
     airTRefLabel = new ClickLabel(tr("Ambient Temperature :"), this);
     airTRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    airTRefCombo = new QComboBox();
+    airTRefCombo = new QComboBox;
     airTRefCombo->setToolTip(airTRefLabel->toolTip());
 
     airPRefLabel = new ClickLabel(tr("Ambient Pressure :"), this);
     airPRefLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    airPRefCombo = new QComboBox();
+    airPRefCombo = new QComboBox;
     airPRefCombo->setToolTip(airPRefLabel->toolTip());
 
     rhLabel = new ClickLabel(tr("Ambient Relative Humidity :"), this);
     rhLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    rhCombo = new QComboBox();
+    rhCombo = new QComboBox;
     rhCombo->setToolTip(rhLabel->toolTip());
 
     rgLabel = new ClickLabel(tr("Global Radiation :"), this);
     rgLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    rgCombo = new QComboBox();
+    rgCombo = new QComboBox;
     rgCombo->setToolTip(rgLabel->toolTip());
 
     lwinLabel = new ClickLabel(tr("Longwave incoming radiation :"), this);
     lwinLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    lwinCombo = new QComboBox();
+    lwinCombo = new QComboBox;
     lwinCombo->setToolTip(lwinLabel->toolTip());
 
     ppfdLabel = new ClickLabel(tr("Photosynthetically active radiation (PAR, PPFD) :"), this);
     ppfdLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
-    ppfdCombo = new QComboBox();
+    ppfdCombo = new QComboBox;
     ppfdCombo->setToolTip(ppfdLabel->toolTip());
 
     diag7500Label = new ClickLabel(tr("LI-7500(A) Diagnostics :"), this);
     diag7500Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
-    diag7500Combo = new QComboBox();
+    diag7500Combo = new QComboBox;
     diag7500Combo->setToolTip(diag7500Label->toolTip());
 
     diag7200Label = new ClickLabel(tr("LI-7200 Diagnostics :"), this);
     diag7200Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
-    diag7200Combo = new QComboBox();
+    diag7200Combo = new QComboBox;
     diag7200Combo->setToolTip(diag7200Label->toolTip());
 
     diag7700Label = new ClickLabel(tr("LI-7700 Diagnostics :"), this);
     diag7700Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
-    diag7700Combo = new QComboBox();
+    diag7700Combo = new QComboBox;
     diag7700Combo->setToolTip(diag7700Label->toolTip());
 
     flag1Label = new ClickLabel(tr("Flag 1 :"), this);
     flag1Label->setObjectName(QStringLiteral("flag1Label"));
     flag1Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag1Label->setProperty("optionalField", true);
-    flag1VarCombo = new QComboBox();
+    flag1VarCombo = new QComboBox;
     flag1VarCombo->setObjectName(QStringLiteral("flag1Combo"));
     flag1VarCombo->setMaxVisibleItems(20);
     flag1VarCombo->setToolTip(flag1Label->toolTip());
     flag1UnitLabel = new QLabel;
     flag1UnitLabel->setObjectName(QStringLiteral("flag1UnitLabel"));
     flag1UnitLabel->setProperty("flagLabel", true);
-    flag1ThresholdSpin = new QDoubleSpinBox();
+    flag1ThresholdSpin = new QDoubleSpinBox;
     flag1ThresholdSpin->setDecimals(4);
     flag1ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag1ThresholdSpin->setSingleStep(1.0);
     flag1ThresholdSpin->setAccelerated(true);
-    flag1PolicyCombo = new QComboBox();
+    flag1PolicyCombo = new QComboBox;
     flag1PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag1PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -592,19 +591,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag2Label->setObjectName(QStringLiteral("flag2Label"));
     flag2Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag2Label->setProperty("optionalField", true);
-    flag2VarCombo = new QComboBox();
+    flag2VarCombo = new QComboBox;
     flag2VarCombo->setObjectName(QStringLiteral("flag2Combo"));
     flag2VarCombo->setMaxVisibleItems(20);
     flag2VarCombo->setToolTip(flag2Label->toolTip());
     flag2UnitLabel = new QLabel;
     flag2UnitLabel->setObjectName(QStringLiteral("flag2UnitLabel"));
     flag2UnitLabel->setProperty("flagLabel", true);
-    flag2ThresholdSpin = new QDoubleSpinBox();
+    flag2ThresholdSpin = new QDoubleSpinBox;
     flag2ThresholdSpin->setDecimals(4);
     flag2ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag2ThresholdSpin->setSingleStep(1.0);
     flag2ThresholdSpin->setAccelerated(true);
-    flag2PolicyCombo = new QComboBox();
+    flag2PolicyCombo = new QComboBox;
     flag2PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag2PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -612,19 +611,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag3Label->setObjectName(QStringLiteral("flag3Label"));
     flag3Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag3Label->setProperty("optionalField", true);
-    flag3VarCombo = new QComboBox();
+    flag3VarCombo = new QComboBox;
     flag3VarCombo->setObjectName(QStringLiteral("flag3Combo"));
     flag3VarCombo->setMaxVisibleItems(20);
     flag3VarCombo->setToolTip(flag3Label->toolTip());
     flag3UnitLabel = new QLabel;
     flag3UnitLabel->setObjectName(QStringLiteral("flag3UnitLabel"));
     flag3UnitLabel->setProperty("flagLabel", true);
-    flag3ThresholdSpin = new QDoubleSpinBox();
+    flag3ThresholdSpin = new QDoubleSpinBox;
     flag3ThresholdSpin->setDecimals(4);
     flag3ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag3ThresholdSpin->setSingleStep(1.0);
     flag3ThresholdSpin->setAccelerated(true);
-    flag3PolicyCombo = new QComboBox();
+    flag3PolicyCombo = new QComboBox;
     flag3PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag3PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -632,19 +631,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag4Label->setObjectName(QStringLiteral("flag4Label"));
     flag4Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag4Label->setProperty("optionalField", true);
-    flag4VarCombo = new QComboBox();
+    flag4VarCombo = new QComboBox;
     flag4VarCombo->setObjectName(QStringLiteral("flag4Combo"));
     flag4VarCombo->setMaxVisibleItems(20);
     flag4VarCombo->setToolTip(flag4Label->toolTip());
     flag4UnitLabel = new QLabel;
     flag4UnitLabel->setObjectName(QStringLiteral("flag4UnitLabel"));
     flag4UnitLabel->setProperty("flagLabel", true);
-    flag4ThresholdSpin = new QDoubleSpinBox();
+    flag4ThresholdSpin = new QDoubleSpinBox;
     flag4ThresholdSpin->setDecimals(4);
     flag4ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag4ThresholdSpin->setSingleStep(1.0);
     flag4ThresholdSpin->setAccelerated(true);
-    flag4PolicyCombo = new QComboBox();
+    flag4PolicyCombo = new QComboBox;
     flag4PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag4PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -652,19 +651,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag5Label->setObjectName(QStringLiteral("flag5Label"));
     flag5Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag5Label->setProperty("optionalField", true);
-    flag5VarCombo = new QComboBox();
+    flag5VarCombo = new QComboBox;
     flag5VarCombo->setObjectName(QStringLiteral("flag5Combo"));
     flag5VarCombo->setMaxVisibleItems(20);
     flag5VarCombo->setToolTip(flag5Label->toolTip());
     flag5UnitLabel = new QLabel;
     flag5UnitLabel->setObjectName(QStringLiteral("flag5UnitLabel"));
     flag5UnitLabel->setProperty("flagLabel", true);
-    flag5ThresholdSpin = new QDoubleSpinBox();
+    flag5ThresholdSpin = new QDoubleSpinBox;
     flag5ThresholdSpin->setDecimals(4);
     flag5ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag5ThresholdSpin->setSingleStep(1.0);
     flag5ThresholdSpin->setAccelerated(true);
-    flag5PolicyCombo = new QComboBox();
+    flag5PolicyCombo = new QComboBox;
     flag5PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag5PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -672,19 +671,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag6Label->setObjectName(QStringLiteral("flag6Label"));
     flag6Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag6Label->setProperty("optionalField", true);
-    flag6VarCombo = new QComboBox();
+    flag6VarCombo = new QComboBox;
     flag6VarCombo->setObjectName(QStringLiteral("flag6Combo"));
     flag6VarCombo->setMaxVisibleItems(20);
     flag6VarCombo->setToolTip(flag6Label->toolTip());
     flag6UnitLabel = new QLabel;
     flag6UnitLabel->setObjectName(QStringLiteral("flag6UnitLabel"));
     flag6UnitLabel->setProperty("flagLabel", true);
-    flag6ThresholdSpin = new QDoubleSpinBox();
+    flag6ThresholdSpin = new QDoubleSpinBox;
     flag6ThresholdSpin->setDecimals(4);
     flag6ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag6ThresholdSpin->setSingleStep(1.0);
     flag6ThresholdSpin->setAccelerated(true);
-    flag6PolicyCombo = new QComboBox();
+    flag6PolicyCombo = new QComboBox;
     flag6PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag6PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -692,19 +691,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag7Label->setObjectName(QStringLiteral("flag7Label"));
     flag7Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag7Label->setProperty("optionalField", true);
-    flag7VarCombo = new QComboBox();
+    flag7VarCombo = new QComboBox;
     flag7VarCombo->setObjectName(QStringLiteral("flag7Combo"));
     flag7VarCombo->setMaxVisibleItems(20);
     flag7VarCombo->setToolTip(flag7Label->toolTip());
     flag7UnitLabel = new QLabel;
     flag7UnitLabel->setObjectName(QStringLiteral("flag7UnitLabel"));
     flag7UnitLabel->setProperty("flagLabel", true);
-    flag7ThresholdSpin = new QDoubleSpinBox();
+    flag7ThresholdSpin = new QDoubleSpinBox;
     flag7ThresholdSpin->setDecimals(4);
     flag7ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag7ThresholdSpin->setSingleStep(1.0);
     flag7ThresholdSpin->setAccelerated(true);
-    flag7PolicyCombo = new QComboBox();
+    flag7PolicyCombo = new QComboBox;
     flag7PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag7PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -712,19 +711,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag8Label->setObjectName(QStringLiteral("flag8Label"));
     flag8Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag8Label->setProperty("optionalField", true);
-    flag8VarCombo = new QComboBox();
+    flag8VarCombo = new QComboBox;
     flag8VarCombo->setMaxVisibleItems(20);
     flag8VarCombo->setToolTip(flag8Label->toolTip());
     flag8VarCombo->setObjectName(QStringLiteral("flag8Combo"));
     flag8UnitLabel = new QLabel;
     flag8UnitLabel->setObjectName(QStringLiteral("flag8UnitLabel"));
     flag8UnitLabel->setProperty("flagLabel", true);
-    flag8ThresholdSpin = new QDoubleSpinBox();
+    flag8ThresholdSpin = new QDoubleSpinBox;
     flag8ThresholdSpin->setDecimals(4);
     flag8ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag8ThresholdSpin->setSingleStep(1.0);
     flag8ThresholdSpin->setAccelerated(true);
-    flag8PolicyCombo = new QComboBox();
+    flag8PolicyCombo = new QComboBox;
     flag8PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag8PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -733,19 +732,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag9Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag9Label->setProperty("optionalField", true);
     flag9Label->setToolTip(flag9Label->toolTip());
-    flag9VarCombo = new QComboBox();
+    flag9VarCombo = new QComboBox;
     flag9VarCombo->setObjectName(QStringLiteral("flag9Combo"));
     flag9VarCombo->setToolTip(flag9Label->toolTip());
     flag9VarCombo->setMaxVisibleItems(20);
     flag9UnitLabel = new QLabel;
     flag9UnitLabel->setObjectName(QStringLiteral("flag9UnitLabel"));
     flag9UnitLabel->setProperty("flagLabel", true);
-    flag9ThresholdSpin = new QDoubleSpinBox();
+    flag9ThresholdSpin = new QDoubleSpinBox;
     flag9ThresholdSpin->setDecimals(4);
     flag9ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag9ThresholdSpin->setSingleStep(1.0);
     flag9ThresholdSpin->setAccelerated(true);
-    flag9PolicyCombo = new QComboBox();
+    flag9PolicyCombo = new QComboBox;
     flag9PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag9PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
@@ -754,32 +753,32 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag10Label->setToolTip(tr("<b>Flags:</b> Each column of the raw data file that was not tagged as <i>to be ignored</i> can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion."));
     flag10Label->setProperty("optionalField", true);
     flag10Label->setToolTip(flag10Label->toolTip());
-    flag10VarCombo = new QComboBox();
+    flag10VarCombo = new QComboBox;
     flag10VarCombo->setObjectName(QStringLiteral("flag10Combo"));
     flag10VarCombo->setMaxVisibleItems(20);
     flag10VarCombo->setToolTip(flag10VarCombo->toolTip());
     flag10UnitLabel = new QLabel;
     flag10UnitLabel->setObjectName(QStringLiteral("flag10UnitLabel"));
     flag10UnitLabel->setProperty("flagLabel", true);
-    flag10ThresholdSpin = new QDoubleSpinBox();
+    flag10ThresholdSpin = new QDoubleSpinBox;
     flag10ThresholdSpin->setDecimals(4);
     flag10ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag10ThresholdSpin->setSingleStep(1.0);
     flag10ThresholdSpin->setAccelerated(true);
-    flag10PolicyCombo = new QComboBox();
+    flag10PolicyCombo = new QComboBox;
     flag10PolicyCombo->addItem(FLAG_POLICY_STRING_0);
     flag10PolicyCombo->addItem(FLAG_POLICY_STRING_1);
 
-    QLabel* varTitle_1 = new QLabel(tr("Gas measurements (eddy data, used for covariances and fluxes)"));
+    auto varTitle_1 = new QLabel(tr("Gas measurements (eddy data, used for covariances and fluxes)"));
     varTitle_1->setProperty("groupLabel", true);
-    QLabel* varTitle_2 = new QLabel(tr("Cell measurements (closed-path eddy data, used for covariances and fluxes)"));
+    auto varTitle_2 = new QLabel(tr("Cell measurements (closed-path eddy data, used for covariances and fluxes)"));
     varTitle_2->setProperty("groupLabel", true);
-    QLabel* varTitle_3 = new QLabel(tr("Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)"));
+    auto varTitle_3 = new QLabel(tr("Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)"));
     varTitle_3->setProperty("groupLabel", true);
-    QLabel* varTitle_4 = new QLabel(tr("Diagnostic measurements (eddy data, for quality screening and assurance)"));
+    auto varTitle_4 = new QLabel(tr("Diagnostic measurements (eddy data, for quality screening and assurance)"));
     varTitle_4->setProperty("groupLabel", true);
 
-    QGridLayout *varLayout = new QGridLayout();
+    auto varLayout = new QGridLayout;
     varLayout->addWidget(varTitle_1, 0, 1);
     varLayout->addWidget(co2RefLabel, 1, 0, Qt::AlignRight);
     varLayout->addWidget(co2RefCombo, 1, 1);
@@ -826,38 +825,38 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     varLayout->setColumnStretch(1, 2);
     varLayout->setColumnStretch(2, 1);
 
-    QLabel* descLabel = new QLabel(tr("Optionally, each variable in raw data files can be "
-                                      "used as a mask, to filter out individual "
-                                      "raw records that do not conform quality "
-                                      "criteria. Select the variable to be used "
-                                      "as a flag, and define the quality "
-                                      "criterion by entering a threshold value "
-                                      "for that variable and whether to discard "
-                                      "records if they are above or below the thresholds.<br>"
-                                      "Note: If you describe more than one flag, EddyPro will "
-                                      "eliminate all records flagged by at least one test. "
-                                      "Note also that currently the same variable cannot "
-                                      "be used in two different flag definitions. "
-                                      "The result of such an operation is unpredictable; "
-                                      "most likely, only the latest flag definition with "
-                                      "the same variable will have an effect."));
+    auto descLabel = new QLabel(tr("Optionally, each variable in raw data files can be "
+                      "used as a mask, to filter out individual "
+                      "raw records that do not conform quality "
+                      "criteria. Select the variable to be used "
+                      "as a flag, and define the quality "
+                      "criterion by entering a threshold value "
+                      "for that variable and whether to discard "
+                      "records if they are above or below the thresholds.<br>"
+                      "Note: If you describe more than one flag, EddyPro will "
+                      "eliminate all records flagged by at least one test. "
+                      "Note also that currently the same variable cannot "
+                      "be used in two different flag definitions. "
+                      "The result of such an operation is unpredictable; "
+                      "most likely, only the latest flag definition with "
+                      "the same variable will have an effect."));
     descLabel->setWordWrap(true);
     descLabel->setStyleSheet(QStringLiteral("QLabel {margin-left: 15px;}"));
 
-    QLabel* flagLabel = new QLabel(tr("Flags"));
+    auto flagLabel = new QLabel(tr("Flags"));
     flagLabel->setProperty("groupLabel", true);
-    QLabel* unitLabel = new QLabel(tr("Unit"));
+    auto unitLabel = new QLabel(tr("Unit"));
     unitLabel->setProperty("groupLabel", true);
-    QLabel* thresholdLabel = new QLabel(tr("Threshold"));
+    auto thresholdLabel = new QLabel(tr("Threshold"));
     thresholdLabel->setProperty("groupLabel", true);
-    QLabel* policyLabel = new QLabel(tr("Policy: Discard if"));
+    auto policyLabel = new QLabel(tr("Policy: Discard if"));
     policyLabel->setProperty("groupLabel", true);
 
-    QHBoxLayout* descLayout = new QHBoxLayout;
+    auto descLayout = new QHBoxLayout;
     descLayout->addWidget(questionMark_3, 0);
     descLayout->addWidget(descLabel, 1);
 
-    QGridLayout *flagLayout = new QGridLayout();
+    auto flagLayout = new QGridLayout;
     flagLayout->addLayout(descLayout, 0, 1, 1, 4);
     flagLayout->addWidget(flagLabel, 1, 1);
     flagLayout->addWidget(unitLabel, 1, 3);
@@ -924,24 +923,24 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flagLayout->setColumnStretch(4, 1);
     flagLayout->setColumnStretch(5, 1);
 
-    QGroupBox* varList = new QGroupBox;
+    auto varList = new QGroupBox;
     varList->setObjectName(QStringLiteral("simpleGroupBox2"));
     varList->setFlat(true);
     varList->setLayout(varLayout);
 
-    QGroupBox* flagList = new QGroupBox;
+    auto flagList = new QGroupBox;
     flagList->setObjectName(QStringLiteral("simpleGroupBox2"));
     flagList->setFlat(true);
     flagList->setLayout(flagLayout);
 
-    QTabWidget* varTab = new QTabWidget();
+    auto varTab = new QTabWidget;
     varTab->addTab(varList, tr("Variables"));
     varTab->addTab(flagList, tr("Flags"));
 
-    QLabel* referenceGroupTitle = new QLabel(tr("Select Items for Flux Computation"));
+    auto referenceGroupTitle = new QLabel(tr("Select Items for Flux Computation"));
     referenceGroupTitle->setProperty("groupTitle", true);
 
-    QGridLayout* varContainerLayout = new QGridLayout;
+    auto varContainerLayout = new QGridLayout;
     varContainerLayout->addWidget(anemRefLabel, 0, 0, Qt::AlignRight);
     varContainerLayout->addWidget(anemRefCombo, 0, 1);
     varContainerLayout->addWidget(crossWindCheckBox, 1, 1);
@@ -952,22 +951,22 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     varContainerLayout->setColumnStretch(1, 2);
     varContainerLayout->setColumnStretch(2, 1);
 
-    QWidget* varContainer = new QWidget;
+    auto varContainer = new QWidget;
     varContainer->setLayout(varContainerLayout);
     varContainer->setProperty("scrollContainerWidget", true);
 
-    QScrollArea* varScrollArea = new QScrollArea;
+    auto varScrollArea = new QScrollArea;
     varScrollArea->setWidget(varContainer);
     varScrollArea->setWidgetResizable(true);
 
-    QVBoxLayout* varAreaLayout = new QVBoxLayout;
+    auto varAreaLayout = new QVBoxLayout;
     varAreaLayout->addWidget(referenceGroupTitle);
     varAreaLayout->addWidget(varScrollArea);
 
-    QWidget* varArea = new QWidget;
+    auto varArea = new QWidget;
     varArea->setLayout(varAreaLayout);
 
-    Splitter *splitter = new Splitter(Qt::Vertical, this);
+    auto splitter = new Splitter(Qt::Vertical, this);
     splitter->addWidget(filesInfoScrollArea);
     splitter->addWidget(varArea);
     splitter->setStretchFactor(0, 0);
@@ -976,202 +975,202 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     splitter->setContentsMargins(15, 15, 15, 10);
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
-    smartfluxBar_->setVisible(false);
-    smartfluxBar_->setToolTip(tr("EddyPro is in SMARTFlux configuration mode (Ctrl+F to exit)"));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(smartfluxBar_);
     mainLayout->addWidget(fileGroupTitle);
     mainLayout->addWidget(splitter);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(mainLayout);
 
-    connect(ecProject_, SIGNAL(ecProjectNew()),
-            this, SLOT(reset()));
-    connect(ecProject_, SIGNAL(ecProjectChanged()),
-            this, SLOT(refresh()));
+    connect(ecProject_, &EcProject::ecProjectNew,
+            this, &BasicSettingsPage::reset);
+    connect(ecProject_, &EcProject::ecProjectChanged,
+            this, &BasicSettingsPage::refresh);
 
-    connect(datapathLabel, SIGNAL(clicked()),
-            this, SLOT(onDatapathLabelClicked()));
-    connect(datapathEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearDataSelection_1()));
-    connect(datapathEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateDataPath(QString)));
-    connect(datapathBrowse, SIGNAL(clicked()),
-            this, SLOT(datapathBrowse_clicked()));
+    connect(datapathLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onDatapathLabelClicked);
+    connect(datapathEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &BasicSettingsPage::clearDataSelection_1);
+    connect(datapathEdit, &QLineEdit::textChanged,
+            this, &BasicSettingsPage::updateDataPath);
+    connect(datapathBrowse, &QPushButton::clicked,
+            this, &BasicSettingsPage::datapathBrowse_clicked);
 
-    connect(recursionCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateRecursion(bool)));
+    connect(recursionCheckBox, &QCheckBox::toggled,
+            this, &BasicSettingsPage::updateRecursion);
 
-    connect(fileFormatLabel, SIGNAL(clicked()),
-            this, SLOT(onFileFormatLabelClicked()));
-    connect(fileFormatEdit, SIGNAL(buttonClicked()),
-            fileFormatEdit, SLOT(clear()));
-    connect(fileFormatEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateFilePrototype_1(QString)));
-    connect(fileFormatSetButton, SIGNAL(clicked()),
-            this, SLOT(askRawFilenameFormat()));
+    connect(fileFormatLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onFileFormatLabelClicked);
+    connect(fileFormatEdit, &QwwButtonLineEdit::buttonClicked,
+            fileFormatEdit, &QwwButtonLineEdit::clear);
+    connect(fileFormatEdit, &QwwButtonLineEdit::textChanged,
+            this, &BasicSettingsPage::updateFilePrototype_1);
+    connect(fileFormatSetButton, &QPushButton::clicked,
+            this, &BasicSettingsPage::askRawFilenameFormat);
 
-    connect(outpathLabel, SIGNAL(clicked()),
-            this, SLOT(onOutpathLabelClicked()));
-    connect(outpathBrowse, SIGNAL(clicked()),
-            this, SLOT(outpathBrowse_clicked()));
-    connect(outpathEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateOutPath(QString)));
+    connect(outpathLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onOutpathLabelClicked);
+    connect(outpathBrowse, &QPushButton::clicked,
+            this, &BasicSettingsPage::outpathBrowse_clicked);
+    connect(outpathEdit, &QwwClearLineEdit::textChanged,
+            this, &BasicSettingsPage::updateOutPath);
 
-    connect(previousDatapathLabel, SIGNAL(clicked()),
-            this, SLOT(onPreviousDatapathLabelClicked()));
-    connect(previousDatapathEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearPreviousDatapathEdit()));
-    connect(previousDatapathEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updatePreviousDataPath(QString)));
-    connect(previousDatapathBrowse, SIGNAL(clicked()),
-            this, SLOT(previousDatapathBrowse_clicked()));
+    connect(previousDatapathLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onPreviousDatapathLabelClicked);
+    connect(previousDatapathEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &BasicSettingsPage::clearPreviousDatapathEdit);
+    connect(previousDatapathEdit, &QwwButtonLineEdit::textChanged,
+            this, &BasicSettingsPage::updatePreviousDataPath);
+    connect(previousDatapathBrowse, &QPushButton::clicked,
+            this, &BasicSettingsPage::previousDatapathBrowse_clicked);
 
-    connect(idLabel, SIGNAL(clicked()),
-            this, SLOT(onIdLabelClicked()));
-    connect(idEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateId(QString)));
+    connect(idLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onIdLabelClicked);
+    connect(idEdit, &QwwClearLineEdit::textChanged, [=](const QString &s)
+            { ecProject_->setGeneralId(s); });
 
-    connect(avgIntervalLabel, SIGNAL(clicked()),
-            this, SLOT(onAvgLenLabelClicked()));
+    connect(avgIntervalLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onAvgLenLabelClicked);
     connect(avgIntervalSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateAvrgLen(int)));
 
-    connect(maxLackLabel, SIGNAL(clicked()),
-            this, SLOT(onMaxLackLabelClicked()));
+    connect(maxLackLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onMaxLackLabelClicked);
     connect(maxLackSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateMaxLack(int)));
 
-    connect(subsetCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateSubsetSelection(bool)));
+    connect(subsetCheckBox, &QCheckBox::toggled,
+            this, &BasicSettingsPage::updateSubsetSelection);
     connect(subsetCheckBox, SIGNAL(toggled(bool)),
             dateRangeDetectButton, SLOT(setDisabled(bool)));
 
-    connect(dateRangeDetectButton, SIGNAL(clicked()),
-            this, SLOT(dateRangeDetect()));
+    connect(dateRangeDetectButton, &QPushButton::clicked,
+            this, &BasicSettingsPage::dateRangeDetect);
 
-    connect(startDateLabel, SIGNAL(clicked()),
-            this, SLOT(onStartDateLabelClicked()));
-    connect(startDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateStartDate(QDate)));
+    connect(startDateLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onStartDateLabelClicked);
+    connect(startDateEdit, &QDateEdit::dateChanged,
+            this, &BasicSettingsPage::updateStartDate);
 
-    connect(endDateLabel, SIGNAL(clicked()),
-            this, SLOT(onEndDateLabelClicked()));
-    connect(endDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateEndDate(QDate)));
-    connect(endDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(alignDeclinationDate(QDate)));
+    connect(endDateLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onEndDateLabelClicked);
+    connect(endDateEdit, &QDateEdit::dateChanged,
+            this, &BasicSettingsPage::updateEndDate);
+    connect(endDateEdit, &QDateEdit::dateChanged,
+            this, &BasicSettingsPage::alignDeclinationDate);
 
-    connect(startTimeEdit, SIGNAL(timeChanged(QTime)),
-            this, SLOT(updateStartTime(QTime)));
-    connect(endTimeEdit, SIGNAL(timeChanged(QTime)),
-            this, SLOT(updateEndTime(QTime)));
+    connect(startTimeEdit, &QTimeEdit::timeChanged,
+            this, &BasicSettingsPage::updateStartTime);
+    connect(endTimeEdit, &QTimeEdit::timeChanged,
+            this, &BasicSettingsPage::updateEndTime);
 
-    connect(anemRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickAnemRefLabel()));
+    connect(anemRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickAnemRefLabel);
     connect(anemRefCombo, SIGNAL(activated(QString)),
             this, SLOT(updateAnemRefCombo(QString)));
     connect(anemRefCombo, SIGNAL(activated(QString)),
             this, SLOT(handleCrossWindAndAngleOfAttackUpdate(QString)));
 
-    connect(co2RefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickCo2RefLabel()));
+    connect(co2RefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickCo2RefLabel);
     connect(co2RefCombo, SIGNAL(activated(int)),
             this, SLOT(updateCo2RefCombo(int)));
 
-    connect(h2oRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickH2oRefLabel()));
+    connect(h2oRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickH2oRefLabel);
     connect(h2oRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateH2oRefCombo(int)));
 
-    connect(ch4RefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickCh4RefLabel()));
+    connect(ch4RefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickCh4RefLabel);
     connect(ch4RefCombo, SIGNAL(activated(int)),
             this, SLOT(updateCh4RefCombo(int)));
 
-    connect(gasMw, SIGNAL(valueChanged(double)), this, SLOT(updateGasMw(double)));
-    connect(gasDiff, SIGNAL(valueChanged(double)), this, SLOT(updateGasDiff(double)));
+    connect(gasMw, SIGNAL(valueChanged(double)),
+            this, SLOT(updateGasMw(double)));
+    connect(gasDiff, SIGNAL(valueChanged(double)),
+            this, SLOT(updateGasDiff(double)));
 
-    connect(fourthGasRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickFourthGasRefLabel()));
+    connect(fourthGasRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickFourthGasRefLabel);
     connect(fourthGasRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateFourthGasRefCombo(int)));
     connect(fourthGasRefCombo, SIGNAL(activated(QString)),
             this, SLOT(updateFourthGasSettings(QString)));
 
-    connect(intTcRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickIntTcRefLabel()));
+    connect(intTcRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickIntTcRefLabel);
     connect(intTcRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateIntTcRefCombo(int)));
 
-    connect(intT1RefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickIntT1RefLabel()));
+    connect(intT1RefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickIntT1RefLabel);
     connect(intT1RefCombo, SIGNAL(activated(int)),
             this, SLOT(updateIntT1RefCombo(int)));
 
-    connect(intT2RefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickIntT2RefLabel()));
+    connect(intT2RefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickIntT2RefLabel);
     connect(intT2RefCombo, SIGNAL(activated(int)),
             this, SLOT(updateIntT2RefCombo(int)));
 
-    connect(intPRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickIntPRefLabel()));
+    connect(intPRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickIntPRefLabel);
     connect(intPRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateIntPRefCombo(int)));
 
-    connect(airTRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickAirTRefLabel()));
+    connect(airTRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickAirTRefLabel);
     connect(airTRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateAirTRefCombo(int)));
 
-    connect(airPRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickAirPRefLabel()));
+    connect(airPRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickAirPRefLabel);
     connect(airPRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateAirPRefCombo(int)));
 
-    connect(rhLabel, SIGNAL(clicked()),
-            this, SLOT(onClickRhLabel()));
+    connect(rhLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickRhLabel);
     connect(rhCombo, SIGNAL(activated(int)),
             this, SLOT(updateRhCombo(int)));
 
-    connect(rgLabel, SIGNAL(clicked()),
-            this, SLOT(onClickRgLabel()));
+    connect(rgLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickRgLabel);
     connect(rgCombo, SIGNAL(activated(int)),
             this, SLOT(updateRgCombo(int)));
 
-    connect(lwinLabel, SIGNAL(clicked()),
-            this, SLOT(onClickLwinLabel()));
+    connect(lwinLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickLwinLabel);
     connect(lwinCombo, SIGNAL(activated(int)),
             this, SLOT(updateLwinCombo(int)));
 
-    connect(ppfdLabel, SIGNAL(clicked()),
-            this, SLOT(onClickPpfdLabel()));
+    connect(ppfdLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickPpfdLabel);
     connect(ppfdCombo, SIGNAL(activated(int)),
             this, SLOT(updatePpfdCombo(int)));
 
-    connect(diag7500Label, SIGNAL(clicked()),
-            this, SLOT(onClickDiag7500Label()));
+    connect(diag7500Label, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickDiag7500Label);
     connect(diag7500Combo, SIGNAL(activated(int)),
             this, SLOT(updateDiag7500Combo(int)));
 
-    connect(diag7200Label, SIGNAL(clicked()),
-            this, SLOT(onClickDiag7200Label()));
+    connect(diag7200Label, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickDiag7200Label);
     connect(diag7200Combo, SIGNAL(activated(int)),
             this, SLOT(updateDiag7200Combo(int)));
 
-    connect(diag7700Label, SIGNAL(clicked()),
-            this, SLOT(onClickDiag7700Label()));
+    connect(diag7700Label, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickDiag7700Label);
     connect(diag7700Combo, SIGNAL(activated(int)),
             this, SLOT(updateDiag7700Combo(int)));
 
-    connect(tsRefLabel, SIGNAL(clicked()),
-            this, SLOT(onClickTsRefLabel()));
+    connect(tsRefLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickTsRefLabel);
     connect(tsRefCombo, SIGNAL(activated(int)),
             this, SLOT(updateTsRefCombo(int)));
 
-    connect(crossWindCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateCrossWind(bool)));
+    connect(crossWindCheckBox, &QCheckBox::toggled,
+            this, &BasicSettingsPage::updateCrossWind);
 
     connect(flag1VarCombo, SIGNAL(activated(int)),
             this, SLOT(updateFlag1Combo(int)));
@@ -1243,26 +1242,26 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     connect(flag10PolicyCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateFlag10Policy(int)));
 
-    connect(moreButton, SIGNAL(toggled(bool)),
-            gasExtension, SLOT(setVisible(bool)));
+    connect(moreButton, &QPushButton::toggled,
+            gasExtension, &QWidget::setVisible);
 
     connect(northRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(northRadioClicked(int)));
     connect(northRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateUseGeoNorth(int)));
 
-    connect(declinationLabel, SIGNAL(clicked()),
-            this, SLOT(onClickDeclinationLabel()));
-    connect(declinationEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateMagDec(QString)));
+    connect(declinationLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickDeclinationLabel);
+    connect(declinationEdit, &QLineEdit::textChanged,
+            this, &BasicSettingsPage::updateMagDec);
 
-    connect(declinationDateLabel, SIGNAL(clicked()),
-            this, SLOT(onDeclinationDateLabelClicked()));
-    connect(declinationDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateDeclinationDate(QDate)));
+    connect(declinationDateLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onDeclinationDateLabelClicked);
+    connect(declinationDateEdit, &QDateEdit::dateChanged,
+            this, &BasicSettingsPage::updateDeclinationDate);
 
-    connect(declinationFetchButton, SIGNAL(clicked()),
-            this, SLOT(fetchMagneticDeclination()));
+    connect(declinationFetchButton, &QPushButton::clicked,
+            this, &BasicSettingsPage::fetchMagneticDeclination);
 
     foreach (QComboBox *combo,
              QList<QComboBox *>() << flag1VarCombo
@@ -1280,20 +1279,20 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
                 this, SLOT(updateFlagUnit(int)));
     }
 
-    foreach (QLabel *label,
-             QList<QLabel *>() << flag1Label
-                               << flag2Label
-                               << flag3Label
-                               << flag4Label
-                               << flag5Label
-                               << flag6Label
-                               << flag7Label
-                               << flag8Label
-                               << flag9Label
-                               << flag10Label)
+    foreach (ClickLabel *label,
+             QList<ClickLabel *>() << flag1Label
+                                   << flag2Label
+                                   << flag3Label
+                                   << flag4Label
+                                   << flag5Label
+                                   << flag6Label
+                                   << flag7Label
+                                   << flag8Label
+                                   << flag9Label
+                                   << flag10Label)
     {
-        connect(label, SIGNAL(clicked()),
-                this, SLOT(onClickFlagLabel()));
+        connect(label, &ClickLabel::clicked,
+                this, &BasicSettingsPage::onClickFlagLabel);
     }
 
     connect(smartfluxBar_, SIGNAL(showSmartfluxBarRequest(bool)),
@@ -1334,46 +1333,45 @@ void BasicSettingsPage::datapathBrowse_clicked()
         searchPath = configState_->window.last_data_path;
     }
 
-    QString dir = QFileDialog::getExistingDirectory(this,
+    QString dir = QFileDialog::getExistingDirectory(
+                    this,
                     tr("Select the Raw Data Directory"),
-                    searchPath
-                    );
+                    searchPath);
 
     QDir dataDir(dir);
     qDebug() << "(dir)" << dir;
 
-    // do nothing if empty or equal to existing
-    if (!dir.isEmpty() && QDir::fromNativeSeparators(dir) != ecProject_->screenDataPath())
+    if (dir.isEmpty()) { return; }
+
+    // do nothing if dir is equal to the existing now
+    if (QDir::fromNativeSeparators(dir) == ecProject_->screenDataPath()) { return; }
+
+    if (handleVariableReset() == QMessageBox::Cancel) { return; }
+
+    FileUtils::cleanSmfDirRecursively(configState_->general.env);
+
+    QString canonicalDataDir = dataDir.canonicalPath();
+    QString cleanDir = QDir::toNativeSeparators(canonicalDataDir);
+    qDebug() << "(canonicalDataDir)" << canonicalDataDir;
+    qDebug() << "(cleanDir)" << cleanDir;
+
+    datapathEdit->setText(cleanDir);
+
+    configState_->window.last_data_path = canonicalDataDir;
+    GlobalSettings::updateLastDatapath(canonicalDataDir);
+
+    updateMetadataRead(true);
+
+    if (ecProject_->generalFileType() == Defs::RawFileType::GHG) { return; }
+
+    if (ecProject_->generalFilePrototype().isEmpty())
     {
-        if (clearDataSelection_2() != QMessageBox::Cancel)
-        {
-            FileUtils::cleanSmfDir(configState_->general.env);
-
-            QString canonicalDataDir = dataDir.canonicalPath();
-            QString cleanDir = QDir::toNativeSeparators(canonicalDataDir);
-            qDebug() << "(canonicalDataDir)" << canonicalDataDir;
-            qDebug() << "(cleanDir)" << cleanDir;
-
-            datapathEdit->setText(cleanDir);
-
-            configState_->window.last_data_path = canonicalDataDir;
-            Alia::updateLastDatapath(canonicalDataDir);
-
-            updateMetadataRead(true);
-
-            if (ecProject_->generalFileType() != Defs::RawFileTypeGHG)
-            {
-                if (ecProject_->generalFilePrototype().isEmpty())
-                {
-                    askRawFilenameFormat();
-                }
-                if (!ecProject_->generalFilePrototype().isEmpty())
-                {
-                    qDebug() << "datapathBrowse_clicked";
-                    updateFilesFound(ecProject_->screenRecurse());
-                }
-            }
-        }
+        askRawFilenameFormat();
+    }
+    else
+    {
+        qDebug() << "datapathBrowse_clicked";
+        updateFilesFound(ecProject_->screenRecurse());
     }
 }
 
@@ -1393,15 +1391,14 @@ void BasicSettingsPage::previousDatapathBrowse_clicked()
                     searchPath
                     );
 
-    if (!dir.isEmpty())
-    {
-        QDir dataDir(dir);
-        QString canonicalDataDir = dataDir.canonicalPath();
-        previousDatapathEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+    if (dir.isEmpty()) { return; }
 
-        configState_->window.last_data_path = canonicalDataDir;
-        Alia::updateLastDatapath(canonicalDataDir);
-    }
+    QDir dataDir(dir);
+    QString canonicalDataDir = dataDir.canonicalPath();
+    previousDatapathEdit->setText(QDir::toNativeSeparators(canonicalDataDir));
+
+    configState_->window.last_data_path = canonicalDataDir;
+    GlobalSettings::updateLastDatapath(canonicalDataDir);
 }
 
 // search and open at least one zip file, extract and read the metadata files
@@ -1491,10 +1488,10 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
         {
             if (this->isVisible())
             {
-                QMessageBox::warning(QApplication::activeWindow(),
+                WidgetUtils::warning(QApplication::activeWindow(),
                                      tr("Raw Data Missing"),
-                                     tr("The selected directory doesn't contain any valid LI-COR GHG data!"),
-                                     QMessageBox::Ok);
+                                     tr("The selected directory doesn't "
+                                        "contain any valid LI-COR GHG data."));
                 filesFoundClear();
                 return;
             }
@@ -1530,6 +1527,12 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
                             mdFile = smfDir + QStringLiteral("/") + str;
                             qDebug() << "mdFile" << mdFile;
 
+                            // skip reading in case of identical metadata file
+//                          if (!dlProject_->matchProjectFile(mdFile))
+//                          {
+//                              readEmbeddedMetadata(mdFile);
+//                          }
+
                             readEmbeddedMetadata(mdFile);
                         }
                     }
@@ -1549,10 +1552,11 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
             // prevent the message in case of smartflux cfg
             if (this->isVisible() && !configState_->project.smartfluxMode)
             {
-                QMessageBox::warning(QApplication::activeWindow(),
+                WidgetUtils::warning(QApplication::activeWindow(),
                                      tr("Biomet Data Missing"),
-                                     tr("The selected directory doesn't contain any valid LI-COR GHG biomet data!"),
-                                     QMessageBox::Ok);
+                                     tr("The selected directory doesn't "
+                                        "contain any valid LI-COR GHG "
+                                        "biomet data."));
                 // NOTE: to avoid because unexpected
                 // filesFoundClear();
                 return;
@@ -1612,11 +1616,10 @@ void BasicSettingsPage::readEmbeddedMetadata(const QString& mdFile)
     }
     else
     {
-        QMessageBox::warning(QApplication::activeWindow(),
+        WidgetUtils::warning(QApplication::activeWindow(),
                              tr("Metadata Error"),
                              tr("Error reading raw data "
-                                "metadata information!"),
-                             QMessageBox::Ok);
+                                "metadata information!"));
         emit updateMetadataReadResult(false);
     }
 }
@@ -1632,11 +1635,10 @@ void BasicSettingsPage::readAlternativeMetadata(const QString& mdFile, bool firs
     }
     else
     {
-        QMessageBox::warning(QApplication::activeWindow(),
+        WidgetUtils::warning(QApplication::activeWindow(),
                              tr("Metadata Error"),
                              tr("Error reading raw data "
-                                "metadata information!"),
-                             QMessageBox::Ok);
+                                "metadata information!"));
         emit updateMetadataReadResult(false);
     }
 }
@@ -1659,11 +1661,10 @@ void BasicSettingsPage::readBiomEmbMetadata(const QString& mdFile)
     }
     else
     {
-        QMessageBox::warning(QApplication::activeWindow(),
+        WidgetUtils::warning(QApplication::activeWindow(),
                              tr("Metadata Error"),
                              tr("Error reading biomet "
-                                "metadata information!"),
-                             QMessageBox::Ok);
+                                "metadata information!"));
         emit updateMetadataReadResult(false);
     }
 }
@@ -1690,22 +1691,20 @@ bool BasicSettingsPage::readBiomAltMetadata(const QString& mdFile)
         else
         {
             // NOTE: notice to put somewhere else or to silently ignore
-//            QMessageBox::warning(QApplication::activeWindow(),
+//            WidgetUtils::warning(QApplication::activeWindow(),
 //                                 tr("Metadata Error"),
 //                                 tr("No biomet "
-//                                    "information!"),
-//                                 QMessageBox::Ok);
+//                                    "information!"));
 //            emit updateMetadataReadResult(false);
             return false;
         }
     }
     else
     {
-        QMessageBox::warning(QApplication::activeWindow(),
+        WidgetUtils::warning(QApplication::activeWindow(),
                              tr("Metadata Error"),
                              tr("Error reading biomet "
-                                "information!"),
-                             QMessageBox::Ok);
+                                "information!"));
         return false;
     }
 }
@@ -1799,19 +1798,24 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
         }
     }
 
-    // pick the anemometer:
-    // if the last master sonic is still available, just pick it
-    // else, pick the first and change it accordingly
-    if (anemList.contains(ecProject_->generalColMasterSonic()))
+    qDebug() << "foreach 1";
+
+    if (!anemList.isEmpty())
     {
-        anemRefCombo->setCurrentIndex(anemList.indexOf(ecProject_->generalColMasterSonic()));
+        // pick the anemometer:
+        // if the last master sonic is still available, just pick it
+        // else, pick the first and change it accordingly
+        if (anemList.contains(ecProject_->generalColMasterSonic()))
+        {
+            anemRefCombo->setCurrentIndex(anemList.indexOf(ecProject_->generalColMasterSonic()));
+        }
+        else
+        {
+            anemRefCombo->setCurrentIndex(0);
+            ecProject_->setGeneralColMasterSonic(anemList.first());
+        }
+        handleCrossWindAndAngleOfAttackUpdate(anemRefCombo->currentText());
     }
-    else
-    {
-        anemRefCombo->setCurrentIndex(0);
-        ecProject_->setGeneralColMasterSonic(anemList.first());
-    }
-    handleCrossWindAndAngleOfAttackUpdate(anemRefCombo->currentText());
 
     // parse described variables
     k = 0;
@@ -2067,7 +2071,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                 }
                 // fast temp
                 else if (varName == VariableDesc::getVARIABLE_VAR_STRING_28()
-                    && VariableDesc::isGoodTemperature(var, VariableDesc::FAST))
+                    && VariableDesc::isGoodTemperature(var, VariableDesc::AnalogType::FAST))
                 {
                     qDebug() << "INSERT varName" << varName;
                     tsRefLabel->setEnabled(true);
@@ -2176,6 +2180,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
         } // if (ignore == no && numeric == yes)
     } // foreach
 
+    qDebug() << "foreach 2";
+
     addNoneStr_1();
     filterVariables();
     emit updateMetadataReadResult(true);
@@ -2244,7 +2250,8 @@ void BasicSettingsPage::parseBiomMetadata()
     emit updateMetadataReadResult(true);
 }
 
-//Add 'None' item to variables combobox
+/// \fn void BasicSettingsPage::addNoneToVariables()
+/// \brief Add 'None' item to variables combobox
 void BasicSettingsPage::addNoneStr_1()
 {
     DEBUG_FUNC_NAME
@@ -2497,8 +2504,9 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
     }
 }
 
-// Show only molar density gas variables if 7500, 7500A, 7700
-// For 7200 order will be: molar density, mixing ratio, mole fraction
+/// \fn void BasicSettingsPage::filterVariables()
+/// \brief Show only molar density gas variables if 7500, 7500A, 7700
+/// For 7200 order will be: molar density, mixing ratio, mole fraction
 void BasicSettingsPage::filterVariables()
 {
     DEBUG_FUNC_NAME
@@ -2508,6 +2516,7 @@ void BasicSettingsPage::filterVariables()
     const QString li7500Str = QStringLiteral("LI-7500");
     const QString li7500AStr = QStringLiteral("LI-7500A");
     const QString li7700Str = QStringLiteral("LI-7700");
+//    const QString densityStr = QStringLiteral("density");
     const QString fractionStr = QStringLiteral("fraction");
     const QString ratioStr = QStringLiteral("ratio");
     const QString noneStr = tr("None");
@@ -2796,15 +2805,14 @@ void BasicSettingsPage::outpathBrowse_clicked()
                     searchPath
                     // , QFileDialog::DontUseNativeDialog
                     );
-    if (!dir.isEmpty())
-    {
-        QDir outDir(dir);
-        QString canonicalOutDir = outDir.canonicalPath();
-        outpathEdit->setText(QDir::toNativeSeparators(canonicalOutDir));
+    if (dir.isEmpty()) { return; }
 
-        configState_->window.last_data_path = canonicalOutDir;
-        Alia::updateLastDatapath(canonicalOutDir);
-    }
+    QDir outDir(dir);
+    QString canonicalOutDir = outDir.canonicalPath();
+    outpathEdit->setText(QDir::toNativeSeparators(canonicalOutDir));
+
+    configState_->window.last_data_path = canonicalOutDir;
+    GlobalSettings::updateLastDatapath(canonicalOutDir);
 }
 
 void BasicSettingsPage::updateDataPath(const QString& dp)
@@ -2812,14 +2820,14 @@ void BasicSettingsPage::updateDataPath(const QString& dp)
     DEBUG_FUNC_NAME
     ecProject_->setScreenDataPath(QDir::cleanPath(dp));
     datapathEdit->setButtonVisible(!datapathEdit->text().isEmpty());
-    Alia::updateLineEditToolip(datapathEdit);
+    WidgetUtils::updateLineEditToolip(datapathEdit);
 }
 
 void BasicSettingsPage::updateOutPath(const QString& dp)
 {
     DEBUG_FUNC_NAME
     ecProject_->setGeneralOutPath(QDir::cleanPath(dp));
-    Alia::updateLineEditToolip(outpathEdit);
+    WidgetUtils::updateLineEditToolip(outpathEdit);
 }
 
 void BasicSettingsPage::updatePreviousDataPath(const QString& dp)
@@ -2827,7 +2835,7 @@ void BasicSettingsPage::updatePreviousDataPath(const QString& dp)
     DEBUG_FUNC_NAME
     ecProject_->setSpectraExDir(QDir::cleanPath(dp));
     previousDatapathEdit->setButtonVisible(!previousDatapathEdit->text().isEmpty());
-    Alia::updateLineEditToolip(previousDatapathEdit);
+    WidgetUtils::updateLineEditToolip(previousDatapathEdit);
 }
 
 void BasicSettingsPage::updateNFiles(int n)
@@ -2980,7 +2988,7 @@ void BasicSettingsPage::refresh()
         filesFoundClear();
         updateDataPath(QString());
     }
-    Alia::updateLineEditToolip(datapathEdit);
+    WidgetUtils::updateLineEditToolip(datapathEdit);
 
     if (fileFormatEdit->text() != ecProject_->generalFilePrototype())
         fileFormatEdit->setText(ecProject_->generalFilePrototype());
@@ -2997,7 +3005,7 @@ void BasicSettingsPage::refresh()
         outpathEdit->clear();
         updateOutPath(QString());
     }
-    Alia::updateLineEditToolip(outpathEdit);
+    WidgetUtils::updateLineEditToolip(outpathEdit);
 
     if (idEdit->text() != ecProject_->generalId())
         idEdit->setText(ecProject_->generalId());
@@ -3011,7 +3019,7 @@ void BasicSettingsPage::refresh()
         previousDatapathEdit->clear();
         updatePreviousDataPath(QString());
     }
-    Alia::updateLineEditToolip(previousDatapathEdit);
+    WidgetUtils::updateLineEditToolip(previousDatapathEdit);
 
     maxLackSpin->setValue(ecProject_->screenMaxLack());
     avgIntervalSpin->setValue(ecProject_->screenAvrgLen());
@@ -3103,10 +3111,14 @@ void BasicSettingsPage::refresh()
     flag10PolicyCombo->setCurrentIndex(ecProject_->screenFlag10Upper());
 
     qDebug() << "ep value screenFlag1Threshold" << ecProject_->screenFlag1Threshold();
+//    qDebug() << "actual value screenFlag1Threshold" << flag1ThresholdSpin->value();
     qDebug() << "ep value Flag1Upper" << ecProject_->screenFlag1Upper();
+//    qDebug() << "actual value Flag1Upper" << flag1PolicyCombo->currentIndex();
 
     qDebug() << "ep value screenFlag2Threshold" << ecProject_->screenFlag2Threshold();
+//    qDebug() << "actual value screenFlag2Threshold" << flag2ThresholdSpin->value();
     qDebug() << "ep value Flag2Upper" << ecProject_->screenFlag2Upper();
+//    qDebug() << "actual value Flag2Upper" << flag2PolicyCombo->currentIndex();
 
     moreButton->setChecked(false);
     updateFourthGasSettings(fourthGasRefCombo->currentText());
@@ -3124,35 +3136,35 @@ void BasicSettingsPage::onStartDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     startDateEdit->setFocus();
-    Alia::showCalendarOf(startDateEdit);
+    WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void BasicSettingsPage::onEndDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     endDateEdit->setFocus();
-    Alia::showCalendarOf(endDateEdit);
+    WidgetUtils::showCalendarOf(endDateEdit);
 }
 
-void BasicSettingsPage::updateStartDate(const QDate &d)
+void BasicSettingsPage::updateStartDate(const QDate& d)
 {
     DEBUG_FUNC_NAME
     ecProject_->setGeneralStartDate(d.toString(Qt::ISODate));
     forceEndDatePolicy();
 }
 
-void BasicSettingsPage::updateStartTime(const QTime &t)
+void BasicSettingsPage::updateStartTime(const QTime& t)
 {
     ecProject_->setGeneralStartTime(t.toString(QStringLiteral("hh:mm")));
     forceEndTimePolicy();
 }
 
-void BasicSettingsPage::updateEndDate(const QDate &d)
+void BasicSettingsPage::updateEndDate(const QDate& d)
 {
     ecProject_->setGeneralEndDate(d.toString(Qt::ISODate));
 }
 
-void BasicSettingsPage::updateEndTime(const QTime &t)
+void BasicSettingsPage::updateEndTime(const QTime& t)
 {
     ecProject_->setGeneralEndTime(t.toString(QStringLiteral("hh:mm")));
 }
@@ -3415,6 +3427,8 @@ void BasicSettingsPage::updateTsRefCombo(int i)
 
 void BasicSettingsPage::updateFlagUnit(int i)
 {
+//    DEBUG_FUNC_NAME
+
     QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
 
     QString comboName = senderCombo->objectName();
@@ -3710,34 +3724,34 @@ void BasicSettingsPage::createQuestionMark()
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
 
-    connect(questionMark_2, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_2()));
-    connect(questionMark_3, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_3()));
-    connect(questionMark_4, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_4()));
-    connect(questionMark_5, SIGNAL(clicked()),
-            this, SLOT(onlineHelpTrigger_5()));
+    connect(questionMark_2, &QPushButton::clicked,
+            this, &BasicSettingsPage::onlineHelpTrigger_2);
+    connect(questionMark_3, &QPushButton::clicked,
+            this, &BasicSettingsPage::onlineHelpTrigger_3);
+    connect(questionMark_4, &QPushButton::clicked,
+            this, &BasicSettingsPage::onlineHelpTrigger_4);
+    connect(questionMark_5, &QPushButton::clicked,
+            this, &BasicSettingsPage::onlineHelpTrigger_5);
 }
 
 void BasicSettingsPage::onlineHelpTrigger_2()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Using_Prev_Results.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Using_Prev_Results.htm")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_3()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Flags.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Flags.htm")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_4()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Raw_File_Name_Format.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Raw_File_Name_Format.htm")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_5()
 {
-    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Declination.htm")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Declination.htm")));
 }
 
 void BasicSettingsPage::updateCrossWind(bool b)
@@ -3780,7 +3794,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
     else
     {
         if (!datapathEdit->text().isEmpty()
-            && ecProject_->generalFileType() == Defs::RawFileTypeGHG)
+            && ecProject_->generalFileType() == Defs::RawFileType::GHG)
         {
             // re-capture metadata if dataDir exists, otherwise discard silently
             QDir dataDir(datapathEdit->text());
@@ -3806,7 +3820,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
             break;
         case 1:
             if (!datapathEdit->text().isEmpty()
-                && ecProject_->generalFileType() == Defs::RawFileTypeGHG)
+                && ecProject_->generalFileType() == Defs::RawFileType::GHG)
             {
                 // re-capture metadata if dataDir exists, otherwise discard silently
                 QDir dataDir(datapathEdit->text());
@@ -3876,7 +3890,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     qDebug() << "currDataStr" << currDataStr;
     int currItemIndex = anemRefCombo->findData(currDataStr);
     qDebug() << "currItemIndex" << currItemIndex;
-    QString selectedDataStr = Alia::currentItemData(anemRefCombo).toString();
+    QString selectedDataStr = WidgetUtils::currentComboItemData(anemRefCombo).toString();
     qDebug() << "selectedDataStr" << selectedDataStr;
     int selectedItemIndex = anemRefCombo->findData(selectedDataStr);
     qDebug() << "selectedItemIndex" << selectedItemIndex;
@@ -3908,10 +3922,10 @@ void BasicSettingsPage::reloadSelectedItems_1()
     {
         // preselect something better
         preselect7700Variables(tsRefCombo);
-        ecProject_->setGeneralColTs(Alia::currentItemData(tsRefCombo).toInt());
+        ecProject_->setGeneralColTs(WidgetUtils::currentComboItemData(tsRefCombo).toInt());
     }
     qDebug() << "tsRefCombo" << ecProject_->generalColTs() << currItemIndex;
-
+//
     int noneIndex = co2RefCombo->findData(0);
     currData = ecProject_->generalColCo2();
     currItemIndex = co2RefCombo->findData(currData);
@@ -3929,7 +3943,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     {
         // preselect something better
         preselectDensityVariables(co2RefCombo);
-        ecProject_->setGeneralColCo2(Alia::currentItemData(co2RefCombo).toInt());
+        ecProject_->setGeneralColCo2(WidgetUtils::currentComboItemData(co2RefCombo).toInt());
     }
 //
     qDebug() << "h2o";
@@ -3946,7 +3960,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     else
     {
         preselectDensityVariables(h2oRefCombo);
-        ecProject_->setGeneralColH2o(Alia::currentItemData(h2oRefCombo).toInt());
+        ecProject_->setGeneralColH2o(WidgetUtils::currentComboItemData(h2oRefCombo).toInt());
     }
 //
     currData = ecProject_->generalColCh4();
@@ -3959,7 +3973,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     else
     {
         preselectDensityVariables(ch4RefCombo);
-        ecProject_->setGeneralColCh4(Alia::currentItemData(ch4RefCombo).toInt());
+        ecProject_->setGeneralColCh4(WidgetUtils::currentComboItemData(ch4RefCombo).toInt());
     }
 //
     currData = ecProject_->generalColGas4();
@@ -3972,7 +3986,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     else
     {
         preselectDensityVariables(fourthGasRefCombo);
-        ecProject_->setGeneralColGas4(Alia::currentItemData(fourthGasRefCombo).toInt());
+        ecProject_->setGeneralColGas4(WidgetUtils::currentComboItemData(fourthGasRefCombo).toInt());
     }
 
     gasMw->setValue(ecProject_->generalGasMw());
@@ -4414,11 +4428,6 @@ void BasicSettingsPage::onIdLabelClicked()
     idEdit->selectAll();
 }
 
-void BasicSettingsPage::updateId(const QString& id)
-{
-    ecProject_->setGeneralId(id);
-}
-
 void BasicSettingsPage::updateFlag1Threshold(double n)
 {
     ecProject_->setScreenFlag1Threshold(n);
@@ -4586,6 +4595,14 @@ bool BasicSettingsPage::eventFilter(QObject* watched, QEvent* event)
         }
     }
 
+    // NOTE: for testing only
+//    if (watched == startDateEdit)
+//    {
+//        QMouseEvent *e = static_cast<QMouseEvent *>(event);
+//        qDebug() << "event type:" << event->type();
+//        qDebug() << "globalPos" << e->globalPos() << "pos" << e->pos();
+//    }
+
     return QObject::eventFilter(watched, event);
 }
 
@@ -4705,7 +4722,7 @@ void BasicSettingsPage::updateFilePrototype_2(const QString& f)
 void BasicSettingsPage::updateRawFilenameFormat()
 {
     // non licor file type
-    if (ecProject_->generalFileType() != Defs::RawFileTypeGHG)
+    if (ecProject_->generalFileType() != Defs::RawFileType::GHG)
     {
         fileFormatLabel->setEnabled(true);
         fileFormatEdit->setEnabled(true);
@@ -4729,8 +4746,8 @@ void BasicSettingsPage::askRawFilenameFormat()
         qDebug() << "create dialog";
         rawFilenameDialog = new RawFilenameDialog(this, ecProject_);
 
-        connect(rawFilenameDialog, SIGNAL(updateFileFormatRequest(QString)),
-                this, SLOT(updateFilePrototype_2(QString)));
+        connect(rawFilenameDialog, &RawFilenameDialog::updateFileFormatRequest,
+                this, &BasicSettingsPage::updateFilePrototype_2);
     }
 
     rawFilenameDialog->refresh();
@@ -4756,7 +4773,18 @@ void BasicSettingsPage::fetchMagneticDeclination()
                           QStringLiteral("application/x-www-form-urlencoded; charset=utf-8"));
 
     double decLat = dlProject_->siteLatitude();
+//    QString minLatStr = QString::number(qAbs(decLat), 'd', 6);
+//    QString minLatHemisphere = QStringLiteral("N");
+//    if (decLat < 0)
+//        minLatHemisphere = QStringLiteral("S");
     double decLon = dlProject_->siteLongitude();
+//    QString minLonStr = QString::number(qAbs(decLon), 'd', 6);
+//    QString minLonHemisphere = QStringLiteral("E");
+//    if (decLon < 0)
+//        minLonHemisphere = QStringLiteral("W");
+
+//    qDebug() << decLat << minLatStr << minLatHemisphere;
+//    qDebug() << decLon << minLonStr << minLonHemisphere;
 
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     QUrl postData;
@@ -4779,29 +4807,30 @@ void BasicSettingsPage::fetchMagneticDeclination()
     httpReply_ = httpManager_->post(postRequest, q.query(QUrl::FullyEncoded).toUtf8());
 #endif
 
-    connect(httpManager_, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyFinished(QNetworkReply*)));
+    connect(httpManager_, &QNetworkAccessManager::finished,
+            this, &BasicSettingsPage::replyFinished);
 
-    connect(httpReply_, SIGNAL(readyRead()),
-            this, SLOT(bufferHttpReply()));
+    connect(httpReply_, &QNetworkReply::readyRead,
+            this, &BasicSettingsPage::bufferHttpReply);
 }
 
 void BasicSettingsPage::replyFinished(QNetworkReply* reply)
 {
     DEBUG_FUNC_NAME
 
-    qDebug() << reply->error();
-    if (reply->error())
-    {
-        // handle the error
-        qDebug() << reply->error();
-        qDebug() << reply->errorString();
-        // show only if not aborted by the user
-        if (reply->error() != 5)
-            Alia::noConnectionMsg();
-        progressWidget_3->stopAnimation();
-    }
+    // if no error
     progressWidget_3->stopAnimation();
+    if (!reply->error()) { return; }
+
+    // handle the error
+    qDebug() << reply->error();
+    qDebug() << reply->errorString();
+
+    // show only if not aborted by the user
+    if (reply->error() != QNetworkReply::OperationCanceledError)
+    {
+        noNoaaConnectionMsg();
+    }
 }
 
 void BasicSettingsPage::bufferHttpReply()
@@ -4830,8 +4859,8 @@ void BasicSettingsPage::bufferHttpReply()
                 }
                 else
                 {
-                    // manage server errors
-                    Alia::noNoaaDownloadMsg();
+                    // manage NOAA server errors
+                    noNoaaDownloadMsg();
                     progressWidget_3->stopAnimation();
                     return;
                 }
@@ -4952,7 +4981,8 @@ double BasicSettingsPage::numDeclination(const QString &text)
             // second case: pattern from cap(4) to cap(6)
             dec = decRx.cap(4).toDouble(&ok);
             dec += decRx.cap(5).toDouble(&ok) / 60.0;
-        } else
+        }
+        else
         {
             // third case: pattern from cap(7) to cap(9)
             dec = 180.0;
@@ -4977,11 +5007,16 @@ QString BasicSettingsPage::strDeclination(double dec)
 {
     QString dms = QString();
 
-    int degrees = int(dec);
+    double degrees;
+    modf(dec, &degrees);
 
     double rest = dec - degrees;
-    double minf = rest * 60;
-    int minutes = int(minf);
+    double min_rest = rest * 60.0;
+
+    double min_d;
+    modf(min_rest, &min_d);
+
+    int minutes = static_cast<int>(min_d);
 
     QString degrees_str;
     QTextStream d(&degrees_str);
@@ -5013,11 +5048,16 @@ QString BasicSettingsPage::strVariation(double dec)
 {
     QString dms = QString();
 
-    int degrees = int(dec);
+    double degrees;
+    modf(dec, &degrees);
 
     double rest = dec - degrees;
-    double minf = rest * 60;
-    int minutes = int(minf);
+    double min_rest = rest * 60.0;
+
+    double min_d;
+    modf(min_rest, &min_d);
+
+    int minutes = static_cast<int>(min_d);
 
     QString degrees_str;
     QTextStream d(&degrees_str);
@@ -5047,7 +5087,7 @@ void BasicSettingsPage::onDeclinationDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     declinationDateEdit->setFocus();
-    Alia::showCalendarOf(declinationDateEdit);
+    WidgetUtils::showCalendarOf(declinationDateEdit);
 }
 
 void BasicSettingsPage::updateDeclinationDate(const QDate &d)
@@ -5081,8 +5121,9 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
         QString ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;
 
         progressWidget_1->startAnimation();
+//        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-        if (ecProject_->generalFileType() == Defs::RawFileTypeGHG)
+        if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
         {
             currentRawDataList_ = FileUtils::getFiles(datapathEdit->text(), ghgFormat, recursionToggled);
         }
@@ -5094,23 +5135,35 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
         }
 
         progressWidget_1->stopAnimation();
+//        QApplication::restoreOverrideCursor();
 
         updateFilesFoundLabel(currentRawDataList_.count());
+
+        // TODO: to finish
+//        if (ecProject_->generalFileType() != Defs::RawFileTypeGHG
+//            && fileList.count() == 0
+//            && !previousFilesFound.isEmpty())
+//        {
+//            WidgetUtils::warning(QApplication::activeWindow(),
+//                                 tr("Raw Data Missing"),
+//                                 tr("The selected directory doesn't "
+//                                    "contain data of the selected "
+//                                    "raw file format!"));
+//        }
     }
 }
 
 void BasicSettingsPage::clearDataSelection_1()
 {
-    if (clearDataSelection_3() != QMessageBox::Cancel)
-    {
-        datapathEdit->clear();
-        updateFilesFoundLabel(0);
-        Alia::updateLineEditToolip(datapathEdit);
-        subsetCheckBox->setChecked(false);
-    }
+    if (acceptVariableReset() == QMessageBox::Cancel) { return; }
+
+    datapathEdit->clear();
+    updateFilesFoundLabel(0);
+    WidgetUtils::updateLineEditToolip(datapathEdit);
+    subsetCheckBox->setChecked(false);
 }
 
-int BasicSettingsPage::clearDataSelection_2()
+int BasicSettingsPage::handleVariableReset()
 {
     DEBUG_FUNC_NAME
 
@@ -5124,59 +5177,51 @@ int BasicSettingsPage::clearDataSelection_2()
         && ecProject_->generalColCo2() != -1)
     {
         qDebug() << "not new project";
-        return clearDataSelection_3();
+        return acceptVariableReset();
     }
     return QMessageBox::Yes;
 }
 
-int BasicSettingsPage::clearDataSelection_3()
+int BasicSettingsPage::acceptVariableReset()
 {
     DEBUG_FUNC_NAME
 
     int res = QMessageBox::Ok;
 
-    if (!ecProject_->generalUseAltMdFile())
+    if (ecProject_->generalUseAltMdFile()) return res;
+
+    bool showDialog = GlobalSettings::getAppPersistentSettings(
+                            Defs::CONFGROUP_WINDOW,
+                            Defs::CONF_WIN_BASIC_SETTINGS_CLEARING_MSG,
+                            true).toBool();
+
+    if (showDialog)
     {
-        bool showDialog = false;
+        qDebug() << "create dialog";
+        InfoMessage runDialog(QDialogButtonBox::Ok
+                              | QDialogButtonBox::Cancel, this);
+        runDialog.setTitle(tr("Variable and Flag Reset"));
+        runDialog.setIcon(QPixmap(QStringLiteral(":/icons/msg-question")));
+        runDialog.setType(InfoMessage::Type::SELECTION_CLEANING);
+        runDialog.setDoNotShowAgainVisible(true);
+        runDialog.setMessage(tr("When changing the raw data directory, "
+                                "all current 'Variables' will be replaced "
+                                "by new 'Variables' from the new metadata "
+                                "inside the GHG files. "
+                                "In addition all 'Flags' variables and their "
+                                "settings under 'Select Items for Flux "
+                                "Computation' will be reset to defaults. "
+                                "\n\n"));
+        runDialog.refresh();
 
-        QSettings config;
-        config.beginGroup(Defs::CONFGROUP_WINDOW);
-            showDialog = config.value(Defs::CONF_WIN_BASIC_SETTINGS_CLEARING_MSG, true).toBool();
-        config.endGroup();
+        res = runDialog.exec();
+        qDebug() << "button res" << res;
+    }
 
-        if (showDialog)
-        {
-            qDebug() << "create dialog";
-            InfoMessage runDialog(QDialogButtonBox::Ok
-                                  | QDialogButtonBox::Cancel, this);
-            runDialog.setTitle(tr("Variable and Flag Reset"));
-            runDialog.setType(InfoMessage::SELECTION_CLEANING);
-            runDialog.setDoNotShowAgainVisible(true);
-            runDialog.setMessage(tr("When changing the raw data directory, "
-                                    "all current 'Variables' will be replaced "
-                                    "by new 'Variables' from the new metadata "
-                                    "inside the GHG files. "
-                                    "In addition all 'Flags' variables and their "
-                                    "settings under 'Select Items for Flux "
-                                    "Computation' will be reset to defaults. "
-                                    "\n\n"));
-            runDialog.refresh();
-
-            res = runDialog.exec();
-            qDebug() << "button res" << res;
-        }
-        else
-        {
-            res = QMessageBox::Ok;
-        }
-
-        if (res == QMessageBox::Ok)
-        {
-            clearSelectedItems();
-            FileUtils::cleanSmfDir(configState_->general.env);
-        }
-        return res;
-
+    if (res == QMessageBox::Ok)
+    {
+        clearSelectedItems();
+        FileUtils::cleanSmfDirRecursively(configState_->general.env);
     }
     return res;
 }
@@ -5262,7 +5307,7 @@ void BasicSettingsPage::dateRangeDetect()
 void BasicSettingsPage::clearPreviousDatapathEdit()
 {
     previousDatapathEdit->clear();
-    Alia::updateLineEditToolip(previousDatapathEdit);
+    WidgetUtils::updateLineEditToolip(previousDatapathEdit);
 }
 
 void BasicSettingsPage::updateSmartfluxBar()
@@ -5296,7 +5341,7 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
     {
         if (on)
         {
-            oldEnabled << w->isEnabled();
+            oldEnabled.push_back(w->isEnabled());
             w->setDisabled(on);
         }
         else
@@ -5318,4 +5363,31 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
 
         avgIntervalSpin->setValue(30);
     }
+}
+
+void BasicSettingsPage::noNoaaConnectionMsg()
+{
+    WidgetUtils::warning(nullptr,
+                         tr("NOAA Connection Problem"),
+                         tr("<p>No connection available or connection "
+                            "error updating the magnetic declination.</p>"));
+}
+
+void BasicSettingsPage::noNoaaDownloadMsg()
+{
+    bool showDialog
+        = GlobalSettings::getAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                                   Defs::CONF_WIN_NOAA_WEBSITE_MSG,
+                                                   true).toBool();
+    if (!showDialog) { return; }
+
+    // info message
+    InfoMessage noaaDialog(QDialogButtonBox::Ok, nullptr);
+    noaaDialog.setTitle(tr("NOAA Download Problem"));
+    noaaDialog.setType(InfoMessage::Type::NOAA_WEBSITE);
+    noaaDialog.setMessage(tr("<p>Server not responding or service not "
+                             "available updating the magnetic "
+                             "declination.</p>"));
+    noaaDialog.refresh();
+    noaaDialog.exec();
 }

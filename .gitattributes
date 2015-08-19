@@ -1,0 +1,47 @@
+# set the default behavior, in case you don't have core.autocrlf set
+* text=auto
+
+# explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout
+*.cpp text
+*.h text
+
+*.pro text
+*.qrc text
+*.qss text
+*.ts text
+
+*.md text
+*.txt text
+
+# declare files that will always have specific line endings on checkout
+*.plist eol=lf
+*.sh eol=lf
+
+*.bat eol=crlf
+*.manifest eol=crlf
+*.rc text eol=crlf
+
+# denote all files that are truly binary and should not be modified
+*.exe binary
+
+*.gz binary
+*.zip binary
+
+*.bmp binary
+*.ico binary
+*.jpg binary
+*.png binary
+*.ttf binary
+
+*.qm binary
+
+*.pdf binary
+
+# ignore git specific files when creating archives
+.git*  export-ignore
+
+# diff png using exiftool
+# (see http://git-scm.com/book/en/Customizing-Git-Git-Attributes)
+*.png diff=exif
+

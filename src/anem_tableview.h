@@ -32,7 +32,7 @@ class AnemTableView : public QTableView
 {
     Q_OBJECT
 public:
-    explicit AnemTableView(QWidget *parent = 0);
+    explicit AnemTableView(QWidget* parent = nullptr);
     ~AnemTableView();
 
 signals:

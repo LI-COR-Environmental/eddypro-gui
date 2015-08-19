@@ -42,12 +42,12 @@ DynamicSettingsDialog::DynamicSettingsDialog(QWidget* parent, EcProject *ecProje
     winFflags &= ~Qt::WindowContextHelpButtonHint;
     setWindowFlags(winFflags);
 
-    QLabel *groupTitle = new QLabel();
+    QLabel *groupTitle = new QLabel;
     groupTitle->setText(tr("Enter settings for dynamic metadata and meteo data files."));
 
-    timelineFileCheckBox = new QCheckBox();
+    timelineFileCheckBox = new QCheckBox;
     timelineFileCheckBox->setText(tr("Use dynamic metadata file  :"));
-    timelineFileEdit = new QLineEdit();
+    timelineFileEdit = new QLineEdit;
     timelineFileEdit->setReadOnly(true);
     timelineFileEdit->setEnabled(false);
     timelineFileEdit->setProperty("asLabel", true);
@@ -56,9 +56,9 @@ DynamicSettingsDialog::DynamicSettingsDialog(QWidget* parent, EcProject *ecProje
     timelineFileLoad->setEnabled(false);
     timelineFileLoad->setMaximumWidth(timelineFileLoad->sizeHint().width());
 
-    meteoFileCheckBox = new QCheckBox();
+    meteoFileCheckBox = new QCheckBox;
     meteoFileCheckBox->setText(tr("Use high quality meteo file  :"));
-    meteoFileEdit = new QLineEdit();
+    meteoFileEdit = new QLineEdit;
     meteoFileEdit->setReadOnly(true);
     meteoFileEdit->setEnabled(false);
     meteoFileEdit->setProperty("asLabel", true);
@@ -67,7 +67,7 @@ DynamicSettingsDialog::DynamicSettingsDialog(QWidget* parent, EcProject *ecProje
     meteoFileLoad->setEnabled(false);
     meteoFileLoad->setMaximumWidth(meteoFileLoad->sizeHint().width());
 
-    QGridLayout *dynPropertiesLayout = new QGridLayout();
+    QGridLayout *dynPropertiesLayout = new QGridLayout;
     dynPropertiesLayout->addWidget(timelineFileCheckBox, 0, 0, 1, 1);
     dynPropertiesLayout->addWidget(timelineFileEdit, 0, 1, 1, 2);
     dynPropertiesLayout->addWidget(timelineFileLoad, 0, 3, 1, 1);
@@ -79,7 +79,9 @@ DynamicSettingsDialog::DynamicSettingsDialog(QWidget* parent, EcProject *ecProje
     dynPropertiesLayout->setRowMinimumHeight(1, 20);
     dynPropertiesLayout->setColumnMinimumWidth(1, 250);
 
-    QFrame *dynPropertiesFrame = new QFrame();
+    QFrame *dynPropertiesFrame = new QFrame;
+//    dynPropertiesFrame->setObjectName(QLatin1String("binPropertiesFrame"));
+//    dynPropertiesFrame->setFrameStyle(QFrame::Panel | QFrame::Raised);
     dynPropertiesFrame->setFrameStyle(QFrame::Panel);
     dynPropertiesFrame->setLineWidth(1);
     dynPropertiesFrame->setLayout(dynPropertiesLayout);

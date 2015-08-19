@@ -21,22 +21,24 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "ecproject.h"
+
 #include <QDebug>
 #include <QSettings>
 
-#include "alia.h"
-#include "stringutils.h"
-#include "fileutils.h"
 #include "dbghelper.h"
 #include "ecinidefs.h"
-#include "ecproject.h"
+#include "fileutils.h"
+#include "stringutils.h"
+#include "widget_utils.h"
 
-EcProject::EcProject(QObject *parent, ProjConfigState& project_config) :
+EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
     QObject(parent),
     modified_(false),
     ec_project_state_(EcProjectState()),
     project_config_state_(project_config)
 {
+    Defs::qt_registerCustomTypes();
 }
 
 EcProject::EcProject(const EcProject& project) :
@@ -300,7 +302,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     }
     qDebug() << "advSettingsTest 3" << advSettingsTest;
 
-    if ((ec_project_state_.projectGeneral.hf_meth > 1 && ec_project_state_.spectraSettings.sa_mode)
+    if ((ec_project_state_.projectGeneral.hf_meth > 1
+         && ec_project_state_.projectGeneral.hf_meth < 5
+         && ec_project_state_.spectraSettings.sa_mode)
         || ec_project_state_.screenSetting.out_bin_sp == 1
         || ec_project_state_.screenSetting.out_bin_og == 1
         || ec_project_state_.screenSetting.out_full_sp_u == 1
@@ -417,7 +421,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_st_6, previousProject.ec_project_state_.screenSetting.out_st_6)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_st_7, previousProject.ec_project_state_.screenSetting.out_st_7)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_details, previousProject.ec_project_state_.screenSetting.out_details)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_biomet, previousProject.ec_project_state_.screenSetting.out_biomet)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_1, previousProject.ec_project_state_.screenSetting.out_raw_1)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_2, previousProject.ec_project_state_.screenSetting.out_raw_2)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_3, previousProject.ec_project_state_.screenSetting.out_raw_3)
@@ -801,14 +804,14 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     qDebug() << "advSettingsTest 21" << advSettingsTest;
     qDebug() << "dataSetTest 8" << dataSetTest;
 
-    qDebug() << "run_mode" << ec_project_state_.projectGeneral.run_mode;
+    qDebug() << "run_mode" << static_cast<int>(ec_project_state_.projectGeneral.run_mode);
     switch (ec_project_state_.projectGeneral.run_mode)
     {
-        case Defs::CurrRunModeExp:
+        case Defs::CurrRunMode::Express:
             return dataSetTest;
-        case Defs::CurrRunModeAdv:
+        case Defs::CurrRunMode::Advanced:
             return (dataSetTest && advSettingsTest);
-        case Defs::CurrRunModeRet:
+        case Defs::CurrRunMode::Retriever:
             return false;
         default:
             return false;
@@ -828,15 +831,15 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     project_config_state_ = project_config;
 
     ec_project_state_.projectGeneral.sw_version = Defs::APP_VERSION_STR;
-    ec_project_state_.projectGeneral.ini_version = Defs::PROJECT_VERSION_STR;
+    ec_project_state_.projectGeneral.ini_version = Defs::PROJECT_FILE_VERSION_STR;
     ec_project_state_.projectGeneral.creation_date = now_str;
     ec_project_state_.projectGeneral.last_change_date.clear();
-    ec_project_state_.projectGeneral.run_mode = Defs::CurrRunModeAdv;
-    ec_project_state_.projectGeneral.run_fcc = 0;
+    ec_project_state_.projectGeneral.run_mode = Defs::CurrRunMode::Advanced;
+    ec_project_state_.projectGeneral.run_fcc = false;
     ec_project_state_.projectGeneral.file_name.clear();
     ec_project_state_.projectGeneral.project_title.clear();
     ec_project_state_.projectGeneral.project_id.clear();
-    ec_project_state_.projectGeneral.file_type = 0;
+    ec_project_state_.projectGeneral.file_type = Defs::RawFileType::GHG;
     ec_project_state_.projectGeneral.file_prototype.clear();
     ec_project_state_.projectGeneral.use_alt_md_file = false;
     ec_project_state_.projectGeneral.md_file.clear();
@@ -1030,7 +1033,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.screenSetting.m_night_spar3 = 0.0070;
     ec_project_state_.screenSetting.m_night_spar4 = -0.026;
     ec_project_state_.screenSetting.out_details = 0;
-    ec_project_state_.screenSetting.out_biomet = 0;
     ec_project_state_.screenSetting.power_of_two = 1;
 
     // preproc test section
@@ -1204,14 +1206,16 @@ bool EcProject::saveEcProject(const QString &filename)
     {
         // error opening file
         qWarning() << "Error: Cannot open file" << filename;
-        QMessageBox::warning(0,
-                             tr("Write Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Write Project Error"),
                              tr("Cannot write file %1:\n%2")
                              .arg(filename)
                              .arg(datafile.errorString()));
         datafile.close();
         return false;
     }
+
+//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
@@ -1225,7 +1229,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_0, ec_project_state_.projectGeneral.creation_date);
         project_ini.setValue(EcIni::INI_PROJECT_1, now_str);
         project_ini.setValue(EcIni::INI_PROJECT_2, fileinfo.absoluteFilePath());
-        project_ini.setValue(EcIni::INI_PROJECT_33, QVariant(ec_project_state_.projectGeneral.run_mode).toInt());
+        project_ini.setValue(EcIni::INI_PROJECT_33, QVariant::fromValue(ec_project_state_.projectGeneral.run_mode).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_40, QVariant(ec_project_state_.projectGeneral.run_fcc).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_3, ec_project_state_.projectGeneral.project_title);
 
@@ -1242,16 +1246,16 @@ bool EcProject::saveEcProject(const QString &filename)
 
         // update ini version if empty or old
         if (ec_project_state_.projectGeneral.ini_version.isEmpty()
-            || ec_project_state_.projectGeneral.ini_version != Defs::PROJECT_VERSION_STR)
+            || ec_project_state_.projectGeneral.ini_version != Defs::PROJECT_FILE_VERSION_STR)
         {
-            project_ini.setValue(EcIni::INI_PROJECT_5, Defs::PROJECT_VERSION_STR);
+            project_ini.setValue(EcIni::INI_PROJECT_5, Defs::PROJECT_FILE_VERSION_STR);
         }
         else
         {
             project_ini.setValue(EcIni::INI_PROJECT_5, ec_project_state_.projectGeneral.ini_version);
         }
         project_ini.setValue(EcIni::INI_PROJECT_6, ec_project_state_.projectGeneral.project_id);
-        project_ini.setValue(EcIni::INI_PROJECT_7, ec_project_state_.projectGeneral.file_type);
+        project_ini.setValue(EcIni::INI_PROJECT_7, QVariant::fromValue(ec_project_state_.projectGeneral.file_type).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_8, ec_project_state_.projectGeneral.file_prototype);
         project_ini.setValue(EcIni::INI_PROJECT_9, QVariant(ec_project_state_.projectGeneral.use_alt_md_file).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_10, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.md_file));
@@ -1494,7 +1498,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_80, ec_project_state_.screenSetting.m_night_spar3);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_81, ec_project_state_.screenSetting.m_night_spar4);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_99, ec_project_state_.screenSetting.out_details);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_100, ec_project_state_.screenSetting.out_biomet);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.power_of_two);
     project_ini.endGroup();
 
@@ -1659,13 +1662,14 @@ bool EcProject::saveEcProject(const QString &filename)
     bool result = tagProject(filename);
     if (!result)
     {
-        QMessageBox::warning(0,
-            tr("Write Error"),
-            tr("Unable to tag project file!"));
+        WidgetUtils::warning(nullptr,
+                             tr("Write Project Error"),
+                             tr("Unable to tag project file!"));
     }
 
     // project is saved, so set flags accordingly
     setModified(false);
+//    QApplication::restoreOverrideCursor();
     return true;
 }
 
@@ -1675,6 +1679,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     DEBUG_FUNC_NAME
 
     bool isVersionCompatible = true;
+    QVariant v = QVariant(); // container for conversions
 
     // open file
     QFile datafile(filename);
@@ -1682,12 +1687,14 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     {
         // error opening file
         qWarning() << "Error: Cannot open [loadEcProject()]" << filename;
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Project Error"),
                              tr("Cannot read file<br /><p>%1:</p>\n<b>%2</b>")
                              .arg(filename).arg(datafile.errorString()));
         return false;
     }
+
+//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     QSettings project_ini(filename, QSettings::IniFormat);
 
@@ -1705,7 +1712,12 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.project_id = project_ini.value(EcIni::INI_PROJECT_6, QString()).toString();
         ec_project_state_.projectGeneral.creation_date = project_ini.value(EcIni::INI_PROJECT_0, QString()).toString();
         ec_project_state_.projectGeneral.last_change_date = project_ini.value(EcIni::INI_PROJECT_1, QString()).toString();
-        ec_project_state_.projectGeneral.file_type = project_ini.value(EcIni::INI_PROJECT_7, 0).toInt();
+
+        v = project_ini.value(EcIni::INI_PROJECT_7,
+                              QVariant::fromValue(Defs::RawFileType::GHG).toInt());
+        ec_project_state_.projectGeneral.file_type
+                = static_cast<Defs::RawFileType>(v.toInt());
+
         ec_project_state_.projectGeneral.use_alt_md_file = project_ini.value(EcIni::INI_PROJECT_9, false).toBool();
 
         // NOTE: backward compatibility, is_express key
@@ -1713,14 +1725,17 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         {
             if (checkVersion)
             {
-                switch (Alia::queryBeforeEcFileImport(filename))
+//                QApplication::restoreOverrideCursor();
+                if(!queryProjectImport(filename))
                 {
-                    case QMessageBox::Yes:
-                        break;
-                    case QMessageBox::Cancel:
-                        return false;
+                    return false;
                 }
-                ec_project_state_.projectGeneral.run_mode = project_ini.value(EcIni::INI_PROJECT_33_OLD, Defs::CurrRunModeAdv).toInt();
+
+                v = project_ini.value(EcIni::INI_PROJECT_33_OLD,
+                         QVariant::fromValue(Defs::CurrRunMode::Advanced).toInt());
+                ec_project_state_.projectGeneral.run_mode
+                    = static_cast<Defs::CurrRunMode>(v.toInt());
+
                 project_ini.remove(EcIni::INI_PROJECT_33_OLD);
                 isVersionCompatible = false;
             }
@@ -1732,13 +1747,27 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         }
         else
         {
-            ec_project_state_.projectGeneral.run_mode = project_ini.value(EcIni::INI_PROJECT_33, Defs::CurrRunModeAdv).toInt();
-            ec_project_state_.projectGeneral.run_fcc = project_ini.value(EcIni::INI_PROJECT_40, Defs::CurrRunModeAdv).toInt();
+            v = project_ini.value(EcIni::INI_PROJECT_33,
+                            QVariant::fromValue(Defs::CurrRunMode::Advanced));
+
+            if (v.canConvert<Defs::CurrRunMode>())
+            {
+                ec_project_state_.projectGeneral.run_mode
+                    = v.value<Defs::CurrRunMode>();
+            }
+
+//            v = project_ini.value(EcIni::INI_PROJECT_40,
+//                            QVariant::fromValue(Defs::CurrRunMode::Advanced));
+//            ec_project_state_.projectGeneral.run_fcc
+//                    = v.value<Defs::CurrRunMode>();
+
+            ec_project_state_.projectGeneral.run_fcc
+                    = project_ini.value(EcIni::INI_PROJECT_40, false).toBool();
         }
 
         ec_project_state_.projectGeneral.file_name = projectFilename;
         ec_project_state_.projectGeneral.sw_version = project_ini.value(EcIni::INI_PROJECT_4, Defs::APP_VERSION_STR).toString();
-        ec_project_state_.projectGeneral.ini_version = project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_VERSION_STR).toString();
+        ec_project_state_.projectGeneral.ini_version = project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_FILE_VERSION_STR).toString();
         ec_project_state_.projectGeneral.file_prototype = project_ini.value(EcIni::INI_PROJECT_8, QString()).toString();
         ec_project_state_.projectGeneral.md_file = project_ini.value(EcIni::INI_PROJECT_10, QString()).toString();
         ec_project_state_.projectGeneral.use_tlfile = project_ini.value(EcIni::INI_PROJECT_11, false).toBool();
@@ -1768,16 +1797,14 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.out_amflux = project_ini.value(EcIni::INI_PROJECT_38, 0).toInt();
 
         // NOTE: backward compatibility change, out_rich key
-        if (project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_VERSION_STR).toString() == QLatin1String("1.0"))
+        if (project_ini.value(EcIni::INI_PROJECT_5, Defs::PROJECT_FILE_VERSION_STR).toString() == QLatin1String("1.0"))
         {
             if (checkVersion)
             {
-                switch (Alia::queryBeforeEcFileImport(filename))
+//                QApplication::restoreOverrideCursor();
+                if(!queryProjectImport(filename))
                 {
-                    case QMessageBox::Yes:
-                        break;
-                    case QMessageBox::Cancel:
-                        return false;
+                    return false;
                 }
                 ec_project_state_.projectGeneral.out_rich = 1;
                 isVersionCompatible = false;
@@ -1801,10 +1828,20 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
         ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
 
-        ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
-        ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
-        ec_project_state_.projectGeneral.end_date = project_ini.value(EcIni::INI_PROJECT_43, QDate::currentDate().toString(Qt::ISODate)).toString();
-        ec_project_state_.projectGeneral.end_time = project_ini.value(EcIni::INI_PROJECT_45, QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
+//        if (ec_project_state_.projectGeneral.subset)
+//        {
+//            ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+//            ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+//            ec_project_state_.projectGeneral.end_date = project_ini.value(EcIni::INI_PROJECT_43, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+//            ec_project_state_.projectGeneral.end_time = project_ini.value(EcIni::INI_PROJECT_45, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+//        }
+//        else
+//        {
+            ec_project_state_.projectGeneral.start_date = project_ini.value(EcIni::INI_PROJECT_42, QDate(2000, 1, 1).toString(Qt::ISODate)).toString();
+            ec_project_state_.projectGeneral.start_time = project_ini.value(EcIni::INI_PROJECT_44, QTime(0, 0).toString(QStringLiteral("hh:mm"))).toString();
+            ec_project_state_.projectGeneral.end_date = project_ini.value(EcIni::INI_PROJECT_43, QDate::currentDate().toString(Qt::ISODate)).toString();
+            ec_project_state_.projectGeneral.end_time = project_ini.value(EcIni::INI_PROJECT_45, QTime(23, 59).toString(QStringLiteral("hh:mm"))).toString();
+//        }
         ec_project_state_.projectGeneral.hf_meth = project_ini.value(EcIni::INI_PROJECT_46, 1).toInt();
         ec_project_state_.projectGeneral.lf_meth = project_ini.value(EcIni::INI_PROJECT_47, 1).toInt();
         ec_project_state_.projectGeneral.wpl_meth = project_ini.value(EcIni::INI_PROJECT_48, 1).toInt();
@@ -2001,7 +2038,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.screenSetting.m_night_spar3 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_80, 0.0070).toDouble();
         ec_project_state_.screenSetting.m_night_spar4 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_81, -0.026).toDouble();
         ec_project_state_.screenSetting.out_details = project_ini.value(EcIni::INI_SCREEN_SETTINGS_99, 0).toInt();
-        ec_project_state_.screenSetting.out_biomet = project_ini.value(EcIni::INI_SCREEN_SETTINGS_100, 0).toInt();
         ec_project_state_.screenSetting.power_of_two = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101, 1).toInt();
     project_ini.endGroup();
 
@@ -2109,7 +2145,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
             AngleItem item;
             item.angle_ = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_9).toDouble();
             item.included_ = included;
-            item.color_ = Alia::getColor(k);
+            item.color_ = WidgetUtils::getColor(k);
             addPlanarFitAngle(item);
         }
 
@@ -2167,6 +2203,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     if (!isVersionCompatible)
         *modified = true;
 
+//    QApplication::restoreOverrideCursor();
     return true;
 }
 
@@ -2180,8 +2217,8 @@ bool EcProject::nativeFormat(const QString &filename)
         // error opening file
         qWarning() << "Error: Cannot open file: doesn't exists (check the path) "
                    << filename;
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
                              .arg(filename).arg(datafile.errorString()));
         return false;
@@ -2200,8 +2237,8 @@ bool EcProject::nativeFormat(const QString &filename)
         || firstLine.startsWith(QLatin1String(";ECO2catch"))
         || firstLine.startsWith(QLatin1String(";ECCOCatch")))
     {
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n"
                                 "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
         return false;
@@ -2211,10 +2248,11 @@ bool EcProject::nativeFormat(const QString &filename)
         && !firstLine.startsWith(QLatin1String(";ECO2S_PROCESSING"))
         && !firstLine.startsWith(QLatin1String(";ECO2S_DATAPROCESSING")))
     {
-        QMessageBox::warning(0,
+        WidgetUtils::warning(nullptr,
                              tr("Load Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>")
+                             .arg(filename).arg(Defs::APP_NAME));
         return false;
     }
 
@@ -2228,7 +2266,7 @@ bool EcProject::tagProject(const QString &filename)
     {
         // error opening file
         qWarning() << "Error: Cannot tag file" << filename;
-        QMessageBox::warning(0,
+        WidgetUtils::warning(nullptr,
                              tr("Write Error"),
                              tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
                              .arg(filename)
@@ -2255,6 +2293,8 @@ void EcProject::setModified(bool mod)
     modified_ = mod;
     if (mod)
     {
+//        DEBUG_FUNC_NAME
+//        DEBUG_FUNC_MSG(tr("project modified"));
         emit ecProjectModified();
     }
 }
@@ -2705,6 +2745,11 @@ void EcProject::setGeneralFullSpectraAvail(int n)
 void EcProject::setGeneralFilesFound(int n)
 {
     ec_project_state_.projectGeneral.files_found = n;
+
+    // NOTE: create side effects when loading a project and then a refresh.
+    // in fact, the corresponding recursion checkbox is enough to inform
+    // about a possible interactive change
+//    setModified(true);
 }
 
 void EcProject::setScreenNFiles(int n)
@@ -3775,27 +3820,21 @@ void EcProject::setScreenlOutDetails(int n)
     setModified(true);
 }
 
-void EcProject::setScreenlOutSlowVars(int n)
-{
-    ec_project_state_.screenSetting.out_biomet = n;
-    setModified(true);
-}
-
 void EcProject::setScreenlPowerOfTwo(int n)
 {
     ec_project_state_.screenSetting.power_of_two = n;
     setModified(true);
 }
 
-void EcProject::setGeneralRunMode(int n)
+void EcProject::setGeneralRunMode(Defs::CurrRunMode mode)
 {
-    ec_project_state_.projectGeneral.run_mode = n;
+    ec_project_state_.projectGeneral.run_mode = mode;
     setModified(true);
 }
 
-void EcProject::setGeneralRunFcc(int n)
+void EcProject::setGeneralRunFcc(bool yes)
 {
-    ec_project_state_.projectGeneral.run_fcc = n;
+    ec_project_state_.projectGeneral.run_fcc = yes;
     setModified(true);
 }
 
@@ -3827,9 +3866,9 @@ void EcProject::setGeneralTimelineFilepath(const QString &p)
     emit updateInfo();
 }
 
-void EcProject::setGeneralFileType(int n)
+void EcProject::setGeneralFileType(Defs::RawFileType type)
 {
-    ec_project_state_.projectGeneral.file_type = n;
+    ec_project_state_.projectGeneral.file_type = type;
     setModified(true);
     emit updateInfo();
 }
@@ -4362,14 +4401,14 @@ const QString EcProject::getFilenamePrototype() const
 
     QString format;
 
-    if (this->generalFileType() == Defs::RawFileTypeGHG)
+    if (generalFileType() == Defs::RawFileType::GHG)
     {
         format = QStringLiteral("yyyy-mm-ddTHHMM_") + this->generalId()
                  + QStringLiteral(".") + Defs::GHG_NATIVE_DATA_FILE_EXT;
     }
     else
     {
-        format = this->generalFilePrototype();
+        format = generalFilePrototype();
     }
 
     return format;
@@ -4381,9 +4420,10 @@ bool EcProject::isEngineStep2Needed()
 
     switch (generalHfMethod())
     {
-        // case no HF spectral corrections or Moncrieff
+        // case no HF spectral corrections or Moncrieff or Masssmann
         case 0:
         case 1:
+        case 5:
             break;
         // case Horst, Ibrom, Fratini
         case 2:
@@ -4395,8 +4435,41 @@ bool EcProject::isEngineStep2Needed()
             break;
     }
 
+    // in smartflux mode, this output is always disabled
     if (generalOutMeanCosp())
         test = true;
 
+    return test;
+}
+
+bool EcProject::queryProjectImport(const QString& filename)
+{
+    return WidgetUtils::okToQuestion(nullptr,
+        tr("Import Project"),
+        tr("<p>Your project file has to be imported "
+           "and updated to a new version. "
+           "If you proceed, you will "
+           "lose your file and the "
+           "compatibility with previous versions of EddyPro "
+           "but you will have a smooth "
+           "transition to the new EddyPro version. "
+           "If you are unsure, "
+           "select 'No' and create a backup copy of your "
+           "project file before proceeding.</p>"),
+        tr("<p>Are you sure you want to "
+           "import the following file?<br>"
+           "<b>\"%1\"</b></p>").arg(filename));
+}
+
+bool EcProject::isGoodRawFileNameFormat(const QString& s)
+{
+    DEBUG_FUNC_NAME
+    bool test = !s.isEmpty()
+                && s.contains(QStringLiteral("yy"))
+                && s.contains(QStringLiteral("dd"))
+                && s.contains(QStringLiteral("HH"))
+                && s.contains(QStringLiteral("MM"))
+                && s.contains(QStringLiteral("."));
+    qDebug() << "test" << test;
     return test;
 }

@@ -23,11 +23,12 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "customheader.h"
+
 #include <QGridLayout>
 #include <QUrl>
 
-#include "alia.h"
-#include "customheader.h"
+#include "widget_utils.h"
 
 CustomHeader::CustomHeader(QWidget *parent) :
     QWidget(parent)
@@ -42,19 +43,19 @@ void CustomHeader::addSection(const QString &txt,
                               QuestionMarkHint questionMark,
                               ClickLabel::HeaderData headerData)
 {
-    QLabel* headerTextLabel = new QLabel;
+    auto headerTextLabel = new QLabel;
     headerTextLabel->setText(txt);
     headerTextLabel->setToolTip(tooltipTxt);
 
     layout->addWidget(headerTextLabel, layout->rowCount(), 0);
 
-    if (questionMark)
+    if (questionMark == QuestionMarkHint::QuestionMark)
     {
-        ClickLabel* questionMarkLabel = new ClickLabel;
+        auto questionMarkLabel = new ClickLabel;
         questionMarkLabel->setHeaderData(headerData);
         questionMarkLabel->setObjectName(QStringLiteral("questionMarkImg"));
-        connect(questionMarkLabel, SIGNAL(clicked()),
-                this, SLOT(onlineHelpTrigger()));
+        connect(questionMarkLabel, &ClickLabel::clicked,
+                this, &CustomHeader::onlineHelpTrigger);
 
         layout->addWidget(questionMarkLabel, layout->rowCount() - 1, 1);
     }
@@ -68,44 +69,44 @@ void CustomHeader::onlineHelpTrigger()
 
     if (data == ClickLabel::AnemNAlign)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Axes_Alignment.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Axes_Alignment.htm")));
     }
     else if (data == ClickLabel::AnemNOffset)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#North_Offset.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#North_Offset.htm")));
     }
     else if (data == ClickLabel::AnemNSep
              || data == ClickLabel::AnemESep
              || data == ClickLabel::AnemVSep)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensor_Separation.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensor_Separation.htm")));
     }
     else if (data == ClickLabel::IrgaModel)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Gas_Analyzer_Model.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Gas_Analyzer_Model.htm")));
     }
     else if (data == ClickLabel::IrgaLPathLength
              || data == ClickLabel::IrgaTPathLength)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Longitude_Transverse.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Longitude_Transverse.htm")));
     }
     else if (data == ClickLabel::VarIgnoreDesc
              || data == ClickLabel::VarNumericDesc
              || data == ClickLabel::VarDesc)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensitive_and_Non-sensitive_Variables.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Sensitive_and_Non-sensitive_Variables.htm")));
     }
     else if (data == ClickLabel::VarConv
              || data == ClickLabel::VarMinValue
              || data == ClickLabel::VarMaxValue)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Conversion_Type.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Conversion_Type.htm")));
     }
     else if (data == ClickLabel::VarNomTLag
              || data == ClickLabel::VarMinTLag
              || data == ClickLabel::VarMaxTLag)
     {
-        Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Nominal_Time_Lag.htm")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#Nominal_Time_Lag.htm")));
     }
 }
 

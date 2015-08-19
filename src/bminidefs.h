@@ -46,6 +46,6 @@ namespace BmIni
     const QString INI_VARS_4        = QStringLiteral("gain");
     const QString INI_VARS_5        = QStringLiteral("offset");
     const QString INI_VARS_6        = QStringLiteral("unit_out");
-}
+} // namespace BmIni
 
 #endif // BMINIDEFS_H

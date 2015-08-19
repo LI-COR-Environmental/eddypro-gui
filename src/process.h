@@ -27,18 +27,41 @@
 #define PROCESS_H
 
 #include <QProcess>
+
 #include "defs.h"
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/process.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
 class QByteArray;
 
+/// \class Process
+/// \brief Class representing external processes
 class Process: public QObject
 {
 Q_OBJECT
 
 public:
-    enum ExitStatus { exitSuccess, exitFailureToStart, exitFailure, exitError, exitStopped};
+    enum class ExitStatus {
+        Success,
+        FailureToStart,
+        Failure,
+        Error,
+        Stopped
+    };
 
-    Process(QWidget* parent = 0, const QString &fullPath = QString());
+    Process(QWidget* parent = nullptr, const QString& fullPath = QString());
     ~Process();
 
     bool engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList);
@@ -66,6 +89,10 @@ public:
     void processStop();
     inline ExitStatus processExit() { return processExit_; }
     bool isRunning();
+
+#if 0
+    static unsigned int getProcessIdsByProcessName(const QString &processName, QStringList &listOfPids);
+#endif
 
 private slots:
     void processError(QProcess::ProcessError error);

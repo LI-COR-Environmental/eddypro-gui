@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Data Processing Reference|Preliminary Processing">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Despiking the Raw Data</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/TableStyles/Basic.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Despiking_Raw_Stat_Screening.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Data Processing Reference</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Preliminary Processing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Despiking and Raw Data Statistical Screening</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1>Despiking and Raw Data Statistical Screening</h1>
+            <p><a name="kanchor193"></a><a name="Statisti"></a><span class="MyVariablesSoftwareName R">EddyPro®</span> allows you to perform up to 9 tests to assess the statistical quality of the raw time series. Such tests, all derived from the paper of <a href="References.htm#Vickers">Vickers and Mahrt (1997)</a>, can be individually selected and configured to fit your dataset. <span class="MyVariablesSoftwareName">EddyPro</span> provides defaults for all configurable parameters, as derived from the original publication. For each test and for each concerned variable, <span class="MyVariablesSoftwareName">EddyPro</span> outputs a flag that indicates that the test was passed (0) or failed (1). If a test is not selected, the output value is 9. <span class="MyVariablesSoftwareName">EddyPro</span> does not filter results according to these flags. It is left up to the user to decide whether to investigate the flagged time series and assess them for physical plausibility.</p>
+            <h2><a name="Spike"></a>Spike Removal and Spike Test</h2>
+            <p>The so-called <i>despiking</i> procedure consists in detecting and eliminating short-term outranged values in the time series. </p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/spikes.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/spikes_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 10"><span class="autonumber"><span>Figure 10</span></span>. Spikes in a typical data set.</caption>
+            <p>Following <a href="References.htm#Vickers">Vickers and Mahrt (1997)</a>, for each variable a spike is detected as up to 3 (settable) consecutive outliers with respect to a plausibility range defined within a certain time window, which moves throughout the time series. The rationale is that if more consecutive values are found to exceed the plausibility threshold, they might be a sign of an unusual yet physical trend. The width of the moving window is defined as one sixth of the current flux averaging period and the plausibility range is quantified differently for different variables. The table below provides <span class="MyVariablesSoftwareName">EddyPro</span> default values, that  can be changed by the user. The window moves forward half its length at a time. The procedure is repeated up to twenty times, or until no more spikes are found for all variables. Detected spikes are counted and replaced by linear interpolation of neighboring values.</p>
+            <table style="mc-table-style: url('Resources/TableStyles/Basic.css');width: 100%;" class="TableStyle-Basic" cellspacing="0">
+                <caption class="table" data-mc-autonum="&lt;b&gt;Table 10&lt;/b&gt;"><span class="autonumber"><span><b>Table 10</b></span></span>. Plausibility range for spike detection for each sensitive variable.</caption>
+                <col class="TableStyle-Basic-Column-Column1" />
+                <col class="TableStyle-Basic-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Basic-Head-Header1">
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Variable</th>
+                        <th class="TableStyle-Basic-HeadD-Column1-Header1">Plausibility Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>u</i>, <i>v</i></td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">window mean ±3.5 st. dev.</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>w</i>
+                        </td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">window mean ±5.0 st. dev.</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">CO<sub>2</sub>, H<sub>2</sub>O</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">window mean ±3.5 st. dev.</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">CH<sub>4</sub>, N<sub>2</sub>O</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">window mean ±8.0 st. dev.</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">Temperatures, Pressures</td>
+                        <td class="TableStyle-Basic-BodyA-Column1-Body1">window mean ±3.5 st. dev.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>As an example, consider the time series in the figure below, where a time series is shown along with its mean value (gray line) and the plausibility range (blue lines). Here, the first 4 consecutive outliers on the left are considered as a local trend and not counted as a spike. On the contrary, the single red outlier on the right is considered as a spike.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/Despiking.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img" data-mc-width="499" data-mc-height="212" src="Resources/Images/Despiking_thumb_0_96.png" alt="" title="" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 11"><span class="autonumber"><span>Figure 11</span></span>. Example of outliers not detected as a spike (green points) and as a spike (red data point) in <span class="MyVariablesSoftwareName">EddyPro</span>. The red line is the window mean, blue lines define the plausibility range.</caption>
+            <p>While despiking, <span class="MyVariablesSoftwareName">EddyPro</span> counts the number of spikes found. If, for each variable and for the flux averaging period, the number of spikes is larger than 1% (a user-settable value) of the number of data samples, the variable is hard-flagged for too many spikes. </p>
+            <p class="note"><b>Note:</b> 1, 2, or 3 consecutive outliers are counted as only one spike. </p>
+            <p class="note"><b>Note:</b> At each of the 20 iterations of the procedure, a spike that was detected (and replaced) at the previous repetition can appear again as a spike, due to the changed plausibility range; it is replaced thus again by linear interpolation, however it is not counted again for the purpose of flagging.</p>
+            <h2><a name="Amplitude"></a>Amplitude Resolution Test</h2>
+            <p>For some records with weak variance (weak winds and stable conditions), the amplitude resolution of the recorded data may not be sufficient to capture the fluctuations, leading to a step ladder appearance in the data. A resolution problem also might result from a faulty instrument or data recording and processing systems (<a href="References.htm#Vickers">Vickers and Mahrt, 1997</a>). This test attempts to detect these situations by assessing whether the number of different values each variable takes throughout the time series covers its range of variation with sufficient homogeneity. In a window moving throughout the time series, data for each variable are clustered into a user-specified number of bins and the frequency distribution is calculated. When the number of empty bins exceeds a critical threshold, the variable is flagged for a resolution problem. The range of variation for each variable is defined by the minimum among: 1) the difference between the maximum and the minimum value attained by the variable and 2) ±3.5 (a user-settable value) times the standard deviation of the variable in the current window.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/amplitude_resolution.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/amplitude_resolution_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 12"><span class="autonumber"><span>Figure 12</span></span>. Example of a time series affected by an instrument's poor resolution.</caption>
+            <h2><a name="Drop"></a>Drop-outs Test</h2>
+            <p>The drop-outs test attempts to detect (relatively) short periods in which the time series sticks to some value that is statistically different from the average value calculated over the whole period. These values may well be within the measuring range of the instruments and within physically plausible values, but the time series stays for “too long” on a value that is far from the mean. This occurrence may be the sign of a short term instrument malfunction, for example due to rain or to the obstruction of the optical or sonic path or indicate an unresponsive instrument or electronic recording problems.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/dropout.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/dropout_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 13"><span class="autonumber"><span>Figure 13</span></span>. Dropouts appear as short-lived periods in which the variable sticks to values statistically different from the overall trend.</caption>
+            <p>The test attempts at detecting drop-outs as too many consecutive values falling within bins too distant from the mean value of the time series.  Extreme bins (as opposed to central bins) are expected to have smaller numbers of consecutive data points. Furthermore, fluxes are more sensitive to drop-outs in the extreme bins. Thus, thresholds are defined differently for extreme and central bins.</p>
+            <h2><a name="Absolute"></a>Absolute Limits</h2>
+            <p>This test simply assesses whether each variable attains, at least once in the current time series, a value that is outside a user-defined plausible range. In this case, the variable is flagged. The test is performed after the despiking procedure. Thus, each outranged value found here is not a spike, it will remain in the time series and affect calculated statistics, including fluxes. Therefore, it is mandatory to carefully set the expected plausible ranges for all variables and to consider each flux averaging period in which any variables are flagged for “absolute limits.”</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/abs_limits.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img" data-mc-width="322" data-mc-height="201" src="Resources/Images/abs_limits_thumb_0_96.png" alt="" title="" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 14"><span class="autonumber"><span>Figure 14</span></span>. Absolute limits set a bound on plausible data values.</caption>
+            <h2><a name="Skewness"></a>Skewness and Kurtosis</h2>
+            <p>Third and forth order moments are calculated on the whole time series and variables are flagged if their values exceed user-selected thresholds. Excessive skewness and kurtosis may help detect periods of instrument malfunction.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/skew_kurt.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/skew_kurt_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 15"><span class="autonumber"><span>Figure 15</span></span>. Example of a time series flagged for excessive skewness and kurtosis.</caption>
+            <h2><a name="Discontinuities"></a>Discontinuities</h2>
+            <p>The goal of this test is to detect discontinuities that lead to semi-permanent changes, as opposed to sharp changes associated with smaller-scale fluctuations (<a href="References.htm#Vickers">Vickers and Mahrt, 1997</a>). Discontinuities in the data are detected using the Haar transform, which calculates the difference in some quantity over two half-window means. Large values of the transform identify changes that are coherent on the scale of the window.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/discontinuites.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/discontinuites_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 16"><span class="autonumber"><span>Figure 16</span></span>. Example of a time series featuring a "permanent" change in the mean value.</caption>
+            <h2><a name="Time"></a>Time Lags</h2>
+            <p>This test flags the scalar time series if the maximal <i>w</i>-covariances, determined via the covariance maximization procedure and evaluated over a predefined time-lag window, are too different from those calculated for the user-suggested time lags. That is, the mismatch between fluxes calculated with the expected time lags and with the “actual” time lags is too large.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/timelag_with_frame.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/timelag_with_frame_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 17"><span class="autonumber"><span>Figure 17</span></span>. Time lags are compensated by detecting the time difference in covariances or other methods.</caption>
+            <h2><a name="Angle"></a>Angle of Attack</h2>
+            <p>This test calculates sample-wise angle of attacks throughout the current flux averaging period, and flags it if the percentage of angles of attack exceeding a user-defined range is beyond a (user-defined) threshold.</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/angle of attack_with_border.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/angle of attack_with_border_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 18"><span class="autonumber"><span>Figure 18</span></span>. The angle of attack test.</caption>
+            <h2><a name="Steadiness"></a>Steadiness of Horizontal Wind</h2>
+            <p>This test assesses whether the along-wind and crosswind components of the wind vector undergo a systematic reduction (or increase) throughout the file. If the quadratic combination of such systematic variations is beyond the user-selected limit, the flux averaging period is hard-flagged for instationary horizontal wind (<a href="References.htm#Vickers">Vickers and Mahrt, 1997</a>, Par. 6g).</p>
+            <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="Resources/Images/instationarity.png"><img class="MCPopupThumbnail img" data-mc-width="320" data-mc-height="199" src="Resources/Images/instationarity_thumb_0_96.png" tabindex="" /></a>
+            </p>
+            <caption class="figure" data-mc-autonum="Figure 19"><span class="autonumber"><span>Figure 19</span></span>. Steadiness of horizontal wind assesses systematic changes in wind measurements in the time series.</caption>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

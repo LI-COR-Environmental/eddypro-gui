@@ -26,33 +26,36 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 
-class QLabel;
 class QCheckBox;
+class QLabel;
 
 class InfoMessage : public QDialog
 {
     Q_OBJECT
 
 public:
-    enum type
+    enum class Type
     {
         RUN_EXPRESS,
         RUN_ADVANCED,
         RUN_RETRIEVER,
         SELECTION_CLEANING,
         SMARTFLUX_CONFIG,
-        NOAA_WEBSITE
+        NOAA_WEBSITE,
+        ANGLE_OF_ATTACK_SELECTION
     };
 
-    explicit InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *parent = 0);
+    explicit InfoMessage(QDialogButtonBox::StandardButtons buttons,
+                         QWidget* parent = nullptr);
 
     void setTitle(const QString& title);
+    void setIcon(const QPixmap& icon);
     void setMessage(const QString& text);
-    void setType(int type);
+    void setType(Type type);
     void setDoNotShowAgainVisible(bool visible);
     void refresh();
 
-signals:
+    static void showAoaSelectionMsg();
 
 private slots:
     void initialize();
@@ -63,12 +66,13 @@ private slots:
     void onCancelButtonClicked();
 
 private:
-    QString title_;
+    QString title_{};
+    QLabel* icon_;
     QLabel* message_;
-    QCheckBox* doNotShowAgainCheckbox_;
-    QDialogButtonBox* buttonBox_;
-    int type_;
-    bool doNotShoAgainVisible_;
+    QCheckBox* doNotShowAgainCheckbox_{};
+    QDialogButtonBox* buttonBox_{};
+    Type type_{Type::RUN_EXPRESS};
+    bool doNotShoAgainVisible_{true};
 };
 
 #endif // INFOMESSAGE_H

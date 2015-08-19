@@ -24,11 +24,25 @@
 #ifndef MAINDIALOG_H
 #define MAINDIALOG_H
 
-#include <QWidget>
 #include <QPointer>
+#include <QWidget>
 
 #include "defs.h"
 #include "faderwidget.h"
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/mainwidget.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
 class QStackedLayout;
 
@@ -42,6 +56,8 @@ class AdvancedSettingsPage;
 class RunPage;
 struct ConfigState;
 
+/// \class StartDialog
+/// \brief Class representing the start page of the application
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -61,6 +77,7 @@ public:
 public slots:
     void setCurrentPage(Defs::CurrPage page);
     void updateSmartfluxBarStatus();
+//    void routeSmartfluxBarRequests();
 
 private:
     DlProject* dlProject_;

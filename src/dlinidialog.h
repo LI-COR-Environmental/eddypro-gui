@@ -27,17 +27,17 @@
 #include <QDialog>
 #include <QFileDialog>
 
-class QTabWidget;
-class QDialogButtonBox;
 class QAbstractButton;
-class QPushButton;
+class QDialogButtonBox;
 class QKeyEvent;
+class QPushButton;
+class QTabWidget;
 
-class DlProject;
-class DlSiteTab;
-class DlInstrTab;
-class DlRawfileDescTab;
 struct ConfigState;
+class DlInstrTab;
+class DlProject;
+class DlRawfileDescTab;
+class DlSiteTab;
 
 class DlIniDialog : public QDialog
 {

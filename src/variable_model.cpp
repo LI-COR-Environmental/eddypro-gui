@@ -21,12 +21,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QApplication>
-
-#include "stringutils.h"
-#include "dbghelper.h"
 #include "variable_model.h"
+
+#include <QApplication>
+#include <QDebug>
+
+#include "dbghelper.h"
+#include "stringutils.h"
+#include "widget_utils.h"
 
 VariableModel::VariableModel(QObject *parent, VariableDescList *list) :
     QAbstractTableModel(parent),
@@ -58,6 +60,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     if (column >= list_->count()) return QVariant();
 
     const VariableDesc& variableDesc = list_->at(column);
+
+    QString var = variableDesc.variable();
 
     QVariant nullStrValue = QString();
 
@@ -341,6 +345,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::EditRole)
     {
+//        qDebug() << "EditRole" << row;
         switch (row)
         {
             case IGNORE:
@@ -352,7 +357,16 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
             case NUMERIC:
                 return QVariant(variableDesc.numeric());
             case VARIABLE:
-                return QVariant(variableDesc.variable());
+                if (!var.isEmpty())
+                {
+                    return QVariant(variableDesc.variable());
+                }
+                // to avoid editing parent items ('standard/custom variables')
+                // pick the first available var
+                else
+                {
+                    return QVariant(QStringLiteral("u"));
+                }
             case INSTRUMENT:
                 // filter no more available instruments
                 if (instrModelList_.contains(variableDesc.instrument()))
@@ -595,6 +609,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::TextAlignmentRole)
     {
+//        qDebug() << "TextAlignmentRole" << row;
         switch (row)
         {
             case IGNORE:
@@ -628,6 +643,11 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(Qt::red)));
                 }
+//                else if (variableDesc.ignore() == QLatin1String("no")
+//                         && variableDesc.numeric() == QLatin1String("yes"))
+//                {
+//                    return QVariant(QColor(Qt::black));
+//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -642,6 +662,11 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(QStringLiteral("#D69696"))));
                 }
+//                else if (variableDesc.numeric() == QLatin1String("no")
+//                         && variableDesc.ignore() == QLatin1String("yes"))
+//                {
+//                    return QVariant(QColor(Qt::black));
+//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -708,6 +733,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QColor(Qt::white));
                 }
             default:
+//                return QVariant(QColor(Qt::white));
                 if (variableDesc.ignore() == QLatin1String("yes")
                     || variableDesc.numeric() == QLatin1String("no"))
                 {
@@ -721,6 +747,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::SizeHintRole)
     {
+//        qDebug() << "SizeHintRole" << row;
         switch (row)
         {
             default:
@@ -729,6 +756,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else
     {
+//        qDebug() << "else" << row;
         return QVariant();
     }
 }
@@ -752,6 +780,7 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
 
     // grab existing var desc for the column
     VariableDesc variableDesc = list_->value(column);
+//    qDebug() << "instrModelList_" << instrModelList_;
 
     switch (row)
     {
@@ -786,7 +815,16 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             {
                 return false;
             }
-            variableDesc.setVariable(value.toString());
+            // skip parent items
+            if (value != QStringLiteral("Standard Variables")
+                and value != QStringLiteral("Standard Variables"))
+            {
+                variableDesc.setVariable(value.toString());
+            }
+            else
+            {
+                return false;
+            }
             break;
         case INSTRUMENT:
             qDebug() << "INSTRUMENT";
@@ -794,6 +832,8 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             {
                 return false;
             }
+//            qDebug() << "instrModelList_" << instrModelList_;
+//            qDebug() << "value.toString()" << value.toString();
 
             // filter no more available instruments
             if (instrModelList_.contains(value.toString()))
@@ -916,12 +956,7 @@ bool VariableModel::removeColumns(int column, int count, const QModelIndex& pare
     if (count != 1) return false; // only remove one column at a time
     if ((column < 0) || (column >= list_->count())) return false;
 
-    // ask the user
-    int status = QMessageBox::question(QApplication::activeWindow(),
-                               tr("Remove Column"),
-                               tr("Do you want to remove this column?"),
-                               QMessageBox::Yes | QMessageBox::Cancel);
-    if (status == QMessageBox::Cancel)
+    if (!WidgetUtils::okToRemoveColumn(qApp->activeWindow()))
     {
         return false;
     }
@@ -992,6 +1027,13 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     {
         case IGNORE:
         case VARIABLE:
+            if (variableDesc.variable() == QLatin1String("Standard Variables")
+                || variableDesc.variable() == QLatin1String("Custom Variables"))
+            {
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
         case INSTRUMENT:
         case INPUTUNIT:
         case NOMTIMELAG:

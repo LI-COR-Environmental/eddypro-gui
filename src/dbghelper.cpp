@@ -10,9 +10,9 @@
   Modified by Antonio Forgione, 2011
 ****************************************************************************/
 
-#include <QTime>
-
 #include "dbghelper.h"
+
+#include <QTime>
 
 #ifdef DBGHELPER_USES_PRINTF
 #include <cstdio>

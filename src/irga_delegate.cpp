@@ -21,19 +21,20 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QComboBox>
-#include <QDoubleSpinBox>
-#include <QAbstractItemView>
-#include <QLineEdit>
-#include <QLabel>
-#include <QKeyEvent>
+#include "irga_delegate.h"
 
-#include "defs.h"
+#include <QAbstractItemView>
+#include <QComboBox>
+#include <QDebug>
+#include <QDoubleSpinBox>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QLineEdit>
+
 #include "dbghelper.h"
+#include "defs.h"
 #include "irga_desc.h"
 #include "irga_model.h"
-#include "irga_delegate.h"
 
 IrgaDelegate::IrgaDelegate(QObject *parent) : QItemDelegate(parent)
 {
@@ -55,6 +56,8 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
     QLineEdit *ledit;
     QString currentManufacturer = index.model()->data(index.model()->index(IrgaModel::MANUFACTURER, index.column())).toString();
     QString currentModel = index.model()->data(index.model()->index(IrgaModel::MODEL, index.column())).toString();
+
+//    qDebug() << "index.row()" << index.row();
 
     // can only edit name on blank column
     if (index.column() >= index.model()->columnCount()) return 0;
@@ -114,6 +117,16 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;
+//      case IrgaModel::HEIGHT:
+//          dspin = new QDoubleSpinBox(parent);
+//          dspin->setDecimals(2);
+//          dspin->setRange(0.1, 500.0);
+//          dspin->setSingleStep(1.0);
+//          dspin->setAccelerated(true);
+//          dspin->setSuffix(QStringLiteral(" [m]"));
+//          connect(dspin, SIGNAL(editingFinished()),
+//                  this, SLOT(commitAndCloseEditor()));
+//          return dspin;
       case IrgaModel::TUBELENGTH:
             if (IrgaDesc::isOpenPathModel(currentModel))
             {
@@ -273,7 +286,7 @@ void IrgaDelegate::setEditorData(QWidget* editor,
         case IrgaModel::MANUFACTURER:
         case IrgaModel::MODEL:
               combo = static_cast<QComboBox*>(editor);
-              if (!combo) return;
+              if (!combo) { return; }
               combo->setCurrentIndex(combo->findText(value.toString()));
               break;
         case IrgaModel::SWVERSION:
@@ -282,18 +295,18 @@ void IrgaDelegate::setEditorData(QWidget* editor,
                     || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
               {
                   combo = static_cast<QComboBox*>(editor);
-                  if (!combo) return;
+                  if (!combo) { return; }
                   combo->setCurrentIndex(combo->findText(value.toString()));
               }
               else
               {
                   label = static_cast<QLabel*>(editor);
-                  if (!label) return;
+                  if (!label) { return; }
               }
               break;
         case IrgaModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
-            if (!ledit) return;
+            if (!ledit) { return; }
             ledit->setText(value.toString());
             break;
         case IrgaModel::VPATHLENGTH:
@@ -307,12 +320,12 @@ void IrgaDelegate::setEditorData(QWidget* editor,
                 && currentModel != IrgaDesc::getIRGA_MODEL_STRING_11())
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
             break;
@@ -322,20 +335,21 @@ void IrgaDelegate::setEditorData(QWidget* editor,
             if (IrgaDesc::isOpenPathModel(currentModel))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
             break;
+//        case IrgaModel::HEIGHT:
         case IrgaModel::TUBENSEPARATION:
         case IrgaModel::TUBEESEPARATION:
         case IrgaModel::TUBEVSEPARATION:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             dspin->setValue(value.toReal());
             break;
         case IrgaModel::KWATER:
@@ -346,12 +360,12 @@ void IrgaDelegate::setEditorData(QWidget* editor,
                 && currentModel != IrgaDesc::getIRGA_MODEL_STRING_11())
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
             break;
@@ -374,13 +388,15 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
     QString currentManufacturer = index.model()->data(index.model()->index(IrgaModel::MANUFACTURER, index.column())).toString();
     QString currentModel = index.model()->data(index.model()->index(IrgaModel::MODEL, index.column())).toString();
 
+//    qDebug() << "index.row()" << index.row();
+
     // different kind of editor for each row
     switch (index.row())
     {
         case IrgaModel::MANUFACTURER:
         case IrgaModel::MODEL:
             combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            if (!combo) { return; }
             value = combo->currentText();
             model->setData(index, value);
             break;
@@ -390,19 +406,19 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                     || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
             {
                 combo = static_cast<QComboBox*>(editor);
-                if (!combo) return;
+                if (!combo) { return; }
                 value = combo->currentText();
                 model->setData(index, value);
             }
             else
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             break;
         case IrgaModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
-            if (!ledit) return;
+            if (!ledit) { return; }
             value = ledit->text();
             model->setData(index, value);
             break;
@@ -417,12 +433,12 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                 && currentModel != IrgaDesc::getIRGA_MODEL_STRING_11())
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 value = dspin->value();
                 model->setData(index, value);
             }
@@ -433,21 +449,22 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             if (IrgaDesc::isOpenPathModel(currentModel))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 value = dspin->value();
                 model->setData(index, value);
             }
             break;
+//        case IrgaModel::HEIGHT:
         case IrgaModel::TUBENSEPARATION:
         case IrgaModel::TUBEESEPARATION:
         case IrgaModel::TUBEVSEPARATION:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
             break;
@@ -459,12 +476,12 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                 && currentModel != IrgaDesc::getIRGA_MODEL_STRING_11())
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 dspin = static_cast<QDoubleSpinBox*>(editor);
-                if (!dspin) return;
+                if (!dspin) { return; }
                 value = dspin->value();
                 model->setData(index, value);
             }
@@ -517,6 +534,7 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
                                                 || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
+//        qDebug() << eventType << combo;
         if (combo)
             combo->showPopup();
         return true;
@@ -524,6 +542,7 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
+//        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

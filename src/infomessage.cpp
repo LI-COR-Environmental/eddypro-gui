@@ -20,28 +20,27 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "infomessage.h"
+
+#include <QCheckBox>
 #include <QDebug>
+#include <QLabel>
+#include <QPushButton>
 #include <QSettings>
 #include <QTimer>
-#include <QLabel>
-#include <QCheckBox>
-#include <QPushButton>
 #include <QVBoxLayout>
 
-#include "defs.h"
 #include "dbghelper.h"
-#include "infomessage.h"
+#include "defs.h"
+#include "globalsettings.h"
+#include "widget_utils.h"
 
 InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *parent) :
     QDialog(parent),
-    title_(QString()),
-    message_(new QLabel()),
-    type_(RUN_EXPRESS),
-    doNotShoAgainVisible_(true)
+    title_(),
+    message_(new QLabel)
 {
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
+    WidgetUtils::removeContextHelpButton(this);
 
     doNotShowAgainCheckbox_ = new QCheckBox(tr("Do not show again."));
 
@@ -52,22 +51,27 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
         button->setProperty("mdDialogButton", true);
     }
 
+    // NOTE: use QSignalMapper
     // map dialog risults to messagebox buttons
     foreach (QAbstractButton* button, buttonBox_->buttons())
     {
         switch (buttonBox_->buttonRole(button))
         {
             case QDialogButtonBox::AcceptRole:
-                connect(button, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
+                connect(button, &QAbstractButton::clicked,
+                        this, &InfoMessage::onOkButtonClicked);
                 break;
             case QDialogButtonBox::YesRole:
-                connect(button, SIGNAL(clicked()), this, SLOT(onYesButtonClicked()));
+                connect(button, &QAbstractButton::clicked,
+                        this, &InfoMessage::onYesButtonClicked);
                 break;
             case QDialogButtonBox::NoRole:
-                connect(button, SIGNAL(clicked()), this, SLOT(onNoButtonClicked()));
+                connect(button, &QAbstractButton::clicked,
+                        this, &InfoMessage::onNoButtonClicked);
                 break;
             case QDialogButtonBox::RejectRole:
-                connect(button, SIGNAL(clicked()), this, SLOT(onCancelButtonClicked()));
+                connect(button, &QAbstractButton::clicked,
+                        this, &InfoMessage::onCancelButtonClicked);
                 break;
             default:
                 break;
@@ -76,19 +80,27 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     message_->setWordWrap(true);
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->addWidget(message_);
-    mainLayout->addWidget(doNotShowAgainCheckbox_);
-    mainLayout->addWidget(buttonBox_);
-    mainLayout->setContentsMargins(30, 30, 30, 30);
+    icon_ = new QLabel;
+    icon_->setPixmap(QPixmap(QStringLiteral(":/icons/msg-info")));
+
+    auto firstRowLayout = new QHBoxLayout;
+    firstRowLayout->addWidget(icon_);
+    firstRowLayout->insertSpacing(1, 15);
+    firstRowLayout->addWidget(message_);
+
+    auto mainLayout = new QVBoxLayout(this);
+    mainLayout->addLayout(firstRowLayout);
+    mainLayout->addWidget(doNotShowAgainCheckbox_, 0, Qt::AlignCenter);
+    mainLayout->insertSpacing(2, 15);
+    mainLayout->addWidget(buttonBox_, 0, Qt::AlignCenter);
+    mainLayout->setContentsMargins(20, 20, 20, 20);
+    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(mainLayout);
 
     connect(buttonBox_, SIGNAL(accepted()), this, SLOT(accept()));
     connect(buttonBox_, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(buttonBox_, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox_, SIGNAL(rejected()), this, SLOT(reject()));
-    connect(doNotShowAgainCheckbox_, SIGNAL(toggled(bool)),
-            this, SLOT(onDoNotShowAgainCheckboxToggled_(bool)));
+    connect(doNotShowAgainCheckbox_, &QCheckBox::toggled,
+            this, &InfoMessage::onDoNotShowAgainCheckboxToggled_);
 
     QTimer::singleShot(0, this, SLOT(initialize()));
 }
@@ -107,23 +119,26 @@ void InfoMessage::refresh()
     config.beginGroup(Defs::CONFGROUP_WINDOW);
     switch (type_)
     {
-        case RUN_EXPRESS:
+        case Type::RUN_EXPRESS:
             showDialog = config.value(Defs::CONF_WIN_RUN_EXP_MSG, true).toBool();
             break;
-        case RUN_ADVANCED:
+        case Type::RUN_ADVANCED:
             showDialog = config.value(Defs::CONF_WIN_RUN_ADV_MSG, true).toBool();
             break;
-        case RUN_RETRIEVER:
+        case Type::RUN_RETRIEVER:
             showDialog = config.value(Defs::CONF_WIN_RUN_RET_MSG, true).toBool();
             break;
-        case SELECTION_CLEANING:
+        case Type::SELECTION_CLEANING:
             showDialog = config.value(Defs::CONF_WIN_BASIC_SETTINGS_CLEARING_MSG, true).toBool();
             break;
-        case SMARTFLUX_CONFIG:
+        case Type::SMARTFLUX_CONFIG:
             showDialog = config.value(Defs::CONF_WIN_SMARTFLUX_CONFIG_MSG, true).toBool();
             break;
-        case NOAA_WEBSITE:
+        case Type::NOAA_WEBSITE:
             showDialog = config.value(Defs::CONF_WIN_NOAA_WEBSITE_MSG, true).toBool();
+            break;
+        case Type::ANGLE_OF_ATTACK_SELECTION:
+            showDialog = config.value(Defs::CONF_WIN_AOA_SELECTION_MSG, true).toBool();
             break;
         default:
             break;
@@ -141,23 +156,26 @@ void InfoMessage::onDoNotShowAgainCheckboxToggled_(bool toggled)
     config.beginGroup(Defs::CONFGROUP_WINDOW);
     switch (type_)
     {
-        case RUN_EXPRESS:
+        case Type::RUN_EXPRESS:
             config.setValue(Defs::CONF_WIN_RUN_EXP_MSG, !toggled);
             break;
-        case RUN_ADVANCED:
+        case Type::RUN_ADVANCED:
             config.setValue(Defs::CONF_WIN_RUN_ADV_MSG, !toggled);
             break;
-        case RUN_RETRIEVER:
+        case Type::RUN_RETRIEVER:
             config.setValue(Defs::CONF_WIN_RUN_RET_MSG, !toggled);
             break;
-        case SELECTION_CLEANING:
+        case Type::SELECTION_CLEANING:
             config.setValue(Defs::CONF_WIN_BASIC_SETTINGS_CLEARING_MSG, !toggled);
             break;
-        case SMARTFLUX_CONFIG:
+        case Type::SMARTFLUX_CONFIG:
             config.setValue(Defs::CONF_WIN_SMARTFLUX_CONFIG_MSG, !toggled);
             break;
-        case NOAA_WEBSITE:
+        case Type::NOAA_WEBSITE:
             config.setValue(Defs::CONF_WIN_NOAA_WEBSITE_MSG, !toggled);
+            break;
+        case Type::ANGLE_OF_ATTACK_SELECTION:
+            config.setValue(Defs::CONF_WIN_AOA_SELECTION_MSG, !toggled);
             break;
         default:
             break;
@@ -171,12 +189,17 @@ void InfoMessage::setTitle(const QString &title)
     setWindowTitle(title);
 }
 
+void InfoMessage::setIcon(const QPixmap &icon)
+{
+    icon_->setPixmap(icon);
+}
+
 void InfoMessage::setMessage(const QString& text)
 {
     message_->setText(text);
 }
 
-void InfoMessage::setType(int type)
+void InfoMessage::setType(Type type)
 {
     type_ = type;
 }
@@ -205,4 +228,27 @@ void InfoMessage::onNoButtonClicked()
 void InfoMessage::onCancelButtonClicked()
 {
     this->setResult(QMessageBox::Cancel);
+}
+
+void InfoMessage::showAoaSelectionMsg()
+{
+    bool showDialog = GlobalSettings::getAppPersistentSettings(
+                            Defs::CONFGROUP_WINDOW,
+                            Defs::CONF_WIN_AOA_SELECTION_MSG,
+                            true).toBool();
+    if (!showDialog) { return; }
+
+    // info message
+    InfoMessage aoaDialog(QDialogButtonBox::Ok, 0);
+    aoaDialog.setTitle(tr("Angle of Attack automatic selection"));
+    aoaDialog.setType(InfoMessage::Type::ANGLE_OF_ATTACK_SELECTION);
+    aoaDialog.setMessage(tr("<p>A default selection of the Angle of attack "
+                            "correction was made by EddyPro, based on the "
+                            "pre-selection of the 'Master Anemometer'' "
+                            "performed according to the content of the "
+                            "selected metadata file. Please review the "
+                            "Angle of attack settings in the 'Advanced "
+                            "Settings > Processing Options page.</p>"));
+    aoaDialog.refresh();
+    aoaDialog.exec();
 }

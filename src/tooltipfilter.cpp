@@ -23,19 +23,19 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QToolTip>
+#include "tooltipfilter.h"
+
 #include <QEvent>
 #include <QHelpEvent>
-
-#include "tooltipfilter.h"
+#include <QToolTip>
 
 TooltipFilter::TooltipFilter(bool tooltipOn, QObject *parent)
     : QObject(parent),
       tooltipOn_(tooltipOn),
-      tooltipType_(StdTooltip)
+      tooltipType_(TooltipType::StdTooltip)
 {
     if (!tooltipOn_)
-        tooltipType_ = NoTooltip;
+        tooltipType_ = TooltipType::NoTooltip;
 }
 
 bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
@@ -48,13 +48,13 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
 
         switch (tooltipType_)
         {
-            case NoTooltip:
+            case TooltipType::NoTooltip:
                 QToolTip::hideText();
                 return true;
-            case StdTooltip:
+            case TooltipType::StdTooltip:
                 QToolTip::showText(pos, w->toolTip());
                 return true;
-            case CustomTooltip:
+            case TooltipType::CustomTooltip:
             default:
                 QToolTip::hideText();
                 emit updateTooltipRequest(w->toolTip());
@@ -70,7 +70,7 @@ void TooltipFilter::setTooltipAvailable(bool available)
     tooltipOn_ = available;
 
     if (tooltipOn_)
-        tooltipType_ = StdTooltip;
+        tooltipType_ = TooltipType::StdTooltip;
     else
-        tooltipType_ = NoTooltip;
+        tooltipType_ = TooltipType::NoTooltip;
 }

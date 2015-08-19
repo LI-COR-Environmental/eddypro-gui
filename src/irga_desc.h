@@ -24,8 +24,8 @@
 #ifndef IRGA_DESC_H
 #define IRGA_DESC_H
 
+#include <QCoreApplication> // for Q_DECLARE_TR_FUNCTIONS
 #include <QList>
-#include <QCoreApplication>
 
 class QString;
 class QStringList;
@@ -63,6 +63,7 @@ public:
              const QString& model,
              const QString& swVersion,
              const QString& id,
+//             qreal height,
              qreal tubeLength,
              qreal tubeDiameter,
              qreal tubeFlowRate,
@@ -98,6 +99,10 @@ public:
     // get/set id
     const QString& id() const;
     void setId(const QString& i);
+
+    // get/set height
+//    qreal height() const;
+//    void setHeight(qreal h);
 
     // get/set tube length
     qreal tubeLength() const;
@@ -157,6 +162,7 @@ private:
     QString swVersion_;
     QString sn_;
     QString id_;
+//    qreal height_;
     qreal tubeLength_;
     qreal tubeDiameter_;
     qreal tubeFlowRate_;
@@ -199,6 +205,12 @@ inline const QString& IrgaDesc::id() const
 
 inline void IrgaDesc::setId(const QString& i)
     { id_ = i; }
+
+//inline qreal IrgaDesc::height() const
+//    { return height_; }
+
+//inline void IrgaDesc::setHeight(qreal h)
+//    { height_ = h; }
 
 inline qreal IrgaDesc::tubeLength() const
     { return tubeLength_; }

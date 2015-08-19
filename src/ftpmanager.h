@@ -23,9 +23,9 @@
 #ifndef FTPMANAGER_H
 #define FTPMANAGER_H
 
-#include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QObject>
 
 class QFile;
 class QNetworkReply;
@@ -39,7 +39,7 @@ class FtpManager : public QObject
     QFile* data;
 
 public:
-    explicit FtpManager(QObject *parent = 0);
+    explicit FtpManager(QObject* parent = nullptr);
     ~FtpManager();
 
     void put(const QString &file);

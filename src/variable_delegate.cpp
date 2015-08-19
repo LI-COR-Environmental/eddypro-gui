@@ -21,25 +21,28 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QComboBox>
-#include <QDoubleSpinBox>
+#include "variable_delegate.h"
+
 #include <QAbstractItemView>
+#include <QComboBox>
+#include <QDebug>
+#include <QDoubleSpinBox>
 #include <QKeyEvent>
 #include <QLabel>
 
-#include "nonzerodoublespinbox.h"
+#include "customcombobox.h"
 #include "dbghelper.h"
+#include "globalsettings.h"
+#include "nonzerodoublespinbox.h"
 #include "variable_model.h"
-#include "alia.h"
-#include "variable_delegate.h"
+#include "widget_utils.h"
 
 VariableDelegate::VariableDelegate(QObject *parent) :
     QItemDelegate(parent),
     varsBuffer_(new QStringList())
 {
     installEventFilter(this);
-    Alia::getCustomVariables(varsBuffer_.data());
+    GlobalSettings::getCustomVariableList(varsBuffer_.data());
 }
 
 VariableDelegate::~VariableDelegate()
@@ -51,8 +54,10 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                                      const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
 {
+//    DEBUG_FUNC_MSG(tr("createeditor"));
     QLabel *label;
     QComboBox *combo;
+    CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
     NonZeroDoubleSpinBox *nzdspin;
 
@@ -81,15 +86,22 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                     this, SLOT(commitAndCloseEditor()));
             return combo;
         case VariableModel::VARIABLE:
-            combo = new QComboBox(parent);
-            combo->setEditable(true);
-            combo->setMaxVisibleItems(40);
-            combo->addItems(VariableDesc::variableStringList() + *varsBuffer_);
-            combo->setMinimumWidth(130);
-            combo->view()->setAlternatingRowColors(true);
-            connect(combo, SIGNAL(activated(int)),
+            custom_combo = new CustomComboBox(parent);
+            custom_combo->setEditable(true);
+            custom_combo->setMaxVisibleItems(20);
+            custom_combo->addParentItem(QStringLiteral("Standard Variables"));
+            custom_combo->addChildItems(VariableDesc::variableStringList());
+            if (!varsBuffer_->isEmpty())
+            {
+                custom_combo->addSeparator();
+                custom_combo->addParentItem(QStringLiteral("Custom Variables"));
+                custom_combo->addChildItems(*varsBuffer_);
+            }
+            custom_combo->setMinimumWidth(130);
+            custom_combo->view()->setAlternatingRowColors(true);
+            connect(custom_combo, SIGNAL(activated(int)),
                     this, SLOT(commitAndCloseEditor()));
-            return combo;
+            return custom_combo;
         case VariableModel::INSTRUMENT:
             combo = new QComboBox(parent);
             combo->setEditable(false);
@@ -157,7 +169,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                 combo->addItems(VariableDesc::inputUnitStringList());
             }
 
-            combo->setMaxVisibleItems(40);
+            combo->setMaxVisibleItems(20);
             combo->setMinimumWidth(130);
             connect(combo, SIGNAL(activated(int)),
                     this, SLOT(commitAndCloseEditor()));
@@ -230,7 +242,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                     combo->addItems(VariableDesc::outputUnitStringList());
                 }
 
-                combo->setMaxVisibleItems(40);
+                combo->setMaxVisibleItems(20);
                 combo->setMinimumWidth(130);
                 connect(combo, SIGNAL(activated(int)),
                         this, SLOT(commitAndCloseEditor()));
@@ -276,6 +288,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
 {
     QLabel *label;
     QComboBox *combo;
+    CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
     NonZeroDoubleSpinBox *nzdspin;
 
@@ -294,35 +307,51 @@ void VariableDelegate::setEditorData(QWidget* editor,
         case VariableModel::INSTRUMENT:
         case VariableModel::INPUTUNIT:
             combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            if (!combo) { return; }
             combo->setCurrentIndex(combo->findText(stringValue));
             break;
         case VariableModel::VARIABLE:
-            combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            custom_combo = static_cast<CustomComboBox*>(editor);
+            if (!custom_combo) { return; }
 
-            // add the editable item which was selected but not present in the original combo
-            if (combo->findText(stringValue) < 0)
+            // prevent empty variables
+            if (stringValue.isEmpty()) break;
+
+            // skip parent items
+            if (stringValue == QLatin1String("Standard Variables")
+                or stringValue == QLatin1String("Custom Variables"))
             {
-                combo->addItem(stringValue);
-                varsBuffer_->append(stringValue);
-                Alia::setCustomVariables(*varsBuffer_);
+                custom_combo->setCurrentIndex(1);
+                break;
             }
 
-            combo->setCurrentIndex(combo->findText(stringValue));
+            // add the editable item which was selected but not present
+            // in the original combo
+            if (custom_combo->findText(stringValue) < 0
+                and stringValue != QStringLiteral("Standard Variables")
+                and stringValue != QStringLiteral("Custom Variables"))
+            {
+                varsBuffer_->append(stringValue);
+                GlobalSettings::setCustomVariableList(*varsBuffer_);
+                custom_combo->addChildItem(stringValue);
+            }
+
+            custom_combo->setCurrentIndex(custom_combo->findText(stringValue));
             break;
         case VariableModel::MEASURETYPE:
             if (!VariableDesc::isGasVariable(currentVar)
                 && !VariableDesc::isCustomVariable(currentVar))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 combo = static_cast<QComboBox*>(editor);
-                if (!combo) return;
+                if (!combo) { return; }
 
+//                if (combo->findText(value.toString()) < 0)
+//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
@@ -331,13 +360,15 @@ void VariableDelegate::setEditorData(QWidget* editor,
             if (!VariableDesc::isScalableVariable(currentInputUnit))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 combo = static_cast<QComboBox*>(editor);
-                if (!combo) return;
+                if (!combo) { return; }
 
+//                if (combo->findText(value.toString()) < 0)
+//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
@@ -346,12 +377,12 @@ void VariableDelegate::setEditorData(QWidget* editor,
             if (!VariableDesc::isScalableVariable(currentInputUnit))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
-                if (!nzdspin) return;
+                if (!nzdspin) { return; }
                 nzdspin->setValue(value.toReal());
             }
             break;
@@ -359,7 +390,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
         case VariableModel::MINTIMELAG:
         case VariableModel::MAXTIMELAG:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             dspin->setValue(value.toReal());
             break;
         default:
@@ -387,25 +418,38 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
     {
         case VariableModel::IGNORE:
         case VariableModel::NUMERIC:
-        case VariableModel::VARIABLE:
         case VariableModel::INSTRUMENT:
         case VariableModel::INPUTUNIT:
             combo = static_cast<QComboBox*>(editor);
-            if (!combo) return;
+            if (!combo) { return; }
             value = combo->currentText();
             model->setData(index, value);
             break;
+        case VariableModel::VARIABLE:
+            combo = static_cast<CustomComboBox*>(editor);
+            if (!combo) { return; }
+            value = combo->currentText();
+
+            // skip parent items
+            if (value == QLatin1String("Standard Variables")
+                or value == QLatin1String("Custom Variables"))
+            {
+                value = QStringLiteral("u");
+            }
+
+            model->setData(index, value);
+        break;
         case VariableModel::CONVERSIONTYPE:
         case VariableModel::OUTPUTUNIT:
             if (!VariableDesc::isScalableVariable(currentInputUnit))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 combo = static_cast<QComboBox*>(editor);
-                if (!combo) return;
+                if (!combo) { return; }
                 value = combo->currentText();
                 model->setData(index, value);
             }
@@ -415,12 +459,12 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                 && !VariableDesc::isCustomVariable(currentVar))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 combo = static_cast<QComboBox*>(editor);
-                if (!combo) return;
+                if (!combo) { return; }
                 value = combo->currentText();
                 model->setData(index, value);
             }
@@ -430,12 +474,12 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             if (!VariableDesc::isScalableVariable(currentInputUnit))
             {
                 label = static_cast<QLabel*>(editor);
-                if (!label) return;
+                if (!label) { return; }
             }
             else
             {
                 nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
-                if (!nzdspin) return;
+                if (!nzdspin) { return; }
                 value = nzdspin->value();
                 model->setData(index, value);
             }
@@ -444,7 +488,7 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case VariableModel::MINTIMELAG:
         case VariableModel::MAXTIMELAG:
             dspin = static_cast<QDoubleSpinBox*>(editor);
-            if (!dspin) return;
+            if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
             break;
@@ -461,6 +505,12 @@ void VariableDelegate::updateEditorGeometry(QWidget* editor,
     Q_UNUSED(index)
 
     if (editor) editor->setGeometry(option.rect);
+}
+
+void VariableDelegate::clearCustomVariableBuffer()
+{
+    varsBuffer_.data()->clear();
+    GlobalSettings::setCustomVariableList(*varsBuffer_);
 }
 
 void VariableDelegate::commitAndCloseEditor()
@@ -489,6 +539,7 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
                                                 || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
+//        qDebug() << eventType << combo;
         if (combo)
             combo->showPopup();
         return true;
@@ -496,6 +547,7 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
+//        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

@@ -21,13 +21,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QHeaderView>
-#include <QScrollBar>
-#include <QMouseEvent>
-
-#include "dbghelper.h"
-#include "customheader.h"
 #include "anem_tableview.h"
+
+#include <QHeaderView>
+#include <QMouseEvent>
+#include <QScrollBar>
+
+#include "customheader.h"
+#include "dbghelper.h"
 
 AnemTableView::AnemTableView(QWidget *parent) :
     QTableView(parent)
@@ -44,11 +45,11 @@ AnemTableView::AnemTableView(QWidget *parent) :
     m_header->addSection(tr("<i>Instrument ID</i>"), tr("<b>Instrument ID:</b> Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional."));
     m_header->addSection(tr("Height"), tr("<b> Height:</b> Enter the distance between the ground and the center of the device sampling volume. This field is mandatory."));
     m_header->addSection(tr("Wind data format"), tr("<b>Wind data format:</b> Specify the format in which the wind data are provided."));
-    m_header->addSection(tr("North alignment"), tr("<b>North alignment:</b> Specify whether the anemometer\'s axes are aligned to transducers (<i>Axis</i>) or spars (<i>Spars</i>). For Gill anemometers only."), CustomHeader::QuestionMark, ClickLabel::AnemNAlign);
-    m_header->addSection(tr("North off-set"), tr("<b>North offset:</b> Enter the anemometer\'s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward."), CustomHeader::QuestionMark, ClickLabel::AnemNOffset);
-    m_header->addSection(tr("Northward separation"), tr("<b>Northward separation:</b> Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference."), CustomHeader::QuestionMark, ClickLabel::AnemNSep);
-    m_header->addSection(tr("Eastward separation"), tr("<b>Eastward separation:</b> Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference."), CustomHeader::QuestionMark, ClickLabel::AnemESep);
-    m_header->addSection(tr("Vertical separation"), tr("<b>Vertical separation:</b> Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string <i>Reference</i>."), CustomHeader::QuestionMark, ClickLabel::AnemVSep);
+    m_header->addSection(tr("North alignment"), tr("<b>North alignment:</b> Specify whether the anemometer\'s axes are aligned to transducers (<i>Axis</i>) or spars (<i>Spars</i>). For Gill anemometers only."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemNAlign);
+    m_header->addSection(tr("North off-set"), tr("<b>North offset:</b> Enter the anemometer\'s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemNOffset);
+    m_header->addSection(tr("Northward separation"), tr("<b>Northward separation:</b> Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemNSep);
+    m_header->addSection(tr("Eastward separation"), tr("<b>Eastward separation:</b> Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemESep);
+    m_header->addSection(tr("Vertical separation"), tr("<b>Vertical separation:</b> Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string <i>Reference</i>."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemVSep);
     m_header->addSection(tr("Longitudinal path length"), tr("<b>Longitudinal path length:</b> Path length in the direction defined by a pair of transducers. Consult the anemometer\'s specifications or user manual."));
     m_header->addSection(tr("Transversal path length"), tr("<b>Transversal path length:</b> Path length in the direction orthogonal to the longitudinal path length of the anemometer (e.g., as defined by the diameter of transducers)."));
     m_header->addSection(tr("Time response"), tr("<b>Time response:</b> Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer\'s specifications or user manual."));

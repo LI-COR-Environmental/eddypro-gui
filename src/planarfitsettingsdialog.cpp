@@ -20,51 +20,53 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QDebug>
-#include <QScrollArea>
+#include "planarfitsettingsdialog.h"
+
+#include <QButtonGroup>
+#include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDateEdit>
+#include <QDebug>
+#include <QEvent>
+#include <QHeaderView>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QButtonGroup>
+#include <QScrollArea>
 #include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QComboBox>
-#include <QHeaderView>
 #include <QToolButton>
 
 #include <QwwButtonLineEdit/QwwButtonLineEdit>
 
-#include "dbghelper.h"
-#include "alia.h"
-#include "fileutils.h"
-#include "tablemodel.h"
-#include "tableview.h"
-#include "pieview.h"
+#include "ancillaryfiletest.h"
+#include "angle_tablemodel.h"
+#include "angle_tableview.h"
+#include "angles_view.h"
 #include "clicklabel.h"
-#include "ecproject.h"
 #include "configstate.h"
-#include "planarfitsettingsdialog.h"
+#include "dbghelper.h"
+#include "ecproject.h"
+#include "fileutils.h"
+#include "globalsettings.h"
+#include "widget_utils.h"
 
 PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecProject, ConfigState* config)
     : QDialog(parent),
       ecProject_(ecProject),
       configState_(config)
 {
-    setWindowTitle(tr("Planar Fit Settings"));
-    Qt::WindowFlags winFflags = windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    setWindowFlags(winFflags);
     setWindowModality(Qt::WindowModal);
+    setWindowTitle(tr("Planar Fit Settings"));
+    WidgetUtils::removeContextHelpButton(this);
 
-    QLabel *groupTitle = new QLabel();
+    auto groupTitle = new QLabel;
     groupTitle->setText(tr("If you already ran EddyPro with the Planar Fit option for this dataset, <br />"
                            "you probably have a file named \"eddypro_<i>projID</i>_planarfit.txt\" in the results folder. <br />"
                            "You may use that file and speed up the data processing."));
 
-    QLabel *hrLabel_1 = new QLabel;
+    auto hrLabel_1 = new QLabel;
     hrLabel_1->setObjectName(QStringLiteral("hrLabel"));
 
     hrLabel_2 = new QLabel;
@@ -76,10 +78,10 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     nonExistingRadio = new QRadioButton(tr("Planar fit file not available :"));
     nonExistingRadio->setToolTip(tr("<b>Planar fit file not available:</b> Choose this option and provide the following information if you need to calculate (sector-wise) planar fit rotation matrices for your dataset. Planar fit assessment will be completed first, and then the raw data processing and flux computation procedures will automatically be performed."));
 
-    lockedIcon = new QLabel();
+    lockedIcon = new QLabel;
     lockedIcon->setPixmap(QPixmap(QStringLiteral(":/icons/vlink-locked")));
 
-    subsetCheckBox = new QCheckBox();
+    subsetCheckBox = new QCheckBox;
     subsetCheckBox->setText(tr("Select a subperiod"));
     subsetCheckBox->setStyleSheet(QStringLiteral("QCheckBox {margin: 0px;}"));
     subsetCheckBox->setToolTip(tr("<b>Select a subperiod:</b> Select this option and set the corresponding dates to specify the time period EddyPro will use for the planar fit calculations. This subperiod must fall within the time period defined by the available raw data."));
@@ -87,28 +89,28 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     startDateLabel = new ClickLabel(this);
     startDateLabel->setText(tr("Start :"));
     startDateLabel->setToolTip(tr("<b>Start:</b> Starting date of the time period to be used for planar fit assessment. This time period cannot be longer than about 1 month. As a general recommendation, select a time period during which the instrument setup and the canopy height and structure did not undergo major modifications. Results obtained using a given time period (e.g., 2 weeks) can be used for processing a longer time period, in which major modifications did not occur at the site. The higher the <b><i>Number of wind sectors</i></b> and the <b><i>Minimum number of elements per sector</i></b>, the longer the period should be."));
-    startDateEdit = new QDateEdit();
+    startDateEdit = new QDateEdit;
     startDateEdit->setToolTip(startDateLabel->toolTip());
     startDateEdit->setCalendarPopup(true);
     startDateEdit->setDate(QDate(2000, 1, 1));
-    Alia::customizeCalendar(startDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(startDateEdit->calendarWidget());
 
     endDateLabel = new ClickLabel(this);
     endDateLabel->setText(tr("End :"));
     endDateLabel->setToolTip(tr("<b>End:</b> End date of the time period to be used for planar fit assessment. This time period cannot be longer than about 1 month. As a general recommendation, select a time period during which the instrument setup and the canopy height and structure did not undergo major modifications. Results obtained using a given time period (e.g., 2 weeks) can be used for processing a longer time period, in which major modifications did not occur at the site. The higher the <b><i>Number of wind sectors</i></b> and the <b><i>Minimum number of elements per sector</i></b>, the longer the period should be."));
-    endDateEdit = new QDateEdit();
+    endDateEdit = new QDateEdit;
     endDateEdit->setToolTip(endDateLabel->toolTip());
     endDateEdit->setCalendarPopup(true);
     endDateEdit->setDate(QDate::currentDate());
-    Alia::customizeCalendar(endDateEdit->calendarWidget());
+    WidgetUtils::customizeCalendar(endDateEdit->calendarWidget());
 
-    QGridLayout* linkedLayout = new QGridLayout;
+    auto linkedLayout = new QGridLayout;
     linkedLayout->addWidget(lockedIcon, 0, 0, 2, 1, Qt::AlignHCenter | Qt::AlignVCenter);
     linkedLayout->addWidget(startDateEdit, 0, 1);
     linkedLayout->addWidget(endDateEdit, 1, 1);
     linkedLayout->setVerticalSpacing(3);
 
-    fileEdit = new QwwButtonLineEdit();
+    fileEdit = new QwwButtonLineEdit;
     fileEdit->setIcon(QIcon(QStringLiteral(":/icons/clear-line")));
     fileEdit->setButtonVisible(false);
     fileEdit->setButtonPosition(QwwButtonLineEdit::RightInside);
@@ -120,20 +122,20 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     fileLoad->setProperty("loadButton", true);
     fileLoad->setToolTip(tr("<b>Load:</b> Load an existing planar fit file"));
 
-    QHBoxLayout* fileContainerLayout = new QHBoxLayout;
+    auto fileContainerLayout = new QHBoxLayout;
     fileContainerLayout->addWidget(fileEdit);
     fileContainerLayout->addWidget(fileLoad);
     fileContainerLayout->setStretch(2, 1);
     fileContainerLayout->setContentsMargins(25, 0, 0, 0);
     fileContainerLayout->setSpacing(0);
-    QWidget* fileContainer = new QWidget();
+    auto fileContainer = new QWidget;
     fileContainer->setLayout(fileContainerLayout);
 
-    QHBoxLayout* existingFileLayout = new QHBoxLayout;
+    auto existingFileLayout = new QHBoxLayout;
     existingFileLayout->addWidget(existingRadio);
     existingFileLayout->addWidget(fileContainer);
     existingFileLayout->setStretch(2, 1);
-    existingFileLayout->setContentsMargins(3, 0, 0, 0);
+    existingFileLayout->setContentsMargins(0, 0, 0, 0);
     existingFileLayout->setSpacing(0);
 
     radioGroup = new QButtonGroup(this);
@@ -178,26 +180,27 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     fixPolicyCombo->addItem(tr("Use double rotations"));
     fixPolicyCombo->setToolTip(fixPolicyLabel->toolTip());
 
-    QGridLayout *propertiesLayout = new QGridLayout();
-    propertiesLayout->addWidget(nonExistingRadio, 0, 0);
-    propertiesLayout->addWidget(subsetCheckBox, 0, 1, 1, 1, Qt::AlignLeft);
-    propertiesLayout->addWidget(startDateLabel, 0, 1, Qt::AlignRight);
-    propertiesLayout->addLayout(linkedLayout, 0, 2, 2, 1);
-    propertiesLayout->addWidget(endDateLabel, 1, 1, Qt::AlignRight);
-    propertiesLayout->addWidget(itemPerSectorLabel, 2, 1, Qt::AlignRight);
-    propertiesLayout->addWidget(itemPerSectorSpin, 2, 2, 1, 1);
-    propertiesLayout->addWidget(maxAvgWLabel, 3, 1, Qt::AlignRight);
-    propertiesLayout->addWidget(maxAvgWSpin, 3, 2, 1, 1);
-    propertiesLayout->addWidget(minAvgULabel, 4, 1, Qt::AlignRight);
-    propertiesLayout->addWidget(minAvgUSpin, 4, 2, 1, 1);
-    propertiesLayout->addWidget(fixPolicyLabel, 5, 1, Qt::AlignRight);
-    propertiesLayout->addWidget(fixPolicyCombo, 5, 2, 1, 2);
-    propertiesLayout->setRowStretch(6, 1);
+    auto propertiesLayout = new QGridLayout;
+    propertiesLayout->addLayout(existingFileLayout, 0, 0, 1, -1);
+    propertiesLayout->addWidget(nonExistingRadio, 1, 0);
+    propertiesLayout->addWidget(subsetCheckBox, 1, 1, 1, 1, Qt::AlignLeft);
+    propertiesLayout->addWidget(startDateLabel, 1, 1, Qt::AlignRight);
+    propertiesLayout->addLayout(linkedLayout, 1, 2, 2, 1);
+    propertiesLayout->addWidget(endDateLabel, 2, 1, Qt::AlignRight);
+    propertiesLayout->addWidget(itemPerSectorLabel, 3, 1, Qt::AlignRight);
+    propertiesLayout->addWidget(itemPerSectorSpin, 3, 2, 1, 1);
+    propertiesLayout->addWidget(maxAvgWLabel, 4, 1, Qt::AlignRight);
+    propertiesLayout->addWidget(maxAvgWSpin, 4, 2, 1, 1);
+    propertiesLayout->addWidget(minAvgULabel, 5, 1, Qt::AlignRight);
+    propertiesLayout->addWidget(minAvgUSpin, 5, 2, 1, 1);
+    propertiesLayout->addWidget(fixPolicyLabel, 6, 0, Qt::AlignRight);
+    propertiesLayout->addWidget(fixPolicyCombo, 6, 1);
+    propertiesLayout->setRowStretch(7, 1);
     propertiesLayout->setVerticalSpacing(3);
-    propertiesLayout->setRowMinimumHeight(1, 10);
+    propertiesLayout->setRowMinimumHeight(2, 10);
     propertiesLayout->setContentsMargins(3, 3, 3, 3);
 
-    QWidget *propertiesFrame = new QWidget();
+    auto propertiesFrame = new QWidget;
     propertiesFrame->setLayout(propertiesLayout);
     propertiesFrame->setProperty("scrollContainerWidget", true);
     propertiesFrame->setMinimumWidth(propertiesFrame->sizeHint().width());
@@ -208,7 +211,7 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     setupModel();
     setupViews();
 
-    QVBoxLayout *buttonsLayout = new QVBoxLayout;
+    auto buttonsLayout = new QVBoxLayout;
     buttonsLayout->addWidget(addButton);
     buttonsLayout->addSpacing(10);
     buttonsLayout->addWidget(removeButton);
@@ -230,24 +233,24 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     offsetSpin->setAccelerated(true);
     offsetSpin->setToolTip(offsetLabel->toolTip());
 
-    QHBoxLayout* offsetLayout = new QHBoxLayout;
+    auto offsetLayout = new QHBoxLayout;
     offsetLayout->addWidget(offsetLabel);
     offsetLayout->addSpacing(3);
     offsetLayout->addWidget(offsetSpin);
 
-    QGridLayout *sectorConfigLayout = new QGridLayout();
-    sectorConfigLayout->addWidget(table_, 0, 0, Qt::AlignCenter);
+    auto sectorConfigLayout = new QGridLayout;
+    sectorConfigLayout->addWidget(angleTableView_, 0, 0, Qt::AlignCenter);
     sectorConfigLayout->addLayout(buttonsLayout, 0, 1, Qt::AlignCenter);
-    sectorConfigLayout->addWidget(pieChart_, 0, 2);
+    sectorConfigLayout->addWidget(anglesView_, 0, 2);
     sectorConfigLayout->addWidget(setEquallySpacedButton, 1, 0, Qt::AlignCenter);
     sectorConfigLayout->addLayout(offsetLayout, 1, 2);
     sectorConfigLayout->setVerticalSpacing(5);
     sectorConfigLayout->setContentsMargins(11, 0, 0, 0);
 
-    sectorConfigFrame = new QWidget();
+    sectorConfigFrame = new QWidget;
     sectorConfigFrame->setLayout(sectorConfigLayout);
 
-    QPushButton *okButton = new QPushButton(tr("&Ok"));
+    auto okButton = new QPushButton(tr("&Ok"));
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     okButton->setDefault(true);
     okButton->setProperty("commonButton", true);
@@ -258,10 +261,9 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     propScrollArea->setMinimumWidth(propertiesFrame->sizeHint().width());
     propScrollArea->setMaximumHeight(propertiesFrame->sizeHint().height());
 
-    QGridLayout *mainLayout = new QGridLayout(this);
+    auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0);
     mainLayout->addWidget(hrLabel_1, 1, 0);
-    mainLayout->addLayout(existingFileLayout, 2, 0);
     mainLayout->addWidget(propScrollArea, 3, 0);
     mainLayout->addWidget(hrLabel_2, 4, 0);
     mainLayout->addWidget(sectorConfigTitle, 5, 0);
@@ -277,74 +279,75 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     connect(radioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(radioClicked(int)));
 
-    connect(fileEdit, SIGNAL(buttonClicked()),
-            this, SLOT(clearFileEdit()));
-    connect(fileEdit, SIGNAL(textChanged(QString)),
-            this, SLOT(updateFile(QString)));
-    connect(fileLoad, SIGNAL(clicked()),
-            this, SLOT(fileLoad_clicked()));
+    connect(fileEdit, &QwwButtonLineEdit::buttonClicked,
+            this, &PlanarFitSettingsDialog::clearFileEdit);
+    connect(fileEdit, &QwwButtonLineEdit::textChanged,
+            this, &PlanarFitSettingsDialog::updateFile);
+    connect(fileLoad, &QPushButton::clicked,
+            this, &PlanarFitSettingsDialog::fileLoad_clicked);
 
-    connect(subsetCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(updateSubsetSelection(bool)));
+    connect(subsetCheckBox, &QCheckBox::toggled,
+            this, &PlanarFitSettingsDialog::updateSubsetSelection);
 
-    connect(startDateLabel, SIGNAL(clicked()),
-            this, SLOT(onStartDateLabelClicked()));
-    connect(startDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateStartDate(QDate)));
+    connect(startDateLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onStartDateLabelClicked);
+    connect(startDateEdit, &QDateEdit::dateChanged,
+            this, &PlanarFitSettingsDialog::updateStartDate);
 
-    connect(endDateLabel, SIGNAL(clicked()),
-            this, SLOT(onEndDateLabelClicked()));
-    connect(endDateEdit, SIGNAL(dateChanged(QDate)),
-            this, SLOT(updateEndDate(QDate)));
+    connect(endDateLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onEndDateLabelClicked);
+    connect(endDateEdit, &QDateEdit::dateChanged,
+            this, &PlanarFitSettingsDialog::updateEndDate);
 
-    connect(itemPerSectorLabel, SIGNAL(clicked()),
-            this, SLOT(onItemPerSectorLabelClicked()));
+    connect(itemPerSectorLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onItemPerSectorLabelClicked);
     connect(itemPerSectorSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateItemPerSector(int)));
 
-    connect(maxAvgWLabel, SIGNAL(clicked()),
-            this, SLOT(onMaxAvgWLabelClicked()));
+    connect(maxAvgWLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onMaxAvgWLabelClicked);
     connect(maxAvgWSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMaxAvgW(double)));
 
-    connect(minAvgULabel, SIGNAL(clicked()),
-            this, SLOT(onMinAvgULabelClicked()));
+    connect(minAvgULabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onMinAvgULabelClicked);
     connect(minAvgUSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateMinAvgU(double)));
 
-    connect(fixPolicyLabel, SIGNAL(clicked()),
-            this, SLOT(onFixPolicyLabelClicked()));
+    connect(fixPolicyLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onFixPolicyLabelClicked);
     connect(fixPolicyCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateFixPolicy(int)));
 
-    connect(setEquallySpacedButton, SIGNAL(clicked()),
-            this, SLOT(setEquallySpaced()));
+    connect(setEquallySpacedButton, &QPushButton::clicked,
+            this, &PlanarFitSettingsDialog::setEquallySpaced);
 
-    connect(offsetLabel, SIGNAL(clicked()),
-            this, SLOT(onOffsetLabelClicked()));
+    connect(offsetLabel, &ClickLabel::clicked,
+            this, &PlanarFitSettingsDialog::onOffsetLabelClicked);
     connect(offsetSpin, SIGNAL(valueChanged(double)),
             this, SLOT(setNorthOffset(double)));
 
-    connect(model_, SIGNAL(offsetChanged(double)),
+    connect(angleTableModel_, SIGNAL(offsetChanged(double)),
             offsetSpin, SLOT(setValue(double)));
-    connect(model_, SIGNAL(modified()),
-            this, SLOT(modelModified()));
-    connect(model_, SIGNAL(modelReset()),
-            ecProject_, SIGNAL(updateInfo()));
+    connect(angleTableModel_, &AngleTableModel::modified,
+            this, &PlanarFitSettingsDialog::modelModified);
+    connect(angleTableModel_, &AngleTableModel::modelReset,
+            ecProject_, &EcProject::updateInfo);
 
-    connect(pieChart_, SIGNAL(fillPieRequest()),
-            this, SLOT(fillPie()));
+    connect(anglesView_, &AnglesView::fillPieRequest,
+            this, &PlanarFitSettingsDialog::fillPie);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(okButton, &QPushButton::clicked,
+            this, &PlanarFitSettingsDialog::close);
 
-    connect(ecProject_, SIGNAL(ecProjectNew()),
-            this, SLOT(reset()));
+    connect(ecProject_, &EcProject::ecProjectNew,
+            this, &PlanarFitSettingsDialog::reset);
 
-    connect(ecProject_, SIGNAL(ecProjectModified()),
-            this, SLOT(updateModel()));
+    connect(ecProject_, &EcProject::ecProjectModified,
+            this, &PlanarFitSettingsDialog::updateModel);
 
-    connect(ecProject_, SIGNAL(ecProjectChanged()),
-            this, SLOT(refresh()));
+    connect(ecProject_, &EcProject::ecProjectChanged,
+            this, &PlanarFitSettingsDialog::refresh);
 
     // init
     forceEndDatePolicy();
@@ -383,7 +386,7 @@ void PlanarFitSettingsDialog::reset()
     sectorConfigFrame->setEnabled(true);
     offsetSpin->setValue(0.0);
 
-    model_->clear();
+    angleTableModel_->clear();
     updateModel();
     resizeRows();
 
@@ -401,7 +404,7 @@ void PlanarFitSettingsDialog::refresh()
     existingRadio->setChecked(!ecProject_->planarFitMode());
     nonExistingRadio->setChecked(ecProject_->planarFitMode());
     fileEdit->setText(QDir::toNativeSeparators(ecProject_->planarFitFile()));
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 
     subsetCheckBox->setChecked(ecProject_->planarFitSubset());
     if (ecProject_->planarFitSubset())
@@ -446,7 +449,7 @@ void PlanarFitSettingsDialog::updateFile(const QString& fp)
 {
     ecProject_->setPlanarFitFile(QDir::cleanPath(fp));
     fileEdit->setButtonVisible(fileEdit->isEnabled() && !fileEdit->text().isEmpty());
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 }
 
 void PlanarFitSettingsDialog::fileLoad_clicked()
@@ -463,15 +466,31 @@ void PlanarFitSettingsDialog::fileLoad_clicked()
                         searchPath,
                         tr("All Files (*.*)")
                         );
-    if (!paramFile.isEmpty())
+    if (paramFile.isEmpty()) { return; }
+
+    QFileInfo paramFilePath(paramFile);
+    QString canonicalParamFile = paramFilePath.canonicalFilePath();
+
+    if (!test_)
     {
-        QFileInfo paramFilePath(paramFile);
-        QString canonicalParamFile = paramFilePath.canonicalFilePath();
+        qDebug() << "create test dialog";
+        test_ = new AncillaryFileTest(AncillaryFileTest::FileType::PlanarFit,
+                                      this);
+    }
+    test_->refresh(canonicalParamFile);
+    auto result = test_->makeTest();
+
+    if (result)
+    {
         fileEdit->setText(QDir::toNativeSeparators(canonicalParamFile));
 
         QString lastPath = paramFilePath.canonicalPath();
         configState_->window.last_data_path = lastPath;
-        Alia::updateLastDatapath(lastPath);
+        GlobalSettings::updateLastDatapath(lastPath);
+    }
+    else
+    {
+        fileEdit->setText(QString());
     }
 }
 
@@ -523,8 +542,6 @@ void PlanarFitSettingsDialog::radioClicked(int radioButton)
         maxAvgWSpin->setEnabled(false);
         minAvgULabel->setEnabled(false);
         minAvgUSpin->setEnabled(false);
-        fixPolicyLabel->setEnabled(false);
-        fixPolicyCombo->setEnabled(false);
         sectorConfigFrame->setEnabled(false);
     }
     else
@@ -543,8 +560,6 @@ void PlanarFitSettingsDialog::radioClicked(int radioButton)
         maxAvgWSpin->setEnabled(true);
         minAvgULabel->setEnabled(true);
         minAvgUSpin->setEnabled(true);
-        fixPolicyLabel->setEnabled(true);
-        fixPolicyCombo->setEnabled(true);
         sectorConfigFrame->setEnabled(true);
     }
 }
@@ -568,14 +583,14 @@ void PlanarFitSettingsDialog::onStartDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     startDateEdit->setFocus();
-    Alia::showCalendarOf(startDateEdit);
+    WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void PlanarFitSettingsDialog::onEndDateLabelClicked()
 {
     DEBUG_FUNC_NAME
     endDateEdit->setFocus();
-    Alia::showCalendarOf(endDateEdit);
+    WidgetUtils::showCalendarOf(endDateEdit);
 }
 
 void PlanarFitSettingsDialog::updateStartDate(const QDate &d)
@@ -624,7 +639,7 @@ void PlanarFitSettingsDialog::updateFixPolicy(int n)
 
 void PlanarFitSettingsDialog::setupModel()
 {
-    model_ = new TableModel(this, ecProject_->planarFitAngles());
+    angleTableModel_ = new AngleTableModel(this, ecProject_->planarFitAngles());
 }
 
 void PlanarFitSettingsDialog::setupViews()
@@ -637,79 +652,79 @@ void PlanarFitSettingsDialog::setupViews()
     removeButton->setObjectName(QStringLiteral("minusButton"));
     removeButton->setToolTip(tr("<b>-</b> Remove an angle."));
 
-    connect(addButton, SIGNAL(clicked()),
-            this, SLOT(addAngle()));
-    connect(removeButton, SIGNAL(clicked()),
-            this, SLOT(removeAngle()));
+    connect(addButton, &QToolButton::clicked,
+            this, &PlanarFitSettingsDialog::addAngle);
+    connect(removeButton, &QToolButton::clicked,
+            this, &PlanarFitSettingsDialog::removeAngle);
 
-    table_ = new TableView(this);
-    table_->setModel(model_);
-    table_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    table_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
+    angleTableView_ = new AngleTableView(this);
+    angleTableView_->setModel(angleTableModel_);
+    angleTableView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    angleTableView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
 
-    pieChart_ = new PieView(this);
-    pieChart_->setModel(model_);
-    pieChart_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&deg; angle."));
-    qDebug() << "model_ rows" << model_->rowCount();
+    anglesView_ = new AnglesView(this);
+    anglesView_->setModel(angleTableModel_);
+    anglesView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&deg; angle."));
+    qDebug() << "model_ rows" << angleTableModel_->rowCount();
 
-    pieChart_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    pieChart_->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    pieChart_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    anglesView_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    anglesView_->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    anglesView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    selectionModel_ = new QItemSelectionModel(model_);
+    angleSelectionModel_ = new QItemSelectionModel(angleTableModel_);
 
-    table_->setSelectionModel(selectionModel_);
-    table_->setSelectionMode(QAbstractItemView::SingleSelection);
+    angleTableView_->setSelectionModel(angleSelectionModel_);
+    angleTableView_->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    pieChart_->setSelectionModel(selectionModel_);
-    pieChart_->setSelectionMode(QAbstractItemView::SingleSelection);
+    anglesView_->setSelectionModel(angleSelectionModel_);
+    anglesView_->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    QHeaderView *headerView = table_->horizontalHeader();
-    headerView->setModel(model_);
+    QHeaderView *headerView = angleTableView_->horizontalHeader();
+    headerView->setModel(angleTableModel_);
     headerView->setStretchLastSection(true);
     headerView->setHighlightSections(false);
     headerView->setProperty("pieTableH", true);
 
-    QHeaderView *vHeaderView = table_->verticalHeader();
+    QHeaderView *vHeaderView = angleTableView_->verticalHeader();
     vHeaderView->setProperty("pieTableV", true);
 
-    connect(pieChart_, SIGNAL(clicked(QModelIndex)),
-            table_, SLOT(edit(QModelIndex)));
+    connect(anglesView_, SIGNAL(clicked(QModelIndex)),
+            angleTableView_, SLOT(edit(QModelIndex)));
 }
 
 void PlanarFitSettingsDialog::insertAngleAt(int row)
 {
-    if (!model_->insertRow(row))
+    if (!angleTableModel_->insertRow(row))
     {
         qDebug() << "insertion failed";
         return;
     }
-    QModelIndex currIndex = model_->index(row - 1, 0);
-    pieChart_->setCurrentIndex(currIndex);
-    model_->flush();
+    QModelIndex currIndex = angleTableModel_->index(row - 1, 0);
+    anglesView_->setCurrentIndex(currIndex);
+    angleTableModel_->flush();
 }
 
 void PlanarFitSettingsDialog::removeAngleAt(int row)
 {
-    if (!model_->removeRow(row))
+    if (!angleTableModel_->removeRow(row))
     {
         qDebug() << "deletion failed";
         return;
     }
     if (row > 0)
     {
-        QModelIndex currIndex = model_->index(row - 1, 0);
-        pieChart_->setCurrentIndex(currIndex);
+        QModelIndex currIndex = angleTableModel_->index(row - 1, 0);
+        anglesView_->setCurrentIndex(currIndex);
     }
-    model_->flush();
+    angleTableModel_->flush();
 }
 
 void PlanarFitSettingsDialog::addAngle()
 {
     DEBUG_FUNC_NAME
 
-    int selectedRow = selectionModel_->currentIndex().row();
-    int lastRow = model_->rowCount();
+    int selectedRow = angleSelectionModel_->currentIndex().row();
+    int lastRow = angleTableModel_->rowCount();
 
     qDebug() << "selectedRow" << selectedRow;
     qDebug() << "lastRow" << lastRow;
@@ -727,8 +742,8 @@ void PlanarFitSettingsDialog::addAngle()
 
 void PlanarFitSettingsDialog::removeAngle()
 {
-    int selectedRow = selectionModel_->currentIndex().row();
-    int lastRow = model_->rowCount();
+    int selectedRow = angleSelectionModel_->currentIndex().row();
+    int lastRow = angleTableModel_->rowCount();
 
     qDebug() << "selectedRow" << selectedRow;
     qDebug() << "lastRow" << lastRow;
@@ -749,9 +764,9 @@ void PlanarFitSettingsDialog::removeAngle()
 
 void PlanarFitSettingsDialog::resizeRows()
 {
-    for (int i = 0; i < model_->rowCount(); i++)
+    for (int i = 0; i < angleTableModel_->rowCount(); i++)
     {
-        table_->resizeRowToContents(i);
+        angleTableView_->resizeRowToContents(i);
     }
 }
 
@@ -759,53 +774,53 @@ void PlanarFitSettingsDialog::setEquallySpaced()
 {
     DEBUG_FUNC_NAME
 
-    int angleCount = model_->rowCount();
+    int angleCount = angleTableModel_->rowCount();
     double angle = 360.0 / angleCount;
     qDebug() << "angleCount" << angleCount;
     qDebug() << "angle" << angle;
 
-    model_->setSkipPruning(true);
+    angleTableModel_->setSkipPruning(true);
     for (int n = 0; n < angleCount; ++n)
     {
-        model_->setData(model_->index(n, 0), angle);
+        angleTableModel_->setData(angleTableModel_->index(n, 0), angle);
     }
-    model_->setSkipPruning(false);
-    model_->flush();
+    angleTableModel_->setSkipPruning(false);
+    angleTableModel_->flush();
 }
 
 void PlanarFitSettingsDialog::setNorthOffset(double angle)
 {
     ecProject_->setPlanarFitNorthOffset(angle);
 
-    model_->setOffset(angle);
-    model_->flush();
+    angleTableModel_->setOffset(angle);
+    angleTableModel_->flush();
 }
 
 void PlanarFitSettingsDialog::fillPie()
 {
     double fullAngle = 360.0;
-    int angleCount = model_->rowCount();
+    int angleCount = angleTableModel_->rowCount();
 
-    if (model_->angleSum() < fullAngle)
+    if (angleTableModel_->angleSum() < fullAngle)
     {
         addAngle();
-        model_->setData(model_->index(angleCount, 0), fullAngle);
+        angleTableModel_->setData(angleTableModel_->index(angleCount, 0), fullAngle);
     }
-    model_->flush();
+    angleTableModel_->flush();
 }
 
 void PlanarFitSettingsDialog::modelModified()
 {
     ecProject_->setModified(true);
-    pieChart_->updateValidItems();
+    anglesView_->updateValidItems();
 }
 
 void PlanarFitSettingsDialog::updateModel()
 {
     DEBUG_FUNC_NAME
 
-    model_->flush();
-    pieChart_->updateValidItems();
+    angleTableModel_->flush();
+    anglesView_->updateValidItems();
 }
 
 void PlanarFitSettingsDialog::updateSubsetSelection(bool b)
@@ -826,7 +841,7 @@ void PlanarFitSettingsDialog::updateSubsetSelection(bool b)
 void PlanarFitSettingsDialog::clearFileEdit()
 {
     fileEdit->clear();
-    Alia::updateLineEditToolip(fileEdit);
+    WidgetUtils::updateLineEditToolip(fileEdit);
 }
 
 void PlanarFitSettingsDialog::setSmartfluxUI()

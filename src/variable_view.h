@@ -27,11 +27,12 @@
 #include "variable_tableview.h"
 
 class QAction;
+class QContextMenuEvent;
 
 class VariableView : public VariableTableView {
     Q_OBJECT
 public:
-    VariableView(QWidget *parent);
+    explicit VariableView(QWidget *parent);
     ~VariableView();
 
     int varCount();

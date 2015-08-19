@@ -25,9 +25,9 @@
 #define ANEM_MODEL_H
 
 #include <QAbstractTableModel>
+#include <QIcon>
 #include <QModelIndex>
 #include <QVariant>
-#include <QIcon>
 
 #include "anem_desc.h" // for AnemDescList typedef
 
@@ -35,7 +35,7 @@ class AnemModel : public QAbstractTableModel {
     Q_OBJECT
 public:
     // model columns
-    enum ANEMITEM
+    enum AnemItem
     {
         MANUFACTURER,
         MODEL,

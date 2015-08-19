@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="Output Files">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro 5 Help | Full Output</title>
+        <script>/* <![CDATA[ */
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-22299342-5', 'licor.com');
+			ga('send', 'pageview');
+
+		/* ]]> */</script>
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Regular-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.eot" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.svg" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.ttf" rel="font" />
+        <link href="Resources/Fonts/OpenSans-Bold-webfont.woff" rel="font" />
+        <link href="Resources/TableStyles/Basic.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="Resources/Stylesheets/HelpEnv.css" rel="stylesheet" />
+        <script src="../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../index.htm#Output_Files_Full_Output.htm">Open topic with navigation</a>
+        </p>
+        <div class="wrapper">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">EddyPro 5 Help &gt; </span><span class="MCBreadcrumbsSelf">Output Files</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">The Full Output File</span>
+            </div>
+            <div class="resources">
+                <p style="color:#0072B2; font-size:19px; font-style: italic; font-weight: 600; line-height: 22px; margin-bottom: 15 px; text-shadow: 0 1 px 1 px #ffffff;">Resources:</p>
+                <ul style="margin-left: -15px;">
+                    <li value="1"><a href="Video_Library.htm">Video Tutorials</a>
+                    </li>
+                    <li value="2"><a href="https://licor.box.com/s/qmhucid6g0hdvd3d13tk" target="_blank">Overview of EddyPro Work-flows</a>
+                    </li>
+                    <li value="3"><a href="https://licor.box.com/s/1ium2zmwm6hl36yz9bu4" target="_blank">Printable PDF Manual</a>
+                    </li>
+                    <li value="4"><a href="http://www.licor.com/env/forum/forum.php?id=8" target="_parent"><span class="MyVariablesSoftwareName">EddyPro</span> Forum</a>
+                    </li>
+                </ul>
+            </div>
+            <h1 style="page-break-before: always;">The Full Output File<a name="aanchor27"></a><MadCap:concept term="Results" /></h1>
+            <p><a name="kanchor159"></a>This is the most comprehensive output file produced by <span class="MyVariablesSoftwareName R">EddyPro®</span>. It contains many of the intermediate and final variables calculated during data processing. Results values are grouped by the first line of the header to facilitate interpretation. Here we provide an overview of available outputs. For more specific description of each variable refer to the <a href="#Variable">Variables Table</a>.</p>
+            <h2>Headings</h2>
+            <p>The first row in the file (when opened in a spreadsheet) gives the top-level headings below. The second row includes subheadings for variables and values included in the results.</p>
+            <h3><a name="kanchor160"></a>File info</h3>
+            <ul class="bulleted">
+                <li value="1">Raw file name</li>
+                <li value="2">Date and time of the end of the averaging period</li>
+                <li value="3">Number of valid records found in the raw file</li>
+                <li value="4">Number of valid records used for the current averaging period</li>
+            </ul>
+            <h3>Corrected fluxes</h3>
+            <ul class="bulleted">
+                <li value="1">Net vertical turbulent fluxes of momentum, sensible heat, latent heat and all available gases, calculated from uncorrected fluxes, by correcting for spectral attenuations, air density fluctuations and instrument-specific effects, as applicable. Quality flags and random uncertainty estimates are provided for all fluxes.</li>
+            </ul>
+            <h3>Storage fluxes</h3>
+            <ul class="bulleted">
+                <li value="1">Storage fluxes of sensible and latent heat and for all available gases, estimated from concentrations and based on a 1-point profile.</li>
+            </ul>
+            <h3>Vertical advection fluxes</h3>
+            <ul class="bulleted">
+                <li value="1">Vertical advection gas fluxes obtained by multiplication of the mean vertical wind speed and mean gas concentration. These are zero if the mean vertical velocity is forced to zero, as is the case with the double rotations schemas for tilt correction.</li>
+            </ul>
+            <h3><a name="kanchor161"></a>Gas densities, concentrations, and time lags</h3>
+            <ul class="bulleted">
+                <li value="1">Average molar density, mole fraction (moles of gas per mole of wet air) and mixing ratio (moles of gas per mole of dry air) for available gases. Quantities are either calculated or estimated from raw data, depending on the available measurements. In particular, calculation of densities to concentrations (and vice-versa) requires measured temperatures and pressures, while estimation is done using barometric pressure and/or corrected sonic temperature, if measured values are not available. Toggling between mole fractions and mixing ratios requires fast measurements of water vapor.</li>
+                <li value="2">Time lags used for flux calculation and a flag indicating whether the time lag used was calculated with the covariance maximization procedure (value “F”) or was the nominal one (“T”).</li>
+            </ul>
+            <h3><a name="kanchor162"></a>Air properties</h3>
+            <ul class="bulleted">
+                <li value="1">Evapotranspiration flux, expressed as millimeters or water per hour</li>
+                <li value="2">Mean ambient pressure and temperature, either calculated or estimated, depending on the content of raw files</li>
+                <li value="3">Mean ambient air density and molar volume and heat capacity, calculated</li>
+                <li value="4">Mean ambient water vapor density, partial pressure, partial pressure at saturation</li>
+                <li value="5">Mean ambient specific and relative humidity, water vapor pressure deficit and dew point temperature</li>
+            </ul>
+            <h3><a name="kanchor163"></a>Unrotated and rotated wind</h3>
+            <ul class="bulleted">
+                <li value="1">Mean wind components in the anemometer coordinate framework</li>
+                <li value="2">Wind components after rotations for tilt correction</li>
+                <li value="3">Mean wind speed, instantaneous maximum wind speed and mean wind direction</li>
+            </ul>
+            <h3><a name="kanchor164"></a>Rotation angles</h3>
+            <ul class="bulleted">
+                <li value="1">Yaw, pitch, and roll angles used to correct anemometer tilting, according to the selected method.</li>
+            </ul>
+            <h3><a name="kanchor165"></a>Turbulence</h3>
+            <ul class="bulleted">
+                <li value="1">Turbulence parameters: friction velocity, Monin-Obukhov length, stability parameter, turbulent kinetic energy, Bowen ratio, and scaling temperature.</li>
+            </ul>
+            <h3><a name="kanchor166"></a>Footprint</h3>
+            <ul class="bulleted">
+                <li value="1">Estimation of crosswind integrated footprints: model used, along wind distances providing peak, 10%, 30%, 50%, 70%, and 90% contributions to total fluxes. Footprint offset is the distance from the tower providing less than 1% contribution to total fluxes. <a href="Estimating_Flux_Footprint.htm" data-mc-conditions="Default.WebHelp,Default.Mobile">Learn more...</a></li>
+            </ul>
+            <h3><a name="kanchor167"></a>Uncorrected fluxes</h3>
+            <ul class="bulleted">
+                <li value="1">Net vertical turbulent fluxes of momentum, sensible heat, latent heat and all available gases, calculated from corresponding covariances by conversion of physical units, prior to application of corrections.</li>
+                <li value="2">Spectral correction factors calculated according to the selected method.</li>
+            </ul>
+            <h3>Statistical flags</h3>
+            <ul class="bulleted">
+                <li value="1">Results of selected statistical tests, applied to all time series.</li>
+            </ul>
+            <h3>Diagnostics</h3>
+            <ul class="bulleted">
+                <li value="1">Number of spikes detected for each sensitive variable used for flux computation.</li>
+                <li value="2">Detailed summary of diagnostics for LI&#8209;7500A, LI&#8209;7200, and LI&#8209;7700. The values here are the sum of records in each flux averaging interval, for which flags are set to "on" (bad data). Thus values here go from zero (best case) to the number of available records (worst case).</li>
+                <li value="3">Average AGC or Signal Strength (LI&#8209;7500A or LI&#8209;7200) and RSSI (LI&#8209;7700).</li>
+            </ul>
+            <h3><a name="kanchor168"></a>Variances</h3>
+            <ul class="bulleted">
+                <li value="1">Variances of all sensitive variables, calculated at the end of the whole raw data processing, including despiking, corrections, rotations and detrending.</li>
+            </ul>
+            <h3><a name="kanchor169"></a>Covariances</h3>
+            <ul class="bulleted">
+                <li value="1">Covariances between <i>w</i> (vertical wind component) and all non-anemometric sensitive variables calculated at the end of the whole raw data processing, including despiking, corrections, rotations, detrending, and time lag compensation.</li>
+            </ul>
+            <h3><a name="kanchor170"></a>Custom variables</h3>
+            <ul class="bulleted">
+                <li value="1">Mean values for all non-sensitive variables are reported at the end of the output record.</li>
+            </ul>
+            <h3><a name="Variable"></a>Variables Table<a name="kanchor171"></a></h3>
+            <p>The following table summarizes all output results available in the rich output file. In the table, <i>var</i> stands for any available sensitive variable, <i>gas</i> stands for any available sensitive gas measurement and <i>extravar</i> stands for any non-sensitive variable.</p>
+            <table style="caption-side: top;width: 100%;margin-left: 0;mc-table-style: url('Resources/TableStyles/Basic.css');" class="TableStyle-Basic" cellspacing="0">
+                <caption class="table" data-mc-autonum="&lt;b&gt;Table 7&lt;/b&gt;"><span class="autonumber"><span><b>Table 7</b></span></span>. <a name="kanchor172"></a>Shorthand for variables in output files from <span class="MyVariablesSoftwareName">EddyPro</span> 4.</caption>
+                <col style="width: 125px;" class="TableStyle-Basic-Column-Column1" />
+                <col style="width: 125px;" class="TableStyle-Basic-Column-Column1" />
+                <col style="width: 310px;" class="TableStyle-Basic-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Basic-Head-Header1">
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Label</th>
+                        <th class="TableStyle-Basic-HeadE-Column1-Header1">Units, Format, or Range</th>
+                        <th class="TableStyle-Basic-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">filename</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">-</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Name of the raw file (or the first of a set) from which the dataset for the current averaging interval was extracted</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">date</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">yyyy-mm-dd</td>
+                        <td class="TableStyle-Basic-BodyD-Column1-Body1">Date of the end of the averaging period</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">time</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HH:MM</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Time of the end of the averaging period</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">file_records</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Number of valid records found in the raw file (or set of raw files)</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">used_records</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Number of valid records used for current the averaging period</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tau</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg m<sup>-1</sup> s<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Corrected momentum flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">qc_Tau</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Quality flag for momentum flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">rand_err_Tau
+</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg m<sup>-1</sup> s<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Random error for momentum flux, if selected</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">H</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Corrected sensible heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">qc_H</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Quality flag for sensible heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">rand_err_H
+</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Random error for momentum flux, if selected</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">LE</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Corrected latent heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">qc_LE</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Quality flag latent heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">rand_err_LE
+</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Random error for latent heat flux, if selected</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_flux</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol m<sup>-2</sup> s<sup>-1</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Corrected <i>gas</i> flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">qc_<i>gas</i>_flux</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Quality flag for <i>gas</i> flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">rand_err_<i>gas</i>_flux</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol s<sup>-1</sup> m<sup>-2</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Random error for <i>gas</i> flux, if selected</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">H_strg</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Estimate of storage sensible heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">LE_strg</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Estimate of storage latent heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_strg</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol s<sup>-1</sup> m<sup>-2</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Estimate of storage <i>gas</i> flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_v-adv</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol s<sup>-1</sup> m<sup>-2</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Estimate of vertical advection flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_molar_density</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">mmol m<sup>-3</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Measured or estimated molar density of <i>gas</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_mole_fraction</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol mol<sup>-1</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Measured or estimated mole fraction of <i>gas</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_mixing_ratio</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol mol<sup>-1</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Measured or estimated mixing ratio of <i>gas</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_time_lag</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">s</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Time lag used to synchronize <i>gas</i> time series</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>gas</i>_def_timelag</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">T/F</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Flag: whether the reported time lag is the default (T) or calculated (F)</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">sonic_temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Mean temperature of ambient air as measured by the anemometer</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">air_temperature</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Mean temperature of ambient air, either calculated from high frequency air temperature readings, or estimated from sonic temperature</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">air_pressure</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Mean pressure of ambient air, either calculated from high frequency air pressure readings, or estimated based on site altitude (barometric pressure)</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">air_density</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg m<sup>-3</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Density of ambient air</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">air_heat_capactiy</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">J K<sup>-1</sup> kg<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Specific heat at constant pressure of ambient air</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">air_molar_volume</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m<sup>3</sup> mol<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Molar volume of ambient air</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">ET</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">mm hour<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Evapotranspiration flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">water_vapor_density</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg m<sup>-3</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient mass density of water vapor</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">e</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient water vapor partial pressure</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">es</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient water vapor partial pressure at saturation</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">specific_humidity</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg kg<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient specific humidity on a mass basis</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">RH</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">%</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient relative humidity</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">VPD</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Pa</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient water vapor pressure deficit</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tdew</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Ambient dew point temperature</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">u_unrot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Wind component along the <i>u</i> anemometer axis</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">v_unrot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Wind component along the <i>v</i> anemometer axis</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">w_unrot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Wind component along the <i>w</i> anemometer axis</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">u_rot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Rotated <i>u</i> wind component (mean wind speed)</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">v_rot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Rotated <i>v</i> wind component (should be zero)</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">w_rot</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Rotated <i>w</i> wind component (should be zero)</td>
+                    </tr>
+                    <tr style="height: 15px;" class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">wind_speed</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">mean wind speed</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">max_wind_speed</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Maximum instantaneous wind speed</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">wind_dir</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">° (degrees)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Direction from which the wind blows, with respect to Geographic or Magnetic north</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">yaw</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">° (degrees)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">First rotation angle</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">pitch</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">° (degrees)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Second rotation angle</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">u*</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Friction velocity</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">TKE</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m<sup>-2</sup> s<sup>-1</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Turbulent kinetic energy</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">L</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">M</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Monin-Obukov length</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">(z-d)/L</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Monin-Obukhov stability parameter</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">bowen_ratio</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Sensible heat flux to latent heat flux ratio</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">T*</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">K</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Scaling temperature</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">(footprint) model</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">-</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Model for footprint estimation</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_offset</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing &lt;1% contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_peak</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing the highest (peak) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_10%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing 10% (cumulative) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_30%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing 30% (cumulative) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_50%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing 50% (cumulative) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_70%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing 70% (cumulative) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">x_90%</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">m</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Along-wind distance providing 90% (cumulative) contribution to turbulent fluxes</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">un_Tau</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">kg m<sup>-1</sup> s<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Uncorrected momentum flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">Tau_scf</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Spectral correction factor for momentum flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">un_H</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Uncorrected sensible heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">H_scf</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Spectral correction factor for sensible heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">un_LE</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">W m<sup>-2</sup></td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Uncorrected latent heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">LE_scf</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Spectral correction factor for latent heat flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">un_<i>gas</i>_flux</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">µmol s<sup>-1</sup> m<sup>-2</sup>(†)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Uncorrected <i>gas</i> flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">gas_scf</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Spectral correction factor for gas flux</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">spikes</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for spike test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">amp_res</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for amplitude resolution</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">drop_out</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for drop-out test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">abs_lim</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for absolute limits</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">skw_kur</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for skewness and kurtosis</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">skw_kur</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Soft flags for individual variables for skewness and kurtosis test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">discontinuities</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for individual variables for discontinuities test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">discontinuities</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Soft flags for individual variables for discontinuities test</td>
+                    </tr>
+                    <tr style="height: 16px;" class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">time_lag</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flags for gas concentration for time lag test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">time_lag</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Soft flags for gas concentration for time lag test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">attack_angle</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flag for attack angle test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">non_steady_wind</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">HFu/v/w/ts/co2 /h2o/ch4/n2</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Hard flag for non-steady horizontal test</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>var</i>_spikes</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Number of spikes detected and eliminated for variable <i>var</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">AGC</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Mean value of AGC for LI&#8209;7500A and/or LI&#8209;7200, if present</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">RSSI</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">#</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Mean value of RSSI for LI&#8209;7700, if present</td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1"><i>var</i>_var</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">-(‡)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Variance of variable <i>var</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">w/<i>var</i>_cov</td>
+                        <td class="TableStyle-Basic-BodyE-Column1-Body1">-(‡)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyD-Column1-Body1">Covariance between <i>w</i> and variable <i>var</i></td>
+                    </tr>
+                    <tr class="TableStyle-Basic-Body-Body1">
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1"><i>extravar</i>_mean</td>
+                        <td class="TableStyle-Basic-BodyB-Column1-Body1">(‡)</td>
+                        <td style="text-align: left;" class="TableStyle-Basic-BodyA-Column1-Body1">Mean value of <i>extravar</i></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>† Concentrations and fluxes for water vapor are provided as [mmol mol<sup>-1</sup>] and [mmol m<sup>-2</sup> s<sup>-1</sup>] respectively.</p>
+            <p>‡ Units depend on the nature of the variable.</p>
+            <h3><a name="Output"></a>Output format</h3>
+            <p>The <b>Output format</b> option allows you to decide to <b>Output only available results</b> or <b>Use standard output format</b>.</p>
+            <p>The first option, <b>Output only available results</b> instructs <span class="MyVariablesSoftwareName">EddyPro</span> to reduce the file only to results that are actually available. One advantage of this option is that it results in smaller files that are easier to read in a spreadsheet. Files do not contain columns filled with error codes for the variables that are not available.</p>
+            <p>The second option, <b>Use standard output format</b> instructs <span class="MyVariablesSoftwareName">EddyPro</span> to create a file in a predefined standardized output format that includes columns form all possible results. One advantage of this option is that the file format does not vary in time, making it easier to import into post-processing analysis tools.</p>
+            <h3><a name="Build"></a>Build continuous dataset</h3>
+            <p>Select this option to instruct <span class="MyVariablesSoftwareName">EddyPro</span> to create a continuous dataset. For periods that have no results available (gaps), the software will introduce dummy records of “error codes” in such a way that the result files will contain a continuous time line. This is convenient since data gaps need to be recognized (especially when time series are plotted) and addressed (e.g., by means of a gap-filling procedure). However, the procedure requires a non negligible amount of time – especially for long datasets - so it is provided as an option. The definition of the time line is based on the time stamp of the first raw file and on the selected flux averaging period.</p>
+            <div class="push">
+            </div>
+        </div>
+        <div class="foot">
+            <div style="float:left;">
+                <p class="footer">Product Information:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" style="font-size: 0.8em;" value="1">EddyPro 5 Eddy Covariance Software</li>
+                    <li class="nb" style="font-size: 0.8em;" value="2">Help updated on: <span class="SystemShortDate">11/7/2014</span></li>
+                </ul>
+                <p class="footer">© 2011 - 2014 LI-COR, Inc.</p>
+            </div>
+            <div style="float:right;">
+                <p class="footer">Contact Us:</p>
+                <ul class="footer" style="padding-left: 10px;padding-top: 3px;">
+                    <li class="nb" value="1"><a class="footer" href="mailto:envsupport@licor.com" title="Email LI-COR support" alt="Email LI-COR support" style="font-size: 0.8em; text-decoration: none;">envsupport@licor.com</a>
+                    </li>
+                    <li class="nb" value="2"><a class="footer" href="http://www.licor.com/env" title="Go to the LI-COR website" target="_blank" alt="Go to the LI-COR website" style="text-decoration: none; font-size: 0.8em;">www.licor.com/env</a>
+                    </li>
+                    <li class="nb" style="font-size: 0.8em;" value="3">International: 1-402-467-3576</li>
+                    <li class="nb" style="font-size: 0.8em;" value="4">US: 800-447-3576</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

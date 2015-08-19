@@ -25,14 +25,14 @@
 #define DLPROJECTSTATE_H
 
 #include "anem_desc.h"       // for AnemDescList typedef
+#include "defs.h"
 #include "irga_desc.h"       // for IrgaDescList typedef
 #include "variable_desc.h"   // for VariableDescList typedef
-#include "defs.h"
 
 struct GeneralState {
     GeneralState() :
         sw_version(Defs::APP_VERSION_STR),
-        ini_version(Defs::METADATA_VERSION_STR),
+        ini_version(Defs::METADATA_FILE_VERSION_STR),
         creation_date(QString()),
         last_change_date(QString()),
         start_date(QString()),
@@ -116,7 +116,7 @@ struct VarDescState {
     VarDescState() :
         separator(QString()),
         header_rows(-1),
-        data_label(QT_TR_NOOP(QStringLiteral("Not set")))
+        data_label(QObject::tr("Not set"))
     { ; }
     QString separator;
     int header_rows;

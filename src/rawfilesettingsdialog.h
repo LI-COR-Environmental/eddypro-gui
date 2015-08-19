@@ -26,15 +26,31 @@
 
 #include <QDialog>
 
-class QLineEdit;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/rawfilesettingsdialog.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QComboBox;
+class QLineEdit;
 class QSpinBox;
-class DlProject;
 
 class QwwClearLineEdit;
 
 class ClickLabel;
+class DlProject;
 
+/// \class RawFileSettingsDialog
+/// \brief Class representing the raw files settings dialog
 class RawFileSettingsDialog : public QDialog
 {
     Q_OBJECT
@@ -44,7 +60,6 @@ public:
     ~RawFileSettingsDialog();
 
 public slots:
-    void close();
     void initialize();
     void refresh();
 

@@ -34,12 +34,13 @@ class IrgaModel : public QAbstractTableModel {
     Q_OBJECT
 public:
     // model columns
-    enum IRGAITEM
+    enum IrgaItem
     {
         MANUFACTURER,
         MODEL,
         SWVERSION,
         ID,
+//        HEIGHT,
         TUBELENGTH,
         TUBEDIAMETER,
         TUBEFLOWRATE,

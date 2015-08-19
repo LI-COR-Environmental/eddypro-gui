@@ -27,26 +27,25 @@
 #include <QWidget>
 
 class QPushButton;
-class VariableView;
-class VariableModel;
-class VariableDelegate;
+
 class DlProject;
 class RawFileSettingsDialog;
+class VariableDelegate;
+class VariableModel;
+class VariableView;
 
 class DlRawfileDescTab : public QWidget {
     Q_OBJECT
 public:
-    DlRawfileDescTab(QWidget *parent, DlProject *dlProject);
+    DlRawfileDescTab(QWidget* parent, DlProject* dlProject);
     virtual ~DlRawfileDescTab();
 
     void reset();
     void refresh();
     void rawfileViewRefresh();
 
-    VariableView *variableView_;
-    QPushButton *rawSettingsButton;
-
-public slots:
+    VariableView* variableView_;
+    QPushButton* rawSettingsButton;
 
 private slots:
     void modelModified();
@@ -64,6 +63,8 @@ private:
     RawFileSettingsDialog* rawSettingsDialog;
 
     bool fieldSepTOB1Flag_;
+
+    QPushButton* clearCustomVarsButton;
 };
 
 #endif // DLRAWFILEDESCTAB_H

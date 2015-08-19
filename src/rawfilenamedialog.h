@@ -25,11 +25,25 @@
 
 #include <QDialog>
 
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/rawfilenamedialog.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+class QButtonGroup;
 class QLabel;
 class QLineEdit;
 class QFrame;
 class QVBoxLayout;
-class QButtonGroup;
 
 class EcProject;
 

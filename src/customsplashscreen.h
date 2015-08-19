@@ -28,10 +28,10 @@
 
 #include <QSplashScreen>
 
-class QProgressBar;
-class QPixmap;
-class QPainter;
 class QCheckBox;
+class QPainter;
+class QPixmap;
+class QProgressBar;
 
 class CustomSplashScreen : public QSplashScreen
 {

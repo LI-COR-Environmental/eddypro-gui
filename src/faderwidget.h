@@ -21,19 +21,29 @@
 **
 ****************************************************************************/
 
-// Date: 2006-2007
-// Author Trenton Schulz, Trolltech AS
-// Modified by Antonio Forgione, 2011-2014
-// http://blog.qt.digia.com/blog/2007/08/21/fade-effects-a-blast-from-the-past/
-
 #ifndef FADERWIDGET_H
 #define FADERWIDGET_H
 
 #include <QWidget>
 #include <QTimeLine>
 
-class QTimeLine;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/faderwidget.h
+/// \brief FaderWidget class
+/// \version     1.0
+/// \date        2006-2007
+/// \author      Trenton Schulz, Trolltech AS
+/// \note        Modified by Antonio Forgione, 2011-2014
+/// \sa http://labs.qt.nokia.com/2007/08/21/fade-effects-a-blast-from-the-past/
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
+class QTimeLine;
+/// \class FaderWidget
+/// \brief Class that provides fading effect
 class FaderWidget : public QWidget
 {
     Q_OBJECT
@@ -41,7 +51,7 @@ class FaderWidget : public QWidget
     Q_PROPERTY(int fadeDuration READ fadeDuration WRITE setFadeDuration)
 
 public:
-    FaderWidget(QWidget *parent);
+    explicit FaderWidget(QWidget *parent);
 
     QBrush fadeBrush() const { return startBrush; }
     void setFadeBrush(const QBrush &newColor) { startBrush = newColor; }

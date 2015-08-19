@@ -21,10 +21,10 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include <QStringList>
-#include <QDebug>
-
 #include "anem_desc.h"
+
+#include <QDebug>
+#include <QStringList>
 
 const QString AnemDesc::getANEM_MANUFACTURER_STRING_0()
 {

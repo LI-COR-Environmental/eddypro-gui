@@ -30,13 +30,10 @@ class SplitterHandle : public QSplitterHandle
     Q_OBJECT
 
 public:
-    explicit SplitterHandle(Qt::Orientation orientation, QSplitter *parent = 0);
+    explicit SplitterHandle(Qt::Orientation orientation,
+                            QSplitter* parent = nullptr);
 
     QSize sizeHint() const;
-
-public slots:
-
-signals:
 
 protected:
     void paintEvent(QPaintEvent *event);

@@ -21,67 +21,79 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "advancedsettingspage.h"
+
 #include <QDebug>
-#include <QListWidget>
-#include <QHBoxLayout>
 #include <QGridLayout>
+#include <QHBoxLayout>
+#include <QListWidget>
 #include <QPushButton>
 
-#include "alia.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "advprocessingoptions.h"
+#include "advmenudelegate.h"
 #include "advoutputoptions.h"
+#include "advprocessingoptions.h"
+#include "advsettingscontainer.h"
 #include "advspectraloptions.h"
 #include "advstatisticaloptions.h"
-#include "advsettingscontainer.h"
-#include "smartfluxbar.h"
 #include "planarfitsettingsdialog.h"
 #include "timelagsettingsdialog.h"
-#include "advancedsettingspage.h"
+#include "smartfluxbar.h"
+#include "widget_utils.h"
 
-const QString AdvancedSettingsPage::PAGE_TITLE_0 = QT_TR_NOOP(QStringLiteral("Processing Options"));
-const QString AdvancedSettingsPage::PAGE_TITLE_1 = QT_TR_NOOP(QStringLiteral("Statistical Analysis"));
-const QString AdvancedSettingsPage::PAGE_TITLE_2 = QT_TR_NOOP(QStringLiteral("Output Files"));
-const QString AdvancedSettingsPage::PAGE_TITLE_3 = QT_TR_NOOP(QStringLiteral("Computation Options"));
-const QString AdvancedSettingsPage::PAGE_TITLE_4 = QT_TR_NOOP(QStringLiteral("Spectral Corrections"));
+const QString AdvancedSettingsPage::PAGE_TITLE_0 =
+        QObject::tr("Processing Options");
+const QString AdvancedSettingsPage::PAGE_TITLE_1 =
+        QObject::tr("Statistical Analysis");
+const QString AdvancedSettingsPage::PAGE_TITLE_2 =
+        QObject::tr("Output Files");
+const QString AdvancedSettingsPage::PAGE_TITLE_3 =
+        QObject::tr("Computation Options");
+const QString AdvancedSettingsPage::PAGE_TITLE_4 =
+        QObject::tr("Spectral Corrections");
 
-AdvancedSettingsPage::AdvancedSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
+AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
+                                           DlProject* dlProject,
+                                           EcProject* ecProject,
+                                           ConfigState* config) :
     QWidget(parent),
     dlProject_(dlProject),
     ecProject_(ecProject),
-    configState_(config),
-    advancedSettingPages_(0)
+    configState_(config)
 {
     DEBUG_FUNC_NAME
 
     createMenu();
     createIcons();
 
-    QWidget* resetButtonContainer = new QWidget;
+    auto resetButtonContainer = new QWidget;
     resetButtonContainer->setProperty("buttonContainer", true);
 
-    QPushButton *resetButton = new QPushButton;
+    auto resetButton = new QPushButton;
     resetButton->setProperty("mdButton", true);
     resetButton->setText(tr("Restore Default Values"));
-    resetButton->setToolTip(tr("<b>Restore Default Values</b>: Resets all the Advanced Settings to the default settings."));
+    resetButton->setToolTip(tr("<b>Restore Default Values</b>: "
+                               "Resets all the Advanced Settings to the "
+                               "default settings."));
 
-    QHBoxLayout* resetButtonContainerLayout = new QHBoxLayout;
+    auto resetButtonContainerLayout = new QHBoxLayout;
     resetButtonContainerLayout->addWidget(resetButton, 1, Qt::AlignCenter);
     resetButtonContainer->setLayout(resetButtonContainerLayout);
 
-    advancedSettingPages_ = new AdvSettingsContainer(this, dlProject_, ecProject_, configState_);
+    advancedSettingContainer = new AdvSettingsContainer(this,
+                                                        dlProject_,
+                                                        ecProject_,
+                                                        configState_);
     menuWidget->setCurrentRow(0);
 
-    smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
-    smartfluxBar_->setVisible(false);
-    smartfluxBar_->setToolTip(tr("EddyPro is in SMARTFlux configuration mode (Ctrl+F to exit)"));
+    smartfluxBar = new SmartFluxBar(ecProject_, configState_);
 
-    QGridLayout *mainLayout = new QGridLayout(this);
-    mainLayout->addWidget(smartfluxBar_, 0, 0, 1, -1);
+    auto mainLayout = new QGridLayout(this);
+    mainLayout->addWidget(smartfluxBar, 0, 0, 1, -1);
     mainLayout->addWidget(menuWidget, 1, 0, 1, 1);
-    mainLayout->addWidget(advancedSettingPages_, 1, 1, 2, 1);
+    mainLayout->addWidget(advancedSettingContainer, 1, 1, 2, 1);
     mainLayout->addWidget(resetButtonContainer, 2, 0, 1, 1);
     mainLayout->setRowStretch(1, 1);
     mainLayout->setColumnStretch(1, 1);
@@ -90,16 +102,25 @@ AdvancedSettingsPage::AdvancedSettingsPage(QWidget *parent, DlProject *dlProject
     mainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(mainLayout);
 
-    connect(resetButton, SIGNAL(clicked()), this, SLOT(resetButtonCLicked()));
+    connect(resetButton, &QPushButton::clicked, this,
+            &AdvancedSettingsPage::resetButtonCLicked);
 
-    connect(smartfluxBar_, SIGNAL(showSmartfluxBarRequest(bool)),
+    // TODO: understand why the new qt5 syntax trigger errors in the
+    // following cases
+    connect(smartfluxBar, SIGNAL(showSmartfluxBarRequest(bool)),
             parent, SIGNAL(showSmartfluxBarRequest(bool)));
+//    connect(smartfluxBar_, &SmartFluxBar::showSmartfluxBarRequest,
+//            parent, &SmartFluxBar::showSmartfluxBarRequest);
 
-    connect(smartfluxBar_, SIGNAL(saveSilentlyRequest()),
+    connect(smartfluxBar, SIGNAL(saveSilentlyRequest()),
             parent, SIGNAL(saveSilentlyRequest()));
+//    connect(smartfluxBar_, &SmartFluxBar::saveSilentlyRequest,
+//            parent, &SmartFluxBar::saveSilentlyRequest);
 
-    connect(smartfluxBar_, SIGNAL(saveRequest()),
+    connect(smartfluxBar, SIGNAL(saveRequest()),
             parent, SIGNAL(saveRequest()));
+//    connect(smartfluxBar_, &SmartFluxBar::saveRequest,
+//            parent, &SmartFluxBar::saveRequest);
 }
 
 AdvancedSettingsPage::~AdvancedSettingsPage()
@@ -109,13 +130,13 @@ void AdvancedSettingsPage::createMenu()
 {
     DEBUG_FUNC_NAME
 
-    menuWidget = new QListWidget();
+    menuWidget = new QListWidget;
     menuWidget->setSelectionRectVisible(false);
     qDebug() << "isSelectionRectVisible" << menuWidget->isSelectionRectVisible();
     qDebug() << "selectionMode" << menuWidget->selectionMode();
     // to reduce the select decoration
     menuWidget->setObjectName(QStringLiteral("advSettingsMenu"));
-    menuWidget->setIconSize(QSize(185, 48));
+    menuWidget->setIconSize(QSize(42, 42));
     menuWidget->setSpacing(0);
     menuWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -125,38 +146,54 @@ void AdvancedSettingsPage::createMenu()
 
 void AdvancedSettingsPage::createIcons()
 {
-    QListWidgetItem *tlButton = new QListWidgetItem(menuWidget);
-    tlButton->setIcon(QIcon(QStringLiteral(":/icons/adv-menu-processing")));
-    tlButton->setText(PAGE_TITLE_0);
+    menuWidget->setItemDelegate(new AdvMenuDelegate(menuWidget));
 
-    QListWidgetItem *rsButton = new QListWidgetItem(menuWidget);
-    rsButton->setIcon(QIcon(QStringLiteral(":/icons/adv-menu-spectra")));
-    rsButton->setText(PAGE_TITLE_4);
+    auto processingItem = new QListWidgetItem;
+    processingItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_0);
+    processingItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-processing")));
+    menuWidget->addItem(processingItem);
 
-    QListWidgetItem *mfButton = new QListWidgetItem(menuWidget);
-    mfButton->setIcon(QIcon(QStringLiteral(":/icons/adv-menu-statistic")));
-    mfButton->setText(PAGE_TITLE_1);
+    auto spectraItem = new QListWidgetItem;
+    spectraItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_4);
+    spectraItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-spectra")));
+    menuWidget->addItem(spectraItem);
 
-    QListWidgetItem *saButton = new QListWidgetItem(menuWidget);
-    saButton->setIcon(QIcon(QStringLiteral(":/icons/adv-menu-output")));
-    saButton->setText(PAGE_TITLE_2);
+    auto statisticItem = new QListWidgetItem;
+    statisticItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_1);
+    statisticItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-statistic")));
+    menuWidget->addItem(statisticItem);
+
+    auto outputItem = new QListWidgetItem;
+    outputItem->setData(AdvMenuDelegate::TextRole, PAGE_TITLE_2);
+    outputItem->setData(AdvMenuDelegate::IconRole, QIcon(QStringLiteral(":/icons/adv-menu-output")));
+    menuWidget->addItem(outputItem);
 }
 
 void AdvancedSettingsPage::changePage(int index)
 {
-    advancedSettingPages_->setCurrentPage(index);
+    advancedSettingContainer->setCurrentPage(index);
+}
+
+bool AdvancedSettingsPage::requestSettingsReset()
+{
+    return WidgetUtils::okToQuestion(nullptr,
+                tr("Reset Advanced Settings"),
+                tr("<p>Do you want to reset all the "
+                   "Advanced Settings to the default settings?</p>"),
+                tr("<p>You cannot undo this action.</p>"));
 }
 
 void AdvancedSettingsPage::resetButtonCLicked()
 {
     DEBUG_FUNC_NAME
-    if (Alia::queryEcReset_1() == QMessageBox::Yes)
+    if (requestSettingsReset())
     {
-        advancedSettingPages_->processingOptions()->reset();
-        advancedSettingPages_->statisticalOptions()->reset();
-        advancedSettingPages_->spectralOptions()->reset();
-        advancedSettingPages_->outputOptions()->reset();
-        advancedSettingPages_->processingOptions()->updateAngleOfAttack(ecProject_->generalColMasterSonic());
+        advancedSettingContainer->processingOptions()->reset();
+        advancedSettingContainer->statisticalOptions()->reset();
+        advancedSettingContainer->spectralOptions()->reset();
+        advancedSettingContainer->outputOptions()->reset();
+        advancedSettingContainer->processingOptions()
+                ->updateAngleOfAttack(ecProject_->generalColMasterSonic());
         ecProject_->setModified(true);
     }
 }
@@ -165,12 +202,14 @@ void AdvancedSettingsPage::updateSmartfluxBar()
 {
     DEBUG_FUNC_NAME
     qDebug() << configState_->project.smartfluxMode;
-    smartfluxBar_->setVisible(configState_->project.smartfluxMode);
+    smartfluxBar->setVisible(configState_->project.smartfluxMode);
 
-    advancedSettingPages_->processingOptions()->setSmartfluxUI();
-    advancedSettingPages_->processingOptions()->getPlanarFitSettingsDialog()->setSmartfluxUI();
-    advancedSettingPages_->processingOptions()->getTimeLagSettingsDialog()->setSmartfluxUI();
+    advancedSettingContainer->processingOptions()->setSmartfluxUI();
+    advancedSettingContainer->processingOptions()->getPlanarFitSettingsDialog()
+            ->setSmartfluxUI();
+    advancedSettingContainer->processingOptions()->getTimeLagSettingsDialog()
+            ->setSmartfluxUI();
 
-    advancedSettingPages_->spectralOptions()->setSmartfluxUI();
-    advancedSettingPages_->outputOptions()->setSmartfluxUI();
+    advancedSettingContainer->spectralOptions()->setSmartfluxUI();
+    advancedSettingContainer->outputOptions()->setSmartfluxUI();
 }

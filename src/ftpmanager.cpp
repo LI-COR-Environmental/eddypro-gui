@@ -20,13 +20,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include <QNetworkRequest>
-#include <QFile>
-#include <QUrl>
+#include "ftpmanager.h"
+
 #include <QDebug>
+#include <QFile>
+#include <QNetworkRequest>
+#include <QUrl>
 
 #include "dbghelper.h"
-#include "ftpmanager.h"
 
 FtpManager::FtpManager(QObject *parent) :
     QObject(parent),
@@ -34,12 +35,17 @@ FtpManager::FtpManager(QObject *parent) :
     data(0),
     versionNr(QByteArray())
 {
-    connect(&manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(transferFinished(QNetworkReply*)));
+    connect(&manager, &QNetworkAccessManager::finished,
+            this, &FtpManager::transferFinished);
 }
 
 FtpManager::~FtpManager()
 {
+//    if (reply)
+//    {
+//        abort();
+//        reply->deleteLater();
+//    }
 }
 
 void FtpManager::get(const QString &file)
@@ -50,8 +56,10 @@ void FtpManager::get(const QString &file)
 
     reply = manager.get(QNetworkRequest(url));
 
-    connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(downloadProgress(qint64, qint64)));
-    connect(reply, SIGNAL(finished()), this, SLOT(requestFinished()));
+    connect(reply, &QNetworkReply::downloadProgress,
+            this, &FtpManager::downloadProgress);
+    connect(reply, &QNetworkReply::finished,
+            this, &FtpManager::requestFinished);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(requestError(QNetworkReply::NetworkError)));
 }
@@ -68,8 +76,10 @@ void FtpManager::put(const QString &file)
     {
         reply = manager.put(QNetworkRequest(url), data);
 
-        connect(reply, SIGNAL(uploadProgress(qint64, qint64)), SLOT(uploadProgress(qint64, qint64)));
-        connect(reply, SIGNAL(finished()), this, SLOT(uploadDone()));
+        connect(reply, &QNetworkReply::uploadProgress,
+                this, &FtpManager::uploadProgress);
+        connect(reply, &QNetworkReply::finished,
+                this, &FtpManager::uploadDone);
         connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
                 this, SLOT(requestError(QNetworkReply::NetworkError)));
     }
@@ -87,7 +97,8 @@ void FtpManager::abort()
     {
         if (reply->isRunning())
         {
-            disconnect(reply, SIGNAL(finished()), this, SLOT(requestFinished()));
+            disconnect(reply, &QNetworkReply::finished,
+                       this, &FtpManager::requestFinished);
             reply->abort();
         }
         reply->deleteLater();
@@ -140,8 +151,9 @@ void FtpManager::downloadProgress(qint64 bytesReceived, qint64 bytesTotal) {
 void FtpManager::uploadDone()
 {
     qDebug() << "Upload Done" << reply->error();
+//    data->deleteLater();
+//    reply->deleteLater();
 }
-
 QByteArray FtpManager::getVersionNr() const
 {
     return versionNr;

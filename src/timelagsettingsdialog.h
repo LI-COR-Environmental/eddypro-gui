@@ -23,25 +23,40 @@
 #ifndef TIMELAGSETTINGSDIALOG_H
 #define TIMELAGSETTINGSDIALOG_H
 
-#include <QDialog>
 #include <QDateTime>
+#include <QDialog>
 
-class QRadioButton;
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/timelagsettingsdialog.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
 class QButtonGroup;
-class QSpinBox;
-class QDoubleSpinBox;
-class QLineEdit;
-class QPushButton;
+class QCheckBox;
 class QDate;
 class QDateEdit;
+class QDoubleSpinBox;
 class QLabel;
-class QCheckBox;
+class QLineEdit;
+class QPushButton;
+class QRadioButton;
+class QSpinBox;
 
 class QwwButtonLineEdit;
 
+class AncillaryFileTest;
 class ClickLabel;
-class EcProject;
 struct ConfigState;
+class EcProject;
 
 class TimeLagSettingsDialog : public QDialog
 {
@@ -150,6 +165,7 @@ private:
 
     EcProject *ecProject_;
     ConfigState* configState_;
+    AncillaryFileTest *test_ {};
 
     void forceEndDatePolicy();
 

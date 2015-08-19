@@ -20,13 +20,14 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
+#include "biommetadatareader.h"
+
 #include <QDebug>
 #include <QFile>
 #include <QSettings>
 
 #include "bminidefs.h"
 #include "dbghelper.h"
-#include "biommetadatareader.h"
 
 const QString BiomMetadataReader::getVAR_TA()
 {
@@ -89,7 +90,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
     settings.beginGroup(BmIni::INIGROUP_VARS_OLD);
 
     // iterate through instrument list
-    int numVars = countEmbVariables(settings.allKeys());    
+    int numVars = countEmbVariables(settings.allKeys());
     qDebug() << "numVars:" << numVars;
 
     if (numVars == 0)

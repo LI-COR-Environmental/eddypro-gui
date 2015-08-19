@@ -21,9 +21,9 @@
 **
 ****************************************************************************/
 
-#include <QPainter>
-
 #include "faderwidget.h"
+
+#include <QPainter>
 
 FaderWidget::FaderWidget(QWidget *parent)
     : QWidget(parent)
@@ -50,8 +50,10 @@ void FaderWidget::start()
     show();
 }
 
-void FaderWidget::paintEvent(QPaintEvent * /* event */)
+void FaderWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event)
+
     QPainter painter(this);
     qreal frame = timeLine->currentFrame();
     painter.setOpacity(frame / 1000.);

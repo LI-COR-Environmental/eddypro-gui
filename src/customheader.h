@@ -27,6 +27,7 @@
 #define CUSTOMHEADER_H
 
 #include <QWidget>
+
 #include "clicklabel.h"
 
 class QGridLayout;
@@ -36,12 +37,12 @@ class CustomHeader : public QWidget
 Q_OBJECT
 
 public:
-    enum QuestionMarkHint { NoQuestionMark, QuestionMark };
+    enum class  QuestionMarkHint { NoQuestionMark, QuestionMark };
 
-    explicit CustomHeader(QWidget *parent = 0);
-    void addSection(const QString &txt,
-                    const QString &tooltipTxt,
-                    QuestionMarkHint questionMark = NoQuestionMark,
+    explicit CustomHeader(QWidget* parent = nullptr);
+    void addSection(const QString& txt,
+                    const QString& tooltipTxt,
+                    QuestionMarkHint questionMark = QuestionMarkHint::NoQuestionMark,
                     ClickLabel::HeaderData headerData = ClickLabel::NoHeader);
     int sectionCount();
 

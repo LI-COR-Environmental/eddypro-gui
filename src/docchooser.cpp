@@ -21,18 +21,20 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
 ***************************************************************************/
 
-#include <QPushButton>
-#include <QLabel>
-#include <QDesktopServices>
-#include <QVBoxLayout>
-#include <QRadioButton>
-#include <QCoreApplication>
-#include <QSettings>
-#include <QDebug>
-
-#include "defs.h"
-#include "dbghelper.h"
 #include "docchooser.h"
+
+#include <QApplication>
+#include <QDebug>
+#include <QDesktopServices>
+#include <QLabel>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSettings>
+#include <QVBoxLayout>
+
+#include "dbghelper.h"
+#include "defs.h"
+#include "globalsettings.h"
 
 DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     QDialog(parent),
@@ -46,28 +48,29 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     // NOTE: remove all window buttons
     setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
 
-    setWindowTitle(tr("Remote/Local Help"));
+    setWindowTitle(tr("Set Remote/Local Help"));
 
-    QLabel* connectText = new QLabel();
+    auto connectText = new QLabel;
+    connectText->setText(tr("Use online help (recommended) if you are connected "
+                            "to the Internet.\n"
+                            "Change this setting under the Help menu."));
 
-    QHBoxLayout* connectLayout = new QHBoxLayout();
+    auto connectLayout = new QHBoxLayout;
     connectLayout->addWidget(connectText);
     connectLayout->addStretch();
 
-    onlineHelpRadio = new QRadioButton();
+    onlineHelpRadio = new QRadioButton;
     onlineHelpRadio->setText(tr("Use online help"));
 
-    offlineHelpRadio = new QRadioButton();
+    offlineHelpRadio = new QRadioButton;
     offlineHelpRadio->setText(tr("Use local help"));
 
-    QPushButton *okButton = new QPushButton(tr("&Ok"));
+    auto okButton = new QPushButton(tr("&Ok"));
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     okButton->setDefault(true);
     okButton->setProperty("commonButton", true);
-    connectText->setText(tr("Use online help (recommended) if you are connected to the Internet.\n"
-                                       "Change this setting under the Help menu."));
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    auto layout = new QVBoxLayout(this);
     layout->addLayout(connectLayout);
     layout->addStretch();
     layout->addWidget(onlineHelpRadio);
@@ -77,8 +80,9 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     layout->setContentsMargins(30, 30, 30, 30);
     setLayout(layout);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
-    connect(offlineHelpRadio, SIGNAL(toggled(bool)), this, SLOT(setOfflineHelp(bool)));
+    connect(okButton, &QPushButton::clicked, this, &DocChooserDialog::close);
+    connect(offlineHelpRadio, &QRadioButton::toggled,
+            this, &DocChooserDialog::setOfflineHelp);
 
     onlineHelpRadio->setChecked(true);
     restoreAutoChooserState();
@@ -92,34 +96,30 @@ DocChooserDialog::~DocChooserDialog()
 
 void DocChooserDialog::setAutoChooser(bool automatic)
 {
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        config.setValue(Defs::CONF_WIN_AUTOHELP, automatic);
-    config.endGroup();
-    config.sync();
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                             Defs::CONF_WIN_AUTOHELP,
+                                             automatic);
 }
 
 void DocChooserDialog::setOfflineHelp(bool yes)
 {
-    QSettings config;
-    config.beginGroup(Defs::CONFGROUP_WINDOW);
-        config.setValue(Defs::CONF_WIN_OFFLINEHELP, yes);
-    config.endGroup();
-    config.sync();
+    GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                             Defs::CONF_WIN_OFFLINEHELP,
+                                             yes);
 }
 
 void DocChooserDialog::restoreAutoChooserState()
 {
     QSettings config;
 
-    // NOTE: not used
+    // NOTE: set but not used in fact
     bool autoChooseHelp = false;
 
     // read state
     config.beginGroup(Defs::CONFGROUP_WINDOW);
     if (config.contains(Defs::CONF_WIN_AUTOHELP))
     {
-        autoChooseHelp = config.value(Defs::CONF_WIN_AUTOHELP).toBool();
+        autoChooseHelp = config.value(Defs::CONF_WIN_AUTOHELP, false).toBool();
     }
     else
     {
@@ -138,7 +138,7 @@ void DocChooserDialog::restoreOfflineState()
     config.beginGroup(Defs::CONFGROUP_WINDOW);
     if (config.contains(Defs::CONF_WIN_AUTOHELP))
     {
-        offlineHelp = config.value(Defs::CONF_WIN_OFFLINEHELP).toBool();
+        offlineHelp = config.value(Defs::CONF_WIN_OFFLINEHELP, false).toBool();
     }
     else
     {
@@ -161,10 +161,15 @@ void DocChooserDialog::close()
     else
     {
         // open local help
-        QString htmlHelpPath = QCoreApplication::applicationDirPath()
+        QString htmlHelpPath = qApp->applicationDirPath()
                 + QStringLiteral("/docs/help/index.htm#EddyPro_Home.htm");
         qDebug() << QDesktopServices::openUrl(QUrl::fromLocalFile(htmlHelpPath));
     }
+
+    // set the variable to true to indicate that the dialog ran once
+    // this is the only reason to date to use it.
+    // NOTE: refactor to simplify the unnecessary code
     setAutoChooser(true);
+
     done(0);
 }

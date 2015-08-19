@@ -21,26 +21,27 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
+#include "dlrawfiledesctab.h"
+
+#include <QDebug>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QHeaderView>
-#include <QToolButton>
 #include <QPushButton>
 #include <QScrollArea>
-#include <QDebug>
+#include <QToolButton>
 
-#include "dlproject.h"
 #include "dbghelper.h"
+#include "dlproject.h"
 #include "rawfilesettingsdialog.h"
 #include "variable_delegate.h"
 #include "variable_model.h"
 #include "variable_view.h"
-#include "dlrawfiledesctab.h"
 
-DlRawfileDescTab::DlRawfileDescTab(QWidget *parent, DlProject *dlProject) :
+DlRawfileDescTab::DlRawfileDescTab(QWidget* parent, DlProject* dlProject) :
     QWidget(parent),
     dlProject_(dlProject),
-    rawSettingsDialog(0),
+    rawSettingsDialog(nullptr),
     fieldSepTOB1Flag_(false)
 {
     DEBUG_FUNC_NAME
@@ -71,15 +72,15 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget *parent, DlProject *dlProject) :
         variableView_->verticalHeader()->resizeSection(i, 20);
     }
 
-    QToolButton *addButton = new QToolButton();
+    auto addButton = new QToolButton;
     addButton->setObjectName(QStringLiteral("plusButton"));
     addButton->setToolTip(tr("<b>+</b> Add a variable."));
 
-    QToolButton *removeButton = new QToolButton();
+    auto removeButton = new QToolButton;
     removeButton->setObjectName(QStringLiteral("minusButton"));
     removeButton->setToolTip(tr("<b>-</b> Remove a variable."));
 
-    QVBoxLayout *buttonsLayout = new QVBoxLayout;
+    auto buttonsLayout = new QVBoxLayout;
     buttonsLayout->addWidget(addButton);
     buttonsLayout->addWidget(removeButton);
     buttonsLayout->addStretch();
@@ -88,45 +89,56 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget *parent, DlProject *dlProject) :
     rawSettingsButton->setProperty("mdButton", true);
     rawSettingsButton->setStyleSheet(QStringLiteral("QPushButton {margin-top: 15px}"));
 
-    QGridLayout *varLayout = new QGridLayout;
+    clearCustomVarsButton = new QPushButton(tr("Clear Custom Variables"));
+    clearCustomVarsButton->setProperty("mdButton", true);
+    clearCustomVarsButton->setStyleSheet(QStringLiteral("QPushButton {margin-top: 15px}"));
+
+    auto varLayout = new QGridLayout;
     varLayout->addWidget(variableView_, 0, 0, -1, 1);
     varLayout->addLayout(buttonsLayout, 0, 1, 1, 1);
     varLayout->setColumnStretch(0, 1);
     varLayout->setColumnStretch(1, 0);
+    varLayout->setRowStretch(2, 0);
     varLayout->setSizeConstraint(QLayout::SetNoConstraint);
 
-    QGroupBox *varGroup = new QGroupBox(tr("Data Columns Info"));
+    auto varGroup = new QGroupBox(tr("Data Columns Info"));
     varGroup->setObjectName(QStringLiteral("simpleGroupBox"));
     varGroup->setFlat(true);
     varGroup->setLayout(varLayout);
 
-    QScrollArea* varScrollArea = new QScrollArea;
+    auto varScrollArea = new QScrollArea;
     varScrollArea->setWidget(varGroup);
     varScrollArea->setWidgetResizable(true);
 
-    QGridLayout *mainlayout = new QGridLayout(this);
+    auto mainlayout = new QGridLayout(this);
     mainlayout->setRowMinimumHeight(0, 18);
     mainlayout->addWidget(rawSettingsButton, 1, 0, 1, 1, Qt::AlignTop);
+    mainlayout->addWidget(clearCustomVarsButton, 2, 0, 1, 1, Qt::AlignTop);
     mainlayout->addWidget(varScrollArea, 0, 1, -1, -1);
+    mainlayout->setRowStretch(3, 1);
     mainlayout->setColumnStretch(1, 1);
     mainlayout->setSizeConstraint(QLayout::SetNoConstraint);
     setLayout(mainlayout);
 
-    connect(variableModel_, SIGNAL(modified()),
-            this, SLOT(modelModified()));
+    connect(variableModel_, &VariableModel::modified, [=]()
+            { dlProject_->setModified(true); });
 
-    connect(dlProject, SIGNAL(projectModified()),
-            this, SLOT(updateModels()));
+    connect(dlProject, &DlProject::projectModified,
+            this, &DlRawfileDescTab::updateModels);
 
-    connect(dlProject, SIGNAL(projectChanged()),
-            this, SLOT(updateModels()));
+    connect(dlProject, &DlProject::projectChanged,
+            this, &DlRawfileDescTab::updateModels);
 
-    connect(addButton, SIGNAL(clicked()),
-            variableView_, SLOT(addVar()));
-    connect(removeButton, SIGNAL(clicked()),
-            variableView_, SLOT(removeVar()));
+    connect(addButton, &QToolButton::clicked,
+            variableView_, &VariableView::addVar);
+    connect(removeButton, &QToolButton::clicked,
+            variableView_, &VariableView::removeVar);
 
-    connect(rawSettingsButton, SIGNAL(clicked()), this, SLOT(showRawSettingsDialog()));
+    connect(rawSettingsButton, &QPushButton::clicked,
+            this, &DlRawfileDescTab::showRawSettingsDialog);
+
+    connect(clearCustomVarsButton, &QPushButton::clicked,[=]()
+            { variableDelegate_->clearCustomVariableBuffer(); });
 
     // to trigger table editing with single click without altering the
     // editTriggers property, because that way the column selection
@@ -241,8 +253,7 @@ void DlRawfileDescTab::clearInstrModels()
     variableModel_->setInstrModels(modelList);
 }
 
-// NOTE: not used
 void DlRawfileDescTab::onlineHelpTrigger_1()
 {
-//    Alia::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#")));
+//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://envsupport.licor.com/help/EddyPro5/index.htm#")));
 }

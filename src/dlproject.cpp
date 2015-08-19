@@ -21,15 +21,16 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include <QSettings>
+#include "dlproject.h"
+
 #include <QDebug>
+#include <QSettings>
 
 #include "dbghelper.h"
-#include "fileutils.h"
-#include "alia.h"
-#include "stringutils.h"
 #include "dlinidefs.h"
-#include "dlproject.h"
+#include "fileutils.h"
+#include "stringutils.h"
+#include "widget_utils.h"
 
 const QString DlProject::ANEM_MANUFACTURER_STRING_0  = QStringLiteral("csi");
 const QString DlProject::ANEM_MANUFACTURER_STRING_1  = QStringLiteral("gill");
@@ -221,7 +222,7 @@ DlProject::DlProject(QObject* parent) :
     isFastTempAvailable_(false)
 { ; }
 
-DlProject::DlProject(QObject* parent, ProjConfigState& project_config) :
+DlProject::DlProject(QObject* parent, const ProjConfigState &project_config) :
     QObject(parent),
     modified_(false),
     project_state_(ProjectState()),
@@ -266,7 +267,7 @@ void DlProject::newProject(const ProjConfigState& project_config)
     isFastTempAvailable_ = false;
 
     project_state_.general.sw_version = Defs::APP_VERSION_STR;
-    project_state_.general.ini_version = Defs::METADATA_VERSION_STR;
+    project_state_.general.ini_version = Defs::METADATA_FILE_VERSION_STR;
     project_state_.general.creation_date = now_str;
     project_state_.general.last_change_date.clear();
     project_state_.general.start_date.clear();
@@ -307,7 +308,6 @@ void DlProject::newProject(const ProjConfigState& project_config)
     project_state_.timing.pc_time_settings = QStringLiteral("local");
 
     project_state_.anemometerList.clear();
-    
     // add one predefined anememometer as master
     AnemDesc anem;
     anem.setManufacturer(QString());
@@ -326,13 +326,13 @@ void DlProject::newProject(const ProjConfigState& project_config)
     addAnemometer(anem);
 
     project_state_.irgaList.clear();
-
     // add one predefined irga
     IrgaDesc irga;
     irga.setManufacturer(IrgaDesc::getIRGA_MANUFACTURER_STRING_0());
     irga.setModel(QString());
     irga.setSwVersion(QString());
     irga.setId(QString());
+//    irga.setHeight(0.1);
     irga.setTubeLength(0.0);
     irga.setTubeDiameter(0.0);
     irga.setTubeFlowRate(0.0);
@@ -351,7 +351,6 @@ void DlProject::newProject(const ProjConfigState& project_config)
     project_state_.varDesc.data_label = QString(tr("Not set"));
 
     project_state_.variableList.clear();
-    
     // add one predefined variable
     VariableDesc var;
     var.setIgnore(QStringLiteral("no"));
@@ -394,13 +393,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     {
         // error opening file
         qWarning() << "Error: Cannot open [loadProject()]" << filename;
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
                              .arg(filename)
                              .arg(datafile.errorString()));
         return false;
     }
+
+//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
@@ -425,7 +426,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         project_state_.general.end_date = project_ini.value(DlIni::INI_GENE_END_DATE, QString()).toString();
         project_state_.general.file_name = projectFilename;
         project_state_.general.sw_version = project_ini.value(DlIni::INI_GENE_SW_VERSION, Defs::APP_VERSION_STR).toString();
-        project_state_.general.ini_version = project_ini.value(DlIni::INI_GENE_INI_VERSION, Defs::METADATA_VERSION_STR).toString();
+        project_state_.general.ini_version = project_ini.value(DlIni::INI_GENE_INI_VERSION, Defs::METADATA_FILE_VERSION_STR).toString();
     project_ini.endGroup();
 
     // files section
@@ -486,11 +487,11 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         {
             QString prefix = DlIni::INI_INSTR_PREFIX + QString::number(k + 1) + QStringLiteral("_");
 
-            int instrType = getInstrumentType(project_ini, prefix);
+            InstrumentType instrType = getInstrumentType(project_ini, prefix);
 
-            qDebug() << "instrType" << instrType;
+            qDebug() << "instrType" << static_cast<int>(instrType);
             // anem case
-            if (instrType == ANEM)
+            if (instrType == InstrumentType::ANEM)
             {
                 qDebug() << "anem k" << k;
                 AnemDesc anem;
@@ -510,14 +511,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+        //                QApplication::restoreOverrideCursor();
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -541,7 +543,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 addAnemometer(anem);
             }
             // irga case
-            else if (instrType == IRGA)
+            else if (instrType == InstrumentType::IRGA)
             {
                 qDebug() << "irga k" << k;
                 IrgaDesc irga;
@@ -553,6 +555,37 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 qDebug() << "sw_version:" << project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
                 irga.setSwVersion(fromIniIrgaSwVersion(project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString()));
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
+
+//                qreal heightVal = project_ini.value(prefix + DlIni::INI_IRGA_4, 0.1).toReal();
+//                qDebug() << "heightVal" << heightVal;
+//                if (heightVal >= 0.1)
+//                {
+//                    irga.setHeight(heightVal);
+//                }
+//                else
+//                {
+//                    if (checkVersion && firstReading && !alreadyChecked)
+//                    {
+//                        qDebug() << "queryBeforeMdFileImport";
+//        //                QApplication::restoreOverrideCursor();
+//                          if (queryProjectImport())
+//                          {
+//                              alreadyChecked = true;
+//                          }
+//                          else
+//                          {
+//                              return false;
+//                          }
+//                    }
+//                    else
+//                    {
+//                        // silently continue file loading and conversion
+//                    }
+//                    irga.setHeight(0.1);
+//                    isVersionCompatible = false;
+//                    qDebug() << "irga isVersionCompatible false: height < 0.01";
+//                }
+
                 irga.setTubeLength(project_ini.value(prefix + DlIni::INI_IRGA_5, 0.0).toReal());
                 irga.setTubeDiameter(project_ini.value(prefix + DlIni::INI_IRGA_6, 0.0).toReal());
                 irga.setTubeFlowRate(project_ini.value(prefix + DlIni::INI_IRGA_7, 0.0).toReal());
@@ -613,14 +646,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -648,14 +681,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 if (checkVersion && firstReading && !alreadyChecked)
                 {
-                    qDebug() << "queryBeforeMdFileImport";
-                    switch (Alia::infoBeforeMdFileImport(filename))
+                    qDebug() << "queryProjectImport";
+    //                QApplication::restoreOverrideCursor();
+                    if (queryProjectImport())
                     {
-                        case QMessageBox::Ok:
-                            alreadyChecked = true;
-                            break;
-                        case QMessageBox::Cancel:
-                            return false;
+                        alreadyChecked = true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 else
@@ -674,14 +708,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -704,6 +738,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 var.setOutputUnit(fromIniVariableMeasureUnit(project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_OUT, QString()).toString()));
                 var.setAValue(aValue);
                 var.setBValue(bValue);
+//                isVersionCompatible = false;
                 qDebug() << "var:" << k << "var isVersionCompatible false: scaling zero_fullscale";
             }
             // gain-offset
@@ -714,14 +749,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -730,14 +765,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -766,14 +801,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -795,14 +830,14 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
-                        qDebug() << "queryBeforeMdFileImport";
-                        switch (Alia::infoBeforeMdFileImport(filename))
+                        qDebug() << "queryProjectImport";
+                        if (queryProjectImport())
                         {
-                            case QMessageBox::Ok:
-                                alreadyChecked = true;
-                                break;
-                            case QMessageBox::Cancel:
-                                return false;
+                            alreadyChecked = true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                     else
@@ -851,6 +886,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         *modified = true;
     qDebug() << "final modified 2:" << *modified;
 
+//    QApplication::restoreOverrideCursor();
     return true;
 }
 
@@ -863,8 +899,8 @@ bool DlProject::nativeFormat(const QString& filename)
         // error opening file
         qWarning() << "Error: Cannot open file: doesn't exists (check the path) "
                    << filename;
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
                              .arg(filename).arg(datafile.errorString()));
         return false;
@@ -880,11 +916,11 @@ bool DlProject::nativeFormat(const QString& filename)
         && !firstLine.startsWith(QLatin1String(";ECO2catch"))
         && !firstLine.startsWith(QLatin1String(";ECO2S_DATALOGGING"))
         && !firstLine.startsWith(QLatin1String(";ECO2S_METADATA"))
-        && !firstLine.startsWith(Defs::MD_INI_TAG)
+        && !firstLine.startsWith(Defs::GHG_MD_INI_TAG)
         && !firstLine.startsWith(Defs::APP_MD_INI_TAG))
     {
-        QMessageBox::warning(0,
-                             tr("Load Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n"
                                 "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
         return false;
@@ -901,8 +937,8 @@ bool DlProject::tagProject(const QString& filename)
     {
         // error opening file
         qWarning() << "Error: Cannot tag file" << filename;
-        QMessageBox::warning(0,
-                             tr("Write Error"),
+        WidgetUtils::warning(nullptr,
+                             tr("Write Metadata Error"),
                              tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
                              .arg(filename)
                              .arg(datafile.errorString()));
@@ -910,7 +946,7 @@ bool DlProject::tagProject(const QString& filename)
         return false;
     }
 
-    QString app_tag(Defs::MD_INI_TAG);
+    QString app_tag(Defs::GHG_MD_INI_TAG);
     app_tag += QLatin1String("\n");
 
     QTextStream out(&datafile);
@@ -927,6 +963,8 @@ bool DlProject::tagProject(const QString& filename)
 bool DlProject::saveProject(const QString& filename)
 {
     DEBUG_FUNC_NAME
+
+//    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
@@ -957,9 +995,9 @@ bool DlProject::saveProject(const QString& filename)
 
         // update ini version if empty or old
         if (project_state_.general.ini_version.isEmpty()
-            || project_state_.general.ini_version != Defs::METADATA_VERSION_STR)
+            || project_state_.general.ini_version != Defs::METADATA_FILE_VERSION_STR)
         {
-            project_ini.setValue(DlIni::INI_GENE_INI_VERSION, Defs::METADATA_VERSION_STR);
+            project_ini.setValue(DlIni::INI_GENE_INI_VERSION, Defs::METADATA_FILE_VERSION_STR);
         }
         else
         {
@@ -1075,6 +1113,8 @@ bool DlProject::saveProject(const QString& filename)
                                  toIniIrgaSwVersion(irga.swVersion()));
             project_ini.setValue(prefix + DlIni::INI_IRGA_3,
                                  irga.id());
+//            project_ini.setValue(prefix + DlIni::INI_IRGA_4,
+//                                 QString::number(irga.height(), 'f', 2));
             project_ini.setValue(prefix + DlIni::INI_IRGA_5,
                                  QString::number(irga.tubeLength(), 'f', 1));
             project_ini.setValue(prefix + DlIni::INI_IRGA_6,
@@ -1173,13 +1213,16 @@ bool DlProject::saveProject(const QString& filename)
     bool result = tagProject(filename);
     if (!result)
     {
-        QMessageBox::warning(0, tr("Write Error"), tr("Unable to tag project file!"));
+        WidgetUtils::warning(nullptr,
+                             tr("Write Metadata Error"),
+                             tr("Unable to tag project file!"));
     }
 
     hasGoodWindComponentsAndTemperature();
 
     // project is saved, so set flags accordingly
     setModified(false);
+//    QApplication::restoreOverrideCursor();
 
     return true;
 }
@@ -1682,11 +1725,15 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
             QString number = s.mid(index + 1);
             QString modelStr = s.left(index);
 
-            int instrType = getInstrumentTypeFromModel(modelStr);
-            if (instrType == ANEM)
+            InstrumentType instrType = getInstrumentTypeFromModel(modelStr);
+            if (instrType == InstrumentType::ANEM)
+            {
                 tableInstrumentStr = tr("Sonic ") + number + QStringLiteral(": ") + fromIniAnemModel(modelStr);
+            }
             else
+            {
                 tableInstrumentStr = tr("Irga ") + number + QStringLiteral(": ") + fromIniIrgaModel(modelStr);
+            }
         }
         else
         {
@@ -2143,25 +2190,33 @@ int DlProject::countInstruments(const QStringList& list)
     return i;
 }
 
-int DlProject::getInstrumentType(const QSettings& iniGroup, const QString& prefix)
+DlProject::InstrumentType DlProject::getInstrumentType(const QSettings& iniGroup, const QString& prefix)
 {
     if (iniGroup.contains(prefix + DlIni::INI_ANEM_6))
-        return ANEM;
+    {
+        return InstrumentType::ANEM;
+    }
     else if (iniGroup.contains(prefix + DlIni::INI_IRGA_5))
-        return IRGA;
-    else
-        return UNDEFINED;
+    {
+        return InstrumentType::IRGA;
+    }
+    return InstrumentType::UNDEFINED;
 }
 
-int DlProject::getInstrumentTypeFromModel(const QString& model)
+DlProject::InstrumentType DlProject::getInstrumentTypeFromModel(const QString& model)
 {
     if (model.contains(QRegExp(QStringLiteral("li*")))
         || model.contains(QRegExp(QStringLiteral("open_path*")))
         || model.contains(QRegExp(QStringLiteral("closed_path*")))
         || model.contains(QRegExp(QStringLiteral("generic*path"))))
-        return IRGA;
+    {
+        return InstrumentType::IRGA;
+    }
     else
-        return ANEM;
+    {
+        return InstrumentType::ANEM;
+    }
+    return InstrumentType::UNDEFINED;
 }
 
 QString DlProject::fromIniIrgaManufacturer(const QString& s)
@@ -2408,7 +2463,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
 
     QMultiHash<QString, int> var_hash;
     QMultiHash<QString, int> sonic_hash;
-    QList< QHash<QString, int> > comp_hash_list;
+    QList<QHash<QString, int>> comp_hash_list;
 
     int i = 0;
     foreach (const VariableDesc& var, *variables())
@@ -2428,7 +2483,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
         if (var.ignore() == QLatin1String("no")
             && var.numeric() == QLatin1String("yes")
             && var.variable().contains(VariableDesc::getVARIABLE_VAR_STRING_28())
-            && VariableDesc::isGoodTemperature(var, VariableDesc::FAST))
+            && VariableDesc::isGoodTemperature(var, VariableDesc::AnalogType::FAST))
         {
             isFastTempAvailable_ = true;
             qDebug() << "isFastTempAvailable_:" << isFastTempAvailable_ << i;
@@ -2608,4 +2663,25 @@ bool DlProject::hasNullGainVariables()
         }
     }
     return false;
+}
+
+bool DlProject::requestMetadataReset()
+{
+    return WidgetUtils::okToQuestion(nullptr,
+                tr("Reset Metadata"),
+                tr("<p>Do you want to reset the current metadata values?</p>"),
+                tr("<p>You cannot undo this action.</p>"));
+}
+
+bool DlProject::queryProjectImport()
+{
+    return WidgetUtils::information(nullptr,
+        tr("Import Metadata"),
+        tr("<p>Your metadata file has to be imported "
+           "to a new version for compatibility. </p>"),
+        tr("<p>Save the metadata file with a new file name "
+           "to create a backup copy "
+           "or simply overwrite it.</p>"
+           "<p>To cancel the import operation, simply close "
+           "without pushing 'Ok'.</p>"));
 }

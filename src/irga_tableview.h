@@ -32,7 +32,7 @@ class IrgaTableView : public QTableView
 {
     Q_OBJECT
 public:
-    explicit IrgaTableView(QWidget *parent = 0);
+    explicit IrgaTableView(QWidget* parent = nullptr);
     ~IrgaTableView();
 
 signals:
@@ -40,12 +40,12 @@ signals:
 public slots:
 
 protected:
-    void resizeEvent(QResizeEvent *event);
-    void showEvent(QShowEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+    void resizeEvent(QResizeEvent* event);
+    void showEvent(QShowEvent* event);
+    void mousePressEvent(QMouseEvent* event);
 
 private:
-    CustomHeader *m_header;
+    CustomHeader* m_header;
 
 };
 

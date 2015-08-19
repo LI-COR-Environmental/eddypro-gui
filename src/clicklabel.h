@@ -27,11 +27,27 @@
 #define CLICKLABEL_H
 
 #include <QLabel>
-#include <QTime>
 #include <QMetaType>
+#include <QTime>
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/clicklabel.h
+/// \brief
+/// \version
+/// \date
+/// \author      Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
 
 class QMouseEvent;
 
+/// \class ClickLabel
+/// \brief QLabel class with clicked signal, derived from QLabel
 class ClickLabel : public QLabel
 {
     Q_OBJECT
@@ -41,8 +57,8 @@ class ClickLabel : public QLabel
     Q_ENUMS(HeaderData)
 
 public:
-    explicit ClickLabel(QWidget *parent = 0, Qt::WindowFlags flags = 0);
-    explicit ClickLabel(const QString &text, QWidget *parent = 0, Qt::WindowFlags flags = 0);
+    explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
+    explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
     explicit ClickLabel(const ClickLabel& clabel);
     ~ClickLabel();
 

@@ -24,46 +24,70 @@
 #ifndef BASICSETTINGSPAGE_H
 #define BASICSETTINGSPAGE_H
 
-#include <QWidget>
 #include <QDateTime>
+#include <QWidget>
 
-class QLabel;
-class QPushButton;
-class QSpinBox;
-class QDoubleSpinBox;
+#include<vector>
+
+////////////////////////////////////////////////////////////////////////////////
+/// \file src/basicsettingspage.h
+/// \brief
+/// \version
+/// \date
+/// \author Antonio Forgione
+/// \note
+/// \sa
+/// \bug
+/// \deprecated
+/// \test
+/// \todo
+////////////////////////////////////////////////////////////////////////////////
+
+class QButtonGroup;
+class QCalendarWidget;
 class QCheckBox;
 class QComboBox;
-class QLineEdit;
-class QDateEdit;
-class QTimeEdit;
 class QDate;
+class QDateEdit;
+class QDoubleSpinBox;
+class QLabel;
+class QLineEdit;
 class QTime;
-class QCalendarWidget;
+class QTimeEdit;
 class QNetworkAccessManager;
 class QNetworkReply;
+class QPushButton;
+class QProgressIndicator;
 class QRadioButton;
-class QButtonGroup;
+class QSpinBox;
 
 class QwwButtonLineEdit;
 class QwwClearLineEdit;
-class QProgressIndicator;
 
+class AnemDesc;
+struct BiomItem;
 class ClickLabel;
+struct ConfigState;
 class DlProject;
 class EcProject;
-class AnemDesc;
 class IrgaDesc;
-class VariableDesc;
 class RawFilenameDialog;
-struct BiomItem;
 class SmartFluxBar;
-struct ConfigState;
+class VariableDesc;
 
+/// \class BasicSettingsPage
+/// \brief Class representing the 'General Options' tab in the 'RawProcess' page
 class BasicSettingsPage : public QWidget
 {
     Q_OBJECT
 
 public:
+    enum EmbeddedFileFlag
+    {
+        rawEmbeddedFile    = 1,
+        biometEmbeddedFile = 2
+    };
+
     BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
     virtual ~BasicSettingsPage();
 
@@ -71,15 +95,10 @@ public:
     QwwClearLineEdit *outpathEdit;
     QwwClearLineEdit *idEdit;
     QwwButtonLineEdit *previousDatapathEdit;
-
-    enum EmbeddedFileFlag
-    {
-        rawEmbeddedFile    = 1,
-        biometEmbeddedFile = 2
-    };
     Q_DECLARE_FLAGS(EmbeddedFileFlags, EmbeddedFileFlag)
 
     void updateSmartfluxBar();
+
 public slots:
     void refresh();
     void datapathBrowse_clicked();
@@ -96,10 +115,13 @@ protected:
     bool eventFilter(QObject* watched, QEvent* event);
 
 private:
+    void noNoaaConnectionMsg();
+    void noNoaaDownloadMsg();
+
     static const QString FLAG_POLICY_STRING_0;
     static const QString FLAG_POLICY_STRING_1;
 
-    QList<bool> oldEnabled;
+    std::vector<bool> oldEnabled {};
 
     QPushButton* questionMark_1;
     QPushButton* questionMark_2;
@@ -332,7 +354,6 @@ private slots:
     void onOutpathLabelClicked();
     void onPreviousDatapathLabelClicked();
     void onIdLabelClicked();
-    void updateId(const QString& id);
     void onAvgLenLabelClicked();
     void onMaxLackLabelClicked();
     void onStartDateLabelClicked();
@@ -452,8 +473,8 @@ private slots:
     void updateDeclinationDate(const QDate &d);
     void alignDeclinationDate(const QDate& d);
     void clearDataSelection_1();
-    int clearDataSelection_2();
-    int clearDataSelection_3();
+    int handleVariableReset();
+    int acceptVariableReset();
     void dateRangeDetect();
     void clearPreviousDatapathEdit();
     void handleCrossWindAndAngleOfAttackUpdate(const QString& anem);
