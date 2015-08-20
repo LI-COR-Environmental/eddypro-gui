@@ -38,17 +38,33 @@ ui_*.h
 Thumbs.db
 desktop.ini
 
+# valgrind suppression file
+*.supp
+
+# fonts
+*.ttf
+
 # misc files
 *.log
 .kdev*
 diff*
 sha1
+TODO
+current-version
 
 # misc directories
 clang-checks
 quazip*
 dist
 karchive*
+docs/help
+libs/others
+scripts/deploy
+scripts/old
+scripts/qtcreator
+scripts/test
+scripts/utils
+smartflux_defaults
 
 # dotfiles
 .*
