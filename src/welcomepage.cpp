@@ -217,7 +217,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     auto item_4 = new QListWidgetItem(tr("Printable manual (PDF version)"));
     item_4->setData(Qt::UserRole, QString(QStringLiteral("https://boxenterprise.net/s/1ium2zmwm6hl36yz9bu4")));
     auto item_5 = new QListWidgetItem(tr("Download sample data files"));
-    item_5->setData(Qt::UserRole, QString(QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Data/")));
+    item_5->setData(Qt::UserRole, Defs::EP_SAMPLE_DATA_FILES);
 
     helpListWidget = new QListWidget;
     helpListWidget->setProperty("helpListItem", true);

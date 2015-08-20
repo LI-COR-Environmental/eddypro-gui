@@ -297,9 +297,9 @@ namespace Defs
     const QString CONF_WIN_NOAA_WEBSITE_MSG = QStringLiteral("/noaa_website_msg");
     const QString CONF_WIN_AOA_SELECTION_MSG = QStringLiteral("/aoa_selection_msg");
 
-    const QString LICOR_FTP_URL = QStringLiteral("ftp://ftp.licor.com/perm/env/EddyPro/Software/");
-    const QString LICOR_FTP_USERNAME = QStringLiteral("anonymous");
-    const QString LICOR_FTP_PASSWORD = QStringLiteral("anonymous@password.com");
+    const QString LICOR_EP_VERSION_FILE = QStringLiteral("http://dl.licor.com/EddyPro/version");
+    const QString EP_SAMPLE_DATA_FILES  = QStringLiteral("http://dl.licor.com/EddyPro/data");
+    const QString EP_USER_AGENT = QStringLiteral("EddyPro Browser 1.0");
 
     const QString GHG_TIMESTAMP_FORMAT = QStringLiteral("yyyy-mm-ddTHHMM??_");
 

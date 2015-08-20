@@ -33,15 +33,15 @@
 
 #include "dbghelper.h"
 #include "defs.h"
-#include "ftpmanager.h"
+#include "downloadmanager.h"
 #include "stringutils.h"
 #include "widget_utils.h"
 
 UpdateDialog::UpdateDialog(QWidget *parent) :
     QDialog(parent),
-    ftp(0),
+    updateManager(nullptr),
     isNewVersionAvailable_(false),
-    ftpTimer_(0)
+    downloadTimer_(nullptr)
 {
     setWindowModality(Qt::WindowModal);
     setWindowTitle(tr("Check for Updates"));
@@ -93,11 +93,11 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
 
     QTimer::singleShot(0, this, SLOT(initialize()));
 
-    ftpTimer_ = new QTimer(this);
-    ftpTimer_->setInterval(10000);
-    ftpTimer_->setSingleShot(true);
-    connect(ftpTimer_, &QTimer::timeout,
-            this, &UpdateDialog::ftpTimeout);
+    downloadTimer_ = new QTimer(this);
+    downloadTimer_->setInterval(10000);
+    downloadTimer_->setSingleShot(true);
+    connect(downloadTimer_, &QTimer::timeout,
+            this, &UpdateDialog::downloadTimeout);
 }
 
 UpdateDialog::~UpdateDialog()
@@ -116,13 +116,17 @@ void UpdateDialog::initialize()
 void UpdateDialog::close()
 {
     DEBUG_FUNC_NAME
-    if (ftp)
-        ftp->abort();
+    if (updateManager)
+    {
+        updateManager->abort();
+    }
 
     if (isVisible())
+    {
         hide();
+    }
 
-    ftpTimer_->stop();
+    downloadTimer_->stop();
 }
 
 void UpdateDialog::getNewVersion(const QString& version)
@@ -178,18 +182,19 @@ void UpdateDialog::downloadError()
 void UpdateDialog::checkUpdate()
 {
     DEBUG_FUNC_NAME
-    if (!ftp)
+    if (!updateManager)
     {
-        qDebug() << "!ftp";
+        qDebug() << "!updateManager";
 
-        ftp = new FtpManager(this);
+        updateManager = new DownloadManager(this);
 
-        connect(ftp, SIGNAL(requestComplete()), this, SLOT(useFtpResults()));
+        connect(updateManager, SIGNAL(downloadComplete()),
+                this, SLOT(useDownloadResults()));
     }
-    QTimer::singleShot(0, ftp, SLOT(execute()));
+    QTimer::singleShot(0, updateManager, SLOT(execute()));
 
-    ftpTimer_->start();
-    qDebug() << "ftpTimer_->start()";
+    downloadTimer_->start();
+    qDebug() << "downloadTimer_->start()";
 }
 
 bool UpdateDialog::hasNewVersion()
@@ -203,16 +208,16 @@ void UpdateDialog::showDownloadPage()
     close();
 }
 
-void UpdateDialog::ftpTimeout()
+void UpdateDialog::downloadTimeout()
 {
     DEBUG_FUNC_NAME
 
     noConnection();
 }
 
-void UpdateDialog::useFtpResults()
+void UpdateDialog::useDownloadResults()
 {
-    QByteArray versionNr = ftp->getVersionNr();
+    QByteArray versionNr = updateManager->getVersionNr();
     qDebug() << "versionNr" << versionNr.trimmed().constData();
 
     QString newVersion(QLatin1String(versionNr.trimmed().constData()));
@@ -238,5 +243,5 @@ void UpdateDialog::useFtpResults()
         isNewVersionAvailable_ = false;
         downloadError();
     }
-    ftpTimer_->stop();
+    downloadTimer_->stop();
 }

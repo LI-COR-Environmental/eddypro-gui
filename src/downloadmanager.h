@@ -1,7 +1,7 @@
 /***************************************************************************
-  ftpmanager.h
+  downloadmanager.h
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2015, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -20,49 +20,42 @@
   along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#ifndef FTPMANAGER_H
-#define FTPMANAGER_H
+#ifndef DOWNLOADMANAGER_H
+#define DOWNLOADMANAGER_H
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
 
-class QFile;
-class QNetworkReply;
-
-class FtpManager : public QObject
+class DownloadManager : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit FtpManager(QObject* parent = nullptr);
-    ~FtpManager();
+    explicit DownloadManager(QObject* parent = nullptr);
+    ~DownloadManager();
 
-    void put(const QString &file);
-    void get(const QString &file);
     void abort();
 
     QByteArray getVersionNr() const;
 
 signals:
-    void requestComplete();
+    void downloadComplete();
 
 public slots:
     void execute();
 
 private slots:
-    void transferFinished(QNetworkReply *r);
-    void uploadProgress(qint64 bytesSent, qint64 bytesTotal);
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void requestError(QNetworkReply::NetworkError error);
-    void requestFinished();
-    void uploadDone();
+    void downloadError(QNetworkReply::NetworkError error);
+    void downloadFinished();
 
 private:
+    void get(const QUrl &url);
+
     QNetworkAccessManager manager;
     QNetworkReply* reply;
-    QFile* data;
     QByteArray versionNr;
 };
 
-#endif // FTPMANAGER_H
+#endif // DOWNLOADMANAGER_H

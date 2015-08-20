@@ -37,7 +37,6 @@ HEADERS += \
     src/ecprojectstate.h \
     src/faderwidget.h \
     src/fileutils.h \
-    src/ftpmanager.h \
     src/infomessage.h \
     src/irga_delegate.h \
     src/irga_desc.h \
@@ -105,7 +104,9 @@ HEADERS += \
     src/clickablelabel.h \
     src/hovercheckbox.h \
     src/richtextcheckbox.h \
-    src/detectdaterangedialog.h
+    src/detectdaterangedialog.h \
+    src/downloadmanager.h
+
 SOURCES +=  \
     src/globalsettings.cpp \
     src/widget_utils.cpp \
@@ -131,7 +132,6 @@ SOURCES +=  \
     src/ecproject.cpp \
     src/faderwidget.cpp \
     src/fileutils.cpp \
-    src/ftpmanager.cpp \
     src/infomessage.cpp \
     src/irga_delegate.cpp \
     src/irga_desc.cpp \
@@ -196,7 +196,8 @@ SOURCES +=  \
     src/clickablelabel.cpp \
     src/hovercheckbox.cpp \
     src/richtextcheckbox.cpp \
-    src/detectdaterangedialog.cpp
+    src/detectdaterangedialog.cpp \
+    src/downloadmanager.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

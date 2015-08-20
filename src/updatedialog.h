@@ -43,7 +43,7 @@
 class QLabel;
 class QTimer;
 
-class FtpManager;
+class DownloadManager;
 
 class UpdateDialog : public QDialog
 {
@@ -61,16 +61,16 @@ public slots:
 
 private slots:
     void showDownloadPage();
-    void ftpTimeout();
+    void downloadTimeout();
 
-    void useFtpResults();
+    void useDownloadResults();
 private:
     QPushButton *okButton;
     QPushButton *yesButton;
     QPushButton *noButton;
     QLabel *msgLabel;
 
-    FtpManager* ftp;
+    DownloadManager* updateManager;
 
     void getNewVersion(const QString& version);
     void noNewVersion();
@@ -80,7 +80,7 @@ private:
 
     bool isNewVersionAvailable_;
 
-    QTimer* ftpTimer_;
+    QTimer* downloadTimer_;
 };
 
 #endif // UPDATEDIALOG_H
