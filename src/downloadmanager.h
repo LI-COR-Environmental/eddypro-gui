@@ -26,6 +26,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
+#include <QPointer>
 
 class DownloadManager : public QObject
 {
@@ -54,7 +55,7 @@ private:
     void get(const QUrl &url);
 
     QNetworkAccessManager manager;
-    QNetworkReply* reply;
+    QPointer<QNetworkReply> reply;
     QByteArray versionNr;
 };
 

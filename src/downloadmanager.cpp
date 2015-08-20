@@ -46,26 +46,21 @@ void DownloadManager::abort()
 {
     DEBUG_FUNC_NAME
 
-    auto request = static_cast<QNetworkReply*>(reply);
-    QThread::sleep(1);
-    qDebug() << "reply still existing" << reply;
-    QThread::sleep(1);
-    qDebug() << "reply still existing" << reply;
-    QThread::sleep(1);
-    qDebug() << "reply still existing" << request;
-
-    if (request)
+    if (reply)
     {
-        qDebug() << "reply still existing" << request;
-
-
-        if (request->isRunning())
+        if (reply->isRunning())
         {
-//            disconnect(reply, &QNetworkReply::finished,
-//                       this, &DownloadManager::downloadFinished);
-//            reply->abort();
+            // TODO: remove test when bump Qt version on Windows
+#if QT_VERSION > 0x050302
+            disconnect(reply, &QNetworkReply::finished,
+                       this, &DownloadManager::downloadFinished);
+#else
+            disconnect(reply, SIGNAL(QNetworkReply::finished),
+                       this, SLOT(DownloadManager::downloadFinished));
+#endif
+            reply->abort();
         }
-        request->deleteLater();
+        reply->deleteLater();
     }
 }
 
@@ -84,10 +79,18 @@ void DownloadManager::get(const QUrl &url)
     reply = manager.get(request);
     qDebug() << "reply" << reply;
 
+    // TODO: remove test when bump Qt version on Windows
+#if (QT_VERSION > 0x050302)
     connect(reply, &QNetworkReply::downloadProgress,
             this, &DownloadManager::downloadProgress);
     connect(reply, &QNetworkReply::finished,
             this, &DownloadManager::downloadFinished);
+#else
+    connect(reply, SIGNAL(downloadProgress(qint64, qint64)),
+            this, SLOT(downloadProgress(qint64, qint64)));
+    connect(reply, SIGNAL(finished()),
+            this, SLOT(downloadFinished()));
+#endif
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(downloadError(QNetworkReply::NetworkError)));
 }
