@@ -46,10 +46,7 @@ sha1
 
 # misc directories
 clang-checks
-img*
-!img_6
 quazip*
-wwWidgets*
 dist
 karchive*
 
