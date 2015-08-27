@@ -105,7 +105,8 @@ HEADERS += \
     src/hovercheckbox.h \
     src/richtextcheckbox.h \
     src/detectdaterangedialog.h \
-    src/downloadmanager.h
+    src/downloadmanager.h \
+    $$PWD/src/openfilefilter.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -197,7 +198,8 @@ SOURCES +=  \
     src/hovercheckbox.cpp \
     src/richtextcheckbox.cpp \
     src/detectdaterangedialog.cpp \
-    src/downloadmanager.cpp
+    src/downloadmanager.cpp \
+    $$PWD/src/openfilefilter.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

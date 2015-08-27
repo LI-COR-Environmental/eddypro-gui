@@ -42,6 +42,7 @@
 #include "JlCompress.h"
 #include "mainwindow.h"
 #include "mystyle.h"
+#include "openfilefilter.h"
 #include "qt_helpers.h"
 #include "stringutils.h"
 #include "widget_utils.h"
@@ -141,7 +142,22 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
-    // TODO: complete custom ttf setup
+    // file to open at start
+    auto fileToOpen = QString();
+
+#if defined(Q_OS_MAC)
+    // install event filter to open clicked files in Mac OS X
+    OpenFileFilter openFileFilter;
+    app.installEventFilter(&openFileFilter);
+    app.processEvents();
+    auto requestedFile = openFileFilter.fileRequested();
+    if (requestedFile.endsWith(QStringLiteral(".eddypro")))
+    {
+        fileToOpen = requestedFile;
+    }
+#endif
+
+    // custom ttf setup
     int fontId_1 = QFontDatabase::addApplicationFont(QStringLiteral(":/fonts/fonts/OpenSans-Regular.ttf"));
     Q_ASSERT(fontId_1 != -1);
     qDebug() << QFontDatabase::applicationFontFamilies(fontId_1);
@@ -165,7 +181,6 @@ int main(int argc, char *argv[])
     app.installTranslator(&appTranslator);
 
     // working dir
-
     QDir dir = QDir::current();
     qDebug() << "current dir" << dir.absolutePath();
 
@@ -203,12 +218,19 @@ int main(int argc, char *argv[])
     }
     qDebug() << "appEnvPath" << appEnvPath;
 
-    // check for additional command line arguments
+    // check for command line arguments
     QTextStream stream(stdout);
     bool getLogFile = false;
     QString filename = doArgs(app.arguments(), stream, &getLogFile);
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;
+
+#if defined(Q_OS_MAC)
+    if (!fileToOpen.isEmpty())
+    {
+        filename = fileToOpen;
+    }
+#endif
 
     // log file
     QFile logFile(appEnvPath
