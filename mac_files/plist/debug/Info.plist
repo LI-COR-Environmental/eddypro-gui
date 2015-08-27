@@ -51,8 +51,16 @@
             <string>EddyPro Project File</string>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
+            <key>LSHandlerRank</key>
+            <string>Owner</string>
             <key>LSIsAppleDefaultForType</key>
-            <true/>
+            <true />
+            <key>LSTypeIsPackage</key>
+            <false />
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>com.licor.eddypro_debug.eddypro</string>
+            </array>
         </dict>
     </array>
 </dict>
