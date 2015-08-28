@@ -410,6 +410,17 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     horstCombo->setItemData(0, tr("<b>Horst and Lenschow (2009), along-wind, crosswind and vertical:</b> Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected."), Qt::ToolTipRole);
     horstCombo->setItemData(1, tr("<b>Horst and Lenschow (2009), only crosswind and vertical:</b> Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected."), Qt::ToolTipRole);
 
+    ghgSystemCorrectionTitle = new QLabel(tr("Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)"));
+    ghgSystemCorrectionTitle->setProperty("groupLabel", true);
+
+    hfCorrectGhgBaCheck = new QCheckBox(tr("Digital block averaging"));
+    hfCorrectGhgBaCheck->setToolTip(tr("<b>Digital block averaging:</b> ..."));
+    hfCorrectGhgBaCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+
+    hfCorrectGhgZohCheck = new QCheckBox(tr("DAC zero-order hold"));
+    hfCorrectGhgZohCheck->setToolTip(tr("<b>DAC zero-order hold:</b> ..."));
+    hfCorrectGhgZohCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+
     spectraExistingRadio = new QRadioButton(tr("Spectral assessment file available for this dataset :"));
     spectraExistingRadio->setToolTip(tr("<b>Spectral assessment file available:</b> If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named \"eddypro_spectral_assessment_ID.txt\". This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results."));
 
@@ -425,7 +436,6 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     spectraRadioGroup = new QButtonGroup(this);
     spectraRadioGroup->addButton(spectraExistingRadio, 0);
     spectraRadioGroup->addButton(spectraNonExistingRadio, 1);
-
 
     freqAttenuationTitle = new QLabel(tr("Assessment of high-frequency attenuation"));
     freqAttenuationTitle->setProperty("groupLabel", true);
@@ -648,33 +658,38 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     settingsLayout->addWidget(horstCheck, 30, 0, 1, 2);
     settingsLayout->addWidget(horstMethodLabel, 30, 1, Qt::AlignRight);
     settingsLayout->addWidget(horstCombo, 30, 2, 1, 3);
-    settingsLayout->addWidget(spectraExistingRadio, 31, 0, 1, 2);
-    settingsLayout->addWidget(spectraFileBrowse, 31, 1, 1, 4);
-    settingsLayout->addWidget(spectraNonExistingRadio, 32, 0, 1, 2);
 
-    settingsLayout->addLayout(assessmentHighFreqLabel, 33, 0, 1, -1);
-    settingsLayout->addWidget(spin11Label, 34, 1);
-    settingsLayout->addWidget(spin12Label, 34, 2);
-    settingsLayout->addWidget(spin13Label, 34, 3);
-    settingsLayout->addWidget(spin14Label, 34, 4);
-    settingsLayout->addWidget(hrLabel_2, 35, 1, 1, 4);
-    settingsLayout->addWidget(minMaxFreqLabel, 36, 1, 1, -1);
-    settingsLayout->addWidget(spin10Label, 37, 0, Qt::AlignRight);
-    settingsLayout->addWidget(spin11, 37, 1);
-    settingsLayout->addWidget(spin12, 37, 2);
-    settingsLayout->addWidget(spin13, 37, 3);
-    settingsLayout->addWidget(spin14, 37, 4);
-    settingsLayout->addWidget(spin20Label, 38, 0, Qt::AlignRight);
-    settingsLayout->addWidget(spin21, 38, 1);
-    settingsLayout->addWidget(spin22, 38, 2);
-    settingsLayout->addWidget(spin23, 38, 3);
-    settingsLayout->addWidget(spin24, 38, 4);
+    settingsLayout->addWidget(ghgSystemCorrectionTitle, 31, 0, 1, -1);
+    settingsLayout->addWidget(hfCorrectGhgBaCheck, 32, 0, 1, 2);
+    settingsLayout->addWidget(hfCorrectGhgZohCheck, 33, 0, 1, 2);
 
-    settingsLayout->addWidget(fratiniTitle, 39, 0, 1, -1);
-    settingsLayout->addWidget(fullSpectraNonExistingRadio, 40, 0, 1, 2);
-    settingsLayout->addWidget(fullSpectraExistingRadio, 41, 0, 1, 2);
-    settingsLayout->addWidget(fullSpectraDirBrowse, 41, 1, 1, 4);
-    settingsLayout->addWidget(addSonicCheck, 42, 0, 1, -1);
+    settingsLayout->addWidget(spectraExistingRadio, 34, 0, 1, 2);
+    settingsLayout->addWidget(spectraFileBrowse, 34, 1, 1, 4);
+    settingsLayout->addWidget(spectraNonExistingRadio, 35, 0, 1, 2);
+
+    settingsLayout->addLayout(assessmentHighFreqLabel, 36, 0, 1, -1);
+    settingsLayout->addWidget(spin11Label, 37, 1);
+    settingsLayout->addWidget(spin12Label, 37, 2);
+    settingsLayout->addWidget(spin13Label, 37, 3);
+    settingsLayout->addWidget(spin14Label, 37, 4);
+    settingsLayout->addWidget(hrLabel_2, 38, 1, 1, 4);
+    settingsLayout->addWidget(minMaxFreqLabel, 39, 1, 1, -1);
+    settingsLayout->addWidget(spin10Label, 40, 0, Qt::AlignRight);
+    settingsLayout->addWidget(spin11, 40, 1);
+    settingsLayout->addWidget(spin12, 40, 2);
+    settingsLayout->addWidget(spin13, 40, 3);
+    settingsLayout->addWidget(spin14, 40, 4);
+    settingsLayout->addWidget(spin20Label, 41, 0, Qt::AlignRight);
+    settingsLayout->addWidget(spin21, 41, 1);
+    settingsLayout->addWidget(spin22, 41, 2);
+    settingsLayout->addWidget(spin23, 41, 3);
+    settingsLayout->addWidget(spin24, 41, 4);
+
+    settingsLayout->addWidget(fratiniTitle, 42, 0, 1, -1);
+    settingsLayout->addWidget(fullSpectraNonExistingRadio, 43, 0, 1, 2);
+    settingsLayout->addWidget(fullSpectraExistingRadio, 44, 0, 1, 2);
+    settingsLayout->addWidget(fullSpectraDirBrowse, 44, 1, 1, 4);
+    settingsLayout->addWidget(addSonicCheck, 45, 0, 1, -1);
     settingsLayout->setColumnStretch(7, 1);
 
     auto settingsGroupLayout = new QHBoxLayout;
@@ -811,6 +826,12 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
             this, &AdvSpectralOptions::updateHorst_1);
     connect(horstCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(updateHorst_2(int)));
+
+    connect(hfCorrectGhgBaCheck, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralHfCorrectGhgBa(checked); });
+    connect(hfCorrectGhgZohCheck, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralHfCorrectGhgZoh(checked); });
+
     connect(spectraRadioGroup,
             static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             [=](int radioButton){ ecProject_->setSpectraMode(radioButton); });
@@ -993,6 +1014,11 @@ void AdvSpectralOptions::reset()
     WidgetUtils::resetComboToItem(horstCombo, 1);
     horstCombo->setEnabled(false);
 
+    hfCorrectGhgBaCheck->setChecked(ecProject_->defaultSettings.projectGeneral.hf_correct_ghg_ba);
+    hfCorrectGhgZohCheck->setChecked(ecProject_->defaultSettings.projectGeneral.hf_correct_ghg_zoh);
+    hfCorrectGhgBaCheck->setEnabled(true);
+    hfCorrectGhgZohCheck->setEnabled(true);
+
     subsetCheckBox->setChecked(ecProject_->defaultSettings.spectraSettings.subset);
     startDateLabel->setEnabled(false);
     startDateEdit->setEnabled(false);
@@ -1139,6 +1165,9 @@ void AdvSpectralOptions::refresh()
         break;
     }
 
+    hfCorrectGhgBaCheck->setEnabled(hfMethodCheck->isChecked());
+    hfCorrectGhgZohCheck->setEnabled(hfMethodCheck->isChecked());
+
     spectraExistingRadio->setEnabled(hfMethodCheck->isChecked()
                                      && isHorstIbromFratini());
     spectraNonExistingRadio->setEnabled(hfMethodCheck->isChecked()
@@ -1189,6 +1218,9 @@ void AdvSpectralOptions::refresh()
     horstCheck->setChecked(ecProject_->spectraHorst());
     horstMethodLabel->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
     horstCombo->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
+
+    hfCorrectGhgBaCheck->setChecked(ecProject_->generalHfCorrectGhgBa());
+    hfCorrectGhgZohCheck->setChecked(ecProject_->generalHfCorrectGhgZoh());
 
     auto toEnable = isHorstIbromFratini()
                     && spectraNonExistingRadio->isEnabled()
@@ -1517,6 +1549,9 @@ void AdvSpectralOptions::updateHfMethod_1(bool b)
         horstMethodLabel->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
         horstCombo->setEnabled(horstMethodLabel->isEnabled());
 
+        hfCorrectGhgBaCheck->setEnabled(true);
+        hfCorrectGhgZohCheck->setEnabled(true);
+
         spin11Label->setEnabled(toEnable);
         spin12Label->setEnabled(toEnable);
         spin13Label->setEnabled(toEnable);
@@ -1551,6 +1586,10 @@ void AdvSpectralOptions::updateHfMethod_1(bool b)
         horstMethodLabel->setEnabled(false);
         horstCheck->setEnabled(false);
         horstCombo->setEnabled(false);
+
+        hfCorrectGhgBaCheck->setEnabled(false);
+        hfCorrectGhgZohCheck->setEnabled(false);
+
         spectraExistingRadio->setEnabled(false);
         spectraNonExistingRadio->setEnabled(false);
         spectraFileBrowse->setEnabled(false);

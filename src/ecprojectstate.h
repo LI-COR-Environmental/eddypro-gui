@@ -99,6 +99,8 @@ struct ProjectGeneralState
     int bin_sp_avail = 0;
     int full_sp_avail = 0;
     int files_found = 0;
+    int hf_correct_ghg_ba = 1;
+    int hf_correct_ghg_zoh = 1;
 };
 
 /// \struct SpectraSettingsState

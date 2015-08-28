@@ -97,6 +97,8 @@ namespace EcIni
     const QString INI_PROJECT_63   = QStringLiteral("full_sp_avail");
     const QString INI_PROJECT_64   = QStringLiteral("files_found");
     const QString INI_PROJECT_65   = QStringLiteral("out_mean_spec");
+    const QString INI_PROJECT_66   = QStringLiteral("hf_correct_ghg_ba");
+    const QString INI_PROJECT_67   = QStringLiteral("hf_correct_ghg_zoh");
 
     const QString INIGROUP_SPEC_SETTINGS = QStringLiteral("FluxCorrection_SpectralAnalysis_General");
     const QString INI_SPEC_SETTINGS_0    = QStringLiteral("sa_start_date");

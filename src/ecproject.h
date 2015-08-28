@@ -200,6 +200,9 @@ public:
     void setGeneralBinSpectraAvail(int n);
     void setGeneralFullSpectraAvail(int n);
     void setGeneralFilesFound(int n);
+    void setGeneralHfCorrectGhgBa(int n);
+    void setGeneralHfCorrectGhgZoh(int n);
+
     void setScreenOutFullSpectraU(int n);
     void setScreenOutFullSpectraV(int n);
     void setScreenOutFullSpectraW(int n);
@@ -513,6 +516,8 @@ public:
     int generalBinSpectraAvail() const { return ec_project_state_.projectGeneral.bin_sp_avail; }
     int generalFullSpectraAvail() const { return ec_project_state_.projectGeneral.full_sp_avail; }
     int generalFilesFound() const { return ec_project_state_.projectGeneral.files_found; }
+    int generalHfCorrectGhgBa() const { return ec_project_state_.projectGeneral.hf_correct_ghg_ba; }
+    int generalHfCorrectGhgZoh() const { return ec_project_state_.projectGeneral.hf_correct_ghg_zoh; }
 
     const QString& screenDataPath() const { return ec_project_state_.screenGeneral.data_path; }
     int screenRecurse() const { return ec_project_state_.screenGeneral.recurse; }

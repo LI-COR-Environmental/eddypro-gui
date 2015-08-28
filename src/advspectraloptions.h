@@ -179,6 +179,8 @@ private:
     QCheckBox* horstCheck;
     ClickLabel* horstMethodLabel;
     QComboBox* horstCombo;
+    QCheckBox* hfCorrectGhgBaCheck;
+    QCheckBox* hfCorrectGhgZohCheck;
     ClickLabel* minSmplLabel;
     QSpinBox* minSmplSpin;
     ClickLabel* minUnstableLabel;
@@ -244,6 +246,7 @@ private:
     QLabel* settingsGroupTitle_1;
     QLabel* lowFreqTitle;
     QLabel* highFreqTitle;
+    QLabel* ghgSystemCorrectionTitle;
     QLabel* freqAttenuationTitle;
 
     QPushButton* questionMark_1;

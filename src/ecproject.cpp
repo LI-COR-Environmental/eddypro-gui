@@ -901,6 +901,8 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.bin_sp_avail = defaultEcProjectState.projectGeneral.bin_sp_avail;
     ec_project_state_.projectGeneral.full_sp_avail = defaultEcProjectState.projectGeneral.full_sp_avail;
     ec_project_state_.projectGeneral.files_found = defaultEcProjectState.projectGeneral.files_found;
+    ec_project_state_.projectGeneral.hf_correct_ghg_ba = defaultEcProjectState.projectGeneral.hf_correct_ghg_ba;
+    ec_project_state_.projectGeneral.hf_correct_ghg_zoh = defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -1306,7 +1308,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_38, ec_project_state_.projectGeneral.out_amflux);
         project_ini.setValue(EcIni::INI_PROJECT_39, ec_project_state_.projectGeneral.out_rich);
         project_ini.setValue(EcIni::INI_PROJECT_56, ec_project_state_.projectGeneral.out_md);
-        project_ini.setValue(EcIni::INI_PROJECT_61, ec_project_state_.projectGeneral.out_biomet);
         project_ini.setValue(EcIni::INI_PROJECT_41, QVariant(ec_project_state_.projectGeneral.make_dataset).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_54, ec_project_state_.projectGeneral.subset);
         project_ini.setValue(EcIni::INI_PROJECT_42, ec_project_state_.projectGeneral.start_date);
@@ -1327,11 +1328,14 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_57, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.biom_dir));
         project_ini.setValue(EcIni::INI_PROJECT_58, ec_project_state_.projectGeneral.biom_recurse);
         project_ini.setValue(EcIni::INI_PROJECT_59, QVariant(QString(QLatin1Char('.')) + ec_project_state_.projectGeneral.biom_ext));
-        project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
         project_ini.setValue(EcIni::INI_PROJECT_60, ec_project_state_.projectGeneral.out_mean_cosp);
+        project_ini.setValue(EcIni::INI_PROJECT_61, ec_project_state_.projectGeneral.out_biomet);
         project_ini.setValue(EcIni::INI_PROJECT_62, ec_project_state_.projectGeneral.bin_sp_avail);
         project_ini.setValue(EcIni::INI_PROJECT_63, ec_project_state_.projectGeneral.full_sp_avail);
         project_ini.setValue(EcIni::INI_PROJECT_64, ec_project_state_.projectGeneral.files_found);
+        project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
+        project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
+        project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
     project_ini.endGroup();
 
     // spec settings section
@@ -1929,9 +1933,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.out_md
                 = project_ini.value(EcIni::INI_PROJECT_56,
                                     defaultEcProjectState.projectGeneral.out_md).toInt();
-        ec_project_state_.projectGeneral.out_biomet
-                = project_ini.value(EcIni::INI_PROJECT_61,
-                                    defaultEcProjectState.projectGeneral.out_biomet).toInt();
         ec_project_state_.projectGeneral.make_dataset
                 = project_ini.value(EcIni::INI_PROJECT_41,
                                     defaultEcProjectState.projectGeneral.make_dataset).toBool();
@@ -1994,12 +1995,12 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.biom_ext
                 = project_ini.value(EcIni::INI_PROJECT_59,
                                     defaultEcProjectState.projectGeneral.biom_ext).toString().remove(QLatin1Char('.'));
-        ec_project_state_.projectGeneral.out_mean_spectra
-                = project_ini.value(EcIni::INI_PROJECT_65,
-                                    defaultEcProjectState.projectGeneral.out_mean_spectra).toInt();
         ec_project_state_.projectGeneral.out_mean_cosp
                 = project_ini.value(EcIni::INI_PROJECT_60,
                                     defaultEcProjectState.projectGeneral.out_mean_cosp).toInt();
+        ec_project_state_.projectGeneral.out_biomet
+                = project_ini.value(EcIni::INI_PROJECT_61,
+                                    defaultEcProjectState.projectGeneral.out_biomet).toInt();
         ec_project_state_.projectGeneral.bin_sp_avail
                 = project_ini.value(EcIni::INI_PROJECT_62,
                                     defaultEcProjectState.projectGeneral.bin_sp_avail).toInt();
@@ -2009,6 +2010,15 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.files_found
                 = project_ini.value(EcIni::INI_PROJECT_64,
                                     defaultEcProjectState.projectGeneral.files_found).toInt();
+        ec_project_state_.projectGeneral.out_mean_spectra
+                = project_ini.value(EcIni::INI_PROJECT_65,
+                                    defaultEcProjectState.projectGeneral.out_mean_spectra).toInt();
+        ec_project_state_.projectGeneral.hf_correct_ghg_ba
+                = project_ini.value(EcIni::INI_PROJECT_66,
+                                    defaultEcProjectState.projectGeneral.hf_correct_ghg_ba).toInt();
+        ec_project_state_.projectGeneral.hf_correct_ghg_zoh
+                = project_ini.value(EcIni::INI_PROJECT_67,
+                                    defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh).toInt();
     project_ini.endGroup();
 
     // spec settings section
@@ -3548,6 +3558,20 @@ void EcProject::setGeneralFilesFound(int n)
     // in fact, the corresponding recursion checkbox is enough to inform
     // about a possible interactive change
 //    setModified(true);
+}
+
+void EcProject::setGeneralHfCorrectGhgBa(int n)
+{
+    ec_project_state_.projectGeneral.hf_correct_ghg_ba = n;
+    setModified(true);
+    emit updateInfo();
+}
+
+void EcProject::setGeneralHfCorrectGhgZoh(int n)
+{
+    ec_project_state_.projectGeneral.hf_correct_ghg_zoh = n;
+    setModified(true);
+    emit updateInfo();
 }
 
 void EcProject::setScreenMaxLack(int n)
