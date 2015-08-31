@@ -40,6 +40,8 @@ namespace StringUtils
 
     bool stringBelongsToList(const QString &str, const QStringList &list);
 
+    int getVersionFromString(const QString& versionStr);
+
     bool isNewVersion(const QString &remoteVersion, const QString &localVersion);
 
     const QStringList subStringList(const QStringList &list, int begin, int end);
