@@ -52,11 +52,6 @@ public:
     static const QString getIRGA_MODEL_STRING_10();
     static const QString getIRGA_MODEL_STRING_11();
 
-    static const QString getIRGA_SW_VERSION_0();
-    static const QString getIRGA_SW_VERSION_1();
-    static const QString getIRGA_SW_VERSION_2();
-    static const QString getIRGA_SW_VERSION_3();
-
     IrgaDesc();
 
     IrgaDesc(const QString& manufacture,
@@ -146,7 +141,6 @@ public:
     static const QStringList allModelStringList();
     static const QStringList licorModelStringList();
     static const QStringList otherModelStringList();
-    static const QStringList allSwVersionStringList();
 
     static bool isWellNamed(const IrgaDesc& irga);
     static bool hasGoodSeparations(const IrgaDesc& irga);

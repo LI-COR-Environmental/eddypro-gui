@@ -102,15 +102,7 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                     && (irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_3()
                         || irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_4()))
                 {
-                    if (StringUtils::stringBelongsToList(irgaDesc.swVersion(), IrgaDesc::allSwVersionStringList()))
-                    {
-                        return QVariant(irgaDesc.swVersion());
-                    }
-                    else
-                    {
-                        const_cast<IrgaModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    return QVariant(irgaDesc.swVersion());
                 }
                 else
                 {

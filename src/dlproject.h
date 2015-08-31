@@ -219,10 +219,8 @@ private:
 
     QString fromIniIrgaManufacturer(const QString& s);
     QString fromIniIrgaModel(const QString& s);
-    QString fromIniIrgaSwVersion(const QString& s);
     QString toIniIrgaManufacturer(const QString& s);
     QString toIniIrgaModel(const QString& s);
-    QString toIniIrgaSwVersion(const QString& s);
 
     bool checkAnemVars(const AnemComponents& hash, bool isFastTempAvailable, bool *anemHasTemp = nullptr);
 

@@ -97,26 +97,26 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
             if (currentManufacturer == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
                 && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
                     || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
-          {
-              combo = new QComboBox(parent);
-              combo->setEditable(false);
-              combo->addItems(IrgaDesc::allSwVersionStringList());
-              combo->view()->setTextElideMode(Qt::ElideNone);
-              combo->setMaxVisibleItems(15);
-              connect(combo, SIGNAL(activated(int)),
-                      this, SLOT(commitAndCloseEditor()));
-              return combo;
-          }
-          else
-          {
-              label = new QLabel(parent);
-              return label;
-          }
+            {
+                ledit = new QLineEdit(parent);
+                ledit->setInputMask(QStringLiteral("00.00.00;"));
+                ledit->setCursorPosition(0);
+
+                connect(ledit, SIGNAL(editingFinished()),
+                        this, SLOT(commitAndCloseEditor()));
+                return ledit;
+            }
+            else
+            {
+                label = new QLabel(parent);
+                return label;
+            }
       case IrgaModel::ID:
-          ledit = new QLineEdit(parent);
-          connect(ledit, SIGNAL(editingFinished()),
+            ledit = new QLineEdit(parent);
+            ledit->setPlaceholderText(QStringLiteral("Alphanumeric ID"));
+            connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
-          return ledit;
+            return ledit;
       case IrgaModel::TUBELENGTH:
             if (IrgaDesc::isOpenPathModel(currentModel))
             {
@@ -284,9 +284,9 @@ void IrgaDelegate::setEditorData(QWidget* editor,
                 && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
                     || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
               {
-                  combo = static_cast<QComboBox*>(editor);
-                  if (!combo) { return; }
-                  combo->setCurrentIndex(combo->findText(value.toString()));
+                  ledit = static_cast<QLineEdit*>(editor);
+                  if (!ledit) { return; }
+                  ledit->setText(value.toString());
               }
               else
               {
@@ -392,9 +392,9 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                 && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
                     || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
             {
-                combo = static_cast<QComboBox*>(editor);
-                if (!combo) { return; }
-                value = combo->currentText();
+                ledit = static_cast<QLineEdit*>(editor);
+                if (!ledit) { return; }
+                value = ledit->text();
                 model->setData(index, value);
             }
             else

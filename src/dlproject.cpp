@@ -549,8 +549,44 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
 
-                qDebug() << "sw_version:" << project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                irga.setSwVersion(fromIniIrgaSwVersion(project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString()));
+                // sw version
+                auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
+                if (StringUtils::getVersionFromString(project_state_.general.ini_version) <= QT_VERSION_CHECK(3, 1, 0))
+                {
+                    if (checkVersion && firstReading && !alreadyChecked)
+                    {
+                        if (!parent->queryDlProjectImport())
+                        {
+                            return false;
+                        }
+                        alreadyChecked = true;
+                    }
+                    else
+                    {
+                        // silently continue file loading and conversion
+                    }
+
+                    // map previous fixed values version to current free field version
+                    if (sw_version_loading == QStringLiteral("0.0.0"))
+                    {
+                        sw_version_loading.clear();
+                    }
+                    else if (sw_version_loading == QStringLiteral("5.3.0"))
+                    {
+                        sw_version_loading = QStringLiteral("0.0.0");
+                    }
+                    else if (sw_version_loading == QStringLiteral("6.0.0"))
+                    {
+                        sw_version_loading = QStringLiteral("6.0.0");
+                    }
+                    else if (sw_version_loading == QStringLiteral("6.4.0"))
+                    {
+                        sw_version_loading = QStringLiteral("6.5.0");
+                    }
+                }
+                qDebug() << "sw_version_loading:" << sw_version_loading;
+                irga.setSwVersion(sw_version_loading);
+
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
                 irga.setTubeLength(project_ini.value(prefix + DlIni::INI_IRGA_5, 0.0).toReal());
                 irga.setTubeDiameter(project_ini.value(prefix + DlIni::INI_IRGA_6, 0.0).toReal());
@@ -1052,8 +1088,23 @@ bool DlProject::saveProject(const QString& filename)
                 project_ini.setValue(prefix + DlIni::INI_IRGA_1, QString());
             }
 
-            project_ini.setValue(prefix + DlIni::INI_IRGA_16,
-                                 toIniIrgaSwVersion(irga.swVersion()));
+            // irga sw version
+            auto irga_sw_version = irga.swVersion();
+            // cleanup input mask effects
+            if (irga_sw_version == QStringLiteral(".."))
+            {
+                irga_sw_version.clear();
+            }
+            if (irga_sw_version.startsWith(QLatin1Char('.')))
+            {
+                irga_sw_version.prepend(QLatin1Char('0'));
+            }
+            if (irga_sw_version.endsWith(QLatin1Char('.')))
+            {
+                irga_sw_version.append(QLatin1Char('0'));
+            }
+            project_ini.setValue(prefix + DlIni::INI_IRGA_16, irga_sw_version);
+
             project_ini.setValue(prefix + DlIni::INI_IRGA_3,
                                  irga.id());
 //            project_ini.setValue(prefix + DlIni::INI_IRGA_4,
@@ -2233,52 +2284,6 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     }
 }
 
-QString DlProject::fromIniIrgaSwVersion(const QString& s)
-{
-    DEBUG_FUNC_NAME
-
-    qDebug() << "s" << s;
-    if (s.isEmpty())
-    {
-        qDebug() << "empty";
-        return IrgaDesc::getIRGA_SW_VERSION_0();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_0)
-    {
-        qDebug() << "0";
-        return IrgaDesc::getIRGA_SW_VERSION_0();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_1)
-    {
-        qDebug() << "1";
-        return IrgaDesc::getIRGA_SW_VERSION_1();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_2)
-    {
-        qDebug() << "2";
-        return IrgaDesc::getIRGA_SW_VERSION_2();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_3)
-    {
-        qDebug() << "3";
-        return IrgaDesc::getIRGA_SW_VERSION_3();
-    }
-    else if (!StringUtils::isNewVersion(s, DlProject::IRGA_SW_VERSION_STRING_1))
-    {
-        qDebug() << "4";
-        return IrgaDesc::getIRGA_SW_VERSION_1();
-    }
-    else if (StringUtils::isNewVersion(s, DlProject::IRGA_SW_VERSION_STRING_3))
-    {
-        qDebug() << "5";
-        return IrgaDesc::getIRGA_SW_VERSION_3();
-    }
-    else
-    {
-        return IrgaDesc::getIRGA_SW_VERSION_0();
-    }
-}
-
 QString DlProject::toIniIrgaManufacturer(const QString& s)
 {
     if (s == IrgaDesc::getIRGA_MANUFACTURER_STRING_0())
@@ -2344,30 +2349,6 @@ QString DlProject::toIniIrgaModel(const QString& s)
     else if (s == IrgaDesc::getIRGA_MODEL_STRING_11())
     {
         return DlProject::IRGA_MODEL_STRING_11;
-    }
-    else
-    {
-        return QString();
-    }
-}
-
-QString DlProject::toIniIrgaSwVersion(const QString& s)
-{
-    if (s == IrgaDesc::getIRGA_SW_VERSION_0())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_0;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_1())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_1;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_2())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_2;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_3())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_3;
     }
     else
     {

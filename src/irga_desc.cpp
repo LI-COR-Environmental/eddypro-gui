@@ -116,30 +116,6 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_11()
     return s;
 }
 
-const QString IrgaDesc::getIRGA_SW_VERSION_0()
-{
-    static const QString s(QStringLiteral("Unknown"));
-    return s;
-}
-
-const QString IrgaDesc::getIRGA_SW_VERSION_1()
-{
-    static const QString s(QStringLiteral("5.0.3 and below"));
-    return s;
-}
-
-const QString IrgaDesc::getIRGA_SW_VERSION_2()
-{
-    static const QString s(QStringLiteral("6.0.0"));
-    return s;
-}
-
-const QString IrgaDesc::getIRGA_SW_VERSION_3()
-{
-    static const QString s(QStringLiteral("6.5.0 and above"));
-    return s;
-}
-
 IrgaDesc::IrgaDesc() :
     manufacturer_(QString(getIRGA_MANUFACTURER_STRING_0())),
     model_(QString()),
@@ -304,16 +280,6 @@ const QStringList IrgaDesc::otherModelStringList()
             << getIRGA_MODEL_STRING_9()
             << getIRGA_MODEL_STRING_10()
             << getIRGA_MODEL_STRING_11());
-}
-
-// Return string list of sw versions
-const QStringList IrgaDesc::allSwVersionStringList()
-{
-    return (QStringList()
-            << getIRGA_SW_VERSION_0()
-            << getIRGA_SW_VERSION_1()
-            << getIRGA_SW_VERSION_2()
-            << getIRGA_SW_VERSION_3());
 }
 
 bool IrgaDesc::isALicorModel(const QString& model)
