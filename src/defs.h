@@ -51,12 +51,19 @@ class QStringLiteral;
 /// \brief Contains global string literals
 namespace Defs
 {
+    const int APP_VERSION = 0x060600;
     const QString APP_VERSION_STR = QStringLiteral("6.0.0");
     const QString APP_STAGE_STR = QStringLiteral("");
-    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4");
-    const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.1");
+
+    const int PROJECT_FILE_VERSION = 0x040400;
+    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.0");
+
+    const int METADATA_FILE_VERSION = 0x030200;
+    const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.2.0");
+
     const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86-32 on Windows<sup>&reg;</sup> 8.1");
     const QString MAC_COMPILER = QStringLiteral("Apple LLVM 6.1.0 (clang-602.0.53) x86-64 on Mac OS X<sup>&reg;</sup> 10.10.3");
+
     const QString CURRENT_COPYRIGHT_YEAR = QStringLiteral("2015");
 
     enum class CurrPage
