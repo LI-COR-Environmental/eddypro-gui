@@ -174,7 +174,6 @@ public:
 private:
     QString manufacturer_;
     QString model_;
-    QString sn_;
     QString id_;
     qreal height_;
     QString windFormat_;

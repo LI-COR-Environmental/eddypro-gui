@@ -87,7 +87,7 @@ public:
     const QString& model() const;
     void setModel(const QString& m);
 
-    // get/set model
+    // get/set version
     const QString& swVersion() const;
     void setSwVersion(const QString& v);
 
@@ -156,7 +156,6 @@ private:
     QString manufacturer_;
     QString model_;
     QString swVersion_;
-    QString sn_;
     QString id_;
     qreal tubeLength_;
     qreal tubeDiameter_;

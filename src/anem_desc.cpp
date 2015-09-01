@@ -173,7 +173,6 @@ const QString AnemDesc::getANEM_NORTH_ALIGN_STRING_2()
 AnemDesc::AnemDesc() :
     manufacturer_(QString()),
     model_(QString()),
-    sn_(QString()),
     id_(QString()),
     height_(0.1),
     windFormat_(getANEM_WIND_FORMAT_STRING_0()),
@@ -228,7 +227,6 @@ AnemDesc::~AnemDesc() { ; }
 AnemDesc::AnemDesc(const AnemDesc& anem) :
     manufacturer_(anem.manufacturer_),
     model_(anem.model_),
-    sn_(anem.sn_),
     id_(anem.id_),
     height_(anem.height_),
     windFormat_(anem.windFormat_),
@@ -250,7 +248,6 @@ AnemDesc& AnemDesc::operator=(const AnemDesc& anem)
     {
         manufacturer_ = anem.manufacturer_;
         model_ = anem.model_;
-        sn_ = anem.sn_;
         id_ = anem.id_;
         height_ = anem.height_;
         windFormat_ = anem.windFormat_;
@@ -273,7 +270,6 @@ bool AnemDesc::operator==(const AnemDesc& anem) const
 {
     return ((manufacturer_ == anem.manufacturer_)
              && (model_ == anem.model_)
-             && (sn_ == anem.sn_)
              && (id_ == anem.id_)
              && qFuzzyCompare(height_, anem.height_)
              && (windFormat_ == anem.windFormat_)

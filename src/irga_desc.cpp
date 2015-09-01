@@ -120,7 +120,6 @@ IrgaDesc::IrgaDesc() :
     manufacturer_(QString(getIRGA_MANUFACTURER_STRING_0())),
     model_(QString()),
     swVersion_(QString()),
-    sn_(QString()),
     id_(QString()),
     tubeLength_(0.0),
     tubeDiameter_(0.0),
@@ -173,7 +172,6 @@ IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     manufacturer_(irga.manufacturer_),
     model_(irga.model_),
     swVersion_(irga.swVersion_),
-    sn_(irga.sn_),
     id_(irga.id_),
     tubeLength_(irga.tubeLength_),
     tubeDiameter_(irga.tubeDiameter_),
@@ -195,7 +193,6 @@ IrgaDesc& IrgaDesc::operator=(const IrgaDesc& irga)
         manufacturer_ = irga.manufacturer_;
         model_ = irga.model_;
         swVersion_ = irga.swVersion_;
-        sn_ = irga.sn_;
         id_ = irga.id_;
         tubeLength_ = irga.tubeLength_;
         tubeDiameter_ = irga.tubeDiameter_;
@@ -217,7 +214,6 @@ bool IrgaDesc::operator==(const IrgaDesc& irga) const
     return (manufacturer_ == irga.manufacturer_)
             && (model_ == irga.model_)
             && (swVersion_ == irga.swVersion_)
-            && (sn_ == irga.sn_)
             && (id_ == irga.id_)
             && qFuzzyCompare(tubeLength_, irga.tubeLength_)
             && qFuzzyCompare(tubeDiameter_, irga.tubeDiameter_)
