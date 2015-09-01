@@ -87,6 +87,7 @@ namespace DlIni
     const QString INI_ANEM_13          = QStringLiteral("hpath_length");
     const QString INI_ANEM_14          = QStringLiteral("vpath_length");
     const QString INI_ANEM_15          = QStringLiteral("tau");
+    const QString INI_ANEM_16          = QStringLiteral("sw_version");
     const QString INI_IRGA_0           = QStringLiteral("manufacturer");
     const QString INI_IRGA_1           = QStringLiteral("model");
     const QString INI_IRGA_3           = QStringLiteral("id");
