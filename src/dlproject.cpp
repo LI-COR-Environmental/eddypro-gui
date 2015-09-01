@@ -313,6 +313,7 @@ void DlProject::newProject(const ProjConfigState& project_config)
     AnemDesc anem;
     anem.setManufacturer(QString());
     anem.setModel(QString());
+    anem.setSwVersion(QString());
     anem.setId(QString());
     anem.setHeight(0.1);
     anem.setWindFormat(AnemDesc::getANEM_WIND_FORMAT_STRING_0());
@@ -501,6 +502,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
+                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString());
                 anem.setId(project_ini.value(prefix + DlIni::INI_ANEM_4, QString()).toString());
 
                 qreal heightVal = project_ini.value(prefix + DlIni::INI_ANEM_5, 0.1).toReal();
@@ -1044,6 +1046,8 @@ bool DlProject::saveProject(const QString& filename)
             {
                 project_ini.setValue(prefix + DlIni::INI_ANEM_2, QString());
             }
+            project_ini.setValue(prefix + DlIni::INI_ANEM_16,
+                                 anem.swVersion());
             project_ini.setValue(prefix + DlIni::INI_ANEM_4,
                                  anem.id());
             project_ini.setValue(prefix + DlIni::INI_ANEM_5,

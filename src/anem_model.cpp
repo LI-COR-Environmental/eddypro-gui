@@ -141,6 +141,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(anemDesc.model());
                 }
+            case SWVERSION:
+                return QVariant(anemDesc.swVersion());
             case ID:
                 return QVariant(anemDesc.id());
             case HEIGHT:
@@ -339,6 +341,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(anemDesc.model());
                 }
+            case SWVERSION:
+                return QVariant(anemDesc.swVersion());
             case ID:
                 return QVariant(anemDesc.id());
             case HEIGHT:
@@ -480,6 +484,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
         {
             case MANUFACTURER:
             case MODEL:
+            case SWVERSION:
             case ID:
             case HEIGHT:
             case WINDFORMAT:
@@ -595,6 +600,13 @@ bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int rol
                 return false;
             }
             anemDesc.setModel(value.toString());
+            break;
+        case SWVERSION:
+            if (value == anemDesc.swVersion())
+            {
+                return false;
+            }
+            anemDesc.setSwVersion(value.toString());
             break;
         case ID:
             if (value == anemDesc.id())
@@ -733,6 +745,7 @@ QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
         {
             case MANUFACTURER:
             case MODEL:
+            case SWVERSION:
             case ID:
             case HEIGHT:
             case WINDFORMAT:
