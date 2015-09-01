@@ -421,6 +421,16 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     hfCorrectGhgZohCheck->setToolTip(tr("<b>DAC zero-order hold:</b> ..."));
     hfCorrectGhgZohCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
 
+    sonicFrequencyLabel = new QLabel;
+    sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
+    sonicFrequency = new QSpinBox;
+    sonicFrequency->setRange(4, 100);
+    sonicFrequency->setSpecialValueText(QStringLiteral("Default"));
+    sonicFrequency->setAccelerated(true);
+    sonicFrequency->setSingleStep(1);
+    sonicFrequency->setSuffix(QStringLiteral(" [Hz]"));
+    sonicFrequency->setToolTip(tr("<b>Sonic frequency: </b>..."));
+
     spectraExistingRadio = new QRadioButton(tr("Spectral assessment file available for this dataset :"));
     spectraExistingRadio->setToolTip(tr("<b>Spectral assessment file available:</b> If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named \"eddypro_spectral_assessment_ID.txt\". This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results."));
 
@@ -662,6 +672,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     settingsLayout->addWidget(ghgSystemCorrectionTitle, 31, 0, 1, -1);
     settingsLayout->addWidget(hfCorrectGhgBaCheck, 32, 0, 1, 2);
     settingsLayout->addWidget(hfCorrectGhgZohCheck, 33, 0, 1, 2);
+    settingsLayout->addWidget(sonicFrequencyLabel, 33, 1, Qt::AlignRight);
+    settingsLayout->addWidget(sonicFrequency, 33, 2, 1, 1);
 
     settingsLayout->addWidget(spectraExistingRadio, 34, 0, 1, 2);
     settingsLayout->addWidget(spectraFileBrowse, 34, 1, 1, 4);
