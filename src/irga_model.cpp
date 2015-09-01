@@ -346,8 +346,6 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
     {
         switch (row)
         {
-            case SWVERSION:
-                return QVariant(QColor(Qt::white));
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:
@@ -630,8 +628,6 @@ Qt::ItemFlags IrgaModel::flags(const QModelIndex& index) const
 
     switch (row)
     {
-        case SWVERSION:
-            return currentFlags;
         case TUBELENGTH:
         case TUBEDIAMETER:
         case TUBEFLOWRATE:
