@@ -307,7 +307,6 @@ void SmartFluxBar::createPackage()
         }
 
         // compress ini dir, i.e. create package and show result
-        // NOTE: test that quazip compression does work with current smartflux embedded
         cpDialog_->showResult(JlCompress::compressDir(smartfluxFile, smfDir, true),
                           smartfluxFilename);
 #if 0
