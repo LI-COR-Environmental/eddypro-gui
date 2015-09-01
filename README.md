@@ -100,11 +100,11 @@ directory where the source code is:
     1. Open 'source\eddypro.pro'
     2. Open 'source\libs\quazip\quazip\eddypro.pro'
     3. In the 'eddypro.pro' project settings:
-        3.1 set the build directory to '..\build\build-eddypro-qt-5.4.1-mingw-4.9.1-x86_64'
+        3.1 set the build directory to '..\build\build-eddypro-6.1.0-qt-5.4.2-mingw-4.9.1-x86_64'
             for both debug and release targets
         3.2 check all the listed libs as dependencies
     4. In the 'quazip.pro' project settings:
-        4.1 set the build directory to '..\..\..\..\build\libs\build-quazip-qt-5.4.1-mingw-4.9.1-x86_64'
+        4.1 set the build directory to '..\..\..\..\build\libs\build-quazip-0.7.1-qt-5.4.2-mingw-4.9.1-x86_64'
             for both debug and release targets
     5. In the 'eddypro.pro' project, build both targets
 
