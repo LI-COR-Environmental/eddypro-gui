@@ -94,23 +94,13 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
                   this, SLOT(commitAndCloseEditor()));
           return combo;
       case IrgaModel::SWVERSION:
-            if (currentManufacturer == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
-                    || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
-            {
-                ledit = new QLineEdit(parent);
-                ledit->setInputMask(QStringLiteral("00.00.00;"));
-                ledit->setCursorPosition(0);
+            ledit = new QLineEdit(parent);
+            ledit->setInputMask(QStringLiteral("00.00.00;"));
+            ledit->setCursorPosition(0);
 
-                connect(ledit, SIGNAL(editingFinished()),
-                        this, SLOT(commitAndCloseEditor()));
-                return ledit;
-            }
-            else
-            {
-                label = new QLabel(parent);
-                return label;
-            }
+            connect(ledit, SIGNAL(editingFinished()),
+                    this, SLOT(commitAndCloseEditor()));
+            return ledit;
       case IrgaModel::ID:
             ledit = new QLineEdit(parent);
             ledit->setPlaceholderText(QStringLiteral("Alphanumeric ID"));
@@ -280,19 +270,9 @@ void IrgaDelegate::setEditorData(QWidget* editor,
               combo->setCurrentIndex(combo->findText(value.toString()));
               break;
         case IrgaModel::SWVERSION:
-            if (currentManufacturer == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
-                    || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
-              {
-                  ledit = static_cast<QLineEdit*>(editor);
-                  if (!ledit) { return; }
-                  ledit->setText(value.toString());
-              }
-              else
-              {
-                  label = static_cast<QLabel*>(editor);
-                  if (!label) { return; }
-              }
+              ledit = static_cast<QLineEdit*>(editor);
+              if (!ledit) { return; }
+              ledit->setText(value.toString());
               break;
         case IrgaModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
@@ -388,20 +368,10 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             model->setData(index, value);
             break;
         case IrgaModel::SWVERSION:
-            if (currentManufacturer == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                && (currentModel == IrgaDesc::getIRGA_MODEL_STRING_3()
-                    || currentModel == IrgaDesc::getIRGA_MODEL_STRING_4()))
-            {
-                ledit = static_cast<QLineEdit*>(editor);
-                if (!ledit) { return; }
-                value = ledit->text();
-                model->setData(index, value);
-            }
-            else
-            {
-                label = static_cast<QLabel*>(editor);
-                if (!label) { return; }
-            }
+            ledit = static_cast<QLineEdit*>(editor);
+            if (!ledit) { return; }
+            value = ledit->text();
+            model->setData(index, value);
             break;
         case IrgaModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
