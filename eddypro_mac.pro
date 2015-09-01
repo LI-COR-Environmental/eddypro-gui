@@ -59,9 +59,7 @@ CONFIG(debug, debug|release) {
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem"$$QT_PATH/include"
 
-#    QMAKE_CXXFLAGS += -Xclang -isystem-prefix=boost/math
-    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_55_0/boost/math"
-#    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/libs/g3log/g2log/src"
+    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/math"
 
     win32 {
         # mingw warnings
