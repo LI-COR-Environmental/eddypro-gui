@@ -220,7 +220,6 @@ OTHER_FILES += \
     scripts/build/win-build-eddypro.sh \
     scripts/build/win-build-quazip.sh \
     scripts/build/win-build-libs.sh \
-    scripts/build/win-build-g3log.sh \
     scripts/deploy/eddypro-gui-deploy-win.sh \
     scripts/deploy/mac_deploy.sh \
     scripts/test/run-clang-analyzer.sh \
