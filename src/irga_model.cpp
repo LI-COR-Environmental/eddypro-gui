@@ -98,16 +98,7 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                     }
                 }
             case SWVERSION:
-                if (irgaDesc.manufacturer() == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                    && (irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_3()
-                        || irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_4()))
-                {
-                    return QVariant(irgaDesc.swVersion());
-                }
-                else
-                {
-                    return nullStrValue;
-                }
+                return QVariant(irgaDesc.swVersion());
             case ID:
                 return QVariant(irgaDesc.id());
             case TUBELENGTH:
@@ -356,16 +347,7 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
         switch (row)
         {
             case SWVERSION:
-                if (irgaDesc.manufacturer() == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                    && (irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_3()
-                        || irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_4()))
-                {
-                    return QVariant(QColor(Qt::white));
-                }
-                else
-                {
-                    return QVariant(QBrush(QColor(QStringLiteral("#eff0f1"))));
-                }
+                return QVariant(QColor(Qt::white));
             case TUBELENGTH:
             case TUBEDIAMETER:
             case TUBEFLOWRATE:
@@ -649,19 +631,7 @@ Qt::ItemFlags IrgaModel::flags(const QModelIndex& index) const
     switch (row)
     {
         case SWVERSION:
-            if (irgaDesc.manufacturer() == IrgaDesc::getIRGA_MANUFACTURER_STRING_0()
-                && (irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_3()
-                    || irgaDesc.model() == IrgaDesc::getIRGA_MODEL_STRING_4()))
-            {
-                return currentFlags;
-            }
-            else
-            {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
-            }
+            return currentFlags;
         case TUBELENGTH:
         case TUBEDIAMETER:
         case TUBEFLOWRATE:
