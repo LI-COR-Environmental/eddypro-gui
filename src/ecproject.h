@@ -202,6 +202,7 @@ public:
     void setGeneralFilesFound(int n);
     void setGeneralHfCorrectGhgBa(int n);
     void setGeneralHfCorrectGhgZoh(int n);
+    void setGeneralSonicOutputRate(int n);
 
     void setScreenOutFullSpectraU(int n);
     void setScreenOutFullSpectraV(int n);
@@ -518,6 +519,7 @@ public:
     int generalFilesFound() const { return ec_project_state_.projectGeneral.files_found; }
     int generalHfCorrectGhgBa() const { return ec_project_state_.projectGeneral.hf_correct_ghg_ba; }
     int generalHfCorrectGhgZoh() const { return ec_project_state_.projectGeneral.hf_correct_ghg_zoh; }
+    int generalSonicOutputRate() const { return ec_project_state_.projectGeneral.sonic_output_rate; }
 
     const QString& screenDataPath() const { return ec_project_state_.screenGeneral.data_path; }
     int screenRecurse() const { return ec_project_state_.screenGeneral.recurse; }

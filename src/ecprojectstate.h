@@ -101,6 +101,7 @@ struct ProjectGeneralState
     int files_found = 0;
     int hf_correct_ghg_ba = 1;
     int hf_correct_ghg_zoh = 1;
+    int sonic_output_rate = -1;
 };
 
 /// \struct SpectraSettingsState

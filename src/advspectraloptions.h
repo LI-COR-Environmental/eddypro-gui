@@ -181,7 +181,7 @@ private:
     QComboBox* horstCombo;
     QCheckBox* hfCorrectGhgBaCheck;
     QCheckBox* hfCorrectGhgZohCheck;
-    QLabel* sonicFrequencyLabel;
+    ClickLabel* sonicFrequencyLabel;
     QSpinBox* sonicFrequency;
     ClickLabel* minSmplLabel;
     QSpinBox* minSmplSpin;

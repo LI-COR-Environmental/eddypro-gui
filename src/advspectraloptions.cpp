@@ -421,7 +421,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     hfCorrectGhgZohCheck->setToolTip(tr("<b>DAC zero-order hold:</b> ..."));
     hfCorrectGhgZohCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
 
-    sonicFrequencyLabel = new QLabel;
+    sonicFrequencyLabel = new ClickLabel;
     sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
     sonicFrequency = new QSpinBox;
     sonicFrequency->setRange(4, 100);
@@ -842,7 +842,14 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(hfCorrectGhgBaCheck, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralHfCorrectGhgBa(checked); });
     connect(hfCorrectGhgZohCheck, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setGeneralHfCorrectGhgZoh(checked); });
+            { ecProject_->setGeneralHfCorrectGhgZoh(checked);
+              sonicFrequencyLabel->setEnabled(checked);
+              sonicFrequency->setEnabled(checked); });
+    connect(sonicFrequencyLabel, &ClickLabel::clicked, this, [=]()
+            { sonicFrequency->setFocus(); sonicFrequency->selectAll(); });
+    connect(sonicFrequency,
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            [=](int value) { ecProject_->setGeneralSonicOutputRate(value); });
 
     connect(spectraRadioGroup,
             static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
@@ -1028,8 +1035,12 @@ void AdvSpectralOptions::reset()
 
     hfCorrectGhgBaCheck->setChecked(ecProject_->defaultSettings.projectGeneral.hf_correct_ghg_ba);
     hfCorrectGhgZohCheck->setChecked(ecProject_->defaultSettings.projectGeneral.hf_correct_ghg_zoh);
-    hfCorrectGhgBaCheck->setEnabled(true);
-    hfCorrectGhgZohCheck->setEnabled(true);
+    hfCorrectGhgBaCheck->setEnabled(hfMethodCheck->isEnabled());
+    hfCorrectGhgZohCheck->setEnabled(hfMethodCheck->isEnabled());
+
+    sonicFrequencyLabel->setEnabled(hfMethodCheck->isEnabled());
+    sonicFrequency->setEnabled(hfMethodCheck->isEnabled());
+    sonicFrequency->setValue(ecProject_->defaultSettings.projectGeneral.sonic_output_rate);
 
     subsetCheckBox->setChecked(ecProject_->defaultSettings.spectraSettings.subset);
     startDateLabel->setEnabled(false);
@@ -1177,8 +1188,9 @@ void AdvSpectralOptions::refresh()
         break;
     }
 
-    hfCorrectGhgBaCheck->setEnabled(hfMethodCheck->isChecked());
-    hfCorrectGhgZohCheck->setEnabled(hfMethodCheck->isChecked());
+    sonicFrequencyLabel->setEnabled(hfMethodCheck->isChecked());
+    sonicFrequency->setEnabled(hfMethodCheck->isChecked());
+    sonicFrequency->setValue(ecProject_->generalSonicOutputRate());
 
     spectraExistingRadio->setEnabled(hfMethodCheck->isChecked()
                                      && isHorstIbromFratini());
@@ -1231,8 +1243,12 @@ void AdvSpectralOptions::refresh()
     horstMethodLabel->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
     horstCombo->setEnabled(horstCheck->isEnabled() && horstCheck->isChecked());
 
+    hfCorrectGhgBaCheck->setEnabled(hfMethodCheck->isChecked());
+    hfCorrectGhgZohCheck->setEnabled(hfMethodCheck->isChecked());
     hfCorrectGhgBaCheck->setChecked(ecProject_->generalHfCorrectGhgBa());
     hfCorrectGhgZohCheck->setChecked(ecProject_->generalHfCorrectGhgZoh());
+
+    sonicFrequency->setValue(ecProject_->generalSonicOutputRate());
 
     auto toEnable = isHorstIbromFratini()
                     && spectraNonExistingRadio->isEnabled()
@@ -1563,6 +1579,8 @@ void AdvSpectralOptions::updateHfMethod_1(bool b)
 
         hfCorrectGhgBaCheck->setEnabled(true);
         hfCorrectGhgZohCheck->setEnabled(true);
+        sonicFrequencyLabel->setEnabled(hfCorrectGhgZohCheck->isChecked());
+        sonicFrequency->setEnabled(hfCorrectGhgZohCheck->isChecked());
 
         spin11Label->setEnabled(toEnable);
         spin12Label->setEnabled(toEnable);
@@ -1601,6 +1619,8 @@ void AdvSpectralOptions::updateHfMethod_1(bool b)
 
         hfCorrectGhgBaCheck->setEnabled(false);
         hfCorrectGhgZohCheck->setEnabled(false);
+        sonicFrequencyLabel->setEnabled(false);
+        sonicFrequency->setEnabled(false);
 
         spectraExistingRadio->setEnabled(false);
         spectraNonExistingRadio->setEnabled(false);

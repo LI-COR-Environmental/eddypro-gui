@@ -903,6 +903,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.files_found = defaultEcProjectState.projectGeneral.files_found;
     ec_project_state_.projectGeneral.hf_correct_ghg_ba = defaultEcProjectState.projectGeneral.hf_correct_ghg_ba;
     ec_project_state_.projectGeneral.hf_correct_ghg_zoh = defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh;
+    ec_project_state_.projectGeneral.sonic_output_rate = defaultEcProjectState.projectGeneral.sonic_output_rate;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -1336,6 +1337,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
         project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
         project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
+        project_ini.setValue(EcIni::INI_PROJECT_68, ec_project_state_.projectGeneral.sonic_output_rate);
     project_ini.endGroup();
 
     // spec settings section
@@ -2019,6 +2021,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.hf_correct_ghg_zoh
                 = project_ini.value(EcIni::INI_PROJECT_67,
                                     defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh).toInt();
+        ec_project_state_.projectGeneral.sonic_output_rate
+                = project_ini.value(EcIni::INI_PROJECT_68,
+                                    defaultEcProjectState.projectGeneral.sonic_output_rate).toInt();
     project_ini.endGroup();
 
     // spec settings section
@@ -3570,6 +3575,13 @@ void EcProject::setGeneralHfCorrectGhgBa(int n)
 void EcProject::setGeneralHfCorrectGhgZoh(int n)
 {
     ec_project_state_.projectGeneral.hf_correct_ghg_zoh = n;
+    setModified(true);
+    emit updateInfo();
+}
+
+void EcProject::setGeneralSonicOutputRate(int n)
+{
+    ec_project_state_.projectGeneral.sonic_output_rate = n;
     setModified(true);
     emit updateInfo();
 }
