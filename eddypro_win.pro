@@ -3,7 +3,7 @@
 TEMPLATE = app
 
 # EddyPro version, not used
-VERSION = 6.0.0
+VERSION = 6.1.0
 
 # Qt version and path
 QT_VER = $$[QT_VERSION]
@@ -46,7 +46,6 @@ CONFIG(debug, debug|release) {
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem"$QT_PATH/include"
     QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_55_0"
-    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/libs/wwwidgets-qt-5.3.1/widgets"
 
     win32 {
         # mingw warnings

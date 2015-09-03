@@ -3,7 +3,7 @@
 TEMPLATE = app
 
 # EddyPro version, not used
-VERSION = 6.0.0
+VERSION = 6.1.0
 
 # Qt version and path
 QT_VER = $$[QT_VERSION]
