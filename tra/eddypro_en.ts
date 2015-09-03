@@ -25,9 +25,9 @@
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="120"/>
-        <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;Digia Plc: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class and wwWidgtes library&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;Digia Plc: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
+        <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;Digia Plc: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class and wwWidgtes library&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;Digia Plc: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
+        <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
@@ -1014,12 +1014,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>High frequency range</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="414"/>
+        <location filename="../src/advspectraloptions.cpp" line="435"/>
         <source>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</source>
         <translation>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="420"/>
+        <location filename="../src/advspectraloptions.cpp" line="441"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</translation>
     </message>
@@ -1130,7 +1130,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Horst and Lenschow (2009), only crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="430"/>
+        <location filename="../src/advspectraloptions.cpp" line="450"/>
         <source>Assessment of high-frequency attenuation</source>
         <translation>Assessment of high-frequency attenuation</translation>
     </message>
@@ -1145,36 +1145,36 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>End :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="506"/>
+        <location filename="../src/advspectraloptions.cpp" line="526"/>
         <source>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</source>
         <translation>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="157"/>
-        <location filename="../src/advspectraloptions.cpp" line="433"/>
+        <location filename="../src/advspectraloptions.cpp" line="453"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="159"/>
-        <location filename="../src/advspectraloptions.cpp" line="435"/>
+        <location filename="../src/advspectraloptions.cpp" line="455"/>
         <source>%2</source>
         <translation>%2</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="161"/>
-        <location filename="../src/advspectraloptions.cpp" line="437"/>
+        <location filename="../src/advspectraloptions.cpp" line="457"/>
         <source>%3</source>
         <translation>%3</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="163"/>
-        <location filename="../src/advspectraloptions.cpp" line="439"/>
+        <location filename="../src/advspectraloptions.cpp" line="459"/>
         <source>%4 Gas</source>
         <translation>%4 Gas</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="442"/>
+        <location filename="../src/advspectraloptions.cpp" line="462"/>
         <source>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</source>
         <translation>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</translation>
     </message>
@@ -1198,22 +1198,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation> [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="450"/>
+        <location filename="../src/advspectraloptions.cpp" line="470"/>
         <source>Lowest frequency :</source>
         <translation>Lowest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="451"/>
+        <location filename="../src/advspectraloptions.cpp" line="471"/>
         <source>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</source>
         <translation>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="453"/>
+        <location filename="../src/advspectraloptions.cpp" line="473"/>
         <source>Highest frequency :</source>
         <translation>Highest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="454"/>
+        <location filename="../src/advspectraloptions.cpp" line="474"/>
         <source>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</source>
         <translation>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</translation>
     </message>
@@ -1443,71 +1443,101 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="413"/>
+        <source>Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)</source>
+        <translation>Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="416"/>
+        <source>Digital block averaging</source>
+        <translation>Digital block averaging</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="417"/>
+        <source>&lt;b&gt;Digital block averaging:&lt;/b&gt; ...</source>
+        <translation>&lt;b&gt;Digital block averaging:&lt;/b&gt; ...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="420"/>
+        <source>DAC zero-order hold</source>
+        <translation>DAC zero-order hold</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="421"/>
+        <source>&lt;b&gt;DAC zero-order hold:&lt;/b&gt; ...</source>
+        <translation>&lt;b&gt;DAC zero-order hold:&lt;/b&gt; ...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="432"/>
+        <source>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</source>
+        <translation>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="434"/>
         <source>Spectral assessment file available for this dataset :</source>
         <translation>Spectral assessment file available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="416"/>
+        <location filename="../src/advspectraloptions.cpp" line="437"/>
         <source>Spectral assessment file not available</source>
         <translation>Spectral assessment file not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="417"/>
+        <location filename="../src/advspectraloptions.cpp" line="438"/>
         <source>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</source>
         <translation>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="421"/>
+        <location filename="../src/advspectraloptions.cpp" line="442"/>
         <source>Select the Spectral Assessment File</source>
         <translation>Select the Spectral Assessment File</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="447"/>
+        <location filename="../src/advspectraloptions.cpp" line="467"/>
         <source>Removal of high frequency noise</source>
         <translation>Removal of high frequency noise</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="505"/>
+        <location filename="../src/advspectraloptions.cpp" line="525"/>
         <source>Minimum number of (co)spectra for valid averages :</source>
         <translation>Minimum number of (co)spectra for valid averages :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="517"/>
+        <location filename="../src/advspectraloptions.cpp" line="537"/>
         <source>Full w/Ts cospectra files available for this dataset :</source>
         <translation>Full w/Ts cospectra files available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="518"/>
+        <location filename="../src/advspectraloptions.cpp" line="538"/>
         <source>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</source>
         <translation>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="520"/>
+        <location filename="../src/advspectraloptions.cpp" line="540"/>
         <source>Full w/Ts cospectra files not available</source>
         <translation>Full w/Ts cospectra files not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="521"/>
+        <location filename="../src/advspectraloptions.cpp" line="541"/>
         <source>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</source>
         <translation>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="524"/>
+        <location filename="../src/advspectraloptions.cpp" line="544"/>
         <source>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</source>
         <translation>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="514"/>
+        <location filename="../src/advspectraloptions.cpp" line="534"/>
         <source>Fratini et al. (2012) method settings</source>
         <translation>Fratini et al. (2012) method settings</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="532"/>
+        <location filename="../src/advspectraloptions.cpp" line="552"/>
         <source>Include anemometer losses for path averaging and time response</source>
         <translation>Include anemometer losses for path averaging and time response</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="533"/>
+        <location filename="../src/advspectraloptions.cpp" line="553"/>
         <source>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</source>
         <translation>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</translation>
     </message>
@@ -1517,12 +1547,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Spectral Correction Options</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="423"/>
+        <location filename="../src/advspectraloptions.cpp" line="444"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="525"/>
+        <location filename="../src/advspectraloptions.cpp" line="545"/>
         <source>Select the Full Spectra Files Directory</source>
         <translation>Select the Full Spectra Files Directory</translation>
     </message>
@@ -2327,7 +2357,7 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AnemDelegate</name>
     <message>
-        <location filename="../src/anem_delegate.cpp" line="168"/>
+        <location filename="../src/anem_delegate.cpp" line="175"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
@@ -2354,52 +2384,52 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AnemModel</name>
     <message>
-        <location filename="../src/anem_model.cpp" line="243"/>
+        <location filename="../src/anem_model.cpp" line="227"/>
         <source> [%1]</source>
         <translation> [%1]</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="562"/>
+        <location filename="../src/anem_model.cpp" line="539"/>
         <source>Manufacturer value</source>
         <translation>Manufacturer value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="564"/>
+        <location filename="../src/anem_model.cpp" line="541"/>
         <source>Model value</source>
         <translation>Model value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="566"/>
+        <location filename="../src/anem_model.cpp" line="543"/>
         <source>ID value</source>
         <translation>ID value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="568"/>
+        <location filename="../src/anem_model.cpp" line="545"/>
         <source>Height value</source>
         <translation>Height value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="570"/>
+        <location filename="../src/anem_model.cpp" line="547"/>
         <source>Wind data format value</source>
         <translation>Wind data format value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="574"/>
+        <location filename="../src/anem_model.cpp" line="551"/>
         <source>Axis alignment...</source>
         <translation>Axis alignment...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="578"/>
+        <location filename="../src/anem_model.cpp" line="555"/>
         <source>Spar alignment...</source>
         <translation>Spar alignment...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="582"/>
+        <location filename="../src/anem_model.cpp" line="559"/>
         <source>North alignment possible value: Axis..., Spar..., N/A...</source>
         <translation>North alignment possible value: Axis..., Spar..., N/A...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="585"/>
+        <location filename="../src/anem_model.cpp" line="562"/>
         <source>North off-set value</source>
         <translation>North off-set value</translation>
     </message>
@@ -2428,111 +2458,121 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
+        <source>&lt;i&gt;Embedded software version&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Embedded software version&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/anem_tableview.cpp" line="47"/>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the selected anemometer.</source>
+        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the selected anemometer.</translation>
+    </message>
+    <message>
+        <location filename="../src/anem_tableview.cpp" line="48"/>
         <source>&lt;i&gt;Instrument ID&lt;/i&gt;</source>
         <translation>&lt;i&gt;Instrument ID&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="47"/>
+        <location filename="../src/anem_tableview.cpp" line="48"/>
         <source>&lt;b&gt;Instrument ID:&lt;/b&gt; Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional.</source>
         <translation>&lt;b&gt;Instrument ID:&lt;/b&gt; Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="48"/>
+        <location filename="../src/anem_tableview.cpp" line="49"/>
         <source>Height</source>
         <translation>Height</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="48"/>
+        <location filename="../src/anem_tableview.cpp" line="49"/>
         <source>&lt;b&gt; Height:&lt;/b&gt; Enter the distance between the ground and the center of the device sampling volume. This field is mandatory.</source>
         <translation>&lt;b&gt; Height:&lt;/b&gt; Enter the distance between the ground and the center of the device sampling volume. This field is mandatory.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="49"/>
+        <location filename="../src/anem_tableview.cpp" line="50"/>
         <source>Wind data format</source>
         <translation>Wind data format</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="49"/>
+        <location filename="../src/anem_tableview.cpp" line="50"/>
         <source>&lt;b&gt;Wind data format:&lt;/b&gt; Specify the format in which the wind data are provided.</source>
         <translation>&lt;b&gt;Wind data format:&lt;/b&gt; Specify the format in which the wind data are provided.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="50"/>
+        <location filename="../src/anem_tableview.cpp" line="51"/>
         <source>North alignment</source>
         <translation>North alignment</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="50"/>
+        <location filename="../src/anem_tableview.cpp" line="51"/>
         <source>&lt;b&gt;North alignment:&lt;/b&gt; Specify whether the anemometer&apos;s axes are aligned to transducers (&lt;i&gt;Axis&lt;/i&gt;) or spars (&lt;i&gt;Spars&lt;/i&gt;). For Gill anemometers only.</source>
         <translation>&lt;b&gt;North alignment:&lt;/b&gt; Specify whether the anemometer&apos;s axes are aligned to transducers (&lt;i&gt;Axis&lt;/i&gt;) or spars (&lt;i&gt;Spars&lt;/i&gt;). For Gill anemometers only.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="51"/>
+        <location filename="../src/anem_tableview.cpp" line="52"/>
         <source>North off-set</source>
         <translation>North off-set</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="51"/>
+        <location filename="../src/anem_tableview.cpp" line="52"/>
         <source>&lt;b&gt;North offset:&lt;/b&gt; Enter the anemometer&apos;s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward.</source>
         <translation>&lt;b&gt;North offset:&lt;/b&gt; Enter the anemometer&apos;s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="52"/>
+        <location filename="../src/anem_tableview.cpp" line="53"/>
         <source>Northward separation</source>
         <translation>Northward separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="52"/>
+        <location filename="../src/anem_tableview.cpp" line="53"/>
         <source>&lt;b&gt;Northward separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</source>
         <translation>&lt;b&gt;Northward separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="53"/>
+        <location filename="../src/anem_tableview.cpp" line="54"/>
         <source>Eastward separation</source>
         <translation>Eastward separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="53"/>
+        <location filename="../src/anem_tableview.cpp" line="54"/>
         <source>&lt;b&gt;Eastward separation:&lt;/b&gt; Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</source>
         <translation>&lt;b&gt;Eastward separation:&lt;/b&gt; Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="54"/>
+        <location filename="../src/anem_tableview.cpp" line="55"/>
         <source>Vertical separation</source>
         <translation>Vertical separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="54"/>
+        <location filename="../src/anem_tableview.cpp" line="55"/>
         <source>&lt;b&gt;Vertical separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string &lt;i&gt;Reference&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Vertical separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string &lt;i&gt;Reference&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="55"/>
+        <location filename="../src/anem_tableview.cpp" line="56"/>
         <source>Longitudinal path length</source>
         <translation>Longitudinal path length</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="55"/>
+        <location filename="../src/anem_tableview.cpp" line="56"/>
         <source>&lt;b&gt;Longitudinal path length:&lt;/b&gt; Path length in the direction defined by a pair of transducers. Consult the anemometer&apos;s specifications or user manual.</source>
         <translation>&lt;b&gt;Longitudinal path length:&lt;/b&gt; Path length in the direction defined by a pair of transducers. Consult the anemometer&apos;s specifications or user manual.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="56"/>
+        <location filename="../src/anem_tableview.cpp" line="57"/>
         <source>Transversal path length</source>
         <translation>Transversal path length</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="56"/>
+        <location filename="../src/anem_tableview.cpp" line="57"/>
         <source>&lt;b&gt;Transversal path length:&lt;/b&gt; Path length in the direction orthogonal to the longitudinal path length of the anemometer (e.g., as defined by the diameter of transducers).</source>
         <translation>&lt;b&gt;Transversal path length:&lt;/b&gt; Path length in the direction orthogonal to the longitudinal path length of the anemometer (e.g., as defined by the diameter of transducers).</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="57"/>
+        <location filename="../src/anem_tableview.cpp" line="58"/>
         <source>Time response</source>
         <translation>Time response</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="57"/>
+        <location filename="../src/anem_tableview.cpp" line="58"/>
         <source>&lt;b&gt;Time response:&lt;/b&gt; Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer&apos;s specifications or user manual.</source>
         <translation>&lt;b&gt;Time response:&lt;/b&gt; Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer&apos;s specifications or user manual.</translation>
     </message>
@@ -3734,68 +3774,68 @@ End: %3
 <context>
     <name>DlProject</name>
     <message>
-        <location filename="../src/dlproject.cpp" line="351"/>
-        <location filename="../src/dlproject.cpp" line="577"/>
+        <location filename="../src/dlproject.cpp" line="352"/>
+        <location filename="../src/dlproject.cpp" line="615"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="402"/>
-        <location filename="../src/dlproject.cpp" line="849"/>
+        <location filename="../src/dlproject.cpp" line="403"/>
+        <location filename="../src/dlproject.cpp" line="887"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="869"/>
+        <location filename="../src/dlproject.cpp" line="907"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="401"/>
-        <location filename="../src/dlproject.cpp" line="848"/>
-        <location filename="../src/dlproject.cpp" line="868"/>
+        <location filename="../src/dlproject.cpp" line="402"/>
+        <location filename="../src/dlproject.cpp" line="886"/>
+        <location filename="../src/dlproject.cpp" line="906"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="886"/>
-        <location filename="../src/dlproject.cpp" line="1160"/>
+        <location filename="../src/dlproject.cpp" line="924"/>
+        <location filename="../src/dlproject.cpp" line="1215"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="887"/>
+        <location filename="../src/dlproject.cpp" line="925"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1161"/>
+        <location filename="../src/dlproject.cpp" line="1216"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1638"/>
+        <location filename="../src/dlproject.cpp" line="1693"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1677"/>
+        <location filename="../src/dlproject.cpp" line="1732"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1681"/>
+        <location filename="../src/dlproject.cpp" line="1736"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1686"/>
+        <location filename="../src/dlproject.cpp" line="1741"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -4089,64 +4129,64 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>EcProject</name>
     <message>
-        <location filename="../src/ecproject.cpp" line="3016"/>
+        <location filename="../src/ecproject.cpp" line="3031"/>
         <source>Write Error</source>
         <translation>Write Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1233"/>
+        <location filename="../src/ecproject.cpp" line="1236"/>
         <source>Cannot write file %1:
 %2</source>
         <translation>Cannot write file %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1708"/>
+        <location filename="../src/ecproject.cpp" line="1714"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2998"/>
+        <location filename="../src/ecproject.cpp" line="3013"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1735"/>
+        <location filename="../src/ecproject.cpp" line="1741"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1232"/>
-        <location filename="../src/ecproject.cpp" line="1707"/>
+        <location filename="../src/ecproject.cpp" line="1235"/>
+        <location filename="../src/ecproject.cpp" line="1713"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1734"/>
-        <location filename="../src/ecproject.cpp" line="2967"/>
-        <location filename="../src/ecproject.cpp" line="2987"/>
+        <location filename="../src/ecproject.cpp" line="1740"/>
+        <location filename="../src/ecproject.cpp" line="2982"/>
+        <location filename="../src/ecproject.cpp" line="3002"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2968"/>
+        <location filename="../src/ecproject.cpp" line="2983"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2988"/>
-        <location filename="../src/ecproject.cpp" line="2999"/>
+        <location filename="../src/ecproject.cpp" line="3003"/>
+        <location filename="../src/ecproject.cpp" line="3014"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3017"/>
+        <location filename="../src/ecproject.cpp" line="3032"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
@@ -4239,8 +4279,8 @@ Change this setting under the Help menu.</translation>
     </message>
     <message>
         <location filename="../src/irga_tableview.cpp" line="48"/>
-        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected. Mandatory only for the LI-7200 and LI-7500A CO&lt;sub&gt;2&lt;/sub&gt;/H&lt;sub&gt;2&lt;/sub&gt;O analyzers.</source>
-        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected. Mandatory only for the LI-7200 and LI-7500A CO&lt;sub&gt;2&lt;/sub&gt;/H&lt;sub&gt;2&lt;/sub&gt;O analyzers.</translation>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected.</source>
+        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected.</translation>
     </message>
     <message>
         <location filename="../src/irga_tableview.cpp" line="49"/>
@@ -5947,64 +5987,64 @@ Output</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="379"/>
+        <location filename="../src/main.cpp" line="401"/>
         <source>Usage: %1 [options] [file]</source>
         <translation>Usage: %1 [options] [file]</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="382"/>
+        <location filename="../src/main.cpp" line="404"/>
         <source>Arguments [file]:</source>
         <translation>Arguments [file]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="384"/>
+        <location filename="../src/main.cpp" line="406"/>
         <source>    file                  File to open</source>
         <translation>    file                  File to open</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="387"/>
+        <location filename="../src/main.cpp" line="409"/>
         <source>Options [options]:</source>
         <translation>Options [options]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="391"/>
+        <location filename="../src/main.cpp" line="413"/>
         <source>    --help                Print the command line options.</source>
         <translation>    --help                Print the command line options.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="393"/>
+        <location filename="../src/main.cpp" line="415"/>
         <source>    --version             Print the application version.</source>
         <translation>    --version             Print the application version.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="450"/>
+        <location filename="../src/main.cpp" line="472"/>
         <source>Invalid parameter &quot;%1&quot;
 </source>
         <translation>Invalid parameter &quot;%1&quot;
 </translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="215"/>
         <source>Cannot proceed</source>
         <translation>Cannot proceed</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="201"/>
+        <location filename="../src/main.cpp" line="216"/>
         <source>Home Path not available.</source>
         <translation>Home Path not available.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="270"/>
+        <location filename="../src/main.cpp" line="292"/>
         <source>Initializing...</source>
         <translation>Initializing...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="278"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Loading...</source>
         <translation>Loading...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="299"/>
+        <location filename="../src/main.cpp" line="321"/>
         <source>Loading complete.</source>
         <translation>Loading complete.</translation>
     </message>
@@ -6054,22 +6094,22 @@ Output</translation>
         <translation>Below threshold</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="193"/>
+        <location filename="../src/defs.h" line="200"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="194"/>
+        <location filename="../src/defs.h" line="201"/>
         <source>LI-COR EddyPro software suite.</source>
         <translation>LI-COR EddyPro software suite.</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="256"/>
+        <location filename="../src/defs.h" line="263"/>
         <source>project-untitled.%1</source>
         <translation>project-untitled.%1</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="259"/>
+        <location filename="../src/defs.h" line="266"/>
         <source>project-untitled%1.%2</source>
         <translation>project-untitled%1.%2</translation>
     </message>
@@ -6731,12 +6771,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Ctrl+F to exit).</translation>
     </message>
     <message>
-        <location filename="../src/smartfluxbar.cpp" line="361"/>
+        <location filename="../src/smartfluxbar.cpp" line="360"/>
         <source>SMARTFlux package creation</source>
         <translation>SMARTFlux package creation</translation>
     </message>
     <message>
-        <location filename="../src/smartfluxbar.cpp" line="362"/>
+        <location filename="../src/smartfluxbar.cpp" line="361"/>
         <source>&lt;p&gt;Choose a Raw Data directory from the Basic Settings page.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Choose a Raw Data directory from the Basic Settings page.&lt;/p&gt;</translation>
     </message>
@@ -7087,27 +7127,27 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>&lt;b&gt;Retrieving information...&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="130"/>
+        <location filename="../src/updatedialog.cpp" line="134"/>
         <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="148"/>
+        <location filename="../src/updatedialog.cpp" line="152"/>
         <source>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="156"/>
+        <location filename="../src/updatedialog.cpp" line="160"/>
         <source>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="164"/>
+        <location filename="../src/updatedialog.cpp" line="168"/>
         <source>&lt;b&gt;Connection error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Connection error.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="172"/>
+        <location filename="../src/updatedialog.cpp" line="176"/>
         <source>&lt;b&gt;Download error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Download error.&lt;/b&gt;</translation>
     </message>
