@@ -51,7 +51,6 @@ public:
     bool hasOneGoodAnemometer();
     bool hasGoodWindComponentsAndTemperature();
     bool hasOneFastTemperature();
-    bool hasNullGainVariables();
     bool hasGoodIrgaNames();
     bool hasGoodIrgaSeparations();
     bool hasGoodIrgaClosedPath();
@@ -182,9 +181,6 @@ public:
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
     static const QStringList restrictedGillModelStringList();
-    static const QStringList gillModelGroup_1();
-    static const QStringList gillModelGroup_2();
-    static const QStringList gillModelGroup_3();
 
 signals:
     // send that a new project has been created

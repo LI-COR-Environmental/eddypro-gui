@@ -239,26 +239,3 @@ void InfoMessage::onCancelButtonClicked()
 {
     this->setResult(QMessageBox::Cancel);
 }
-
-void InfoMessage::showAoaSelectionMsg()
-{
-    bool showDialog = GlobalSettings::getAppPersistentSettings(
-                            Defs::CONFGROUP_WINDOW,
-                            Defs::CONF_WIN_AOA_SELECTION_MSG,
-                            true).toBool();
-    if (!showDialog) { return; }
-
-    // info message
-    InfoMessage aoaDialog(QDialogButtonBox::Ok, 0);
-    aoaDialog.setTitle(tr("Angle of Attack automatic selection"));
-    aoaDialog.setType(InfoMessage::Type::ANGLE_OF_ATTACK_SELECTION);
-    aoaDialog.setMessage(tr("<p>A default selection of the Angle of attack "
-                            "correction was made by EddyPro, based on the "
-                            "pre-selection of the 'Master Anemometer'' "
-                            "performed according to the content of the "
-                            "selected metadata file. Please review the "
-                            "Angle of attack settings in the 'Advanced "
-                            "Settings > Processing Options page.</p>"));
-    aoaDialog.refresh();
-    aoaDialog.exec();
-}

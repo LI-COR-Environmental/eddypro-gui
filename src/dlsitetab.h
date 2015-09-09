@@ -46,9 +46,6 @@ public:
     void reset();
     void refresh();
 
-    inline QDoubleSpinBox *acquisitionFreq() { return acquisitionFreqSpin; }
-    inline QSpinBox *fileDuration() { return fileDurationSpin; }
-
     QDoubleSpinBox *altitudeSpin;
     QDoubleSpinBox *canopyHeightSpin;
     QDoubleSpinBox *displacementHeightSpin;

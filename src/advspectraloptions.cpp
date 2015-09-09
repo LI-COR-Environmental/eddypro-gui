@@ -2004,6 +2004,7 @@ void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
     }
 }
 
+// NOTE: not used
 double AdvSpectralOptions::getLowestFrequencyValue()
 {
     DEBUG_FUNC_NAME
@@ -2026,6 +2027,7 @@ double AdvSpectralOptions::getLowestFrequencyValue()
     return lowestValue;
 }
 
+// NOTE: not used
 double AdvSpectralOptions::getHighestFrequencyValue()
 {
     return (dlProject_->acquisitionFrequency() / 5.0);

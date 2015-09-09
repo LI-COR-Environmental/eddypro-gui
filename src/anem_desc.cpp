@@ -343,6 +343,7 @@ const QStringList AnemDesc::gillModelStringList()
 }
 
 // Return string list of usage types
+// NOTE: not used
 const QStringList AnemDesc::restrictedGillModelStringList()
 {
     return (QStringList()

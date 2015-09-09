@@ -870,11 +870,6 @@ void ProjectPage::fileTypeRadioClicked_2(int fileType)
     }
 }
 
-void ProjectPage::loginiFileNew_clicked()
-{
-    DEBUG_FUNC_NAME
-}
-
 void ProjectPage::metadataRadioClicked(int b)
 {
     DEBUG_FUNC_NAME

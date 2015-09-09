@@ -384,12 +384,11 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
 
 void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
 {
-    QRadioButton* button;
     auto i = 0;
     foreach (const QString& file, list)
     {
         qDebug() << QFileInfo(file).suffix();
-        button = new QRadioButton(QFileInfo(file).suffix());
+        auto button = new QRadioButton(QFileInfo(file).suffix());
         extRadioGroup->addButton(button, i);
         radioGroupBoxLayout->addWidget(button);
         ++i;

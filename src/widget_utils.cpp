@@ -150,6 +150,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 }
 
 // set the text of the line edit with specified elide mode and width
+// NOTE: not used
 void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
                                           const QString& text,
                                           Qt::TextElideMode mode,
@@ -213,6 +214,7 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
 
 // NOTE: hack to add <hr> to QTextEdit. Not working as expected.
 // See https://bugreports.qt-project.org/browse/QTBUG-747
+// NOTE: not used
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
@@ -415,82 +417,6 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
     messageBox->exec();
     return (messageBox->clickedButton() == yesButton);
 }
-
-#if defined(Q_OS_WIN)
-namespace {
-
-// http://stackoverflow.com/questions/2404449/process-starturl-with-anchor-in-the-url
-// NOTE: used only on Windows
-bool launchWinWebBrowser(const QUrl& url)
-{
-    DEBUG_FUNC_NAME
-
-    QString defaultBrowserKey;
-    QString defaultBrowserPath;
-
-    QSettings settings_1(QStringLiteral("HKEY_CLASSES_ROOT\\.htm\\OpenWithProgIDs"),
-                        QSettings::NativeFormat);
-    QStringList keys = settings_1.allKeys();
-
-    if (!keys.isEmpty() && keys.count() > 1)
-    {
-        keys.removeAll(QStringLiteral("Default"));
-
-        defaultBrowserKey = QStringLiteral("HKEY_CLASSES_ROOT\\")
-                            + keys.first()
-                            + QStringLiteral("\\shell\\open\\command");
-        qDebug() << "defaultBrowserKey" << defaultBrowserKey;
-
-        QSettings settings_2(defaultBrowserKey,
-                            QSettings::NativeFormat);
-        defaultBrowserPath = settings_2.value(QStringLiteral("Default")).toString();
-    }
-    else
-    {
-        QSettings settings_3(QStringLiteral("HKEY_CLASSES_ROOT\\http\\shell\\open\\command"),
-                        QSettings::NativeFormat);
-        defaultBrowserPath = settings_3.value(QStringLiteral("Default")).toString();
-
-        if (defaultBrowserPath.isEmpty())
-        {
-            QSettings settings_4(QStringLiteral("HKCU\\Software\\Microsoft\\Windows"
-                                                "\\Shell\\Associations\\UrlAssociations\\http\\UserChoice"),
-                            QSettings::NativeFormat);
-            QString progId = settings_4.value(QStringLiteral("Progid")).toString();
-
-            defaultBrowserKey = QStringLiteral("HKEY_CLASSES_ROOT\\")
-                                + progId
-                                + QStringLiteral("\\shell\\open\\command");
-            qDebug() << "defaultBrowserKey" << defaultBrowserKey;
-
-            QSettings settings_5(defaultBrowserKey,
-                                QSettings::NativeFormat);
-            defaultBrowserPath = settings_5.value(QStringLiteral("Default")).toString();
-        }
-    }
-
-    if (!defaultBrowserPath.isEmpty())
-    {
-        qDebug() << "defaultBrowserPath"
-                 << defaultBrowserPath;
-        defaultBrowserPath.chop(1);
-        defaultBrowserPath = defaultBrowserPath.remove(0, 1).split(QLatin1Char('"')).at(0);
-        qDebug() << "defaultBrowserPath"
-                 << defaultBrowserPath;
-    }
-    else
-    {
-        defaultBrowserPath = QStringLiteral("C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe");
-    }
-
-    if (QProcess::startDetached(defaultBrowserPath, QStringList() << url.toString()))
-        return true;
-    else
-        return false;
-}
-
-}  // unnamed namespace
-#endif
 
 void WidgetUtils::showHelp(const QUrl& url)
 {

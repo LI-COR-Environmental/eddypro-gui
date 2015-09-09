@@ -226,11 +226,13 @@ void DlInstrTab::refresh()
     dlProject_->blockSignals(false);
 }
 
+// NOTE: not used
 void DlInstrTab::anemViewRefresh()
 {
     anemView_->clearSelection();
 }
 
+// NOTE: not used
 void DlInstrTab::irgaViewRefresh()
 {
     irgaView_->clearSelection();

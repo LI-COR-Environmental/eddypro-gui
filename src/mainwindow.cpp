@@ -1705,18 +1705,6 @@ void MainWindow::viewConsoleOutput(bool on)
     writeSettings();
 }
 
-void MainWindow::dbgViewConsoleOutputToggled(bool on)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "on" << on;
-}
-
-void MainWindow::dbgViewConsoleOutputTriggered(bool on)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "on" << on;
-}
-
 void MainWindow::viewInfoOutput(bool on)
 {
     DEBUG_FUNC_NAME
@@ -2299,6 +2287,7 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
     updateRunButtonsAvailability();
 }
 
+// NOTE: not used
 void MainWindow::whatsHelp()
 {
     QWhatsThis::enterWhatsThisMode();

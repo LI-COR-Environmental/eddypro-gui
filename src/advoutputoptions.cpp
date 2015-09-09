@@ -1200,18 +1200,6 @@ void AdvOutputOptions::checkFullSpectraAll(bool b)
     outFullSpectraCheckBoxN2o->setChecked(b);
 }
 
-bool AdvOutputOptions::areAllCheckedFullSpectra()
-{
-    return (outFullSpectraCheckBoxU->isChecked()
-            && outFullSpectraCheckBoxV->isChecked()
-            && outFullSpectraCheckBoxW->isChecked()
-            && outFullSpectraCheckBoxTs->isChecked()
-            && outFullSpectraCheckBoxCo2->isChecked()
-            && outFullSpectraCheckBoxH2o->isChecked()
-            && outFullSpectraCheckBoxCh4->isChecked()
-            && outFullSpectraCheckBoxN2o->isChecked());
-}
-
 bool AdvOutputOptions::areAllCheckedVars()
 {
     return (outRawUCheckBox->isChecked()

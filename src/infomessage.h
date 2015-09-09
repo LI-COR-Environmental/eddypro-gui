@@ -55,8 +55,6 @@ public:
     void setDoNotShowAgainVisible(bool visible);
     void refresh();
 
-    static void showAoaSelectionMsg();
-
 private slots:
     void initialize();
     void onDoNotShowAgainCheckboxToggled_(bool toggled);

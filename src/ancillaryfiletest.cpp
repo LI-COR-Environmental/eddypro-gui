@@ -959,13 +959,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
             testResults_->append(QStringLiteral("Number of gases [0]: ")
                           + formatPassFail(last_test()));
         }
-        // with gases and no rh classes
-        else if (gasCount && rhIsEmpty)
-        {
-            test << true;
-            testResults_->append(QStringLiteral("Number of gases [0]: ")
-                          + formatPassFail(last_test()));
-        }
     }
 
     auto res = true;

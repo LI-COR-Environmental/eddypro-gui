@@ -87,6 +87,7 @@ void SplitterHandle::enterEvent(QEvent *e)
 //    animation->start();
 }
 
+// NOTE: not used
 void SplitterHandle::buzz()
 {
     int xp = x();

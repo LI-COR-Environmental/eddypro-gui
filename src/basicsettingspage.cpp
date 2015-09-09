@@ -4544,6 +4544,7 @@ void BasicSettingsPage::updateFlag10Policy(int n)
     ecProject_->setScreenFlag10Policy(n);
 }
 
+// NOTE: not used
 void BasicSettingsPage::triggerGasProperties()
 {
     DEBUG_FUNC_NAME
@@ -5076,6 +5077,7 @@ QString BasicSettingsPage::strDeclination(double dec)
 
 // get variation of declination in decimal minutes / year, i.e. in mmss.sss
 // string from signed decimal degrees
+// NOTE: not used
 QString BasicSettingsPage::strVariation(double dec)
 {
     QString dms = QString();

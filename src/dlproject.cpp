@@ -1748,6 +1748,7 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
     return tableInstrumentStr;
 }
 
+// NOTE: not used
 QString DlProject::toIniBool(const QString& s)
 {
     return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
@@ -2365,23 +2366,6 @@ bool DlProject::hasOneFastTemperature()
     return isFastTempAvailable_;
 }
 
-bool DlProject::hasNullGainVariables()
-{
-    DEBUG_FUNC_NAME
-
-    foreach (const VariableDesc& var, *variables())
-    {
-        qDebug() << "var" << var.variable();
-        if (var.ignore() == QLatin1String("no")
-            && var.numeric() == QLatin1String("yes")
-            && !VariableDesc::goodGainOffsetTest(var))
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool DlProject::hasGoodIrgaNames()
 {
     DEBUG_FUNC_NAME
@@ -2615,27 +2599,4 @@ const QStringList DlProject::restrictedGillModelStringList()
             << getANEM_MODEL_STRING_6()
             << getANEM_MODEL_STRING_7()
             << getANEM_MODEL_STRING_8());
-}
-
-const QStringList DlProject::gillModelGroup_1()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
-}
-
-const QStringList DlProject::gillModelGroup_2()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5());
-}
-
-const QStringList DlProject::gillModelGroup_3()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_1()
-            << getANEM_MODEL_STRING_2()
-            << getANEM_MODEL_STRING_6());
 }

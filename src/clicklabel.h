@@ -82,6 +82,7 @@ public:
         VarMinTLag,
         VarMaxTLag
     };
+
     HeaderData headerData() const { return headerData_; }
     void setHeaderData(HeaderData data);
 

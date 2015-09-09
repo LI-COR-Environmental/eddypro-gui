@@ -445,7 +445,7 @@ void WelcomePage::updateSmartfluxCheckBox()
     smartfluxModeCheckbox_->blockSignals(false);
 }
 
-//  NOTE: not used
+// NOTE: not used
 void WelcomePage::updateMainLayout(bool on)
 {
     if (on)

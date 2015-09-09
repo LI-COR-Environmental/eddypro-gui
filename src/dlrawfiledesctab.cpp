@@ -184,6 +184,7 @@ void DlRawfileDescTab::refresh()
     dlProject_->blockSignals(false);
 }
 
+// NOTE: not used
 void DlRawfileDescTab::rawfileViewRefresh()
 {
     variableView_->clearSelection();

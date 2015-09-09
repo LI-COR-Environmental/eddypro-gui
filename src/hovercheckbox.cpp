@@ -31,6 +31,7 @@ HoverCheckBox::HoverCheckBox(QWidget *parent) :
     QCheckBox(parent)
 {
     isHover = false;
+    isPressed = false;
 }
 
 void HoverCheckBox::paintEvent(QPaintEvent *e)

@@ -3047,22 +3047,10 @@ void AdvStatisticalOptions::onClickAbsLimLabel_3()
     absLimSpin_3->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_4()
-{
-    absLimSpin_4->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_4->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_5()
 {
     absLimSpin_5->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_5->selectAll();
-}
-
-void AdvStatisticalOptions::onClickAbsLimLabel_6()
-{
-    absLimSpin_6->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_6->selectAll();
 }
 
 void AdvStatisticalOptions::onClickAbsLimLabel_7()
@@ -3071,34 +3059,16 @@ void AdvStatisticalOptions::onClickAbsLimLabel_7()
     absLimSpin_7->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_8()
-{
-    absLimSpin_8->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_8->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_9()
 {
     absLimSpin_9->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_9->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_10()
-{
-    absLimSpin_10->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_10->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_11()
 {
     absLimSpin_11->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_11->selectAll();
-}
-
-void AdvStatisticalOptions::onClickAbsLimLabel_12()
-{
-    absLimSpin_12->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_12->selectAll();
 }
 
 void AdvStatisticalOptions::onClickSkewnessLabel_1()
@@ -3113,18 +3083,6 @@ void AdvStatisticalOptions::onClickSkewnessLabel_2()
     skewnessSpin_2->selectAll();
 }
 
-void AdvStatisticalOptions::onClickSkewnessLabel_3()
-{
-    skewnessSpin_3->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_3->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_4()
-{
-    skewnessSpin_4->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_4->selectAll();
-}
-
 void AdvStatisticalOptions::onClickSkewnessLabel_5()
 {
     skewnessSpin_5->setFocus(Qt::ShortcutFocusReason);
@@ -3135,18 +3093,6 @@ void AdvStatisticalOptions::onClickSkewnessLabel_6()
 {
     skewnessSpin_6->setFocus(Qt::ShortcutFocusReason);
     skewnessSpin_6->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_7()
-{
-    skewnessSpin_7->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_7->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_8()
-{
-    skewnessSpin_8->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_8->selectAll();
 }
 
 void AdvStatisticalOptions::onClickDiscontLabel_1()

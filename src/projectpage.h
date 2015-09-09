@@ -165,7 +165,6 @@ private slots:
     void refreshMetadata();
     void updateMetadataLoading();
 
-    void loginiFileNew_clicked();
     void metadataRadioClicked(int b);
 
     void onlineHelpTrigger_2();

@@ -68,9 +68,6 @@ protected:
     void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
 
 private slots:
-    void dbgViewConsoleOutputToggled(bool on);
-    void dbgViewConsoleOutputTriggered(bool on);
-
     void initialize();
     void fileNew();
     void fileOpen(const QString& fileName = QString());

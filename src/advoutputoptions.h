@@ -107,8 +107,6 @@ private slots:
     void onClickerrorFormatLabel();
 
 private:
-    bool areAllCheckedFullSpectra();
-    bool areAllCheckedFullCospectra();
     bool areAllCheckedVars();
     void setVarsAvailable(bool ok);
     bool areTimeSeriesChecked();

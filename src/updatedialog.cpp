@@ -163,6 +163,7 @@ void UpdateDialog::noConnection()
     noButton->setVisible(false);
 }
 
+// NOTE: not used
 void UpdateDialog::connectionError()
 {
     msgLabel->setText(tr("<b>Connection error.</b>"));

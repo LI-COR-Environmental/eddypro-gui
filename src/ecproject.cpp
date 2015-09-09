@@ -45,6 +45,7 @@ EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
 
 EcProject::EcProject(const EcProject& project) :
     QObject(0),
+    defaultSettings(EcProjectState()),
     modified_(project.modified_),
     ec_project_state_(project.ec_project_state_),
     project_config_state_(project.project_config_state_)
@@ -55,6 +56,7 @@ EcProject& EcProject::operator=(const EcProject &project)
 {
     if (this != &project)
     {
+        defaultSettings = project.defaultSettings;
         modified_ = project.modified_;
         ec_project_state_ = project.ec_project_state_;
         project_config_state_ = project.project_config_state_;
@@ -5203,6 +5205,7 @@ void EcProject::setRandomErrorItsSecFactor(double d)
     setModified(true);
 }
 
+// NOTE: not used
 bool EcProject::planarFitSectorDefined()
 {
     return false;
