@@ -112,8 +112,9 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(eddypro_win);
 #endif
 
-#if defined(Q_OS_MAC)
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+#if defined(Q_OS_MAC)
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
