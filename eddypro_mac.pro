@@ -106,6 +106,11 @@ CONFIG(debug, debug|release) {
     }
 }
 
+# necessary with XCode 7 and Qt 5.4.2/QtCreator 3.4.2
+# to avoid compilation issues with the shipped makespec
+# https://forum.qt.io/topic/58926/solved-xcode-7-and-qt-error/4
+QMAKE_MAC_SDK = macosx10.11
+
 DEFINES += QT_NO_CAST_FROM_ASCII
 DEFINES += QT_NO_CAST_FROM_BYTEARRAY
 DEFINES += QT_NO_CAST_TO_ASCII
