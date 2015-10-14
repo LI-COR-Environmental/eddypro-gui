@@ -862,8 +862,9 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(spectraRadioGroup,
             static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             [=](int radioButton){ ecProject_->setSpectraMode(radioButton); });
-    connect(spectraRadioGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(spectraRadioClicked(int)));
+    connect(spectraRadioGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
+            [=](int radioButton){ spectraRadioClicked(radioButton); });
     connect(spectraFileBrowse, &FileBrowseWidget::pathChanged,
             this, &AdvSpectralOptions::updateSpectraFile);
     connect(spectraFileBrowse, &FileBrowseWidget::pathSelected,
@@ -1420,6 +1421,7 @@ void AdvSpectralOptions::spectraRadioClicked(int radioButton)
     // existing spectral assessment file
     if (radioButton == 0)
     {
+        spectraFileBrowse->setEnabled(true);
         spin11Label->setEnabled(false);
         spin12Label->setEnabled(false);
         spin13Label->setEnabled(false);
@@ -1440,6 +1442,8 @@ void AdvSpectralOptions::spectraRadioClicked(int radioButton)
     // non existing spectral assessment file
     else
     {
+        spectraFileBrowse->setEnabled(false);
+
         auto toEnable = hfMethodCheck->isChecked() && isHorstIbromFratini();
 
         spin11Label->setEnabled(toEnable);
