@@ -410,19 +410,25 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     horstCombo->setItemData(0, tr("<b>Horst and Lenschow (2009), along-wind, crosswind and vertical:</b> Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected."), Qt::ToolTipRole);
     horstCombo->setItemData(1, tr("<b>Horst and Lenschow (2009), only crosswind and vertical:</b> Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected."), Qt::ToolTipRole);
 
+    ////////////////////////////////////////////////////////////////////////////////
+    // NOTE: explicitely disabled
     ghgSystemCorrectionTitle = new QLabel(tr("Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)"));
     ghgSystemCorrectionTitle->setProperty("groupLabel", true);
+    ghgSystemCorrectionTitle->setVisible(false);
 
     hfCorrectGhgBaCheck = new QCheckBox(tr("Digital block averaging"));
     hfCorrectGhgBaCheck->setToolTip(tr("<b>Digital block averaging:</b> ..."));
     hfCorrectGhgBaCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+    hfCorrectGhgBaCheck->setVisible(false);
 
     hfCorrectGhgZohCheck = new QCheckBox(tr("DAC zero-order hold"));
     hfCorrectGhgZohCheck->setToolTip(tr("<b>DAC zero-order hold:</b> ..."));
     hfCorrectGhgZohCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+    hfCorrectGhgZohCheck->setVisible(false);
 
     sonicFrequencyLabel = new ClickLabel;
     sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
+    sonicFrequencyLabel->setVisible(false);
     sonicFrequency = new QSpinBox;
     sonicFrequency->setRange(4, 100);
     sonicFrequency->setSpecialValueText(QStringLiteral("Default"));
@@ -430,6 +436,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     sonicFrequency->setSingleStep(1);
     sonicFrequency->setSuffix(QStringLiteral(" [Hz]"));
     sonicFrequency->setToolTip(tr("<b>Sonic frequency: </b>..."));
+    sonicFrequency->setVisible(false);
+////////////////////////////////////////////////////////////////////////////////
 
     spectraExistingRadio = new QRadioButton(tr("Spectral assessment file available for this dataset :"));
     spectraExistingRadio->setToolTip(tr("<b>Spectral assessment file available:</b> If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named \"eddypro_spectral_assessment_ID.txt\". This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results."));
