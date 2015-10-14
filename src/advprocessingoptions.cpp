@@ -306,10 +306,15 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     auto qcTitle = new QLabel(tr("Other options"));
     qcTitle->setProperty("groupLabel", true);
 
+    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500A and LI-7200 only"));
+    driftTitle->setProperty("groupLabel", true);
+
     auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
     auto hrLabel_2 = new QLabel;
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
+    auto hrLabel_3 = new QLabel;
+    hrLabel_3->setObjectName(QStringLiteral("hrLabel"));
 
     auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(windOffsetLabel);
@@ -351,14 +356,16 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(burbaParamWidget, 14, 0, 1, 4);
     settingsLayout->addWidget(defaultContainer, 15, 0, 1, 4);
     settingsLayout->addWidget(hrLabel_2, 16, 0, 1, 4);
-    settingsLayout->addWidget(qcTitle, 17, 0);
-    settingsLayout->addWidget(qcCheckBox, 18, 0);
-    settingsLayout->addWidget(qcLabel, 18, 1, Qt::AlignRight);
-    settingsLayout->addWidget(qcMethodCombo, 18, 2);
-    settingsLayout->addWidget(fpCheckBox, 19, 0);
-    settingsLayout->addWidget(fpLabel, 19, 1, Qt::AlignRight);
-    settingsLayout->addWidget(fpMethodCombo, 19, 2);
-    settingsLayout->setRowStretch(20, 1);
+    settingsLayout->addWidget(driftTitle, 17, 0);
+    settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
+    settingsLayout->addWidget(qcTitle, 22, 0);
+    settingsLayout->addWidget(qcCheckBox, 23, 0);
+    settingsLayout->addWidget(qcLabel, 23, 1, Qt::AlignRight);
+    settingsLayout->addWidget(qcMethodCombo, 23, 2);
+    settingsLayout->addWidget(fpCheckBox, 24, 0);
+    settingsLayout->addWidget(fpLabel, 24, 1, Qt::AlignRight);
+    settingsLayout->addWidget(fpMethodCombo, 24, 2);
+    settingsLayout->setRowStretch(25, 1);
     settingsLayout->setColumnStretch(4, 1);
 
 //    auto overallFrame = new QWidget;
