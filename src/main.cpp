@@ -132,6 +132,7 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     app.setApplicationName(Defs::APP_NAME);
+    app.setApplicationDisplayName(Defs::APP_NAME);
     app.setOrganizationName(Defs::ORG_NAME);
     app.setOrganizationDomain(Defs::ORG_DOMAIN);
 
