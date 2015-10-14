@@ -584,3 +584,30 @@ bool FileUtils::dateRangesOverlap(DateRange range_1, DateRange range_2)
     return ((range_1.second >= range_2.first)
             && (range_2.second >= range_1.first));
 }
+
+// prepend string to filename
+bool FileUtils::prependToFile(const QString &str, const QString &filename)
+{
+    QFile datafile(filename);
+    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        // error opening file
+        qWarning() << "Error: Cannot tag file" << filename;
+        WidgetUtils::warning(nullptr,
+                             QObject::tr("Write Error"),
+                             QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
+                             .arg(filename)
+                             .arg(datafile.errorString()));
+        datafile.close();
+        return false;
+    }
+
+    QTextStream out(&datafile);
+    QString textfile = out.readAll();
+    textfile.prepend(str);
+    datafile.resize(0);
+    out << textfile;
+    datafile.close();
+
+    return true;
+}

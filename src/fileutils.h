@@ -78,6 +78,9 @@ namespace FileUtils
                              const QString& filePattern);
     bool zipExtract(const QString& fileName,
                     const QString& outDir);
+
+    bool prependToFile(const QString& str, const QString& filename);
+
 } // FileUtils
 
 #endif // FILEUTILS_H

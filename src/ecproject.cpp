@@ -3022,33 +3022,13 @@ bool EcProject::nativeFormat(const QString &filename)
     return true;
 }
 
+// prepend a known tag to the project file
 bool EcProject::tagProject(const QString &filename)
 {
-    QFile datafile(filename);
-    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        // error opening file
-        qWarning() << "Error: Cannot tag file" << filename;
-        WidgetUtils::warning(nullptr,
-                             tr("Write Error"),
-                             tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
-        datafile.close();
-        return false;
-    }
-
     QString app_tag(Defs::APP_PD_INI_TAG);
     app_tag += QLatin1String("\n");
 
-    QTextStream out(&datafile);
-    QString textfile = out.readAll();
-    textfile.prepend(app_tag);
-    datafile.resize(0);
-    out << textfile;
-    datafile.close();
-
-    return true;
+    return FileUtils::prependToFile(app_tag, filename);
 }
 
 void EcProject::setModified(bool mod)
