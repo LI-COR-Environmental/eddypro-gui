@@ -248,6 +248,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wplCheckBox->setText(tr("Compensate density fluctuations (WPL terms)"));
     wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Converting_to_Mixing_Ratio.html"));
 
+    // burba correction
     burbaCorrCheckBox = new RichTextCheckBox;
     burbaCorrCheckBox->setToolTip(tr("<b>Add instrument sensible heat components, only for LI-7500:</b> Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008)."));
     burbaCorrCheckBox->setText(tr("Add instrument sensible heat components, only for LI-7500 "));
@@ -300,14 +301,41 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     burbaParamWidget->addWidget(burbaMultiTab);
     burbaParamWidget->setCurrentIndex(0);
 
+    // drift correction
+
+    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500A and LI-7200 only"));
+    driftTitle->setProperty("groupLabel", true);
+
+    noDriftCorrectionRadio = new QRadioButton;
+    noDriftCorrectionRadio->setText(tr("Do not correct"));
+
+    linearDriftCorrectionRadio = new QRadioButton;
+    linearDriftCorrectionRadio->setText(tr("Linear interpolation"));
+
+    rssiDriftCorrectionRadio = new QRadioButton;
+    rssiDriftCorrectionRadio->setText(tr("RSSI-driven interpolation "
+                                         "(requires ‘raw counts’ in raw data files)"));
+
+    driftCorrectionRadioGroup = new QButtonGroup(this);
+    driftCorrectionRadioGroup->addButton(noDriftCorrectionRadio, 0);
+    driftCorrectionRadioGroup->addButton(linearDriftCorrectionRadio, 1);
+    driftCorrectionRadioGroup->addButton(rssiDriftCorrectionRadio, 2);
+
+    auto retrieveCalibrationTitle = new QLabel(tr("Calibration data"));
+    retrieveCalibrationTitle->setProperty("groupLabel", true);
+
+    retrieveCalibration = new QPushButton(this);
+    retrieveCalibration->setText(tr("Fetch from LI-COR"));
+    editCalibration = new QPushButton(this);
+    editCalibration->setText(tr("View/Edit calibration values"));
+
+//
     auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
     wplTitle->setProperty("groupLabel", true);
 
     auto qcTitle = new QLabel(tr("Other options"));
     qcTitle->setProperty("groupLabel", true);
 
-    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500A and LI-7200 only"));
-    driftTitle->setProperty("groupLabel", true);
 
     auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
@@ -357,6 +385,12 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(defaultContainer, 15, 0, 1, 4);
     settingsLayout->addWidget(hrLabel_2, 16, 0, 1, 4);
     settingsLayout->addWidget(driftTitle, 17, 0);
+    settingsLayout->addWidget(noDriftCorrectionRadio, 18, 0);
+    settingsLayout->addWidget(retrieveCalibrationTitle, 18, 1);
+    settingsLayout->addWidget(linearDriftCorrectionRadio, 19, 0);
+    settingsLayout->addWidget(retrieveCalibration, 19, 1);
+    settingsLayout->addWidget(rssiDriftCorrectionRadio, 20, 0);
+    settingsLayout->addWidget(editCalibration, 20, 1);
     settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
     settingsLayout->addWidget(qcTitle, 22, 0);
     settingsLayout->addWidget(qcCheckBox, 23, 0);

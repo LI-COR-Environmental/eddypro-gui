@@ -227,6 +227,13 @@ private:
     CustomResetLineEdit* mNightSpar3;
     CustomResetLineEdit* mNightSpar4;
 
+    QRadioButton* noDriftCorrectionRadio;
+    QRadioButton* linearDriftCorrectionRadio;
+    QRadioButton* rssiDriftCorrectionRadio;
+    QButtonGroup* driftCorrectionRadioGroup;
+    QPushButton* retrieveCalibration;
+    QPushButton* editCalibration;
+
     QPushButton* questionMark_1;
     QPushButton* questionMark_4;
     QPushButton* questionMark_11;
