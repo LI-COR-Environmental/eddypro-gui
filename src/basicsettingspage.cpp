@@ -4876,7 +4876,7 @@ void BasicSettingsPage::bufferHttpReply()
 
         httpBuffer_.append(data);
         QByteArray line(httpBuffer_);
-        QList<QByteArray> lineList(line.split('\n'));
+        QByteArrayList lineList(line.split('\n'));
         qDebug() << "lineList.size" << lineList.size();
 
         // newlines found
@@ -4923,7 +4923,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
         // skip comments or empty row
         return true;
     }
-    QList<QByteArray> columnList(cleanLine.split(','));
+    QByteArrayList columnList(cleanLine.split(','));
 
     qDebug() << "columnList" << columnList;
     // web-server error handling

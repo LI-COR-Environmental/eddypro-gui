@@ -397,7 +397,7 @@ void Process::bufferFreezerOutput()
 
     rxBuffer_.append(data);
     QByteArray line(rxBuffer_);
-    QList<QByteArray> lineList(line.split('\n'));
+    QByteArrayList lineList(line.split('\n'));
 
     // newline found
     if (lineList.at(0) != rxBuffer_)
@@ -424,7 +424,7 @@ void Process::parseFreezerPid(const QByteArray& data)
 
     if (cleanLine.contains(Defs::ENGINE_RP.toLatin1()))
     {
-        QList<QByteArray> columnList(cleanLine.split(' '));
+        QByteArrayList columnList(cleanLine.split(' '));
         QByteArray col = columnList.at(1);
         const char* colData = col.constData();
         winPid_ = QString::fromUtf8(colData);

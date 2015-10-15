@@ -538,7 +538,7 @@ void RunPage::bufferData(QByteArray &data)
 
     rxBuffer_.append(data);
     QByteArray line(rxBuffer_);
-    QList<QByteArray> lineList(line.split('\n'));
+    QByteArrayList lineList(line.split('\n'));
 
     qDebug() << "rxBuffer_" << rxBuffer_;
     qDebug() << "lineList.at(0)" << lineList.at(0);
