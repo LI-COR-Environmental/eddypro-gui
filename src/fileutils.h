@@ -79,6 +79,7 @@ namespace FileUtils
                     const QString& outDir);
 
     bool prependToFile(const QString& str, const QString& filename);
+    bool appendToFile(const QString& str, const QString& filename);
 
 } // FileUtils
 

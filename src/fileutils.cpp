@@ -613,3 +613,30 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
 
     return true;
 }
+
+// append string to filename
+bool FileUtils::appendToFile(const QString &str, const QString &filename)
+{
+    QFile datafile(filename);
+    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        // error opening file
+        qWarning() << "Error: Cannot tag file" << filename;
+        WidgetUtils::warning(nullptr,
+                             QObject::tr("Write Error"),
+                             QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
+                             .arg(filename)
+                             .arg(datafile.errorString()));
+        datafile.close();
+        return false;
+    }
+
+    QTextStream out(&datafile);
+    QString textfile = out.readAll();
+    textfile.append(str);
+    datafile.resize(0);
+    out << textfile;
+    datafile.close();
+
+    return true;
+}
