@@ -333,9 +333,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     QLineEdit* errorLinedit = errorFormatCombo->lineEdit();
     errorLinedit->setMaxLength(32);
 
-    auto statLabel = new QLabel;
-    statLabel->setText(tr("Statistics"));
-    statLabel->setProperty("blueLabel", true);
+    auto statLabel = WidgetUtils::createBlueLabel(this, tr("Statistics"));
     tooltipStr =
         tr("<b>Statistics:</b> Main statistics (mean values, standard "
            "deviations, variances and covariances, skewness and kurtosis) "
@@ -348,9 +346,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
            "inside the selected output folder.");
     statLabel->setToolTip(tooltipStr);
 
-    auto timeSeriesLabel = new QLabel;
-    timeSeriesLabel->setText(tr("Time series"));
-    timeSeriesLabel->setProperty("blueLabel", true);
+    auto timeSeriesLabel = WidgetUtils::createBlueLabel(this, tr("Time series"));
     tooltipStr =
             tr("<b>Time series:</b> Actual time series for each variable "
                "selected in the list on the right. Result files are stored "
@@ -358,9 +354,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
                "the selected output folder.");
     timeSeriesLabel->setToolTip(tooltipStr);
 
-    auto varLabel = new QLabel;
-    varLabel->setText(tr("Variables"));
-    varLabel->setProperty("blueLabel", true);
+    auto varLabel = WidgetUtils::createBlueLabel(this, tr("Variables"));
 
     level1Label = new ClickLabel(tr("Level 1 (unprocessed) :"));
     level2Label = new ClickLabel(tr("Level 2 (after despiking) :"));
@@ -419,13 +413,9 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     title_6->setText(tr("Spectral outputs"));
     title_6->setProperty("groupLabel", true);
 
-    auto title_2 = new QLabel;
-    title_2->setText(tr("Reduced spectra and ogives"));
-    title_2->setProperty("blueLabel", true);
+    auto title_2 = WidgetUtils::createBlueLabel(this, tr("Reduced spectra and ogives"));
 
-    auto title_3 = new QLabel;
-    title_3->setText(tr("Full length spectra"));
-    title_3->setProperty("blueLabel", true);
+    auto title_3 = WidgetUtils::createBlueLabel(this, tr("Full length spectra"));
     tooltipStr =
         tr("<b>Full length spectra:</b> Spectra calculated for each variable, "
            "for each flux averaging interval. Results files are stored in "
@@ -433,8 +423,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
            "selected output folder.");
     title_3->setToolTip(tooltipStr);
 
-    auto title_4 = new QLabel(tr("Full length cospectra"));
-    title_4->setProperty("blueLabel", true);
+    auto title_4 = WidgetUtils::createBlueLabel(this, tr("Full length cospectra"));
     tooltipStr =
         tr("<b>Full length cospectra:</b> Cospectra with the vertical wind "
            "component, calculated for each variable, for each flux averaging "

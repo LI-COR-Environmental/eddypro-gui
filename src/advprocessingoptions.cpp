@@ -37,16 +37,26 @@
 #include <QUrl>
 #include <QVBoxLayout>
 
+#include <fstream>
+#include <iostream>
+
+#include "xnode.hpp"
+#include "xtree.hpp"
+
+#include "calibrationdialog.h"
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customresetlineedit.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
+#include "fileutils.h"
 #include "infomessage.h"
 #include "planarfitsettingsdialog.h"
 #include "richtextcheckbox.h"
 #include "timelagsettingsdialog.h"
+#include "stringutils.h"
+#include "vector_utils.h"
 #include "widget_utils.h"
 
 AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
@@ -56,7 +66,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     QWidget(parent),
     dlProject_(dlProject),
     ecProject_(ecProject),
-    configState_(config)
+    configState_(config),
+    calibration_info_()
 {
     DEBUG_FUNC_NAME
 
@@ -321,13 +332,23 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     driftCorrectionRadioGroup->addButton(linearDriftCorrectionRadio, 1);
     driftCorrectionRadioGroup->addButton(rssiDriftCorrectionRadio, 2);
 
-    auto retrieveCalibrationTitle = new QLabel(tr("Calibration data"));
+    auto retrieveCalibrationTitle = new QLabel;
+    retrieveCalibrationTitle->setText(tr("Calibration data"));
     retrieveCalibrationTitle->setProperty("groupLabel", true);
 
-    retrieveCalibration = new QPushButton(this);
-    retrieveCalibration->setText(tr("Fetch from LI-COR"));
-    editCalibration = new QPushButton(this);
-    editCalibration->setText(tr("View/Edit calibration values"));
+    retrieveCalibrationButton = new QPushButton;
+    retrieveCalibrationButton->setProperty("mdButton", true);
+    retrieveCalibrationButton->setText(tr("Fetch from LI-COR"));
+    editCalibrationButton = new QPushButton;
+    editCalibrationButton->setText(tr("Calibration values"));
+    editCalibrationButton->setProperty("mdButton", true);
+
+    auto serialNumberLabel = new QLabel;
+    serialNumberLabel->setText(tr("IRGA serial number: "));
+    serialNumberEdit = new QLineEdit;
+    serialNumberEdit->setInputMask(QStringLiteral("00\\H-0000;_"));
+    serialNumberEdit->setText(QStringLiteral("00H0000"));
+    serialNumberEdit->setCursorPosition(0);
 
 //
     auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
@@ -388,9 +409,12 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(noDriftCorrectionRadio, 18, 0);
     settingsLayout->addWidget(retrieveCalibrationTitle, 18, 1);
     settingsLayout->addWidget(linearDriftCorrectionRadio, 19, 0);
-    settingsLayout->addWidget(retrieveCalibration, 19, 1);
+    settingsLayout->addWidget(serialNumberLabel, 19, 1, Qt::AlignRight);
+    settingsLayout->addWidget(serialNumberEdit, 19, 2, Qt::AlignLeft);
+    settingsLayout->addWidget(retrieveCalibrationButton, 19, 2, Qt::AlignCenter);
     settingsLayout->addWidget(rssiDriftCorrectionRadio, 20, 0);
-    settingsLayout->addWidget(editCalibration, 20, 1);
+    settingsLayout->addWidget(editCalibrationButton, 20, 2, Qt::AlignCenter);
+
     settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
     settingsLayout->addWidget(qcTitle, 22, 0);
     settingsLayout->addWidget(qcCheckBox, 23, 0);
@@ -472,6 +496,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
             this, &AdvProcessingOptions::showPfSettingsDialog);
     connect(tlSettingsButton, &QPushButton::clicked,
             this, &AdvProcessingOptions::showTlSettingsDialog);
+    connect(editCalibrationButton, &QPushButton::clicked,
+            this, &AdvProcessingOptions::showCalibDialog);
 
     connect(detrendMethLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickDetrendLabel);
@@ -535,6 +561,9 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(setDefaultsButton, &QPushButton::clicked,
             this, &AdvProcessingOptions::on_setDefaultsButton_clicked);
 
+    connect(retrieveCalibrationButton, &QPushButton::clicked,
+            this, &AdvProcessingOptions::fetchCalibration);
+
     connect(ecProject_, &EcProject::ecProjectNew,
             this, &AdvProcessingOptions::reset);
     connect(ecProject_, &EcProject::ecProjectChanged,
@@ -554,6 +583,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     createPfSettingsDialog();
     createTlSettingsDialog();
+    createCalibDialog();
     QTimer::singleShot(0, this, SLOT(reset()));
 }
 
@@ -566,6 +596,9 @@ AdvProcessingOptions::~AdvProcessingOptions()
 
     if (tlDialog_)
         delete tlDialog_;
+
+    if (calibDialog_)
+        delete calibDialog_;
 }
 
 void AdvProcessingOptions::updateUOffset(double d)
@@ -829,6 +862,7 @@ void AdvProcessingOptions::reset()
 
     pfDialog_->reset();
     tlDialog_->reset();
+    calibDialog_->reset();
 
     qcLabel->setEnabled(true);
     qcCheckBox->setChecked(true);
@@ -1029,6 +1063,26 @@ void AdvProcessingOptions::showTlSettingsDialog()
     tlDialog_->show();
     tlDialog_->raise();
     tlDialog_->activateWindow();
+}
+
+void AdvProcessingOptions::createCalibDialog()
+{
+    DEBUG_FUNC_NAME
+
+    if (!calibDialog_)
+    {
+        calibDialog_ = new CalibrationDialog(this, ecProject_, configState_);
+    }
+}
+
+void AdvProcessingOptions::showCalibDialog()
+{
+    DEBUG_FUNC_NAME
+
+    calibDialog_->refresh();
+    calibDialog_->show();
+    calibDialog_->raise();
+    calibDialog_->activateWindow();
 }
 
 void AdvProcessingOptions::onClickQcMethodLabel()
@@ -1526,4 +1580,210 @@ bool AdvProcessingOptions::requestBurbaSettingsReset()
                 tr("<p>Do you want to reset the surface heating correction "
                    "to the default values of Burba et al. (2008)?</p>"),
                 tr("<p>You cannot undo this action.</p>"));
+}
+
+void AdvProcessingOptions::fetchCalibration()
+{
+    DEBUG_FUNC_NAME
+
+    calibration_api_ = new CalibrationAPI(this);
+
+    connect(calibration_api_, &CalibrationAPI::calibrationInfoReady,
+            this, &AdvProcessingOptions::parseCalibrationInfo);
+    connect(calibration_api_, &CalibrationAPI::calibrationFileReady,
+            this, &AdvProcessingOptions::parseCalibrationFile);
+
+    calibration_api_->getCalibrationInfo(serialNumberEdit->text());
+}
+
+void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
+{
+    DEBUG_FUNC_NAME
+
+    CalibrationInfo calResponse(data);
+    calibration_info_ = calResponse;
+
+    // get calibration date
+    calibration_.calib_date = StringUtils::fromUnixTimeToISOString(calibration_info_.calDate());
+
+    // get file
+    if (calibration_info_.responseCode() == 200.0)
+    {
+        calibration_api_->getCalibrationFile(calibration_info_.calLink());
+    }
+}
+
+void AdvProcessingOptions::parseCalibrationFile()
+{
+    DEBUG_FUNC_NAME
+
+    auto calDir = configState_->general.env
+            + QLatin1Char('/')
+            + Defs::CAL_FILE_DIR
+            + QLatin1Char('/');
+
+    QString calFilename = calDir + QFileInfo(calibration_info_.calLink()).fileName();
+    FileUtils::zipExtract(calFilename, calDir);
+
+    // remove pdf's
+    FileUtils::cleanDirFromFiletypeRecursively(calDir, QStringList() << QStringLiteral("pdf"));
+
+    calibration_file_ = FileUtils::getFiles(calDir, QStringLiteral("*.l7x")).first();
+    qDebug() << calibration_file_;
+    FileUtils::chmod_644(calibration_file_);
+
+    // parsing calibration data
+
+    // precondition the file
+    FileUtils::prependToFile(QStringLiteral("(LI7200 "), calibration_file_);
+    FileUtils::prependToFile(QStringLiteral(")\n"), calibration_file_);
+
+    // read dtd file
+    std::string dtd_filename("li7200.dtd");
+    std::ifstream dtd(dtd_filename);
+
+    // After this attempt to open a file, we can safely use perror() only
+    // in case f.is_open() returns False.
+    if (!dtd.is_open())
+    {
+        qDebug() << "error while opening dtd file";
+        return;
+    }
+
+    // read cal file
+    std::string calname(calibration_file_.toStdString());
+    std::ifstream cal(calname);
+    if (!cal.is_open())
+    {
+        qDebug() << "error while opening cal file";
+        return;
+    }
+
+    if (dtd)
+    {
+        try
+        {
+            xtreefactory tree_factory;
+            xtree* parser = tree_factory.createTree(dtd);
+            parser->parse(cal);
+
+            calibration_.co2_1_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(A)")->getValue()).toDouble();
+            calibration_.co2_2_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(B)")->getValue()).toDouble();
+            calibration_.co2_3_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(C)")->getValue()).toDouble();
+            calibration_.co2_4_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(D)")->getValue()).toDouble();
+            calibration_.co2_5_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(E)")->getValue()).toDouble();
+            calibration_.co2_XS = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(XS)")->getValue()).toDouble();
+            calibration_.co2_Z = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(Z)")->getValue()).toDouble();
+            calibration_.co2_Zero = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroCO2(Val)")->getValue()).toDouble();
+            calibration_.co2_Zero_date = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroCO2(Date)")->getValue());
+            calibration_.co2_Span = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanCO2(Val)")->getValue()).toDouble();
+            calibration_.co2_Span_date = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanCO2(Date)")->getValue());
+            calibration_.co2_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2CO2(Val)")->getValue()).toDouble();
+            calibration_.co2_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2CO2(Date)")->getValue());
+
+            calibration_.h2o_1_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(A)")->getValue()).toDouble();
+            calibration_.h2o_2_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(B)")->getValue()).toDouble();
+            calibration_.h2o_3_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(C)")->getValue()).toDouble();
+            calibration_.h2o_XS = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(XS)")->getValue()).toDouble();
+            calibration_.h2o_Z = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(Z)")->getValue()).toDouble();
+            calibration_.h2o_Zero = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroH2O(Val)")->getValue()).toDouble();
+            calibration_.h2o_Zero_date = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroH2O(Date)")->getValue());
+            calibration_.h2o_Span = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanH2O(Val)")->getValue()).toDouble();
+            calibration_.h2o_Span_date = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanH2O(Date)")->getValue());
+            calibration_.h2o_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Val)")->getValue()).toDouble();
+            calibration_.h2o_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Date)")->getValue());
+
+            qDebug() << "calibration.co2_A" << calibration_.co2_1_dir;
+            qDebug() << "calibration.co2_B" << calibration_.co2_2_dir;
+            qDebug() << "calibration.co2_C" << calibration_.co2_3_dir;
+            qDebug() << "calibration.co2_D" << calibration_.co2_4_dir;
+            qDebug() << "calibration.co2_E" << calibration_.co2_5_dir;
+            qDebug() << "calibration.co2_XS" << calibration_.co2_XS;
+            qDebug() << "calibration.co2_Z" << calibration_.co2_Z;
+            qDebug() << "calibration.co2_Zero" << calibration_.co2_Zero;
+            qDebug() << "calibration.co2_Zero_date" << calibration_.co2_Zero_date;
+            qDebug() << "calibration.co2_Span" << calibration_.co2_Span;
+            qDebug() << "calibration.co2_Span_date" << calibration_.co2_Span_date;
+            qDebug() << "calibration.co2_Span_2" << calibration_.co2_Span_2;
+            qDebug() << "calibration.co2_Span_2_date" << calibration_.co2_Span_2_date;
+            qDebug() << "calibration.h2o_A" << calibration_.h2o_1_dir;
+            qDebug() << "calibration.h2o_B" << calibration_.h2o_2_dir;
+            qDebug() << "calibration.h2o_C" << calibration_.h2o_3_dir;
+            qDebug() << "calibration.h2o_XS" << calibration_.h2o_XS;
+            qDebug() << "calibration.h2o_Z" << calibration_.h2o_Z;
+            qDebug() << "calibration.h2o_Zero" << calibration_.h2o_Zero;
+            qDebug() << "calibration.h2o_Zero_date" << calibration_.h2o_Zero_date;
+            qDebug() << "calibration.h2o_Span" << calibration_.h2o_Span;
+            qDebug() << "calibration.h2o_Span_date" << calibration_.h2o_Span_date;
+            qDebug() << "calibration.h2o_Span_2" << calibration_.h2o_Span_2;
+            qDebug() << "calibration.h2o_Span_2_date" << calibration_.h2o_Span_2_date;
+
+            try
+            {
+                calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(CX)")->getValue()).toDouble();
+                calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(WX)")->getValue()).toDouble();
+
+                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
+                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
+            }
+            catch(xmlError& e)
+            {
+                std::cout << "Could not query CX and WX: " << e.getError() << std::endl;
+                return;
+            }
+
+            try
+            {
+                calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(CX)")->getValue()).toDouble();
+                calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(WX)")->getValue()).toDouble();
+
+                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
+                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
+            }
+            catch(xmlError& e)
+            {
+                std::cout << "Could not query CX and WX: " << e.getError() << std::endl;
+                return;
+            }
+        }
+        catch(xmlError& e)
+        {
+            std::cout << "Could not create parser: " << e.getError() << std::endl;
+            return;
+        }
+
+        computeInverseCoefficients(calibration_);
+    }
+}
+
+void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
+{
+    DEBUG_FUNC_NAME
+
+    auto x_range = VectorUtils::arange<double>(0.000416, 0.001192, 0.000004);
+
+    std::vector<double> co2_dir_coeffs = {0.0, cal.co2_1_dir, cal.co2_2_dir, cal.co2_3_dir, cal.co2_4_dir, cal.co2_5_dir, 0.0};
+    std::vector<double> h2o_dir_coeffs = {0.0, cal.h2o_1_dir, cal.h2o_2_dir, cal.h2o_3_dir, 0.0, 0.0, 0.0};
+
+    std::vector<double> co2_inv_coeffs = VectorUtils::poly_boost(x_range, co2_dir_coeffs, 6);
+    std::vector<double> h2o_inv_coeffs = VectorUtils::poly_boost(x_range, h2o_dir_coeffs, 6);
+
+    qDebug() << "co2_dir_coeffs" << co2_dir_coeffs.size();
+    qDebug() << "h2o_inv_coeffs" << h2o_inv_coeffs.size();
+
+    cal.co2_0_inv = co2_inv_coeffs.at(0);
+    cal.co2_1_inv = co2_inv_coeffs.at(1);
+    cal.co2_2_inv = co2_inv_coeffs.at(2);
+    cal.co2_3_inv = co2_inv_coeffs.at(3);
+    cal.co2_4_inv = co2_inv_coeffs.at(4);
+    cal.co2_5_inv = co2_inv_coeffs.at(5);
+    cal.co2_6_inv = co2_inv_coeffs.at(6);
+
+    cal.h2o_0_inv = h2o_inv_coeffs.at(0);
+    cal.h2o_1_inv = h2o_inv_coeffs.at(1);
+    cal.h2o_2_inv = h2o_inv_coeffs.at(2);
+    cal.h2o_3_inv = h2o_inv_coeffs.at(3);
+    cal.h2o_4_inv = h2o_inv_coeffs.at(4);
+    cal.h2o_5_inv = h2o_inv_coeffs.at(5);
+    cal.h2o_6_inv = h2o_inv_coeffs.at(6);
 }

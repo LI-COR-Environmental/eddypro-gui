@@ -72,6 +72,7 @@ public:
     ~PlanarFitSettingsDialog();
 
     void setSmartfluxUI();
+
 signals:
     void saveRequest();
 

@@ -36,6 +36,8 @@ class QScrollArea;
 class QTextEdit;
 class QWidget;
 
+class QScienceSpinBox;
+
 struct ConfigState;
 
 namespace WidgetUtils
@@ -54,10 +56,14 @@ namespace WidgetUtils
     void resetComboToItem(QComboBox* combo, int i);
     void updateComboItemTooltip(QComboBox* combo, int i);
 
+    // buttons
+    QPushButton* createCommonButton(QWidget *parent, const QString &text);
+
     // dialog
     void removeContextHelpButton(QWidget* w);
 
     // label
+    QLabel* createBlueLabel(QWidget* parent, const QString &text);
     void setElidedTextToLabel(QLabel* label,
                               const QString& text,
                               Qt::TextElideMode mode,
@@ -69,6 +75,9 @@ namespace WidgetUtils
                                  Qt::TextElideMode mode,
                                  int width);
     void updateLineEditToolip(QLineEdit* lineedit);
+
+    // spinbox
+    QScienceSpinBox* createCalibrationSpinbox(QWidget *parent);
 
     // calendar
     void customizeCalendar(QCalendarWidget* cal);

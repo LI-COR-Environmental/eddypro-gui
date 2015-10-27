@@ -42,7 +42,6 @@ namespace FileUtils
     bool projectFileForcedCopy(const QString& fileName,
                                const QString& destDir);
 
-
     void createDir(const QString& dirName, const
                    QString& absoluteDirDest = QString());
 
@@ -51,15 +50,17 @@ namespace FileUtils
     void cleanDirRecursively(const QString& d);
     void cleanDirRecursively_alt(const QString& d);
     void cleanSmfDirRecursively(const QString& appEnvPath);
-    void cleanDirFromFileTypesRecursively(const QString& d,
+    void cleanDirFromFiletypeRecursively(const QString& d,
                                           const QStringList& illegalFileTypes);
 
     const QStringList getFiles(const QString& dir,
                                const QString& extension,
-                               bool recurse);
+                               bool recurse = false);
     QStringList getDirContent(const QString& dirPath,
                               QStringList nameFilter,
                               QDirIterator::IteratorFlag flag);
+
+    void chmod_644(const QString& filename);
 
     QDate getDateFromDoY(int doy, int year);
     QDateTime getDateTimeFromFilename(const QString& filename,
@@ -80,6 +81,7 @@ namespace FileUtils
                     const QString& outDir);
 
     bool prependToFile(const QString& str, const QString& filename);
+    bool appendToFile(const QString& str, const QString& filename);
 
 } // FileUtils
 

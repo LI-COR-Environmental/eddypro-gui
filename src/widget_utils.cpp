@@ -23,6 +23,8 @@
 
 #include "widget_utils.h"
 
+#include <limits>
+
 #include <QCalendarWidget>
 #include <QComboBox>
 #include <QCoreApplication>
@@ -46,6 +48,8 @@
 #include <memory>
 #include "make_unique.h"
 
+#include "QScienceSpinBox.h"
+
 #include "configstate.h"
 #include "dbghelper.h"
 #include "defs.h"
@@ -65,6 +69,7 @@ const QColor WidgetUtils::getColor(int step)
     return c;
 }
 
+// private helpers
 namespace {
 
 // Redraw widget recomputing Qt style-sheet based on Q_PROPERTY
@@ -225,7 +230,7 @@ void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 
 void WidgetUtils::openAppWebsite()
 {
-    QDesktopServices::openUrl(QUrl(Defs::APP_WEBSITE));
+    QDesktopServices::openUrl(QUrl(Defs::APP_URL));
 }
 
 bool WidgetUtils::okToOverwrite(QWidget* parent, const QString& filename)
@@ -552,4 +557,34 @@ bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
     return yesNoQuestion(parent,
                          QObject::tr("Close SmartFlux Configuration"),
                          QObject::tr("Do you want to leave the SmartFlux Configuration?"));
+}
+
+
+QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& text)
+{
+    auto button = new QPushButton(parent);
+    button->setText(text);
+    button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    button->setDefault(true);
+    button->setProperty("commonButton", true);
+    return button;
+}
+
+
+QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
+{
+    auto label = new QLabel(parent);
+    label->setText(text);
+    label->setProperty("blueLabel", true);
+    return label;
+}
+
+QScienceSpinBox* WidgetUtils::createCalibrationSpinbox(QWidget *parent)
+{
+    auto spinbox = new QScienceSpinBox(parent);
+    spinbox->setRange(std::numeric_limits<double>::lowest(),
+                            std::numeric_limits<double>::max());
+    spinbox->setDecimals(7);
+    spinbox->setAccelerated(true);
+    return spinbox;
 }

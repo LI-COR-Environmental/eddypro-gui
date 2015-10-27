@@ -25,6 +25,7 @@
 #define ECPROJECTSTATE_H
 
 #include "angle_item.h"
+#include "calibration.h"
 #include "defs.h"
 
 /// \struct GeneralProjectState
@@ -477,6 +478,7 @@ struct EcProjectState
     TimelagOptState timelagOpt;
     RandomErrorState randomError;
     BiometState biomParam;
+    Calibration driftCorr;
 };
 
 #endif // ECPROJECTSTATE_H

@@ -98,10 +98,7 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     auto rawPropertiesFrame = new QWidget;
     rawPropertiesFrame->setLayout(rawPropertiesLayout);
 
-    auto okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     auto rawSettingsLayout = new QGridLayout(this);
     rawSettingsLayout->addWidget(groupTitle, 0, 0);

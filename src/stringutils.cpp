@@ -132,3 +132,10 @@ const QStringList StringUtils::subStringList(const QStringList& list, int begin,
     }
     return sublist;
 }
+
+
+QString StringUtils::fromUnixTimeToISOString(double msec)
+{
+    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(msec));
+    return timestamp.toString(Qt::ISODate);
+}

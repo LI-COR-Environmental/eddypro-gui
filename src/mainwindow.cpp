@@ -4483,14 +4483,15 @@ bool MainWindow::testForPreviousData()
     QString epFormat = QStringLiteral("*.") + Defs::APP_NAME_LCASE;
     QString csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
 
+    auto recurse = true;
     QStringList previousRunList(FileUtils::getFiles(ecProject_->spectraExDir(),
                                          epFormat,
-                                         true));
+                                         recurse));
     qDebug() << "previousRunList" << previousRunList << previousRunList.count();
 
     QStringList previousEssentialList(FileUtils::getFiles(ecProject_->spectraExDir(),
                                          csvFormat,
-                                         true));
+                                         recurse));
     qDebug() << previousEssentialList.count();
 
     previousEssentialList = previousEssentialList.filter(QStringLiteral("essentials"));
