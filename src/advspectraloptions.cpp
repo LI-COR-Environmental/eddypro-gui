@@ -154,14 +154,10 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     fftCheckBox->setToolTip(tr("<b>Use power-of-two samples to speed up the FFT: </b>Check this box to instruct EddyPro to use a number of samples equal to the power-of-two closest to the currently available samples, for calculating spectra. This option greatly speeds up the FFT procedure and is therefore recommended."));
     fftCheckBox->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
 
-    spin31Label = new QLabel(tr("%1").arg(Defs::CO2_STRING));
-    spin31Label->setProperty("blueLabel", true);
-    spin32Label = new QLabel(tr("%2").arg(Defs::H2O_STRING));
-    spin32Label->setProperty("blueLabel", true);
-    spin33Label = new QLabel(tr("%3").arg(Defs::CH4_STRING));
-    spin33Label->setProperty("blueLabel", true);
-    spin34Label = new QLabel(tr("%4 Gas").arg(Defs::GAS4_STRING));
-    spin34Label->setProperty("blueLabel", true);
+    spin31Label = WidgetUtils::createBlueLabel(this, tr("%1").arg(Defs::CO2_STRING));
+    spin32Label = WidgetUtils::createBlueLabel(this, tr("%2").arg(Defs::H2O_STRING));
+    spin33Label = WidgetUtils::createBlueLabel(this, tr("%3").arg(Defs::CH4_STRING));
+    spin34Label = WidgetUtils::createBlueLabel(this, tr("%4 Gas").arg(Defs::GAS4_STRING));
 
     spin30Label = new ClickLabel(tr("Lowest noise frequency :"));
     spin30Label->setToolTip(tr("<b>Lowest noise frequency:</b> High-frequency noise (blue noise) can compromise the spectral assessment by modifying the shape of spectra. EddyPro has an option to eliminate such noise. Set the minimum frequency at which you expect the noise to start being relevant. EddyPro will linearly (in a log-log sense) interpolate the high frequency portion of the spectra and subtract it from the spectra before calculating transfer functions. Set 0 Hz to instruct EddyPro to not perform noise elimination. In this case the string <i>Do not remove noise</i> will appear in this field."));
@@ -458,22 +454,16 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     freqAttenuationTitle = new QLabel(tr("Assessment of high-frequency attenuation"));
     freqAttenuationTitle->setProperty("groupLabel", true);
 
-    spin11Label = new QLabel(tr("%1").arg(Defs::CO2_STRING));
-    spin11Label->setProperty("blueLabel", true);
-    spin12Label = new QLabel(tr("%2").arg(Defs::H2O_STRING));
-    spin12Label->setProperty("blueLabel", true);
-    spin13Label = new QLabel(tr("%3").arg(Defs::CH4_STRING));
-    spin13Label->setProperty("blueLabel", true);
-    spin14Label = new QLabel(tr("%4 Gas").arg(Defs::GAS4_STRING));
-    spin14Label->setProperty("blueLabel", true);
+    spin11Label = WidgetUtils::createBlueLabel(this, tr("%1").arg(Defs::CO2_STRING));
+    spin12Label = WidgetUtils::createBlueLabel(this, tr("%2").arg(Defs::H2O_STRING));
+    spin13Label = WidgetUtils::createBlueLabel(this, tr("%3").arg(Defs::CH4_STRING));
+    spin14Label = WidgetUtils::createBlueLabel(this, tr("%4 Gas").arg(Defs::GAS4_STRING));
 
-    minMaxFreqLabel = new QLabel(tr("Frequency range for fitting in-situ "
+    minMaxFreqLabel = WidgetUtils::createBlueLabel(this, tr("Frequency range for fitting in-situ "
                                             "transfer functions (based on "
                                             "temperature and concentrations spectra)"));
-    minMaxFreqLabel->setProperty("blueLabel", true);
 
-    noiseFreqLabel = new QLabel(tr("Removal of high frequency noise"));
-    noiseFreqLabel->setProperty("blueLabel", true);
+    noiseFreqLabel = WidgetUtils::createBlueLabel(this, tr("Removal of high frequency noise"));
 
     spin10Label = new ClickLabel(tr("Lowest frequency :"));
     spin10Label->setToolTip(tr("<b>Lowest frequency:</b> The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval."));

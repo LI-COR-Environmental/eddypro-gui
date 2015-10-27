@@ -564,3 +564,12 @@ QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& tex
     button->setProperty("commonButton", true);
     return button;
 }
+
+
+QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
+{
+    auto label = new QLabel(parent);
+    label->setText(text);
+    label->setProperty("blueLabel", true);
+    return label;
+}

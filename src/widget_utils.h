@@ -61,6 +61,7 @@ namespace WidgetUtils
     void removeContextHelpButton(QWidget* w);
 
     // label
+    QLabel* createBlueLabel(QWidget* parent, const QString &text);
     void setElidedTextToLabel(QLabel* label,
                               const QString& text,
                               Qt::TextElideMode mode,
