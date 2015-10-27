@@ -60,6 +60,7 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += -isystem"$$QT_PATH/include"
 
     QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/math"
+    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/numeric/ublas"
 
     win32 {
         # mingw warnings
