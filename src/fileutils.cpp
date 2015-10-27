@@ -216,7 +216,7 @@ void FileUtils::cleanDir(const QString& d)
 }
 
 // recursive
-void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QStringList &illegalFileTypes)
+void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringList &illegalFileTypes)
 {
     QDirIterator it(d, QDirIterator::Subdirectories);
 

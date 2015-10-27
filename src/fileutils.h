@@ -50,7 +50,7 @@ namespace FileUtils
     void cleanDirRecursively(const QString& d);
     void cleanDirRecursively_alt(const QString& d);
     void cleanSmfDirRecursively(const QString& appEnvPath);
-    void cleanDirFromFileTypesRecursively(const QString& d,
+    void cleanDirFromFiletypeRecursively(const QString& d,
                                           const QStringList& illegalFileTypes);
 
     const QStringList getFiles(const QString& dir,
