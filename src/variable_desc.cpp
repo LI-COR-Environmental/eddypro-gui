@@ -183,13 +183,13 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_24()
 
 const QString VariableDesc::getVARIABLE_VAR_STRING_25()
 {
-    static const QString s(tr("LI-7500(A) Diagnostics"));
+    static const QString s(tr("LI-7500/A/RS Diagnostics"));
     return s;
 }
 
 const QString VariableDesc::getVARIABLE_VAR_STRING_26()
 {
-    static const QString s(tr("LI-7200 Diagnostics"));
+    static const QString s(tr("LI-7200/RS Diagnostics"));
     return s;
 }
 
@@ -1065,7 +1065,8 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_4()))
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_7()))
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_10()))
-                                    || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()));
+                                    || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()))
+                                    || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()));
 
                 qDebug() << "1 isGoodInstrument" << isGoodInstrument;
             }
@@ -1082,7 +1083,9 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_2()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_3()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_4()))
-                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_5())));
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_5()))
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_12()))
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13())));
 
             qDebug() << "3 isGoodInstrument" << isGoodInstrument;
         }
@@ -1177,7 +1180,8 @@ bool VariableDesc::isGoodPressure(const VariableDesc& var)
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_4()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_7()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_10()))
-                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()));
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()))
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()));
 
             qDebug() << "under if isGoodInstrument" << isGoodInstrument;
         }

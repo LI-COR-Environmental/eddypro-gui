@@ -116,6 +116,18 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_11()
     return s;
 }
 
+const QString IrgaDesc::getIRGA_MODEL_STRING_12()
+{
+    static const QString s(QStringLiteral("LI-7500RS"));
+    return s;
+}
+
+const QString IrgaDesc::getIRGA_MODEL_STRING_13()
+{
+    static const QString s(QStringLiteral("LI-7200RS"));
+    return s;
+}
+
 IrgaDesc::IrgaDesc() :
     manufacturer_(QString(getIRGA_MANUFACTURER_STRING_0())),
     model_(QString()),
@@ -244,7 +256,9 @@ const QStringList IrgaDesc::allModelStringList()
             << getIRGA_MODEL_STRING_1()
             << getIRGA_MODEL_STRING_2()
             << getIRGA_MODEL_STRING_3()
+            << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
+            << getIRGA_MODEL_STRING_13()
             << getIRGA_MODEL_STRING_5()
             << getIRGA_MODEL_STRING_6()
             << getIRGA_MODEL_STRING_7()
@@ -262,7 +276,9 @@ const QStringList IrgaDesc::licorModelStringList()
             << getIRGA_MODEL_STRING_1()
             << getIRGA_MODEL_STRING_2()
             << getIRGA_MODEL_STRING_3()
+            << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
+            << getIRGA_MODEL_STRING_13()
             << getIRGA_MODEL_STRING_5());
 }
 
@@ -285,7 +301,9 @@ bool IrgaDesc::isALicorModel(const QString& model)
              || (model == getIRGA_MODEL_STRING_2())
              || (model == getIRGA_MODEL_STRING_3())
              || (model == getIRGA_MODEL_STRING_4())
-             || (model == getIRGA_MODEL_STRING_5()));
+             || (model == getIRGA_MODEL_STRING_5())
+             || (model == getIRGA_MODEL_STRING_12())
+             || (model == getIRGA_MODEL_STRING_13()));
 }
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
@@ -338,7 +356,8 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
                         || (model == getIRGA_MODEL_STRING_4())
                         || (model == getIRGA_MODEL_STRING_7())
                         || (model == getIRGA_MODEL_STRING_10())
-                        || (model == getIRGA_MODEL_STRING_11());
+                        || (model == getIRGA_MODEL_STRING_11())
+                        || (model == getIRGA_MODEL_STRING_13());
 
     auto isGoodClosedPath = false;
     if (isClosedPath)
@@ -429,5 +448,6 @@ bool IrgaDesc::isOpenPathModel(const QString& model)
              || model == IrgaDesc::getIRGA_MODEL_STRING_5()
              || model == IrgaDesc::getIRGA_MODEL_STRING_6()
              || model == IrgaDesc::getIRGA_MODEL_STRING_8()
-             || model == IrgaDesc::getIRGA_MODEL_STRING_9());
+             || model == IrgaDesc::getIRGA_MODEL_STRING_9()
+             || model == IrgaDesc::getIRGA_MODEL_STRING_12());
 }
