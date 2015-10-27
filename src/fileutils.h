@@ -55,7 +55,7 @@ namespace FileUtils
 
     const QStringList getFiles(const QString& dir,
                                const QString& extension,
-                               bool recurse);
+                               bool recurse = false);
     QStringList getDirContent(const QString& dirPath,
                               QStringList nameFilter,
                               QDirIterator::IteratorFlag flag);

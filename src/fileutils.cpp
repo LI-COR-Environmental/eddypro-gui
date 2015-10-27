@@ -248,6 +248,7 @@ void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QString
     }
 }
 
+// extension = "*.ext"
 const QStringList FileUtils::getFiles(const QString& dir, const QString& extension, bool recurse)
 {
     DEBUG_FUNC_NAME

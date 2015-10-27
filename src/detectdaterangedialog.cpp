@@ -668,10 +668,7 @@ QPair<QDateTime, QDateTime> DetectDateRangeDialog::getBinnedCospectraDateRange()
 
     auto csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
     auto binnedCospectraDir = ecProject_->generalOutPath() + Defs::OUT_BINNED_COSPECTRA_DIR;
-    auto noRecursion = false;
-    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir,
-                                                  csvFormat,
-                                                  noRecursion);
+    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
 
     if (!binnedCospectraDataList.isEmpty())
     {
