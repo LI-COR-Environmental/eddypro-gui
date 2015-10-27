@@ -314,18 +314,22 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     // drift correction
 
-    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500A and LI-7200 only"));
+    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500/A/RS and LI-7200/RS only"));
     driftTitle->setProperty("groupLabel", true);
+    driftTitle->setVisible(false);
 
     noDriftCorrectionRadio = new QRadioButton;
     noDriftCorrectionRadio->setText(tr("Do not correct"));
+    noDriftCorrectionRadio->setVisible(false);
 
     linearDriftCorrectionRadio = new QRadioButton;
     linearDriftCorrectionRadio->setText(tr("Linear interpolation"));
+    linearDriftCorrectionRadio->setVisible(false);
 
     rssiDriftCorrectionRadio = new QRadioButton;
     rssiDriftCorrectionRadio->setText(tr("RSSI-driven interpolation "
                                          "(requires ‘raw counts’ in raw data files)"));
+    rssiDriftCorrectionRadio->setVisible(false);
 
     driftCorrectionRadioGroup = new QButtonGroup(this);
     driftCorrectionRadioGroup->addButton(noDriftCorrectionRadio, 0);
@@ -335,20 +339,27 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     auto retrieveCalibrationTitle = new QLabel;
     retrieveCalibrationTitle->setText(tr("Calibration data"));
     retrieveCalibrationTitle->setProperty("groupLabel", true);
+    retrieveCalibrationTitle->setVisible(false);
 
     retrieveCalibrationButton = new QPushButton;
     retrieveCalibrationButton->setProperty("mdButton", true);
     retrieveCalibrationButton->setText(tr("Fetch from LI-COR"));
+    retrieveCalibrationButton->setVisible(false);
+
     editCalibrationButton = new QPushButton;
     editCalibrationButton->setText(tr("Calibration values"));
     editCalibrationButton->setProperty("mdButton", true);
+    editCalibrationButton->setVisible(false);
 
     auto serialNumberLabel = new QLabel;
     serialNumberLabel->setText(tr("IRGA serial number: "));
+    serialNumberLabel->setVisible(false);
+
     serialNumberEdit = new QLineEdit;
     serialNumberEdit->setInputMask(QStringLiteral("00\\H-0000;_"));
     serialNumberEdit->setText(QStringLiteral("00H0000"));
     serialNumberEdit->setCursorPosition(0);
+    serialNumberEdit->setVisible(false);
 
 //
     auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
@@ -364,6 +375,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
     auto hrLabel_3 = new QLabel;
     hrLabel_3->setObjectName(QStringLiteral("hrLabel"));
+    hrLabel_3->setVisible(false);
 
     auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(windOffsetLabel);
@@ -405,17 +417,19 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(burbaParamWidget, 14, 0, 1, 4);
     settingsLayout->addWidget(defaultContainer, 15, 0, 1, 4);
     settingsLayout->addWidget(hrLabel_2, 16, 0, 1, 4);
-    settingsLayout->addWidget(driftTitle, 17, 0);
-    settingsLayout->addWidget(noDriftCorrectionRadio, 18, 0);
-    settingsLayout->addWidget(retrieveCalibrationTitle, 18, 1);
-    settingsLayout->addWidget(linearDriftCorrectionRadio, 19, 0);
-    settingsLayout->addWidget(serialNumberLabel, 19, 1, Qt::AlignRight);
-    settingsLayout->addWidget(serialNumberEdit, 19, 2, Qt::AlignLeft);
-    settingsLayout->addWidget(retrieveCalibrationButton, 19, 2, Qt::AlignCenter);
-    settingsLayout->addWidget(rssiDriftCorrectionRadio, 20, 0);
-    settingsLayout->addWidget(editCalibrationButton, 20, 2, Qt::AlignCenter);
 
-    settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
+    // NOTE: temporarly disabled because not complete
+//    settingsLayout->addWidget(driftTitle, 17, 0);
+//    settingsLayout->addWidget(noDriftCorrectionRadio, 18, 0);
+//    settingsLayout->addWidget(retrieveCalibrationTitle, 18, 1);
+//    settingsLayout->addWidget(linearDriftCorrectionRadio, 19, 0);
+//    settingsLayout->addWidget(serialNumberLabel, 19, 1, Qt::AlignRight);
+//    settingsLayout->addWidget(serialNumberEdit, 19, 2, Qt::AlignLeft);
+//    settingsLayout->addWidget(retrieveCalibrationButton, 19, 2, Qt::AlignCenter);
+//    settingsLayout->addWidget(rssiDriftCorrectionRadio, 20, 0);
+//    settingsLayout->addWidget(editCalibrationButton, 20, 2, Qt::AlignCenter);
+//    settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
+
     settingsLayout->addWidget(qcTitle, 22, 0);
     settingsLayout->addWidget(qcCheckBox, 23, 0);
     settingsLayout->addWidget(qcLabel, 23, 1, Qt::AlignRight);
