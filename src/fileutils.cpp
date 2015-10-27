@@ -540,6 +540,7 @@ QString FileUtils::setupEnv()
         FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
+        FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
 
         return appVerDir;
     }
