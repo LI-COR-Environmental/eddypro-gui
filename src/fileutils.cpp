@@ -640,3 +640,12 @@ bool FileUtils::appendToFile(const QString &str, const QString &filename)
 
     return true;
 }
+
+// chmod 644
+void FileUtils::chmod_644(const QString &filename)
+{
+    QFile::setPermissions(filename, QFileDevice::ReadUser
+                                  | QFileDevice::WriteUser
+                                  | QFileDevice::ReadGroup
+                                  | QFileDevice::ReadOther);
+}

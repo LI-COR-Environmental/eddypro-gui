@@ -60,6 +60,8 @@ namespace FileUtils
                               QStringList nameFilter,
                               QDirIterator::IteratorFlag flag);
 
+    void chmod_644(const QString& filename);
+
     QDate getDateFromDoY(int doy, int year);
     QDateTime getDateTimeFromFilename(const QString& filename,
                                       const QString& filenameFormat);
