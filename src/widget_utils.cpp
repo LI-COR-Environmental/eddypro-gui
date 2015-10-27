@@ -553,3 +553,14 @@ bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
                          QObject::tr("Close SmartFlux Configuration"),
                          QObject::tr("Do you want to leave the SmartFlux Configuration?"));
 }
+
+
+QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& text)
+{
+    auto button = new QPushButton(parent);
+    button->setText(text);
+    button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    button->setDefault(true);
+    button->setProperty("commonButton", true);
+    return button;
+}

@@ -54,6 +54,9 @@ namespace WidgetUtils
     void resetComboToItem(QComboBox* combo, int i);
     void updateComboItemTooltip(QComboBox* combo, int i);
 
+    // buttons
+    QPushButton* createCommonButton(QWidget *parent, const QString &text);
+
     // dialog
     void removeContextHelpButton(QWidget* w);
 

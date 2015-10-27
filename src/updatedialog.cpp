@@ -57,10 +57,7 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
     msgLabel = new QLabel(tr("Retrieving information..."));
     msgLabel->setStyleSheet(QStringLiteral("QLabel {margin-bottom: 15px;}"));
 
-    okButton = new QPushButton(tr("Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     yesButton = new QPushButton(tr("Yes"));
     yesButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

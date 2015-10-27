@@ -341,10 +341,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     propertiesFrame->setLayout(propertiesLayout);
     propertiesFrame->setMinimumWidth(propertiesFrame->sizeHint().width());
 
-    auto okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0);

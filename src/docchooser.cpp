@@ -35,6 +35,7 @@
 #include "dbghelper.h"
 #include "defs.h"
 #include "globalsettings.h"
+#include "widget_utils.h"
 
 DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     QDialog(parent),
@@ -65,10 +66,7 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     offlineHelpRadio = new QRadioButton;
     offlineHelpRadio->setText(tr("Use local help"));
 
-    auto okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     auto layout = new QVBoxLayout(this);
     layout->addLayout(connectLayout);

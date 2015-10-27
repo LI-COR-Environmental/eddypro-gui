@@ -260,11 +260,7 @@ AboutDialog::AboutDialog(QWidget* parent)
     tab->addTab(licenseWidget, tr("License"));
     tab->addTab(changelogWidget, tr("Changes"));
 
-    auto okButton = new QPushButton;
-    okButton->setText(tr("Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     auto dialogLayout = new QVBoxLayout(this);
     dialogLayout->addWidget(icon, 0, Qt::AlignCenter);
