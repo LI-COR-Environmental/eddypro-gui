@@ -36,6 +36,8 @@ class QScrollArea;
 class QTextEdit;
 class QWidget;
 
+class QScienceSpinBox;
+
 struct ConfigState;
 
 namespace WidgetUtils
@@ -73,6 +75,9 @@ namespace WidgetUtils
                                  Qt::TextElideMode mode,
                                  int width);
     void updateLineEditToolip(QLineEdit* lineedit);
+
+    // spinbox
+    QScienceSpinBox* createCalibrationSpinbox(QWidget *parent);
 
     // calendar
     void customizeCalendar(QCalendarWidget* cal);
