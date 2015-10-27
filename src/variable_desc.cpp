@@ -760,6 +760,7 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 
 namespace {
 
+// private helper
 bool isGoodGasUnit(const QString& unit, const QString& type)
 {
     bool isGoodUnit = false;
