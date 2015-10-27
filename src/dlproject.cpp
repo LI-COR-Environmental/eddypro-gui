@@ -33,11 +33,11 @@
 #include "stringutils.h"
 #include "widget_utils.h"
 
-const QString DlProject::ANEM_MANUFACTURER_STRING_0  = QStringLiteral("csi");
-const QString DlProject::ANEM_MANUFACTURER_STRING_1  = QStringLiteral("gill");
-const QString DlProject::ANEM_MANUFACTURER_STRING_2  = QStringLiteral("metek");
-const QString DlProject::ANEM_MANUFACTURER_STRING_3  = QStringLiteral("young");
-const QString DlProject::ANEM_MANUFACTURER_STRING_4  = QStringLiteral("other_sonic");
+const QString DlProject::ANEM_MANUFACTURER_STRING_0 = QStringLiteral("csi");
+const QString DlProject::ANEM_MANUFACTURER_STRING_1 = QStringLiteral("gill");
+const QString DlProject::ANEM_MANUFACTURER_STRING_2 = QStringLiteral("metek");
+const QString DlProject::ANEM_MANUFACTURER_STRING_3 = QStringLiteral("young");
+const QString DlProject::ANEM_MANUFACTURER_STRING_4 = QStringLiteral("other_sonic");
 
 const QString DlProject::ANEM_WIND_FORMAT_STRING_0 = QStringLiteral("uvw");
 const QString DlProject::ANEM_WIND_FORMAT_STRING_1 = QStringLiteral("polar_w");
@@ -47,8 +47,8 @@ const QString DlProject::ANEM_NORTH_ALIGN_STRING_0 = QStringLiteral("axis");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_1 = QStringLiteral("spar");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_2 = QStringLiteral("na");
 
-const QString DlProject::IRGA_MANUFACTURER_STRING_0  = QStringLiteral("licor");
-const QString DlProject::IRGA_MANUFACTURER_STRING_1  = QStringLiteral("other_irga");
+const QString DlProject::IRGA_MANUFACTURER_STRING_0 = QStringLiteral("licor");
+const QString DlProject::IRGA_MANUFACTURER_STRING_1 = QStringLiteral("other_irga");
 
 const QString DlProject::IRGA_MODEL_STRING_0 = QStringLiteral("li6262");
 const QString DlProject::IRGA_MODEL_STRING_1 = QStringLiteral("li7000");
@@ -60,8 +60,8 @@ const QString DlProject::IRGA_MODEL_STRING_6 = QStringLiteral("generic_open_path
 const QString DlProject::IRGA_MODEL_STRING_7 = QStringLiteral("generic_closed_path");
 const QString DlProject::IRGA_MODEL_STRING_8 = QStringLiteral("open_path_krypton");
 const QString DlProject::IRGA_MODEL_STRING_9 = QStringLiteral("open_path_lyman");
-const QString DlProject::IRGA_MODEL_STRING_10 =QStringLiteral("closed_path_krypton");
-const QString DlProject::IRGA_MODEL_STRING_11 =QStringLiteral("closed_path_lyman");
+const QString DlProject::IRGA_MODEL_STRING_10 = QStringLiteral("closed_path_krypton");
+const QString DlProject::IRGA_MODEL_STRING_11 = QStringLiteral("closed_path_lyman");
 
 const QString DlProject::IRGA_SW_VERSION_STRING_0 = QStringLiteral("0.0.0");
 const QString DlProject::IRGA_SW_VERSION_STRING_1 = QStringLiteral("5.0.3");
