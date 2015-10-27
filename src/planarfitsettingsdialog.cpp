@@ -364,7 +364,9 @@ void PlanarFitSettingsDialog::close()
 {
     DEBUG_FUNC_NAME
     if (isVisible())
+    {
         hide();
+    }
     emit saveRequest();
 }
 

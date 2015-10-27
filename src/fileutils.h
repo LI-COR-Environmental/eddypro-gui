@@ -42,7 +42,6 @@ namespace FileUtils
     bool projectFileForcedCopy(const QString& fileName,
                                const QString& destDir);
 
-
     void createDir(const QString& dirName, const
                    QString& absoluteDirDest = QString());
 

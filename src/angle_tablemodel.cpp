@@ -29,7 +29,7 @@
 #include "widget_utils.h"
 
 namespace {
-
+// private constants
 const int MaxColumns = 1;
 const double MinDegrees = 0.0;
 const double MaxDegrees = 360.0;

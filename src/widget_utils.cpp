@@ -65,6 +65,7 @@ const QColor WidgetUtils::getColor(int step)
     return c;
 }
 
+// private helpers
 namespace {
 
 // Redraw widget recomputing Qt style-sheet based on Q_PROPERTY
@@ -225,7 +226,7 @@ void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 
 void WidgetUtils::openAppWebsite()
 {
-    QDesktopServices::openUrl(QUrl(Defs::APP_WEBSITE));
+    QDesktopServices::openUrl(QUrl(Defs::APP_URL));
 }
 
 bool WidgetUtils::okToOverwrite(QWidget* parent, const QString& filename)
