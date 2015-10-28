@@ -214,7 +214,8 @@ SOURCES +=  \
     src/calibrationapi.cpp \
     src/calibrationinfo.cpp \
     src/calibrationdialog.cpp \
-    src/QScienceSpinBox.cpp
+    src/QScienceSpinBox.cpp \
+    src/vector_utils.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 
