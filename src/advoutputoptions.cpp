@@ -954,7 +954,7 @@ void AdvOutputOptions::reset()
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
 
-    selectMin();
+    selectTypical();
     setVarsAvailable(false);
     outVarsAllCheckBox->setEnabled(false);
     outVarsAllCheckBox->setChecked(false);
