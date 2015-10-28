@@ -70,7 +70,7 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent,
 
     rawFilenameFormatEdit = new QLineEdit;
 
-    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
+    okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
     okButton->setEnabled(false);
 
     auto cancelButton = new QPushButton(tr("Cancel"));

@@ -68,7 +68,7 @@ DetectDateRangeDialog::DetectDateRangeDialog(QWidget *parent, EcProject *ecProje
     setAsCurrentRangeButton->setProperty("commonButton2", true);
     setAsCurrentRangeButton->setStyleSheet(QStringLiteral("QPushButton { margin-bottom: 10px; }"));
 
-    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
+    okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     dialogLayout = new QGridLayout(this);
     dialogLayout->addWidget(groupTitle, 0, 0, 1, -1);
