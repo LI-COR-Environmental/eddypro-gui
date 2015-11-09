@@ -4730,4 +4730,3 @@ bool MainWindow::queryDlProjectImport()
            "<p>To cancel the import operation, simply close "
            "without pushing 'Ok'.</p>"));
 }
-

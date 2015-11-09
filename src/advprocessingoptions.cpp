@@ -147,10 +147,12 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     aoaMethLabel = new ClickLabel(tr("Method :"));
     aoaMethLabel->setEnabled(false);
     aoaMethCombo = new QComboBox;
-    aoaMethCombo->addItem(tr("Field calibration (Nakai and Shimoyama, 2012)"));
-    aoaMethCombo->addItem(tr("Wind tunnel calibration (Nakai et al., 2006)"));
-    aoaMethCombo->setItemData(0, tr("<b>Field calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration."), Qt::ToolTipRole);
-    aoaMethCombo->setItemData(1, tr("<b>Wind tunnel calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration."), Qt::ToolTipRole);
+    aoaMethCombo->addItem(tr("Select automatically"), 3);
+    aoaMethCombo->addItem(tr("Field calibration (Nakai and Shimoyama, 2012)"), 1);
+    aoaMethCombo->addItem(tr("Wind tunnel calibration (Nakai et al., 2006)"), 2);
+    aoaMethCombo->setItemData(0, tr("<b>Select automatically:</b> Select this option to apply..."), Qt::ToolTipRole);
+    aoaMethCombo->setItemData(1, tr("<b>Field calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration."), Qt::ToolTipRole);
+    aoaMethCombo->setItemData(2, tr("<b>Wind tunnel calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration."), Qt::ToolTipRole);
     aoaMethCombo->setEnabled(false);
 
     rotCheckBox = new RichTextCheckBox;
@@ -367,7 +369,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     auto qcTitle = new QLabel(tr("Other options"));
     qcTitle->setProperty("groupLabel", true);
-
 
     auto hrLabel = new QLabel;
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
@@ -636,7 +637,8 @@ void AdvProcessingOptions::updateAoaMethod_1(bool b)
     DEBUG_FUNC_NAME
     if (b)
     {
-        ecProject_->setScreenFlowDistortion(aoaMethCombo->currentIndex() + 1);
+        auto value = aoaMethCombo->itemData(aoaMethCombo->currentIndex());
+        ecProject_->setScreenFlowDistortion(value.toInt());
     }
     else
     {
@@ -647,7 +649,8 @@ void AdvProcessingOptions::updateAoaMethod_1(bool b)
 // update project properties
 void AdvProcessingOptions::updateAoaMethod_2(int n)
 {
-    ecProject_->setScreenFlowDistortion(n + 1);
+    auto value = aoaMethCombo->itemData(n);
+    ecProject_->setScreenFlowDistortion(value.toInt());
 }
 
 // update project properties
@@ -928,7 +931,21 @@ void AdvProcessingOptions::refresh()
     aoaCheckBox->setChecked(aoaCorrection);
     if (aoaCorrection)
     {
-        aoaMethCombo->setCurrentIndex(aoaCorrection - 1);
+        switch (aoaCorrection)
+        {
+        // nakai 2012
+        case 1:
+            aoaMethCombo->setCurrentIndex(1);
+            break;
+        // nakai 2006
+        case 2:
+            aoaMethCombo->setCurrentIndex(2);
+            break;
+        // automatic
+        case 3:
+            aoaMethCombo->setCurrentIndex(0);
+            break;
+        }
     }
     else
     {
@@ -1582,8 +1599,7 @@ void AdvProcessingOptions::onlineHelpTrigger_11()
 
 void AdvProcessingOptions::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
-
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }
 
