@@ -147,7 +147,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     aoaMethLabel = new ClickLabel(tr("Method :"));
     aoaMethLabel->setEnabled(false);
     aoaMethCombo = new QComboBox;
-    aoaMethCombo->addItem(tr("Select automatically"), 3);
+    aoaMethCombo->addItem(tr("Select automatically"), -1);
     aoaMethCombo->addItem(tr("Field calibration (Nakai and Shimoyama, 2012)"), 1);
     aoaMethCombo->addItem(tr("Wind tunnel calibration (Nakai et al., 2006)"), 2);
     aoaMethCombo->setItemData(0, tr("<b>Select automatically:</b> Select this option to apply..."), Qt::ToolTipRole);
@@ -942,7 +942,7 @@ void AdvProcessingOptions::refresh()
             aoaMethCombo->setCurrentIndex(2);
             break;
         // automatic
-        case 3:
+        case -1:
             aoaMethCombo->setCurrentIndex(0);
             break;
         }
