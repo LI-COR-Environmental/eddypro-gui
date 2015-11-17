@@ -24,6 +24,7 @@
 #include "dlproject.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "dbghelper.h"
@@ -2428,6 +2429,55 @@ bool DlProject::hasGoodIrgaGeneric()
     foreach (const IrgaDesc& irga, project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodPathLength(irga);
+    }
+    return test;
+}
+
+bool DlProject::hasAnemFwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        if (project_state_.anemometerList.first().swVersion().isEmpty())
+        {
+            test = false;
+        }
+    }
+    return test;
+}
+
+bool DlProject::hasGoodWindmasterSwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        // if Gill
+        if (project_state_.anemometerList.first().manufacturer()
+                == AnemDesc::getANEM_MANUFACTURER_STRING_1())
+        {
+            // and if Windmaster/Pro
+            if (project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7() or
+                project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7())
+            {
+                if (!project_state_.anemometerList.first().swVersion().isEmpty())
+                {
+                    auto sw_version = project_state_.anemometerList.first().swVersion();
+                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
+                    qDebug() << "re.valid:" << re.isValid();
+
+                    if (!re.match(sw_version).hasMatch())
+                    {
+                        test = false;
+                    }
+                }
+                else
+                {
+                    test = false;
+                }
+            }
+        }
     }
     return test;
 }

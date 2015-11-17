@@ -55,6 +55,8 @@ public:
     bool hasGoodIrgaSeparations();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
+    bool hasAnemFwVersion();
+    bool hasGoodWindmasterSwVersion();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);

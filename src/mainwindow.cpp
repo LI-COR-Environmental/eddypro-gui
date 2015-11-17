@@ -2447,8 +2447,30 @@ void MainWindow::showGuidedModeMessages_1()
                           "fast ambient temperature or speed-of-sound "
                           "measurement is required.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
+        }
+
+        if (!dlProject_->hasAnemFwVersion())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+                      "Editor - Raw File Description:</span> "
+                      "We suggest to enter the anemometer firmware version "
+                      "for sake of record tracking and future implementations.</li>");
+            doOrangeFix = true;
+            qDebug() << "doOrangeFix" << doOrangeFix;
+        }
+
+        if (!dlProject_->hasGoodWindmasterSwVersion())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+                      "Editor - Raw File Description:</span> "
+                      "Please enter the Gill Windmaster/Pro "
+                      "firmware version in the typical form: 2329.600.01. "
+                      "Not filling this field will affect the application of "
+                      "the Angle of Attack correction .</li>");
+            doOrangeFix = true;
+            qDebug() << "doOrangeFix" << doOrangeFix;
         }
 
         // irga tests
