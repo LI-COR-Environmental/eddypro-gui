@@ -2358,13 +2358,13 @@ void MainWindow::showGuidedModeMessages_1()
 
     if (doRedFix)
     {
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
         red_intro = tr("<p>Some information in the <b>Project Creation</b> "
                        "page is incomplete or erroneous. Please address the "
                        "following issues:</p>");
         red_msg = tr("<ul>");
         doRedFix = false;
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
     }
 
     if (doOrangeFix)
@@ -2388,7 +2388,7 @@ void MainWindow::showGuidedModeMessages_1()
                           ":</span> Load or create one using the Metadata File "
                           "Editor.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->fileDuration()" << dlProject_->fileDuration();
@@ -2398,7 +2398,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "Editor - File Duration:</span> A file duration "
                           "greater than zero is required.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->fieldSep()" << dlProject_->fieldSep();
@@ -2411,7 +2411,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "separator required. Click the \"Raw File "
                           "Settings...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->headerRows()" << dlProject_->headerRows();
@@ -2424,7 +2424,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "header rows required. Click the \"Raw File "
                           "Settings...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         // anemometer tests
@@ -2435,7 +2435,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "description of at least one anemometer is "
                           "required.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
         else if (dlProject_->hasOneGoodAnemometer())
         {
@@ -2524,7 +2524,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Number of ASCII header lines required. "
                           "Click the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryEol"
                      << ecProject_->generalBinaryEol();
@@ -2534,7 +2534,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> ASCII header end of line required. Click "
                           "the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryNBytes"
                      << ecProject_->generalBinaryNBytes();
@@ -2546,7 +2546,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Number of bytes per variable required. "
                           "Click the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryLittleEnd"
                      << ecProject_->generalBinaryLittleEnd();
@@ -2556,7 +2556,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Endianess required. Click the \"Settings..."
                           "\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
         }
     }
@@ -2573,7 +2573,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "file: </span>Select a file using the \"Load...\" "
                           "button or uncheck this option.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
 
@@ -2586,7 +2586,7 @@ void MainWindow::showGuidedModeMessages_1()
             red_msg += tr("<li><span style=\"color: red;\">Biomet file: </span>"
                       "Select a file using the \"Load...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
     else if (ecProject_->generalUseBiomet() == 3)
@@ -2597,13 +2597,13 @@ void MainWindow::showGuidedModeMessages_1()
                       "</span>Select a directory using the \"Browse...\" "
                       "button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
 
     if (!doRedFix)
     {
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
         red_intro.clear();
         red_msg.clear();
         doRedFix = false;
@@ -2617,6 +2617,7 @@ void MainWindow::showGuidedModeMessages_1()
     }
 
     qDebug() << "last doRedFix" << doRedFix;
+    qDebug() << "last doOrangeFix" << doOrangeFix;
     qDebug() << "red title" << red_intro;
     qDebug() << "red msg" << red_msg;
 
