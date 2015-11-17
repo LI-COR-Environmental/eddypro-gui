@@ -24,6 +24,7 @@
 #include "dlproject.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "dbghelper.h"
@@ -33,11 +34,11 @@
 #include "stringutils.h"
 #include "widget_utils.h"
 
-const QString DlProject::ANEM_MANUFACTURER_STRING_0  = QStringLiteral("csi");
-const QString DlProject::ANEM_MANUFACTURER_STRING_1  = QStringLiteral("gill");
-const QString DlProject::ANEM_MANUFACTURER_STRING_2  = QStringLiteral("metek");
-const QString DlProject::ANEM_MANUFACTURER_STRING_3  = QStringLiteral("young");
-const QString DlProject::ANEM_MANUFACTURER_STRING_4  = QStringLiteral("other_sonic");
+const QString DlProject::ANEM_MANUFACTURER_STRING_0 = QStringLiteral("csi");
+const QString DlProject::ANEM_MANUFACTURER_STRING_1 = QStringLiteral("gill");
+const QString DlProject::ANEM_MANUFACTURER_STRING_2 = QStringLiteral("metek");
+const QString DlProject::ANEM_MANUFACTURER_STRING_3 = QStringLiteral("young");
+const QString DlProject::ANEM_MANUFACTURER_STRING_4 = QStringLiteral("other_sonic");
 
 const QString DlProject::ANEM_WIND_FORMAT_STRING_0 = QStringLiteral("uvw");
 const QString DlProject::ANEM_WIND_FORMAT_STRING_1 = QStringLiteral("polar_w");
@@ -47,8 +48,8 @@ const QString DlProject::ANEM_NORTH_ALIGN_STRING_0 = QStringLiteral("axis");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_1 = QStringLiteral("spar");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_2 = QStringLiteral("na");
 
-const QString DlProject::IRGA_MANUFACTURER_STRING_0  = QStringLiteral("licor");
-const QString DlProject::IRGA_MANUFACTURER_STRING_1  = QStringLiteral("other_irga");
+const QString DlProject::IRGA_MANUFACTURER_STRING_0 = QStringLiteral("licor");
+const QString DlProject::IRGA_MANUFACTURER_STRING_1 = QStringLiteral("other_irga");
 
 const QString DlProject::IRGA_MODEL_STRING_0 = QStringLiteral("li6262");
 const QString DlProject::IRGA_MODEL_STRING_1 = QStringLiteral("li7000");
@@ -60,8 +61,10 @@ const QString DlProject::IRGA_MODEL_STRING_6 = QStringLiteral("generic_open_path
 const QString DlProject::IRGA_MODEL_STRING_7 = QStringLiteral("generic_closed_path");
 const QString DlProject::IRGA_MODEL_STRING_8 = QStringLiteral("open_path_krypton");
 const QString DlProject::IRGA_MODEL_STRING_9 = QStringLiteral("open_path_lyman");
-const QString DlProject::IRGA_MODEL_STRING_10 =QStringLiteral("closed_path_krypton");
-const QString DlProject::IRGA_MODEL_STRING_11 =QStringLiteral("closed_path_lyman");
+const QString DlProject::IRGA_MODEL_STRING_10 = QStringLiteral("closed_path_krypton");
+const QString DlProject::IRGA_MODEL_STRING_11 = QStringLiteral("closed_path_lyman");
+const QString DlProject::IRGA_MODEL_STRING_12 = QStringLiteral("li7500rs");
+const QString DlProject::IRGA_MODEL_STRING_13 = QStringLiteral("li7200rs");
 
 const QString DlProject::IRGA_SW_VERSION_STRING_0 = QStringLiteral("0.0.0");
 const QString DlProject::IRGA_SW_VERSION_STRING_1 = QStringLiteral("5.0.3");
@@ -2283,6 +2286,14 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_11();
     }
+    else if (s == DlProject::IRGA_MODEL_STRING_12)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_12();
+    }
+    else if (s == DlProject::IRGA_MODEL_STRING_13)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_13();
+    }
     else
     {
         return QString();
@@ -2355,6 +2366,14 @@ QString DlProject::toIniIrgaModel(const QString& s)
     {
         return DlProject::IRGA_MODEL_STRING_11;
     }
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_12())
+    {
+        return DlProject::IRGA_MODEL_STRING_12;
+    }
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_13())
+    {
+        return DlProject::IRGA_MODEL_STRING_13;
+    }
     else
     {
         return QString();
@@ -2410,6 +2429,55 @@ bool DlProject::hasGoodIrgaGeneric()
     foreach (const IrgaDesc& irga, project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodPathLength(irga);
+    }
+    return test;
+}
+
+bool DlProject::hasAnemFwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        if (project_state_.anemometerList.first().swVersion().isEmpty())
+        {
+            test = false;
+        }
+    }
+    return test;
+}
+
+bool DlProject::hasGoodWindmasterSwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        // if Gill
+        if (project_state_.anemometerList.first().manufacturer()
+                == AnemDesc::getANEM_MANUFACTURER_STRING_1())
+        {
+            // and if Windmaster/Pro
+            if (project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7() or
+                project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7())
+            {
+                if (!project_state_.anemometerList.first().swVersion().isEmpty())
+                {
+                    auto sw_version = project_state_.anemometerList.first().swVersion();
+                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
+                    qDebug() << "re.valid:" << re.isValid();
+
+                    if (!re.match(sw_version).hasMatch())
+                    {
+                        test = false;
+                    }
+                }
+                else
+                {
+                    test = false;
+                }
+            }
+        }
     }
     return test;
 }

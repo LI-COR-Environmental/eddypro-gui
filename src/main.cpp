@@ -222,7 +222,12 @@ int main(int argc, char *argv[])
 
     // check for command line arguments
     QTextStream stream(stdout);
+
+//#ifdef QT_DEBUG
+//    bool getLogFile = true;
+//#else
     bool getLogFile = false;
+//#endif
     QString filename = doArgs(app.arguments(), stream, &getLogFile);
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;

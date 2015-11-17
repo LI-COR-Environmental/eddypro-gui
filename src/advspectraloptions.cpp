@@ -154,14 +154,10 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     fftCheckBox->setToolTip(tr("<b>Use power-of-two samples to speed up the FFT: </b>Check this box to instruct EddyPro to use a number of samples equal to the power-of-two closest to the currently available samples, for calculating spectra. This option greatly speeds up the FFT procedure and is therefore recommended."));
     fftCheckBox->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
 
-    spin31Label = new QLabel(tr("%1").arg(Defs::CO2_STRING));
-    spin31Label->setProperty("blueLabel", true);
-    spin32Label = new QLabel(tr("%2").arg(Defs::H2O_STRING));
-    spin32Label->setProperty("blueLabel", true);
-    spin33Label = new QLabel(tr("%3").arg(Defs::CH4_STRING));
-    spin33Label->setProperty("blueLabel", true);
-    spin34Label = new QLabel(tr("%4 Gas").arg(Defs::GAS4_STRING));
-    spin34Label->setProperty("blueLabel", true);
+    spin31Label = WidgetUtils::createBlueLabel(this, tr("%1").arg(Defs::CO2_STRING));
+    spin32Label = WidgetUtils::createBlueLabel(this, tr("%2").arg(Defs::H2O_STRING));
+    spin33Label = WidgetUtils::createBlueLabel(this, tr("%3").arg(Defs::CH4_STRING));
+    spin34Label = WidgetUtils::createBlueLabel(this, tr("%4 Gas").arg(Defs::GAS4_STRING));
 
     spin30Label = new ClickLabel(tr("Lowest noise frequency :"));
     spin30Label->setToolTip(tr("<b>Lowest noise frequency:</b> High-frequency noise (blue noise) can compromise the spectral assessment by modifying the shape of spectra. EddyPro has an option to eliminate such noise. Set the minimum frequency at which you expect the noise to start being relevant. EddyPro will linearly (in a log-log sense) interpolate the high frequency portion of the spectra and subtract it from the spectra before calculating transfer functions. Set 0 Hz to instruct EddyPro to not perform noise elimination. In this case the string <i>Do not remove noise</i> will appear in this field."));
@@ -410,19 +406,25 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     horstCombo->setItemData(0, tr("<b>Horst and Lenschow (2009), along-wind, crosswind and vertical:</b> Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected."), Qt::ToolTipRole);
     horstCombo->setItemData(1, tr("<b>Horst and Lenschow (2009), only crosswind and vertical:</b> Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected."), Qt::ToolTipRole);
 
+    ////////////////////////////////////////////////////////////////////////////////
+    // NOTE: explicitely disabled
     ghgSystemCorrectionTitle = new QLabel(tr("Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)"));
     ghgSystemCorrectionTitle->setProperty("groupLabel", true);
+    ghgSystemCorrectionTitle->setVisible(false);
 
     hfCorrectGhgBaCheck = new QCheckBox(tr("Digital block averaging"));
     hfCorrectGhgBaCheck->setToolTip(tr("<b>Digital block averaging:</b> ..."));
     hfCorrectGhgBaCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+    hfCorrectGhgBaCheck->setVisible(false);
 
     hfCorrectGhgZohCheck = new QCheckBox(tr("DAC zero-order hold"));
     hfCorrectGhgZohCheck->setToolTip(tr("<b>DAC zero-order hold:</b> ..."));
     hfCorrectGhgZohCheck->setStyleSheet(QStringLiteral("QCheckBox { margin-left: 40px; }"));
+    hfCorrectGhgZohCheck->setVisible(false);
 
     sonicFrequencyLabel = new ClickLabel;
     sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
+    sonicFrequencyLabel->setVisible(false);
     sonicFrequency = new QSpinBox;
     sonicFrequency->setRange(4, 100);
     sonicFrequency->setSpecialValueText(QStringLiteral("Default"));
@@ -430,6 +432,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     sonicFrequency->setSingleStep(1);
     sonicFrequency->setSuffix(QStringLiteral(" [Hz]"));
     sonicFrequency->setToolTip(tr("<b>Sonic frequency: </b>..."));
+    sonicFrequency->setVisible(false);
+////////////////////////////////////////////////////////////////////////////////
 
     spectraExistingRadio = new QRadioButton(tr("Spectral assessment file available for this dataset :"));
     spectraExistingRadio->setToolTip(tr("<b>Spectral assessment file available:</b> If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named \"eddypro_spectral_assessment_ID.txt\". This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results."));
@@ -450,22 +454,16 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     freqAttenuationTitle = new QLabel(tr("Assessment of high-frequency attenuation"));
     freqAttenuationTitle->setProperty("groupLabel", true);
 
-    spin11Label = new QLabel(tr("%1").arg(Defs::CO2_STRING));
-    spin11Label->setProperty("blueLabel", true);
-    spin12Label = new QLabel(tr("%2").arg(Defs::H2O_STRING));
-    spin12Label->setProperty("blueLabel", true);
-    spin13Label = new QLabel(tr("%3").arg(Defs::CH4_STRING));
-    spin13Label->setProperty("blueLabel", true);
-    spin14Label = new QLabel(tr("%4 Gas").arg(Defs::GAS4_STRING));
-    spin14Label->setProperty("blueLabel", true);
+    spin11Label = WidgetUtils::createBlueLabel(this, tr("%1").arg(Defs::CO2_STRING));
+    spin12Label = WidgetUtils::createBlueLabel(this, tr("%2").arg(Defs::H2O_STRING));
+    spin13Label = WidgetUtils::createBlueLabel(this, tr("%3").arg(Defs::CH4_STRING));
+    spin14Label = WidgetUtils::createBlueLabel(this, tr("%4 Gas").arg(Defs::GAS4_STRING));
 
-    minMaxFreqLabel = new QLabel(tr("Frequency range for fitting in-situ "
+    minMaxFreqLabel = WidgetUtils::createBlueLabel(this, tr("Frequency range for fitting in-situ "
                                             "transfer functions (based on "
                                             "temperature and concentrations spectra)"));
-    minMaxFreqLabel->setProperty("blueLabel", true);
 
-    noiseFreqLabel = new QLabel(tr("Removal of high frequency noise"));
-    noiseFreqLabel->setProperty("blueLabel", true);
+    noiseFreqLabel = WidgetUtils::createBlueLabel(this, tr("Removal of high frequency noise"));
 
     spin10Label = new ClickLabel(tr("Lowest frequency :"));
     spin10Label->setToolTip(tr("<b>Lowest frequency:</b> The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval."));
@@ -854,8 +852,9 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(spectraRadioGroup,
             static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             [=](int radioButton){ ecProject_->setSpectraMode(radioButton); });
-    connect(spectraRadioGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(spectraRadioClicked(int)));
+    connect(spectraRadioGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
+            [=](int radioButton){ spectraRadioClicked(radioButton); });
     connect(spectraFileBrowse, &FileBrowseWidget::pathChanged,
             this, &AdvSpectralOptions::updateSpectraFile);
     connect(spectraFileBrowse, &FileBrowseWidget::pathSelected,
@@ -1412,6 +1411,7 @@ void AdvSpectralOptions::spectraRadioClicked(int radioButton)
     // existing spectral assessment file
     if (radioButton == 0)
     {
+        spectraFileBrowse->setEnabled(true);
         spin11Label->setEnabled(false);
         spin12Label->setEnabled(false);
         spin13Label->setEnabled(false);
@@ -1432,6 +1432,8 @@ void AdvSpectralOptions::spectraRadioClicked(int radioButton)
     // non existing spectral assessment file
     else
     {
+        spectraFileBrowse->setEnabled(false);
+
         auto toEnable = hfMethodCheck->isChecked() && isHorstIbromFratini();
 
         spin11Label->setEnabled(toEnable);

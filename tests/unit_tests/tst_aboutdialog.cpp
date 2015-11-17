@@ -2,6 +2,8 @@
 
 #include "aboutdialog.h"
 
+#include <QTest>
+
 void Test_AboutDialog_Class::initTestCase()
 {
 }

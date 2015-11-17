@@ -252,10 +252,7 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     sectorConfigFrame = new QWidget;
     sectorConfigFrame->setLayout(sectorConfigLayout);
 
-    auto okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     propScrollArea = new QScrollArea;
     propScrollArea->setWidget(propertiesFrame);
@@ -367,7 +364,9 @@ void PlanarFitSettingsDialog::close()
 {
     DEBUG_FUNC_NAME
     if (isVisible())
+    {
         hide();
+    }
     emit saveRequest();
 }
 

@@ -106,7 +106,16 @@ HEADERS += \
     src/richtextcheckbox.h \
     src/detectdaterangedialog.h \
     src/downloadmanager.h \
-    $$PWD/src/openfilefilter.h
+    src/openfilefilter.h \
+    src/lisp_parser/xnode.hpp \
+    src/lisp_parser/xtree.hpp \
+    src/calibrationapi.h \
+    src/calibrationinfo.h \
+    src/calibrationdialog.h \
+    src/calibration.h \
+    src/polyfit.hpp \
+    src/vector_utils.h \
+    src/QScienceSpinBox.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -199,7 +208,14 @@ SOURCES +=  \
     src/richtextcheckbox.cpp \
     src/detectdaterangedialog.cpp \
     src/downloadmanager.cpp \
-    $$PWD/src/openfilefilter.cpp
+    src/openfilefilter.cpp \
+    src/lisp_parser/xnode.cpp \
+    src/lisp_parser/xtree.cpp \
+    src/calibrationapi.cpp \
+    src/calibrationinfo.cpp \
+    src/calibrationdialog.cpp \
+    src/QScienceSpinBox.cpp \
+    src/vector_utils.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-#include "testrunner.h"
+//#include "testrunner.h"
+
+#include "QtTestUtil/QtTestUtil.h"
 
 class Test_AboutDialog_Class : public QObject
 {
@@ -18,6 +20,7 @@ private slots:
     void cleanupTestCase();
 };
 
-DECLARE_TEST(Test_AboutDialog_Class)
+//DECLARE_TEST(Test_AboutDialog_Class)
+QTTESTUTIL_REGISTER_TEST(Test_AboutDialog_Class);
 
 #endif // TST_ABOUTDIALOG_H

@@ -216,7 +216,7 @@ void FileUtils::cleanDir(const QString& d)
 }
 
 // recursive
-void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QStringList &illegalFileTypes)
+void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringList &illegalFileTypes)
 {
     QDirIterator it(d, QDirIterator::Subdirectories);
 
@@ -248,6 +248,7 @@ void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QString
     }
 }
 
+// extension = "*.ext"
 const QStringList FileUtils::getFiles(const QString& dir, const QString& extension, bool recurse)
 {
     DEBUG_FUNC_NAME
@@ -540,6 +541,7 @@ QString FileUtils::setupEnv()
         FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
+        FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
 
         return appVerDir;
     }
@@ -610,4 +612,40 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
     datafile.close();
 
     return true;
+}
+
+// append string to filename
+bool FileUtils::appendToFile(const QString &str, const QString &filename)
+{
+    QFile datafile(filename);
+    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        // error opening file
+        qWarning() << "Error: Cannot tag file" << filename;
+        WidgetUtils::warning(nullptr,
+                             QObject::tr("Write Error"),
+                             QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
+                             .arg(filename)
+                             .arg(datafile.errorString()));
+        datafile.close();
+        return false;
+    }
+
+    QTextStream out(&datafile);
+    QString textfile = out.readAll();
+    textfile.append(str);
+    datafile.resize(0);
+    out << textfile;
+    datafile.close();
+
+    return true;
+}
+
+// chmod 644
+void FileUtils::chmod_644(const QString &filename)
+{
+    QFile::setPermissions(filename, QFileDevice::ReadUser
+                                  | QFileDevice::WriteUser
+                                  | QFileDevice::ReadGroup
+                                  | QFileDevice::ReadOther);
 }

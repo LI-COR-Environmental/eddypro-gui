@@ -2,6 +2,8 @@
 
 #include "advspectraloptions.h"
 
+#include <QTest>
+
 void Test_AdvSpectralOptions_Class::initTestCase()
 {
 }

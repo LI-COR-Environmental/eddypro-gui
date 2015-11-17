@@ -51,6 +51,8 @@ public:
     static const QString getIRGA_MODEL_STRING_9();
     static const QString getIRGA_MODEL_STRING_10();
     static const QString getIRGA_MODEL_STRING_11();
+    static const QString getIRGA_MODEL_STRING_12();
+    static const QString getIRGA_MODEL_STRING_13();
 
     IrgaDesc();
 

@@ -25,6 +25,7 @@
 #define ECPROJECTSTATE_H
 
 #include "angle_item.h"
+#include "calibration.h"
 #include "defs.h"
 
 /// \struct GeneralProjectState
@@ -216,7 +217,7 @@ struct ScreenSettingState
 {
     int max_lack = 10;
     int cross_wind = 0;
-    int flow_distortion = 0;
+    int flow_distortion = -1;
     int rot_meth = 1;
     int detrend_meth = 0;
     qreal timeconst = 250.0;
@@ -477,6 +478,7 @@ struct EcProjectState
     TimelagOptState timelagOpt;
     RandomErrorState randomError;
     BiometState biomParam;
+    Calibration driftCorr;
 };
 
 #endif // ECPROJECTSTATE_H

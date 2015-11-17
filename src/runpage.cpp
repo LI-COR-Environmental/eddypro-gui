@@ -538,7 +538,7 @@ void RunPage::bufferData(QByteArray &data)
 
     rxBuffer_.append(data);
     QByteArray line(rxBuffer_);
-    QList<QByteArray> lineList(line.split('\n'));
+    QByteArrayList lineList(line.split('\n'));
 
     qDebug() << "rxBuffer_" << rxBuffer_;
     qDebug() << "lineList.at(0)" << lineList.at(0);
@@ -1328,10 +1328,24 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         return;
     }
+    // get essential file path
     if (cleanLine.contains(QByteArrayLiteral("Essentials file path:")))
     {
-        QString ex_file_path_ = QLatin1String(cleanLine.trimmed().split(':')
-                                            .last().trimmed().constData());
+        auto ex_file_path_ = QString();
+        QByteArrayList path_components = cleanLine.trimmed().split(':');
+
+        // one semicolon only (mac)
+        if (path_components.size() < 3)
+        {
+            ex_file_path_ = QLatin1String(path_components.last().trimmed().constData());
+        }
+        // two semicolons (windows)
+        else
+        {
+            // preserve the drive letter
+            auto full_path_ = path_components.mid(1).join(':');
+            ex_file_path_ = QLatin1String(full_path_.trimmed().constData());
+        }
         ecProject_->setSpectraExFile(ex_file_path_);
         return;
     }

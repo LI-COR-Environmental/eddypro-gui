@@ -106,8 +106,6 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
           return combo;
       case AnemModel::SWVERSION:
           ledit = new QLineEdit(parent);
-          ledit->setInputMask(QStringLiteral("00.00.00;"));
-          ledit->setCursorPosition(0);
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;

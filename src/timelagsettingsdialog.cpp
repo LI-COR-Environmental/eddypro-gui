@@ -133,8 +133,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     radioGroup->addButton(existingRadio, 0);
     radioGroup->addButton(nonExistingRadio, 1);
 
-    h2oTitleLabel = new QLabel(tr("Water vapor time lag as a function of relative humidity"));
-    h2oTitleLabel->setProperty("blueLabel", true);
+    h2oTitleLabel = WidgetUtils::createBlueLabel(this, tr("Water vapor time lag as a function of relative humidity"));
 
     pgRangeLabel = new ClickLabel(tr("Plausibility range around median value :"));
     pgRangeLabel->setToolTip(tr("<b>Plausibility range around median value:</b> The plausibility range is defined as the median time lag, %1 <i>n</i> times the MAD (median of the absolute deviations from the median time lag). Specify <i>n</i> here. The value of 1.5 was heuristically found to be optimal.").arg(Defs::PLUSMINUS));
@@ -157,8 +156,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     rhClassSpin->setSpecialValueText(tr("Do not sort in RH classes"));
     rhClassSpin->setToolTip(rhClassLabel->toolTip());
 
-    gasTitleLabel = new QLabel(tr("Passive gases"));
-    gasTitleLabel->setProperty("blueLabel", true);
+    gasTitleLabel = WidgetUtils::createBlueLabel(this, tr("Passive gases"));
 
     co2MinFluxLabel = new ClickLabel(tr("Minimum (absolute) %1 flux :").arg(Defs::CO2_STRING));
     co2MinFluxLabel->setToolTip(tr("<b>Minimum (absolute) %1 flux:</b> %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.").arg(Defs::CO2_STRING));
@@ -200,15 +198,12 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     leMinFluxSpin->setSuffix(tr("  [%1]").arg(Defs::W_M2_STRING));
     leMinFluxSpin->setToolTip(leMinFluxLabel->toolTip());
 
-    searchWindowLabel = new QLabel(tr("Time lag searching windows"));
-    searchWindowLabel->setProperty("blueLabel", true);
+    searchWindowLabel = WidgetUtils::createBlueLabel(this, tr("Time lag searching windows"));
 
-    minLabel = new QLabel(tr("Minimum"));
-    minLabel->setProperty("blueLabel", true);
+    minLabel = WidgetUtils::createBlueLabel(this, tr("Minimum"));
     minLabel->setToolTip(tr("<b>Minimum:</b> Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as <i>Not set</i> if in doubt, EddyPro will initialize it automatically."));
 
-    maxLabel = new QLabel(tr("Maximum"));
-    maxLabel->setProperty("blueLabel", true);
+    maxLabel = WidgetUtils::createBlueLabel(this, tr("Maximum"));
     maxLabel->setToolTip(tr("<b>Maximum:</b> Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as <i>Not set</i> if in doubt, EddyPro will initialize it automatically."));
 
     co2Label = new ClickLabel(tr("%1 :").arg(Defs::CO2_STRING));
@@ -341,10 +336,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     propertiesFrame->setLayout(propertiesLayout);
     propertiesFrame->setMinimumWidth(propertiesFrame->sizeHint().width());
 
-    auto okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     auto mainLayout = new QGridLayout(this);
     mainLayout->addWidget(groupTitle, 0, 0);

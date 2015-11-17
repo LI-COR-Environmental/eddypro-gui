@@ -55,14 +55,14 @@ namespace Defs
     const QString APP_VERSION_STR = QStringLiteral("6.1.0");
     const QString APP_STAGE_STR = QStringLiteral("alpha1");
 
-    const int PROJECT_FILE_VERSION = 0x040400;
-    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.0");
+    const int PROJECT_FILE_VERSION = 0x040410;
+    const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.1");
 
     const int METADATA_FILE_VERSION = 0x030200;
     const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.2.0");
 
     const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86-32 on Windows<sup>&reg;</sup> 8.1");
-    const QString MAC_COMPILER = QStringLiteral("Apple LLVM 6.1.0 (clang-602.0.53) x86-64 on Mac OS X<sup>&reg;</sup> 10.10.3");
+    const QString MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.0 (clang-700.1.76) x86-64 on Mac OS X<sup>&reg;</sup> 10.11.1");
 
     const QString CURRENT_COPYRIGHT_YEAR = QStringLiteral("2015");
 
@@ -142,9 +142,11 @@ namespace Defs
     const QString APP_NAME_UCASE = QStringLiteral("EDDYPRO");
     const QString ORG_DOMAIN     = QStringLiteral("licor.com");
     const QString ORG_NAME       = QStringLiteral("LI-COR");
-    const QString APP_WEBSITE
+    const QString APP_URL
         = QStringLiteral("http://www.licor.com/env/products/"
                          "eddy_covariance/eddypro.html");
+    const QString CALIBRATION_API_URL
+        = QStringLiteral("http://envprod.licor.com:8080/api/2012-04/instruments/");
 
     // UTF-16 hex codes
     const QChar DEGREE      = QChar(0x00B0);
@@ -206,6 +208,7 @@ namespace Defs
     const QString INI_FILE_DIR         = QStringLiteral("ini");
     const QString TMP_FILE_DIR         = QStringLiteral("tmp");
     const QString SMF_FILE_DIR         = QStringLiteral("smf");
+    const QString CAL_FILE_DIR         = QStringLiteral("cal");
     const QString TRANSLATION_FILE_DIR = QStringLiteral("tra");
     const QString DOC_DIR              = QStringLiteral("docs");
     const QString TEMPLATE_FILE_DIR    = QStringLiteral("file-templates/");
@@ -306,7 +309,7 @@ namespace Defs
 
     const QString LICOR_EP_VERSION_FILE = QStringLiteral("http://dl.licor.com/EddyPro/version");
     const QString EP_SAMPLE_DATA_FILES  = QStringLiteral("http://dl.licor.com/EddyPro/data");
-    const QString EP_USER_AGENT = QStringLiteral("EddyPro Browser 1.0");
+    const QString EP_USER_AGENT = QStringLiteral("EddyPro ") + Defs::APP_VERSION_STR;
 
     const QString GHG_TIMESTAMP_FORMAT = QStringLiteral("yyyy-mm-ddTHHMM??_");
 

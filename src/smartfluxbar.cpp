@@ -239,11 +239,7 @@ void SmartFluxBar::createPackage()
     {
         foreach (const QString& str, mdFileList)
         {
-            // chmod 644
-            QFile::setPermissions(smfDir + QLatin1Char('/') + str, QFileDevice::ReadUser
-                                                                      | QFileDevice::WriteUser
-                                                                      | QFileDevice::ReadGroup
-                                                                      | QFileDevice::ReadOther);
+            FileUtils::chmod_644(smfDir + QLatin1Char('/') + str);
             if (!QFile::copy(smfDir + QLatin1Char('/') + str,
                              smfIniDir + QLatin1Char('/') + str))
             {
