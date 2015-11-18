@@ -14,8 +14,8 @@ DEBUG_OR_RELEASE=$1
 
 # set environment
 echo "### Set up environment for Qt usage..."
-QT_PATH="/c/qt/5.4.2/5.4/mingw491_32/bin"
-MINGW_PATH="/c/qt/5.4.2/tools/mingw491_32/bin"
+QT_PATH="/c/qt/5.5.1/5.5/mingw492_32/bin"
+MINGW_PATH="/c/qt/5.5.1/tools/mingw492_32/bin"
 PATH=$QT_PATH:$PATH
 PATH=$MINGW_PATH:$PATH
 
@@ -24,8 +24,8 @@ win-build-quazip.sh $DEBUG_OR_RELEASE
 
 # set build directory
 app_name="eddypro"
-qt_version="qt-5.4.2"
-mingw_version="mingw-4.9.1"
+qt_version="qt-5.5.1"
+mingw_version="mingw-4.9.2"
 platform="x86"
 build_dir="build-$app_name-$qt_version-$mingw_version-$platform"
 

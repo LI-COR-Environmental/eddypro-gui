@@ -14,8 +14,8 @@ DEBUG_OR_RELEASE=$1
 
 # set environment for qt usage only if necessary
 # (if called by win-build-eddypro.sh it is already inherited
-QT_PATH="/c/qt/5.4.2/5.4/mingw491_32/bin"
-MINGW_PATH="/c/qt/5.4.2/tools/mingw491_32/bin"
+QT_PATH="/c/qt/5.5.1/5.5/mingw492_32/bin"
+MINGW_PATH="/c/qt/5.5.1/tools/mingw492_32/bin"
 prepend_path()
 {
     SAVED_IFS="$IFS"
@@ -33,8 +33,8 @@ prepend_path $MINGW_PATH
 
 # set build directory
 lib_name="quazip"
-qt_version="qt-5.4.2"
-mingw_version="mingw-4.9.1"
+qt_version="qt-5.5.1"
+mingw_version="mingw-4.9.2"
 platform="x86"
 build_dir="build-$lib_name-$qt_version-$mingw_version-$platform"
 

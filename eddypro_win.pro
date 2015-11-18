@@ -53,7 +53,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem"$QT_PATH/../Tools/mingw482_32"
+        QMAKE_CXXFLAGS += -isystem"$QT_PATH/../Tools/mingw492_32"
     }
 } else {
     TARGET = eddypro
