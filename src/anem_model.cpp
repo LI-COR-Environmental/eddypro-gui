@@ -539,6 +539,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 return QVariant(tr("Manufacturer value"));
             case MODEL:
                 return QVariant(tr("Model value"));
+            case SWVERSION:
+                return QVariant(tr("Sw Version"));
             case ID:
                 return QVariant(tr("ID value"));
             case HEIGHT:

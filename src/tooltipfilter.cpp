@@ -25,9 +25,11 @@
 
 #include "tooltipfilter.h"
 
+#include <QDebug>
 #include <QEvent>
 #include <QHelpEvent>
 #include <QToolTip>
+#include <QAbstractItemView>
 
 TooltipFilter::TooltipFilter(bool tooltipOn, QObject *parent)
     : QObject(parent),
@@ -42,22 +44,56 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::ToolTip)
     {
+//        qDebug() << "QEvent::ToolTip";
+//        qDebug() << "obj" << obj;
+//        qDebug() << "obj->parent" << obj->parent();
+
         QWidget *w = static_cast<QWidget *>(obj);
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         QPoint pos = helpEvent->globalPos();
+        QString itemTooltip = w->toolTip();
+        QRect rect = w->rect();
+
+        // case of instrument tables inside a scrollarea viewport
+        if (w->objectName() == QLatin1String("qt_scrollarea_viewport"))
+        {
+            QAbstractItemView* view = qobject_cast<QAbstractItemView*>(obj->parent());
+            if (!view)
+            {
+                return false;
+            }
+            w = view;
+
+            QPoint position = helpEvent->pos();
+
+            QModelIndex index = view->indexAt(position);
+            if (!index.isValid())
+            {
+//                qDebug() << "no valid index";
+                return false;
+            }
+//            qDebug() << "index" << index;
+            rect = view->visualRect(index);
+            itemTooltip = view->model()->data(index, Qt::ToolTipRole).toString();
+//            qDebug() << "itemTooltip" << itemTooltip;
+        }
 
         switch (tooltipType_)
         {
             case TooltipType::NoTooltip:
+                qDebug() << "NoTooltip";
                 QToolTip::hideText();
                 return true;
             case TooltipType::StdTooltip:
-                QToolTip::showText(pos, w->toolTip());
+                qDebug() << "StdTooltip" << itemTooltip;
+                QToolTip::showText(pos, itemTooltip, w, rect);
                 return true;
             case TooltipType::CustomTooltip:
+                qDebug() << "CustomTooltip";
+                break;
             default:
                 QToolTip::hideText();
-                emit updateTooltipRequest(w->toolTip());
+                emit updateTooltipRequest(itemTooltip);
                 return true;
         }
     }
