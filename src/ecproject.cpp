@@ -1241,6 +1241,7 @@ bool EcProject::saveEcProject(const QString &filename)
         datafile.close();
         return false;
     }
+    datafile.close();
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
