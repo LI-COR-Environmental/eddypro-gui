@@ -50,7 +50,7 @@ void DownloadManager::abort()
     {
         if (reply->isRunning())
         {
-            // TODO: remove test when bump Qt version on Windows
+            // TODO(emiola): remove test when bump Qt version on Windows
 #if QT_VERSION > 0x050302
             disconnect(reply, &QNetworkReply::finished,
                        this, &DownloadManager::downloadFinished);
@@ -79,7 +79,7 @@ void DownloadManager::get(const QUrl &url)
     reply = manager.get(request);
     qDebug() << "reply" << reply;
 
-    // TODO: remove test when bump Qt version on Windows
+    // TODO(emiola): remove test when bump Qt version on Windows
 #if (QT_VERSION > 0x050302)
     connect(reply, &QNetworkReply::downloadProgress,
             this, &DownloadManager::downloadProgress);

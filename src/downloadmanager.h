@@ -59,4 +59,4 @@ private:
     QByteArray versionNr;
 };
 
-#endif // DOWNLOADMANAGER_H
+#endif  // DOWNLOADMANAGER_H

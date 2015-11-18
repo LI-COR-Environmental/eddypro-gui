@@ -38,13 +38,13 @@ class QScienceSpinBox : public QDoubleSpinBox
 {
     Q_OBJECT
   public:
-    QScienceSpinBox(QWidget * parent = 0);
+    explicit QScienceSpinBox(QWidget * parent = 0);
 
     int decimals() const;
     void setDecimals(int value);
 
-    QString textFromValue ( double value ) const;
-    double valueFromText ( const QString & text ) const;
+    QString textFromValue(double value) const;
+    double valueFromText(const QString & text) const;
 
   private:
     int dispDecimals;
