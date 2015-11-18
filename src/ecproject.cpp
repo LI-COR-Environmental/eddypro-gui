@@ -1227,7 +1227,7 @@ bool EcProject::saveEcProject(const QString &filename)
 {
     DEBUG_FUNC_NAME
 
-    // try to open file
+    // try to open file just for checking
     QFile datafile(filename);
     if (!datafile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -1244,7 +1244,6 @@ bool EcProject::saveEcProject(const QString &filename)
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
-
     QFileInfo fileinfo = QFileInfo(filename);
 
     QSettings project_ini(filename, QSettings::IniFormat);
@@ -1399,7 +1398,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(QString(QStringLiteral("sa_ch4_g1_stop")), 12);
         project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_start")), 1);
         project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_stop")), 12);
-
     project_ini.endGroup();
 
     // screen general section
@@ -1439,7 +1437,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_35, ec_project_state_.screenGeneral.flag10_col);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_36, QString::number(ec_project_state_.screenGeneral.flag10_threshold, 'f', 4));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_37, ec_project_state_.screenGeneral.flag10_policy);
-        project_ini.endGroup();
+    project_ini.endGroup();
 
     // screen settings section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_SETTINGS);
@@ -1755,7 +1753,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_DRIFT_44, ec_project_state_.driftCorr.h2o_WX);
         project_ini.setValue(EcIni::INI_DRIFT_45, ec_project_state_.driftCorr.h2o_WX_date);
     project_ini.endGroup();
-
     project_ini.sync();
 
     bool result = tagProject(filename);

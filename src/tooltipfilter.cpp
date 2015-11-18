@@ -44,10 +44,6 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::ToolTip)
     {
-//        qDebug() << "QEvent::ToolTip";
-//        qDebug() << "obj" << obj;
-//        qDebug() << "obj->parent" << obj->parent();
-
         QWidget *w = static_cast<QWidget *>(obj);
         QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
         QPoint pos = helpEvent->globalPos();
@@ -69,27 +65,21 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
             QModelIndex index = view->indexAt(position);
             if (!index.isValid())
             {
-//                qDebug() << "no valid index";
                 return false;
             }
-//            qDebug() << "index" << index;
             rect = view->visualRect(index);
             itemTooltip = view->model()->data(index, Qt::ToolTipRole).toString();
-//            qDebug() << "itemTooltip" << itemTooltip;
         }
 
         switch (tooltipType_)
         {
             case TooltipType::NoTooltip:
-                qDebug() << "NoTooltip";
                 QToolTip::hideText();
                 return true;
             case TooltipType::StdTooltip:
-                qDebug() << "StdTooltip" << itemTooltip;
                 QToolTip::showText(pos, itemTooltip, w, rect);
                 return true;
             case TooltipType::CustomTooltip:
-                qDebug() << "CustomTooltip";
                 break;
             default:
                 QToolTip::hideText();
