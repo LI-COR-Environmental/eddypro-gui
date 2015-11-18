@@ -1229,7 +1229,7 @@ bool EcProject::saveEcProject(const QString &filename)
 
     // try to open file
     QFile datafile(filename);
-    if (!datafile.open(QFile::WriteOnly | QFile::Text))
+    if (!datafile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         // error opening file
         qWarning() << "Error: Cannot open file" << filename;

@@ -630,7 +630,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
 #ifdef QT_DEBUG
     QFile outfile(QStringLiteral("parse-engine-output.txt"));
-    outfile.open(QFile::WriteOnly | QFile::Append);
+    outfile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream out(&outfile);
 #endif
 
