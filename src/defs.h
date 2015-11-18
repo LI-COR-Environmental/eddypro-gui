@@ -61,7 +61,7 @@ namespace Defs
     const int METADATA_FILE_VERSION = 0x030200;
     const QString METADATA_FILE_VERSION_STR = QStringLiteral("3.2.0");
 
-    const QString WIN_COMPILER = QStringLiteral("MinGW 4.8.2 x86-32 on Windows<sup>&reg;</sup> 8.1");
+    const QString WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86-32 on Windows<sup>&reg;</sup> 10");
     const QString MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.0 (clang-700.1.76) x86-64 on Mac OS X<sup>&reg;</sup> 10.11.1");
 
     const QString CURRENT_COPYRIGHT_YEAR = QStringLiteral("2015");
