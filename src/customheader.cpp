@@ -73,7 +73,11 @@ void CustomHeader::onlineHelpTrigger()
 
     ClickLabel::HeaderData data = cLabel->headerData();
 
-    if (data == ClickLabel::AnemNAlign)
+    if (data == ClickLabel::AnemSwVersion)
+    {
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Anem_SwVersion.html")));
+    }
+    else if (data == ClickLabel::AnemNAlign)
     {
         WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Axes_Alignment.html")));
     }
