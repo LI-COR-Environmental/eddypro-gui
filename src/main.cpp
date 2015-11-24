@@ -146,10 +146,9 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
+#if defined(Q_OS_MAC)
     // file to open at start
     auto fileToOpen = QString();
-
-#if defined(Q_OS_MAC)
     // install event filter to open clicked files in Mac OS X
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
