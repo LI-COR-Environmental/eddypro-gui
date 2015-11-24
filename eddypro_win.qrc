@@ -204,4 +204,7 @@
         <file>fonts/OpenSans-Semibold.ttf</file>
         <file>fonts/OpenSans-SemiboldItalic.ttf</file>
     </qresource>
+    <qresource prefix="/dtd">
+        <file alias="li7200">dtd/li7200.dtd</file>
+    </qresource>
 </RCC>
