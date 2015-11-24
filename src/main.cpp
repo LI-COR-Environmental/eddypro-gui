@@ -108,8 +108,10 @@ int main(int argc, char *argv[])
     // initialize resources at startup (qrc file loading)
 #if defined(Q_OS_MAC)
     Q_INIT_RESOURCE(eddypro_mac);
-#else
+#elif defined(Q_OS_WIN)
     Q_INIT_RESOURCE(eddypro_win);
+#else
+    Q_INIT_RESOURCE(eddypro_lin);
 #endif
 
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -144,10 +146,9 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
+#if defined(Q_OS_MAC)
     // file to open at start
     auto fileToOpen = QString();
-
-#if defined(Q_OS_MAC)
     // install event filter to open clicked files in Mac OS X
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
@@ -208,6 +209,8 @@ int main(int argc, char *argv[])
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
 #elif defined(Q_OS_MAC)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/macstyle"));
+#else
+    FileUtils::loadStyleSheetFile(QStringLiteral(":/css/linstyle"));
 #endif
 
     QString appEnvPath = FileUtils::setupEnv();
@@ -336,9 +339,11 @@ int main(int argc, char *argv[])
 
 #if defined(Q_OS_MAC)
     qDebug() << "____________________________________________________";
-    qDebug() << "docs.zip extraction:" << extractDocs(installationDir);
+    auto docExtraction = extractDocs(installationDir);
+    qDebug() << "docs.zip extraction:" << docExtraction;
     qDebug() << "____________________________________________________";
 #endif
+    qDebug() << "++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
     const int returnVal = app.exec();
 

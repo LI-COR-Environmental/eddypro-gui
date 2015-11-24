@@ -4,9 +4,7 @@
         <file alias="qm-hover">img/help/help-hover.png</file>
         <file alias="qm-pressed">img/help/help-pressed.png</file>
         <file>img/help/menu-help.png</file>
-
         <file alias="splash-img">img/splash/splash-screen.png</file>
-
         <file alias="amplitude">img/tests/amplitude_resolution.png</file>
         <file alias="dropout">img/tests/dropout.png</file>
         <file alias="skewkurt">img/tests/skew_kurt.png</file>
@@ -25,17 +23,14 @@
         <file alias="skewkurt_small">img/tests/skew_kurt_small.png</file>
         <file alias="spike_small">img/tests/spikes_small.png</file>
         <file alias="timelag_small">img/tests/timelag_small.png</file>
-
         <file alias="adv-menu-output">img/advanced_menu/output-files.png</file>
         <file alias="adv-menu-processing">img/advanced_menu/processing-options.png</file>
         <file alias="adv-menu-spectra">img/advanced_menu/spectral-corrections.png</file>
         <file alias="adv-menu-statistic">img/advanced_menu/statistical-tests.png</file>
-
         <file alias="tips-float">img/tooltip/tips-float.png</file>
         <file alias="tips-float-hover">img/tooltip/tips-float-hover.png</file>
         <file alias="tips-close">img/tooltip/tips-close.png</file>
         <file alias="tips-close-hover">img/tooltip/tips-close-hover.png</file>
-
         <file alias="pause-adv">img/run_toolbar/pause-advanced.png</file>
         <file alias="pause-exp">img/run_toolbar/pause-express.png</file>
         <file alias="run-adv">img/run_toolbar/run-advanced.png</file>
@@ -47,7 +42,6 @@
         <file alias="run-ret">img/run_toolbar/run-retriever.png</file>
         <file alias="pause-ret">img/run_toolbar/pause-retriever.png</file>
         <file alias="resume-ret">img/run_toolbar/resume-retriever.png</file>
-
         <file alias="pause-adv-proc-hover">img/runpage/pause-adv-proc-hover.png</file>
         <file alias="pause-exp-proc">img/runpage/pause-exp-proc.png</file>
         <file alias="pause-exp-proc-hover">img/runpage/pause-exp-proc-hover.png</file>
@@ -60,13 +54,11 @@
         <file alias="resume-ret-proc">img/runpage/resume-ret-proc.png</file>
         <file alias="resume-ret-proc-hover">img/runpage/resume-ret-proc-hover.png</file>
         <file alias="pause-adv-proc">img/runpage/pause-adv-proc.png</file>
-
         <file alias="open">img/file_toolbar/open.png</file>
         <file alias="new">img/file_toolbar/new.png</file>
         <file alias="save">img/file_toolbar/save.png</file>
         <file alias="save-as">img/file_toolbar/save-as.png</file>
         <file alias="close">img/file_toolbar/close.png</file>
-
         <file alias="sepleftsel">img/view_toolbar/arrow-left-selected.png</file>
         <file alias="sep">img/view_toolbar/arrow-normal.png</file>
         <file alias="seprightsel">img/view_toolbar/arrow-right-selected.png</file>
@@ -79,13 +71,10 @@
         <file alias="basic-settings">img/view_toolbar/dataset-selection.png</file>
         <file alias="advanced-settings">img/view_toolbar/advanced-settings.png</file>
         <file alias="console">img/view_toolbar/console-output.png</file>
-
         <file alias="clear-line">img/lineedit/clear-line.png</file>
         <file alias="reset-line">img/lineedit/reset-line.png</file>
-
         <file alias="new-big">img/welcome_page/new-project-start.png</file>
         <file alias="open-big">img/welcome_page/open-project-start.png</file>
-
         <file alias="article">img/news/article.png</file>
         <file alias="ep">img/news/ep.png</file>
         <file alias="poster">img/news/poster.png</file>
@@ -93,7 +82,6 @@
         <file alias="video">img/news/video.png</file>
         <file alias="grad">img/news/grad.png</file>
         <file alias="wrench">img/news/wrench.png</file>
-
         <file alias="minus">img/md_buttons/minus.png</file>
         <file alias="minus-hover">img/md_buttons/minus-hover.png</file>
         <file alias="minus-pressed">img/md_buttons/minus-pressed.png</file>
@@ -102,10 +90,8 @@
         <file alias="plus-hover">img/md_buttons/plus-hover.png</file>
         <file alias="plus-pressed">img/md_buttons/plus-pressed.png</file>
         <file alias="plus-disabled">img/md_buttons/plus-disabled.png</file>
-
         <file alias="licor-logo">img/licor/licor-logo.png</file>
         <file alias="licor-logo-hover">img/licor/licor-logo-hover.png</file>
-
         <file alias="spinup">img/spinbox/spinup.png</file>
         <file alias="spinup-arrow">img/spinbox/spinup-arrow.png</file>
         <file alias="spinup-hover">img/spinbox/spinup-hover.png</file>
@@ -118,34 +104,28 @@
         <file alias="spindown-pressed">img/spinbox/spindown-pressed.png</file>
         <file alias="spindown-disabled">img/spinbox/spindown-disabled.png</file>
         <file alias="spindown-arrow-disabled">img/spinbox/spindown-arrow-disabled.png</file>
-
         <file alias="combo-normal">img/combobox/combobox-normal.png</file>
         <file alias="combo-selected">img/combobox/combobox-selected.png</file>
         <file alias="combo-hover">img/combobox/combobox-hover.png</file>
         <file alias="combo-disabled">img/combobox/combobox-disabled.png</file>
-
         <file alias="fold-down">img/folding_buttons/fold-arrow-down.png</file>
         <file alias="fold-down-hover">img/folding_buttons/fold-arrow-down-hover.png</file>
         <file alias="fold-down-pressed">img/folding_buttons/fold-arrow-down-pressed.png</file>
         <file alias="fold-up">img/folding_buttons/fold-arrow-up.png</file>
         <file alias="fold-up-hover">img/folding_buttons/fold-arrow-up-hover.png</file>
         <file alias="fold-up-pressed">img/folding_buttons/fold-arrow-up-pressed.png</file>
-
         <file alias="checkbox-selected">img/checkbox/checkbox-selected.png</file>
         <file alias="checkbox_active">img/checkbox/checkbox_active.png</file>
         <file alias="checkbox_disabled">img/checkbox/checkbox_disabled.png</file>
         <file alias="checkbox-hover">img/checkbox/checkbox-hover.png</file>
         <file alias="checkbox-hover-checked">img/checkbox/checkbox-hover-checked.png</file>
         <file alias="checkbox-disabled-checked">img/checkbox/checkbox-disabled-checked.png</file>
-
         <file alias="cal-down">img/calendar/cal-dropdown.png</file>
         <file alias="cal-down-pressed">img/calendar/cal-dropdown-pressed.png</file>
         <file alias="cal-left-arrow">img/calendar/left-cal-arrow.png</file>
         <file alias="cal-right-arrow">img/calendar/right-cal-arrow.png</file>
-
         <file alias="exp-progress-bkg">img/progress/express-progress-bar-bkg.png</file>
         <file alias="adv-progress-bkg">img/progress/adv-progress-bar-bkg.png</file>
-
         <file alias="link">img/links/link.png</file>
         <file alias="link-hover">img/links/link-hover.png</file>
         <file alias="link-locked">img/links/link-locked.png</file>
@@ -153,23 +133,18 @@
         <file alias="broken-vlink">img/links/broken-vlink.png</file>
         <file alias="vlink">img/links/vlink.png</file>
         <file alias="vlink-hover">img/links/vlink-hover.png</file>
-
         <file alias="feedback-button">img/feedback/feedback-button.png</file>
         <file alias="feedback-button-hover">img/feedback/feedback-button-hover.png</file>
-
         <file alias="app-logo">img/logo/app-logo.png</file>
         <file alias="app-logo-hover">img/logo/app-logo-hover.png</file>
         <file alias="app-logo-small">img/logo/app-logo-small.png</file>
         <file alias="app-logo-small-hover">img/logo/app-logo-small-hover.png</file>
         <file alias="app-logo-about">img/logo/app-logo-about.png</file>
-
         <file alias="8100-app">img/news/8100A-apps-icon.png</file>
-
         <file alias="smartflux-grey">img/smartflux/SMARTFlux-wordmark-grey.png</file>
         <file alias="smartflux-white">img/smartflux/SMARTFlux-wordmark-white.png</file>
         <file alias="smartflux-close">img/smartflux/smartflux-close.png</file>
         <file alias="smartflux-close-hover">img/smartflux/smartflux-close-hover.png</file>
-
         <file alias="msg-critical">img/msgbox_icons/critical.png</file>
         <file alias="msg-info">img/msgbox_icons/info.png</file>
         <file alias="msg-question">img/msgbox_icons/question.png</file>
@@ -178,6 +153,7 @@
     <qresource prefix="/css">
         <file alias="macstyle">css/eddypro-mac.qss</file>
         <file alias="winstyle">css/eddypro-win.qss</file>
+        <file alias="linstyle">css/eddypro-lin.qss</file>
     </qresource>
     <qresource prefix="/docs">
         <file alias="changelog">CHANGELOG</file>
@@ -206,5 +182,8 @@
     </qresource>
     <qresource prefix="/dtd">
         <file alias="li7200">dtd/li7200.dtd</file>
+    </qresource>
+    <qresource prefix="/lin_files">
+        <file>lin_files/app.png</file>
     </qresource>
 </RCC>

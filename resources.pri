@@ -14,6 +14,11 @@ macx {
     }
 }
 
+# linux
+unix {
+    ICON = $$_PRO_FILE_PWD_/lin_files/app.png
+}
+
 # common
 CONFIG(release, debug|release) {
     # makes rcc to compress at the best level of zlib compression

@@ -511,20 +511,28 @@ QString FileUtils::setupEnv()
 
 #if defined(Q_OS_WIN)
     QString userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
-#elif defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC)
+    QString userHomePath = env.value(QStringLiteral("HOME"));
+    QString configPath = QStringLiteral(".config");
+#else
     QString userHomePath = env.value(QStringLiteral("HOME"));
     QString configPath = QStringLiteral(".config");
 #endif
 
     qDebug() << "env" << env.value(QStringLiteral("HOME"));
     qDebug() << "userHomePath" << userHomePath;
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
+    qDebug() << "configPath" << configPath;
+#elif defined(Q_OS_LINUX)
     qDebug() << "configPath" << configPath;
 #endif
 
     if (!userHomePath.isEmpty())
     {
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
+        FileUtils::createDir(configPath, userHomePath);
+        userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#elif defined(Q_OS_LINUX)
         FileUtils::createDir(configPath, userHomePath);
         userHomePath = userHomePath + QStringLiteral("/") + configPath;
 #endif
