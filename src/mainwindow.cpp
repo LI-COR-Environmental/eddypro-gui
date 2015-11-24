@@ -142,6 +142,8 @@ MainWindow::MainWindow(const QString& filename,
     setWindowIcon(QIcon(QStringLiteral(":/win_files/app_ico.png")));
 #elif defined(Q_OS_MAC)
     setWindowIcon(QIcon(QStringLiteral(":/mac_files/app.icns")));
+#elif defined(Q_OS_LINUX)
+    setWindowIcon(QIcon(QStringLiteral(":/lin_files/app.png")));
 #endif
 
     setDockOptions(QMainWindow::ForceTabbedDocks);

@@ -218,6 +218,8 @@ namespace Defs
     const QString LICOR_ENV_DIR        = QStringLiteral(".licor");
 #elif defined(Q_OS_MAC)
     const QString LICOR_ENV_DIR        = QStringLiteral("licor");
+#elif defined(Q_OS_LINUX)
+    const QString LICOR_ENV_DIR        = QStringLiteral("licor");
 #endif
 
     // file extensions
@@ -246,7 +248,7 @@ namespace Defs
     const QString COMPRESSOR_BIN        = QString(QStringLiteral("7z%1")).arg(EXEC_FILE_EXT);
 #if defined(Q_OS_WIN)
     const QString FREEZER_BIN           = QString(QStringLiteral("pausep%1")).arg(EXEC_FILE_EXT);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
     const QString FREEZER_BIN           = QString(QStringLiteral("kill"));
 #endif
 

@@ -21,6 +21,10 @@ win32 {
     RESOURCES += $$_PRO_FILE_PWD_/eddypro_win.qrc
 }
 
+unix {
+    RESOURCES += $$_PRO_FILE_PWD_/eddypro_lin.qrc
+}
+
 # to copy files in the bundle
 #macx {
 #    jpegtran.path = Contents/MacOS
