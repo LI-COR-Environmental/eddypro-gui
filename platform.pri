@@ -8,6 +8,7 @@ macx {
     # 10.8 = mountain lion
     # 10.9 = mavericks
     # 10.10 = yosemite
+    # 10.11 = el capitan
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
     QMAKE_MAC_SDK = macosx
 
