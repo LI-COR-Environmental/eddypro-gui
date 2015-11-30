@@ -59,7 +59,6 @@ void CustomHeader::addSection(const QString &txt,
 #endif
         questionMarkLabel->setPixmap(pixmap_2x);
         questionMarkLabel->setHeaderData(headerData);
-//        questionMarkLabel->setObjectName(QStringLiteral("questionMarkImg"));
         connect(questionMarkLabel, &ClickLabel::clicked,
                 this, &CustomHeader::onlineHelpTrigger);
 
