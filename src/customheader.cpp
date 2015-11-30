@@ -75,7 +75,7 @@ void CustomHeader::onlineHelpTrigger()
 
     if (data == ClickLabel::AnemSwVersion)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Anem_SwVersion.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/sonic_number.html")));
     }
     else if (data == ClickLabel::AnemNAlign)
     {
