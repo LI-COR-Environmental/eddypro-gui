@@ -51,11 +51,11 @@ class QStringLiteral;
 /// \brief Contains global string literals
 namespace Defs
 {
-    const int APP_VERSION = 0x060600;
+    const int APP_VERSION = 0x060100;
     const QString APP_VERSION_STR = QStringLiteral("6.1.0");
-    const QString APP_STAGE_STR = QStringLiteral("beta3");
+    const QString APP_STAGE_STR = QStringLiteral("beta5");
 
-    const int PROJECT_FILE_VERSION = 0x040410;
+    const int PROJECT_FILE_VERSION = 0x040401;
     const QString PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.1");
 
     const int METADATA_FILE_VERSION = 0x030200;
