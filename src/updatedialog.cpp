@@ -132,7 +132,7 @@ void UpdateDialog::getNewVersion(const QString& version)
                          "Do you want to upgrade your copy?</b></p>"
                          "<p>If you have the <b>SMARTFlux<sup>&reg;</sup> System</b>, we also "
                          "recommend that you <br />"
-                         "<a href=\"http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html\">"
+                         "<a href=\"http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html\">"
                          "check for updates</a> to the embedded SMARTFlux firmware.</p>"
                          "<p>%1 can automatically check for new and updated "
                          "versions using <br />its Software Update Notification feature.<br />"

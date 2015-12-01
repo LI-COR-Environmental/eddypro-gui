@@ -466,7 +466,7 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                 qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro6"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
                 qDebug() << "localUrlString" << localUrlString;
 
                 htmlHelpPath = htmlHelpPath + QString(QStringLiteral("/docs")) + localUrlString;
