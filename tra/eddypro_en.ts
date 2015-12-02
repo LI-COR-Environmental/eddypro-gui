@@ -498,11 +498,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Wind tunnel calibration (Nakai et al., 2006)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="153"/>
-        <source>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to apply...</source>
-        <translation>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to apply...</translation>
-    </message>
-    <message>
         <location filename="../src/advprocessingoptions.cpp" line="154"/>
         <source>&lt;b&gt;Field calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration.</source>
         <translation>&lt;b&gt;Field calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration.</translation>
@@ -780,6 +775,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advprocessingoptions.cpp" line="230"/>
         <source>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</source>
         <translation>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="153"/>
+        <source>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster&lt;sup&gt;%1&lt;/sup&gt; or WindMaster Pro - its firmware version.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="231"/>
@@ -2518,8 +2518,8 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
-        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the selected anemometer.</source>
-        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the selected anemometer.</translation>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="48"/>
@@ -4932,11 +4932,6 @@ Retriever</translation>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2468"/>
-        <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Please enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction .&lt;/li&gt;</source>
-        <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Please enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction .&lt;/li&gt;</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="2481"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</translation>
@@ -5432,6 +5427,11 @@ Output</translation>
         <location filename="../src/mainwindow.cpp" line="2374"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2468"/>
+        <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2897"/>
@@ -6171,22 +6171,22 @@ Output</translation>
         <translation>Below threshold</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="202"/>
+        <location filename="../src/defs.h" line="203"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="203"/>
+        <location filename="../src/defs.h" line="204"/>
         <source>LI-COR EddyPro software suite.</source>
         <translation>LI-COR EddyPro software suite.</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="268"/>
+        <location filename="../src/defs.h" line="269"/>
         <source>project-untitled.%1</source>
         <translation>project-untitled.%1</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="271"/>
+        <location filename="../src/defs.h" line="272"/>
         <source>project-untitled%1.%2</source>
         <translation>project-untitled%1.%2</translation>
     </message>
@@ -7219,8 +7219,8 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="131"/>
-        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
+        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="149"/>
@@ -7428,43 +7428,38 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="167"/>
+        <source>New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="170"/>
+        <source>View the Eddy Covariance Publication List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="173"/>
         <source>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</source>
         <translation>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="170"/>
-        <source>Coming Soon! FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
-        <translation>Coming Soon! FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="173"/>
+        <location filename="../src/welcomepage.cpp" line="179"/>
         <source>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
         <translation>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="176"/>
-        <source>Design Your Own Eddy Covariance System</source>
-        <translation>Design Your Own Eddy Covariance System</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="179"/>
+        <location filename="../src/welcomepage.cpp" line="182"/>
         <source>Eddy Covariance Case Studies and Applications</source>
         <translation>Eddy Covariance Case Studies and Applications</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="182"/>
+        <location filename="../src/welcomepage.cpp" line="185"/>
         <source>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</source>
         <translation>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="185"/>
+        <location filename="../src/welcomepage.cpp" line="188"/>
         <source>View Upcoming Eddy Covariance Training Courses</source>
         <translation>View Upcoming Eddy Covariance Training Courses</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="188"/>
-        <source>Mapping CO2 Concentrations and Fluxes with the LI-8100A</source>
-        <translation>Mapping CO2 Concentrations and Fluxes with the LI-8100A</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="208"/>
@@ -7477,19 +7472,24 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>%1 Help</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="213"/>
-        <source>Getting started</source>
-        <translation>Getting started</translation>
-    </message>
-    <message>
         <location filename="../src/welcomepage.cpp" line="215"/>
         <source>Video tutorials</source>
         <translation>Video tutorials</translation>
     </message>
     <message>
+        <location filename="../src/welcomepage.cpp" line="176"/>
+        <source>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="213"/>
+        <source>Getting started (PDF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/welcomepage.cpp" line="217"/>
-        <source>Printable manual (PDF version)</source>
-        <translation>Printable manual (PDF version)</translation>
+        <source>Printable manual (PDF)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="219"/>
