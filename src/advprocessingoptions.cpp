@@ -150,7 +150,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     aoaMethCombo->addItem(tr("Select automatically"), -1);
     aoaMethCombo->addItem(tr("Field calibration (Nakai and Shimoyama, 2012)"), 1);
     aoaMethCombo->addItem(tr("Wind tunnel calibration (Nakai et al., 2006)"), 2);
-    aoaMethCombo->setItemData(0, tr("<b>Select automatically:</b> Select this option to apply..."), Qt::ToolTipRole);
+    aoaMethCombo->setItemData(0, tr("<b>Select automatically:</b> Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster<sup>%1</sup> or WindMaster Pro - its firmware version.").arg(Defs::TRADEMARK_SYMBOL), Qt::ToolTipRole);
     aoaMethCombo->setItemData(1, tr("<b>Field calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration."), Qt::ToolTipRole);
     aoaMethCombo->setItemData(2, tr("<b>Wind tunnel calibration:</b> Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration."), Qt::ToolTipRole);
     aoaMethCombo->setEnabled(false);
