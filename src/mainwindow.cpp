@@ -4601,7 +4601,7 @@ void MainWindow::openLicorSite() const
 void MainWindow::checkInternetConnection()
 {
 #if 0
-    DEBUG_FUNC_MSG(QString(QStringLiteral("online: %1"))
+    DEBUG_FUNC_MSG(QStringLiteral("online: %1")
                    .arg(Networking::isOnline() ? QStringLiteral("true")
                                                : QStringLiteral("false")))
 #endif

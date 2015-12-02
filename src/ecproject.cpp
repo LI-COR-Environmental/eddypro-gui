@@ -1393,12 +1393,12 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
         // NOTE: temporary placeholders for SA Groups
-        project_ini.setValue(QString(QStringLiteral("sa_co2_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_co2_g1_stop")), 12);
-        project_ini.setValue(QString(QStringLiteral("sa_ch4_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_ch4_g1_stop")), 12);
-        project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_stop")), 12);
+        project_ini.setValue(QStringLiteral("sa_co2_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_co2_g1_stop"), 12);
+        project_ini.setValue(QStringLiteral("sa_ch4_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_ch4_g1_stop"), 12);
+        project_ini.setValue(QStringLiteral("sa_gas4_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_gas4_g1_stop"), 12);
     project_ini.endGroup();
 
     // screen general section

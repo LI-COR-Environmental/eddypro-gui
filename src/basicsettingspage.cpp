@@ -455,7 +455,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     gasDiff->setRange(0.0, 1.0);
     gasDiff->setSingleStep(0.1);
     gasDiff->setAccelerated(true);
-    gasDiff->setSuffix(QString(QStringLiteral(" [%1]")).arg(Defs::CM2_S_STRING));
+    gasDiff->setSuffix(QStringLiteral(" [%1]").arg(Defs::CM2_S_STRING));
     gasDiff->setMinimumWidth(130);
 
     moreButton = new QPushButton;
@@ -1405,7 +1405,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
 
     QString ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;
     QString mdFormat = QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
-    QString biometMdFormat = QString(QStringLiteral("*%1.%2"))
+    QString biometMdFormat = QStringLiteral("*%1.%2")
                             .arg(Defs::DEFAULT_BIOMET_SUFFIX)
                             .arg(Defs::METADATA_FILE_EXT);
 
@@ -3526,35 +3526,35 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     {
         if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_M3_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
         else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
                  || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::UMOL_MOL_STRING);
+            return QStringLiteral("[%1]").arg(Defs::UMOL_MOL_STRING);
         }
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_6())
     {
         if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_M3_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
         else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
                  || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_MOL_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_MOL_STRING);
         }
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_29())
     {
-        return QString(QStringLiteral("[%1]")).arg(Defs::M3_S_STRING);
+        return QStringLiteral("[%1]").arg(Defs::M3_S_STRING);
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_25()
              || var == VariableDesc::getVARIABLE_VAR_STRING_26()
              || var == VariableDesc::getVARIABLE_VAR_STRING_27())
     {
-        return QString(QStringLiteral("[-]"));
+        return QStringLiteral("[-]");
     }
     else
     {
@@ -3562,15 +3562,15 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
             || conversionType == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_2())
         {
             if (!inputUnitType.isEmpty())
-                return QString(QStringLiteral("[%1]")).arg(inputUnitType);
+                return QStringLiteral("[%1]").arg(inputUnitType);
         }
         else
         {
             if (!outputUnitType.isEmpty())
-                return QString(QStringLiteral("[%1]")).arg(outputUnitType);
+                return QStringLiteral("[%1]").arg(outputUnitType);
         }
     }
-    return QString(QStringLiteral("[-]"));
+    return QStringLiteral("[-]");
 }
 
 void BasicSettingsPage::updateFlag1Combo(int i)

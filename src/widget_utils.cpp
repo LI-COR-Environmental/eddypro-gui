@@ -124,7 +124,7 @@ void WidgetUtils::updateComboItemTooltip(QComboBox* combo, int i)
 // set the line edit tooltip to the current line edit text
 void WidgetUtils::updateLineEditToolip(QLineEdit* lineedit)
 {
-    lineedit->setToolTip(QString(QStringLiteral("%1")).arg(lineedit->text()));
+    lineedit->setToolTip(QStringLiteral("%1").arg(lineedit->text()));
 }
 
 // return the data of the current combo item
@@ -469,7 +469,7 @@ void WidgetUtils::showHelp(const QUrl& url)
                     | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
                 qDebug() << "localUrlString" << localUrlString;
 
-                htmlHelpPath = htmlHelpPath + QString(QStringLiteral("/docs")) + localUrlString;
+                htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();

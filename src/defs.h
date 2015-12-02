@@ -242,30 +242,30 @@ namespace Defs
     const auto TEMPLATE_FILE_EXT        = QStringLiteral(".txt");
 
     // eddypro engine
-    const auto ENGINE_RP  = QString(QStringLiteral("%1_rp%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
-    const auto ENGINE_FCC = QString(QStringLiteral("%1_fcc%2")).arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+    const auto ENGINE_RP  = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+    const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
 
     // helper tools
-    const auto COMPRESSOR_BIN        = QString(QStringLiteral("7z%1")).arg(EXEC_FILE_EXT);
+    const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
 #if defined(Q_OS_WIN)
-    const auto FREEZER_BIN           = QString(QStringLiteral("pausep%1")).arg(EXEC_FILE_EXT);
+    const auto FREEZER_BIN           = QStringLiteral("pausep%1").arg(EXEC_FILE_EXT);
 #elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
-    const auto FREEZER_BIN           = QString(QStringLiteral("kill"));
+    const auto FREEZER_BIN           = QStringLiteral("kill");
 #endif
 
     // auxiliary ini files
-    const auto RS_INI = QString(QStringLiteral("rssetup.%1")).arg(AUX_FILE_EXT);
-    const auto PF_INI = QString(QStringLiteral("pfsetup.%1")).arg(AUX_FILE_EXT);
-    const auto SA_INI = QString(QStringLiteral("sasetup.%1")).arg(AUX_FILE_EXT);
-    const auto EC_INI = QString(QStringLiteral("ecsetup.%1")).arg(AUX_FILE_EXT);
+    const auto RS_INI = QStringLiteral("rssetup.%1").arg(AUX_FILE_EXT);
+    const auto PF_INI = QStringLiteral("pfsetup.%1").arg(AUX_FILE_EXT);
+    const auto SA_INI = QStringLiteral("sasetup.%1").arg(AUX_FILE_EXT);
+    const auto EC_INI = QStringLiteral("ecsetup.%1").arg(AUX_FILE_EXT);
 
     const auto GHG_MD_INI_TAG = QStringLiteral(";GHG_METADATA");
-    const auto APP_MD_INI_TAG = QString(QStringLiteral(";%1_METADATA")).arg(APP_NAME_UCASE);
-    const auto APP_PD_INI_TAG = QString(QStringLiteral(";%1_PROCESSING")).arg(APP_NAME_UCASE);
+    const auto APP_MD_INI_TAG = QStringLiteral(";%1_METADATA").arg(APP_NAME_UCASE);
+    const auto APP_PD_INI_TAG = QStringLiteral(";%1_PROCESSING").arg(APP_NAME_UCASE);
 
     // file names
-    const auto DEFAULT_METADATA_FILENAME = QString(QStringLiteral("%1.%2")).arg(APP_NAME_LCASE).arg(METADATA_FILE_EXT);
-    const auto DEFAULT_PROCESSING_FILENAME = QString(QStringLiteral("processing.%1")).arg(PROJECT_FILE_EXT);
+    const auto DEFAULT_METADATA_FILENAME = QStringLiteral("%1.%2").arg(APP_NAME_LCASE).arg(METADATA_FILE_EXT);
+    const auto DEFAULT_PROCESSING_FILENAME = QStringLiteral("processing.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_PROJECT_FILENAME = QObject::tr("project-untitled.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_BIOMET_SUFFIX = QStringLiteral("-biomet");
     const auto DEFAULT_SMARTFLUX_SUFFIX = QStringLiteral("-smartflux");
