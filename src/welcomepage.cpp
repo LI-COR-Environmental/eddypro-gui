@@ -210,11 +210,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     auto item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
     item_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"));
-    auto item_2 = new QListWidgetItem(tr("Getting started"));
+    auto item_2 = new QListWidgetItem(tr("Getting started (PDF)"));
     item_2->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/qmhucid6g0hdvd3d13tk"));
     auto item_3 = new QListWidgetItem(tr("Video tutorials"));
     item_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Video_Library.html"));
-    auto item_4 = new QListWidgetItem(tr("Printable manual (PDF version)"));
+    auto item_4 = new QListWidgetItem(tr("Printable manual (PDF)"));
     item_4->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/1ium2zmwm6hl36yz9bu4"));
     auto item_5 = new QListWidgetItem(tr("Download sample data files"));
     item_5->setData(Qt::UserRole, Defs::EP_SAMPLE_DATA_FILES);

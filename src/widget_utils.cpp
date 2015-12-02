@@ -448,7 +448,7 @@ void WidgetUtils::showHelp(const QUrl& url)
 
             if (url.toString().contains(QStringLiteral("EddyPro_Home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
@@ -460,7 +460,7 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else if (url.toString().contains(QStringLiteral("Video_Library")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/Video_Library.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/Video_Library.html");
             }
             else
             {
