@@ -452,11 +452,11 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_Getting_Started.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_QuickStart_12756.pdf");
             }
             else if (url.toString().contains(QStringLiteral("1ium2zmwm6hl36yz9bu4")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_User_Guide.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_Manual_12025.pdf");
             }
             else if (url.toString().contains(QStringLiteral("Video_Library")))
             {
