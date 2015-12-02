@@ -168,6 +168,7 @@ namespace Defs
     const QChar DEGREE_C    = QChar(0x2103);
     const QChar DEGREE_K    = QChar(0x212A);
     const QChar MAC_COMMAND_KEY    = QChar(0x2318);
+    const auto TRADEMARK_SYMBOL   = QChar(0x2122);
 
     const QString CDEGREE_C_STRING = QStringLiteral("c") + DEGREE_C;
     const QString CDEGREE_K_STRING = QStringLiteral("c") + DEGREE_K;
