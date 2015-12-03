@@ -556,7 +556,10 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 // sw version
                 auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                if (StringUtils::getVersionFromString(project_state_.general.ini_version) <= QT_VERSION_CHECK(3, 1, 0))
+                qDebug() << "sw_version_loading" << sw_version_loading
+                         << StringUtils::getVersionFromString(project_state_.general.ini_version);
+                auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
+                if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
@@ -589,7 +592,8 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                         sw_version_loading = QStringLiteral("6.5.0");
                     }
                 }
-                qDebug() << "sw_version_loading:" << sw_version_loading;
+                isVersionCompatible = false;
+                qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
                 irga.setSwVersion(sw_version_loading);
 
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
@@ -610,7 +614,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     project_ini.endGroup();
 
     project_state_.variableList.clear();
-
     // variables section
     project_ini.beginGroup(DlIni::INIGROUP_VARDESC);
     project_state_.varDesc.separator = project_ini.value(DlIni::INI_VARDESC_FIELDSEP, QString()).toString();
@@ -702,6 +705,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 qreal maxValue = project_ini.value(prefix + DlIni::INI_VARDESC_MAX_VALUE).toReal();
                 qreal minMaxValue = maxValue - minValue;
 
+                qDebug() << "minMaxValue" << minMaxValue;
                 if (minMaxValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -740,6 +744,8 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
 //                DEBUG_FUNC_MSG(project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString())
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "gain-offset aValue" << aValue;
+
                 if (aValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -784,6 +790,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 var.setOutputUnit(QString());
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "conversion none or empty, aValue" << aValue;
                 if (aValue == 0.0)
                 {
                     qDebug() << "var:" << k << "queryBeforeMdFileImport";
@@ -811,6 +818,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 }
 
                 // if input unit is dimensionless or none, then set conversion type to gain-offset
+                qDebug() << "input unit is dimensionless or none";
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
