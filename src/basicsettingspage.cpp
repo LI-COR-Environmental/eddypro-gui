@@ -2529,21 +2529,21 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 void BasicSettingsPage::filterVariables()
 {
     DEBUG_FUNC_NAME
-    const QString li6262Str = QStringLiteral("LI-6262");
-    const QString li7000Str = QStringLiteral("LI-7000");
-    const QString li7200Str = QStringLiteral("LI-7200");
-    const QString li7200RSStr = QStringLiteral("LI-7200RS");
-    const QString li7500Str = QStringLiteral("LI-7500");
-    const QString li7500AStr = QStringLiteral("LI-7500A");
-    const QString li7500RSStr = QStringLiteral("LI-7500RS");
-    const QString li7700Str = QStringLiteral("LI-7700");
-//    const QString densityStr = QStringLiteral("density");
-    const QString fractionStr = QStringLiteral("fraction");
-    const QString ratioStr = QStringLiteral("ratio");
-    const QString noneStr = tr("None");
-    const QString genericStr = tr("Generic");
-    const QString openPathStr1 = QStringLiteral("open");
-    const QString openPathStr2 = QStringLiteral("OP");
+    const auto li6262Str = QStringLiteral("LI-6262");
+    const auto li7000Str = QStringLiteral("LI-7000");
+    const auto li7200Str = QStringLiteral("LI-7200");
+    const auto li7200RSStr = QStringLiteral("LI-7200RS");
+    const auto li7500Str = QStringLiteral("LI-7500");
+    const auto li7500AStr = QStringLiteral("LI-7500A");
+    const auto li7500RSStr = QStringLiteral("LI-7500RS");
+    const auto li7700Str = QStringLiteral("LI-7700");
+//    const auto densityStr = QStringLiteral("density");
+    const auto fractionStr = QStringLiteral("fraction");
+    const auto ratioStr = QStringLiteral("ratio");
+    const auto noneStr = tr("None");
+    const auto genericStr = tr("Generic");
+    const auto openPathStr1 = QStringLiteral("open");
+    const auto openPathStr2 = QStringLiteral("OP");
 
     // filter vars (always possible)
     for (int i = 0; i < co2RefCombo->count(); ++i)
@@ -2751,8 +2751,8 @@ void BasicSettingsPage::filterVariables()
 void BasicSettingsPage::preselectDensityVariables(QComboBox* combo)
 {
     DEBUG_FUNC_NAME
-    const QString densityStr = QStringLiteral("density");
-    const QString ratioStr = QStringLiteral("ratio");
+    const auto densityStr = QStringLiteral("density");
+    const auto ratioStr = QStringLiteral("ratio");
 
     qDebug() << "combo->count()" << combo->count();
     // select the first density var or the first item if not present
@@ -3272,13 +3272,13 @@ void BasicSettingsPage::updateFourthGasSettings(const QString& s)
 {
     DEBUG_FUNC_NAME
 
-    const QString N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
-    const QString COStr = QStringLiteral("CO");
-    const QString SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
-    const QString O3Str = QLatin1Char('O') + Defs::SUBTHREE;
-    const QString NH3Str = QStringLiteral("NH") + Defs::SUBTHREE;
-    const QString NOStr = QStringLiteral("NO");
-    const QString NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
+    const auto N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
+    const auto COStr = QStringLiteral("CO");
+    const auto SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
+    const auto O3Str = QLatin1Char('O') + Defs::SUBTHREE;
+    const auto NH3Str = QStringLiteral("NH") + Defs::SUBTHREE;
+    const auto NOStr = QStringLiteral("NO");
+    const auto NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
 
     QString gasStr(s.split(QLatin1Char(' ')).at(0));
 
