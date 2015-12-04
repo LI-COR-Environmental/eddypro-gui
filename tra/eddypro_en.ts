@@ -2306,27 +2306,27 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AdvancedSettingsPage</name>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="76"/>
+        <location filename="../src/advancedsettingspage.cpp" line="71"/>
         <source>Restore Default Values</source>
         <translation>Restore Default Values</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="77"/>
+        <location filename="../src/advancedsettingspage.cpp" line="72"/>
         <source>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets all the Advanced Settings to the default settings.</source>
         <translation>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets all the Advanced Settings to the default settings.</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="180"/>
+        <location filename="../src/advancedsettingspage.cpp" line="175"/>
         <source>Reset Advanced Settings</source>
         <translation>Reset Advanced Settings</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="181"/>
+        <location filename="../src/advancedsettingspage.cpp" line="176"/>
         <source>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="183"/>
+        <location filename="../src/advancedsettingspage.cpp" line="178"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -6136,27 +6136,27 @@ Output</translation>
         <translation>&amp;No</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="47"/>
+        <location filename="../src/advancedsettingspage.cpp" line="46"/>
         <source>Processing Options</source>
         <translation>Processing Options</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="49"/>
+        <location filename="../src/advancedsettingspage.cpp" line="47"/>
         <source>Statistical Analysis</source>
         <translation>Statistical Analysis</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="51"/>
+        <location filename="../src/advancedsettingspage.cpp" line="48"/>
         <source>Output Files</source>
         <translation>Output Files</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="53"/>
+        <location filename="../src/advancedsettingspage.cpp" line="49"/>
         <source>Computation Options</source>
         <translation>Computation Options</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="55"/>
+        <location filename="../src/advancedsettingspage.cpp" line="50"/>
         <source>Spectral Analysis and Corrections</source>
         <translation>Spectral Analysis and Corrections</translation>
     </message>
