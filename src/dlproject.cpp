@@ -556,9 +556,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 // sw version
                 auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                qDebug() << "sw_version_loading" << sw_version_loading
-                         << StringUtils::getVersionFromString(project_state_.general.ini_version);
+                qDebug() << "sw_version_loading" << sw_version_loading;
                 auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
+                qDebug() << "ini_sw_version" << ini_sw_version << QT_VERSION_CHECK(3, 1, 0);
                 if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -591,9 +591,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     {
                         sw_version_loading = QStringLiteral("6.5.0");
                     }
+                    isVersionCompatible = false;
+                    qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
                 }
-                isVersionCompatible = false;
-                qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
                 irga.setSwVersion(sw_version_loading);
 
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
