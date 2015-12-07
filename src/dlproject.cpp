@@ -505,7 +505,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
-                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString());
+                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString().trimmed());
                 anem.setId(project_ini.value(prefix + DlIni::INI_ANEM_4, QString()).toString());
 
                 qreal heightVal = project_ini.value(prefix + DlIni::INI_ANEM_5, 0.1).toReal();
@@ -1058,7 +1058,7 @@ bool DlProject::saveProject(const QString& filename)
                 project_ini.setValue(prefix + DlIni::INI_ANEM_2, QString());
             }
             project_ini.setValue(prefix + DlIni::INI_ANEM_16,
-                                 anem.swVersion());
+                                 anem.swVersion().trimmed());
             project_ini.setValue(prefix + DlIni::INI_ANEM_4,
                                  anem.id());
             project_ini.setValue(prefix + DlIni::INI_ANEM_5,
@@ -2446,7 +2446,7 @@ bool DlProject::hasAnemFwVersion()
     auto test = true;
     if (!project_state_.anemometerList.isEmpty())
     {
-        if (project_state_.anemometerList.first().swVersion().isEmpty())
+        if (project_state_.anemometerList.first().swVersion().trimmed().isEmpty())
         {
             test = false;
         }
@@ -2469,13 +2469,13 @@ bool DlProject::hasGoodWindmasterSwVersion()
                 project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_7())
             {
-                if (!project_state_.anemometerList.first().swVersion().isEmpty())
+                auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
+                if (!anem_version.isEmpty())
                 {
-                    auto sw_version = project_state_.anemometerList.first().swVersion();
                     QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
                     qDebug() << "re.valid:" << re.isValid();
 
-                    if (!re.match(sw_version).hasMatch())
+                    if (!re.match(anem_version).hasMatch())
                     {
                         test = false;
                     }
