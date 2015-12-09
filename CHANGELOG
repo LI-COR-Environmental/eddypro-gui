@@ -17,7 +17,6 @@
     - Fix: SplitCount function, that caused biomet files not to be properly
       read (and engine to crash) when only one biomet variable is present in
       the external biomet files, besides the timestamp(s).
-    - Code: changed label uslow into ubiomet.
 
     GUI
     - Add: support for new LI-7500RS and LI-7200RS instruments.
