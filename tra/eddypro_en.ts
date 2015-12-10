@@ -3986,24 +3986,40 @@ End: %3
         <translation>&lt;b&gt;Time stamp refers to:&lt;/b&gt; Choose whether the timestamp provided in raw file names refers to the beginning or end of the data interval.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="52"/>
         <source>beginning of averaging period</source>
-        <translation>beginning of averaging period</translation>
+        <translation type="vanished">beginning of averaging period</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
+        <translation type="vanished">&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
+    </message>
+    <message>
+        <source>end of averaging period</source>
+        <translation type="vanished">end of averaging period</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
+        <translation type="vanished">&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
+    </message>
+    <message>
+        <location filename="../src/dlsitetab.cpp" line="52"/>
+        <source>Beginning of dataset period</source>
+        <translation>Beginning of dataset period</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="54"/>
-        <source>&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
-        <translation>&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
+        <source>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
+        <translation>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="55"/>
-        <source>end of averaging period</source>
-        <translation>end of averaging period</translation>
+        <source>End of dataset period</source>
+        <translation>End of dataset period</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="56"/>
-        <source>&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
-        <translation>&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
+        <source>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
+        <translation>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="63"/>
