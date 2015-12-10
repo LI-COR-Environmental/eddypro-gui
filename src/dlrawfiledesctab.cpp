@@ -256,5 +256,5 @@ void DlRawfileDescTab::clearInstrModels()
 
 void DlRawfileDescTab::onlineHelpTrigger_1()
 {
-//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/")));
+//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/")));
 }

@@ -1086,7 +1086,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         currentFileList.append(QLatin1String(cleanLine.trimmed().split('\\')
                                              .last().trimmed().constData()));
-        fileListLabel_->setText(QString(QStringLiteral("File(s): %1"))
+        fileListLabel_->setText(QStringLiteral("File(s): %1")
                                 .arg(currentFileList.join(QLatin1Char('\n'))));
         return;
     }
@@ -1119,7 +1119,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         qDebug() << "progressValue_" << progressValue_;
         mini_progress_bar_->setValue(2);
 
-        fileListLabel_->setText(QString(QStringLiteral("File(s): %1"))
+        fileListLabel_->setText(QStringLiteral("File(s): %1")
                                 .arg(currentFileList.join(QLatin1Char('\n'))));
         return;
     }

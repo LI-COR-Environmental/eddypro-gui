@@ -90,6 +90,8 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -Wno-global-constructors # static objects
         QMAKE_CXXFLAGS_WARN_ON += -Wno-exit-time-destructors # static objects
         QMAKE_CXXFLAGS_WARN_ON += -Wno-documentation -Wno-documentation-unknown-command -Wno-documentation-deprecated-sync
+
+        QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
     }
 } else {
     TARGET = eddypro

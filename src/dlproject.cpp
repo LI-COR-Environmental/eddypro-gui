@@ -505,7 +505,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
-                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString());
+                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString().trimmed());
                 anem.setId(project_ini.value(prefix + DlIni::INI_ANEM_4, QString()).toString());
 
                 qreal heightVal = project_ini.value(prefix + DlIni::INI_ANEM_5, 0.1).toReal();
@@ -556,7 +556,10 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 // sw version
                 auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                if (StringUtils::getVersionFromString(project_state_.general.ini_version) <= QT_VERSION_CHECK(3, 1, 0))
+                qDebug() << "sw_version_loading" << sw_version_loading;
+                auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
+                qDebug() << "ini_sw_version" << ini_sw_version << QT_VERSION_CHECK(3, 1, 0);
+                if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
@@ -588,8 +591,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     {
                         sw_version_loading = QStringLiteral("6.5.0");
                     }
+                    isVersionCompatible = false;
+                    qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
                 }
-                qDebug() << "sw_version_loading:" << sw_version_loading;
                 irga.setSwVersion(sw_version_loading);
 
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
@@ -610,7 +614,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     project_ini.endGroup();
 
     project_state_.variableList.clear();
-
     // variables section
     project_ini.beginGroup(DlIni::INIGROUP_VARDESC);
     project_state_.varDesc.separator = project_ini.value(DlIni::INI_VARDESC_FIELDSEP, QString()).toString();
@@ -702,6 +705,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 qreal maxValue = project_ini.value(prefix + DlIni::INI_VARDESC_MAX_VALUE).toReal();
                 qreal minMaxValue = maxValue - minValue;
 
+                qDebug() << "minMaxValue" << minMaxValue;
                 if (minMaxValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -740,6 +744,8 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
 //                DEBUG_FUNC_MSG(project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString())
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "gain-offset aValue" << aValue;
+
                 if (aValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -784,6 +790,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 var.setOutputUnit(QString());
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "conversion none or empty, aValue" << aValue;
                 if (aValue == 0.0)
                 {
                     qDebug() << "var:" << k << "queryBeforeMdFileImport";
@@ -811,6 +818,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 }
 
                 // if input unit is dimensionless or none, then set conversion type to gain-offset
+                qDebug() << "input unit is dimensionless or none";
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
@@ -1050,7 +1058,7 @@ bool DlProject::saveProject(const QString& filename)
                 project_ini.setValue(prefix + DlIni::INI_ANEM_2, QString());
             }
             project_ini.setValue(prefix + DlIni::INI_ANEM_16,
-                                 anem.swVersion());
+                                 anem.swVersion().trimmed());
             project_ini.setValue(prefix + DlIni::INI_ANEM_4,
                                  anem.id());
             project_ini.setValue(prefix + DlIni::INI_ANEM_5,
@@ -2438,7 +2446,7 @@ bool DlProject::hasAnemFwVersion()
     auto test = true;
     if (!project_state_.anemometerList.isEmpty())
     {
-        if (project_state_.anemometerList.first().swVersion().isEmpty())
+        if (project_state_.anemometerList.first().swVersion().trimmed().isEmpty())
         {
             test = false;
         }
@@ -2461,13 +2469,13 @@ bool DlProject::hasGoodWindmasterSwVersion()
                 project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_7())
             {
-                if (!project_state_.anemometerList.first().swVersion().isEmpty())
+                auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
+                if (!anem_version.isEmpty())
                 {
-                    auto sw_version = project_state_.anemometerList.first().swVersion();
                     QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
                     qDebug() << "re.valid:" << re.isValid();
 
-                    if (!re.match(sw_version).hasMatch())
+                    if (!re.match(anem_version).hasMatch())
                     {
                         test = false;
                     }

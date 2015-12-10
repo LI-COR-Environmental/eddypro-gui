@@ -1716,7 +1716,7 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/EddyPro_Home.html"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
@@ -2467,10 +2467,10 @@ void MainWindow::showGuidedModeMessages_1()
         {
             orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
                       "Editor - Raw File Description:</span> "
-                      "Please enter the Gill Windmaster/Pro "
+                      "Enter the Gill Windmaster/Pro "
                       "firmware version in the typical form: 2329.600.01. "
                       "Not filling this field will affect the application of "
-                      "the Angle of Attack correction .</li>");
+                      "the Angle of Attack correction.</li>");
             doOrangeFix = true;
             qDebug() << "doOrangeFix" << doOrangeFix;
         }
@@ -4283,7 +4283,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Error_Codes.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Error_Codes.html")));
 }
 
 // qt5
@@ -4601,7 +4601,7 @@ void MainWindow::openLicorSite() const
 void MainWindow::checkInternetConnection()
 {
 #if 0
-    DEBUG_FUNC_MSG(QString(QStringLiteral("online: %1"))
+    DEBUG_FUNC_MSG(QStringLiteral("online: %1")
                    .arg(Networking::isOnline() ? QStringLiteral("true")
                                                : QStringLiteral("false")))
 #endif

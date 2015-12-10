@@ -124,7 +124,7 @@ void WidgetUtils::updateComboItemTooltip(QComboBox* combo, int i)
 // set the line edit tooltip to the current line edit text
 void WidgetUtils::updateLineEditToolip(QLineEdit* lineedit)
 {
-    lineedit->setToolTip(QString(QStringLiteral("%1")).arg(lineedit->text()));
+    lineedit->setToolTip(QStringLiteral("%1").arg(lineedit->text()));
 }
 
 // return the data of the current combo item
@@ -448,28 +448,28 @@ void WidgetUtils::showHelp(const QUrl& url)
 
             if (url.toString().contains(QStringLiteral("EddyPro_Home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_Getting_Started.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_QuickStart_12756.pdf");
             }
             else if (url.toString().contains(QStringLiteral("1ium2zmwm6hl36yz9bu4")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_User_Guide.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_Manual_12025.pdf");
             }
             else if (url.toString().contains(QStringLiteral("Video_Library")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/Video_Library.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/Video_Library.html");
             }
             else
             {
                 qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro6"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
                 qDebug() << "localUrlString" << localUrlString;
 
-                htmlHelpPath = htmlHelpPath + QString(QStringLiteral("/docs")) + localUrlString;
+                htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();
