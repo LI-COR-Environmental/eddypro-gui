@@ -49,11 +49,11 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     timestampRefLabel = new ClickLabel;
     timestampRefLabel->setText(tr("Timestamps refers to :"));
     timestampRefLabel->setToolTip(tr("<b>Time stamp refers to:</b> Choose whether the timestamp provided in raw file names refers to the beginning or end of the data interval."));
-    timestampRefStartRadio = new QRadioButton(tr("beginning of averaging period"), this);
+    timestampRefStartRadio = new QRadioButton(tr("Beginning of dataset period"), this);
     timestampRefStartRadio->setChecked(true);
-    timestampRefStartRadio->setToolTip(tr("<b>Beginning of averaging period:</b> Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval."));
-    timestampRefEndRadio = new QRadioButton(tr("end of averaging period"), this);
-    timestampRefEndRadio->setToolTip(tr("<b>End of dataset:</b> Select this option if timestamps in the raw file names refer to the end of the data interval."));
+    timestampRefStartRadio->setToolTip(tr("<b>Beginning of dataset period:</b> Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval."));
+    timestampRefEndRadio = new QRadioButton(tr("End of dataset period"), this);
+    timestampRefEndRadio->setToolTip(tr("<b>End of dataset period:</b> Select this option if timestamps in the raw file names refer to the end of the data interval."));
 
     auto timestampRadioGroup = new QButtonGroup(this);
     timestampRadioGroup->addButton(timestampRefStartRadio, 0);
