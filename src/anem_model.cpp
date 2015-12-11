@@ -53,28 +53,21 @@ void AnemModel::flush()
 // Return data at index
 QVariant AnemModel::data(const QModelIndex& index, int role) const
 {
-    DEBUG_FUNC_NAME
-
     // row is the var field
     int row = index.row();
     int column = index.column();
 
-    qDebug() << "role" << role;
-    qDebug() << "A";
     if (!index.isValid()) return QVariant();
     if (column >= list_->count()) return QVariant();
 
     // column is the entry in the QList
     const AnemDesc& anemDesc = list_->at(column);
-    qDebug() << "B";
 
     QVariant nullStrValue = QString();
-    qDebug() << "C";
 
     // row is the anem field
     if (role == Qt::DisplayRole)
     {
-        qDebug() << "DisplayRole";
         switch (row)
         {
             case MANUFACTURER:
@@ -82,7 +75,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
             case MODEL:
                 if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_0())
                 {
-                    qDebug() << "1 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::campbellModelStringList()))
                     {
@@ -96,7 +88,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
-                    qDebug() << "2 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::gillModelStringList()))
                     {
@@ -110,7 +101,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_2())
                 {
-                    qDebug() << "3 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::metekModelStringList()))
                     {
@@ -124,7 +114,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_3())
                 {
-                    qDebug() << "4 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::youngModelStringList()))
                     {
@@ -138,7 +127,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_4())
                 {
-                    qDebug() << "5 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (anemDesc.model() == AnemDesc::getANEM_MODEL_STRING_12())
                     {
                         return QVariant(anemDesc.model());
@@ -151,9 +139,10 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else
                 {
-                    qDebug() << "6 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     return QVariant(anemDesc.model());
                 }
+            case SWVERSION:
+                return QVariant(anemDesc.swVersion());
             case ID:
                 return QVariant(anemDesc.id());
             case HEIGHT:
@@ -207,21 +196,18 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     || anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_3()
                     || anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_4())
                 {
-                    qDebug() << "1 anemDesc" << anemDesc.manufacturer() << anemDesc.northAlignment();
                     if (anemDesc.northAlignment() == AnemDesc::getANEM_NORTH_ALIGN_STRING_2())
                     {
                         return QVariant(anemDesc.northAlignment());
                     }
                     else
                     {
-                        qDebug() << "const_cast:" << const_cast<AnemModel *>(this);
                         const_cast<AnemModel *>(this)->setData(index, nullStrValue);
                         return nullStrValue;
                     }
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
-                    qDebug() << "2 anemDesc" << anemDesc.manufacturer() << anemDesc.northAlignment();
                     if (anemDesc.northAlignment() == AnemDesc::getANEM_NORTH_ALIGN_STRING_0()
                         || anemDesc.northAlignment() == AnemDesc::getANEM_NORTH_ALIGN_STRING_1())
                     {
@@ -229,14 +215,12 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     }
                     else
                     {
-                        qDebug() << "const_cast:" << const_cast<AnemModel *>(this);
                         const_cast<AnemModel *>(this)->setData(index, nullStrValue);
                         return nullStrValue;
                     }
                 }
                 else
                 {
-                    qDebug() << "3 anemDesc" << anemDesc.manufacturer() << anemDesc.northAlignment();
                     return QVariant(anemDesc.northAlignment());
                 }
             case NORTHOFFSET:
@@ -289,7 +273,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::EditRole)
     {
-        qDebug() << "EditRole";
         switch (row)
         {
             case MANUFACTURER:
@@ -297,7 +280,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
             case MODEL:
                 if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_0())
                 {
-                    qDebug() << "1 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::campbellModelStringList()))
                     {
@@ -310,7 +292,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
-                    qDebug() << "2 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::gillModelStringList()))
                     {
@@ -323,7 +304,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_2())
                 {
-                    qDebug() << "3 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::metekModelStringList()))
                     {
@@ -336,7 +316,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_3())
                 {
-                    qDebug() << "4 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (StringUtils::stringBelongsToList(anemDesc.model(),
                                                          AnemDesc::youngModelStringList()))
                     {
@@ -349,7 +328,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_4())
                 {
-                    qDebug() << "5 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     if (anemDesc.model() == AnemDesc::getANEM_MODEL_STRING_12())
                     {
                         return QVariant(anemDesc.model());
@@ -361,9 +339,10 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                 }
                 else
                 {
-                    qDebug() << "6 modelDesc" << anemDesc.manufacturer() << anemDesc.model();
                     return QVariant(anemDesc.model());
                 }
+            case SWVERSION:
+                return QVariant(anemDesc.swVersion());
             case ID:
                 return QVariant(anemDesc.id());
             case HEIGHT:
@@ -501,11 +480,11 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::TextAlignmentRole)
     {
-        qDebug() << "TextAlignmentRole";
         switch (row)
         {
             case MANUFACTURER:
             case MODEL:
+            case SWVERSION:
             case ID:
             case HEIGHT:
             case WINDFORMAT:
@@ -523,7 +502,6 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::BackgroundRole)
     {
-        qDebug() << "BackgroundRole";
         switch (row)
         {
             case NSEPARATION:
@@ -555,13 +533,14 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
     // tooltips texts
     else if (role == Qt::ToolTipRole)
     {
-        qDebug() << "ToolTipRole";
         switch (row)
         {
             case MANUFACTURER:
                 return QVariant(tr("Manufacturer value"));
             case MODEL:
                 return QVariant(tr("Model value"));
+            case SWVERSION:
+                return QVariant(tr("Sw Version"));
             case ID:
                 return QVariant(tr("ID value"));
             case HEIGHT:
@@ -591,16 +570,12 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
         }
     }
 
-    qDebug() << "Z";
     return QVariant();
 }
 
 // Set data at index
 bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-//    DEBUG_FUNC_NAME
-    qDebug() << "role" << role;
-
     int row = index.row();
     int column = index.column();
 
@@ -627,6 +602,13 @@ bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int rol
                 return false;
             }
             anemDesc.setModel(value.toString());
+            break;
+        case SWVERSION:
+            if (value == anemDesc.swVersion())
+            {
+                return false;
+            }
+            anemDesc.setSwVersion(value.toString());
             break;
         case ID:
             if (value == anemDesc.id())
@@ -721,7 +703,6 @@ bool AnemModel::setData(const QModelIndex& index, const QVariant& value, int rol
 // Insert columns into table
 bool AnemModel::insertColumns(int column, int count, const QModelIndex& parent)
 {
-//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     if (count != 1) return false; // insert only one column at a time
     if ((column < 0) || (column >= list_->count()))
@@ -760,13 +741,13 @@ bool AnemModel::removeColumns(int column, int count, const QModelIndex& parent)
 QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
                                 int role) const
 {
-//    DEBUG_FUNC_NAME
     if (orientation == Qt::Vertical && role == Qt::DisplayRole)
     {
         switch (section)
         {
             case MANUFACTURER:
             case MODEL:
+            case SWVERSION:
             case ID:
             case HEIGHT:
             case WINDFORMAT:
@@ -800,7 +781,6 @@ QVariant AnemModel::headerData(int section, Qt::Orientation orientation,
 // Return flags at index
 Qt::ItemFlags AnemModel::flags(const QModelIndex& index) const
 {
-//    DEBUG_FUNC_NAME
     if (!index.isValid()) return Qt::ItemIsEnabled;
 
     Qt::ItemFlags currentFlags = QAbstractTableModel::flags(index);
@@ -850,7 +830,6 @@ Qt::ItemFlags AnemModel::flags(const QModelIndex& index) const
 // Return number of rows of data
 int AnemModel::rowCount(const QModelIndex& parent) const
 {
-//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     return ANEMNUMCOLS;
 }
@@ -858,7 +837,6 @@ int AnemModel::rowCount(const QModelIndex& parent) const
 // Return number of columns of data
 int AnemModel::columnCount(const QModelIndex& parent) const
 {
-//    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
     return list_->count();
 }

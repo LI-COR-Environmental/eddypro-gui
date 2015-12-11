@@ -37,7 +37,6 @@ HEADERS += \
     src/ecprojectstate.h \
     src/faderwidget.h \
     src/fileutils.h \
-    src/ftpmanager.h \
     src/infomessage.h \
     src/irga_delegate.h \
     src/irga_desc.h \
@@ -105,7 +104,19 @@ HEADERS += \
     src/clickablelabel.h \
     src/hovercheckbox.h \
     src/richtextcheckbox.h \
-    src/detectdaterangedialog.h
+    src/detectdaterangedialog.h \
+    src/downloadmanager.h \
+    src/openfilefilter.h \
+    src/lisp_parser/xnode.hpp \
+    src/lisp_parser/xtree.hpp \
+    src/calibrationapi.h \
+    src/calibrationinfo.h \
+    src/calibrationdialog.h \
+    src/calibration.h \
+    src/polyfit.hpp \
+    src/vector_utils.h \
+    src/QScienceSpinBox.h
+
 SOURCES +=  \
     src/globalsettings.cpp \
     src/widget_utils.cpp \
@@ -131,7 +142,6 @@ SOURCES +=  \
     src/ecproject.cpp \
     src/faderwidget.cpp \
     src/fileutils.cpp \
-    src/ftpmanager.cpp \
     src/infomessage.cpp \
     src/irga_delegate.cpp \
     src/irga_desc.cpp \
@@ -196,7 +206,16 @@ SOURCES +=  \
     src/clickablelabel.cpp \
     src/hovercheckbox.cpp \
     src/richtextcheckbox.cpp \
-    src/detectdaterangedialog.cpp
+    src/detectdaterangedialog.cpp \
+    src/downloadmanager.cpp \
+    src/openfilefilter.cpp \
+    src/lisp_parser/xnode.cpp \
+    src/lisp_parser/xtree.cpp \
+    src/calibrationapi.cpp \
+    src/calibrationinfo.cpp \
+    src/calibrationdialog.cpp \
+    src/QScienceSpinBox.cpp \
+    src/vector_utils.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 
@@ -217,7 +236,6 @@ OTHER_FILES += \
     scripts/build/win-build-eddypro.sh \
     scripts/build/win-build-quazip.sh \
     scripts/build/win-build-libs.sh \
-    scripts/build/win-build-g3log.sh \
     scripts/deploy/eddypro-gui-deploy-win.sh \
     scripts/deploy/mac_deploy.sh \
     scripts/test/run-clang-analyzer.sh \

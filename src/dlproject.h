@@ -51,11 +51,12 @@ public:
     bool hasOneGoodAnemometer();
     bool hasGoodWindComponentsAndTemperature();
     bool hasOneFastTemperature();
-    bool hasNullGainVariables();
     bool hasGoodIrgaNames();
     bool hasGoodIrgaSeparations();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
+    bool hasAnemFwVersion();
+    bool hasGoodWindmasterSwVersion();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);
@@ -182,9 +183,6 @@ public:
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
     static const QStringList restrictedGillModelStringList();
-    static const QStringList gillModelGroup_1();
-    static const QStringList gillModelGroup_2();
-    static const QStringList gillModelGroup_3();
 
 signals:
     // send that a new project has been created
@@ -219,10 +217,8 @@ private:
 
     QString fromIniIrgaManufacturer(const QString& s);
     QString fromIniIrgaModel(const QString& s);
-    QString fromIniIrgaSwVersion(const QString& s);
     QString toIniIrgaManufacturer(const QString& s);
     QString toIniIrgaModel(const QString& s);
-    QString toIniIrgaSwVersion(const QString& s);
 
     bool checkAnemVars(const AnemComponents& hash, bool isFastTempAvailable, bool *anemHasTemp = nullptr);
 
@@ -297,6 +293,8 @@ private:
     static const QString IRGA_MODEL_STRING_9;
     static const QString IRGA_MODEL_STRING_10;
     static const QString IRGA_MODEL_STRING_11;
+    static const QString IRGA_MODEL_STRING_12;
+    static const QString IRGA_MODEL_STRING_13;
 
     static const QString IRGA_SW_VERSION_STRING_0;
     static const QString IRGA_SW_VERSION_STRING_1;

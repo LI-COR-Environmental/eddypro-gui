@@ -39,6 +39,7 @@ public:
     {
         MANUFACTURER,
         MODEL,
+        SWVERSION,
         ID,
         HEIGHT,
         WINDFORMAT,

@@ -150,6 +150,7 @@ bool SpecGroup::operator==(const SpecGroup &sg) const
         && (stop_ == sg.stop_);
 }
 
+// NOTE: not used
 const QStringList SpecGroup::monthStringList()
 {
     return (QStringList()
@@ -169,6 +170,7 @@ const QStringList SpecGroup::monthStringList()
 }
 
 // convert numeric spectra group code in string var
+// NOTE: not used
 const QString SpecGroup::toStringSpecGroup(qint8 i)
 {
     switch (i)

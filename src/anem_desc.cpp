@@ -173,7 +173,7 @@ const QString AnemDesc::getANEM_NORTH_ALIGN_STRING_2()
 AnemDesc::AnemDesc() :
     manufacturer_(QString()),
     model_(QString()),
-    sn_(QString()),
+    swVersion_(QString()),
     id_(QString()),
     height_(0.1),
     windFormat_(getANEM_WIND_FORMAT_STRING_0()),
@@ -189,25 +189,25 @@ AnemDesc::AnemDesc() :
     hasGoodTemp_(false)
 { ; }
 
-AnemDesc::AnemDesc(
-        const QString& manufacturer,
-        const QString& model,
-        const QString& id,
-        qreal height,
-        const QString& windFormat,
-        const QString& northAlignment,
-        qreal northOffset,
-        qreal nSeparation,
-        qreal eSeparation,
-        qreal vSeparation,
-        qreal vPathLength,
-        qreal hPathLength,
-        qreal tau,
-        bool hasGoodWindComponents,
-        bool hasGoodTemp
-        ) :
+AnemDesc::AnemDesc (const QString& manufacturer,
+                    const QString& model,
+                    const QString& swVersion,
+                    const QString& id,
+                    qreal height,
+                    const QString& windFormat,
+                    const QString& northAlignment,
+                    qreal northOffset,
+                    qreal nSeparation,
+                    qreal eSeparation,
+                    qreal vSeparation,
+                    qreal vPathLength,
+                    qreal hPathLength,
+                    qreal tau,
+                    bool hasGoodWindComponents,
+                    bool hasGoodTemp) :
     manufacturer_(manufacturer),
     model_(model),
+    swVersion_(swVersion),
     id_(id),
     height_(height),
     windFormat_(windFormat),
@@ -228,7 +228,7 @@ AnemDesc::~AnemDesc() { ; }
 AnemDesc::AnemDesc(const AnemDesc& anem) :
     manufacturer_(anem.manufacturer_),
     model_(anem.model_),
-    sn_(anem.sn_),
+    swVersion_(anem.swVersion_),
     id_(anem.id_),
     height_(anem.height_),
     windFormat_(anem.windFormat_),
@@ -250,7 +250,7 @@ AnemDesc& AnemDesc::operator=(const AnemDesc& anem)
     {
         manufacturer_ = anem.manufacturer_;
         model_ = anem.model_;
-        sn_ = anem.sn_;
+        swVersion_ = anem.swVersion_;
         id_ = anem.id_;
         height_ = anem.height_;
         windFormat_ = anem.windFormat_;
@@ -273,7 +273,7 @@ bool AnemDesc::operator==(const AnemDesc& anem) const
 {
     return ((manufacturer_ == anem.manufacturer_)
              && (model_ == anem.model_)
-             && (sn_ == anem.sn_)
+             && (swVersion_ == anem.swVersion_)
              && (id_ == anem.id_)
              && qFuzzyCompare(height_, anem.height_)
              && (windFormat_ == anem.windFormat_)
@@ -343,6 +343,7 @@ const QStringList AnemDesc::gillModelStringList()
 }
 
 // Return string list of usage types
+// NOTE: not used
 const QStringList AnemDesc::restrictedGillModelStringList()
 {
     return (QStringList()

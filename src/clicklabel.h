@@ -64,6 +64,7 @@ public:
 
     enum HeaderData {
         NoHeader = 0,
+        AnemSwVersion,
         AnemNAlign,
         AnemNOffset,
         AnemNSep,
@@ -82,10 +83,11 @@ public:
         VarMinTLag,
         VarMaxTLag
     };
+
     HeaderData headerData() const { return headerData_; }
     void setHeaderData(HeaderData data);
 
-Q_SIGNALS:
+signals:
     void clicked();
 
 protected:

@@ -25,6 +25,7 @@
 #define ECPROJECTSTATE_H
 
 #include "angle_item.h"
+#include "calibration.h"
 #include "defs.h"
 
 /// \struct GeneralProjectState
@@ -99,6 +100,9 @@ struct ProjectGeneralState
     int bin_sp_avail = 0;
     int full_sp_avail = 0;
     int files_found = 0;
+    int hf_correct_ghg_ba = 1;
+    int hf_correct_ghg_zoh = 1;
+    int sonic_output_rate = -1;
 };
 
 /// \struct SpectraSettingsState
@@ -213,7 +217,7 @@ struct ScreenSettingState
 {
     int max_lack = 10;
     int cross_wind = 0;
-    int flow_distortion = 0;
+    int flow_distortion = -1;
     int rot_meth = 1;
     int detrend_meth = 0;
     qreal timeconst = 250.0;
@@ -474,6 +478,7 @@ struct EcProjectState
     TimelagOptState timelagOpt;
     RandomErrorState randomError;
     BiometState biomParam;
+    Calibration driftCorr;
 };
 
 #endif // ECPROJECTSTATE_H

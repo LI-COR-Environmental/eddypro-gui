@@ -43,16 +43,11 @@
 #include "smartfluxbar.h"
 #include "widget_utils.h"
 
-const QString AdvancedSettingsPage::PAGE_TITLE_0 =
-        QObject::tr("Processing Options");
-const QString AdvancedSettingsPage::PAGE_TITLE_1 =
-        QObject::tr("Statistical Analysis");
-const QString AdvancedSettingsPage::PAGE_TITLE_2 =
-        QObject::tr("Output Files");
-const QString AdvancedSettingsPage::PAGE_TITLE_3 =
-        QObject::tr("Computation Options");
-const QString AdvancedSettingsPage::PAGE_TITLE_4 =
-        QObject::tr("Spectral Analysis and Corrections");
+const QString AdvancedSettingsPage::PAGE_TITLE_0 = QObject::tr("Processing Options");
+const QString AdvancedSettingsPage::PAGE_TITLE_1 = QObject::tr("Statistical Analysis");
+const QString AdvancedSettingsPage::PAGE_TITLE_2 = QObject::tr("Output Files");
+const QString AdvancedSettingsPage::PAGE_TITLE_3 = QObject::tr("Computation Options");
+const QString AdvancedSettingsPage::PAGE_TITLE_4 = QObject::tr("Spectral Analysis and Corrections");
 
 AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
                                            DlProject* dlProject,

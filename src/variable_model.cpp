@@ -1135,6 +1135,7 @@ void VariableModel::setInstrModels(const QStringList& list)
     emit layoutChanged();
 }
 
+// NOTE: not used
 void VariableModel::triggerSetData() const
 {
     DEBUG_FUNC_NAME

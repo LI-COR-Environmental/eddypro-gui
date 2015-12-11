@@ -3,7 +3,7 @@
 TEMPLATE = app
 
 # EddyPro version, not used
-VERSION = 6.0.0
+VERSION = 6.1.0
 
 # Qt version and path
 QT_VER = $$[QT_VERSION]
@@ -59,9 +59,8 @@ CONFIG(debug, debug|release) {
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem"$$QT_PATH/include"
 
-#    QMAKE_CXXFLAGS += -Xclang -isystem-prefix=boost/math
-    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_55_0/boost/math"
-#    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/libs/g3log/g2log/src"
+    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/math"
+    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/numeric/ublas"
 
     win32 {
         # mingw warnings
@@ -69,7 +68,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem"$QT_PATH/../Tools/mingw482_32"
+        QMAKE_CXXFLAGS += -isystem"$QT_PATH/../Tools/mingw492_32"
     }
     macx {
         QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtCore.framework/Headers"
@@ -91,6 +90,8 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -Wno-global-constructors # static objects
         QMAKE_CXXFLAGS_WARN_ON += -Wno-exit-time-destructors # static objects
         QMAKE_CXXFLAGS_WARN_ON += -Wno-documentation -Wno-documentation-unknown-command -Wno-documentation-deprecated-sync
+
+        QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
     }
 } else {
     TARGET = eddypro
@@ -107,6 +108,11 @@ CONFIG(debug, debug|release) {
         QMAKE_POST_LINK += && strip -S $$OUT_PWD/release/eddypro.app/Contents/MacOS/eddypro
     }
 }
+
+# temporarly necessary with XCode 7 and Qt 5.4.2/QtCreator 3.4.2
+# to avoid compilation issues with the shipped makespec
+# https://forum.qt.io/topic/58926/solved-xcode-7-and-qt-error/4
+#QMAKE_MAC_SDK = macosx10.11
 
 DEFINES += QT_NO_CAST_FROM_ASCII
 DEFINES += QT_NO_CAST_FROM_BYTEARRAY

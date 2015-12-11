@@ -217,24 +217,15 @@ private slots:
     void onClickAbsLimLabel_1();
     void onClickAbsLimLabel_2();
     void onClickAbsLimLabel_3();
-    void onClickAbsLimLabel_4();
     void onClickAbsLimLabel_5();
-    void onClickAbsLimLabel_6();
     void onClickAbsLimLabel_7();
-    void onClickAbsLimLabel_8();
     void onClickAbsLimLabel_9();
-    void onClickAbsLimLabel_10();
     void onClickAbsLimLabel_11();
-    void onClickAbsLimLabel_12();
 
     void onClickSkewnessLabel_1();
     void onClickSkewnessLabel_2();
-    void onClickSkewnessLabel_3();
-    void onClickSkewnessLabel_4();
     void onClickSkewnessLabel_5();
     void onClickSkewnessLabel_6();
-    void onClickSkewnessLabel_7();
-    void onClickSkewnessLabel_8();
 
     void onClickDiscontLabel_1();
     void onClickDiscontLabel_2();

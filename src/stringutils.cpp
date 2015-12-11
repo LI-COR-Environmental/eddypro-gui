@@ -93,32 +93,34 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
     return ok;
 }
 
+// assume the input is in classic "MM.NN.PP" form (MM = major, NN = minor, PP = patch)
+// and return 0xMMNNPP
+// if patch number is missing, it will be zeroed
+int StringUtils::getVersionFromString(const QString& versionStr)
+{
+    auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
+    qDebug() << "major" << major;
+
+    auto minor = versionStr.section(QLatin1Char('.'), 1, 1).toInt();
+    qDebug() << "minor" << minor;
+
+    auto patchStr = versionStr.section(QLatin1Char('.'), 2, 2);
+    // in case of 2 digits version only
+    if (patchStr.isEmpty())
+    {
+        patchStr = QStringLiteral("00");
+    }
+    auto patch = patchStr.toInt();
+    qDebug() << "patch" << patch;
+
+    return QT_VERSION_CHECK(major, minor, patch);
+}
+
 bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& localVersion)
 {
     DEBUG_FUNC_NAME
 
-    QStringList remoteNumbers = remoteVersion.split(QLatin1Char('.'));
-    QStringList localNumbers = localVersion.split(QLatin1Char('.'));
-
-    qDebug() << remoteNumbers;
-    qDebug() << localNumbers;
-
-    if (remoteNumbers.at(0) > localNumbers.at(0))
-        return true;
-    else if (remoteNumbers.at(0) < localNumbers.at(0))
-        return false;
-
-    if (remoteNumbers.at(1) > localNumbers.at(1))
-        return true;
-    else if (remoteNumbers.at(1) < localNumbers.at(1))
-        return false;
-
-    if (remoteNumbers.at(2) > localNumbers.at(2))
-        return true;
-    else if (remoteNumbers.at(2) < localNumbers.at(2))
-        return false;
-
-    return false;
+    return getVersionFromString(remoteVersion) > getVersionFromString((localVersion));
 }
 
 const QStringList StringUtils::subStringList(const QStringList& list, int begin, int end)
@@ -130,4 +132,11 @@ const QStringList StringUtils::subStringList(const QStringList& list, int begin,
         sublist << list.value(i);
     }
     return sublist;
+}
+
+
+QString StringUtils::fromUnixTimeToISOString(double msec)
+{
+    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(msec));
+    return timestamp.toString(Qt::ISODate);
 }

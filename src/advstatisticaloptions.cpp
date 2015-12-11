@@ -152,8 +152,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     randomMethodCombo->setItemData(0, tr("<b>Finkelstein and Sims (2001):</b> Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(1, tr("<b>Mann and Lenschow (1994):</b> Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001)."), Qt::ToolTipRole);
 
-    auto itsLabel = new QLabel(tr("Integral turbulence scale (ITS)"));
-    itsLabel->setProperty("blueLabel", true);
+    auto itsLabel = WidgetUtils::createBlueLabel(this, tr("Integral turbulence scale (ITS)"));
     itsLabel->setToolTip(tr(""));
 
     itsDefinitionLabel = new ClickLabel(tr("Definition of the ITS :"));
@@ -600,8 +599,7 @@ void AdvStatisticalOptions::createTabWidget()
     spikeGraphLabel = new QLabel;
     spikeGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/spike")));
 
-    auto plausibilityLabel = new QLabel(tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::SIGMA));
-    plausibilityLabel->setProperty("blueLabel", true);
+    auto plausibilityLabel = WidgetUtils::createBlueLabel(this, tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::SIGMA));
     plausibilityLabel->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
 
     despLabel_2 = new ClickLabel(tr("All other variables : "));
@@ -803,12 +801,10 @@ void AdvStatisticalOptions::createTabWidget()
     tab3 = new QWidget;
     tab3->setObjectName(QStringLiteral("toolboxContent"));
 
-    auto minLabel = new QLabel(tr("Minimum"));
-    minLabel->setProperty("blueLabel", true);
+    auto minLabel = WidgetUtils::createBlueLabel(this, tr("Minimum"));
     minLabel->setToolTip(tr("<b>Minimum:</b> Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged."));
 
-    auto maxLabel = new QLabel(tr("Maximum"));
-    maxLabel->setProperty("blueLabel", true);
+    auto maxLabel = WidgetUtils::createBlueLabel(this, tr("Maximum"));
     maxLabel->setToolTip(tr("<b>Maximum:</b> Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged."));
 
     absLimLabel_1 = new ClickLabel(tr("U : "));
@@ -999,12 +995,10 @@ void AdvStatisticalOptions::createTabWidget()
     tab4 = new QWidget;
     tab4->setObjectName(QStringLiteral("toolboxContent"));
 
-    auto hardFlagLabel = new QLabel(tr("Hard-flag threshold"));
-    hardFlagLabel->setProperty("blueLabel", true);
+    auto hardFlagLabel = WidgetUtils::createBlueLabel(this, tr("Hard-flag threshold"));
     hardFlagLabel->setToolTip(tr("<b>Hard-flag threshold:</b> Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged."));
 
-    auto softFlagLabel = new QLabel(tr("Soft-flag threshold"));
-    softFlagLabel->setProperty("blueLabel", true);
+    auto softFlagLabel = WidgetUtils::createBlueLabel(this, tr("Soft-flag threshold"));
     softFlagLabel->setToolTip(tr("<b>Soft-flag threshold:</b> Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged."));
 
     skewnessLabel_1 = new ClickLabel(tr("Skewness lower limit : "));
@@ -1098,12 +1092,10 @@ void AdvStatisticalOptions::createTabWidget()
     tab5 = new QWidget;
     tab5->setObjectName(QStringLiteral("toolboxContent"));
 
-    auto hardFlagLabel_2 = new QLabel(tr("Hard-flag threshold"));
-    hardFlagLabel_2->setProperty("blueLabel", true);
+    auto hardFlagLabel_2 = WidgetUtils::createBlueLabel(this, tr("Hard-flag threshold"));
     hardFlagLabel_2->setToolTip(tr("<b>Hard-flag threshold:</b> Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions."));
 
-    auto softFlagLabel_2 = new QLabel(tr("Soft-flag threshold"));
-    softFlagLabel_2->setProperty("blueLabel", true);
+    auto softFlagLabel_2 = WidgetUtils::createBlueLabel(this, tr("Soft-flag threshold"));
     softFlagLabel_2->setToolTip(tr("<b>Soft-flag threshold:</b> Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions."));
 
     discontLabel_1 = new ClickLabel(tr("U : "));
@@ -2822,57 +2814,57 @@ void AdvStatisticalOptions::createQuestionMark()
 
 void AdvStatisticalOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_10()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Random_Uncertainty_Estimation.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Random_Uncertainty_Estimation.html")));
 }
 
 void AdvStatisticalOptions::updateRandomErrorArea(bool b)
@@ -3047,22 +3039,10 @@ void AdvStatisticalOptions::onClickAbsLimLabel_3()
     absLimSpin_3->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_4()
-{
-    absLimSpin_4->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_4->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_5()
 {
     absLimSpin_5->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_5->selectAll();
-}
-
-void AdvStatisticalOptions::onClickAbsLimLabel_6()
-{
-    absLimSpin_6->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_6->selectAll();
 }
 
 void AdvStatisticalOptions::onClickAbsLimLabel_7()
@@ -3071,34 +3051,16 @@ void AdvStatisticalOptions::onClickAbsLimLabel_7()
     absLimSpin_7->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_8()
-{
-    absLimSpin_8->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_8->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_9()
 {
     absLimSpin_9->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_9->selectAll();
 }
 
-void AdvStatisticalOptions::onClickAbsLimLabel_10()
-{
-    absLimSpin_10->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_10->selectAll();
-}
-
 void AdvStatisticalOptions::onClickAbsLimLabel_11()
 {
     absLimSpin_11->setFocus(Qt::ShortcutFocusReason);
     absLimSpin_11->selectAll();
-}
-
-void AdvStatisticalOptions::onClickAbsLimLabel_12()
-{
-    absLimSpin_12->setFocus(Qt::ShortcutFocusReason);
-    absLimSpin_12->selectAll();
 }
 
 void AdvStatisticalOptions::onClickSkewnessLabel_1()
@@ -3113,18 +3075,6 @@ void AdvStatisticalOptions::onClickSkewnessLabel_2()
     skewnessSpin_2->selectAll();
 }
 
-void AdvStatisticalOptions::onClickSkewnessLabel_3()
-{
-    skewnessSpin_3->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_3->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_4()
-{
-    skewnessSpin_4->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_4->selectAll();
-}
-
 void AdvStatisticalOptions::onClickSkewnessLabel_5()
 {
     skewnessSpin_5->setFocus(Qt::ShortcutFocusReason);
@@ -3135,18 +3085,6 @@ void AdvStatisticalOptions::onClickSkewnessLabel_6()
 {
     skewnessSpin_6->setFocus(Qt::ShortcutFocusReason);
     skewnessSpin_6->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_7()
-{
-    skewnessSpin_7->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_7->selectAll();
-}
-
-void AdvStatisticalOptions::onClickSkewnessLabel_8()
-{
-    skewnessSpin_8->setFocus(Qt::ShortcutFocusReason);
-    skewnessSpin_8->selectAll();
 }
 
 void AdvStatisticalOptions::onClickDiscontLabel_1()

@@ -538,7 +538,7 @@ void RunPage::bufferData(QByteArray &data)
 
     rxBuffer_.append(data);
     QByteArray line(rxBuffer_);
-    QList<QByteArray> lineList(line.split('\n'));
+    QByteArrayList lineList(line.split('\n'));
 
     qDebug() << "rxBuffer_" << rxBuffer_;
     qDebug() << "lineList.at(0)" << lineList.at(0);
@@ -630,7 +630,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
 #ifdef QT_DEBUG
     QFile outfile(QStringLiteral("parse-engine-output.txt"));
-    outfile.open(QFile::WriteOnly | QFile::Append);
+    outfile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream out(&outfile);
 #endif
 
@@ -1086,7 +1086,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         currentFileList.append(QLatin1String(cleanLine.trimmed().split('\\')
                                              .last().trimmed().constData()));
-        fileListLabel_->setText(QString(QStringLiteral("File(s): %1"))
+        fileListLabel_->setText(QStringLiteral("File(s): %1")
                                 .arg(currentFileList.join(QLatin1Char('\n'))));
         return;
     }
@@ -1119,7 +1119,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         qDebug() << "progressValue_" << progressValue_;
         mini_progress_bar_->setValue(2);
 
-        fileListLabel_->setText(QString(QStringLiteral("File(s): %1"))
+        fileListLabel_->setText(QStringLiteral("File(s): %1")
                                 .arg(currentFileList.join(QLatin1Char('\n'))));
         return;
     }
@@ -1328,10 +1328,24 @@ void RunPage::parseEngineOutput(const QByteArray &data)
 
         return;
     }
+    // get essential file path
     if (cleanLine.contains(QByteArrayLiteral("Essentials file path:")))
     {
-        QString ex_file_path_ = QLatin1String(cleanLine.trimmed().split(':')
-                                            .last().trimmed().constData());
+        auto ex_file_path_ = QString();
+        QByteArrayList path_components = cleanLine.trimmed().split(':');
+
+        // one semicolon only (mac)
+        if (path_components.size() < 3)
+        {
+            ex_file_path_ = QLatin1String(path_components.last().trimmed().constData());
+        }
+        // two semicolons (windows)
+        else
+        {
+            // preserve the drive letter
+            auto full_path_ = path_components.mid(1).join(':');
+            ex_file_path_ = QLatin1String(full_path_.trimmed().constData());
+        }
         ecProject_->setSpectraExFile(ex_file_path_);
         return;
     }

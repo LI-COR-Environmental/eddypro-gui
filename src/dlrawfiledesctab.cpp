@@ -184,6 +184,7 @@ void DlRawfileDescTab::refresh()
     dlProject_->blockSignals(false);
 }
 
+// NOTE: not used
 void DlRawfileDescTab::rawfileViewRefresh()
 {
     variableView_->clearSelection();
@@ -255,5 +256,5 @@ void DlRawfileDescTab::clearInstrModels()
 
 void DlRawfileDescTab::onlineHelpTrigger_1()
 {
-//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/")));
+//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/")));
 }

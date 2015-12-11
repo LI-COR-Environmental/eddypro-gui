@@ -34,12 +34,14 @@ ClickLabel::ClickLabel(QWidget* parent, Qt::WindowFlags flags)
 }
 
 ClickLabel::ClickLabel(const QString& text, QWidget* parent, Qt::WindowFlags flags)
-    : QLabel(text, parent, flags)
+    : QLabel(text, parent, flags),
+      headerData_(NoHeader)
 {
 }
 
 ClickLabel::ClickLabel(const ClickLabel& clabel)
-    : QLabel()
+    : QLabel(),
+      headerData_(NoHeader)
 {
     Q_UNUSED(clabel)
 }

@@ -116,27 +116,15 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_11()
     return s;
 }
 
-const QString IrgaDesc::getIRGA_SW_VERSION_0()
+const QString IrgaDesc::getIRGA_MODEL_STRING_12()
 {
-    static const QString s(QStringLiteral("Unknown"));
+    static const QString s(QStringLiteral("LI-7500RS"));
     return s;
 }
 
-const QString IrgaDesc::getIRGA_SW_VERSION_1()
+const QString IrgaDesc::getIRGA_MODEL_STRING_13()
 {
-    static const QString s(QStringLiteral("5.0.3 and below"));
-    return s;
-}
-
-const QString IrgaDesc::getIRGA_SW_VERSION_2()
-{
-    static const QString s(QStringLiteral("6.0.0"));
-    return s;
-}
-
-const QString IrgaDesc::getIRGA_SW_VERSION_3()
-{
-    static const QString s(QStringLiteral("6.5.0 and above"));
+    static const QString s(QStringLiteral("LI-7200RS"));
     return s;
 }
 
@@ -144,7 +132,6 @@ IrgaDesc::IrgaDesc() :
     manufacturer_(QString(getIRGA_MANUFACTURER_STRING_0())),
     model_(QString()),
     swVersion_(QString()),
-    sn_(QString()),
     id_(QString()),
     tubeLength_(0.0),
     tubeDiameter_(0.0),
@@ -197,7 +184,6 @@ IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     manufacturer_(irga.manufacturer_),
     model_(irga.model_),
     swVersion_(irga.swVersion_),
-    sn_(irga.sn_),
     id_(irga.id_),
     tubeLength_(irga.tubeLength_),
     tubeDiameter_(irga.tubeDiameter_),
@@ -219,7 +205,6 @@ IrgaDesc& IrgaDesc::operator=(const IrgaDesc& irga)
         manufacturer_ = irga.manufacturer_;
         model_ = irga.model_;
         swVersion_ = irga.swVersion_;
-        sn_ = irga.sn_;
         id_ = irga.id_;
         tubeLength_ = irga.tubeLength_;
         tubeDiameter_ = irga.tubeDiameter_;
@@ -241,7 +226,6 @@ bool IrgaDesc::operator==(const IrgaDesc& irga) const
     return (manufacturer_ == irga.manufacturer_)
             && (model_ == irga.model_)
             && (swVersion_ == irga.swVersion_)
-            && (sn_ == irga.sn_)
             && (id_ == irga.id_)
             && qFuzzyCompare(tubeLength_, irga.tubeLength_)
             && qFuzzyCompare(tubeDiameter_, irga.tubeDiameter_)
@@ -272,7 +256,9 @@ const QStringList IrgaDesc::allModelStringList()
             << getIRGA_MODEL_STRING_1()
             << getIRGA_MODEL_STRING_2()
             << getIRGA_MODEL_STRING_3()
+            << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
+            << getIRGA_MODEL_STRING_13()
             << getIRGA_MODEL_STRING_5()
             << getIRGA_MODEL_STRING_6()
             << getIRGA_MODEL_STRING_7()
@@ -290,7 +276,9 @@ const QStringList IrgaDesc::licorModelStringList()
             << getIRGA_MODEL_STRING_1()
             << getIRGA_MODEL_STRING_2()
             << getIRGA_MODEL_STRING_3()
+            << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
+            << getIRGA_MODEL_STRING_13()
             << getIRGA_MODEL_STRING_5());
 }
 
@@ -306,16 +294,6 @@ const QStringList IrgaDesc::otherModelStringList()
             << getIRGA_MODEL_STRING_11());
 }
 
-// Return string list of sw versions
-const QStringList IrgaDesc::allSwVersionStringList()
-{
-    return (QStringList()
-            << getIRGA_SW_VERSION_0()
-            << getIRGA_SW_VERSION_1()
-            << getIRGA_SW_VERSION_2()
-            << getIRGA_SW_VERSION_3());
-}
-
 bool IrgaDesc::isALicorModel(const QString& model)
 {
     return ((model == getIRGA_MODEL_STRING_0())
@@ -323,7 +301,9 @@ bool IrgaDesc::isALicorModel(const QString& model)
              || (model == getIRGA_MODEL_STRING_2())
              || (model == getIRGA_MODEL_STRING_3())
              || (model == getIRGA_MODEL_STRING_4())
-             || (model == getIRGA_MODEL_STRING_5()));
+             || (model == getIRGA_MODEL_STRING_5())
+             || (model == getIRGA_MODEL_STRING_12())
+             || (model == getIRGA_MODEL_STRING_13()));
 }
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
@@ -376,7 +356,8 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
                         || (model == getIRGA_MODEL_STRING_4())
                         || (model == getIRGA_MODEL_STRING_7())
                         || (model == getIRGA_MODEL_STRING_10())
-                        || (model == getIRGA_MODEL_STRING_11());
+                        || (model == getIRGA_MODEL_STRING_11())
+                        || (model == getIRGA_MODEL_STRING_13());
 
     auto isGoodClosedPath = false;
     if (isClosedPath)
@@ -467,5 +448,6 @@ bool IrgaDesc::isOpenPathModel(const QString& model)
              || model == IrgaDesc::getIRGA_MODEL_STRING_5()
              || model == IrgaDesc::getIRGA_MODEL_STRING_6()
              || model == IrgaDesc::getIRGA_MODEL_STRING_8()
-             || model == IrgaDesc::getIRGA_MODEL_STRING_9());
+             || model == IrgaDesc::getIRGA_MODEL_STRING_9()
+             || model == IrgaDesc::getIRGA_MODEL_STRING_12());
 }

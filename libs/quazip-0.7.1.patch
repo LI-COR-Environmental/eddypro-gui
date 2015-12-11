@@ -1,0 +1,57 @@
+diff --git 1/quazip-0.7.1_orig/quazip/quazip.pro 2/quazip-0.7.1/quazip/quazip.pro
+index c869e59..c30ab1c 100644
+--- 1/quazip-0.7.1_orig/quazip/quazip.pro
++++ 2/quazip-0.7.1/quazip/quazip.pro
+@@ -1,7 +1,9 @@
+ TEMPLATE = lib
+-CONFIG += qt warn_on
++CONFIG += qt warn_on debug_and_release
+ QT -= gui
+ 
++LIBS += -lz
++
+ # The ABI version.
+ 
+ !win32:VERSION = 1.0.0
+@@ -22,7 +24,6 @@ QT -= gui
+ # 2.0, VERSION to 2.0.0.
+ # And so on.
+ 
+-
+ # This one handles dllimport/dllexport directives.
+ DEFINES += QUAZIP_BUILD
+ 
+@@ -30,6 +31,11 @@ DEFINES += QUAZIP_BUILD
+ # than qmake or using QuaZIP sources directly in your project.
+ CONFIG(staticlib): DEFINES += QUAZIP_STATIC
+ 
++CONFIG(debug, debug|release) {
++    mac: TARGET = $$join(TARGET,,,_debug)
++    win32: TARGET = $$join(TARGET,,,d)
++}
++
+ # Input
+ include(quazip.pri)
+ 
+@@ -39,9 +45,8 @@ unix:!symbian {
+     target.path=$$PREFIX/lib/$${LIB_ARCH}
+     INSTALLS += headers target
+ 
+-	OBJECTS_DIR=.obj
+-	MOC_DIR=.moc
+-	
++    OBJECTS_DIR=.obj
++    MOC_DIR=.moc
+ }
+ 
+ win32 {
+@@ -53,9 +58,7 @@ win32 {
+     DEFINES += NOMINMAX
+ }
+ 
+-
+ symbian {
+-
+     # Note, on Symbian you may run into troubles with LGPL.
+     # The point is, if your application uses some version of QuaZip,
+     # and a newer binary compatible version of QuaZip is released, then

@@ -1,0 +1,23 @@
+(LI7200
+    (Coef
+       (Current
+          (SerialNo)
+          (Band(A))
+          (MaxRef(A)(B)(C)(D)(X0))
+          (CO2(A)(B)(C)(D)(E)(XS)(Z))
+          (H2O(A)(B)(C)(XS)(Z))
+          (Pressure(A0)(A1))
+          (DPressure(A0)(A1))
+       )
+    )
+
+    (Calibrate
+        (ZeroCO2(Val)(Date))
+        (SpanCO2(Val)(Target)(Tdensity)(Date))
+        (Span2CO2(Val)(Target)(Tdensity)(ic)(act)(Date))
+        (ZeroH2O(Val)(Date))
+        (SpanH2O(Val)(Target)(Tdensity)(Date))
+        (Span2H2O(Val)(Target)(Tdensity)(iw)(awt)(Date))
+        (MaxRef(CX)(WX)(Date))
+    )
+)

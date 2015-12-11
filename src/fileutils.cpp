@@ -216,7 +216,7 @@ void FileUtils::cleanDir(const QString& d)
 }
 
 // recursive
-void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QStringList &illegalFileTypes)
+void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringList &illegalFileTypes)
 {
     QDirIterator it(d, QDirIterator::Subdirectories);
 
@@ -248,6 +248,7 @@ void FileUtils::cleanDirFromFileTypesRecursively(const QString &d, const QString
     }
 }
 
+// extension = "*.ext"
 const QStringList FileUtils::getFiles(const QString& dir, const QString& extension, bool recurse)
 {
     DEBUG_FUNC_NAME
@@ -510,20 +511,28 @@ QString FileUtils::setupEnv()
 
 #if defined(Q_OS_WIN)
     QString userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
-#elif defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC)
+    QString userHomePath = env.value(QStringLiteral("HOME"));
+    QString configPath = QStringLiteral(".config");
+#else
     QString userHomePath = env.value(QStringLiteral("HOME"));
     QString configPath = QStringLiteral(".config");
 #endif
 
     qDebug() << "env" << env.value(QStringLiteral("HOME"));
     qDebug() << "userHomePath" << userHomePath;
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
+    qDebug() << "configPath" << configPath;
+#elif defined(Q_OS_LINUX)
     qDebug() << "configPath" << configPath;
 #endif
 
     if (!userHomePath.isEmpty())
     {
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
+        FileUtils::createDir(configPath, userHomePath);
+        userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#elif defined(Q_OS_LINUX)
         FileUtils::createDir(configPath, userHomePath);
         userHomePath = userHomePath + QStringLiteral("/") + configPath;
 #endif
@@ -540,6 +549,7 @@ QString FileUtils::setupEnv()
         FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
         FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
+        FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
 
         return appVerDir;
     }
@@ -583,4 +593,67 @@ bool FileUtils::dateRangesOverlap(DateRange range_1, DateRange range_2)
 {
     return ((range_1.second >= range_2.first)
             && (range_2.second >= range_1.first));
+}
+
+// prepend string to filename
+bool FileUtils::prependToFile(const QString &str, const QString &filename)
+{
+    QFile datafile(filename);
+    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        // error opening file
+        qWarning() << "Error: Cannot tag file" << filename;
+        WidgetUtils::warning(nullptr,
+                             QObject::tr("Write Error"),
+                             QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
+                             .arg(filename)
+                             .arg(datafile.errorString()));
+        datafile.close();
+        return false;
+    }
+
+    QTextStream out(&datafile);
+    QString textfile = out.readAll();
+    textfile.prepend(str);
+    datafile.resize(0);
+    out << textfile;
+    datafile.close();
+
+    return true;
+}
+
+// append string to filename
+bool FileUtils::appendToFile(const QString &str, const QString &filename)
+{
+    QFile datafile(filename);
+    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        // error opening file
+        qWarning() << "Error: Cannot tag file" << filename;
+        WidgetUtils::warning(nullptr,
+                             QObject::tr("Write Error"),
+                             QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
+                             .arg(filename)
+                             .arg(datafile.errorString()));
+        datafile.close();
+        return false;
+    }
+
+    QTextStream out(&datafile);
+    QString textfile = out.readAll();
+    textfile.append(str);
+    datafile.resize(0);
+    out << textfile;
+    datafile.close();
+
+    return true;
+}
+
+// chmod 644
+void FileUtils::chmod_644(const QString &filename)
+{
+    QFile::setPermissions(filename, QFileDevice::ReadUser
+                                  | QFileDevice::WriteUser
+                                  | QFileDevice::ReadGroup
+                                  | QFileDevice::ReadOther);
 }

@@ -54,7 +54,7 @@ current-version
 
 # misc directories
 clang-checks
-quazip*
+quazip-0.7.1
 dist
 karchive*
 docs/help
@@ -62,7 +62,6 @@ libs/others
 scripts/deploy
 scripts/old
 scripts/qtcreator
-scripts/test
 scripts/utils
 smartflux_defaults
 

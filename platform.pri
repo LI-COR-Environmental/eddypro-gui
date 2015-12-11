@@ -8,6 +8,7 @@ macx {
     # 10.8 = mountain lion
     # 10.9 = mavericks
     # 10.10 = yosemite
+    # 10.11 = el capitan
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
     QMAKE_MAC_SDK = macosx
 
@@ -19,6 +20,10 @@ macx {
 
 win32 {
     RESOURCES += $$_PRO_FILE_PWD_/eddypro_win.qrc
+}
+
+linux {
+    RESOURCES += $$_PRO_FILE_PWD_/eddypro_lin.qrc
 }
 
 # to copy files in the bundle

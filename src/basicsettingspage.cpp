@@ -455,7 +455,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     gasDiff->setRange(0.0, 1.0);
     gasDiff->setSingleStep(0.1);
     gasDiff->setAccelerated(true);
-    gasDiff->setSuffix(QString(QStringLiteral(" [%1]")).arg(Defs::CM2_S_STRING));
+    gasDiff->setSuffix(QStringLiteral(" [%1]").arg(Defs::CM2_S_STRING));
     gasDiff->setMinimumWidth(130);
 
     moreButton = new QPushButton;
@@ -524,12 +524,12 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     ppfdCombo = new QComboBox;
     ppfdCombo->setToolTip(ppfdLabel->toolTip());
 
-    diag7500Label = new ClickLabel(tr("LI-7500(A) Diagnostics :"), this);
+    diag7500Label = new ClickLabel(tr("LI-7500/A/RS Diagnostics :"), this);
     diag7500Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
     diag7500Combo = new QComboBox;
     diag7500Combo->setToolTip(diag7500Label->toolTip());
 
-    diag7200Label = new ClickLabel(tr("LI-7200 Diagnostics :"), this);
+    diag7200Label = new ClickLabel(tr("LI-7200/RS Diagnostics :"), this);
     diag7200Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
     diag7200Combo = new QComboBox;
     diag7200Combo->setToolTip(diag7200Label->toolTip());
@@ -1405,7 +1405,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
 
     QString ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;
     QString mdFormat = QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
-    QString biometMdFormat = QString(QStringLiteral("*%1.%2"))
+    QString biometMdFormat = QStringLiteral("*%1.%2")
                             .arg(Defs::DEFAULT_BIOMET_SUFFIX)
                             .arg(Defs::METADATA_FILE_EXT);
 
@@ -2524,24 +2524,26 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 }
 
 /// \fn void BasicSettingsPage::filterVariables()
-/// \brief Show only molar density gas variables if 7500, 7500A, 7700
-/// For 7200 order will be: molar density, mixing ratio, mole fraction
+/// \brief Show only molar density gas variables if 7500/A/RS, 7700
+/// For 7200/RS order will be: molar density, mixing ratio, mole fraction
 void BasicSettingsPage::filterVariables()
 {
     DEBUG_FUNC_NAME
-    const QString li6262Str = QStringLiteral("LI-6262");
-    const QString li7000Str = QStringLiteral("LI-7000");
-    const QString li7200Str = QStringLiteral("LI-7200");
-    const QString li7500Str = QStringLiteral("LI-7500");
-    const QString li7500AStr = QStringLiteral("LI-7500A");
-    const QString li7700Str = QStringLiteral("LI-7700");
-//    const QString densityStr = QStringLiteral("density");
-    const QString fractionStr = QStringLiteral("fraction");
-    const QString ratioStr = QStringLiteral("ratio");
-    const QString noneStr = tr("None");
-    const QString genericStr = tr("Generic");
-    const QString openPathStr1 = QStringLiteral("open");
-    const QString openPathStr2 = QStringLiteral("OP");
+    const auto li6262Str = QStringLiteral("LI-6262");
+    const auto li7000Str = QStringLiteral("LI-7000");
+    const auto li7200Str = QStringLiteral("LI-7200");
+    const auto li7200RSStr = QStringLiteral("LI-7200RS");
+    const auto li7500Str = QStringLiteral("LI-7500");
+    const auto li7500AStr = QStringLiteral("LI-7500A");
+    const auto li7500RSStr = QStringLiteral("LI-7500RS");
+    const auto li7700Str = QStringLiteral("LI-7700");
+//    const auto densityStr = QStringLiteral("density");
+    const auto fractionStr = QStringLiteral("fraction");
+    const auto ratioStr = QStringLiteral("ratio");
+    const auto noneStr = tr("None");
+    const auto genericStr = tr("Generic");
+    const auto openPathStr1 = QStringLiteral("open");
+    const auto openPathStr2 = QStringLiteral("OP");
 
     // filter vars (always possible)
     for (int i = 0; i < co2RefCombo->count(); ++i)
@@ -2552,6 +2554,7 @@ void BasicSettingsPage::filterVariables()
             // open path
             if (co2RefCombo->itemText(i).contains(li7500Str)
                 || co2RefCombo->itemText(i).contains(li7500AStr)
+                || co2RefCombo->itemText(i).contains(li7500RSStr)
                 || co2RefCombo->itemText(i).contains(li7700Str)
                 || co2RefCombo->itemText(i).contains(openPathStr1)
                 || co2RefCombo->itemText(i).contains(openPathStr2))
@@ -2574,6 +2577,7 @@ void BasicSettingsPage::filterVariables()
         {
             if (h2oRefCombo->itemText(i).contains(li7500Str)
                 || h2oRefCombo->itemText(i).contains(li7500AStr)
+                || h2oRefCombo->itemText(i).contains(li7500RSStr)
                 || h2oRefCombo->itemText(i).contains(li7700Str)
                 || h2oRefCombo->itemText(i).contains(openPathStr1)
                 || h2oRefCombo->itemText(i).contains(openPathStr2))
@@ -2620,8 +2624,10 @@ void BasicSettingsPage::filterVariables()
             if (fourthGasRefCombo->itemText(i).contains(li6262Str)
                 || fourthGasRefCombo->itemText(i).contains(li7000Str)
                 || fourthGasRefCombo->itemText(i).contains(li7200Str)
+                || fourthGasRefCombo->itemText(i).contains(li7200RSStr)
                 || fourthGasRefCombo->itemText(i).contains(li7500Str)
                 || fourthGasRefCombo->itemText(i).contains(li7500AStr)
+                || fourthGasRefCombo->itemText(i).contains(li7500RSStr)
                 || fourthGasRefCombo->itemText(i).contains(li7700Str))
             {
                 fourthGasRefCombo->removeItem(i);
@@ -2639,6 +2645,7 @@ void BasicSettingsPage::filterVariables()
                 || intT1RefCombo->itemText(i).contains(li7000Str)
                 || intT1RefCombo->itemText(i).contains(li7500Str)
                 || intT1RefCombo->itemText(i).contains(li7500AStr)
+                || intT1RefCombo->itemText(i).contains(li7500RSStr)
                 || intT1RefCombo->itemText(i).contains(li7700Str))
             {
                 intT1RefCombo->removeItem(i);
@@ -2656,6 +2663,7 @@ void BasicSettingsPage::filterVariables()
                 || intT2RefCombo->itemText(i).contains(li7000Str)
                 || intT2RefCombo->itemText(i).contains(li7500Str)
                 || intT2RefCombo->itemText(i).contains(li7500AStr)
+                || intT2RefCombo->itemText(i).contains(li7500RSStr)
                 || intT2RefCombo->itemText(i).contains(li7700Str))
             {
                 intT2RefCombo->removeItem(i);
@@ -2671,6 +2679,7 @@ void BasicSettingsPage::filterVariables()
         {
             if (intTcRefCombo->itemText(i).contains(li7500Str)
                 || intTcRefCombo->itemText(i).contains(li7500AStr)
+                || intTcRefCombo->itemText(i).contains(li7500RSStr)
                 || intTcRefCombo->itemText(i).contains(li7700Str))
             {
                 intTcRefCombo->removeItem(i);
@@ -2686,6 +2695,7 @@ void BasicSettingsPage::filterVariables()
         {
             if (intPRefCombo->itemText(i).contains(li7500Str)
                 || intPRefCombo->itemText(i).contains(li7500AStr)
+                || intPRefCombo->itemText(i).contains(li7500RSStr)
                 || intPRefCombo->itemText(i).contains(li7700Str))
             {
                 intPRefCombo->removeItem(i);
@@ -2701,8 +2711,9 @@ void BasicSettingsPage::filterVariables()
         if (!diag7500Combo->itemText(i).contains(noneStr))
         {
             qDebug() << "diag7500Combo" << i << diag7500Combo->itemText(i);
-            if (!diag7500Combo->itemText(i).contains(li7500AStr)
-                && !diag7500Combo->itemText(i).contains(li7500Str))
+            if (!diag7500Combo->itemText(i).contains(li7500Str)
+                && !diag7500Combo->itemText(i).contains(li7500AStr)
+                && !diag7500Combo->itemText(i).contains(li7500RSStr))
             {
                 diag7500Combo->removeItem(i);
             }
@@ -2715,7 +2726,8 @@ void BasicSettingsPage::filterVariables()
         if (!diag7200Combo->itemText(i).contains(noneStr))
         {
             qDebug() << "diag7200Combo" << i << diag7200Combo->itemText(i);
-            if (!diag7200Combo->itemText(i).contains(li7200Str))
+            if (!diag7200Combo->itemText(i).contains(li7200Str)
+                && !diag7200Combo->itemText(i).contains(li7200RSStr))
             {
                 diag7200Combo->removeItem(i);
             }
@@ -2739,8 +2751,8 @@ void BasicSettingsPage::filterVariables()
 void BasicSettingsPage::preselectDensityVariables(QComboBox* combo)
 {
     DEBUG_FUNC_NAME
-    const QString densityStr = QStringLiteral("density");
-    const QString ratioStr = QStringLiteral("ratio");
+    const auto densityStr = QStringLiteral("density");
+    const auto ratioStr = QStringLiteral("ratio");
 
     qDebug() << "combo->count()" << combo->count();
     // select the first density var or the first item if not present
@@ -3260,13 +3272,13 @@ void BasicSettingsPage::updateFourthGasSettings(const QString& s)
 {
     DEBUG_FUNC_NAME
 
-    const QString N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
-    const QString COStr = QStringLiteral("CO");
-    const QString SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
-    const QString O3Str = QLatin1Char('O') + Defs::SUBTHREE;
-    const QString NH3Str = QStringLiteral("NH") + Defs::SUBTHREE;
-    const QString NOStr = QStringLiteral("NO");
-    const QString NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
+    const auto N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
+    const auto COStr = QStringLiteral("CO");
+    const auto SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
+    const auto O3Str = QLatin1Char('O') + Defs::SUBTHREE;
+    const auto NH3Str = QStringLiteral("NH") + Defs::SUBTHREE;
+    const auto NOStr = QStringLiteral("NO");
+    const auto NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
 
     QString gasStr(s.split(QLatin1Char(' ')).at(0));
 
@@ -3514,35 +3526,35 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     {
         if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_M3_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
         else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
                  || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::UMOL_MOL_STRING);
+            return QStringLiteral("[%1]").arg(Defs::UMOL_MOL_STRING);
         }
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_6())
     {
         if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_M3_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
         else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
                  || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
-            return QString(QStringLiteral("[%1]")).arg(Defs::MMOL_MOL_STRING);
+            return QStringLiteral("[%1]").arg(Defs::MMOL_MOL_STRING);
         }
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_29())
     {
-        return QString(QStringLiteral("[%1]")).arg(Defs::M3_S_STRING);
+        return QStringLiteral("[%1]").arg(Defs::M3_S_STRING);
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_25()
              || var == VariableDesc::getVARIABLE_VAR_STRING_26()
              || var == VariableDesc::getVARIABLE_VAR_STRING_27())
     {
-        return QString(QStringLiteral("[-]"));
+        return QStringLiteral("[-]");
     }
     else
     {
@@ -3550,15 +3562,15 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
             || conversionType == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_2())
         {
             if (!inputUnitType.isEmpty())
-                return QString(QStringLiteral("[%1]")).arg(inputUnitType);
+                return QStringLiteral("[%1]").arg(inputUnitType);
         }
         else
         {
             if (!outputUnitType.isEmpty())
-                return QString(QStringLiteral("[%1]")).arg(outputUnitType);
+                return QStringLiteral("[%1]").arg(outputUnitType);
         }
     }
-    return QString(QStringLiteral("[-]"));
+    return QStringLiteral("[-]");
 }
 
 void BasicSettingsPage::updateFlag1Combo(int i)
@@ -3753,22 +3765,22 @@ void BasicSettingsPage::createQuestionMark()
 
 void BasicSettingsPage::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Using_Prev_Results.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Using_Prev_Results.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Flags.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Flags.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Raw_File_Name_Format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Raw_File_Name_Format.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Declination.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Declination.html")));
 }
 
 void BasicSettingsPage::updateCrossWind(bool b)
@@ -4544,6 +4556,7 @@ void BasicSettingsPage::updateFlag10Policy(int n)
     ecProject_->setScreenFlag10Policy(n);
 }
 
+// NOTE: not used
 void BasicSettingsPage::triggerGasProperties()
 {
     DEBUG_FUNC_NAME
@@ -4875,7 +4888,7 @@ void BasicSettingsPage::bufferHttpReply()
 
         httpBuffer_.append(data);
         QByteArray line(httpBuffer_);
-        QList<QByteArray> lineList(line.split('\n'));
+        QByteArrayList lineList(line.split('\n'));
         qDebug() << "lineList.size" << lineList.size();
 
         // newlines found
@@ -4922,7 +4935,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
         // skip comments or empty row
         return true;
     }
-    QList<QByteArray> columnList(cleanLine.split(','));
+    QByteArrayList columnList(cleanLine.split(','));
 
     qDebug() << "columnList" << columnList;
     // web-server error handling
@@ -5076,6 +5089,7 @@ QString BasicSettingsPage::strDeclination(double dec)
 
 // get variation of declination in decimal minutes / year, i.e. in mmss.sss
 // string from signed decimal degrees
+// NOTE: not used
 QString BasicSettingsPage::strVariation(double dec)
 {
     QString dms = QString();

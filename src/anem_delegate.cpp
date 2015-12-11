@@ -104,6 +104,11 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
           connect(combo, SIGNAL(activated(int)),
                   this, SLOT(commitAndCloseEditor()));
           return combo;
+      case AnemModel::SWVERSION:
+          ledit = new QLineEdit(parent);
+          connect(ledit, SIGNAL(editingFinished()),
+                  this, SLOT(commitAndCloseEditor()));
+          return ledit;
       case AnemModel::ID:
           ledit = new QLineEdit(parent);
           connect(ledit, SIGNAL(editingFinished()),
@@ -253,6 +258,11 @@ void AnemDelegate::setEditorData(QWidget* editor,
             if (!combo) { return; }
             combo->setCurrentIndex(combo->findText(value.toString()));
             break;
+        case AnemModel::SWVERSION:
+              ledit = static_cast<QLineEdit*>(editor);
+              if (!ledit) { return; }
+              ledit->setText(value.toString());
+              break;
         case AnemModel::ID:
             ledit = static_cast<QLineEdit*>(editor);
             if (!ledit) { return; }
@@ -319,6 +329,12 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             combo = static_cast<QComboBox*>(editor);
             if (!combo) { return; }
             value = combo->currentText();
+            model->setData(index, value);
+            break;
+        case AnemModel::SWVERSION:
+            ledit = static_cast<QLineEdit*>(editor);
+            if (!ledit) { return; }
+            value = ledit->text();
             model->setData(index, value);
             break;
         case AnemModel::ID:

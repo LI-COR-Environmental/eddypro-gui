@@ -24,6 +24,7 @@
 #include "dlproject.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "dbghelper.h"
@@ -33,11 +34,11 @@
 #include "stringutils.h"
 #include "widget_utils.h"
 
-const QString DlProject::ANEM_MANUFACTURER_STRING_0  = QStringLiteral("csi");
-const QString DlProject::ANEM_MANUFACTURER_STRING_1  = QStringLiteral("gill");
-const QString DlProject::ANEM_MANUFACTURER_STRING_2  = QStringLiteral("metek");
-const QString DlProject::ANEM_MANUFACTURER_STRING_3  = QStringLiteral("young");
-const QString DlProject::ANEM_MANUFACTURER_STRING_4  = QStringLiteral("other_sonic");
+const QString DlProject::ANEM_MANUFACTURER_STRING_0 = QStringLiteral("csi");
+const QString DlProject::ANEM_MANUFACTURER_STRING_1 = QStringLiteral("gill");
+const QString DlProject::ANEM_MANUFACTURER_STRING_2 = QStringLiteral("metek");
+const QString DlProject::ANEM_MANUFACTURER_STRING_3 = QStringLiteral("young");
+const QString DlProject::ANEM_MANUFACTURER_STRING_4 = QStringLiteral("other_sonic");
 
 const QString DlProject::ANEM_WIND_FORMAT_STRING_0 = QStringLiteral("uvw");
 const QString DlProject::ANEM_WIND_FORMAT_STRING_1 = QStringLiteral("polar_w");
@@ -47,8 +48,8 @@ const QString DlProject::ANEM_NORTH_ALIGN_STRING_0 = QStringLiteral("axis");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_1 = QStringLiteral("spar");
 const QString DlProject::ANEM_NORTH_ALIGN_STRING_2 = QStringLiteral("na");
 
-const QString DlProject::IRGA_MANUFACTURER_STRING_0  = QStringLiteral("licor");
-const QString DlProject::IRGA_MANUFACTURER_STRING_1  = QStringLiteral("other_irga");
+const QString DlProject::IRGA_MANUFACTURER_STRING_0 = QStringLiteral("licor");
+const QString DlProject::IRGA_MANUFACTURER_STRING_1 = QStringLiteral("other_irga");
 
 const QString DlProject::IRGA_MODEL_STRING_0 = QStringLiteral("li6262");
 const QString DlProject::IRGA_MODEL_STRING_1 = QStringLiteral("li7000");
@@ -60,8 +61,10 @@ const QString DlProject::IRGA_MODEL_STRING_6 = QStringLiteral("generic_open_path
 const QString DlProject::IRGA_MODEL_STRING_7 = QStringLiteral("generic_closed_path");
 const QString DlProject::IRGA_MODEL_STRING_8 = QStringLiteral("open_path_krypton");
 const QString DlProject::IRGA_MODEL_STRING_9 = QStringLiteral("open_path_lyman");
-const QString DlProject::IRGA_MODEL_STRING_10 =QStringLiteral("closed_path_krypton");
-const QString DlProject::IRGA_MODEL_STRING_11 =QStringLiteral("closed_path_lyman");
+const QString DlProject::IRGA_MODEL_STRING_10 = QStringLiteral("closed_path_krypton");
+const QString DlProject::IRGA_MODEL_STRING_11 = QStringLiteral("closed_path_lyman");
+const QString DlProject::IRGA_MODEL_STRING_12 = QStringLiteral("li7500rs");
+const QString DlProject::IRGA_MODEL_STRING_13 = QStringLiteral("li7200rs");
 
 const QString DlProject::IRGA_SW_VERSION_STRING_0 = QStringLiteral("0.0.0");
 const QString DlProject::IRGA_SW_VERSION_STRING_1 = QStringLiteral("5.0.3");
@@ -313,6 +316,7 @@ void DlProject::newProject(const ProjConfigState& project_config)
     AnemDesc anem;
     anem.setManufacturer(QString());
     anem.setModel(QString());
+    anem.setSwVersion(QString());
     anem.setId(QString());
     anem.setHeight(0.1);
     anem.setWindFormat(AnemDesc::getANEM_WIND_FORMAT_STRING_0());
@@ -501,6 +505,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
+                anem.setSwVersion(project_ini.value(prefix + DlIni::INI_ANEM_16, QString()).toString().trimmed());
                 anem.setId(project_ini.value(prefix + DlIni::INI_ANEM_4, QString()).toString());
 
                 qreal heightVal = project_ini.value(prefix + DlIni::INI_ANEM_5, 0.1).toReal();
@@ -549,8 +554,48 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
 
-                qDebug() << "sw_version:" << project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                irga.setSwVersion(fromIniIrgaSwVersion(project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString()));
+                // sw version
+                auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
+                qDebug() << "sw_version_loading" << sw_version_loading;
+                auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
+                qDebug() << "ini_sw_version" << ini_sw_version << QT_VERSION_CHECK(3, 1, 0);
+                if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
+                {
+                    if (checkVersion && firstReading && !alreadyChecked)
+                    {
+                        if (!parent->queryDlProjectImport())
+                        {
+                            return false;
+                        }
+                        alreadyChecked = true;
+                    }
+                    else
+                    {
+                        // silently continue file loading and conversion
+                    }
+
+                    // map previous fixed values version to current free field version
+                    if (sw_version_loading == QStringLiteral("0.0.0"))
+                    {
+                        sw_version_loading.clear();
+                    }
+                    else if (sw_version_loading == QStringLiteral("5.3.0"))
+                    {
+                        sw_version_loading = QStringLiteral("0.0.0");
+                    }
+                    else if (sw_version_loading == QStringLiteral("6.0.0"))
+                    {
+                        sw_version_loading = QStringLiteral("6.0.0");
+                    }
+                    else if (sw_version_loading == QStringLiteral("6.4.0"))
+                    {
+                        sw_version_loading = QStringLiteral("6.5.0");
+                    }
+                    isVersionCompatible = false;
+                    qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
+                }
+                irga.setSwVersion(sw_version_loading);
+
                 irga.setId(project_ini.value(prefix + DlIni::INI_IRGA_3, QString()).toString());
                 irga.setTubeLength(project_ini.value(prefix + DlIni::INI_IRGA_5, 0.0).toReal());
                 irga.setTubeDiameter(project_ini.value(prefix + DlIni::INI_IRGA_6, 0.0).toReal());
@@ -569,7 +614,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     project_ini.endGroup();
 
     project_state_.variableList.clear();
-
     // variables section
     project_ini.beginGroup(DlIni::INIGROUP_VARDESC);
     project_state_.varDesc.separator = project_ini.value(DlIni::INI_VARDESC_FIELDSEP, QString()).toString();
@@ -661,6 +705,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 qreal maxValue = project_ini.value(prefix + DlIni::INI_VARDESC_MAX_VALUE).toReal();
                 qreal minMaxValue = maxValue - minValue;
 
+                qDebug() << "minMaxValue" << minMaxValue;
                 if (minMaxValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -699,6 +744,8 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
 //                DEBUG_FUNC_MSG(project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString())
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "gain-offset aValue" << aValue;
+
                 if (aValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -743,6 +790,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 var.setOutputUnit(QString());
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
+                qDebug() << "conversion none or empty, aValue" << aValue;
                 if (aValue == 0.0)
                 {
                     qDebug() << "var:" << k << "queryBeforeMdFileImport";
@@ -770,6 +818,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 }
 
                 // if input unit is dimensionless or none, then set conversion type to gain-offset
+                qDebug() << "input unit is dimensionless or none";
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
@@ -1008,6 +1057,8 @@ bool DlProject::saveProject(const QString& filename)
             {
                 project_ini.setValue(prefix + DlIni::INI_ANEM_2, QString());
             }
+            project_ini.setValue(prefix + DlIni::INI_ANEM_16,
+                                 anem.swVersion().trimmed());
             project_ini.setValue(prefix + DlIni::INI_ANEM_4,
                                  anem.id());
             project_ini.setValue(prefix + DlIni::INI_ANEM_5,
@@ -1052,8 +1103,23 @@ bool DlProject::saveProject(const QString& filename)
                 project_ini.setValue(prefix + DlIni::INI_IRGA_1, QString());
             }
 
-            project_ini.setValue(prefix + DlIni::INI_IRGA_16,
-                                 toIniIrgaSwVersion(irga.swVersion()));
+            // irga sw version
+            auto irga_sw_version = irga.swVersion();
+            // cleanup input mask effects
+            if (irga_sw_version == QStringLiteral(".."))
+            {
+                irga_sw_version.clear();
+            }
+            if (irga_sw_version.startsWith(QLatin1Char('.')))
+            {
+                irga_sw_version.prepend(QLatin1Char('0'));
+            }
+            if (irga_sw_version.endsWith(QLatin1Char('.')))
+            {
+                irga_sw_version.append(QLatin1Char('0'));
+            }
+            project_ini.setValue(prefix + DlIni::INI_IRGA_16, irga_sw_version);
+
             project_ini.setValue(prefix + DlIni::INI_IRGA_3,
                                  irga.id());
 //            project_ini.setValue(prefix + DlIni::INI_IRGA_4,
@@ -1693,6 +1759,7 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
     return tableInstrumentStr;
 }
 
+// NOTE: not used
 QString DlProject::toIniBool(const QString& s)
 {
     return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
@@ -2227,55 +2294,17 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_11();
     }
+    else if (s == DlProject::IRGA_MODEL_STRING_12)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_12();
+    }
+    else if (s == DlProject::IRGA_MODEL_STRING_13)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_13();
+    }
     else
     {
         return QString();
-    }
-}
-
-QString DlProject::fromIniIrgaSwVersion(const QString& s)
-{
-    DEBUG_FUNC_NAME
-
-    qDebug() << "s" << s;
-    if (s.isEmpty())
-    {
-        qDebug() << "empty";
-        return IrgaDesc::getIRGA_SW_VERSION_0();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_0)
-    {
-        qDebug() << "0";
-        return IrgaDesc::getIRGA_SW_VERSION_0();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_1)
-    {
-        qDebug() << "1";
-        return IrgaDesc::getIRGA_SW_VERSION_1();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_2)
-    {
-        qDebug() << "2";
-        return IrgaDesc::getIRGA_SW_VERSION_2();
-    }
-    else if (s == DlProject::IRGA_SW_VERSION_STRING_3)
-    {
-        qDebug() << "3";
-        return IrgaDesc::getIRGA_SW_VERSION_3();
-    }
-    else if (!StringUtils::isNewVersion(s, DlProject::IRGA_SW_VERSION_STRING_1))
-    {
-        qDebug() << "4";
-        return IrgaDesc::getIRGA_SW_VERSION_1();
-    }
-    else if (StringUtils::isNewVersion(s, DlProject::IRGA_SW_VERSION_STRING_3))
-    {
-        qDebug() << "5";
-        return IrgaDesc::getIRGA_SW_VERSION_3();
-    }
-    else
-    {
-        return IrgaDesc::getIRGA_SW_VERSION_0();
     }
 }
 
@@ -2345,29 +2374,13 @@ QString DlProject::toIniIrgaModel(const QString& s)
     {
         return DlProject::IRGA_MODEL_STRING_11;
     }
-    else
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_12())
     {
-        return QString();
+        return DlProject::IRGA_MODEL_STRING_12;
     }
-}
-
-QString DlProject::toIniIrgaSwVersion(const QString& s)
-{
-    if (s == IrgaDesc::getIRGA_SW_VERSION_0())
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_13())
     {
-        return DlProject::IRGA_SW_VERSION_STRING_0;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_1())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_1;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_2())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_2;
-    }
-    else if (s == IrgaDesc::getIRGA_SW_VERSION_3())
-    {
-        return DlProject::IRGA_SW_VERSION_STRING_3;
+        return DlProject::IRGA_MODEL_STRING_13;
     }
     else
     {
@@ -2378,23 +2391,6 @@ QString DlProject::toIniIrgaSwVersion(const QString& s)
 bool DlProject::hasOneFastTemperature()
 {
     return isFastTempAvailable_;
-}
-
-bool DlProject::hasNullGainVariables()
-{
-    DEBUG_FUNC_NAME
-
-    foreach (const VariableDesc& var, *variables())
-    {
-        qDebug() << "var" << var.variable();
-        if (var.ignore() == QLatin1String("no")
-            && var.numeric() == QLatin1String("yes")
-            && !VariableDesc::goodGainOffsetTest(var))
-        {
-            return true;
-        }
-    }
-    return false;
 }
 
 bool DlProject::hasGoodIrgaNames()
@@ -2441,6 +2437,55 @@ bool DlProject::hasGoodIrgaGeneric()
     foreach (const IrgaDesc& irga, project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodPathLength(irga);
+    }
+    return test;
+}
+
+bool DlProject::hasAnemFwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        if (project_state_.anemometerList.first().swVersion().trimmed().isEmpty())
+        {
+            test = false;
+        }
+    }
+    return test;
+}
+
+bool DlProject::hasGoodWindmasterSwVersion()
+{
+    auto test = true;
+    if (!project_state_.anemometerList.isEmpty())
+    {
+        // if Gill
+        if (project_state_.anemometerList.first().manufacturer()
+                == AnemDesc::getANEM_MANUFACTURER_STRING_1())
+        {
+            // and if Windmaster/Pro
+            if (project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7() or
+                project_state_.anemometerList.first().model() ==
+                    AnemDesc::getANEM_MODEL_STRING_7())
+            {
+                auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
+                if (!anem_version.isEmpty())
+                {
+                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
+                    qDebug() << "re.valid:" << re.isValid();
+
+                    if (!re.match(anem_version).hasMatch())
+                    {
+                        test = false;
+                    }
+                }
+                else
+                {
+                    test = false;
+                }
+            }
+        }
     }
     return test;
 }
@@ -2630,27 +2675,4 @@ const QStringList DlProject::restrictedGillModelStringList()
             << getANEM_MODEL_STRING_6()
             << getANEM_MODEL_STRING_7()
             << getANEM_MODEL_STRING_8());
-}
-
-const QStringList DlProject::gillModelGroup_1()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
-}
-
-const QStringList DlProject::gillModelGroup_2()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5());
-}
-
-const QStringList DlProject::gillModelGroup_3()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_1()
-            << getANEM_MODEL_STRING_2()
-            << getANEM_MODEL_STRING_6());
 }

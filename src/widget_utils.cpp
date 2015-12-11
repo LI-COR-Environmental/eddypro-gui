@@ -23,6 +23,8 @@
 
 #include "widget_utils.h"
 
+#include <limits>
+
 #include <QCalendarWidget>
 #include <QComboBox>
 #include <QCoreApplication>
@@ -46,6 +48,8 @@
 #include <memory>
 #include "make_unique.h"
 
+#include "QScienceSpinBox.h"
+
 #include "configstate.h"
 #include "dbghelper.h"
 #include "defs.h"
@@ -65,6 +69,7 @@ const QColor WidgetUtils::getColor(int step)
     return c;
 }
 
+// private helpers
 namespace {
 
 // Redraw widget recomputing Qt style-sheet based on Q_PROPERTY
@@ -119,7 +124,7 @@ void WidgetUtils::updateComboItemTooltip(QComboBox* combo, int i)
 // set the line edit tooltip to the current line edit text
 void WidgetUtils::updateLineEditToolip(QLineEdit* lineedit)
 {
-    lineedit->setToolTip(QString(QStringLiteral("%1")).arg(lineedit->text()));
+    lineedit->setToolTip(QStringLiteral("%1").arg(lineedit->text()));
 }
 
 // return the data of the current combo item
@@ -150,6 +155,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 }
 
 // set the text of the line edit with specified elide mode and width
+// NOTE: not used
 void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
                                           const QString& text,
                                           Qt::TextElideMode mode,
@@ -213,6 +219,7 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
 
 // NOTE: hack to add <hr> to QTextEdit. Not working as expected.
 // See https://bugreports.qt-project.org/browse/QTBUG-747
+// NOTE: not used
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
@@ -223,7 +230,7 @@ void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 
 void WidgetUtils::openAppWebsite()
 {
-    QDesktopServices::openUrl(QUrl(Defs::APP_WEBSITE));
+    QDesktopServices::openUrl(QUrl(Defs::APP_URL));
 }
 
 bool WidgetUtils::okToOverwrite(QWidget* parent, const QString& filename)
@@ -416,82 +423,6 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
     return (messageBox->clickedButton() == yesButton);
 }
 
-#if defined(Q_OS_WIN)
-namespace {
-
-// http://stackoverflow.com/questions/2404449/process-starturl-with-anchor-in-the-url
-// NOTE: used only on Windows
-bool launchWinWebBrowser(const QUrl& url)
-{
-    DEBUG_FUNC_NAME
-
-    QString defaultBrowserKey;
-    QString defaultBrowserPath;
-
-    QSettings settings_1(QStringLiteral("HKEY_CLASSES_ROOT\\.htm\\OpenWithProgIDs"),
-                        QSettings::NativeFormat);
-    QStringList keys = settings_1.allKeys();
-
-    if (!keys.isEmpty() && keys.count() > 1)
-    {
-        keys.removeAll(QStringLiteral("Default"));
-
-        defaultBrowserKey = QStringLiteral("HKEY_CLASSES_ROOT\\")
-                            + keys.first()
-                            + QStringLiteral("\\shell\\open\\command");
-        qDebug() << "defaultBrowserKey" << defaultBrowserKey;
-
-        QSettings settings_2(defaultBrowserKey,
-                            QSettings::NativeFormat);
-        defaultBrowserPath = settings_2.value(QStringLiteral("Default")).toString();
-    }
-    else
-    {
-        QSettings settings_3(QStringLiteral("HKEY_CLASSES_ROOT\\http\\shell\\open\\command"),
-                        QSettings::NativeFormat);
-        defaultBrowserPath = settings_3.value(QStringLiteral("Default")).toString();
-
-        if (defaultBrowserPath.isEmpty())
-        {
-            QSettings settings_4(QStringLiteral("HKCU\\Software\\Microsoft\\Windows"
-                                                "\\Shell\\Associations\\UrlAssociations\\http\\UserChoice"),
-                            QSettings::NativeFormat);
-            QString progId = settings_4.value(QStringLiteral("Progid")).toString();
-
-            defaultBrowserKey = QStringLiteral("HKEY_CLASSES_ROOT\\")
-                                + progId
-                                + QStringLiteral("\\shell\\open\\command");
-            qDebug() << "defaultBrowserKey" << defaultBrowserKey;
-
-            QSettings settings_5(defaultBrowserKey,
-                                QSettings::NativeFormat);
-            defaultBrowserPath = settings_5.value(QStringLiteral("Default")).toString();
-        }
-    }
-
-    if (!defaultBrowserPath.isEmpty())
-    {
-        qDebug() << "defaultBrowserPath"
-                 << defaultBrowserPath;
-        defaultBrowserPath.chop(1);
-        defaultBrowserPath = defaultBrowserPath.remove(0, 1).split(QLatin1Char('"')).at(0);
-        qDebug() << "defaultBrowserPath"
-                 << defaultBrowserPath;
-    }
-    else
-    {
-        defaultBrowserPath = QStringLiteral("C:\\Program Files (x86)\\Internet Explorer\\iexplore.exe");
-    }
-
-    if (QProcess::startDetached(defaultBrowserPath, QStringList() << url.toString()))
-        return true;
-    else
-        return false;
-}
-
-}  // unnamed namespace
-#endif
-
 void WidgetUtils::showHelp(const QUrl& url)
 {
     // read state
@@ -517,28 +448,28 @@ void WidgetUtils::showHelp(const QUrl& url)
 
             if (url.toString().contains(QStringLiteral("EddyPro_Home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_Getting_Started.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_QuickStart_12756.pdf");
             }
             else if (url.toString().contains(QStringLiteral("1ium2zmwm6hl36yz9bu4")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro6_User_Guide.pdf");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_Manual_12025.pdf");
             }
             else if (url.toString().contains(QStringLiteral("Video_Library")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/Content/Video_Library.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/Video_Library.html");
             }
             else
             {
                 qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro6"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
                 qDebug() << "localUrlString" << localUrlString;
 
-                htmlHelpPath = htmlHelpPath + QString(QStringLiteral("/docs")) + localUrlString;
+                htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();
@@ -626,4 +557,34 @@ bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
     return yesNoQuestion(parent,
                          QObject::tr("Close SmartFlux Configuration"),
                          QObject::tr("Do you want to leave the SmartFlux Configuration?"));
+}
+
+
+QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& text)
+{
+    auto button = new QPushButton(parent);
+    button->setText(text);
+    button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    button->setDefault(true);
+    button->setProperty("commonButton", true);
+    return button;
+}
+
+
+QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
+{
+    auto label = new QLabel(parent);
+    label->setText(text);
+    label->setProperty("blueLabel", true);
+    return label;
+}
+
+QScienceSpinBox* WidgetUtils::createCalibrationSpinbox(QWidget *parent)
+{
+    auto spinbox = new QScienceSpinBox(parent);
+    spinbox->setRange(std::numeric_limits<double>::lowest(),
+                            std::numeric_limits<double>::max());
+    spinbox->setDecimals(7);
+    spinbox->setAccelerated(true);
+    return spinbox;
 }

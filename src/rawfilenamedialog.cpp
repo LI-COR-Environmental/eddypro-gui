@@ -70,10 +70,7 @@ RawFilenameDialog::RawFilenameDialog(QWidget *parent,
 
     rawFilenameFormatEdit = new QLineEdit;
 
-    okButton = new QPushButton(tr("&Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setDefault(true);
-    okButton->setProperty("commonButton", true);
+    okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
     okButton->setEnabled(false);
 
     auto cancelButton = new QPushButton(tr("Cancel"));
@@ -384,12 +381,11 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
 
 void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
 {
-    QRadioButton* button;
     auto i = 0;
     foreach (const QString& file, list)
     {
         qDebug() << QFileInfo(file).suffix();
-        button = new QRadioButton(QFileInfo(file).suffix());
+        auto button = new QRadioButton(QFileInfo(file).suffix());
         extRadioGroup->addButton(button, i);
         radioGroupBoxLayout->addWidget(button);
         ++i;

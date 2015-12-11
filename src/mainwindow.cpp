@@ -142,6 +142,8 @@ MainWindow::MainWindow(const QString& filename,
     setWindowIcon(QIcon(QStringLiteral(":/win_files/app_ico.png")));
 #elif defined(Q_OS_MAC)
     setWindowIcon(QIcon(QStringLiteral(":/mac_files/app.icns")));
+#elif defined(Q_OS_LINUX)
+    setWindowIcon(QIcon(QStringLiteral(":/lin_files/app.png")));
 #endif
 
     setDockOptions(QMainWindow::ForceTabbedDocks);
@@ -1705,18 +1707,6 @@ void MainWindow::viewConsoleOutput(bool on)
     writeSettings();
 }
 
-void MainWindow::dbgViewConsoleOutputToggled(bool on)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "on" << on;
-}
-
-void MainWindow::dbgViewConsoleOutputTriggered(bool on)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "on" << on;
-}
-
 void MainWindow::viewInfoOutput(bool on)
 {
     DEBUG_FUNC_NAME
@@ -1726,7 +1716,7 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/EddyPro_Home.html"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
@@ -2299,6 +2289,7 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
     updateRunButtonsAvailability();
 }
 
+// NOTE: not used
 void MainWindow::whatsHelp()
 {
     QWhatsThis::enterWhatsThisMode();
@@ -2369,13 +2360,13 @@ void MainWindow::showGuidedModeMessages_1()
 
     if (doRedFix)
     {
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
         red_intro = tr("<p>Some information in the <b>Project Creation</b> "
                        "page is incomplete or erroneous. Please address the "
                        "following issues:</p>");
         red_msg = tr("<ul>");
         doRedFix = false;
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
     }
 
     if (doOrangeFix)
@@ -2399,7 +2390,7 @@ void MainWindow::showGuidedModeMessages_1()
                           ":</span> Load or create one using the Metadata File "
                           "Editor.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->fileDuration()" << dlProject_->fileDuration();
@@ -2409,7 +2400,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "Editor - File Duration:</span> A file duration "
                           "greater than zero is required.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->fieldSep()" << dlProject_->fieldSep();
@@ -2422,7 +2413,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "separator required. Click the \"Raw File "
                           "Settings...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         qDebug() << "dlProject_->headerRows()" << dlProject_->headerRows();
@@ -2435,7 +2426,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "header rows required. Click the \"Raw File "
                           "Settings...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         // anemometer tests
@@ -2446,7 +2437,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "description of at least one anemometer is "
                           "required.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
         else if (dlProject_->hasOneGoodAnemometer())
         {
@@ -2458,8 +2449,30 @@ void MainWindow::showGuidedModeMessages_1()
                           "fast ambient temperature or speed-of-sound "
                           "measurement is required.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
+        }
+
+        if (!dlProject_->hasAnemFwVersion())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+                      "Editor - Raw File Description:</span> "
+                      "We suggest to enter the anemometer firmware version "
+                      "for sake of record tracking and future implementations.</li>");
+            doOrangeFix = true;
+            qDebug() << "doOrangeFix" << doOrangeFix;
+        }
+
+        if (!dlProject_->hasGoodWindmasterSwVersion())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+                      "Editor - Raw File Description:</span> "
+                      "Enter the Gill Windmaster/Pro "
+                      "firmware version in the typical form: 2329.600.01. "
+                      "Not filling this field will affect the application of "
+                      "the Angle of Attack correction.</li>");
+            doOrangeFix = true;
+            qDebug() << "doOrangeFix" << doOrangeFix;
         }
 
         // irga tests
@@ -2513,7 +2526,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Number of ASCII header lines required. "
                           "Click the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryEol"
                      << ecProject_->generalBinaryEol();
@@ -2523,7 +2536,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> ASCII header end of line required. Click "
                           "the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryNBytes"
                      << ecProject_->generalBinaryNBytes();
@@ -2535,7 +2548,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Number of bytes per variable required. "
                           "Click the \"Settings...\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
             qDebug() << "ecProject_->generalBinaryLittleEnd"
                      << ecProject_->generalBinaryLittleEnd();
@@ -2545,7 +2558,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "</span> Endianess required. Click the \"Settings..."
                           "\" button.</li>");
                 doRedFix = true;
-                qDebug() << "doFix" << doRedFix;
+                qDebug() << "doRedFix" << doRedFix;
             }
         }
     }
@@ -2562,7 +2575,7 @@ void MainWindow::showGuidedModeMessages_1()
                           "file: </span>Select a file using the \"Load...\" "
                           "button or uncheck this option.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
 
@@ -2575,7 +2588,7 @@ void MainWindow::showGuidedModeMessages_1()
             red_msg += tr("<li><span style=\"color: red;\">Biomet file: </span>"
                       "Select a file using the \"Load...\" button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
     else if (ecProject_->generalUseBiomet() == 3)
@@ -2586,13 +2599,13 @@ void MainWindow::showGuidedModeMessages_1()
                       "</span>Select a directory using the \"Browse...\" "
                       "button.</li>");
             doRedFix = true;
-            qDebug() << "doFix" << doRedFix;
+            qDebug() << "doRedFix" << doRedFix;
         }
     }
 
     if (!doRedFix)
     {
-        qDebug() << "doFix" << doRedFix;
+        qDebug() << "doRedFix" << doRedFix;
         red_intro.clear();
         red_msg.clear();
         doRedFix = false;
@@ -2606,6 +2619,7 @@ void MainWindow::showGuidedModeMessages_1()
     }
 
     qDebug() << "last doRedFix" << doRedFix;
+    qDebug() << "last doOrangeFix" << doOrangeFix;
     qDebug() << "red title" << red_intro;
     qDebug() << "red msg" << red_msg;
 
@@ -4269,7 +4283,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Error_Codes.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Error_Codes.html")));
 }
 
 // qt5
@@ -4494,14 +4508,15 @@ bool MainWindow::testForPreviousData()
     QString epFormat = QStringLiteral("*.") + Defs::APP_NAME_LCASE;
     QString csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
 
+    auto recurse = true;
     QStringList previousRunList(FileUtils::getFiles(ecProject_->spectraExDir(),
                                          epFormat,
-                                         true));
+                                         recurse));
     qDebug() << "previousRunList" << previousRunList << previousRunList.count();
 
     QStringList previousEssentialList(FileUtils::getFiles(ecProject_->spectraExDir(),
                                          csvFormat,
-                                         true));
+                                         recurse));
     qDebug() << previousEssentialList.count();
 
     previousEssentialList = previousEssentialList.filter(QStringLiteral("essentials"));
@@ -4586,7 +4601,7 @@ void MainWindow::openLicorSite() const
 void MainWindow::checkInternetConnection()
 {
 #if 0
-    DEBUG_FUNC_MSG(QString(QStringLiteral("online: %1"))
+    DEBUG_FUNC_MSG(QStringLiteral("online: %1")
                    .arg(Networking::isOnline() ? QStringLiteral("true")
                                                : QStringLiteral("false")))
 #endif
@@ -4740,4 +4755,3 @@ bool MainWindow::queryDlProjectImport()
            "<p>To cancel the import operation, simply close "
            "without pushing 'Ok'.</p>"));
 }
-

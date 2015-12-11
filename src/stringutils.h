@@ -36,9 +36,13 @@ namespace StringUtils
 
     int daysToFromString(const QString& d_1, const QString& d_2);
 
+    QString fromUnixTimeToISOString(double msec);
+
     bool isISODateTimeString(const QString &s);
 
     bool stringBelongsToList(const QString &str, const QStringList &list);
+
+    int getVersionFromString(const QString& versionStr);
 
     bool isNewVersion(const QString &remoteVersion, const QString &localVersion);
 

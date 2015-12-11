@@ -67,6 +67,7 @@ public:
 
     AnemDesc(const QString& manufacturer,
              const QString& model,
+             const QString& swVersion,
              const QString& id,
              qreal height,
              const QString& windFormat,
@@ -96,6 +97,10 @@ public:
     // get/set model
     const QString& model() const;
     void setModel(const QString& m);
+
+    // get/set version
+    const QString& swVersion() const;
+    void setSwVersion(const QString& v);
 
     // get/set id
     const QString& id() const;
@@ -174,7 +179,7 @@ public:
 private:
     QString manufacturer_;
     QString model_;
-    QString sn_;
+    QString swVersion_;
     QString id_;
     qreal height_;
     QString windFormat_;
@@ -207,6 +212,12 @@ inline const QString& AnemDesc::model() const
 
 inline void AnemDesc::setModel(const QString& m)
     { model_ = m; }
+
+inline const QString& AnemDesc::swVersion() const
+    { return swVersion_; }
+
+inline void AnemDesc::setSwVersion(const QString& v)
+    { swVersion_ = v; }
 
 inline const QString& AnemDesc::id() const
     { return id_; }

@@ -1,3 +1,47 @@
+6.1.0 (2015-12-14)
+
+    Engine
+    - Add: support for new LI-7500RS and LI-7200RS instruments.
+    - Refine: introduced a mechanism to allow user to ask EddyPro to select
+      the most appropriate AoA correction method, based on sonic anemometer
+      model and serial number. User can also force a selection, or de-select
+      the correction completely.
+    - Fix: FLUXNET biomet output file now contains biomet results also when
+      fast EC data are not available (similar to standard biomet output
+      file). Also fixed initialization, so that if biomet data is not
+      available, FLUXNET biomet output file reports -9999.
+    - Fix: detection of EndIndex in the list of binned spectra files when a
+      subperiod is selected, which coincides with the period covered by
+      available spectra files. The bug caused EddyPro not to create ensemble
+      averaged spectra/cospectra, nor to perform the spectral assessment.
+    - Fix: SplitCount function, that caused biomet files not to be properly
+      read (and engine to crash) when only one biomet variable is present in
+      the external biomet files, besides the timestamp(s).
+
+    GUI
+    - Add: support for new LI-7500RS and LI-7200RS instruments.
+    - Refine: add automatic selection for the AoA correction method.
+    - Refine: set the default AoA correction method to automatic selection.
+    - Add: embedded software version (firmware) field in the anemometer
+      description table in the metadata editor.
+    - Refine: enable embedded software version (firmware) field for any
+      gas analyzer and change it to a free text form.
+    - Refine: allow project file opening with double-click on Mac.
+    - Fix: spectral file assessment load button not working properly.
+    - Fix: essential file path not properly preserved during a run on Windows.
+    - Refine: set default advanced output settings to typical.
+
+6.1.0 (2015-09-30)
+
+    Engine
+    - Fix: detection of EndIndex in the list of binned spectra files when a
+      subperiod is selected, which coincides with the period covered by
+      available spectra files. The bug caused EddyPro not to create ensemble
+      averaged spectra/cospectra, nor to perform the spectral assessment.
+
+    GUI
+    - Refinement: Update QuaZIP to version 0.7.1 (2015-01-07).
+
 6.0.0 (2015-08-05)
 
     Engine
@@ -127,7 +171,6 @@
     - Refinement: improve update notification message reminding the
       SmartFlux update too.
     - Refinement: review policies for start/end dates settings.
-
 
 5.2.1 (2015-01-29)
 
@@ -305,7 +348,7 @@
 
 5.0.0 (2013-12-09)
 For a complete list of new features see:
-http://www.licor.com/env/help/eddypro6/Content/Whats_New.html
+http://www.licor.com/env/help/eddypro/topics_eddypro/Whats_New.html
 
     Introduced support to the package creation for SMARTFlux systems.
 
@@ -686,4 +729,3 @@ http://www.licor.com/env/help/eddypro6/Content/Whats_New.html
 
 2.0.0 (2011-04-05)
     - First public release of EddyPro (Express version only).
-

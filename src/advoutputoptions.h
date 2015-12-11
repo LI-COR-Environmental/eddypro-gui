@@ -96,7 +96,6 @@ private slots:
 
     void onlineHelpTrigger_1();
     void onlineHelpTrigger_2();
-    void onlineHelpTrigger_3();
     void onlineHelpTrigger_4();
     void onlineHelpTrigger_5();
     void onlineHelpTrigger_6();
@@ -107,8 +106,6 @@ private slots:
     void onClickerrorFormatLabel();
 
 private:
-    bool areAllCheckedFullSpectra();
-    bool areAllCheckedFullCospectra();
     bool areAllCheckedVars();
     void setVarsAvailable(bool ok);
     bool areTimeSeriesChecked();

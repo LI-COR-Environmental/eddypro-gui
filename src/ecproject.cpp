@@ -45,6 +45,7 @@ EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
 
 EcProject::EcProject(const EcProject& project) :
     QObject(0),
+    defaultSettings(EcProjectState()),
     modified_(project.modified_),
     ec_project_state_(project.ec_project_state_),
     project_config_state_(project.project_config_state_)
@@ -55,6 +56,7 @@ EcProject& EcProject::operator=(const EcProject &project)
 {
     if (this != &project)
     {
+        defaultSettings = project.defaultSettings;
         modified_ = project.modified_;
         ec_project_state_ = project.ec_project_state_;
         project_config_state_ = project.project_config_state_;
@@ -901,6 +903,9 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.bin_sp_avail = defaultEcProjectState.projectGeneral.bin_sp_avail;
     ec_project_state_.projectGeneral.full_sp_avail = defaultEcProjectState.projectGeneral.full_sp_avail;
     ec_project_state_.projectGeneral.files_found = defaultEcProjectState.projectGeneral.files_found;
+    ec_project_state_.projectGeneral.hf_correct_ghg_ba = defaultEcProjectState.projectGeneral.hf_correct_ghg_ba;
+    ec_project_state_.projectGeneral.hf_correct_ghg_zoh = defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh;
+    ec_project_state_.projectGeneral.sonic_output_rate = defaultEcProjectState.projectGeneral.sonic_output_rate;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -1222,9 +1227,9 @@ bool EcProject::saveEcProject(const QString &filename)
 {
     DEBUG_FUNC_NAME
 
-    // try to open file
+    // try to open file just for checking
     QFile datafile(filename);
-    if (!datafile.open(QFile::WriteOnly | QFile::Text))
+    if (!datafile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         // error opening file
         qWarning() << "Error: Cannot open file" << filename;
@@ -1236,10 +1241,10 @@ bool EcProject::saveEcProject(const QString &filename)
         datafile.close();
         return false;
     }
+    datafile.close();
 
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
-
     QFileInfo fileinfo = QFileInfo(filename);
 
     QSettings project_ini(filename, QSettings::IniFormat);
@@ -1306,7 +1311,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_38, ec_project_state_.projectGeneral.out_amflux);
         project_ini.setValue(EcIni::INI_PROJECT_39, ec_project_state_.projectGeneral.out_rich);
         project_ini.setValue(EcIni::INI_PROJECT_56, ec_project_state_.projectGeneral.out_md);
-        project_ini.setValue(EcIni::INI_PROJECT_61, ec_project_state_.projectGeneral.out_biomet);
         project_ini.setValue(EcIni::INI_PROJECT_41, QVariant(ec_project_state_.projectGeneral.make_dataset).toInt());
         project_ini.setValue(EcIni::INI_PROJECT_54, ec_project_state_.projectGeneral.subset);
         project_ini.setValue(EcIni::INI_PROJECT_42, ec_project_state_.projectGeneral.start_date);
@@ -1327,11 +1331,15 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_57, QDir::fromNativeSeparators(ec_project_state_.projectGeneral.biom_dir));
         project_ini.setValue(EcIni::INI_PROJECT_58, ec_project_state_.projectGeneral.biom_recurse);
         project_ini.setValue(EcIni::INI_PROJECT_59, QVariant(QString(QLatin1Char('.')) + ec_project_state_.projectGeneral.biom_ext));
-        project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
         project_ini.setValue(EcIni::INI_PROJECT_60, ec_project_state_.projectGeneral.out_mean_cosp);
+        project_ini.setValue(EcIni::INI_PROJECT_61, ec_project_state_.projectGeneral.out_biomet);
         project_ini.setValue(EcIni::INI_PROJECT_62, ec_project_state_.projectGeneral.bin_sp_avail);
         project_ini.setValue(EcIni::INI_PROJECT_63, ec_project_state_.projectGeneral.full_sp_avail);
         project_ini.setValue(EcIni::INI_PROJECT_64, ec_project_state_.projectGeneral.files_found);
+        project_ini.setValue(EcIni::INI_PROJECT_65, ec_project_state_.projectGeneral.out_mean_spectra);
+        project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
+        project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
+        project_ini.setValue(EcIni::INI_PROJECT_68, ec_project_state_.projectGeneral.sonic_output_rate);
     project_ini.endGroup();
 
     // spec settings section
@@ -1385,13 +1393,12 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
         // NOTE: temporary placeholders for SA Groups
-        project_ini.setValue(QString(QStringLiteral("sa_co2_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_co2_g1_stop")), 12);
-        project_ini.setValue(QString(QStringLiteral("sa_ch4_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_ch4_g1_stop")), 12);
-        project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_start")), 1);
-        project_ini.setValue(QString(QStringLiteral("sa_gas4_g1_stop")), 12);
-
+        project_ini.setValue(QStringLiteral("sa_co2_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_co2_g1_stop"), 12);
+        project_ini.setValue(QStringLiteral("sa_ch4_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_ch4_g1_stop"), 12);
+        project_ini.setValue(QStringLiteral("sa_gas4_g1_start"), 1);
+        project_ini.setValue(QStringLiteral("sa_gas4_g1_stop"), 12);
     project_ini.endGroup();
 
     // screen general section
@@ -1431,7 +1438,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_35, ec_project_state_.screenGeneral.flag10_col);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_36, QString::number(ec_project_state_.screenGeneral.flag10_threshold, 'f', 4));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_37, ec_project_state_.screenGeneral.flag10_policy);
-        project_ini.endGroup();
+    project_ini.endGroup();
 
     // screen settings section
     project_ini.beginGroup(EcIni::INIGROUP_SCREEN_SETTINGS);
@@ -1698,6 +1705,55 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_BIOMET_9, ec_project_state_.biomParam.col_ppfd);
     project_ini.endGroup();
 
+    // drift correction section
+    project_ini.beginGroup(EcIni::INIGROUP_DRIFT);
+        project_ini.setValue(EcIni::INI_DRIFT_0, ec_project_state_.driftCorr.serial_number);
+        project_ini.setValue(EcIni::INI_DRIFT_1, ec_project_state_.driftCorr.calib_date);
+        project_ini.setValue(EcIni::INI_DRIFT_2, ec_project_state_.driftCorr.co2_0_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_3, ec_project_state_.driftCorr.co2_1_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_4, ec_project_state_.driftCorr.co2_2_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_5, ec_project_state_.driftCorr.co2_3_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_6, ec_project_state_.driftCorr.co2_4_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_7, ec_project_state_.driftCorr.co2_5_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_8, ec_project_state_.driftCorr.co2_6_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_9, ec_project_state_.driftCorr.co2_0_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_10, ec_project_state_.driftCorr.co2_1_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_11, ec_project_state_.driftCorr.co2_2_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_12, ec_project_state_.driftCorr.co2_3_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_13, ec_project_state_.driftCorr.co2_4_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_14, ec_project_state_.driftCorr.co2_5_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_15, ec_project_state_.driftCorr.co2_6_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_16, ec_project_state_.driftCorr.co2_Zero);
+        project_ini.setValue(EcIni::INI_DRIFT_17, ec_project_state_.driftCorr.co2_Zero_date);
+        project_ini.setValue(EcIni::INI_DRIFT_18, ec_project_state_.driftCorr.co2_Span);
+        project_ini.setValue(EcIni::INI_DRIFT_19, ec_project_state_.driftCorr.co2_Span_date);
+        project_ini.setValue(EcIni::INI_DRIFT_20, ec_project_state_.driftCorr.co2_Span_2);
+        project_ini.setValue(EcIni::INI_DRIFT_21, ec_project_state_.driftCorr.co2_Span_2_date);
+        project_ini.setValue(EcIni::INI_DRIFT_22, ec_project_state_.driftCorr.co2_CX);
+        project_ini.setValue(EcIni::INI_DRIFT_23, ec_project_state_.driftCorr.co2_CX_date);
+        project_ini.setValue(EcIni::INI_DRIFT_24, ec_project_state_.driftCorr.h2o_0_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_25, ec_project_state_.driftCorr.h2o_1_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_26, ec_project_state_.driftCorr.h2o_2_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_27, ec_project_state_.driftCorr.h2o_3_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_28, ec_project_state_.driftCorr.h2o_4_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_29, ec_project_state_.driftCorr.h2o_5_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_30, ec_project_state_.driftCorr.h2o_6_dir);
+        project_ini.setValue(EcIni::INI_DRIFT_31, ec_project_state_.driftCorr.h2o_0_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_32, ec_project_state_.driftCorr.h2o_1_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_33, ec_project_state_.driftCorr.h2o_2_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_34, ec_project_state_.driftCorr.h2o_3_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_35, ec_project_state_.driftCorr.h2o_4_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_36, ec_project_state_.driftCorr.h2o_5_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_37, ec_project_state_.driftCorr.h2o_6_inv);
+        project_ini.setValue(EcIni::INI_DRIFT_38, ec_project_state_.driftCorr.h2o_Zero);
+        project_ini.setValue(EcIni::INI_DRIFT_39, ec_project_state_.driftCorr.h2o_Zero_date);
+        project_ini.setValue(EcIni::INI_DRIFT_40, ec_project_state_.driftCorr.h2o_Span);
+        project_ini.setValue(EcIni::INI_DRIFT_41, ec_project_state_.driftCorr.h2o_Span_date);
+        project_ini.setValue(EcIni::INI_DRIFT_42, ec_project_state_.driftCorr.h2o_Span_2);
+        project_ini.setValue(EcIni::INI_DRIFT_43, ec_project_state_.driftCorr.h2o_Span_2_date);
+        project_ini.setValue(EcIni::INI_DRIFT_44, ec_project_state_.driftCorr.h2o_WX);
+        project_ini.setValue(EcIni::INI_DRIFT_45, ec_project_state_.driftCorr.h2o_WX_date);
+    project_ini.endGroup();
     project_ini.sync();
 
     bool result = tagProject(filename);
@@ -1929,9 +1985,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.out_md
                 = project_ini.value(EcIni::INI_PROJECT_56,
                                     defaultEcProjectState.projectGeneral.out_md).toInt();
-        ec_project_state_.projectGeneral.out_biomet
-                = project_ini.value(EcIni::INI_PROJECT_61,
-                                    defaultEcProjectState.projectGeneral.out_biomet).toInt();
         ec_project_state_.projectGeneral.make_dataset
                 = project_ini.value(EcIni::INI_PROJECT_41,
                                     defaultEcProjectState.projectGeneral.make_dataset).toBool();
@@ -1994,12 +2047,12 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.biom_ext
                 = project_ini.value(EcIni::INI_PROJECT_59,
                                     defaultEcProjectState.projectGeneral.biom_ext).toString().remove(QLatin1Char('.'));
-        ec_project_state_.projectGeneral.out_mean_spectra
-                = project_ini.value(EcIni::INI_PROJECT_65,
-                                    defaultEcProjectState.projectGeneral.out_mean_spectra).toInt();
         ec_project_state_.projectGeneral.out_mean_cosp
                 = project_ini.value(EcIni::INI_PROJECT_60,
                                     defaultEcProjectState.projectGeneral.out_mean_cosp).toInt();
+        ec_project_state_.projectGeneral.out_biomet
+                = project_ini.value(EcIni::INI_PROJECT_61,
+                                    defaultEcProjectState.projectGeneral.out_biomet).toInt();
         ec_project_state_.projectGeneral.bin_sp_avail
                 = project_ini.value(EcIni::INI_PROJECT_62,
                                     defaultEcProjectState.projectGeneral.bin_sp_avail).toInt();
@@ -2009,6 +2062,18 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.files_found
                 = project_ini.value(EcIni::INI_PROJECT_64,
                                     defaultEcProjectState.projectGeneral.files_found).toInt();
+        ec_project_state_.projectGeneral.out_mean_spectra
+                = project_ini.value(EcIni::INI_PROJECT_65,
+                                    defaultEcProjectState.projectGeneral.out_mean_spectra).toInt();
+        ec_project_state_.projectGeneral.hf_correct_ghg_ba
+                = project_ini.value(EcIni::INI_PROJECT_66,
+                                    defaultEcProjectState.projectGeneral.hf_correct_ghg_ba).toInt();
+        ec_project_state_.projectGeneral.hf_correct_ghg_zoh
+                = project_ini.value(EcIni::INI_PROJECT_67,
+                                    defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh).toInt();
+        ec_project_state_.projectGeneral.sonic_output_rate
+                = project_ini.value(EcIni::INI_PROJECT_68,
+                                    defaultEcProjectState.projectGeneral.sonic_output_rate).toInt();
     project_ini.endGroup();
 
     // spec settings section
@@ -2941,6 +3006,155 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                                     defaultEcProjectState.biomParam.col_ppfd).toInt();
     project_ini.endGroup();
 
+    // drift correction section
+    project_ini.beginGroup(EcIni::INIGROUP_DRIFT);
+        ec_project_state_.driftCorr.serial_number
+                = project_ini.value(EcIni::INI_DRIFT_0,
+                                    defaultEcProjectState.driftCorr.serial_number).toString();
+        ec_project_state_.driftCorr.calib_date
+                = project_ini.value(EcIni::INI_DRIFT_1,
+                                    defaultEcProjectState.driftCorr.calib_date).toString();
+
+        ec_project_state_.driftCorr.co2_0_dir
+                = project_ini.value(EcIni::INI_DRIFT_2,
+                                    defaultEcProjectState.driftCorr.co2_0_dir).toDouble();
+        ec_project_state_.driftCorr.co2_1_dir
+                = project_ini.value(EcIni::INI_DRIFT_3,
+                                    defaultEcProjectState.driftCorr.co2_1_dir).toDouble();
+        ec_project_state_.driftCorr.co2_2_dir
+                = project_ini.value(EcIni::INI_DRIFT_4,
+                                    defaultEcProjectState.driftCorr.co2_2_dir).toDouble();
+        ec_project_state_.driftCorr.co2_3_dir
+                = project_ini.value(EcIni::INI_DRIFT_5,
+                                    defaultEcProjectState.driftCorr.co2_3_dir).toDouble();
+        ec_project_state_.driftCorr.co2_4_dir
+                = project_ini.value(EcIni::INI_DRIFT_6,
+                                    defaultEcProjectState.driftCorr.co2_4_dir).toDouble();
+        ec_project_state_.driftCorr.co2_5_dir
+                = project_ini.value(EcIni::INI_DRIFT_7,
+                                    defaultEcProjectState.driftCorr.co2_5_dir).toDouble();
+        ec_project_state_.driftCorr.co2_6_dir
+                = project_ini.value(EcIni::INI_DRIFT_8,
+                                    defaultEcProjectState.driftCorr.co2_6_dir).toDouble();
+
+        ec_project_state_.driftCorr.co2_0_inv
+                = project_ini.value(EcIni::INI_DRIFT_9,
+                                    defaultEcProjectState.driftCorr.co2_0_inv).toDouble();
+        ec_project_state_.driftCorr.co2_1_dir
+                = project_ini.value(EcIni::INI_DRIFT_10,
+                                    defaultEcProjectState.driftCorr.co2_1_inv).toDouble();
+        ec_project_state_.driftCorr.co2_2_dir
+                = project_ini.value(EcIni::INI_DRIFT_11,
+                                    defaultEcProjectState.driftCorr.co2_2_inv).toDouble();
+        ec_project_state_.driftCorr.co2_3_dir
+                = project_ini.value(EcIni::INI_DRIFT_12,
+                                    defaultEcProjectState.driftCorr.co2_3_inv).toDouble();
+        ec_project_state_.driftCorr.co2_4_dir
+                = project_ini.value(EcIni::INI_DRIFT_13,
+                                    defaultEcProjectState.driftCorr.co2_4_inv).toDouble();
+        ec_project_state_.driftCorr.co2_5_dir
+                = project_ini.value(EcIni::INI_DRIFT_14,
+                                    defaultEcProjectState.driftCorr.co2_5_inv).toDouble();
+        ec_project_state_.driftCorr.co2_6_dir
+                = project_ini.value(EcIni::INI_DRIFT_15,
+                                    defaultEcProjectState.driftCorr.co2_6_inv).toDouble();
+
+        ec_project_state_.driftCorr.co2_Zero
+                = project_ini.value(EcIni::INI_DRIFT_16,
+                                    defaultEcProjectState.driftCorr.co2_Zero).toDouble();
+        ec_project_state_.driftCorr.co2_Zero_date
+                = project_ini.value(EcIni::INI_DRIFT_17,
+                                    defaultEcProjectState.driftCorr.co2_Zero_date).toString();
+        ec_project_state_.driftCorr.co2_Span
+                = project_ini.value(EcIni::INI_DRIFT_18,
+                                    defaultEcProjectState.driftCorr.co2_Span).toDouble();
+        ec_project_state_.driftCorr.co2_Span_date
+                = project_ini.value(EcIni::INI_DRIFT_19,
+                                    defaultEcProjectState.driftCorr.co2_Span_date).toString();
+        ec_project_state_.driftCorr.co2_Span_2
+                = project_ini.value(EcIni::INI_DRIFT_20,
+                                    defaultEcProjectState.driftCorr.co2_Span_2).toDouble();
+        ec_project_state_.driftCorr.co2_Span_2_date
+                = project_ini.value(EcIni::INI_DRIFT_21,
+                                    defaultEcProjectState.driftCorr.co2_Span_2_date).toString();
+        ec_project_state_.driftCorr.co2_CX
+                = project_ini.value(EcIni::INI_DRIFT_22,
+                                    defaultEcProjectState.driftCorr.co2_CX).toDouble();
+        ec_project_state_.driftCorr.co2_CX_date
+                = project_ini.value(EcIni::INI_DRIFT_23,
+                                    defaultEcProjectState.driftCorr.co2_CX_date).toString();
+
+        ec_project_state_.driftCorr.h2o_0_dir
+                = project_ini.value(EcIni::INI_DRIFT_24,
+                                    defaultEcProjectState.driftCorr.h2o_0_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_1_dir
+                = project_ini.value(EcIni::INI_DRIFT_25,
+                                    defaultEcProjectState.driftCorr.h2o_1_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_2_dir
+                = project_ini.value(EcIni::INI_DRIFT_26,
+                                    defaultEcProjectState.driftCorr.h2o_2_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_3_dir
+                = project_ini.value(EcIni::INI_DRIFT_27,
+                                    defaultEcProjectState.driftCorr.h2o_3_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_4_dir
+                = project_ini.value(EcIni::INI_DRIFT_28,
+                                    defaultEcProjectState.driftCorr.h2o_4_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_5_dir
+                = project_ini.value(EcIni::INI_DRIFT_29,
+                                    defaultEcProjectState.driftCorr.h2o_5_dir).toDouble();
+        ec_project_state_.driftCorr.h2o_6_dir
+                = project_ini.value(EcIni::INI_DRIFT_30,
+                                    defaultEcProjectState.driftCorr.h2o_6_dir).toDouble();
+
+        ec_project_state_.driftCorr.h2o_0_inv
+                = project_ini.value(EcIni::INI_DRIFT_31,
+                                    defaultEcProjectState.driftCorr.h2o_0_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_1_dir
+                = project_ini.value(EcIni::INI_DRIFT_32,
+                                    defaultEcProjectState.driftCorr.h2o_1_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_2_dir
+                = project_ini.value(EcIni::INI_DRIFT_33,
+                                    defaultEcProjectState.driftCorr.h2o_2_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_3_dir
+                = project_ini.value(EcIni::INI_DRIFT_34,
+                                    defaultEcProjectState.driftCorr.h2o_3_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_4_dir
+                = project_ini.value(EcIni::INI_DRIFT_35,
+                                    defaultEcProjectState.driftCorr.h2o_4_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_5_dir
+                = project_ini.value(EcIni::INI_DRIFT_36,
+                                    defaultEcProjectState.driftCorr.h2o_5_inv).toDouble();
+        ec_project_state_.driftCorr.h2o_6_dir
+                = project_ini.value(EcIni::INI_DRIFT_37,
+                                    defaultEcProjectState.driftCorr.h2o_6_inv).toDouble();
+
+        ec_project_state_.driftCorr.h2o_Zero
+                = project_ini.value(EcIni::INI_DRIFT_38,
+                                    defaultEcProjectState.driftCorr.h2o_Zero).toDouble();
+        ec_project_state_.driftCorr.h2o_Zero_date
+                = project_ini.value(EcIni::INI_DRIFT_39,
+                                    defaultEcProjectState.driftCorr.h2o_Zero_date).toString();
+        ec_project_state_.driftCorr.h2o_Span
+                = project_ini.value(EcIni::INI_DRIFT_40,
+                                    defaultEcProjectState.driftCorr.h2o_Span).toDouble();
+        ec_project_state_.driftCorr.h2o_Span_date
+                = project_ini.value(EcIni::INI_DRIFT_41,
+                                    defaultEcProjectState.driftCorr.h2o_Span_date).toString();
+        ec_project_state_.driftCorr.h2o_Span_2
+                = project_ini.value(EcIni::INI_DRIFT_42,
+                                    defaultEcProjectState.driftCorr.h2o_Span_2).toDouble();
+        ec_project_state_.driftCorr.h2o_Span_2_date
+                = project_ini.value(EcIni::INI_DRIFT_43,
+                                    defaultEcProjectState.driftCorr.h2o_Span_2_date).toString();
+        ec_project_state_.driftCorr.h2o_WX
+                = project_ini.value(EcIni::INI_DRIFT_44,
+                                    defaultEcProjectState.driftCorr.h2o_WX).toDouble();
+        ec_project_state_.driftCorr.h2o_WX_date
+                = project_ini.value(EcIni::INI_DRIFT_45,
+                                    defaultEcProjectState.driftCorr.h2o_WX_date).toString();
+
+    project_ini.endGroup();
+
     datafile.close();
 
     // just loaded projects are not modified
@@ -3005,33 +3219,13 @@ bool EcProject::nativeFormat(const QString &filename)
     return true;
 }
 
+// prepend a known tag to the project file
 bool EcProject::tagProject(const QString &filename)
 {
-    QFile datafile(filename);
-    if (!datafile.open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        // error opening file
-        qWarning() << "Error: Cannot tag file" << filename;
-        WidgetUtils::warning(nullptr,
-                             tr("Write Error"),
-                             tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
-        datafile.close();
-        return false;
-    }
-
     QString app_tag(Defs::APP_PD_INI_TAG);
     app_tag += QLatin1String("\n");
 
-    QTextStream out(&datafile);
-    QString textfile = out.readAll();
-    textfile.prepend(app_tag);
-    datafile.resize(0);
-    out << textfile;
-    datafile.close();
-
-    return true;
+    return FileUtils::prependToFile(app_tag, filename);
 }
 
 void EcProject::setModified(bool mod)
@@ -3548,6 +3742,27 @@ void EcProject::setGeneralFilesFound(int n)
     // in fact, the corresponding recursion checkbox is enough to inform
     // about a possible interactive change
 //    setModified(true);
+}
+
+void EcProject::setGeneralHfCorrectGhgBa(int n)
+{
+    ec_project_state_.projectGeneral.hf_correct_ghg_ba = n;
+    setModified(true);
+    emit updateInfo();
+}
+
+void EcProject::setGeneralHfCorrectGhgZoh(int n)
+{
+    ec_project_state_.projectGeneral.hf_correct_ghg_zoh = n;
+    setModified(true);
+    emit updateInfo();
+}
+
+void EcProject::setGeneralSonicOutputRate(int n)
+{
+    ec_project_state_.projectGeneral.sonic_output_rate = n;
+    setModified(true);
+    emit updateInfo();
 }
 
 void EcProject::setScreenMaxLack(int n)
@@ -5167,6 +5382,7 @@ void EcProject::setRandomErrorItsSecFactor(double d)
     setModified(true);
 }
 
+// NOTE: not used
 bool EcProject::planarFitSectorDefined()
 {
     return false;

@@ -42,6 +42,7 @@
 #include "JlCompress.h"
 #include "mainwindow.h"
 #include "mystyle.h"
+#include "openfilefilter.h"
 #include "qt_helpers.h"
 #include "stringutils.h"
 #include "widget_utils.h"
@@ -107,12 +108,15 @@ int main(int argc, char *argv[])
     // initialize resources at startup (qrc file loading)
 #if defined(Q_OS_MAC)
     Q_INIT_RESOURCE(eddypro_mac);
-#else
+#elif defined(Q_OS_WIN)
     Q_INIT_RESOURCE(eddypro_win);
+#else
+    Q_INIT_RESOURCE(eddypro_lin);
 #endif
 
-#if defined(Q_OS_MAC)
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+#if defined(Q_OS_MAC)
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
@@ -130,6 +134,7 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     app.setApplicationName(Defs::APP_NAME);
+    app.setApplicationDisplayName(Defs::APP_NAME);
     app.setOrganizationName(Defs::ORG_NAME);
     app.setOrganizationDomain(Defs::ORG_DOMAIN);
 
@@ -141,7 +146,21 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
-    // TODO: complete custom ttf setup
+#if defined(Q_OS_MAC)
+    // file to open at start
+    auto fileToOpen = QString();
+    // install event filter to open clicked files in Mac OS X
+    OpenFileFilter openFileFilter;
+    app.installEventFilter(&openFileFilter);
+    app.processEvents();
+    auto requestedFile = openFileFilter.fileRequested();
+    if (requestedFile.endsWith(QStringLiteral(".eddypro")))
+    {
+        fileToOpen = requestedFile;
+    }
+#endif
+
+    // custom ttf setup
     int fontId_1 = QFontDatabase::addApplicationFont(QStringLiteral(":/fonts/fonts/OpenSans-Regular.ttf"));
     Q_ASSERT(fontId_1 != -1);
     qDebug() << QFontDatabase::applicationFontFamilies(fontId_1);
@@ -165,7 +184,6 @@ int main(int argc, char *argv[])
     app.installTranslator(&appTranslator);
 
     // working dir
-
     QDir dir = QDir::current();
     qDebug() << "current dir" << dir.absolutePath();
 
@@ -191,6 +209,8 @@ int main(int argc, char *argv[])
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
 #elif defined(Q_OS_MAC)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/macstyle"));
+#else
+    FileUtils::loadStyleSheetFile(QStringLiteral(":/css/linstyle"));
 #endif
 
     QString appEnvPath = FileUtils::setupEnv();
@@ -203,12 +223,24 @@ int main(int argc, char *argv[])
     }
     qDebug() << "appEnvPath" << appEnvPath;
 
-    // check for additional command line arguments
+    // check for command line arguments
     QTextStream stream(stdout);
+
+//#ifdef QT_DEBUG
+//    bool getLogFile = true;
+//#else
     bool getLogFile = false;
+//#endif
     QString filename = doArgs(app.arguments(), stream, &getLogFile);
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;
+
+#if defined(Q_OS_MAC)
+    if (!fileToOpen.isEmpty())
+    {
+        filename = fileToOpen;
+    }
+#endif
 
     // log file
     QFile logFile(appEnvPath
@@ -307,9 +339,11 @@ int main(int argc, char *argv[])
 
 #if defined(Q_OS_MAC)
     qDebug() << "____________________________________________________";
-    qDebug() << "docs.zip extraction:" << extractDocs(installationDir);
+    auto docExtraction = extractDocs(installationDir);
+    qDebug() << "docs.zip extraction:" << docExtraction;
     qDebug() << "____________________________________________________";
 #endif
+    qDebug() << "++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
     const int returnVal = app.exec();
 

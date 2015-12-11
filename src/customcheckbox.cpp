@@ -58,6 +58,7 @@ CustomCheckBox::~CustomCheckBox()
 {
 }
 
+// NOTE: not used
 void CustomCheckBox::setLabel(const QString &text)
 {
     label->setText(text);

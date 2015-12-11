@@ -68,10 +68,7 @@ DetectDateRangeDialog::DetectDateRangeDialog(QWidget *parent, EcProject *ecProje
     setAsCurrentRangeButton->setProperty("commonButton2", true);
     setAsCurrentRangeButton->setStyleSheet(QStringLiteral("QPushButton { margin-bottom: 10px; }"));
 
-    okButton = new QPushButton(tr("Ok"));
-    okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    okButton->setProperty("commonButton", true);
-    okButton->setDefault(true);
+    okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
 
     dialogLayout = new QGridLayout(this);
     dialogLayout->addWidget(groupTitle, 0, 0, 1, -1);
@@ -671,10 +668,7 @@ QPair<QDateTime, QDateTime> DetectDateRangeDialog::getBinnedCospectraDateRange()
 
     auto csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
     auto binnedCospectraDir = ecProject_->generalOutPath() + Defs::OUT_BINNED_COSPECTRA_DIR;
-    auto noRecursion = false;
-    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir,
-                                                  csvFormat,
-                                                  noRecursion);
+    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
 
     if (!binnedCospectraDataList.isEmpty())
     {

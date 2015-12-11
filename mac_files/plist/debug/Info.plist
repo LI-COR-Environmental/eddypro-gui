@@ -12,20 +12,16 @@
     <string>app.icns</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
-    <key>CFBundleGetInfoString</key>
-    <string>Created by Qt/QMake</string>
     <key>CFBundleSignature</key>
     <string>APPL</string>
     <key>CFBundleExecutable</key>
     <string>eddypro_debug</string>
-    <key>CFBundleIdentifier</key>
-    <string>com.licor.eddypro_debug</string>
     <key>ForAppStore</key>
     <string>no</string>
     <key>NSHumanReadableCopyright</key>
     <string>Copyright (c) 2011-2015, LI-COR Biosciences Inc.</string>
     <key>CFBundleShortVersionString</key>
-    <string>6.0.0</string>
+    <string>6.1.0</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -37,22 +33,20 @@
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>
-            <key>CFBundleTypeExtensions</key>
-            <array>
-                <string>eddypro</string>
-            </array>
             <key>CFBundleTypeIconFile</key>
             <string>app.icns</string>
-            <key>CFBundleTypeMIMETypes</key>
-            <array>
-                <string>text/plain</string>
-            </array>
             <key>CFBundleTypeName</key>
             <string>EddyPro Project File</string>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
-            <key>LSIsAppleDefaultForType</key>
-            <true/>
+            <key>LSHandlerRank</key>
+            <string>Owner</string>
+            <key>LSTypeIsPackage</key>
+            <false />
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>com.licor.eddypro_debug.eddypro</string>
+            </array>
         </dict>
     </array>
 </dict>

@@ -25,9 +25,9 @@
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="120"/>
-        <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;Digia Plc: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class and wwWidgtes library&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;Digia Plc: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
+        <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;Digia Plc: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class and wwWidgtes library&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;Digia Plc: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
+        <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
@@ -69,7 +69,7 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="264"/>
+        <location filename="../src/aboutdialog.cpp" line="263"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -292,137 +292,137 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Error label :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="337"/>
+        <location filename="../src/advoutputoptions.cpp" line="336"/>
         <source>Statistics</source>
         <translation>Statistics</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="340"/>
+        <location filename="../src/advoutputoptions.cpp" line="338"/>
         <source>&lt;b&gt;Statistics:&lt;/b&gt; Main statistics (mean values, standard deviations, variances and covariances, skewness and kurtosis) for all variables contained in the raw files. Result files concerning variables selected for flux computation are stored in a separate sub-folder &quot;\eddypro_stats&quot; inside the selected output folder. Result files concerning variables not selected for flux computation but available in the raw files are stored in a separate sub-folder &quot;\eddypro_user_stats&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Statistics:&lt;/b&gt; Main statistics (mean values, standard deviations, variances and covariances, skewness and kurtosis) for all variables contained in the raw files. Result files concerning variables selected for flux computation are stored in a separate sub-folder &quot;\eddypro_stats&quot; inside the selected output folder. Result files concerning variables not selected for flux computation but available in the raw files are stored in a separate sub-folder &quot;\eddypro_user_stats&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="352"/>
+        <location filename="../src/advoutputoptions.cpp" line="349"/>
         <source>Time series</source>
         <translation>Time series</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="355"/>
+        <location filename="../src/advoutputoptions.cpp" line="351"/>
         <source>&lt;b&gt;Time series:&lt;/b&gt; Actual time series for each variable selected in the list on the right. Result files are stored in a separate sub-folder &quot;\eddypro_raw_datasets&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Time series:&lt;/b&gt; Actual time series for each variable selected in the list on the right. Result files are stored in a separate sub-folder &quot;\eddypro_raw_datasets&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="362"/>
+        <location filename="../src/advoutputoptions.cpp" line="357"/>
         <source>Variables</source>
         <translation>Variables</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="365"/>
+        <location filename="../src/advoutputoptions.cpp" line="359"/>
         <source>Level 1 (unprocessed) :</source>
         <translation>Level 1 (unprocessed) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="366"/>
+        <location filename="../src/advoutputoptions.cpp" line="360"/>
         <source>Level 2 (after despiking) :</source>
         <translation>Level 2 (after despiking) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="367"/>
+        <location filename="../src/advoutputoptions.cpp" line="361"/>
         <source>Level 3 (after cross-wind correction) :</source>
         <translation>Level 3 (after cross-wind correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="368"/>
+        <location filename="../src/advoutputoptions.cpp" line="362"/>
         <source>Level 4 (after angle-of-attack correction) :</source>
         <translation>Level 4 (after angle-of-attack correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="369"/>
+        <location filename="../src/advoutputoptions.cpp" line="363"/>
         <source>Level 5 (after tilt correction) :</source>
         <translation>Level 5 (after tilt correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="370"/>
+        <location filename="../src/advoutputoptions.cpp" line="364"/>
         <source>Level 6 (after time lag compensation) :</source>
         <translation>Level 6 (after time lag compensation) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="371"/>
+        <location filename="../src/advoutputoptions.cpp" line="365"/>
         <source>Level 7 (after detrending) :</source>
         <translation>Level 7 (after detrending) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="404"/>
+        <location filename="../src/advoutputoptions.cpp" line="398"/>
         <source>%1 trace gas</source>
         <translation>%1 trace gas</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="406"/>
+        <location filename="../src/advoutputoptions.cpp" line="400"/>
         <source>T&lt;sub&gt;air&lt;/sub&gt;</source>
         <translation>T&lt;sub&gt;air&lt;/sub&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="408"/>
+        <location filename="../src/advoutputoptions.cpp" line="402"/>
         <source>P&lt;sub&gt;air&lt;/sub&gt;</source>
         <translation>P&lt;sub&gt;air&lt;/sub&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="411"/>
+        <location filename="../src/advoutputoptions.cpp" line="405"/>
         <source>Select all variables</source>
         <translation>Select all variables</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="415"/>
+        <location filename="../src/advoutputoptions.cpp" line="409"/>
         <source>Results files</source>
         <translation>Results files</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="419"/>
+        <location filename="../src/advoutputoptions.cpp" line="413"/>
         <source>Spectral outputs</source>
         <translation>Spectral outputs</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="423"/>
+        <location filename="../src/advoutputoptions.cpp" line="416"/>
         <source>Reduced spectra and ogives</source>
         <translation>Reduced spectra and ogives</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="427"/>
+        <location filename="../src/advoutputoptions.cpp" line="418"/>
         <source>Full length spectra</source>
         <translation>Full length spectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="430"/>
+        <location filename="../src/advoutputoptions.cpp" line="420"/>
         <source>&lt;b&gt;Full length spectra:&lt;/b&gt; Spectra calculated for each variable, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Full length spectra:&lt;/b&gt; Spectra calculated for each variable, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="436"/>
+        <location filename="../src/advoutputoptions.cpp" line="426"/>
         <source>Full length cospectra</source>
         <translation>Full length cospectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="439"/>
+        <location filename="../src/advoutputoptions.cpp" line="428"/>
         <source>&lt;b&gt;Full length cospectra:&lt;/b&gt; Cospectra with the vertical wind component, calculated for each variable, for each flux averaging interval. Result files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Full length cospectra:&lt;/b&gt; Cospectra with the vertical wind component, calculated for each variable, for each flux averaging interval. Result files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="446"/>
+        <location filename="../src/advoutputoptions.cpp" line="435"/>
         <source>Processed raw data</source>
         <translation>Processed raw data</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="609"/>
+        <location filename="../src/advoutputoptions.cpp" line="598"/>
         <source>Output File Options</source>
         <translation>Output File Options</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1461"/>
+        <location filename="../src/advoutputoptions.cpp" line="1438"/>
         <source>Error Label</source>
         <translation>Error Label</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1462"/>
+        <location filename="../src/advoutputoptions.cpp" line="1439"/>
         <source>Enter a label other than &quot;none&quot; (case insensitive).</source>
         <translation>Enter a label other than &quot;none&quot; (case insensitive).</translation>
     </message>
@@ -430,573 +430,623 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AdvProcessingOptions</name>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="65"/>
+        <location filename="../src/advprocessingoptions.cpp" line="76"/>
         <source>Raw data processing</source>
         <translation>Raw data processing</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="68"/>
+        <location filename="../src/advprocessingoptions.cpp" line="79"/>
         <source>Wind speed measurement offsets </source>
         <translation>Wind speed measurement offsets </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="71"/>
+        <location filename="../src/advprocessingoptions.cpp" line="82"/>
         <source>&lt;b&gt;Wind speed measurement offsets:&lt;/b&gt; Wind measurements by a sonic anemometer may be biased by systematic deviations, which need to be eliminated (e.g., for a proper assessment of tilt angles). You may get these offsets from the calibration certificate of your anemometer, but you could also assess it easily, by recording the 3 wind components from the anemometer enclosed in a box with still air (zero-wind test). Any long-term systematic deviation from zero of a wind component is a good estimation of this bias.</source>
         <translation>&lt;b&gt;Wind speed measurement offsets:&lt;/b&gt; Wind measurements by a sonic anemometer may be biased by systematic deviations, which need to be eliminated (e.g., for a proper assessment of tilt angles). You may get these offsets from the calibration certificate of your anemometer, but you could also assess it easily, by recording the 3 wind components from the anemometer enclosed in a box with still air (zero-wind test). Any long-term systematic deviation from zero of a wind component is a good estimation of this bias.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="72"/>
+        <location filename="../src/advprocessingoptions.cpp" line="83"/>
         <source>U :</source>
         <translation>U :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="80"/>
-        <location filename="../src/advprocessingoptions.cpp" line="96"/>
-        <location filename="../src/advprocessingoptions.cpp" line="112"/>
+        <location filename="../src/advprocessingoptions.cpp" line="91"/>
+        <location filename="../src/advprocessingoptions.cpp" line="107"/>
+        <location filename="../src/advprocessingoptions.cpp" line="123"/>
         <source>  [m/s]</source>
         <comment>Velocity</comment>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="88"/>
+        <location filename="../src/advprocessingoptions.cpp" line="99"/>
         <source>V :</source>
         <translation>V :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="104"/>
+        <location filename="../src/advprocessingoptions.cpp" line="115"/>
         <source>W :</source>
         <translation>W :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="132"/>
+        <location filename="../src/advprocessingoptions.cpp" line="143"/>
         <source>&lt;b&gt;Angle-of-attack correction:&lt;/b&gt; Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used.</source>
         <translation>&lt;b&gt;Angle-of-attack correction:&lt;/b&gt; Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="133"/>
+        <location filename="../src/advprocessingoptions.cpp" line="144"/>
         <source>Angle-of-attack correction for wind components (Gill&apos;s only)</source>
         <translation>Angle-of-attack correction for wind components (Gill&apos;s only)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="136"/>
+        <location filename="../src/advprocessingoptions.cpp" line="147"/>
         <source>Method :</source>
         <translation>Method :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="139"/>
+        <location filename="../src/advprocessingoptions.cpp" line="150"/>
+        <source>Select automatically</source>
+        <translation>Select automatically</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="151"/>
         <source>Field calibration (Nakai and Shimoyama, 2012)</source>
         <translation>Field calibration (Nakai and Shimoyama, 2012)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="140"/>
+        <location filename="../src/advprocessingoptions.cpp" line="152"/>
         <source>Wind tunnel calibration (Nakai et al., 2006)</source>
         <translation>Wind tunnel calibration (Nakai et al., 2006)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="141"/>
+        <location filename="../src/advprocessingoptions.cpp" line="154"/>
         <source>&lt;b&gt;Field calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration.</source>
         <translation>&lt;b&gt;Field calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a field calibration instead of the wind tunnel calibration.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="142"/>
+        <location filename="../src/advprocessingoptions.cpp" line="155"/>
         <source>&lt;b&gt;Wind tunnel calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration.</source>
         <translation>&lt;b&gt;Wind tunnel calibration:&lt;/b&gt; Select this option to apply the angle-of-attack correction according to the method described in the referenced paper, which makes use of a wind tunnel calibration instead of the field calibration.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="146"/>
+        <location filename="../src/advprocessingoptions.cpp" line="159"/>
         <source>&lt;b&gt;Axis rotation for tilt correction:&lt;/b&gt; Select the appropriate method for compensating anemometer tilt with respect to local streamlines. Uncheck the box to &lt;i&gt;not perform&lt;/i&gt; any rotation (not recommnended). If your site has a complex or sloping topography, a planar-fit method is advisable. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</source>
         <translation>&lt;b&gt;Axis rotation for tilt correction:&lt;/b&gt; Select the appropriate method for compensating anemometer tilt with respect to local streamlines. Uncheck the box to &lt;i&gt;not perform&lt;/i&gt; any rotation (not recommnended). If your site has a complex or sloping topography, a planar-fit method is advisable. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="147"/>
+        <location filename="../src/advprocessingoptions.cpp" line="160"/>
         <source>Axis rotations for tilt correction</source>
         <translation>Axis rotations for tilt correction</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="150"/>
+        <location filename="../src/advprocessingoptions.cpp" line="163"/>
         <source>Rotation method :</source>
         <translation>Rotation method :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="152"/>
+        <location filename="../src/advprocessingoptions.cpp" line="165"/>
         <source>Double rotation</source>
         <translation>Double rotation</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="153"/>
+        <location filename="../src/advprocessingoptions.cpp" line="166"/>
         <source>Triple rotation</source>
         <translation>Triple rotation</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="154"/>
+        <location filename="../src/advprocessingoptions.cpp" line="167"/>
         <source>Planar fit (Wilczak et al. 2001)</source>
         <translation>Planar fit (Wilczak et al. 2001)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="155"/>
+        <location filename="../src/advprocessingoptions.cpp" line="168"/>
         <source>Planar fit with no velocity bias (van Dijk et al. 2004)</source>
         <translation>Planar fit with no velocity bias (van Dijk et al. 2004)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="156"/>
+        <location filename="../src/advprocessingoptions.cpp" line="169"/>
         <source>&lt;b&gt;Double rotation:&lt;/b&gt; Aligns the x-axis of the anemometer to the current mean streamlines, nullifying the vertical and cross-wind components. This is suggested in cases of flat topography and homogeneous canopies and in all conditions in which it is safe to assume that local wind streamlines are horizontal, parallel to the underlying surface.</source>
         <translation>&lt;b&gt;Double rotation:&lt;/b&gt; Aligns the x-axis of the anemometer to the current mean streamlines, nullifying the vertical and cross-wind components. This is suggested in cases of flat topography and homogeneous canopies and in all conditions in which it is safe to assume that local wind streamlines are horizontal, parallel to the underlying surface.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="157"/>
+        <location filename="../src/advprocessingoptions.cpp" line="170"/>
         <source>&lt;b&gt;Triple rotation:&lt;/b&gt; Double rotations plus a third rotation that nullifies the cross-stream stress. Not suitable in situations where the cross-stream stress is not expected to vanish, e.g., over water surfaces. Not recommended in general. Provided primarily for backwards compatibility.</source>
         <translation>&lt;b&gt;Triple rotation:&lt;/b&gt; Double rotations plus a third rotation that nullifies the cross-stream stress. Not suitable in situations where the cross-stream stress is not expected to vanish, e.g., over water surfaces. Not recommended in general. Provided primarily for backwards compatibility.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="158"/>
+        <location filename="../src/advprocessingoptions.cpp" line="171"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Aligns the anemometer coordinate system to local streamlines assessed on a long time period (e.g., 2 weeks or more). Can be performed sector-wise, meaning that different rotation angles are calculated for different wind sectors. Suggested for complex topographies and canopy structures, if canopy heights don&apos;t change too quickly. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Aligns the anemometer coordinate system to local streamlines assessed on a long time period (e.g., 2 weeks or more). Can be performed sector-wise, meaning that different rotation angles are calculated for different wind sectors. Suggested for complex topographies and canopy structures, if canopy heights don&apos;t change too quickly. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="159"/>
+        <location filename="../src/advprocessingoptions.cpp" line="172"/>
         <source>&lt;b&gt;Planar fit with no velocity bias:&lt;/b&gt; Aligns the anemometer coordinate system to local streamlines assessed on a long time period (e.g., 2 weeks or more), but unlike the classic &lt;i&gt;Planar fit&lt;/i&gt;, it assumes that any bias in the measurement of vertical wind is preliminarily compensated, and forces the fitting plane to pass through the origin (that is, such that if average &lt;i&gt;u&lt;/i&gt; and &lt;i&gt;v&lt;/i&gt; are zero, also average &lt;i&gt;w&lt;/i&gt; is zero), thus its coefficient &lt;i&gt;b0&lt;/i&gt; is zero. Can be performed sector-wise, meaning that different rotation angles are calculated for different wind sectors. It is recommended for complex topographies and canopy structures, if canopy heights don&apos;t change too quickly. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</source>
         <translation>&lt;b&gt;Planar fit with no velocity bias:&lt;/b&gt; Aligns the anemometer coordinate system to local streamlines assessed on a long time period (e.g., 2 weeks or more), but unlike the classic &lt;i&gt;Planar fit&lt;/i&gt;, it assumes that any bias in the measurement of vertical wind is preliminarily compensated, and forces the fitting plane to pass through the origin (that is, such that if average &lt;i&gt;u&lt;/i&gt; and &lt;i&gt;v&lt;/i&gt; are zero, also average &lt;i&gt;w&lt;/i&gt; is zero), thus its coefficient &lt;i&gt;b0&lt;/i&gt; is zero. Can be performed sector-wise, meaning that different rotation angles are calculated for different wind sectors. It is recommended for complex topographies and canopy structures, if canopy heights don&apos;t change too quickly. Click on the &lt;b&gt;&lt;i&gt;Planar Fit Settings...&lt;/i&gt;&lt;/b&gt; to configure the procedure.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="162"/>
+        <location filename="../src/advprocessingoptions.cpp" line="175"/>
         <source>Planar Fit Settings...</source>
         <translation>Planar Fit Settings...</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="166"/>
+        <location filename="../src/advprocessingoptions.cpp" line="179"/>
         <source>Turbulent fluctuations</source>
         <translation>Turbulent fluctuations</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="168"/>
+        <location filename="../src/advprocessingoptions.cpp" line="181"/>
         <source>&lt;b&gt;Turbulent fluctuations:&lt;/b&gt; Select the method to extract turbulence fluctuations out of the time series.</source>
         <translation>&lt;b&gt;Turbulent fluctuations:&lt;/b&gt; Select the method to extract turbulence fluctuations out of the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="169"/>
+        <location filename="../src/advprocessingoptions.cpp" line="182"/>
         <source>Detrend method :</source>
         <translation>Detrend method :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="171"/>
+        <location filename="../src/advprocessingoptions.cpp" line="184"/>
         <source>Block average</source>
         <translation>Block average</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="172"/>
+        <location filename="../src/advprocessingoptions.cpp" line="185"/>
         <source>Linear detrending</source>
         <translation>Linear detrending</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="173"/>
+        <location filename="../src/advprocessingoptions.cpp" line="186"/>
         <source>Running mean</source>
         <translation>Running mean</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="174"/>
+        <location filename="../src/advprocessingoptions.cpp" line="187"/>
         <source>Exponential running mean</source>
         <translation>Exponential running mean</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="175"/>
+        <location filename="../src/advprocessingoptions.cpp" line="188"/>
         <source>&lt;b&gt;Block average:&lt;/b&gt; Simply removes the mean value from the time series, calculated over the flux averaging interval. Obeys Reynolds decomposition rule (the mean value of fluctuations is identically zero). Among all methods available, block average retains the largest portion of low frequency content, including genuine turbulent fluctuations and possible non-turbulence related trends.</source>
         <translation>&lt;b&gt;Block average:&lt;/b&gt; Simply removes the mean value from the time series, calculated over the flux averaging interval. Obeys Reynolds decomposition rule (the mean value of fluctuations is identically zero). Among all methods available, block average retains the largest portion of low frequency content, including genuine turbulent fluctuations and possible non-turbulence related trends.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="176"/>
+        <location filename="../src/advprocessingoptions.cpp" line="189"/>
         <source>&lt;b&gt;Linear detrending:&lt;/b&gt; Calculates fluctuations as the deviations from a linear trend. The linear trend can be evaluated on a time basis different from the flux averaging interval. Specify this time basis using the &lt;b&gt;&lt;i&gt;Time constant&lt;/i&gt;&lt;/b&gt; entry. For classic linear detrending, with the trend evaluated on the whole flux averaging interval, set &lt;b&gt;&lt;i&gt;Time constant = 0&lt;/i&gt;&lt;/b&gt;, which will be automatically converted into the text &lt;i&gt;Same as Flux averaging interval&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Linear detrending:&lt;/b&gt; Calculates fluctuations as the deviations from a linear trend. The linear trend can be evaluated on a time basis different from the flux averaging interval. Specify this time basis using the &lt;b&gt;&lt;i&gt;Time constant&lt;/i&gt;&lt;/b&gt; entry. For classic linear detrending, with the trend evaluated on the whole flux averaging interval, set &lt;b&gt;&lt;i&gt;Time constant = 0&lt;/i&gt;&lt;/b&gt;, which will be automatically converted into the text &lt;i&gt;Same as Flux averaging interval&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="177"/>
+        <location filename="../src/advprocessingoptions.cpp" line="190"/>
         <source>&lt;b&gt;Running mean:&lt;/b&gt; High-pass, finite impulse response filter. The current mean is determined by the previous &lt;i&gt;N&lt;/i&gt; data points, where &lt;i&gt;N&lt;/i&gt; depends on the &lt;i&gt;time constant&lt;/i&gt;. The smaller the time constant, the more low-frequency content is eliminated from the time series.</source>
         <translation>&lt;b&gt;Running mean:&lt;/b&gt; High-pass, finite impulse response filter. The current mean is determined by the previous &lt;i&gt;N&lt;/i&gt; data points, where &lt;i&gt;N&lt;/i&gt; depends on the &lt;i&gt;time constant&lt;/i&gt;. The smaller the time constant, the more low-frequency content is eliminated from the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="178"/>
+        <location filename="../src/advprocessingoptions.cpp" line="191"/>
         <source>&lt;b&gt;Exponential running mean:&lt;/b&gt; High-pass, infinite impulse response filter. Similar to the simple running mean, but weighted in such a way that distant samples have an exponentially decreasing weight in the current mean, never reaching zero. The smaller the time constant, the more low-frequency content is eliminated from the time series.</source>
         <translation>&lt;b&gt;Exponential running mean:&lt;/b&gt; High-pass, infinite impulse response filter. Similar to the simple running mean, but weighted in such a way that distant samples have an exponentially decreasing weight in the current mean, never reaching zero. The smaller the time constant, the more low-frequency content is eliminated from the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="180"/>
+        <location filename="../src/advprocessingoptions.cpp" line="193"/>
         <source>Time constant :</source>
         <translation>Time constant :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="182"/>
+        <location filename="../src/advprocessingoptions.cpp" line="195"/>
         <source>&lt;b&gt;Time constant:&lt;/b&gt; Applies to the linear detrending, running mean and exponential running mean methods. In general, the higher the time constant, the more low-frequency content is retained in the turbulent fluctuations. Note that for the linear detrending the unit is minutes, while for the running means it is seconds.</source>
         <translation>&lt;b&gt;Time constant:&lt;/b&gt; Applies to the linear detrending, running mean and exponential running mean methods. In general, the higher the time constant, the more low-frequency content is retained in the turbulent fluctuations. Note that for the linear detrending the unit is minutes, while for the running means it is seconds.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="190"/>
-        <location filename="../src/advprocessingoptions.cpp" line="674"/>
-        <location filename="../src/advprocessingoptions.cpp" line="694"/>
+        <location filename="../src/advprocessingoptions.cpp" line="203"/>
+        <location filename="../src/advprocessingoptions.cpp" line="765"/>
+        <location filename="../src/advprocessingoptions.cpp" line="785"/>
         <source>  [s]</source>
         <comment>Second</comment>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="192"/>
+        <location filename="../src/advprocessingoptions.cpp" line="205"/>
         <source>Same as Flux averaging interval</source>
         <translation>Same as Flux averaging interval</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="196"/>
+        <location filename="../src/advprocessingoptions.cpp" line="209"/>
         <source>&lt;b&gt;Time lags compensation:&lt;/b&gt; Select the method to compensate time lags between anemometric measurements and any other high frequency measurements included in the raw files. Time lags arise due mainly to sensors physical distances and to the passage of air into sampling lines. Uncheck this box to instruct EddyPro not to compensate time lags (not recommended).</source>
         <translation>&lt;b&gt;Time lags compensation:&lt;/b&gt; Select the method to compensate time lags between anemometric measurements and any other high frequency measurements included in the raw files. Time lags arise due mainly to sensors physical distances and to the passage of air into sampling lines. Uncheck this box to instruct EddyPro not to compensate time lags (not recommended).</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="197"/>
+        <location filename="../src/advprocessingoptions.cpp" line="210"/>
         <source>Time lags compensation</source>
         <translation>Time lags compensation</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="200"/>
+        <location filename="../src/advprocessingoptions.cpp" line="213"/>
         <source>Time lag detection method :</source>
         <translation>Time lag detection method :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="202"/>
+        <location filename="../src/advprocessingoptions.cpp" line="215"/>
         <source>Constant</source>
         <translation>Constant</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="203"/>
+        <location filename="../src/advprocessingoptions.cpp" line="216"/>
         <source>Covariance maximization with default</source>
         <translation>Covariance maximization with default</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="204"/>
+        <location filename="../src/advprocessingoptions.cpp" line="217"/>
         <source>Covariance maximization</source>
         <translation>Covariance maximization</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="205"/>
+        <location filename="../src/advprocessingoptions.cpp" line="218"/>
         <source>Automatic time lag optimization</source>
         <translation>Automatic time lag optimization</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="206"/>
+        <location filename="../src/advprocessingoptions.cpp" line="219"/>
         <source>&lt;b&gt;Constant:&lt;/b&gt; EddyPro will apply constant time lags for all flux averaging intervals, using the &lt;b&gt;&lt;i&gt;Nominal time lag&lt;/i&gt;&lt;/b&gt; stored inside the GHG files or in the &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; (for files other than GHG). While it can speed up the computation, this method is not recommended for physically displaced sensors or closed/enclosed path gas analysers. It can be used for closed/enclosed analysers if flow rate in the sampling line is strictly controlled and the sampling tube is actively heated to keep relative humidity low and constant.</source>
         <translation>&lt;b&gt;Constant:&lt;/b&gt; EddyPro will apply constant time lags for all flux averaging intervals, using the &lt;b&gt;&lt;i&gt;Nominal time lag&lt;/i&gt;&lt;/b&gt; stored inside the GHG files or in the &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; (for files other than GHG). While it can speed up the computation, this method is not recommended for physically displaced sensors or closed/enclosed path gas analysers. It can be used for closed/enclosed analysers if flow rate in the sampling line is strictly controlled and the sampling tube is actively heated to keep relative humidity low and constant.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="207"/>
+        <location filename="../src/advprocessingoptions.cpp" line="220"/>
         <source>&lt;b&gt;Covariance maximization with default:&lt;/b&gt; Similar to the &lt;i&gt;Covariance maximization&lt;/i&gt;, this calculates the most likely time lag based on the circular correlation procedure. However, if a maximum of the covariance is not attained within the window (but at one of its ends), the time lag is set to the &lt;b&gt;&lt;i&gt;Nominal time lag&lt;/i&gt;&lt;/b&gt; value stored inside the GHG files or in the &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; (for files other than GHG), for each variable. Recommended in most situations.</source>
         <translation>&lt;b&gt;Covariance maximization with default:&lt;/b&gt; Similar to the &lt;i&gt;Covariance maximization&lt;/i&gt;, this calculates the most likely time lag based on the circular correlation procedure. However, if a maximum of the covariance is not attained within the window (but at one of its ends), the time lag is set to the &lt;b&gt;&lt;i&gt;Nominal time lag&lt;/i&gt;&lt;/b&gt; value stored inside the GHG files or in the &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; (for files other than GHG), for each variable. Recommended in most situations.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="208"/>
+        <location filename="../src/advprocessingoptions.cpp" line="221"/>
         <source>&lt;b&gt;Covariance maximization:&lt;/b&gt; Calculates the most likely time lag within a plausible window, based on the circular correlation procedure. The window is defined by the &lt;i&gt;Minimum time lags&lt;/i&gt; and &lt;i&gt;Maximum time lags&lt;/i&gt; stored inside the GHG files or in the &lt;i&gt;Alternative metadata file&lt;/i&gt; (for files other than GHG), for each variable.</source>
         <translation>&lt;b&gt;Covariance maximization:&lt;/b&gt; Calculates the most likely time lag within a plausible window, based on the circular correlation procedure. The window is defined by the &lt;i&gt;Minimum time lags&lt;/i&gt; and &lt;i&gt;Maximum time lags&lt;/i&gt; stored inside the GHG files or in the &lt;i&gt;Alternative metadata file&lt;/i&gt; (for files other than GHG), for each variable.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="209"/>
+        <location filename="../src/advprocessingoptions.cpp" line="222"/>
         <source>&lt;b&gt;Automatic time lag optimization:&lt;/b&gt; Select this option and configure it clicking on the &lt;b&gt;&lt;i&gt;Time Lag Optimization Settings...&lt;/i&gt;&lt;/b&gt; to instruct EddyPro to perform a statistical optimization of time lags. It will calculate nominal time lags and plausibility windows and apply them in the raw data processing step. For water vapor, the assessment is performed as a function of relative humidity.</source>
         <translation>&lt;b&gt;Automatic time lag optimization:&lt;/b&gt; Select this option and configure it clicking on the &lt;b&gt;&lt;i&gt;Time Lag Optimization Settings...&lt;/i&gt;&lt;/b&gt; to instruct EddyPro to perform a statistical optimization of time lags. It will calculate nominal time lags and plausibility windows and apply them in the raw data processing step. For water vapor, the assessment is performed as a function of relative humidity.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="212"/>
+        <location filename="../src/advprocessingoptions.cpp" line="225"/>
         <source>Time Lag Optimization Settings...</source>
         <translation>Time Lag Optimization Settings...</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="248"/>
+        <location filename="../src/advprocessingoptions.cpp" line="261"/>
         <source>Compensate density fluctuations (WPL terms)</source>
         <translation>Compensate density fluctuations (WPL terms)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="252"/>
+        <location filename="../src/advprocessingoptions.cpp" line="266"/>
         <source>&lt;b&gt;Add instrument sensible heat components, only for LI-7500:&lt;/b&gt; Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008).</source>
         <translation>&lt;b&gt;Add instrument sensible heat components, only for LI-7500:&lt;/b&gt; Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008).</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="253"/>
+        <location filename="../src/advprocessingoptions.cpp" line="267"/>
         <source>Add instrument sensible heat components, only for LI-7500 </source>
         <translation>Add instrument sensible heat components, only for LI-7500 </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="303"/>
+        <location filename="../src/advprocessingoptions.cpp" line="319"/>
+        <source>Correction of gas concentration errors (Fratini et al., 2014) – LI-7500/A/RS and LI-7200/RS only</source>
+        <translation>Correction of gas concentration errors (Fratini et al., 2014) – LI-7500/A/RS and LI-7200/RS only</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="324"/>
+        <source>Do not correct</source>
+        <translation>Do not correct</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="328"/>
+        <source>Linear interpolation</source>
+        <translation>Linear interpolation</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="332"/>
+        <source>RSSI-driven interpolation (requires ‘raw counts’ in raw data files)</source>
+        <translation>RSSI-driven interpolation (requires ‘raw counts’ in raw data files)</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="342"/>
+        <source>Calibration data</source>
+        <translation>Calibration data</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="348"/>
+        <source>Fetch from LI-COR</source>
+        <translation>Fetch from LI-COR</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="352"/>
+        <source>Calibration values</source>
+        <translation>Calibration values</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="357"/>
+        <source>IRGA serial number: </source>
+        <translation>IRGA serial number: </translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="367"/>
         <source>Compensation of density fluctuations</source>
         <translation>Compensation of density fluctuations</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="685"/>
+        <location filename="../src/advprocessingoptions.cpp" line="776"/>
         <source>  [min]</source>
         <comment>Minute</comment>
         <translation>  [min]</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="217"/>
+        <location filename="../src/advprocessingoptions.cpp" line="230"/>
         <source>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</source>
         <translation>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="218"/>
+        <location filename="../src/advprocessingoptions.cpp" line="153"/>
+        <source>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster&lt;sup&gt;%1&lt;/sup&gt; or WindMaster Pro - its firmware version.</source>
+        <translation>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster&lt;sup&gt;%1&lt;/sup&gt; or WindMaster Pro - its firmware version.</translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="231"/>
         <source>Quality check</source>
         <translation>Quality check</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="221"/>
+        <location filename="../src/advprocessingoptions.cpp" line="234"/>
         <source>Flagging policy :</source>
         <translation>Flagging policy :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="223"/>
-        <location filename="../src/advprocessingoptions.cpp" line="227"/>
+        <location filename="../src/advprocessingoptions.cpp" line="236"/>
+        <location filename="../src/advprocessingoptions.cpp" line="240"/>
         <source>&lt;b&gt;Mauder and Foken 2004:&lt;/b&gt; Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. &quot;0&quot; means high quality fluxes, &quot;1&quot; means fluxes are ok for budget analysis, &quot;2&quot; fluxes should be discarded from the result dataset.</source>
         <translation>&lt;b&gt;Mauder and Foken 2004:&lt;/b&gt; Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. &quot;0&quot; means high quality fluxes, &quot;1&quot; means fluxes are ok for budget analysis, &quot;2&quot; fluxes should be discarded from the result dataset.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="224"/>
+        <location filename="../src/advprocessingoptions.cpp" line="237"/>
         <source>Mauder and Foken (2004) (0-1-2 system)</source>
         <translation>Mauder and Foken (2004) (0-1-2 system)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="225"/>
+        <location filename="../src/advprocessingoptions.cpp" line="238"/>
         <source>Foken (2003) (1 to 9 system)</source>
         <translation>Foken (2003) (1 to 9 system)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="226"/>
+        <location filename="../src/advprocessingoptions.cpp" line="239"/>
         <source>Goeckede et al. (2004) (1 to 5 system)</source>
         <translation>Goeckede et al. (2004) (1 to 5 system)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="228"/>
+        <location filename="../src/advprocessingoptions.cpp" line="241"/>
         <source>&lt;b&gt;Foken 2003:&lt;/b&gt; A system based on 9 quality grades. &quot;1&quot; is best, &quot;9&quot; is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system.</source>
         <translation>&lt;b&gt;Foken 2003:&lt;/b&gt; A system based on 9 quality grades. &quot;1&quot; is best, &quot;9&quot; is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="229"/>
+        <location filename="../src/advprocessingoptions.cpp" line="242"/>
         <source>&lt;b&gt;Goeckede et al., 2004:&lt;/b&gt; A system based on 5 quality grades. &quot;1&quot; is best, &quot;5&quot; is worst.</source>
         <translation>&lt;b&gt;Goeckede et al., 2004:&lt;/b&gt; A system based on 5 quality grades. &quot;1&quot; is best, &quot;5&quot; is worst.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="232"/>
+        <location filename="../src/advprocessingoptions.cpp" line="245"/>
         <source>&lt;b&gt;Footprint estimation:&lt;/b&gt; Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given.</source>
         <translation>&lt;b&gt;Footprint estimation:&lt;/b&gt; Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="233"/>
+        <location filename="../src/advprocessingoptions.cpp" line="246"/>
         <source>Footprint estimation</source>
         <translation>Footprint estimation</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="236"/>
+        <location filename="../src/advprocessingoptions.cpp" line="249"/>
         <source>Footprint method :</source>
         <translation>Footprint method :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="238"/>
-        <location filename="../src/advprocessingoptions.cpp" line="242"/>
+        <location filename="../src/advprocessingoptions.cpp" line="251"/>
+        <location filename="../src/advprocessingoptions.cpp" line="255"/>
         <source>&lt;b&gt;Kljun et al. (2004):&lt;/b&gt; A cross-wind integrated parameterization of footprint estimations obtained with a 3D Lagrangian model by means of a scaling procedure.</source>
         <translation>&lt;b&gt;Kljun et al. (2004):&lt;/b&gt; A cross-wind integrated parameterization of footprint estimations obtained with a 3D Lagrangian model by means of a scaling procedure.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="239"/>
+        <location filename="../src/advprocessingoptions.cpp" line="252"/>
         <source>Kljun et al. (2004)</source>
         <translation>Kljun et al. (2004)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="240"/>
+        <location filename="../src/advprocessingoptions.cpp" line="253"/>
         <source>Kormann and Meixner (2001)</source>
         <translation>Kormann and Meixner (2001)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="241"/>
+        <location filename="../src/advprocessingoptions.cpp" line="254"/>
         <source>Hsieh et al. (2000)</source>
         <translation>Hsieh et al. (2000)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="243"/>
+        <location filename="../src/advprocessingoptions.cpp" line="256"/>
         <source>&lt;b&gt;Kormann and Meixner (2001):&lt;/b&gt; A cross-wind integrated model based on the solution of the two dimensional advection-diffusion equation given by van Ulden (1978) and others for power-law profiles in wind velocity and eddy diffusivity.</source>
         <translation>&lt;b&gt;Kormann and Meixner (2001):&lt;/b&gt; A cross-wind integrated model based on the solution of the two dimensional advection-diffusion equation given by van Ulden (1978) and others for power-law profiles in wind velocity and eddy diffusivity.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="244"/>
+        <location filename="../src/advprocessingoptions.cpp" line="257"/>
         <source>&lt;b&gt;Hsien et al. (2000):&lt;/b&gt; A cross-wind integrated model based based on the former model of Gash (1986) and on simulations with a Lagrangian stochastic model.</source>
         <translation>&lt;b&gt;Hsien et al. (2000):&lt;/b&gt; A cross-wind integrated model based based on the former model of Gash (1986) and on simulations with a Lagrangian stochastic model.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="247"/>
+        <location filename="../src/advprocessingoptions.cpp" line="260"/>
         <source>&lt;b&gt;Compensate density fluctuations:&lt;/b&gt; This is the so-called WPL correction (Webb et al., 1980). Choose whether to apply the compensation of density fluctuations to raw gas concentrations available as molar densities or mole fractions (moles gas per mole of wet air). The correction does not apply if raw concentrations are available as mixing ratios (mole gas per mole dry air).</source>
         <translation>&lt;b&gt;Compensate density fluctuations:&lt;/b&gt; This is the so-called WPL correction (Webb et al., 1980). Choose whether to apply the compensation of density fluctuations to raw gas concentrations available as molar densities or mole fractions (moles gas per mole of wet air). The correction does not apply if raw concentrations are available as mixing ratios (mole gas per mole dry air).</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="257"/>
+        <location filename="../src/advprocessingoptions.cpp" line="271"/>
         <source>Surface temperature estimation :</source>
         <translation>Surface temperature estimation :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="258"/>
+        <location filename="../src/advprocessingoptions.cpp" line="272"/>
         <source>Simple linear regressions</source>
         <translation>Simple linear regressions</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="259"/>
+        <location filename="../src/advprocessingoptions.cpp" line="273"/>
         <source>&lt;b&gt;Simple linear regressions:&lt;/b&gt; Instrument surface temperatures are estimated based on air temperature, using linear regressions as from Burba et al. 2008, eqs. 3-8. Default regression parameters are from Table 3 in the same paper. If you have experimental data for your LI-7500 unit, you may customize those values. Otherwise we suggest using default values.</source>
         <translation>&lt;b&gt;Simple linear regressions:&lt;/b&gt; Instrument surface temperatures are estimated based on air temperature, using linear regressions as from Burba et al. 2008, eqs. 3-8. Default regression parameters are from Table 3 in the same paper. If you have experimental data for your LI-7500 unit, you may customize those values. Otherwise we suggest using default values.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="260"/>
+        <location filename="../src/advprocessingoptions.cpp" line="274"/>
         <source>Multiple regressions</source>
         <translation>Multiple regressions</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="261"/>
+        <location filename="../src/advprocessingoptions.cpp" line="275"/>
         <source>&lt;b&gt;Multiple regressions:&lt;/b&gt; Instrument surface temperatures are estimated based on air temperature, global radiation, long-wave radiation and wind speed, as from Burba et al. 2008, Table 2. Default regression parameters are from the same table. If you have experimental data for your LI-7500 unit, you may customize those values. Otherwise we suggest using default values.</source>
         <translation>&lt;b&gt;Multiple regressions:&lt;/b&gt; Instrument surface temperatures are estimated based on air temperature, global radiation, long-wave radiation and wind speed, as from Burba et al. 2008, Table 2. Default regression parameters are from the same table. If you have experimental data for your LI-7500 unit, you may customize those values. Otherwise we suggest using default values.</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="267"/>
+        <location filename="../src/advprocessingoptions.cpp" line="281"/>
         <source>Restore Default Values</source>
         <translation>Restore Default Values</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="270"/>
+        <location filename="../src/advprocessingoptions.cpp" line="284"/>
         <source>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets the surface heating correction to the default values of Burba et al. (2008).</source>
         <translation>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets the surface heating correction to the default values of Burba et al. (2008).</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="272"/>
+        <location filename="../src/advprocessingoptions.cpp" line="286"/>
         <source>Default values as from Burba et al. (2008)</source>
         <translation>Default values as from Burba et al. (2008)</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="291"/>
-        <location filename="../src/advprocessingoptions.cpp" line="295"/>
+        <location filename="../src/advprocessingoptions.cpp" line="305"/>
+        <location filename="../src/advprocessingoptions.cpp" line="309"/>
         <source>Day time</source>
         <translation>Day time</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="292"/>
-        <location filename="../src/advprocessingoptions.cpp" line="296"/>
+        <location filename="../src/advprocessingoptions.cpp" line="306"/>
+        <location filename="../src/advprocessingoptions.cpp" line="310"/>
         <source>Night time</source>
         <translation>Night time</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="306"/>
+        <location filename="../src/advprocessingoptions.cpp" line="370"/>
         <source>Other options</source>
         <translation>Other options</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="378"/>
+        <location filename="../src/advprocessingoptions.cpp" line="458"/>
         <source>Raw Processing Options</source>
         <translation>Raw Processing Options</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1052"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1062"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1130"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1201"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1178"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1188"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1256"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1327"/>
         <source>Bottom :</source>
         <translation>Bottom :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1053"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1063"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1179"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1189"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1054"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1057"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1060"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1064"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1067"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1070"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1132"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1137"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1142"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1203"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1208"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1213"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1180"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1183"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1186"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1190"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1193"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1196"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1258"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1263"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1268"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1329"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1334"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1339"/>
         <source> * T&lt;sub&gt;a&lt;/sub&gt; + </source>
         <translation> * T&lt;sub&gt;a&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1055"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1065"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1135"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1206"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1181"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1191"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1261"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1332"/>
         <source>Top :</source>
         <translation>Top :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1056"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1066"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1182"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1192"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1058"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1068"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1140"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1211"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1184"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1194"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1266"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1337"/>
         <source>Spar :</source>
         <translation>Spar :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1059"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1069"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1185"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1195"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1131"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1202"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1257"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1328"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1133"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1138"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1143"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1259"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1264"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1269"/>
         <source> * R&lt;sub&gt;g&lt;/sub&gt; + </source>
         <translation> * R&lt;sub&gt;g&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1134"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1139"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1144"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1205"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1210"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1215"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1260"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1265"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1270"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1331"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1336"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1341"/>
         <source> * U + </source>
         <translation> * U + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1136"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1207"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1262"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1333"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1141"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1212"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1267"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1338"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1204"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1209"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1214"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1330"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1335"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1340"/>
         <source> * LWin + </source>
         <translation> * LWin + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1484"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1609"/>
         <source>Reset Surface Heating Correction</source>
         <translation>Reset Surface Heating Correction</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1485"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1610"/>
         <source>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1487"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1612"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -1004,27 +1054,27 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AdvSpectralOptions</name>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="374"/>
+        <location filename="../src/advspectraloptions.cpp" line="370"/>
         <source>Low frequency range</source>
         <translation>Low frequency range</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="382"/>
+        <location filename="../src/advspectraloptions.cpp" line="378"/>
         <source>High frequency range</source>
         <translation>High frequency range</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="414"/>
+        <location filename="../src/advspectraloptions.cpp" line="439"/>
         <source>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</source>
         <translation>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="420"/>
+        <location filename="../src/advspectraloptions.cpp" line="445"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="378"/>
+        <location filename="../src/advspectraloptions.cpp" line="374"/>
         <source>&lt;b&gt;Analytic correction of high-pass filtering effects:&lt;/b&gt; Check this option to apply a low frequency spectral correction, to compensate flux losses due to finite averaging length and detrending. The method is adapted to the selected fluctuation computation procedure and its time constant as applicable.</source>
         <translation>&lt;b&gt;Analytic correction of high-pass filtering effects:&lt;/b&gt; Check this option to apply a low frequency spectral correction, to compensate flux losses due to finite averaging length and detrending. The method is adapted to the selected fluctuation computation procedure and its time constant as applicable.</translation>
     </message>
@@ -1034,103 +1084,103 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select a different period</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="385"/>
+        <location filename="../src/advspectraloptions.cpp" line="381"/>
         <source>Correction of low-pass filtering effects</source>
         <translation>Correction of low-pass filtering effects</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="386"/>
+        <location filename="../src/advspectraloptions.cpp" line="382"/>
         <source>&lt;b&gt;Correction of low-pass filtering effects:&lt;/b&gt; Check this option to apply a high frequency spectral correction, to compensate flux losses due to finite sensors separation, signal attenuation, path averaging, time response, etc. Select the most appropriate method according to your EC setup.</source>
         <translation>&lt;b&gt;Correction of low-pass filtering effects:&lt;/b&gt; Check this option to apply a high frequency spectral correction, to compensate flux losses due to finite sensors separation, signal attenuation, path averaging, time response, etc. Select the most appropriate method according to your EC setup.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="389"/>
-        <location filename="../src/advspectraloptions.cpp" line="406"/>
+        <location filename="../src/advspectraloptions.cpp" line="385"/>
+        <location filename="../src/advspectraloptions.cpp" line="402"/>
         <source>Method :</source>
         <translation>Method :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="392"/>
+        <location filename="../src/advspectraloptions.cpp" line="388"/>
         <source>Moncrieff et al. (1997) - Fully analytic</source>
         <translation>Moncrieff et al. (1997) - Fully analytic</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="393"/>
+        <location filename="../src/advspectraloptions.cpp" line="389"/>
         <source>Massmann (2000, 2001) - Fully analytic</source>
         <translation>Massmann (2000, 2001) - Fully analytic</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="394"/>
+        <location filename="../src/advspectraloptions.cpp" line="390"/>
         <source>Horst (1997) - Analytic with in situ parameterization</source>
         <translation>Horst (1997) - Analytic with in situ parameterization</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="395"/>
+        <location filename="../src/advspectraloptions.cpp" line="391"/>
         <source>Ibrom et al. (2007) - In situ/analytic</source>
         <translation>Ibrom et al. (2007) - In situ/analytic</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="396"/>
+        <location filename="../src/advspectraloptions.cpp" line="392"/>
         <source>Fratini et al. (2012) - In situ/analytic</source>
         <translation>Fratini et al. (2012) - In situ/analytic</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="397"/>
+        <location filename="../src/advspectraloptions.cpp" line="393"/>
         <source>&lt;b&gt;Moncrieff et al. (1997):&lt;/b&gt; This method models all major sources of flux attenuation by means of a mathematical formulation. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) - notably for water vapor - when the sampling line is long and/or not heated, because of the dependency of attenuation of H&lt;sub&gt;2&lt;/sub&gt;O on relative humidity.</source>
         <translation>&lt;b&gt;Moncrieff et al. (1997):&lt;/b&gt; This method models all major sources of flux attenuation by means of a mathematical formulation. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) - notably for water vapor - when the sampling line is long and/or not heated, because of the dependency of attenuation of H&lt;sub&gt;2&lt;/sub&gt;O on relative humidity.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="398"/>
+        <location filename="../src/advspectraloptions.cpp" line="394"/>
         <source>&lt;b&gt;Massmann (2000, 2001):&lt;/b&gt; This method provides a simple analytical expression for the spectral correction factors. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) for water vapor, when the sampling line is long and/or not heated, because of the dependency of attenuation of %2 on relative humidity. For closed path systems, this method is only applicable for %1, %2, %3, %4 and %5 fluxes.</source>
         <translation>&lt;b&gt;Massmann (2000, 2001):&lt;/b&gt; This method provides a simple analytical expression for the spectral correction factors. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) for water vapor, when the sampling line is long and/or not heated, because of the dependency of attenuation of %2 on relative humidity. For closed path systems, this method is only applicable for %1, %2, %3, %4 and %5 fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="399"/>
+        <location filename="../src/advspectraloptions.cpp" line="395"/>
         <source>&lt;b&gt;Horst (1997):&lt;/b&gt; Correction method based on an analytical formulation of the spectral correction factor that requires an in-situ assessment of the system&apos;s cut-off frequency. Provide the information below to specify how to perform such assessment.</source>
         <translation>&lt;b&gt;Horst (1997):&lt;/b&gt; Correction method based on an analytical formulation of the spectral correction factor that requires an in-situ assessment of the system&apos;s cut-off frequency. Provide the information below to specify how to perform such assessment.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="400"/>
+        <location filename="../src/advspectraloptions.cpp" line="396"/>
         <source>&lt;b&gt;Ibrom et al. (2007):&lt;/b&gt; Correction method based on an analytical formulation of the spectra correction factors, that requires an in-situ assessment of the system&apos;s cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. Provide the settings in the &lt;i&gt;Assessment of high-frequency attenuation&lt;/i&gt; to specify how to perform the assessment. This method is recommended in most cases, notably for closed-path systems placed high over rough canopies.</source>
         <translation>&lt;b&gt;Ibrom et al. (2007):&lt;/b&gt; Correction method based on an analytical formulation of the spectra correction factors, that requires an in-situ assessment of the system&apos;s cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. Provide the settings in the &lt;i&gt;Assessment of high-frequency attenuation&lt;/i&gt; to specify how to perform the assessment. This method is recommended in most cases, notably for closed-path systems placed high over rough canopies.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="401"/>
+        <location filename="../src/advspectraloptions.cpp" line="397"/>
         <source>&lt;b&gt;Fratini et al. (2012):&lt;/b&gt; Correction method based on the combination of a direct approach (similar to Hollinger et al., 2009) and the analytical formulation of Ibrom et al., 2007. It requires an in-situ assessment of the system&apos;s cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. It also requires full length cospectra of measured sensible heat. This method is recommendable in most cases, notably for closed-path systems placed low over smooth surfaces.</source>
         <translation>&lt;b&gt;Fratini et al. (2012):&lt;/b&gt; Correction method based on the combination of a direct approach (similar to Hollinger et al., 2009) and the analytical formulation of Ibrom et al., 2007. It requires an in-situ assessment of the system&apos;s cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. It also requires full length cospectra of measured sensible heat. This method is recommendable in most cases, notably for closed-path systems placed low over smooth surfaces.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="403"/>
+        <location filename="../src/advspectraloptions.cpp" line="399"/>
         <source>Correction for instruments separation</source>
         <translation>Correction for instruments separation</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="404"/>
+        <location filename="../src/advspectraloptions.cpp" line="400"/>
         <source>&lt;b&gt;Correction for instrument separation:&lt;/b&gt; Check this option and select the corresponding method to add an extra correction term to that calculated with the method by Ibrom et al. (2007). This accounts for any separation between the inlet of the sampling line (closed path instruments) or the center of the open path instrument and the center of the anemometer.</source>
         <translation>&lt;b&gt;Correction for instrument separation:&lt;/b&gt; Check this option and select the corresponding method to add an extra correction term to that calculated with the method by Ibrom et al. (2007). This accounts for any separation between the inlet of the sampling line (closed path instruments) or the center of the open path instrument and the center of the anemometer.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="408"/>
+        <location filename="../src/advspectraloptions.cpp" line="404"/>
         <source>Horst and Lenschow (2009), along-wind, crosswind and vertical</source>
         <translation>Horst and Lenschow (2009), along-wind, crosswind and vertical</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="409"/>
+        <location filename="../src/advspectraloptions.cpp" line="405"/>
         <source>Horst and Lenschow (2009), only crosswind and vertical</source>
         <translation>Horst and Lenschow (2009), only crosswind and vertical</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="410"/>
+        <location filename="../src/advspectraloptions.cpp" line="406"/>
         <source>&lt;b&gt;Horst and Lenschow (2009), along-wind, crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected.</source>
         <translation>&lt;b&gt;Horst and Lenschow (2009), along-wind, crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations in any direction. Note that correcting for along-wind separations may result in overcorrection, if any time lag compensation method was also selected.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="411"/>
+        <location filename="../src/advspectraloptions.cpp" line="407"/>
         <source>&lt;b&gt;Horst and Lenschow (2009), only crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected.</source>
         <translation>&lt;b&gt;Horst and Lenschow (2009), only crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="430"/>
+        <location filename="../src/advspectraloptions.cpp" line="454"/>
         <source>Assessment of high-frequency attenuation</source>
         <translation>Assessment of high-frequency attenuation</translation>
     </message>
@@ -1145,80 +1195,80 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>End :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="506"/>
+        <location filename="../src/advspectraloptions.cpp" line="524"/>
         <source>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</source>
         <translation>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="157"/>
-        <location filename="../src/advspectraloptions.cpp" line="433"/>
+        <location filename="../src/advspectraloptions.cpp" line="457"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="159"/>
-        <location filename="../src/advspectraloptions.cpp" line="435"/>
+        <location filename="../src/advspectraloptions.cpp" line="158"/>
+        <location filename="../src/advspectraloptions.cpp" line="458"/>
         <source>%2</source>
         <translation>%2</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="161"/>
-        <location filename="../src/advspectraloptions.cpp" line="437"/>
+        <location filename="../src/advspectraloptions.cpp" line="159"/>
+        <location filename="../src/advspectraloptions.cpp" line="459"/>
         <source>%3</source>
         <translation>%3</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="163"/>
-        <location filename="../src/advspectraloptions.cpp" line="439"/>
+        <location filename="../src/advspectraloptions.cpp" line="160"/>
+        <location filename="../src/advspectraloptions.cpp" line="460"/>
         <source>%4 Gas</source>
         <translation>%4 Gas</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="442"/>
+        <location filename="../src/advspectraloptions.cpp" line="462"/>
         <source>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</source>
         <translation>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="228"/>
-        <location filename="../src/advspectraloptions.cpp" line="235"/>
-        <location filename="../src/advspectraloptions.cpp" line="242"/>
-        <location filename="../src/advspectraloptions.cpp" line="249"/>
-        <location filename="../src/advspectraloptions.cpp" line="256"/>
-        <location filename="../src/advspectraloptions.cpp" line="270"/>
-        <location filename="../src/advspectraloptions.cpp" line="277"/>
-        <location filename="../src/advspectraloptions.cpp" line="284"/>
-        <location filename="../src/advspectraloptions.cpp" line="291"/>
-        <location filename="../src/advspectraloptions.cpp" line="298"/>
-        <location filename="../src/advspectraloptions.cpp" line="312"/>
-        <location filename="../src/advspectraloptions.cpp" line="319"/>
-        <location filename="../src/advspectraloptions.cpp" line="326"/>
-        <location filename="../src/advspectraloptions.cpp" line="333"/>
-        <location filename="../src/advspectraloptions.cpp" line="340"/>
+        <location filename="../src/advspectraloptions.cpp" line="224"/>
+        <location filename="../src/advspectraloptions.cpp" line="231"/>
+        <location filename="../src/advspectraloptions.cpp" line="238"/>
+        <location filename="../src/advspectraloptions.cpp" line="245"/>
+        <location filename="../src/advspectraloptions.cpp" line="252"/>
+        <location filename="../src/advspectraloptions.cpp" line="266"/>
+        <location filename="../src/advspectraloptions.cpp" line="273"/>
+        <location filename="../src/advspectraloptions.cpp" line="280"/>
+        <location filename="../src/advspectraloptions.cpp" line="287"/>
+        <location filename="../src/advspectraloptions.cpp" line="294"/>
+        <location filename="../src/advspectraloptions.cpp" line="308"/>
+        <location filename="../src/advspectraloptions.cpp" line="315"/>
+        <location filename="../src/advspectraloptions.cpp" line="322"/>
+        <location filename="../src/advspectraloptions.cpp" line="329"/>
+        <location filename="../src/advspectraloptions.cpp" line="336"/>
         <source> [%1]</source>
         <translation> [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="450"/>
+        <location filename="../src/advspectraloptions.cpp" line="468"/>
         <source>Lowest frequency :</source>
         <translation>Lowest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="451"/>
+        <location filename="../src/advspectraloptions.cpp" line="469"/>
         <source>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</source>
         <translation>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="453"/>
+        <location filename="../src/advspectraloptions.cpp" line="471"/>
         <source>Highest frequency :</source>
         <translation>Highest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="454"/>
+        <location filename="../src/advspectraloptions.cpp" line="472"/>
         <source>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</source>
         <translation>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="166"/>
+        <location filename="../src/advspectraloptions.cpp" line="162"/>
         <source>Lowest noise frequency :</source>
         <translation>Lowest noise frequency :</translation>
     </message>
@@ -1328,201 +1378,231 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Use power-of-two samples to speed up the FFT: &lt;/b&gt;Check this box to instruct EddyPro to use a number of samples equal to the power-of-two closest to the currently available samples, for calculating spectra. This option greatly speeds up the FFT procedure and is therefore recommended.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="167"/>
+        <location filename="../src/advspectraloptions.cpp" line="163"/>
         <source>&lt;b&gt;Lowest noise frequency:&lt;/b&gt; High-frequency noise (blue noise) can compromise the spectral assessment by modifying the shape of spectra. EddyPro has an option to eliminate such noise. Set the minimum frequency at which you expect the noise to start being relevant. EddyPro will linearly (in a log-log sense) interpolate the high frequency portion of the spectra and subtract it from the spectra before calculating transfer functions. Set 0 Hz to instruct EddyPro to not perform noise elimination. In this case the string &lt;i&gt;Do not remove noise&lt;/i&gt; will appear in this field.</source>
         <translation>&lt;b&gt;Lowest noise frequency:&lt;/b&gt; High-frequency noise (blue noise) can compromise the spectral assessment by modifying the shape of spectra. EddyPro has an option to eliminate such noise. Set the minimum frequency at which you expect the noise to start being relevant. EddyPro will linearly (in a log-log sense) interpolate the high frequency portion of the spectra and subtract it from the spectra before calculating transfer functions. Set 0 Hz to instruct EddyPro to not perform noise elimination. In this case the string &lt;i&gt;Do not remove noise&lt;/i&gt; will appear in this field.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="174"/>
-        <location filename="../src/advspectraloptions.cpp" line="181"/>
-        <location filename="../src/advspectraloptions.cpp" line="188"/>
-        <location filename="../src/advspectraloptions.cpp" line="195"/>
+        <location filename="../src/advspectraloptions.cpp" line="170"/>
+        <location filename="../src/advspectraloptions.cpp" line="177"/>
+        <location filename="../src/advspectraloptions.cpp" line="184"/>
+        <location filename="../src/advspectraloptions.cpp" line="191"/>
         <source>Do not remove noise</source>
         <translation>Do not remove noise</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="198"/>
+        <location filename="../src/advspectraloptions.cpp" line="194"/>
         <source>Spectra and Cospectra QA/QC</source>
         <translation>Spectra and Cospectra QA/QC</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="201"/>
+        <location filename="../src/advspectraloptions.cpp" line="197"/>
         <source>Minimum, unstable :</source>
         <translation>Minimum, unstable :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="202"/>
+        <location filename="../src/advspectraloptions.cpp" line="198"/>
         <source>&lt;b&gt;Minimum, unstable flux:&lt;/b&gt; when fluxes are below these minima, corresponding cospectra are excluded from calculation of ensemble averaged cospectra in unstable stratifications, and corresponding spectra are excluded from calculation ensemble averaged spectra. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Minimum, unstable flux:&lt;/b&gt; when fluxes are below these minima, corresponding cospectra are excluded from calculation of ensemble averaged cospectra in unstable stratifications, and corresponding spectra are excluded from calculation ensemble averaged spectra. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="204"/>
+        <location filename="../src/advspectraloptions.cpp" line="200"/>
         <source>Minimum, stable :</source>
         <translation>Minimum, stable :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="205"/>
+        <location filename="../src/advspectraloptions.cpp" line="201"/>
         <source>&lt;b&gt;Minimum, stable flux:&lt;/b&gt; when fluxes are below these minima, corresponding cospectra are excluded from calculation of ensemble averaged cospectra in stable stratifications. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Minimum, stable flux:&lt;/b&gt; when fluxes are below these minima, corresponding cospectra are excluded from calculation of ensemble averaged cospectra in stable stratifications. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="207"/>
+        <location filename="../src/advspectraloptions.cpp" line="203"/>
         <source>Maximum :</source>
         <translation>Maximum :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="208"/>
+        <location filename="../src/advspectraloptions.cpp" line="204"/>
         <source>&lt;b&gt;Maximum :&lt;/b&gt; when fluxes are above these maxima, corresponding (co)spectra are excluded from any ensemble averaging procedure. Maxima are meant to exclude spikes or periods characterized by abnormal fluxes. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Maximum :&lt;/b&gt; when fluxes are above these maxima, corresponding (co)spectra are excluded from any ensemble averaging procedure. Maxima are meant to exclude spikes or periods characterized by abnormal fluxes. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="210"/>
+        <location filename="../src/advspectraloptions.cpp" line="206"/>
         <source>Friction velocity</source>
         <translation>Friction velocity</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="211"/>
+        <location filename="../src/advspectraloptions.cpp" line="207"/>
         <source>Latent heat flux</source>
         <translation>Latent heat flux</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="212"/>
+        <location filename="../src/advspectraloptions.cpp" line="208"/>
         <source>Sensible heat flux</source>
         <translation>Sensible heat flux</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="213"/>
-        <location filename="../src/advspectraloptions.cpp" line="214"/>
+        <location filename="../src/advspectraloptions.cpp" line="209"/>
+        <location filename="../src/advspectraloptions.cpp" line="210"/>
         <source>%1 flux</source>
         <translation>%1 flux</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="215"/>
+        <location filename="../src/advspectraloptions.cpp" line="211"/>
         <source>%1 gas flux</source>
         <translation>%1 gas flux</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="343"/>
+        <location filename="../src/advspectraloptions.cpp" line="339"/>
         <source>Filter (co)spectra according to Vickers and Mahrt (1997) test results  </source>
         <translation>Filter (co)spectra according to Vickers and Mahrt (1997) test results  </translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="346"/>
+        <location filename="../src/advspectraloptions.cpp" line="342"/>
         <source>&lt;b&gt;Filter (co)spectra accordingto Vickers and Mahrt (1997) test results:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding time series were flagged by the statistical tests found in the Statistical Analysis page. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Filter (co)spectra accordingto Vickers and Mahrt (1997) test results:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding time series were flagged by the statistical tests found in the Statistical Analysis page. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="353"/>
+        <location filename="../src/advspectraloptions.cpp" line="349"/>
         <source>Filter (co)spectra according to micrometeorological quality test results (Mauder and Foken, 2004)</source>
         <translation>Filter (co)spectra according to micrometeorological quality test results (Mauder and Foken, 2004)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="358"/>
+        <location filename="../src/advspectraloptions.cpp" line="354"/>
         <source>Low data quality (flag value = 2)</source>
         <translation>Low data quality (flag value = 2)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="359"/>
+        <location filename="../src/advspectraloptions.cpp" line="355"/>
         <source>&lt;b&gt;Low data quality:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding fluxes where flagged for low quality by Foken’s micrometeorological tests. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Low data quality:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding fluxes where flagged for low quality by Foken’s micrometeorological tests. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="363"/>
+        <location filename="../src/advspectraloptions.cpp" line="359"/>
         <source>Moderate data quality (flag value = 1)</source>
         <translation>Moderate data quality (flag value = 1)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="365"/>
+        <location filename="../src/advspectraloptions.cpp" line="361"/>
         <source>&lt;b&gt;Moderate data quality:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding fluxes where flagged for moderate quality by Foken’s micrometeorological tests. Note that choosing these options, forces the pair option ‘low data quality’ to be automatically selected. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Moderate data quality:&lt;/b&gt; check this option to exclude from ensemble averages (co)spectra for periods, during which the corresponding fluxes where flagged for moderate quality by Foken’s micrometeorological tests. Note that choosing these options, forces the pair option ‘low data quality’ to be automatically selected. For more details, click on the question mark at the right side of the title of this section &lt;i&gt;Spectra and cospectra QA/QC&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="377"/>
+        <location filename="../src/advspectraloptions.cpp" line="373"/>
         <source>Analytic correction of high-pass filtering effects (Moncrieff et al. 2004)   </source>
         <translation>Analytic correction of high-pass filtering effects (Moncrieff et al. 2004)   </translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="413"/>
+        <location filename="../src/advspectraloptions.cpp" line="411"/>
+        <source>Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)</source>
+        <translation>Data acquisition system correction (only GHG files collected with LI-7550 software 7.6.0 or earlier)</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="415"/>
+        <source>Digital block averaging</source>
+        <translation>Digital block averaging</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="416"/>
+        <source>&lt;b&gt;Digital block averaging:&lt;/b&gt; ...</source>
+        <translation>&lt;b&gt;Digital block averaging:&lt;/b&gt; ...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="420"/>
+        <source>DAC zero-order hold</source>
+        <translation>DAC zero-order hold</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="421"/>
+        <source>&lt;b&gt;DAC zero-order hold:&lt;/b&gt; ...</source>
+        <translation>&lt;b&gt;DAC zero-order hold:&lt;/b&gt; ...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="434"/>
+        <source>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</source>
+        <translation>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</translation>
+    </message>
+    <message>
+        <location filename="../src/advspectraloptions.cpp" line="438"/>
         <source>Spectral assessment file available for this dataset :</source>
         <translation>Spectral assessment file available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="416"/>
+        <location filename="../src/advspectraloptions.cpp" line="441"/>
         <source>Spectral assessment file not available</source>
         <translation>Spectral assessment file not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="417"/>
+        <location filename="../src/advspectraloptions.cpp" line="442"/>
         <source>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</source>
         <translation>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="421"/>
+        <location filename="../src/advspectraloptions.cpp" line="446"/>
         <source>Select the Spectral Assessment File</source>
         <translation>Select the Spectral Assessment File</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="447"/>
+        <location filename="../src/advspectraloptions.cpp" line="466"/>
         <source>Removal of high frequency noise</source>
         <translation>Removal of high frequency noise</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="505"/>
+        <location filename="../src/advspectraloptions.cpp" line="523"/>
         <source>Minimum number of (co)spectra for valid averages :</source>
         <translation>Minimum number of (co)spectra for valid averages :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="517"/>
+        <location filename="../src/advspectraloptions.cpp" line="535"/>
         <source>Full w/Ts cospectra files available for this dataset :</source>
         <translation>Full w/Ts cospectra files available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="518"/>
+        <location filename="../src/advspectraloptions.cpp" line="536"/>
         <source>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</source>
         <translation>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="520"/>
+        <location filename="../src/advspectraloptions.cpp" line="538"/>
         <source>Full w/Ts cospectra files not available</source>
         <translation>Full w/Ts cospectra files not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="521"/>
+        <location filename="../src/advspectraloptions.cpp" line="539"/>
         <source>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</source>
         <translation>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="524"/>
+        <location filename="../src/advspectraloptions.cpp" line="542"/>
         <source>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</source>
         <translation>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="514"/>
+        <location filename="../src/advspectraloptions.cpp" line="532"/>
         <source>Fratini et al. (2012) method settings</source>
         <translation>Fratini et al. (2012) method settings</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="532"/>
+        <location filename="../src/advspectraloptions.cpp" line="550"/>
         <source>Include anemometer losses for path averaging and time response</source>
         <translation>Include anemometer losses for path averaging and time response</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="533"/>
+        <location filename="../src/advspectraloptions.cpp" line="551"/>
         <source>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</source>
         <translation>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="370"/>
+        <location filename="../src/advspectraloptions.cpp" line="366"/>
         <source>Spectral Correction Options</source>
         <translation>Spectral Correction Options</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="423"/>
+        <location filename="../src/advspectraloptions.cpp" line="448"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="525"/>
+        <location filename="../src/advspectraloptions.cpp" line="543"/>
         <source>Select the Full Spectra Files Directory</source>
         <translation>Select the Full Spectra Files Directory</translation>
     </message>
@@ -1696,529 +1776,529 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Integral turbulence scale (ITS)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="159"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="158"/>
         <source>Definition of the ITS :</source>
         <translation>Definition of the ITS :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="160"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="159"/>
         <source>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</source>
         <translation>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="161"/>
         <source>Cross-correlation first crossing 1/e</source>
         <translation>Cross-correlation first crossing 1/e</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
         <source>Cross-correlation first crossing zero</source>
         <translation>Cross-correlation first crossing zero</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
         <source>Integrate over the whole correlation period</source>
         <translation>Integrate over the whole correlation period</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="165"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
         <source>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="166"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="165"/>
         <source>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="167"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="166"/>
         <source>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="169"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="168"/>
         <source>Maximum correlation period :</source>
         <translation>Maximum correlation period :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="170"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="169"/>
         <source>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</source>
         <translation>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="176"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="175"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="180"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="179"/>
         <source>Security coefficient :</source>
         <translation>Security coefficient :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="181"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="180"/>
         <source>&lt;b&gt;Security coefficient :&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Security coefficient :&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="215"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="214"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="570"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="569"/>
         <source>Vickers and Mahrt, 1997</source>
         <translation>Vickers and Mahrt, 1997</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="572"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="571"/>
         <source>Mauder et al., 2013</source>
         <translation>Mauder et al., 2013</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="578"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="577"/>
         <source>Maximum number of consecutive outliers : </source>
         <translation>Maximum number of consecutive outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="579"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="578"/>
         <source>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</source>
         <translation>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="586"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="585"/>
         <source>Accepted spikes : </source>
         <translation>Accepted spikes : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="587"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="586"/>
         <source>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</source>
         <translation>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="593"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="727"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="769"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="779"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1281"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1291"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1391"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="592"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="725"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="767"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="777"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1273"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1283"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1383"/>
         <source>  [%]</source>
         <comment>Percentage</comment>
         <translation>  [%]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="597"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="596"/>
         <source>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</source>
         <translation>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="598"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="597"/>
         <source>Replace spikes with linear interpolation</source>
         <translation>Replace spikes with linear interpolation</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="603"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="602"/>
         <source>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="605"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="608"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="618"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="628"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="638"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="648"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="658"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="603"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="606"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="616"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="626"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="636"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="646"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="656"/>
         <source>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="607"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="605"/>
         <source>All other variables : </source>
         <translation>All other variables : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="614"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="624"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="634"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="644"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="654"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="664"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="710"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="612"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="622"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="632"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="642"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="652"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="662"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="708"/>
         <source>  [%1]</source>
         <comment>Sigma</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="617"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="823"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1117"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="615"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="819"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1109"/>
         <source>W : </source>
         <translation>W : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="627"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="637"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="647"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="832"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="849"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="866"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="883"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="625"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="635"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="645"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="828"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="845"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="862"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="879"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1117"/>
         <location filename="../src/advstatisticaloptions.cpp" line="1125"/>
         <location filename="../src/advstatisticaloptions.cpp" line="1133"/>
         <location filename="../src/advstatisticaloptions.cpp" line="1141"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1149"/>
         <source>%1 : </source>
         <translation>%1 : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="657"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="900"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1157"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="655"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="896"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1149"/>
         <source>%1 Gas : </source>
         <translation>%1 Gas : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="703"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="701"/>
         <source>Range of variation : </source>
         <translation>Range of variation : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="704"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="702"/>
         <source>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</source>
         <translation>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="713"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="711"/>
         <source>Number of bins : </source>
         <translation>Number of bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="714"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="712"/>
         <source>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</source>
         <translation>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="721"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="719"/>
         <source>Accepted empty bins : </source>
         <translation>Accepted empty bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="722"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="720"/>
         <source>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</source>
         <translation>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="754"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="752"/>
         <source>Percentile defining extreme bins : </source>
         <translation>Percentile defining extreme bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="755"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="753"/>
         <source>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</source>
         <translation>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="762"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="760"/>
         <source>Accepted central drop-outs : </source>
         <translation>Accepted central drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="763"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="761"/>
         <source>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="772"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="770"/>
         <source>Accepted extreme drop-outs : </source>
         <translation>Accepted extreme drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="773"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="771"/>
         <source>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="806"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="804"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="808"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="805"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="810"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="807"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="812"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="808"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="814"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1109"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="810"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1101"/>
         <source>U : </source>
         <translation>U : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="820"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="829"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="924"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="932"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="816"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="825"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="920"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="928"/>
         <source>  [m/s]</source>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="838"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="846"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="855"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="863"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="872"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="880"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="889"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="897"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="906"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="915"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="834"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="842"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="851"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="859"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="868"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="876"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="885"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="893"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="902"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="911"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="936"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="932"/>
         <source>Filter outranged values</source>
         <translation>Filter outranged values</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="937"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="933"/>
         <source>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</source>
         <translation>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1002"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1101"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="998"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1095"/>
         <source>Hard-flag threshold</source>
         <translation>Hard-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1004"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="999"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1006"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1105"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1001"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1098"/>
         <source>Soft-flag threshold</source>
         <translation>Soft-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1008"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1002"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1010"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1004"/>
         <source>Skewness lower limit : </source>
         <translation>Skewness lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1018"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1012"/>
         <source>Skewness upper limit : </source>
         <translation>Skewness upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1040"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1034"/>
         <source>Kurtosis lower limit : </source>
         <translation>Kurtosis lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1048"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1042"/>
         <source>Kurtosis upper limit : </source>
         <translation>Kurtosis upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1103"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1096"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1107"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1099"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1165"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1157"/>
         <source>Variances : </source>
         <translation>Variances : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1274"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1266"/>
         <source>Accepted covariance difference (hard-flag) : </source>
         <translation>Accepted covariance difference (hard-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1275"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1267"/>
         <source>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1284"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1276"/>
         <source>Accepted covariance difference (soft-flag) : </source>
         <translation>Accepted covariance difference (soft-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1285"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1277"/>
         <source>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1294"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1304"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1314"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1286"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1296"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1306"/>
         <source>Nominal %1 time lag : </source>
         <translation>Nominal %1 time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1295"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1287"/>
         <source>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1301"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1311"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1321"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1331"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1293"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1303"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1313"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1323"/>
         <source>  [s]</source>
         <comment>Seconds</comment>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1305"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1297"/>
         <source>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</source>
         <translation>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1315"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1307"/>
         <source>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1324"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1316"/>
         <source>Nominal %1 Gas time lag : </source>
         <translation>Nominal %1 Gas time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1325"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1317"/>
         <source>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1364"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1356"/>
         <source>Minimum angle of attack : </source>
         <translation>Minimum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1365"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1357"/>
         <source>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1371"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1381"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1363"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1373"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1374"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1366"/>
         <source>Maximum angle of attack : </source>
         <translation>Maximum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1375"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1367"/>
         <source>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1384"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1376"/>
         <source>Accepted amount of outliers : </source>
         <translation>Accepted amount of outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1385"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1377"/>
         <source>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</source>
         <translation>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1418"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1410"/>
         <source>Accepted wind relative instationarity : </source>
         <translation>Accepted wind relative instationarity : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1419"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1411"/>
         <source>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</source>
         <translation>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1445"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1437"/>
         <source>&amp;Spike count/removal</source>
         <translation>&amp;Spike count/removal</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1446"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1438"/>
         <source>&amp;Amplitude resolution</source>
         <translation>&amp;Amplitude resolution</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1447"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1439"/>
         <source>D&amp;rop-outs</source>
         <translation>D&amp;rop-outs</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1448"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1440"/>
         <source>A&amp;bsolute limits</source>
         <translation>A&amp;bsolute limits</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1449"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1441"/>
         <source>S&amp;kewness &amp;&amp; kurtosis</source>
         <translation>S&amp;kewness &amp;&amp; kurtosis</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1450"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1442"/>
         <source>D&amp;iscontinuities</source>
         <translation>D&amp;iscontinuities</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1451"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1443"/>
         <source>&amp;Time lags</source>
         <translation>&amp;Time lags</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1452"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1444"/>
         <source>Angle of atta&amp;ck</source>
         <translation>Angle of atta&amp;ck</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1453"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1445"/>
         <source>S&amp;teadiness of horizontal wind</source>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3270"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3208"/>
         <source>Reset Statistical Analysis Settings</source>
         <translation>Reset Statistical Analysis Settings</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3271"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3209"/>
         <source>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3273"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3211"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -2226,27 +2306,27 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AdvancedSettingsPage</name>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="76"/>
+        <location filename="../src/advancedsettingspage.cpp" line="71"/>
         <source>Restore Default Values</source>
         <translation>Restore Default Values</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="77"/>
+        <location filename="../src/advancedsettingspage.cpp" line="72"/>
         <source>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets all the Advanced Settings to the default settings.</source>
         <translation>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets all the Advanced Settings to the default settings.</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="180"/>
+        <location filename="../src/advancedsettingspage.cpp" line="175"/>
         <source>Reset Advanced Settings</source>
         <translation>Reset Advanced Settings</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="181"/>
+        <location filename="../src/advancedsettingspage.cpp" line="176"/>
         <source>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="183"/>
+        <location filename="../src/advancedsettingspage.cpp" line="178"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -2309,17 +2389,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1096"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1089"/>
         <source>Save the test results as...</source>
         <translation>Save the test results as...</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1098"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1091"/>
         <source>%1 assessment file check results (*.txt);;All files (*)</source>
         <translation>%1 assessment file check results (*.txt);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1108"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1101"/>
         <source>%1 check of assessment file %2 against %3</source>
         <translation>%1 check of assessment file %2 against %3</translation>
     </message>
@@ -2327,7 +2407,7 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AnemDelegate</name>
     <message>
-        <location filename="../src/anem_delegate.cpp" line="168"/>
+        <location filename="../src/anem_delegate.cpp" line="173"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
@@ -2341,12 +2421,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Generic Anemometer</translation>
     </message>
     <message>
-        <location filename="../src/anem_desc.cpp" line="429"/>
+        <location filename="../src/anem_desc.cpp" line="430"/>
         <source>yes</source>
         <translation>yes</translation>
     </message>
     <message>
-        <location filename="../src/anem_desc.cpp" line="430"/>
+        <location filename="../src/anem_desc.cpp" line="431"/>
         <source>no</source>
         <translation>no</translation>
     </message>
@@ -2354,52 +2434,57 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AnemModel</name>
     <message>
-        <location filename="../src/anem_model.cpp" line="243"/>
+        <location filename="../src/anem_model.cpp" line="227"/>
         <source> [%1]</source>
         <translation> [%1]</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="562"/>
+        <location filename="../src/anem_model.cpp" line="539"/>
         <source>Manufacturer value</source>
         <translation>Manufacturer value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="564"/>
+        <location filename="../src/anem_model.cpp" line="541"/>
         <source>Model value</source>
         <translation>Model value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="566"/>
+        <location filename="../src/anem_model.cpp" line="543"/>
+        <source>Sw Version</source>
+        <translation>Sw Version</translation>
+    </message>
+    <message>
+        <location filename="../src/anem_model.cpp" line="545"/>
         <source>ID value</source>
         <translation>ID value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="568"/>
+        <location filename="../src/anem_model.cpp" line="547"/>
         <source>Height value</source>
         <translation>Height value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="570"/>
+        <location filename="../src/anem_model.cpp" line="549"/>
         <source>Wind data format value</source>
         <translation>Wind data format value</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="574"/>
+        <location filename="../src/anem_model.cpp" line="553"/>
         <source>Axis alignment...</source>
         <translation>Axis alignment...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="578"/>
+        <location filename="../src/anem_model.cpp" line="557"/>
         <source>Spar alignment...</source>
         <translation>Spar alignment...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="582"/>
+        <location filename="../src/anem_model.cpp" line="561"/>
         <source>North alignment possible value: Axis..., Spar..., N/A...</source>
         <translation>North alignment possible value: Axis..., Spar..., N/A...</translation>
     </message>
     <message>
-        <location filename="../src/anem_model.cpp" line="585"/>
+        <location filename="../src/anem_model.cpp" line="564"/>
         <source>North off-set value</source>
         <translation>North off-set value</translation>
     </message>
@@ -2428,111 +2513,121 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
+        <source>&lt;i&gt;Embedded software version&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Embedded software version&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/anem_tableview.cpp" line="47"/>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</source>
+        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</translation>
+    </message>
+    <message>
+        <location filename="../src/anem_tableview.cpp" line="48"/>
         <source>&lt;i&gt;Instrument ID&lt;/i&gt;</source>
         <translation>&lt;i&gt;Instrument ID&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="47"/>
+        <location filename="../src/anem_tableview.cpp" line="48"/>
         <source>&lt;b&gt;Instrument ID:&lt;/b&gt; Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional.</source>
         <translation>&lt;b&gt;Instrument ID:&lt;/b&gt; Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="48"/>
+        <location filename="../src/anem_tableview.cpp" line="49"/>
         <source>Height</source>
         <translation>Height</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="48"/>
+        <location filename="../src/anem_tableview.cpp" line="49"/>
         <source>&lt;b&gt; Height:&lt;/b&gt; Enter the distance between the ground and the center of the device sampling volume. This field is mandatory.</source>
         <translation>&lt;b&gt; Height:&lt;/b&gt; Enter the distance between the ground and the center of the device sampling volume. This field is mandatory.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="49"/>
+        <location filename="../src/anem_tableview.cpp" line="50"/>
         <source>Wind data format</source>
         <translation>Wind data format</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="49"/>
+        <location filename="../src/anem_tableview.cpp" line="50"/>
         <source>&lt;b&gt;Wind data format:&lt;/b&gt; Specify the format in which the wind data are provided.</source>
         <translation>&lt;b&gt;Wind data format:&lt;/b&gt; Specify the format in which the wind data are provided.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="50"/>
+        <location filename="../src/anem_tableview.cpp" line="51"/>
         <source>North alignment</source>
         <translation>North alignment</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="50"/>
+        <location filename="../src/anem_tableview.cpp" line="51"/>
         <source>&lt;b&gt;North alignment:&lt;/b&gt; Specify whether the anemometer&apos;s axes are aligned to transducers (&lt;i&gt;Axis&lt;/i&gt;) or spars (&lt;i&gt;Spars&lt;/i&gt;). For Gill anemometers only.</source>
         <translation>&lt;b&gt;North alignment:&lt;/b&gt; Specify whether the anemometer&apos;s axes are aligned to transducers (&lt;i&gt;Axis&lt;/i&gt;) or spars (&lt;i&gt;Spars&lt;/i&gt;). For Gill anemometers only.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="51"/>
+        <location filename="../src/anem_tableview.cpp" line="52"/>
         <source>North off-set</source>
         <translation>North off-set</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="51"/>
+        <location filename="../src/anem_tableview.cpp" line="52"/>
         <source>&lt;b&gt;North offset:&lt;/b&gt; Enter the anemometer&apos;s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward.</source>
         <translation>&lt;b&gt;North offset:&lt;/b&gt; Enter the anemometer&apos;s yaw offset with respect to local magnetic north (the one you assess with the compass), positive eastward.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="52"/>
+        <location filename="../src/anem_tableview.cpp" line="53"/>
         <source>Northward separation</source>
         <translation>Northward separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="52"/>
+        <location filename="../src/anem_tableview.cpp" line="53"/>
         <source>&lt;b&gt;Northward separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</source>
         <translation>&lt;b&gt;Northward separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured horizontally along the magnetic north-south axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the north of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="53"/>
+        <location filename="../src/anem_tableview.cpp" line="54"/>
         <source>Eastward separation</source>
         <translation>Eastward separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="53"/>
+        <location filename="../src/anem_tableview.cpp" line="54"/>
         <source>&lt;b&gt;Eastward separation:&lt;/b&gt; Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</source>
         <translation>&lt;b&gt;Eastward separation:&lt;/b&gt; Specify the distance between the current anemometer and reference anemometer, as measured horizontally along the east-west axis (the one you assess with the compass). The distance is positive if the current anemometer is placed to the east of the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string Reference.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="54"/>
+        <location filename="../src/anem_tableview.cpp" line="55"/>
         <source>Vertical separation</source>
         <translation>Vertical separation</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="54"/>
+        <location filename="../src/anem_tableview.cpp" line="55"/>
         <source>&lt;b&gt;Vertical separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string &lt;i&gt;Reference&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Vertical separation:&lt;/b&gt; Specify the distance between the current anemometer and the reference anemometer, as measured along the vertical axis. The distance is positive if the current anemometer is placed above the reference anemometer. The reference anemometer is the first one you describe. For this anemometer you cannot enter the separation and you find the string &lt;i&gt;Reference&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="55"/>
+        <location filename="../src/anem_tableview.cpp" line="56"/>
         <source>Longitudinal path length</source>
         <translation>Longitudinal path length</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="55"/>
+        <location filename="../src/anem_tableview.cpp" line="56"/>
         <source>&lt;b&gt;Longitudinal path length:&lt;/b&gt; Path length in the direction defined by a pair of transducers. Consult the anemometer&apos;s specifications or user manual.</source>
         <translation>&lt;b&gt;Longitudinal path length:&lt;/b&gt; Path length in the direction defined by a pair of transducers. Consult the anemometer&apos;s specifications or user manual.</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="56"/>
+        <location filename="../src/anem_tableview.cpp" line="57"/>
         <source>Transversal path length</source>
         <translation>Transversal path length</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="56"/>
+        <location filename="../src/anem_tableview.cpp" line="57"/>
         <source>&lt;b&gt;Transversal path length:&lt;/b&gt; Path length in the direction orthogonal to the longitudinal path length of the anemometer (e.g., as defined by the diameter of transducers).</source>
         <translation>&lt;b&gt;Transversal path length:&lt;/b&gt; Path length in the direction orthogonal to the longitudinal path length of the anemometer (e.g., as defined by the diameter of transducers).</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="57"/>
+        <location filename="../src/anem_tableview.cpp" line="58"/>
         <source>Time response</source>
         <translation>Time response</translation>
     </message>
     <message>
-        <location filename="../src/anem_tableview.cpp" line="57"/>
+        <location filename="../src/anem_tableview.cpp" line="58"/>
         <source>&lt;b&gt;Time response:&lt;/b&gt; Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer&apos;s specifications or user manual.</source>
         <translation>&lt;b&gt;Time response:&lt;/b&gt; Time response of the anemometer. Its inverse defines the maximum frequency of the atmospheric turbulence that the instrument is able to resolve. Consult the anemometer&apos;s specifications or user manual.</translation>
     </message>
@@ -2757,19 +2852,19 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="308"/>
-        <location filename="../src/basicsettingspage.cpp" line="4996"/>
+        <location filename="../src/basicsettingspage.cpp" line="5009"/>
         <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="309"/>
-        <location filename="../src/basicsettingspage.cpp" line="4997"/>
+        <location filename="../src/basicsettingspage.cpp" line="5010"/>
         <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="310"/>
-        <location filename="../src/basicsettingspage.cpp" line="4998"/>
+        <location filename="../src/basicsettingspage.cpp" line="5011"/>
         <source>(?:(180)%1\s(00)&apos;\s(E|W))</source>
         <translation>(?:(180)%1\s(00)&apos;\s(E|W))</translation>
     </message>
@@ -2844,6 +2939,16 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the variables to be used for calculating fluxes, among those available.</translation>
     </message>
     <message>
+        <location filename="../src/basicsettingspage.cpp" line="527"/>
+        <source>LI-7500/A/RS Diagnostics :</source>
+        <translation>LI-7500/A/RS Diagnostics :</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="532"/>
+        <source>LI-7200/RS Diagnostics :</source>
+        <translation>LI-7200/RS Diagnostics :</translation>
+    </message>
+    <message>
         <location filename="../src/basicsettingspage.cpp" line="800"/>
         <source>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</source>
         <translation>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</translation>
@@ -2859,22 +2964,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5367"/>
+        <location filename="../src/basicsettingspage.cpp" line="5381"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5368"/>
+        <location filename="../src/basicsettingspage.cpp" line="5382"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5382"/>
+        <location filename="../src/basicsettingspage.cpp" line="5396"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5384"/>
+        <location filename="../src/basicsettingspage.cpp" line="5398"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -2964,21 +3069,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Photosynthetically active radiation (PAR, PPFD) :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="527"/>
-        <source>LI-7500(A) Diagnostics :</source>
-        <translation>LI-7500(A) Diagnostics :</translation>
-    </message>
-    <message>
         <location filename="../src/basicsettingspage.cpp" line="528"/>
         <location filename="../src/basicsettingspage.cpp" line="533"/>
         <location filename="../src/basicsettingspage.cpp" line="538"/>
         <source>Select the variables to be used for diagnostics of this gas analyzer.</source>
         <translation>Select the variables to be used for diagnostics of this gas analyzer.</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="532"/>
-        <source>LI-7200 Diagnostics :</source>
-        <translation>LI-7200 Diagnostics :</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="537"/>
@@ -3239,13 +3334,13 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="2288"/>
         <location filename="../src/basicsettingspage.cpp" line="2310"/>
         <location filename="../src/basicsettingspage.cpp" line="2328"/>
-        <location filename="../src/basicsettingspage.cpp" line="2541"/>
-        <location filename="../src/basicsettingspage.cpp" line="3457"/>
+        <location filename="../src/basicsettingspage.cpp" line="2543"/>
+        <location filename="../src/basicsettingspage.cpp" line="3469"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2542"/>
+        <location filename="../src/basicsettingspage.cpp" line="2544"/>
         <source>Generic</source>
         <translation>Generic</translation>
     </message>
@@ -3255,40 +3350,40 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the Output Directory</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="3021"/>
-        <location filename="../src/basicsettingspage.cpp" line="3131"/>
-        <location filename="../src/basicsettingspage.cpp" line="4960"/>
+        <location filename="../src/basicsettingspage.cpp" line="3033"/>
+        <location filename="../src/basicsettingspage.cpp" line="3143"/>
+        <location filename="../src/basicsettingspage.cpp" line="4973"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4645"/>
+        <location filename="../src/basicsettingspage.cpp" line="4658"/>
         <source>1 file found</source>
         <translation>1 file found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4649"/>
+        <location filename="../src/basicsettingspage.cpp" line="4662"/>
         <source>%1 files found</source>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4947"/>
+        <location filename="../src/basicsettingspage.cpp" line="4960"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5062"/>
-        <location filename="../src/basicsettingspage.cpp" line="5103"/>
+        <location filename="../src/basicsettingspage.cpp" line="5075"/>
+        <location filename="../src/basicsettingspage.cpp" line="5117"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5198"/>
+        <location filename="../src/basicsettingspage.cpp" line="5212"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5202"/>
+        <location filename="../src/basicsettingspage.cpp" line="5216"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
@@ -3381,8 +3476,42 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/binarysettingsdialog.cpp" line="100"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+</context>
+<context>
+    <name>CalibrationDialog</name>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="47"/>
+        <source>Calibration Values</source>
+        <translation>Calibration Values</translation>
+    </message>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="50"/>
+        <source>Calibration date</source>
+        <translation>Calibration date</translation>
+    </message>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="58"/>
+        <location filename="../src/calibrationdialog.cpp" line="84"/>
+        <source>%1 calibration values</source>
+        <translation>%1 calibration values</translation>
+    </message>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="103"/>
+        <source>Zero/Span date</source>
+        <translation>Zero/Span date</translation>
+    </message>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="110"/>
+        <source>Zero/Span values</source>
+        <translation>Zero/Span values</translation>
+    </message>
+    <message>
+        <location filename="../src/calibrationdialog.cpp" line="157"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -3490,7 +3619,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="128"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="125"/>
         <source>Type Subset: %1
 Start: %2
 End: %3
@@ -3502,50 +3631,50 @@ End: %3
 </translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="144"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="656"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="747"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="763"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="782"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="141"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="653"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="741"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="757"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="776"/>
         <source>&lt;font color=&quot;#FF3300&quot;&gt;Not overlapping with available dataset&lt;/font&gt;</source>
         <translation>&lt;font color=&quot;#FF3300&quot;&gt;Not overlapping with available dataset&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="158"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="421"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="155"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="418"/>
         <source>Start :</source>
         <translation>Start :</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="159"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="422"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="156"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="419"/>
         <source>&lt;b&gt;Start:&lt;/b&gt; Starting date of the dataset to process. This may or may not coincide with the date of the first raw file. It is used to select a  of available raw data for processing.</source>
         <translation>&lt;b&gt;Start:&lt;/b&gt; Starting date of the dataset to process. This may or may not coincide with the date of the first raw file. It is used to select a  of available raw data for processing.</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="183"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="448"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="180"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="445"/>
         <source>End :</source>
         <translation>End :</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="184"/>
-        <location filename="../src/detectdaterangedialog.cpp" line="449"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="181"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="446"/>
         <source>&lt;b&gt;End:&lt;/b&gt; Ending date of the dataset to process. This may or may not coincide with the date of the last raw file. It is used to select a subset of available raw data for processing.</source>
         <translation>&lt;b&gt;End:&lt;/b&gt; Ending date of the dataset to process. This may or may not coincide with the date of the last raw file. It is used to select a subset of available raw data for processing.</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="206"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="203"/>
         <source>Select a different period</source>
         <translation>Select a different period</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="207"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="204"/>
         <source>&lt;b&gt;Select a different period:&lt;/b&gt; Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all the raw data in the directory.</source>
         <translation>&lt;b&gt;Select a different period:&lt;/b&gt; Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all the raw data in the directory.</translation>
     </message>
     <message>
-        <location filename="../src/detectdaterangedialog.cpp" line="418"/>
+        <location filename="../src/detectdaterangedialog.cpp" line="415"/>
         <source>&lt;b&gt;Available dataset&lt;/b&gt;</source>
         <translation>&lt;b&gt;Available dataset&lt;/b&gt;</translation>
     </message>
@@ -3734,68 +3863,68 @@ End: %3
 <context>
     <name>DlProject</name>
     <message>
-        <location filename="../src/dlproject.cpp" line="351"/>
-        <location filename="../src/dlproject.cpp" line="577"/>
+        <location filename="../src/dlproject.cpp" line="355"/>
+        <location filename="../src/dlproject.cpp" line="621"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="402"/>
-        <location filename="../src/dlproject.cpp" line="849"/>
+        <location filename="../src/dlproject.cpp" line="406"/>
+        <location filename="../src/dlproject.cpp" line="898"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="869"/>
+        <location filename="../src/dlproject.cpp" line="918"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="401"/>
-        <location filename="../src/dlproject.cpp" line="848"/>
-        <location filename="../src/dlproject.cpp" line="868"/>
+        <location filename="../src/dlproject.cpp" line="405"/>
+        <location filename="../src/dlproject.cpp" line="897"/>
+        <location filename="../src/dlproject.cpp" line="917"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="886"/>
-        <location filename="../src/dlproject.cpp" line="1160"/>
+        <location filename="../src/dlproject.cpp" line="935"/>
+        <location filename="../src/dlproject.cpp" line="1226"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="887"/>
+        <location filename="../src/dlproject.cpp" line="936"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1161"/>
+        <location filename="../src/dlproject.cpp" line="1227"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1638"/>
+        <location filename="../src/dlproject.cpp" line="1704"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1677"/>
+        <location filename="../src/dlproject.cpp" line="1743"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1681"/>
+        <location filename="../src/dlproject.cpp" line="1747"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1686"/>
+        <location filename="../src/dlproject.cpp" line="1752"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -3828,18 +3957,18 @@ End: %3
         <translation>Data Columns Info</translation>
     </message>
     <message>
-        <location filename="../src/dlrawfiledesctab.cpp" line="212"/>
+        <location filename="../src/dlrawfiledesctab.cpp" line="213"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlrawfiledesctab.cpp" line="223"/>
+        <location filename="../src/dlrawfiledesctab.cpp" line="224"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlrawfiledesctab.cpp" line="228"/>
-        <location filename="../src/dlrawfiledesctab.cpp" line="252"/>
+        <location filename="../src/dlrawfiledesctab.cpp" line="229"/>
+        <location filename="../src/dlrawfiledesctab.cpp" line="253"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -3858,23 +3987,23 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="52"/>
-        <source>beginning of averaging period</source>
-        <translation>beginning of averaging period</translation>
+        <source>Beginning of dataset period</source>
+        <translation>Beginning of dataset period</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="54"/>
-        <source>&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
-        <translation>&lt;b&gt;Beginning of averaging period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
+        <source>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
+        <translation>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="55"/>
-        <source>end of averaging period</source>
-        <translation>end of averaging period</translation>
+        <source>End of dataset period</source>
+        <translation>End of dataset period</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="56"/>
-        <source>&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
-        <translation>&lt;b&gt;End of dataset:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
+        <source>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
+        <translation>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="63"/>
@@ -4059,27 +4188,27 @@ End: %3
 <context>
     <name>DocChooserDialog</name>
     <message>
-        <location filename="../src/docchooser.cpp" line="51"/>
+        <location filename="../src/docchooser.cpp" line="52"/>
         <source>Set Remote/Local Help</source>
         <translation>Set Remote/Local Help</translation>
     </message>
     <message>
-        <location filename="../src/docchooser.cpp" line="63"/>
+        <location filename="../src/docchooser.cpp" line="64"/>
         <source>Use online help</source>
         <translation>Use online help</translation>
     </message>
     <message>
-        <location filename="../src/docchooser.cpp" line="66"/>
+        <location filename="../src/docchooser.cpp" line="67"/>
         <source>Use local help</source>
         <translation>Use local help</translation>
     </message>
     <message>
-        <location filename="../src/docchooser.cpp" line="68"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <location filename="../src/docchooser.cpp" line="69"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/docchooser.cpp" line="54"/>
+        <location filename="../src/docchooser.cpp" line="55"/>
         <source>Use online help (recommended) if you are connected to the Internet.
 Change this setting under the Help menu.</source>
         <translation>Use online help (recommended) if you are connected to the Internet.
@@ -4089,68 +4218,56 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>EcProject</name>
     <message>
-        <location filename="../src/ecproject.cpp" line="3016"/>
-        <source>Write Error</source>
-        <translation>Write Error</translation>
-    </message>
-    <message>
-        <location filename="../src/ecproject.cpp" line="1233"/>
+        <location filename="../src/ecproject.cpp" line="1238"/>
         <source>Cannot write file %1:
 %2</source>
         <translation>Cannot write file %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1708"/>
+        <location filename="../src/ecproject.cpp" line="1764"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2998"/>
+        <location filename="../src/ecproject.cpp" line="3212"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1735"/>
+        <location filename="../src/ecproject.cpp" line="1791"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1232"/>
-        <location filename="../src/ecproject.cpp" line="1707"/>
+        <location filename="../src/ecproject.cpp" line="1237"/>
+        <location filename="../src/ecproject.cpp" line="1763"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1734"/>
-        <location filename="../src/ecproject.cpp" line="2967"/>
-        <location filename="../src/ecproject.cpp" line="2987"/>
+        <location filename="../src/ecproject.cpp" line="1790"/>
+        <location filename="../src/ecproject.cpp" line="3181"/>
+        <location filename="../src/ecproject.cpp" line="3201"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2968"/>
+        <location filename="../src/ecproject.cpp" line="3182"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2988"/>
-        <location filename="../src/ecproject.cpp" line="2999"/>
+        <location filename="../src/ecproject.cpp" line="3202"/>
+        <location filename="../src/ecproject.cpp" line="3213"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/ecproject.cpp" line="3017"/>
-        <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
-&lt;b&gt;%2&lt;/b&gt;</source>
-        <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
-&lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -4180,16 +4297,6 @@ Change this setting under the Help menu.</translation>
         <location filename="../src/infomessage.cpp" line="45"/>
         <source>Do not show again.</source>
         <translation>Do not show again.</translation>
-    </message>
-    <message>
-        <location filename="../src/infomessage.cpp" line="253"/>
-        <source>Angle of Attack automatic selection</source>
-        <translation>Angle of Attack automatic selection</translation>
-    </message>
-    <message>
-        <location filename="../src/infomessage.cpp" line="255"/>
-        <source>&lt;p&gt;A default selection of the Angle of attack correction was made by EddyPro, based on the pre-selection of the &apos;Master Anemometer&apos;&apos; performed according to the content of the selected metadata file. Please review the Angle of attack settings in the &apos;Advanced Settings &gt; Processing Options page.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;A default selection of the Angle of attack correction was made by EddyPro, based on the pre-selection of the &apos;Master Anemometer&apos;&apos; performed according to the content of the selected metadata file. Please review the Angle of attack settings in the &apos;Advanced Settings &gt; Processing Options page.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -4239,8 +4346,8 @@ Change this setting under the Help menu.</translation>
     </message>
     <message>
         <location filename="../src/irga_tableview.cpp" line="48"/>
-        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected. Mandatory only for the LI-7200 and LI-7500A CO&lt;sub&gt;2&lt;/sub&gt;/H&lt;sub&gt;2&lt;/sub&gt;O analyzers.</source>
-        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected. Mandatory only for the LI-7200 and LI-7500A CO&lt;sub&gt;2&lt;/sub&gt;/H&lt;sub&gt;2&lt;/sub&gt;O analyzers.</translation>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected.</source>
+        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software version that was running on the LI-7550 Analyzer Interface Unit at the time data were collected.</translation>
     </message>
     <message>
         <location filename="../src/irga_tableview.cpp" line="49"/>
@@ -4389,683 +4496,688 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="421"/>
+        <location filename="../src/mainwindow.cpp" line="423"/>
         <source>%1 - [%2[*]]</source>
         <translation>%1 - [%2[*]]</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="449"/>
+        <location filename="../src/mainwindow.cpp" line="451"/>
         <source>New project created</source>
         <translation>New project created</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="469"/>
+        <location filename="../src/mainwindow.cpp" line="471"/>
         <source>Opening...</source>
         <translation>Opening...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="477"/>
+        <location filename="../src/mainwindow.cpp" line="479"/>
         <source>Select an %1 Project File</source>
         <translation>Select an %1 Project File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="479"/>
+        <location filename="../src/mainwindow.cpp" line="481"/>
         <source>%1 Project Files (*.%2);;All Files (*.*)</source>
         <translation>%1 Project Files (*.%2);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="498"/>
+        <location filename="../src/mainwindow.cpp" line="500"/>
         <source>Project loaded</source>
         <translation>Project loaded</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="520"/>
+        <location filename="../src/mainwindow.cpp" line="522"/>
         <source>Project loading failed</source>
         <translation>Project loading failed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="568"/>
+        <location filename="../src/mainwindow.cpp" line="570"/>
         <source>Unable to load the project.</source>
         <translation>Unable to load the project.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="626"/>
+        <location filename="../src/mainwindow.cpp" line="628"/>
         <source>Recent project loaded</source>
         <translation>Recent project loaded</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="641"/>
+        <location filename="../src/mainwindow.cpp" line="643"/>
         <source>Recent project loading failed</source>
         <translation>Recent project loading failed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="678"/>
-        <location filename="../src/mainwindow.cpp" line="785"/>
+        <location filename="../src/mainwindow.cpp" line="680"/>
+        <location filename="../src/mainwindow.cpp" line="787"/>
         <source>Project saved</source>
         <translation>Project saved</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="689"/>
-        <location filename="../src/mainwindow.cpp" line="800"/>
+        <location filename="../src/mainwindow.cpp" line="691"/>
+        <location filename="../src/mainwindow.cpp" line="802"/>
         <source>Error in saving project</source>
         <translation>Error in saving project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="733"/>
+        <location filename="../src/mainwindow.cpp" line="735"/>
         <source>Saving project...</source>
         <translation>Saving project...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="739"/>
+        <location filename="../src/mainwindow.cpp" line="741"/>
         <source>Save the Project File Name As...</source>
         <translation>Save the Project File Name As...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="741"/>
+        <location filename="../src/mainwindow.cpp" line="743"/>
         <source>%1 Project Files (*.%2)</source>
         <translation>%1 Project Files (*.%2)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="667"/>
-        <location filename="../src/mainwindow.cpp" line="768"/>
-        <location filename="../src/mainwindow.cpp" line="774"/>
-        <location filename="../src/mainwindow.cpp" line="921"/>
-        <location filename="../src/mainwindow.cpp" line="938"/>
-        <location filename="../src/mainwindow.cpp" line="3251"/>
-        <location filename="../src/mainwindow.cpp" line="3270"/>
-        <location filename="../src/mainwindow.cpp" line="3299"/>
-        <location filename="../src/mainwindow.cpp" line="3318"/>
+        <location filename="../src/mainwindow.cpp" line="669"/>
+        <location filename="../src/mainwindow.cpp" line="770"/>
+        <location filename="../src/mainwindow.cpp" line="776"/>
+        <location filename="../src/mainwindow.cpp" line="923"/>
+        <location filename="../src/mainwindow.cpp" line="940"/>
+        <location filename="../src/mainwindow.cpp" line="3265"/>
+        <location filename="../src/mainwindow.cpp" line="3284"/>
+        <location filename="../src/mainwindow.cpp" line="3313"/>
+        <location filename="../src/mainwindow.cpp" line="3332"/>
         <source>Canceled...</source>
         <translation>Canceled...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="806"/>
+        <location filename="../src/mainwindow.cpp" line="808"/>
         <source>Saving aborted</source>
         <translation>Saving aborted</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="868"/>
+        <location filename="../src/mainwindow.cpp" line="870"/>
         <source>Project closed</source>
         <translation>Project closed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="912"/>
-        <location filename="../src/mainwindow.cpp" line="4311"/>
+        <location filename="../src/mainwindow.cpp" line="914"/>
+        <location filename="../src/mainwindow.cpp" line="4325"/>
         <source>EddyPro is processing (running or in pause).</source>
         <translation>EddyPro is processing (running or in pause).</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="930"/>
+        <location filename="../src/mainwindow.cpp" line="932"/>
         <source>Save Project</source>
         <translation>Save Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1008"/>
+        <location filename="../src/mainwindow.cpp" line="1010"/>
         <source>&amp;New
 Project</source>
         <translation>&amp;New
 Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1015"/>
+        <location filename="../src/mainwindow.cpp" line="1017"/>
         <source>&amp;Open
 Project...</source>
         <translation>&amp;Open
 Project...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1022"/>
+        <location filename="../src/mainwindow.cpp" line="1024"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1024"/>
+        <location filename="../src/mainwindow.cpp" line="1026"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1030"/>
+        <location filename="../src/mainwindow.cpp" line="1032"/>
         <source>Open &amp;Recent...</source>
         <translation>Open &amp;Recent...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1042"/>
+        <location filename="../src/mainwindow.cpp" line="1044"/>
         <source>Save
 &amp;As...</source>
         <translation>Save
 &amp;As...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1045"/>
+        <location filename="../src/mainwindow.cpp" line="1047"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1053"/>
+        <location filename="../src/mainwindow.cpp" line="1055"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1058"/>
+        <location filename="../src/mainwindow.cpp" line="1060"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1060"/>
+        <location filename="../src/mainwindow.cpp" line="1062"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1067"/>
+        <location filename="../src/mainwindow.cpp" line="1069"/>
         <source>Welcome</source>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1081"/>
+        <location filename="../src/mainwindow.cpp" line="1083"/>
         <source>Project
 Creation</source>
         <translation>Project
 Creation</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1089"/>
+        <location filename="../src/mainwindow.cpp" line="1091"/>
         <source>Basic
 Settings</source>
         <translation>Basic
 Settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1096"/>
+        <location filename="../src/mainwindow.cpp" line="1098"/>
         <source>Advanced
 Settings</source>
         <translation>Advanced
 Settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1118"/>
+        <location filename="../src/mainwindow.cpp" line="1120"/>
         <source>Express
 Mode</source>
         <translation>Express
 Mode</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1121"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1127"/>
+        <location filename="../src/mainwindow.cpp" line="1129"/>
         <source>Advanced
 Mode</source>
         <translation>Advanced
 Mode</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1130"/>
+        <location filename="../src/mainwindow.cpp" line="1132"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1136"/>
+        <location filename="../src/mainwindow.cpp" line="1138"/>
         <source>Metadata
 Retriever</source>
         <translation>Metadata
 Retriever</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1139"/>
+        <location filename="../src/mainwindow.cpp" line="1141"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1152"/>
+        <location filename="../src/mainwindow.cpp" line="1154"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1155"/>
+        <location filename="../src/mainwindow.cpp" line="1157"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1163"/>
+        <location filename="../src/mainwindow.cpp" line="1165"/>
         <source>Full Screen</source>
         <translation>Full Screen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1166"/>
+        <location filename="../src/mainwindow.cpp" line="1168"/>
         <source>Full screen mode view</source>
         <translation>Full screen mode view</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1170"/>
+        <location filename="../src/mainwindow.cpp" line="1172"/>
         <source>&amp;Statusbar</source>
         <translation>&amp;Statusbar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1174"/>
+        <location filename="../src/mainwindow.cpp" line="1176"/>
         <source>&amp;Message Info</source>
         <translation>&amp;Message Info</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1179"/>
+        <location filename="../src/mainwindow.cpp" line="1181"/>
         <source>&amp;Tooltip Help</source>
         <translation>&amp;Tooltip Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1184"/>
+        <location filename="../src/mainwindow.cpp" line="1186"/>
         <source>&amp;Output Console</source>
         <translation>&amp;Output Console</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1189"/>
+        <location filename="../src/mainwindow.cpp" line="1191"/>
         <source>%1 Help</source>
         <translation>%1 Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1194"/>
+        <location filename="../src/mainwindow.cpp" line="1196"/>
         <source>Instruction Manual (PDF)</source>
         <translation>Instruction Manual (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1199"/>
+        <location filename="../src/mainwindow.cpp" line="1201"/>
         <source>Getting Started (PDF)</source>
         <translation>Getting Started (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1203"/>
+        <location filename="../src/mainwindow.cpp" line="1205"/>
         <source>Use Offline Help</source>
         <translation>Use Offline Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1207"/>
+        <location filename="../src/mainwindow.cpp" line="1209"/>
         <source>Video Tutorials</source>
         <translation>Video Tutorials</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1210"/>
+        <location filename="../src/mainwindow.cpp" line="1212"/>
         <source>EddyPro Web Page</source>
         <translation>EddyPro Web Page</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1213"/>
+        <location filename="../src/mainwindow.cpp" line="1215"/>
         <source>Check for Updates...</source>
         <translation>Check for Updates...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1216"/>
         <source>Ctrl+U</source>
         <translation>Ctrl+U</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1217"/>
+        <location filename="../src/mainwindow.cpp" line="1219"/>
         <source>&amp;About...</source>
         <translation>&amp;About...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1314"/>
+        <location filename="../src/mainwindow.cpp" line="1316"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1319"/>
+        <location filename="../src/mainwindow.cpp" line="1321"/>
         <source>&amp;Open Recent</source>
         <translation>&amp;Open Recent</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1333"/>
+        <location filename="../src/mainwindow.cpp" line="1335"/>
         <source>&amp;View</source>
         <translation>&amp;View</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1346"/>
+        <location filename="../src/mainwindow.cpp" line="1348"/>
         <source>&amp;Run</source>
         <translation>&amp;Run</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1354"/>
+        <location filename="../src/mainwindow.cpp" line="1356"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1371"/>
+        <location filename="../src/mainwindow.cpp" line="1373"/>
         <source>&amp;File ToolBar</source>
         <translation>&amp;File ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1394"/>
+        <location filename="../src/mainwindow.cpp" line="1396"/>
         <source>&amp;View ToolBar</source>
         <translation>&amp;View ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1408"/>
+        <location filename="../src/mainwindow.cpp" line="1410"/>
         <source>&amp;Tools ToolBar</source>
         <translation>&amp;Tools ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1410"/>
+        <location filename="../src/mainwindow.cpp" line="1412"/>
         <source>  Run:  </source>
         <translation>  Run:  </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1454"/>
+        <location filename="../src/mainwindow.cpp" line="1456"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1481"/>
+        <location filename="../src/mainwindow.cpp" line="1483"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1496"/>
+        <location filename="../src/mainwindow.cpp" line="1498"/>
         <source>Output Console</source>
         <translation>Output Console</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1514"/>
+        <location filename="../src/mainwindow.cpp" line="1516"/>
         <source>Messages</source>
         <translation>Messages</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1789"/>
+        <location filename="../src/mainwindow.cpp" line="1779"/>
         <source>The SmartFlux configuration will use a renamed copy of your current project file. &lt;br /&gt;</source>
         <translation>The SmartFlux configuration will use a renamed copy of your current project file. &lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2373"/>
+        <location filename="../src/mainwindow.cpp" line="2364"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page is incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page is incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2376"/>
-        <location filename="../src/mainwindow.cpp" line="2386"/>
-        <location filename="../src/mainwindow.cpp" line="2638"/>
-        <location filename="../src/mainwindow.cpp" line="2718"/>
-        <location filename="../src/mainwindow.cpp" line="2725"/>
-        <location filename="../src/mainwindow.cpp" line="2777"/>
-        <location filename="../src/mainwindow.cpp" line="2906"/>
-        <location filename="../src/mainwindow.cpp" line="2912"/>
+        <location filename="../src/mainwindow.cpp" line="2367"/>
+        <location filename="../src/mainwindow.cpp" line="2377"/>
+        <location filename="../src/mainwindow.cpp" line="2652"/>
+        <location filename="../src/mainwindow.cpp" line="2732"/>
+        <location filename="../src/mainwindow.cpp" line="2739"/>
+        <location filename="../src/mainwindow.cpp" line="2791"/>
+        <location filename="../src/mainwindow.cpp" line="2920"/>
+        <location filename="../src/mainwindow.cpp" line="2926"/>
         <source>&lt;ul&gt;</source>
         <translation>&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2398"/>
+        <location filename="../src/mainwindow.cpp" line="2389"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata file:&lt;/span&gt; Load or create one using the Metadata File Editor.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata file:&lt;/span&gt; Load or create one using the Metadata File Editor.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2408"/>
+        <location filename="../src/mainwindow.cpp" line="2399"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - File Duration:&lt;/span&gt; A file duration greater than zero is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - File Duration:&lt;/span&gt; A file duration greater than zero is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2420"/>
+        <location filename="../src/mainwindow.cpp" line="2411"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Field separator required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Field separator required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2433"/>
+        <location filename="../src/mainwindow.cpp" line="2424"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Number of header rows required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Number of header rows required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2444"/>
+        <location filename="../src/mainwindow.cpp" line="2435"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; The complete description of at least one anemometer is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; The complete description of at least one anemometer is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2455"/>
+        <location filename="../src/mainwindow.cpp" line="2446"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; The complete description of 3-d wind components and at least one fast ambient temperature or speed-of-sound measurement is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; The complete description of 3-d wind components and at least one fast ambient temperature or speed-of-sound measurement is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2468"/>
+        <location filename="../src/mainwindow.cpp" line="2458"/>
+        <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</source>
+        <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2481"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2478"/>
+        <location filename="../src/mainwindow.cpp" line="2491"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more gas analyzers do not have at least one separation different from zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more gas analyzers do not have at least one separation different from zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2487"/>
+        <location filename="../src/mainwindow.cpp" line="2500"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed path gas analyzers are not well described, not having tube length, diameter and flow rate all greater than zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed path gas analyzers are not well described, not having tube length, diameter and flow rate all greater than zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2497"/>
+        <location filename="../src/mainwindow.cpp" line="2510"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more generic gas analyzers are not well described, not having path lengths and time response all greater than zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more generic gas analyzers are not well described, not having path lengths and time response all greater than zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2512"/>
+        <location filename="../src/mainwindow.cpp" line="2525"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of ASCII header lines required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of ASCII header lines required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2534"/>
+        <location filename="../src/mainwindow.cpp" line="2547"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of bytes per variable required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of bytes per variable required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2544"/>
+        <location filename="../src/mainwindow.cpp" line="2557"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Endianess required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Endianess required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2561"/>
+        <location filename="../src/mainwindow.cpp" line="2574"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Dynamic metadata file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button or uncheck this option.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Dynamic metadata file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button or uncheck this option.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2575"/>
+        <location filename="../src/mainwindow.cpp" line="2588"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2585"/>
+        <location filename="../src/mainwindow.cpp" line="2598"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet directory: &lt;/span&gt;Select a directory using the &quot;Browse...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet directory: &lt;/span&gt;Select a directory using the &quot;Browse...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2635"/>
+        <location filename="../src/mainwindow.cpp" line="2649"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Basic Settings&lt;/b&gt; page is incomplete. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Basic Settings&lt;/b&gt; page is incomplete. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2645"/>
+        <location filename="../src/mainwindow.cpp" line="2659"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw data directory.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw data directory.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2660"/>
+        <location filename="../src/mainwindow.cpp" line="2674"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw file name format.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw file name format.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2667"/>
+        <location filename="../src/mainwindow.cpp" line="2681"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output directory.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output directory.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2674"/>
+        <location filename="../src/mainwindow.cpp" line="2688"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output ID.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output ID.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2699"/>
+        <location filename="../src/mainwindow.cpp" line="2713"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp), or go back to the Project Creation page and describe either a Sonic Temperature or a Speed-of-Sound measurement for the selected anemometer.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp), or go back to the Project Creation page and describe either a Sonic Temperature or a Speed-of-Sound measurement for the selected anemometer.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2705"/>
+        <location filename="../src/mainwindow.cpp" line="2719"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp).&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp).&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2790"/>
+        <location filename="../src/mainwindow.cpp" line="2804"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Complete wind sectors configuration.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Complete wind sectors configuration.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2798"/>
+        <location filename="../src/mainwindow.cpp" line="2812"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum number of elements per sector.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum number of elements per sector.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2806"/>
+        <location filename="../src/mainwindow.cpp" line="2820"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Maximum mean vertical wind component.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Maximum mean vertical wind component.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2814"/>
+        <location filename="../src/mainwindow.cpp" line="2828"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum mean horizontal wind component.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum mean horizontal wind component.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2824"/>
+        <location filename="../src/mainwindow.cpp" line="2838"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Load a Planar fit file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Load a Planar fit file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2849"/>
+        <location filename="../src/mainwindow.cpp" line="2863"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Timelag Optimization Settings:&lt;/span&gt; Load a Time lag file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Timelag Optimization Settings:&lt;/span&gt; Load a Time lag file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2872"/>
+        <location filename="../src/mainwindow.cpp" line="2886"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4048"/>
+        <location filename="../src/mainwindow.cpp" line="4062"/>
         <source>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4055"/>
+        <location filename="../src/mainwindow.cpp" line="4069"/>
         <source>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4061"/>
-        <location filename="../src/mainwindow.cpp" line="4072"/>
-        <location filename="../src/mainwindow.cpp" line="4199"/>
+        <location filename="../src/mainwindow.cpp" line="4075"/>
+        <location filename="../src/mainwindow.cpp" line="4086"/>
+        <location filename="../src/mainwindow.cpp" line="4213"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4182"/>
+        <location filename="../src/mainwindow.cpp" line="4196"/>
         <source>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4188"/>
+        <location filename="../src/mainwindow.cpp" line="4202"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4312"/>
+        <location filename="../src/mainwindow.cpp" line="4326"/>
         <source>Do you really want to stop the computations?</source>
         <translation>Do you really want to stop the computations?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4715"/>
+        <location filename="../src/mainwindow.cpp" line="4730"/>
         <source>Import Project</source>
         <translation>Import Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4716"/>
+        <location filename="../src/mainwindow.cpp" line="4731"/>
         <source>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4726"/>
+        <location filename="../src/mainwindow.cpp" line="4741"/>
         <source>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4734"/>
+        <location filename="../src/mainwindow.cpp" line="4749"/>
         <source>Import Metadata</source>
         <translation>Import Metadata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4735"/>
+        <location filename="../src/mainwindow.cpp" line="4750"/>
         <source>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4737"/>
+        <location filename="../src/mainwindow.cpp" line="4752"/>
         <source>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2522"/>
+        <location filename="../src/mainwindow.cpp" line="2535"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; ASCII header end of line required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; ASCII header end of line required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2738"/>
-        <location filename="../src/mainwindow.cpp" line="2919"/>
+        <location filename="../src/mainwindow.cpp" line="2752"/>
+        <location filename="../src/mainwindow.cpp" line="2933"/>
         <source>&lt;/ul&gt;</source>
         <translation>&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2653"/>
+        <location filename="../src/mainwindow.cpp" line="2667"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Raw file name format not well described.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Raw file name format not well described.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1196"/>
+        <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2716"/>
-        <location filename="../src/mainwindow.cpp" line="2904"/>
+        <location filename="../src/mainwindow.cpp" line="2730"/>
+        <location filename="../src/mainwindow.cpp" line="2918"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings or &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt; using Advanced Settings.&lt;br /&gt;Please note that running in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; means EddyPro will ignore all your entries in the Advanced Settings pages. In this case, your settings will not be overridden. You will be able to retrieve them at any time, but they will not be used for the computations.</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings or &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt; using Advanced Settings.&lt;br /&gt;Please note that running in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; means EddyPro will ignore all your entries in the Advanced Settings pages. In this case, your settings will not be overridden. You will be able to retrieve them at any time, but they will not be used for the computations.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2724"/>
+        <location filename="../src/mainwindow.cpp" line="2738"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;br /&gt;</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2746"/>
+        <location filename="../src/mainwindow.cpp" line="2760"/>
         <source>You are ready</source>
         <translation>You are ready</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2770"/>
+        <location filename="../src/mainwindow.cpp" line="2784"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;/span&gt;&lt;br /&gt;&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;/span&gt;&lt;br /&gt;&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2775"/>
+        <location filename="../src/mainwindow.cpp" line="2789"/>
         <source>&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2893"/>
+        <location filename="../src/mainwindow.cpp" line="2907"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra&apos; files are stored.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra&apos; files are stored.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2925"/>
+        <location filename="../src/mainwindow.cpp" line="2939"/>
         <source>Additional settings</source>
         <translation>Additional settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3243"/>
-        <location filename="../src/mainwindow.cpp" line="3282"/>
+        <location filename="../src/mainwindow.cpp" line="3257"/>
+        <location filename="../src/mainwindow.cpp" line="3296"/>
         <source>Previous Results Available</source>
         <translation>Previous Results Available</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3283"/>
+        <location filename="../src/mainwindow.cpp" line="3297"/>
         <source>Previous results available!
 
 Do you want to proceed using results from a previous run? (Recommended)
@@ -5076,81 +5188,81 @@ Do you want to proceed using results from a previous run? (Recommended)
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3259"/>
-        <location filename="../src/mainwindow.cpp" line="3307"/>
+        <location filename="../src/mainwindow.cpp" line="3273"/>
+        <location filename="../src/mainwindow.cpp" line="3321"/>
         <source>No Previous Results Available</source>
         <translation>No Previous Results Available</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="556"/>
+        <location filename="../src/mainwindow.cpp" line="558"/>
         <source>Load Project</source>
         <translation>Load Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="557"/>
+        <location filename="../src/mainwindow.cpp" line="559"/>
         <source>The project was successfully imported and updated.</source>
         <translation>The project was successfully imported and updated.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="559"/>
+        <location filename="../src/mainwindow.cpp" line="561"/>
         <source>Save the project to complete the update.</source>
         <translation>Save the project to complete the update.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="567"/>
+        <location filename="../src/mainwindow.cpp" line="569"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="685"/>
-        <location filename="../src/mainwindow.cpp" line="792"/>
+        <location filename="../src/mainwindow.cpp" line="687"/>
+        <location filename="../src/mainwindow.cpp" line="794"/>
         <source>Save Project Error</source>
         <translation>Save Project Error</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="686"/>
-        <location filename="../src/mainwindow.cpp" line="793"/>
+        <location filename="../src/mainwindow.cpp" line="688"/>
+        <location filename="../src/mainwindow.cpp" line="795"/>
         <source>%1 was unable to save to %2</source>
         <translation>%1 was unable to save to %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="892"/>
+        <location filename="../src/mainwindow.cpp" line="894"/>
         <source>Changes During Run</source>
         <translation>Changes During Run</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="913"/>
+        <location filename="../src/mainwindow.cpp" line="915"/>
         <source>Do you want to stop the computations before proceeding?</source>
         <translation>Do you want to stop the computations before proceeding?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="931"/>
+        <location filename="../src/mainwindow.cpp" line="933"/>
         <source>Current project has been modified.</source>
         <translation>Current project has been modified.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="932"/>
+        <location filename="../src/mainwindow.cpp" line="934"/>
         <source>Do you want to save your changes?</source>
         <translation>Do you want to save your changes?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1052"/>
-        <location filename="../src/mainwindow.cpp" line="1787"/>
+        <location filename="../src/mainwindow.cpp" line="1054"/>
+        <location filename="../src/mainwindow.cpp" line="1777"/>
         <source>SmartFlux Configuration</source>
         <translation>SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>About Qt...</source>
         <translation>About Qt...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3244"/>
+        <location filename="../src/mainwindow.cpp" line="3258"/>
         <source>Previous results available!</source>
         <translation>Previous results available!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3245"/>
+        <location filename="../src/mainwindow.cpp" line="3259"/>
         <source>Most likely results of this run will be identical to results of a previous run available in the &quot;Previous Output Directory&quot;, so you wouldn&apos;t need to proceed.
 
 Do you prefer to proceed anyway?</source>
@@ -5159,253 +5271,258 @@ Do you prefer to proceed anyway?</source>
 Do you prefer to proceed anyway?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3260"/>
-        <location filename="../src/mainwindow.cpp" line="3308"/>
+        <location filename="../src/mainwindow.cpp" line="3274"/>
+        <location filename="../src/mainwindow.cpp" line="3322"/>
         <source>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</source>
         <translation>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="796"/>
+        <location filename="../src/mainwindow.cpp" line="798"/>
         <source>Make sure the file is not in use by another application.If the problem persists, contact envsupport@licor.com .</source>
         <translation>Make sure the file is not in use by another application.If the problem persists, contact envsupport@licor.com .</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="893"/>
+        <location filename="../src/mainwindow.cpp" line="895"/>
         <source>You can not save changes while EddyPro is running. </source>
         <translation>You can not save changes while EddyPro is running. </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="895"/>
+        <location filename="../src/mainwindow.cpp" line="897"/>
         <source>Wait until run has finished before saving.</source>
         <translation>Wait until run has finished before saving.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="911"/>
+        <location filename="../src/mainwindow.cpp" line="913"/>
         <source>Close EddyPro</source>
         <translation>Close EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1011"/>
+        <location filename="../src/mainwindow.cpp" line="1013"/>
         <source>Start a new project. (%1)</source>
         <translation>Start a new project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1018"/>
+        <location filename="../src/mainwindow.cpp" line="1020"/>
         <source>Open an existing project. (%1)</source>
         <translation>Open an existing project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1026"/>
+        <location filename="../src/mainwindow.cpp" line="1028"/>
         <source>Close the current project. (%1)</source>
         <translation>Close the current project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1032"/>
+        <location filename="../src/mainwindow.cpp" line="1034"/>
         <source>Open a recent project.</source>
         <translation>Open a recent project.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1035"/>
+        <location filename="../src/mainwindow.cpp" line="1037"/>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1038"/>
+        <location filename="../src/mainwindow.cpp" line="1040"/>
         <source>Save the current project. (%1)</source>
         <translation>Save the current project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1046"/>
+        <location filename="../src/mainwindow.cpp" line="1048"/>
         <source>Save the current project with a new name. (%1)</source>
         <translation>Save the current project with a new name. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1054"/>
+        <location filename="../src/mainwindow.cpp" line="1056"/>
         <source>&lt;b&gt;SmartFlux Configuration&lt;/b&gt;. (%1)</source>
         <translation>&lt;b&gt;SmartFlux Configuration&lt;/b&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1062"/>
+        <location filename="../src/mainwindow.cpp" line="1064"/>
         <source>&lt;b&gt;Quit:&lt;/b&gt; Quit the application. (%1)</source>
         <translation>&lt;b&gt;Quit:&lt;/b&gt; Quit the application. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1076"/>
+        <location filename="../src/mainwindow.cpp" line="1078"/>
         <source>Alt+1</source>
         <translation>Alt+1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1077"/>
+        <location filename="../src/mainwindow.cpp" line="1079"/>
         <source>Go to the &lt;i&gt;Welcome page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Welcome page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1083"/>
+        <location filename="../src/mainwindow.cpp" line="1085"/>
         <source>Alt+2</source>
         <translation>Alt+2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1084"/>
+        <location filename="../src/mainwindow.cpp" line="1086"/>
         <source>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1091"/>
+        <location filename="../src/mainwindow.cpp" line="1093"/>
         <source>Alt+3</source>
         <translation>Alt+3</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1092"/>
+        <location filename="../src/mainwindow.cpp" line="1094"/>
         <source>Go to the &lt;i&gt;Basic Settings Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Basic Settings Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1098"/>
+        <location filename="../src/mainwindow.cpp" line="1100"/>
         <source>Alt+4</source>
         <translation>Alt+4</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1099"/>
+        <location filename="../src/mainwindow.cpp" line="1101"/>
         <source>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1104"/>
+        <location filename="../src/mainwindow.cpp" line="1106"/>
         <source>Run
 Output</source>
         <translation>Run
 Output</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1106"/>
+        <location filename="../src/mainwindow.cpp" line="1108"/>
         <source>Alt+5</source>
         <translation>Alt+5</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1107"/>
+        <location filename="../src/mainwindow.cpp" line="1109"/>
         <source>Go to the &lt;i&gt;Output Console Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Output Console Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1123"/>
+        <location filename="../src/mainwindow.cpp" line="1125"/>
         <source>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1132"/>
+        <location filename="../src/mainwindow.cpp" line="1134"/>
         <source>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1141"/>
+        <location filename="../src/mainwindow.cpp" line="1143"/>
         <source>&lt;b&gt;Metadata retriever:&lt;/b&gt; Only available for GHG files, this tool retrieves metadata from GHG files and organizes them into a unique file that can be examined (e.g., to create a time series of canopy heights at the site) and can also be provided to EddyPro as a dynamic metadata file. (%1)</source>
         <translation>&lt;b&gt;Metadata retriever:&lt;/b&gt; Only available for GHG files, this tool retrieves metadata from GHG files and organizes them into a unique file that can be examined (e.g., to create a time series of canopy heights at the site) and can also be provided to EddyPro as a dynamic metadata file. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1157"/>
+        <location filename="../src/mainwindow.cpp" line="1159"/>
         <source>Stop processing. (%1)</source>
         <translation>Stop processing. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1191"/>
+        <location filename="../src/mainwindow.cpp" line="1193"/>
         <source>Ctrl+F1</source>
         <translation>Ctrl+F1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2383"/>
+        <location filename="../src/mainwindow.cpp" line="2374"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2883"/>
+        <location filename="../src/mainwindow.cpp" line="2468"/>
+        <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
+        <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="2897"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Binned (co)spectra&apos; files are stored.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Binned (co)spectra&apos; files are stored.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3497"/>
-        <location filename="../src/mainwindow.cpp" line="3595"/>
-        <location filename="../src/mainwindow.cpp" line="3750"/>
+        <location filename="../src/mainwindow.cpp" line="3511"/>
+        <location filename="../src/mainwindow.cpp" line="3609"/>
+        <location filename="../src/mainwindow.cpp" line="3764"/>
         <source>Running</source>
         <translation>Running</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3500"/>
+        <location filename="../src/mainwindow.cpp" line="3514"/>
         <source>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</source>
         <translation>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3598"/>
+        <location filename="../src/mainwindow.cpp" line="3612"/>
         <source>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</source>
         <translation>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3753"/>
+        <location filename="../src/mainwindow.cpp" line="3767"/>
         <source>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</source>
         <translation>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4029"/>
-        <location filename="../src/mainwindow.cpp" line="4161"/>
+        <location filename="../src/mainwindow.cpp" line="4043"/>
+        <location filename="../src/mainwindow.cpp" line="4175"/>
         <source>EddyPro Results</source>
         <translation>EddyPro Results</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4031"/>
+        <location filename="../src/mainwindow.cpp" line="4045"/>
         <source>Open the output folder</source>
         <translation>Open the output folder</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4062"/>
-        <location filename="../src/mainwindow.cpp" line="4102"/>
-        <location filename="../src/mainwindow.cpp" line="4189"/>
-        <location filename="../src/mainwindow.cpp" line="4229"/>
+        <location filename="../src/mainwindow.cpp" line="4076"/>
+        <location filename="../src/mainwindow.cpp" line="4116"/>
+        <location filename="../src/mainwindow.cpp" line="4203"/>
+        <location filename="../src/mainwindow.cpp" line="4243"/>
         <source>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4077"/>
-        <location filename="../src/mainwindow.cpp" line="4204"/>
+        <location filename="../src/mainwindow.cpp" line="4091"/>
+        <location filename="../src/mainwindow.cpp" line="4218"/>
         <source>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4087"/>
-        <location filename="../src/mainwindow.cpp" line="4214"/>
+        <location filename="../src/mainwindow.cpp" line="4101"/>
+        <location filename="../src/mainwindow.cpp" line="4228"/>
         <source>&lt;p&gt;Computations crashed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations crashed.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4090"/>
-        <location filename="../src/mainwindow.cpp" line="4217"/>
+        <location filename="../src/mainwindow.cpp" line="4104"/>
+        <location filename="../src/mainwindow.cpp" line="4231"/>
         <source>&lt;p&gt;Computations timed out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations timed out.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4093"/>
-        <location filename="../src/mainwindow.cpp" line="4220"/>
+        <location filename="../src/mainwindow.cpp" line="4107"/>
+        <location filename="../src/mainwindow.cpp" line="4234"/>
         <source>&lt;p&gt;Computations write error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations write error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4096"/>
-        <location filename="../src/mainwindow.cpp" line="4223"/>
+        <location filename="../src/mainwindow.cpp" line="4110"/>
+        <location filename="../src/mainwindow.cpp" line="4237"/>
         <source>&lt;p&gt;Computations read error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations read error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4099"/>
-        <location filename="../src/mainwindow.cpp" line="4226"/>
+        <location filename="../src/mainwindow.cpp" line="4113"/>
+        <location filename="../src/mainwindow.cpp" line="4240"/>
         <source>&lt;p&gt;Computations unknown error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations unknown error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4112"/>
-        <location filename="../src/mainwindow.cpp" line="4239"/>
+        <location filename="../src/mainwindow.cpp" line="4126"/>
+        <location filename="../src/mainwindow.cpp" line="4253"/>
         <source>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4310"/>
+        <location filename="../src/mainwindow.cpp" line="4324"/>
         <source>Stop Data Processing</source>
         <translation>Stop Data Processing</translation>
     </message>
@@ -5573,11 +5690,6 @@ Output</translation>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="255"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
-    </message>
-    <message>
         <location filename="../src/planarfitsettingsdialog.cpp" line="132"/>
         <source>Select the Planar Fit File</source>
         <translation>Select the Planar Fit File</translation>
@@ -5593,22 +5705,27 @@ Output</translation>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="693"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="255"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="692"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="697"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="696"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="707"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="706"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="711"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="710"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</translation>
     </message>
@@ -5934,12 +6051,12 @@ Output</translation>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1163"/>
+        <location filename="../src/projectpage.cpp" line="1158"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1164"/>
+        <location filename="../src/projectpage.cpp" line="1159"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>
@@ -5947,99 +6064,99 @@ Output</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="379"/>
+        <location filename="../src/main.cpp" line="413"/>
         <source>Usage: %1 [options] [file]</source>
         <translation>Usage: %1 [options] [file]</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="382"/>
+        <location filename="../src/main.cpp" line="416"/>
         <source>Arguments [file]:</source>
         <translation>Arguments [file]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="384"/>
+        <location filename="../src/main.cpp" line="418"/>
         <source>    file                  File to open</source>
         <translation>    file                  File to open</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="387"/>
+        <location filename="../src/main.cpp" line="421"/>
         <source>Options [options]:</source>
         <translation>Options [options]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="391"/>
+        <location filename="../src/main.cpp" line="425"/>
         <source>    --help                Print the command line options.</source>
         <translation>    --help                Print the command line options.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="393"/>
+        <location filename="../src/main.cpp" line="427"/>
         <source>    --version             Print the application version.</source>
         <translation>    --version             Print the application version.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="450"/>
+        <location filename="../src/main.cpp" line="484"/>
         <source>Invalid parameter &quot;%1&quot;
 </source>
         <translation>Invalid parameter &quot;%1&quot;
 </translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
+        <location filename="../src/main.cpp" line="220"/>
         <source>Cannot proceed</source>
         <translation>Cannot proceed</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="201"/>
+        <location filename="../src/main.cpp" line="221"/>
         <source>Home Path not available.</source>
         <translation>Home Path not available.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="270"/>
+        <location filename="../src/main.cpp" line="302"/>
         <source>Initializing...</source>
         <translation>Initializing...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="278"/>
+        <location filename="../src/main.cpp" line="310"/>
         <source>Loading...</source>
         <translation>Loading...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="299"/>
+        <location filename="../src/main.cpp" line="331"/>
         <source>Loading complete.</source>
         <translation>Loading complete.</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.h" line="112"/>
+        <location filename="../src/widget_utils.h" line="121"/>
         <source>&amp;Yes</source>
         <translation>&amp;Yes</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.h" line="113"/>
+        <location filename="../src/widget_utils.h" line="122"/>
         <source>&amp;No</source>
         <translation>&amp;No</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="47"/>
+        <location filename="../src/advancedsettingspage.cpp" line="46"/>
         <source>Processing Options</source>
         <translation>Processing Options</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="49"/>
+        <location filename="../src/advancedsettingspage.cpp" line="47"/>
         <source>Statistical Analysis</source>
         <translation>Statistical Analysis</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="51"/>
+        <location filename="../src/advancedsettingspage.cpp" line="48"/>
         <source>Output Files</source>
         <translation>Output Files</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="53"/>
+        <location filename="../src/advancedsettingspage.cpp" line="49"/>
         <source>Computation Options</source>
         <translation>Computation Options</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="55"/>
+        <location filename="../src/advancedsettingspage.cpp" line="50"/>
         <source>Spectral Analysis and Corrections</source>
         <translation>Spectral Analysis and Corrections</translation>
     </message>
@@ -6054,22 +6171,22 @@ Output</translation>
         <translation>Below threshold</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="193"/>
+        <location filename="../src/defs.h" line="203"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="194"/>
+        <location filename="../src/defs.h" line="204"/>
         <source>LI-COR EddyPro software suite.</source>
         <translation>LI-COR EddyPro software suite.</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="256"/>
+        <location filename="../src/defs.h" line="269"/>
         <source>project-untitled.%1</source>
         <translation>project-untitled.%1</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="259"/>
+        <location filename="../src/defs.h" line="272"/>
         <source>project-untitled%1.%2</source>
         <translation>project-untitled%1.%2</translation>
     </message>
@@ -6105,52 +6222,52 @@ Output</translation>
         <translation>no</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="232"/>
+        <location filename="../src/widget_utils.cpp" line="239"/>
         <source>Overwrite File</source>
         <translation>Overwrite File</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="233"/>
+        <location filename="../src/widget_utils.cpp" line="240"/>
         <source>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="235"/>
+        <location filename="../src/widget_utils.cpp" line="242"/>
         <source>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</source>
         <translation>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="237"/>
+        <location filename="../src/widget_utils.cpp" line="244"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="238"/>
+        <location filename="../src/widget_utils.cpp" line="245"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="244"/>
+        <location filename="../src/widget_utils.cpp" line="251"/>
         <source>Remove Column</source>
         <translation>Remove Column</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="245"/>
+        <location filename="../src/widget_utils.cpp" line="252"/>
         <source>Do you want to remove this column?</source>
         <translation>Do you want to remove this column?</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="272"/>
+        <location filename="../src/widget_utils.cpp" line="279"/>
         <source>Do &amp;Not Save</source>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="627"/>
+        <location filename="../src/widget_utils.cpp" line="558"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="628"/>
+        <location filename="../src/widget_utils.cpp" line="559"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>
@@ -6163,6 +6280,20 @@ Output</translation>
         <location filename="../src/fileutils.cpp" line="116"/>
         <source>Error creating dir %1</source>
         <translation>Error creating dir %1</translation>
+    </message>
+    <message>
+        <location filename="../src/fileutils.cpp" line="607"/>
+        <location filename="../src/fileutils.cpp" line="634"/>
+        <source>Write Error</source>
+        <translation>Write Error</translation>
+    </message>
+    <message>
+        <location filename="../src/fileutils.cpp" line="608"/>
+        <location filename="../src/fileutils.cpp" line="635"/>
+        <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
+&lt;b&gt;%2&lt;/b&gt;</source>
+        <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
+&lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -6219,7 +6350,7 @@ Output</translation>
     </message>
     <message>
         <location filename="../src/rawfilesettingsdialog.cpp" line="74"/>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="157"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="154"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
@@ -6230,8 +6361,8 @@ Output</translation>
     </message>
     <message>
         <location filename="../src/rawfilesettingsdialog.cpp" line="101"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <source>Ok</source>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -6247,58 +6378,58 @@ Output</translation>
         <translation>Raw file name format</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="73"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
-    </message>
-    <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="79"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="76"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="199"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="196"/>
         <source>&lt;p&gt;Your entry in this field will describe how the timestamp is encoded in the raw file name.&lt;br /&gt;In the field below, replace the:&lt;ul&gt;&lt;li&gt;Year with characters yy or yyyy&lt;/li&gt;&lt;li&gt;Month with mm&lt;/li&gt;&lt;li&gt;Day with dd (day of month) or ddd (day of year) (case sensitive)&lt;/li&gt;&lt;li&gt;Hour and minute with HH and MM&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;You can also specify a wildcard matching any single character using the question mark (?).&lt;/p&gt;&lt;u&gt;Example&lt;/u&gt;&lt;br /&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;File name: &lt;/td&gt;&lt;td&gt;&lt;tt&gt;2015-05-27_1030_mysite-12.raw&lt;/tt&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;File name format: &lt;/td&gt;&lt;td&gt;&lt;tt&gt;yyyy-mm-dd_HHMM_mysite-??.raw&lt;/tt&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;hr /&gt;</source>
         <translation>&lt;p&gt;Your entry in this field will describe how the timestamp is encoded in the raw file name.&lt;br /&gt;In the field below, replace the:&lt;ul&gt;&lt;li&gt;Year with characters yy or yyyy&lt;/li&gt;&lt;li&gt;Month with mm&lt;/li&gt;&lt;li&gt;Day with dd (day of month) or ddd (day of year) (case sensitive)&lt;/li&gt;&lt;li&gt;Hour and minute with HH and MM&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;You can also specify a wildcard matching any single character using the question mark (?).&lt;/p&gt;&lt;u&gt;Example&lt;/u&gt;&lt;br /&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;File name: &lt;/td&gt;&lt;td&gt;&lt;tt&gt;2015-05-27_1030_mysite-12.raw&lt;/tt&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;File name format: &lt;/td&gt;&lt;td&gt;&lt;tt&gt;yyyy-mm-dd_HHMM_mysite-??.raw&lt;/tt&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;hr /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="222"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="219"/>
         <source>&lt;p&gt;In the &apos;Raw data directory&apos; we found GHG file names with the following suffixes:&lt;/p&gt;</source>
         <translation>&lt;p&gt;In the &apos;Raw data directory&apos; we found GHG file names with the following suffixes:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="230"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="227"/>
         <source>
 In the &apos;Raw data directory&apos; we found GHG file names with the following suffix:</source>
         <translation>
 In the &apos;Raw data directory&apos; we found GHG file names with the following suffix:</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="237"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="234"/>
         <source>
 In the &apos;Raw data directory&apos; we found no GHG files.</source>
         <translation>
 In the &apos;Raw data directory&apos; we found no GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="376"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="373"/>
         <source>Process all</source>
         <translation>Process all</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="274"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="271"/>
         <source>&lt;p&gt;In the &apos;Raw data directory&apos; we found file names with the following extensions:&lt;/p&gt;</source>
         <translation>&lt;p&gt;In the &apos;Raw data directory&apos; we found file names with the following extensions:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="282"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="73"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/rawfilenamedialog.cpp" line="279"/>
         <source>
 In the &apos;Raw data directory&apos; we found file names of the following type:</source>
         <translation>
 In the &apos;Raw data directory&apos; we found file names of the following type:</translation>
     </message>
     <message>
-        <location filename="../src/rawfilenamedialog.cpp" line="289"/>
+        <location filename="../src/rawfilenamedialog.cpp" line="286"/>
         <source>
 In the &apos;Raw data directory&apos; we found no files.</source>
         <translation>
@@ -6369,13 +6500,13 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/variable_desc.cpp" line="186"/>
-        <source>LI-7500(A) Diagnostics</source>
-        <translation>LI-7500(A) Diagnostics</translation>
+        <source>LI-7500/A/RS Diagnostics</source>
+        <translation>LI-7500/A/RS Diagnostics</translation>
     </message>
     <message>
         <location filename="../src/variable_desc.cpp" line="192"/>
-        <source>LI-7200 Diagnostics</source>
-        <translation>LI-7200 Diagnostics</translation>
+        <source>LI-7200/RS Diagnostics</source>
+        <translation>LI-7200/RS Diagnostics</translation>
     </message>
     <message>
         <location filename="../src/variable_desc.cpp" line="198"/>
@@ -6454,7 +6585,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="821"/>
+        <location filename="../src/variable_desc.cpp" line="822"/>
         <source>Irga</source>
         <translation>Irga</translation>
     </message>
@@ -6668,17 +6799,17 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Calculating quality flags</translation>
     </message>
     <message>
-        <location filename="../src/runpage.cpp" line="1342"/>
+        <location filename="../src/runpage.cpp" line="1356"/>
         <source>Starting flux computation and correction...</source>
         <translation>Starting flux computation and correction...</translation>
     </message>
     <message>
-        <location filename="../src/runpage.cpp" line="1417"/>
+        <location filename="../src/runpage.cpp" line="1431"/>
         <source>Finalizing output files...</source>
         <translation>Finalizing output files...</translation>
     </message>
     <message>
-        <location filename="../src/runpage.cpp" line="1366"/>
+        <location filename="../src/runpage.cpp" line="1380"/>
         <source>Performing spectral assessment...</source>
         <translation>Performing spectral assessment...</translation>
     </message>
@@ -6731,12 +6862,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Ctrl+F to exit).</translation>
     </message>
     <message>
-        <location filename="../src/smartfluxbar.cpp" line="361"/>
+        <location filename="../src/smartfluxbar.cpp" line="356"/>
         <source>SMARTFlux package creation</source>
         <translation>SMARTFlux package creation</translation>
     </message>
     <message>
-        <location filename="../src/smartfluxbar.cpp" line="362"/>
+        <location filename="../src/smartfluxbar.cpp" line="357"/>
         <source>&lt;p&gt;Choose a Raw Data directory from the Basic Settings page.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Choose a Raw Data directory from the Basic Settings page.&lt;/p&gt;</translation>
     </message>
@@ -6892,159 +7023,159 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Water vapor time lag as a function of relative humidity</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="139"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="138"/>
         <source>Plausibility range around median value :</source>
         <translation>Plausibility range around median value :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="140"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="139"/>
         <source>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</source>
         <translation>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="146"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="145"/>
         <source>  [mad]</source>
         <translation>  [mad]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="148"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="147"/>
         <source>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="150"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="149"/>
         <source>Number of RH classes :</source>
         <translation>Number of RH classes :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="151"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="150"/>
         <source>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range or RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. Selecting 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</source>
         <translation>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range of RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. If you select 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="157"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="156"/>
         <source>Do not sort in RH classes</source>
         <translation>Do not sort in RH classes</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="160"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="159"/>
         <source>Passive gases</source>
         <translation>Passive gases</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="163"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="173"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="161"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="171"/>
         <source>Minimum (absolute) %1 flux :</source>
         <translation>Minimum (absolute) %1 flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="164"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="174"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="162"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="172"/>
         <source>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="170"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="180"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="190"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="200"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="168"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="178"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="188"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="198"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="183"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="181"/>
         <source>Minimum (absolute) %1 gas flux :</source>
         <translation>Minimum (absolute) %1 gas flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="184"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="182"/>
         <source>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="193"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="191"/>
         <source>Minimum latent heat flux :</source>
         <translation>Minimum latent heat flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="194"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="192"/>
         <source>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="203"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="201"/>
         <source>Time lag searching windows</source>
         <translation>Time lag searching windows</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="206"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="203"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="208"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="204"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="210"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="206"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="212"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="207"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="214"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="234"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="254"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="209"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="229"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="249"/>
         <source>%1 :</source>
         <translation>%1 :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="220"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="229"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="240"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="249"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="260"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="269"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="280"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="289"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="215"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="224"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="235"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="244"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="255"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="264"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="275"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="284"/>
         <source>Detect automatically</source>
         <translation>Detect automatically</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="222"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="231"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="242"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="251"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="262"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="271"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="282"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="291"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="217"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="226"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="237"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="246"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="257"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="266"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="277"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="286"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="274"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="269"/>
         <source>%1 gas :</source>
         <translation>%1 gas :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="344"/>
-        <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <location filename="../src/timelagsettingsdialog.cpp" line="339"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="746"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="738"/>
         <source>Select the Timelag Optimization File</source>
         <translation>Select the Timelag Optimization File</translation>
     </message>
     <message>
         <location filename="../src/timelagsettingsdialog.cpp" line="123"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="748"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="740"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
@@ -7072,42 +7203,42 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="65"/>
+        <location filename="../src/updatedialog.cpp" line="62"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="70"/>
+        <location filename="../src/updatedialog.cpp" line="67"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="110"/>
+        <location filename="../src/updatedialog.cpp" line="107"/>
         <source>&lt;b&gt;Retrieving information...&lt;/b&gt;</source>
         <translation>&lt;b&gt;Retrieving information...&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="130"/>
-        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro6/Content/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
+        <location filename="../src/updatedialog.cpp" line="131"/>
+        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="148"/>
+        <location filename="../src/updatedialog.cpp" line="149"/>
         <source>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="156"/>
+        <location filename="../src/updatedialog.cpp" line="157"/>
         <source>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="164"/>
+        <location filename="../src/updatedialog.cpp" line="166"/>
         <source>&lt;b&gt;Connection error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Connection error.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="172"/>
+        <location filename="../src/updatedialog.cpp" line="174"/>
         <source>&lt;b&gt;Download error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Download error.&lt;/b&gt;</translation>
     </message>
@@ -7297,43 +7428,38 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="167"/>
+        <source>New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data</source>
+        <translation>New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="170"/>
+        <source>View the Eddy Covariance Publication List</source>
+        <translation>View the Eddy Covariance Publication List</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="173"/>
         <source>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</source>
         <translation>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="170"/>
-        <source>Coming Soon! FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
-        <translation>Coming Soon! FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="173"/>
+        <location filename="../src/welcomepage.cpp" line="179"/>
         <source>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
         <translation>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="176"/>
-        <source>Design Your Own Eddy Covariance System</source>
-        <translation>Design Your Own Eddy Covariance System</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="179"/>
+        <location filename="../src/welcomepage.cpp" line="182"/>
         <source>Eddy Covariance Case Studies and Applications</source>
         <translation>Eddy Covariance Case Studies and Applications</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="182"/>
+        <location filename="../src/welcomepage.cpp" line="185"/>
         <source>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</source>
         <translation>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="185"/>
+        <location filename="../src/welcomepage.cpp" line="188"/>
         <source>View Upcoming Eddy Covariance Training Courses</source>
         <translation>View Upcoming Eddy Covariance Training Courses</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="188"/>
-        <source>Mapping CO2 Concentrations and Fluxes with the LI-8100A</source>
-        <translation>Mapping CO2 Concentrations and Fluxes with the LI-8100A</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="208"/>
@@ -7346,19 +7472,24 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>%1 Help</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="213"/>
-        <source>Getting started</source>
-        <translation>Getting started</translation>
-    </message>
-    <message>
         <location filename="../src/welcomepage.cpp" line="215"/>
         <source>Video tutorials</source>
         <translation>Video tutorials</translation>
     </message>
     <message>
+        <location filename="../src/welcomepage.cpp" line="176"/>
+        <source>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
+        <translation>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="213"/>
+        <source>Getting started (PDF)</source>
+        <translation>Getting started (PDF)</translation>
+    </message>
+    <message>
         <location filename="../src/welcomepage.cpp" line="217"/>
-        <source>Printable manual (PDF version)</source>
-        <translation>Printable manual (PDF version)</translation>
+        <source>Printable manual (PDF)</source>
+        <translation>Printable manual (PDF)</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="219"/>
