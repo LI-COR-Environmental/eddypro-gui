@@ -29,7 +29,6 @@
     - Refine: allow project file opening with double-click on Mac.
     - Fix: spectral file assessment load button not working properly.
     - Fix: essential file path not properly preserved during a run on Windows.
-    - Refine: set default advanced output settings to typical.
 
 6.1.0 (2015-09-30)
 
