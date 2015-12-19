@@ -141,7 +141,7 @@
       GUI
     - Add: built and packaged the Mac OS X version.
     - Add: graphic design review.
-    - Add: implement drag and drop capabilities in the fie system browsing
+    - Add: implement drag and drop capabilities in the file system browsing
       widgets.
     - Add: implement warning level guided mode messages, for example to notify
       when IRGA separations and flow rate are not greater than zero.
