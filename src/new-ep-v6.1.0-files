@@ -1,0 +1,15 @@
+../../source/src/QScienceSpinBox.cpp
+../../source/src/QScienceSpinBox.h
+../../source/src/calibration.h
+../../source/src/calibrationapi.cpp
+../../source/src/calibrationapi.h
+../../source/src/calibrationdialog.cpp
+../../source/src/calibrationdialog.h
+../../source/src/calibrationinfo.cpp
+../../source/src/calibrationinfo.h
+../../source/src/downloadmanager.cpp
+../../source/src/downloadmanager.h
+../../source/src/openfilefilter.cpp
+../../source/src/openfilefilter.h
+../../source/src/vector_utils.cpp
+../../source/src/vector_utils.h
