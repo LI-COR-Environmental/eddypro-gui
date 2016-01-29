@@ -2389,17 +2389,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1089"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1099"/>
         <source>Save the test results as...</source>
         <translation>Save the test results as...</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1091"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1101"/>
         <source>%1 assessment file check results (*.txt);;All files (*)</source>
         <translation>%1 assessment file check results (*.txt);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1101"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1111"/>
         <source>%1 check of assessment file %2 against %3</source>
         <translation>%1 check of assessment file %2 against %3</translation>
     </message>
@@ -2852,19 +2852,19 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="308"/>
-        <location filename="../src/basicsettingspage.cpp" line="5009"/>
+        <location filename="../src/basicsettingspage.cpp" line="5012"/>
         <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="309"/>
-        <location filename="../src/basicsettingspage.cpp" line="5010"/>
+        <location filename="../src/basicsettingspage.cpp" line="5013"/>
         <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="310"/>
-        <location filename="../src/basicsettingspage.cpp" line="5011"/>
+        <location filename="../src/basicsettingspage.cpp" line="5014"/>
         <source>(?:(180)%1\s(00)&apos;\s(E|W))</source>
         <translation>(?:(180)%1\s(00)&apos;\s(E|W))</translation>
     </message>
@@ -2964,22 +2964,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5381"/>
+        <location filename="../src/basicsettingspage.cpp" line="5384"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5382"/>
+        <location filename="../src/basicsettingspage.cpp" line="5385"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5396"/>
+        <location filename="../src/basicsettingspage.cpp" line="5399"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5398"/>
+        <location filename="../src/basicsettingspage.cpp" line="5401"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -3352,38 +3352,38 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="3033"/>
         <location filename="../src/basicsettingspage.cpp" line="3143"/>
-        <location filename="../src/basicsettingspage.cpp" line="4973"/>
+        <location filename="../src/basicsettingspage.cpp" line="4976"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4658"/>
+        <location filename="../src/basicsettingspage.cpp" line="4661"/>
         <source>1 file found</source>
         <translation>1 file found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4662"/>
+        <location filename="../src/basicsettingspage.cpp" line="4665"/>
         <source>%1 files found</source>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4960"/>
+        <location filename="../src/basicsettingspage.cpp" line="4963"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5075"/>
-        <location filename="../src/basicsettingspage.cpp" line="5117"/>
+        <location filename="../src/basicsettingspage.cpp" line="5078"/>
+        <location filename="../src/basicsettingspage.cpp" line="5120"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5212"/>
+        <location filename="../src/basicsettingspage.cpp" line="5215"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5216"/>
+        <location filename="../src/basicsettingspage.cpp" line="5219"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>

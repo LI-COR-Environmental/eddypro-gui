@@ -21,6 +21,6 @@ private slots:
 };
 
 //DECLARE_TEST(Test_AdvSpectralOptions_Class)
-QTTESTUTIL_REGISTER_TEST(Test_AdvSpectralOptions_Class);
+//QTTESTUTIL_REGISTER_TEST(Test_AdvSpectralOptions_Class);
 
 #endif // TST_ADVSPECTRALOPTIONS_H
