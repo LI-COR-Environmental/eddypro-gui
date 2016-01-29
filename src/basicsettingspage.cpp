@@ -3848,6 +3848,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
         case 0:
             break;
         case 1:
+            qDebug()<< "CASE 11111111111111111111111";
             if (!datapathBrowse->path().isEmpty()
                 && ecProject_->generalFileType() == Defs::RawFileType::GHG)
             {
@@ -3862,6 +3863,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
             break;
         case 2:
         {
+            qDebug()<< "CASE 2222222222222222222222222222";
             QString biomDataFile = ecProject_->generalBiomFile();
             if (!biomDataFile.isEmpty())
             {
@@ -3877,6 +3879,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
         }
         case 3:
         {
+            qDebug()<< "CASE 333333333333333333333333333333";
             QStringList biomFileList = FileUtils::getFiles(ecProject_->generalBiomDir(),
                                                       QStringLiteral("*.") + ecProject_->generalBiomExt(),
                                                       ecProject_->generalBiomRecurse());

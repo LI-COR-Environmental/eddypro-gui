@@ -513,6 +513,8 @@ bool AncillaryFileTest::testSpectraS(const LineList &actualList)
 
 bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineList &actualList)
 {
+    Q_FUNC_INFO;
+
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
     testResults_->append(QLatin1String("Number of rows [")
@@ -597,6 +599,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
                          + QStringLiteral(": ")
                          + formatPassFail(last_test()));
 
+    qDebug() << "begin test d1";
     // test d1
     test << true;
     for (auto i = 0; i < windSectors; ++i)
@@ -604,24 +607,31 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
         if (StringUtils::subStringList(templateList.value(16), 0, 2)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 0, 2);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 3, 4)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 3, 4);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 7, 9)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 7, 9);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9);
             test.replace(last_test_index(), false);
             break;
         }
     }
     testResults_->append(QLatin1String("Rotation matrices formal structure 1: ")
                          + formatPassFail(last_test()));
+    qDebug() << "end test d1";
 
     // test d2
     test << true;
