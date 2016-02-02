@@ -33,7 +33,7 @@
 /// \version     1.0
 /// \date        2006-2007
 /// \author      Trenton Schulz, Trolltech AS
-/// \note        Modified by Antonio Forgione, 2011-2015
+/// \note        Modified by Antonio Forgione, 2011-2016
 /// \sa http://labs.qt.nokia.com/2007/08/21/fade-effects-a-blast-from-the-past/
 /// \bug
 /// \deprecated
