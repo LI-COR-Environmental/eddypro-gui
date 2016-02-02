@@ -91,7 +91,6 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
     // iterate through instrument list
     auto numVars = countEmbVariables(settings.allKeys());
-    qDebug() << "numVars:" << numVars;
 
     // if no variables are found, try new format
     if (numVars == 0)
@@ -100,24 +99,18 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
         settings.beginGroup(BmIni::INIGROUP_VARS);
         numVars = countEmbVariables(settings.allKeys());
-        qDebug() << "numVars:" << numVars;
     }
 
     for (auto k = 0; k < numVars; ++k)
     {
-        qDebug() << "var number" << k + 1;
-
         auto prefix = BmIni::INI_PREFIX;
         prefix += QString::number(k + 1);
         prefix += QStringLiteral("_");
-        qDebug() << "prefix" << prefix;
 
         auto var = settings.value(prefix + BmIni::INI_VARS_0, QString()).toString();
-        qDebug() << "var" << var;
 
         // NOTE: not really needed for now
         auto id = settings.value(prefix + BmIni::INI_VARS_1, QString()).toString();
-        qDebug() << "id" << id;
 
         // skip entries with no type ('variable' field in the biomet metadata
         // file) defined
@@ -155,10 +148,8 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
         {
             extracted_type = type_components_list.first();
         }
-        qDebug() << "extracted_type" << extracted_type;
 
         auto allowedVar = allowedVarIDs.filter(extracted_type);
-        qDebug() << "allowedVar" << allowedVar;
         // skip not allowed entries
         if (allowedVar.isEmpty())
         {
@@ -167,14 +158,6 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
         // add allowed biogeo variables
         biomMetadata_->append(BiomItem(var, id, k + 1));
-
-        foreach(const BiomItem& item, *biomMetadata_)
-        {
-            qDebug() << '[' << item.type_
-                     << ", " << item.id_
-                     << ", " << item.col_
-                     << ']';
-        }
     }
     settings.endGroup();
     dataFile.close();
@@ -218,8 +201,6 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
         // skip first 2 rows
         if (line.contains(QStringLiteral("Station Name")))
         {
-            qDebug() << "skip first row";
-
             // read a line
             baLine = dataFile.readLine();
             lineContent = baLine.constData();
@@ -227,8 +208,6 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 
             if (line.contains(QStringLiteral("UC4")))
             {
-                qDebug() << "skip second row";
-
                 // read a line
                 baLine = dataFile.readLine();
                 lineContent = baLine.constData();
@@ -253,6 +232,7 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
                         << getVAR_RG()
                         << getVAR_LWIN()
                         << getVAR_PPFD();
+
             if (!allowedVars.filter(id).isEmpty())
             {
                 biomMetadata_->append(BiomItem(id, id, k + 1));
