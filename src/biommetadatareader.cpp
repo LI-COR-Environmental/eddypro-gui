@@ -217,13 +217,11 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 
         auto strings = line.split(QLatin1Char(','));
 
-        // iterate on the vars list
+        // iterate on the variable list
         for (auto k = 0; k < strings.count(); ++k)
         {
             auto var = strings.at(k).split(QLatin1Char('_'));
-            auto id = var.at(0).toUpper();
-
-            qDebug() << "k" << k << "id" << id;
+            auto id = var.at(0).toUpper().trimmed();
 
             QStringList allowedVars;
             allowedVars << getVAR_TA()
