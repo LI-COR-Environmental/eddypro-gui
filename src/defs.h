@@ -52,8 +52,8 @@ class QStringLiteral;
 namespace Defs
 {
     const auto APP_VERSION = 0x060100;
-    const auto APP_VERSION_STR = QStringLiteral("6.1.0");
-    const auto APP_STAGE_STR = QStringLiteral("");
+    const auto APP_VERSION_STR = QStringLiteral("6.2.0");
+    const auto APP_STAGE_STR = QStringLiteral("alpha");
 
     const auto PROJECT_FILE_VERSION = 0x040401;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.1");
@@ -62,7 +62,7 @@ namespace Defs
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.0");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86-32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.0 (clang-700.1.76) x86-64 on Mac OS X<sup>&reg;</sup> 10.11.1");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.2 (clang-700.1.81) x86-64 on Mac OS X<sup>&reg;</sup> 10.11.1");
 
     const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2016");
 
