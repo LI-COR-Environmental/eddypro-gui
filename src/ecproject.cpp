@@ -953,6 +953,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.screenSetting.v_offset = defaultEcProjectState.screenSetting.v_offset;
     ec_project_state_.screenSetting.w_offset = defaultEcProjectState.screenSetting.w_offset;
     ec_project_state_.screenSetting.cross_wind = defaultEcProjectState.screenSetting.cross_wind;
+    ec_project_state_.screenSetting.gill_wm_wboost = defaultEcProjectState.screenSetting.gill_wm_wboost;
     ec_project_state_.screenSetting.flow_distortion = defaultEcProjectState.screenSetting.flow_distortion;
     ec_project_state_.screenSetting.rot_meth = defaultEcProjectState.screenSetting.rot_meth;
     ec_project_state_.screenSetting.detrend_meth = defaultEcProjectState.screenSetting.detrend_meth;
@@ -1446,6 +1447,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_12, ec_project_state_.screenSetting.u_offset);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_13, ec_project_state_.screenSetting.v_offset);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_14, ec_project_state_.screenSetting.w_offset);
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.gill_wm_wboost);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_2, ec_project_state_.screenSetting.cross_wind);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_3, ec_project_state_.screenSetting.flow_distortion);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_4, ec_project_state_.screenSetting.rot_meth);
@@ -1537,7 +1539,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_80, QString::number(ec_project_state_.screenSetting.m_night_spar3, 'f', 8));
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_81, QString::number(ec_project_state_.screenSetting.m_night_spar4, 'f', 8));
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_99, ec_project_state_.screenSetting.out_details);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.power_of_two);
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_100, ec_project_state_.screenSetting.power_of_two);
     project_ini.endGroup();
 
     // screen test section
@@ -2347,6 +2349,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.screenSetting.cross_wind
                 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_2,
                                     defaultEcProjectState.screenSetting.cross_wind).toInt();
+        ec_project_state_.screenSetting.gill_wm_wboost
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101,
+                                    defaultEcProjectState.screenSetting.gill_wm_wboost).toInt();
         ec_project_state_.screenSetting.flow_distortion
                 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_3,
                                     defaultEcProjectState.screenSetting.flow_distortion).toInt();
@@ -2618,7 +2623,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 project_ini.value(EcIni::INI_SCREEN_SETTINGS_99,
                                   defaultEcProjectState.screenSetting.out_details).toInt();
         ec_project_state_.screenSetting.power_of_two
-                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101,
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_100,
                                     defaultEcProjectState.screenSetting.power_of_two).toInt();
     project_ini.endGroup();
 
@@ -3786,6 +3791,12 @@ void EcProject::setScreenVOffset(double d)
 void EcProject::setScreenWOffset(double d)
 {
     ec_project_state_.screenSetting.w_offset = d;
+    setModified(true);
+}
+
+void EcProject::setScreenWBoost(int n)
+{
+    ec_project_state_.screenSetting.gill_wm_wboost = n;
     setModified(true);
 }
 

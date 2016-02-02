@@ -311,6 +311,7 @@ struct ScreenSettingState
     qreal m_night_spar4 = 0.026;
     int out_details = 0;
     int power_of_two = 1;
+    int gill_wm_wboost = 1;
 };
 
 /// \struct ScreenTestState

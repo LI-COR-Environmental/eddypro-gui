@@ -283,7 +283,8 @@ namespace EcIni
     const auto INI_SCREEN_SETTINGS_97   = QStringLiteral("out_raw_t_air");
     const auto INI_SCREEN_SETTINGS_98   = QStringLiteral("out_raw_p_air");
     const auto INI_SCREEN_SETTINGS_99   = QStringLiteral("out_qc_details");
-    const auto INI_SCREEN_SETTINGS_101  = QStringLiteral("power_of_two");
+    const auto INI_SCREEN_SETTINGS_100  = QStringLiteral("power_of_two");
+    const auto INI_SCREEN_SETTINGS_101  = QStringLiteral("gill_wm_wboost");
 
     const auto INIGROUP_SCREEN_TESTS = QStringLiteral("RawProcess_Tests");
     const auto INI_SCREEN_TESTS_0    = QStringLiteral("test_sr");

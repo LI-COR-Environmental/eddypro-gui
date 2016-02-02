@@ -103,6 +103,7 @@ private slots:
     void onClickDetrendCombo(int detrendMethod);
     void onClickDetrendLabel();
     void onClickTimeConstantLabel();
+    void updateWBoost(bool b);
     void onClickAoaMethLabel();
     void onClickRotMethLabel();
     void onClickTimeLagMethLabel();
@@ -165,6 +166,7 @@ private:
     QDoubleSpinBox* uOffsetSpin;
     QDoubleSpinBox* vOffsetSpin;
     QDoubleSpinBox* wOffsetSpin;
+    RichTextCheckBox* wBoostCheckBox;
     RichTextCheckBox* aoaCheckBox;
     ClickLabel* aoaMethLabel;
     QComboBox* aoaMethCombo;
