@@ -2465,14 +2465,14 @@ void MainWindow::showGuidedModeMessages_1()
 
         if (!dlProject_->hasGoodWindmasterSwVersion())
         {
-            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+            red_msg += tr("<li><span style=\"color: red;\">Instruments "
                       "Editor - Raw File Description:</span> "
                       "Enter the Gill Windmaster/Pro "
                       "firmware version in the typical form: 2329.600.01. "
                       "Not filling this field will affect the application of "
                       "the Angle of Attack correction.</li>");
-            doOrangeFix = true;
-            qDebug() << "doOrangeFix" << doOrangeFix;
+            doRedFix = true;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         // irga tests
