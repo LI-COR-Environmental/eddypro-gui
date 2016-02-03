@@ -4942,6 +4942,11 @@ Retriever</translation>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="2468"/>
+        <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
+        <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="2481"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</translation>
@@ -5437,11 +5442,6 @@ Output</translation>
         <location filename="../src/mainwindow.cpp" line="2374"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2468"/>
-        <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
-        <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2897"/>
