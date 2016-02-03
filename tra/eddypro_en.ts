@@ -468,11 +468,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>W :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="144"/>
-        <source>&lt;b&gt;Fix &apos;w boost&apos; bug:&lt;/b&gt; Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit &lt;a href=&quot;http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf&quot;&gt;Gill&apos;s Technical Key Note&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/advprocessingoptions.cpp" line="148"/>
         <source>&lt;b&gt;Angle-of-attack correction:&lt;/b&gt; Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used.</source>
         <translation>&lt;b&gt;Angle-of-attack correction:&lt;/b&gt; Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used.</translation>
@@ -787,6 +782,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="144"/>
+        <source>&lt;b&gt;Fix &apos;w boost&apos; bug:&lt;/b&gt; Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &amp;lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit &lt;a href=&quot;http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf&quot;&gt;Gill&apos;s Technical Key Note&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/advprocessingoptions.cpp" line="158"/>
         <source>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster&lt;sup&gt;%1&lt;/sup&gt; or WindMaster Pro - its firmware version.</source>
         <translation>&lt;b&gt;Select automatically:&lt;/b&gt; Select this option to allow EddyPro to choose the most appropriate angle of attack correction method based on the anemometer model and - in the case of the WindMaster&lt;sup&gt;%1&lt;/sup&gt; or WindMaster Pro - its firmware version.</translation>
@@ -946,117 +946,117 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Raw Processing Options</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1191"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1201"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1269"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1340"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1194"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1204"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1272"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1343"/>
         <source>Bottom :</source>
         <translation>Bottom :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1192"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1202"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1195"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1205"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1193"/>
         <location filename="../src/advprocessingoptions.cpp" line="1196"/>
         <location filename="../src/advprocessingoptions.cpp" line="1199"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1203"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1202"/>
         <location filename="../src/advprocessingoptions.cpp" line="1206"/>
         <location filename="../src/advprocessingoptions.cpp" line="1209"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1271"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1276"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1281"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1342"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1347"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1352"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1212"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1274"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1279"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1284"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1345"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1350"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1355"/>
         <source> * T&lt;sub&gt;a&lt;/sub&gt; + </source>
         <translation> * T&lt;sub&gt;a&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1194"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1204"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1274"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1345"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1197"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1207"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1277"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1348"/>
         <source>Top :</source>
         <translation>Top :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1195"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1205"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1198"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1208"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1197"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1207"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1279"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1350"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1200"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1210"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1282"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1353"/>
         <source>Spar :</source>
         <translation>Spar :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1198"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1208"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1201"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1211"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1270"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1341"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1273"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1344"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1272"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1277"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1282"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1275"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1280"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1285"/>
         <source> * R&lt;sub&gt;g&lt;/sub&gt; + </source>
         <translation> * R&lt;sub&gt;g&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1273"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1278"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1283"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1344"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1349"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1354"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1276"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1281"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1286"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1347"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1352"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1357"/>
         <source> * U + </source>
         <translation> * U + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1275"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1346"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1278"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1349"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1280"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1351"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1283"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1354"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1343"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1348"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1353"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1346"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1351"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1356"/>
         <source> * LWin + </source>
         <translation> * LWin + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1622"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1625"/>
         <source>Reset Surface Heating Correction</source>
         <translation>Reset Surface Heating Correction</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1623"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1626"/>
         <source>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1625"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1628"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
