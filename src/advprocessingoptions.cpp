@@ -141,7 +141,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     wBoostCheckBox = new RichTextCheckBox;
     wBoostCheckBox->setText(tr("Fix 'w boost' bug (Gill WindMaster and WindMaster Pro only)"));
-    wBoostCheckBox->setToolTip(tr("<b>Fix 'w boost' bug:</b> Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x < 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit <a href=\"http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf\">Gill's Technical Key Note</a>"));
+    wBoostCheckBox->setToolTip(tr("<b>Fix 'w boost' bug:</b> Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit <a href=\"http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf\">Gill's Technical Key Note</a>"));
     wBoostCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/"));
 
     aoaCheckBox = new RichTextCheckBox;
