@@ -779,12 +779,12 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="143"/>
         <source>Fix &apos;w boost&apos; bug (Gill WindMaster and WindMaster Pro only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fix &apos;w boost&apos; bug (Gill WindMaster and WindMaster Pro only)</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="144"/>
         <source>&lt;b&gt;Fix &apos;w boost&apos; bug:&lt;/b&gt; Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &amp;lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit &lt;a href=&quot;http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf&quot;&gt;Gill&apos;s Technical Key Note&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Fix &apos;w boost&apos; bug:&lt;/b&gt; Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &amp;lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit &lt;a href=&quot;http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf&quot;&gt;Gill&apos;s Technical Key Note&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="158"/>
