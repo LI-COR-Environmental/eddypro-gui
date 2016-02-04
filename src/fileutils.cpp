@@ -507,56 +507,52 @@ void FileUtils::loadStyleSheetFile(const QString &sheetPath)
 
 QString FileUtils::setupEnv()
 {
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    auto env = QProcessEnvironment::systemEnvironment();
+    QString userHomePath;
+    QString configPath;
 
 #if defined(Q_OS_WIN)
-    QString userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
+    userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
 #elif defined(Q_OS_MAC)
-    QString userHomePath = env.value(QStringLiteral("HOME"));
-    QString configPath = QStringLiteral(".config");
+    userHomePath = env.value(QStringLiteral("HOME"));
+    configPath = QStringLiteral(".config");
 #else
-    QString userHomePath = env.value(QStringLiteral("HOME"));
-    QString configPath = QStringLiteral(".config");
+    userHomePath = env.value(QStringLiteral("HOME"));
+    configPath = QStringLiteral(".config");
 #endif
 
     qDebug() << "env" << env.value(QStringLiteral("HOME"));
     qDebug() << "userHomePath" << userHomePath;
-#if defined(Q_OS_MAC)
     qDebug() << "configPath" << configPath;
-#elif defined(Q_OS_LINUX)
-    qDebug() << "configPath" << configPath;
-#endif
 
-    if (!userHomePath.isEmpty())
-    {
-#if defined(Q_OS_MAC)
-        FileUtils::createDir(configPath, userHomePath);
-        userHomePath = userHomePath + QStringLiteral("/") + configPath;
-#elif defined(Q_OS_LINUX)
-        FileUtils::createDir(configPath, userHomePath);
-        userHomePath = userHomePath + QStringLiteral("/") + configPath;
-#endif
-
-        FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
-        QString licorDir = userHomePath + QLatin1Char('/') + Defs::LICOR_ENV_DIR;
-        FileUtils::createDir(Defs::APP_NAME_LCASE, licorDir);
-
-        QString appDir = licorDir + QLatin1Char('/') + Defs::APP_NAME_LCASE;
-        FileUtils::createDir(Defs::APP_VERSION_STR, appDir);
-
-        QString appVerDir = appDir + QLatin1Char('/') + Defs::APP_VERSION_STR;
-        FileUtils::createDir(Defs::INI_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
-
-        return appVerDir;
-    }
-    else
+    if (userHomePath.isEmpty())
     {
         return QString();
     }
+
+#if defined(Q_OS_MAC)
+    FileUtils::createDir(configPath, userHomePath);
+    userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#elif defined(Q_OS_LINUX)
+    FileUtils::createDir(configPath, userHomePath);
+    userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#endif
+
+    FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
+    QString licorDir = userHomePath + QLatin1Char('/') + Defs::LICOR_ENV_DIR;
+    FileUtils::createDir(Defs::APP_NAME_LCASE, licorDir);
+
+    QString appDir = licorDir + QLatin1Char('/') + Defs::APP_NAME_LCASE;
+    FileUtils::createDir(Defs::APP_VERSION_STR, appDir);
+
+    QString appVerDir = appDir + QLatin1Char('/') + Defs::APP_VERSION_STR;
+    FileUtils::createDir(Defs::INI_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
+
+    return appVerDir;
 }
 
 bool FileUtils::zipContainsFiletype(const QString& fileName, const QString& filePattern)
