@@ -551,7 +551,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag1UnitLabel->setObjectName(QStringLiteral("flag1UnitLabel"));
     flag1UnitLabel->setProperty("flagLabel", true);
     flag1ThresholdSpin = new QDoubleSpinBox;
-    flag1ThresholdSpin->setDecimals(4);
+    flag1ThresholdSpin->setDecimals(10);
     flag1ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag1ThresholdSpin->setSingleStep(1.0);
     flag1ThresholdSpin->setAccelerated(true);
@@ -571,7 +571,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag2UnitLabel->setObjectName(QStringLiteral("flag2UnitLabel"));
     flag2UnitLabel->setProperty("flagLabel", true);
     flag2ThresholdSpin = new QDoubleSpinBox;
-    flag2ThresholdSpin->setDecimals(4);
+    flag2ThresholdSpin->setDecimals(10);
     flag2ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag2ThresholdSpin->setSingleStep(1.0);
     flag2ThresholdSpin->setAccelerated(true);
@@ -591,7 +591,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag3UnitLabel->setObjectName(QStringLiteral("flag3UnitLabel"));
     flag3UnitLabel->setProperty("flagLabel", true);
     flag3ThresholdSpin = new QDoubleSpinBox;
-    flag3ThresholdSpin->setDecimals(4);
+    flag3ThresholdSpin->setDecimals(10);
     flag3ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag3ThresholdSpin->setSingleStep(1.0);
     flag3ThresholdSpin->setAccelerated(true);
@@ -611,7 +611,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag4UnitLabel->setObjectName(QStringLiteral("flag4UnitLabel"));
     flag4UnitLabel->setProperty("flagLabel", true);
     flag4ThresholdSpin = new QDoubleSpinBox;
-    flag4ThresholdSpin->setDecimals(4);
+    flag4ThresholdSpin->setDecimals(10);
     flag4ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag4ThresholdSpin->setSingleStep(1.0);
     flag4ThresholdSpin->setAccelerated(true);
@@ -631,7 +631,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag5UnitLabel->setObjectName(QStringLiteral("flag5UnitLabel"));
     flag5UnitLabel->setProperty("flagLabel", true);
     flag5ThresholdSpin = new QDoubleSpinBox;
-    flag5ThresholdSpin->setDecimals(4);
+    flag5ThresholdSpin->setDecimals(10);
     flag5ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag5ThresholdSpin->setSingleStep(1.0);
     flag5ThresholdSpin->setAccelerated(true);
@@ -651,7 +651,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag6UnitLabel->setObjectName(QStringLiteral("flag6UnitLabel"));
     flag6UnitLabel->setProperty("flagLabel", true);
     flag6ThresholdSpin = new QDoubleSpinBox;
-    flag6ThresholdSpin->setDecimals(4);
+    flag6ThresholdSpin->setDecimals(10);
     flag6ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag6ThresholdSpin->setSingleStep(1.0);
     flag6ThresholdSpin->setAccelerated(true);
@@ -671,7 +671,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag7UnitLabel->setObjectName(QStringLiteral("flag7UnitLabel"));
     flag7UnitLabel->setProperty("flagLabel", true);
     flag7ThresholdSpin = new QDoubleSpinBox;
-    flag7ThresholdSpin->setDecimals(4);
+    flag7ThresholdSpin->setDecimals(10);
     flag7ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag7ThresholdSpin->setSingleStep(1.0);
     flag7ThresholdSpin->setAccelerated(true);
@@ -691,7 +691,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag8UnitLabel->setObjectName(QStringLiteral("flag8UnitLabel"));
     flag8UnitLabel->setProperty("flagLabel", true);
     flag8ThresholdSpin = new QDoubleSpinBox;
-    flag8ThresholdSpin->setDecimals(4);
+    flag8ThresholdSpin->setDecimals(10);
     flag8ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag8ThresholdSpin->setSingleStep(1.0);
     flag8ThresholdSpin->setAccelerated(true);
@@ -712,7 +712,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag9UnitLabel->setObjectName(QStringLiteral("flag9UnitLabel"));
     flag9UnitLabel->setProperty("flagLabel", true);
     flag9ThresholdSpin = new QDoubleSpinBox;
-    flag9ThresholdSpin->setDecimals(4);
+    flag9ThresholdSpin->setDecimals(10);
     flag9ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag9ThresholdSpin->setSingleStep(1.0);
     flag9ThresholdSpin->setAccelerated(true);
@@ -733,7 +733,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flag10UnitLabel->setObjectName(QStringLiteral("flag10UnitLabel"));
     flag10UnitLabel->setProperty("flagLabel", true);
     flag10ThresholdSpin = new QDoubleSpinBox;
-    flag10ThresholdSpin->setDecimals(4);
+    flag10ThresholdSpin->setDecimals(10);
     flag10ThresholdSpin->setRange(-9999999.0, 9999999.0);
     flag10ThresholdSpin->setSingleStep(1.0);
     flag10ThresholdSpin->setAccelerated(true);
