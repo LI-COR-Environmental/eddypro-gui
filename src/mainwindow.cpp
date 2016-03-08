@@ -2453,7 +2453,8 @@ void MainWindow::showGuidedModeMessages_1()
             }
         }
 
-        if (!dlProject_->hasAnemFwVersion())
+        if (!dlProject_->masterAnemHasFwVersion()
+            && !dlProject_->masterAnemContainsGillWindmaster())
         {
             orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
                       "Editor - Raw File Description:</span> "
@@ -2463,7 +2464,7 @@ void MainWindow::showGuidedModeMessages_1()
             qDebug() << "doOrangeFix" << doOrangeFix;
         }
 
-        if (!dlProject_->hasGoodWindmasterSwVersion())
+        if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
         {
             red_msg += tr("<li><span style=\"color: red;\">Instruments "
                       "Editor - Raw File Description:</span> "

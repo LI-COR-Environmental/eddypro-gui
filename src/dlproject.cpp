@@ -2460,7 +2460,7 @@ bool DlProject::hasGoodIrgaGeneric()
     return test;
 }
 
-bool DlProject::hasAnemFwVersion()
+bool DlProject::masterAnemHasFwVersion()
 {
     auto test = true;
     if (!project_state_.anemometerList.isEmpty())
@@ -2473,9 +2473,11 @@ bool DlProject::hasAnemFwVersion()
     return test;
 }
 
-bool DlProject::hasGoodWindmasterSwVersion()
+bool DlProject::masterAnemHasGoodWindmasterFwVersion()
 {
-    auto test = true;
+    DEBUG_FUNC_NAME
+
+    auto test = false;
     if (!project_state_.anemometerList.isEmpty())
     {
         // if Gill
@@ -2488,6 +2490,7 @@ bool DlProject::hasGoodWindmasterSwVersion()
                 project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_7())
             {
+                test = true;
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
                 if (!anem_version.isEmpty())
                 {

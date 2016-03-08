@@ -55,8 +55,8 @@ public:
     bool hasGoodIrgaSeparations();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
-    bool hasAnemFwVersion();
-    bool hasGoodWindmasterSwVersion();
+    bool masterAnemHasFwVersion();
+    bool masterAnemHasGoodWindmasterFwVersion();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);
@@ -183,6 +183,7 @@ public:
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
     static const QString getANEM_MODEL_STRING_13();
+    bool masterAnemContainsGillWindmaster();
 
 signals:
     // send that a new project has been created
