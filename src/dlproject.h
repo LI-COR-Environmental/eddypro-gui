@@ -183,6 +183,7 @@ public:
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
     static const QStringList restrictedGillModelStringList();
+    static const QString getANEM_MODEL_STRING_13();
 
 signals:
     // send that a new project has been created

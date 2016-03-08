@@ -218,6 +218,12 @@ const QString DlProject::getANEM_MODEL_STRING_12()
     return s;
 }
 
+const QString DlProject::getANEM_MODEL_STRING_13()
+{
+    static const QString s(QStringLiteral("csat3b"));
+    return s;
+}
+
 DlProject::DlProject(QObject* parent) :
     QObject(parent),
     modified_(false),
@@ -1351,6 +1357,10 @@ const QString DlProject::toIniAnemModel(const QString& s)
     {
         return DlProject::getANEM_MODEL_STRING_12();
     }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_13())
+    {
+        return DlProject::getANEM_MODEL_STRING_13();
+    }
     else
     {
         return QString();
@@ -1847,6 +1857,10 @@ const QString DlProject::fromIniAnemModel(const QString& s)
     {
         return AnemDesc::getANEM_MODEL_STRING_12();
     }
+    else if (s == DlProject::getANEM_MODEL_STRING_13())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_13();
+    }
     else
     {
         return QString();
@@ -1884,10 +1898,15 @@ QString DlProject::fromIniAnemNorthAlign(const QString &model, const QString &s)
     else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_1)
     {
         // NOTE: hack for bogus 'spar' value with csat/metek/young
-        if (model == DlProject::getANEM_MODEL_STRING_0())
+        if (model == DlProject::getANEM_MODEL_STRING_0()
+            || model == DlProject::getANEM_MODEL_STRING_13())
+        {
             return AnemDesc::getANEM_NORTH_ALIGN_STRING_2();
+        }
         else
+        {
             return AnemDesc::getANEM_NORTH_ALIGN_STRING_1();
+        }
     }
     // na
     else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_2)

@@ -134,6 +134,12 @@ const QString AnemDesc::getANEM_MODEL_STRING_12()
     return s;
 }
 
+const QString AnemDesc::getANEM_MODEL_STRING_13()
+{
+    static const QString s(QStringLiteral("CSAT-3B"));
+    return s;
+}
+
 const QString AnemDesc::getANEM_WIND_FORMAT_STRING_0()
 {
     static const QString s(QStringLiteral("U, V & W"));
@@ -316,7 +322,8 @@ const QStringList AnemDesc::allModelStringList()
             << getANEM_MODEL_STRING_9()
             << getANEM_MODEL_STRING_10()
             << getANEM_MODEL_STRING_11()
-            << getANEM_MODEL_STRING_12());
+            << getANEM_MODEL_STRING_12()
+            << getANEM_MODEL_STRING_13());
 }
 
 // Return string list of usage types
@@ -324,6 +331,7 @@ const QStringList AnemDesc::campbellModelStringList()
 {
     return (QStringList()
             << getANEM_MODEL_STRING_0()
+            << getANEM_MODEL_STRING_13()
             << getANEM_MODEL_STRING_12());
 }
 

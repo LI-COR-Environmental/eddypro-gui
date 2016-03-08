@@ -54,6 +54,7 @@ public:
     static const QString getANEM_MODEL_STRING_10();
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
+    static const QString getANEM_MODEL_STRING_13();
 
     static const QString getANEM_WIND_FORMAT_STRING_0();
     static const QString getANEM_WIND_FORMAT_STRING_1();
