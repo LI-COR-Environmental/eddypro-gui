@@ -157,7 +157,6 @@ public:
     static const QStringList allModelStringList();
     static const QStringList campbellModelStringList();
     static const QStringList gillModelStringList();
-    static const QStringList restrictedGillModelStringList();
     static const QStringList metekModelStringList();
     static const QStringList youngModelStringList();
     static const QStringList otherModelStringList();

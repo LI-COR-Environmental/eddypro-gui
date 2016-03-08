@@ -351,19 +351,6 @@ const QStringList AnemDesc::gillModelStringList()
 }
 
 // Return string list of usage types
-// NOTE: not used
-const QStringList AnemDesc::restrictedGillModelStringList()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5()
-            << getANEM_MODEL_STRING_6()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
-}
-
-// Return string list of usage types
 const QStringList AnemDesc::metekModelStringList()
 {
     return (QStringList()

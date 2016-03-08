@@ -2685,13 +2685,15 @@ bool DlProject::checkAnemVars(const AnemComponents &hash, bool isFastTempAvailab
     return res;
 }
 
-const QStringList DlProject::restrictedGillModelStringList()
+bool DlProject::masterAnemContainsGillWindmaster()
 {
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5()
-            << getANEM_MODEL_STRING_6()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
+    const QString masterAnemModel = project_state_.anemometerList.first().model();
+
+    qDebug() << "masterAnemModel" << masterAnemModel;
+    if (masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7()
+        || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7())
+    {
+        return true;
+    }
+    return false;
 }
