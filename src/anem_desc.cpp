@@ -444,7 +444,7 @@ bool AnemDesc::isGoodAnemometer(AnemDesc anem)
         if (manufacturer == getANEM_MANUFACTURER_STRING_0())
         {
             isGoodModel = (model == getANEM_MODEL_STRING_0())
-                           || (model == getANEM_MODEL_STRING_12()
+                           || (model == getANEM_MODEL_STRING_12())
                            || (model == getANEM_MODEL_STRING_13());
         }
         else if (manufacturer == getANEM_MANUFACTURER_STRING_1())
