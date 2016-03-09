@@ -2741,12 +2741,6 @@ void MainWindow::showGuidedModeMessages_2()
         doFix = false;
         qDebug() << "doFix" << doFix;
     }
-//    else if (!doFix && !runAdvancedAvailable_ && configState_.project.smartfluxMode)
-//    {
-//        intro.clear();
-//        msg = tr("<ul>");
-//        doFix = false;
-//    }
 
     if (!doFix)
     {
@@ -2756,10 +2750,7 @@ void MainWindow::showGuidedModeMessages_2()
     qDebug() << "title" << intro;
     qDebug() << "msg" << msg;
 
-//    if (!configState_.project.smartfluxMode)
-//    {
-        runExpressAvailable_ = intro.contains(tr("You are ready"));
-//    }
+    runExpressAvailable_ = intro.contains(tr("You are ready"));
 
     updateMenuActionStatus(currentPage());
 
