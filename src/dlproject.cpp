@@ -2488,7 +2488,7 @@ bool DlProject::masterAnemHasGoodWindmasterFwVersion()
             if (project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_7() or
                 project_state_.anemometerList.first().model() ==
-                    AnemDesc::getANEM_MODEL_STRING_7())
+                    AnemDesc::getANEM_MODEL_STRING_8())
             {
                 test = true;
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
@@ -2694,7 +2694,7 @@ bool DlProject::masterAnemContainsGillWindmaster()
 
     qDebug() << "masterAnemModel" << masterAnemModel;
     if (masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7()
-        || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7())
+        || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_8())
     {
         return true;
     }
