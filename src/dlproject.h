@@ -185,7 +185,6 @@ public:
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
     static const QString getANEM_MODEL_STRING_13();
-    bool masterAnemContainsGillWindmaster();
 
 signals:
     // send that a new project has been created
