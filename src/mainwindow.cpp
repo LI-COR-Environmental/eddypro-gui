@@ -2726,6 +2726,18 @@ void MainWindow::showGuidedModeMessages_2()
         }
     }
 
+    if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
+    {
+        msg += tr("<li><span style=\"color: red;\">Missing anemometer firmware version:</span> "
+                  "Select <em>Use alternative file</em> in the <em>Project creation page</em> "
+                  "and fill the section \"Instruments Editor - Raw File Description\". "
+                  "Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. "
+                  "Not filling this field will affect the application of "
+                  "the Angle of Attack correction.</li>");
+        doFix = true;
+        qDebug() << "doFix" << doFix;
+    }
+
     if (!doFix && runAdvancedAvailable_ && !configState_.project.smartfluxMode)
     {
         intro = tr("You are ready to run in <span style=\"color: #52893c; \">Express Mode</span> using express default settings or <span style=\"color: #2986f5; \">Advanced Mode</span> using Advanced Settings.<br />"
