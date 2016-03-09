@@ -352,6 +352,9 @@ private:
     bool showDatesRangeDialog(Defs::CurrRunMode mode);
     QPair<QDateTime, QDateTime> getCurrentDateRange();
 
+    void minimizeGui();
+    void maximizeGui();
+
 signals:
     void updateMetadataReadRequest();
     void updateCrossWindRequest();

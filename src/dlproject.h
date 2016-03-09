@@ -169,6 +169,8 @@ public:
     IrgaDescList* irgas();
     VariableDescList* variables();
 
+    bool masterAnemContainsGillWindmaster();
+
     static const QString getANEM_MODEL_STRING_0();
     static const QString getANEM_MODEL_STRING_1();
     static const QString getANEM_MODEL_STRING_2();

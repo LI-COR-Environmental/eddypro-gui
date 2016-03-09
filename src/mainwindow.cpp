@@ -1657,8 +1657,8 @@ void MainWindow::restorePreviousStatus()
 //    toggleTooltipOutputAct->setChecked(config_state_.window.tooltipDock);
 //    toggleConsoleOutputAct->setChecked(config_state_.window.consoleDock);
 
-    restoreState(configState_.window.mainwin_state);
     restoreGeometry(configState_.window.mainwin_geometry);
+    restoreState(configState_.window.mainwin_state);
 
     // show or hide statusbar depending on initial setting
     // note: QMainWindow::restoreState() acts on toolbars and dockwidgets
@@ -4334,58 +4334,61 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     DEBUG_FUNC_NAME
 
     QSize widgetSize = event->size();
+    QSize widgetOldSize = event->oldSize();
+    qDebug() << "new:" << widgetSize.width() << " x " << widgetSize.height();
+    qDebug() << "old:" << widgetOldSize.width() << " x " << widgetOldSize.height();
+    qDebug() << "this state" << this->windowState();
 
-    qDebug() << widgetSize.width() << " x " << widgetSize.height();
-
-    if (widgetSize.width() < 1200 || widgetSize.height() < 630)
+    if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-
-        mainWidget_->welcomePage()->updateWelcomePage(true);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
-
-        // NOTE: to complete
-        configState_.general.recentnum = 2;
+        qDebug() << "NO LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        minimizeGui();
     }
     else
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        qDebug() << "WITH LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        maximizeGui();
+    }
 
-        mainWidget_->welcomePage()->updateWelcomePage(false);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
-
-        updateMenuActionStatus(currentPage());
-
-        // NOTE: to complete
-        configState_.general.recentnum = 4;
+    if (windowState() == Qt::WindowState::WindowMaximized)
+    {
+        qDebug() << "WindowMaximized";
+        maximizeGui();
     }
 
     updateStatusBar();
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
-
     event->accept();
-//    QWidget::resizeEvent(event);
+}
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
+void MainWindow::minimizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    mainWidget_->welcomePage()->updateWelcomePage(true);
+//    mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
+
+    configState_.general.recentnum = 2;
+}
+
+void MainWindow::maximizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    mainWidget_->welcomePage()->updateWelcomePage(false);
+//   mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
+
+    updateMenuActionStatus(currentPage());
+
+    configState_.general.recentnum = 4;
 }
 
 void MainWindow::updateSpectraPaths()
 {
-//    DEBUG_FUNC_MSG(QString())
-
     // reload after engine_rp updates the ex_file path, i.e. when it finishes
     bool modified = false;
     if (ecProject_->loadEcProject(ecProject_->generalFileName(), false, &modified))
