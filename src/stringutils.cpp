@@ -137,6 +137,6 @@ const QStringList StringUtils::subStringList(const QStringList& list, int begin,
 
 QString StringUtils::fromUnixTimeToISOString(double msec)
 {
-    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(msec));
+    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(static_cast<qint64>(msec)));
     return timestamp.toString(Qt::ISODate);
 }

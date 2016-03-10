@@ -104,7 +104,7 @@ void QScienceSpinBox::initLocalValues(QWidget *parent)
     const QString str = (parent ? parent->locale() : QLocale()).toString(4567.1);
     if (str.size() == 6) {
         delimiter = str.at(4);
-        thousand = QChar((ushort)0);
+        thousand = QChar(static_cast<ushort>(0));
     } else if (str.size() == 7) {
         thousand = str.at(1);
         delimiter = str.at(5);

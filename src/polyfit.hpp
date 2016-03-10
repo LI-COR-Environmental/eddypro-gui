@@ -46,7 +46,7 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     nDegree++;
 
     size_t nCount =  oX.size();
-    matrix<T> oXMatrix( nCount, nDegree );
+    matrix<T> oXMatrix( nCount, static_cast<size_t>(nDegree));
     matrix<T> oYMatrix( nCount, 1 );
 
     // copy y matrix
@@ -61,7 +61,7 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
         T nVal = 1.0f;
         for ( int nCol = 0; nCol < nDegree; nCol++ )
         {
-            oXMatrix(nRow, nCol) = nVal;
+            oXMatrix(nRow, static_cast<size_t>(nCol)) = nVal;
             nVal *= oX[nRow];
         }
     }
