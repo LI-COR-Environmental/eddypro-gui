@@ -57,10 +57,8 @@ CONFIG(debug, debug|release) {
     DEFINES += QT_DEBUG
 
     # to suppress qt and 3rdparty library warnings
-    QMAKE_CXXFLAGS += -isystem"$$QT_PATH/include"
-
-    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/math"
-    QMAKE_CXXFLAGS += -isystem"$$_PRO_FILE_PWD_/../../../../libs/c++/boost_1_59_0/boost/numeric/ublas"
+    QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
 
     win32 {
         # mingw warnings
@@ -68,19 +66,21 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem"$QT_PATH/../Tools/mingw492_32"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_59_0"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtCore.framework/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtCore.framework/Versions/5/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtGui.framework/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtGui.framework/Versions/5/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtWidgets.framework/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtWidgets.framework/Versions/5/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtConcurrent.framework/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtConcurrent.framework/Versions/5/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtNetwork.framework/Headers"
-        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtNetwork.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += --system-header-prefix=boost/
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtGui.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtGui.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtWidgets.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtWidgets.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtConcurrent.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtConcurrent.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtNetwork.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtNetwork.framework/Versions/5/Headers"
 
         QMAKE_CXXFLAGS_WARN_ON += -Weverything
         QMAKE_CXXFLAGS_WARN_ON += -Wno-c++98-compat -Wno-c++98-compat-pedantic
