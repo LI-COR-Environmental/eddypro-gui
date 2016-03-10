@@ -51,11 +51,8 @@ CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f
     auto rowLayout = new QHBoxLayout;
     rowLayout->addWidget(showSplashCheckbox_, Qt::AlignLeft);
     rowLayout->addWidget(okButton, Qt::AlignCenter);
-#if defined(Q_OS_WIN)
     rowLayout->addStretch(1);
-#elif defined(Q_OS_MAC)
-    rowLayout->addStretch(4);
-#endif
+
     auto layout = new QVBoxLayout(this);
     layout->addSpacerItem(new QSpacerItem(1, 335));
     layout->addLayout(rowLayout);

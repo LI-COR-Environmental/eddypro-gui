@@ -274,15 +274,6 @@ int main(int argc, char *argv[])
     pixmap.setDevicePixelRatio(2.0);
 #endif
     CustomSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
-
-    // center splash considering the high dpi res
-#if defined(Q_OS_MAC)
-    auto d = QApplication::desktop();
-    auto t = d->availableGeometry();
-    splash.move((t.width() - splash.width() / 2) / 2,
-                (t.height() - splash.height() / 2) / 2);
-#endif
-
     auto show_splash =
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_GENERAL,
                                                       Defs::CONF_GEN_SHOW_SPLASH,

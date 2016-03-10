@@ -6079,37 +6079,37 @@ Output</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="413"/>
+        <location filename="../src/main.cpp" line="404"/>
         <source>Usage: %1 [options] [file]</source>
         <translation>Usage: %1 [options] [file]</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="416"/>
+        <location filename="../src/main.cpp" line="407"/>
         <source>Arguments [file]:</source>
         <translation>Arguments [file]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="418"/>
+        <location filename="../src/main.cpp" line="409"/>
         <source>    file                  File to open</source>
         <translation>    file                  File to open</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="421"/>
+        <location filename="../src/main.cpp" line="412"/>
         <source>Options [options]:</source>
         <translation>Options [options]:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="425"/>
+        <location filename="../src/main.cpp" line="416"/>
         <source>    --help                Print the command line options.</source>
         <translation>    --help                Print the command line options.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="427"/>
+        <location filename="../src/main.cpp" line="418"/>
         <source>    --version             Print the application version.</source>
         <translation>    --version             Print the application version.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="484"/>
+        <location filename="../src/main.cpp" line="475"/>
         <source>Invalid parameter &quot;%1&quot;
 </source>
         <translation>Invalid parameter &quot;%1&quot;
@@ -6126,17 +6126,17 @@ Output</translation>
         <translation>Home Path not available.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="302"/>
+        <location filename="../src/main.cpp" line="293"/>
         <source>Initializing...</source>
         <translation>Initializing...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="310"/>
+        <location filename="../src/main.cpp" line="301"/>
         <source>Loading...</source>
         <translation>Loading...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="331"/>
+        <location filename="../src/main.cpp" line="322"/>
         <source>Loading complete.</source>
         <translation>Loading complete.</translation>
     </message>
