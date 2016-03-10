@@ -342,7 +342,7 @@ QVariant QScienceSpinBox::validateAndInterpret(
         {
                 case 0:
                         // Length 0 is always 'Intermediate', except for min=max
-                        if (max != min) {
+                        if (!qFuzzyCompare(max + 1, min + 1)) {
                                 state = QValidator::Intermediate;
                         } else {
                                 state = QValidator::Invalid;
@@ -446,7 +446,7 @@ QVariant QScienceSpinBox::validateAndInterpret(
                 }
 
                 // two thousand-chars after one other are not valid
-                const int len = copy.size();
+                len = copy.size();
                 for (int i = 0; i < len- 1; ++i) {
                     if (copy.at(i) == thousand && copy.at(i + 1) == thousand) {
                         QSBDEBUG() << __FILE__ << __LINE__<< "state is set to Invalid";
@@ -489,7 +489,7 @@ QVariant QScienceSpinBox::validateAndInterpret(
                        << (state == QValidator::Intermediate ? "Intermediate" : "Acceptable");
         }
             // when max and min is the same the only non-Invalid input is max (or min)
-            else if (max == min) {
+            else if (qFuzzyCompare(max + 1, min + 1)) {
                 state = QValidator::Invalid;
                 QSBDEBUG() << __FILE__ << __LINE__<< "state is set to Invalid";
         } else {
