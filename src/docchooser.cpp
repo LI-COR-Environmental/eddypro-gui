@@ -110,16 +110,9 @@ void DocChooserDialog::restoreAutoChooserState()
 {
     QSettings config;
 
-    // NOTE: set but not used in fact
-    bool autoChooseHelp = false;
-
     // read state
     config.beginGroup(Defs::CONFGROUP_WINDOW);
-    if (config.contains(Defs::CONF_WIN_AUTOHELP))
-    {
-        autoChooseHelp = config.value(Defs::CONF_WIN_AUTOHELP, false).toBool();
-    }
-    else
+    if (!config.contains(Defs::CONF_WIN_AUTOHELP))
     {
         config.setValue(Defs::CONF_WIN_AUTOHELP, true);
     }

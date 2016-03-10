@@ -625,7 +625,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     static QDate currentPlanarFitDate;
     static QDate currentTimeLagDate;
 
-    // NOTE: set but not used yet
+    // NOTE: flag set but not used yet
     bool inCycle = false;
 
 #ifdef QT_DEBUG
