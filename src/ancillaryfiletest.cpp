@@ -513,8 +513,6 @@ bool AncillaryFileTest::testSpectraS(const LineList &actualList)
 
 bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineList &actualList)
 {
-    Q_FUNC_INFO;
-
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
     testResults_->append(QLatin1String("Number of rows [")
