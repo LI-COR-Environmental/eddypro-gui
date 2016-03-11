@@ -55,11 +55,11 @@ namespace Defs
     const auto APP_VERSION_STR = QStringLiteral("6.2.0");
     const auto APP_STAGE_STR = QStringLiteral("beta1");
 
-    const auto PROJECT_FILE_VERSION = 0x040401;
+    const auto PROJECT_FILE_VERSION = 0x040402;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.2");
 
-    const auto METADATA_FILE_VERSION = 0x030200;
-    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.0");
+    const auto METADATA_FILE_VERSION = 0x030201;
+    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86-32 on Windows<sup>&reg;</sup> 10");
     const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.2 (clang-700.1.81) x86-64 on Mac OS X<sup>&reg;</sup> 10.11.3");
