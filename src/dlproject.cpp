@@ -2477,7 +2477,7 @@ bool DlProject::masterAnemHasGoodWindmasterFwVersion()
 {
     DEBUG_FUNC_NAME
 
-    auto test = false;
+    auto test = true;
     if (!project_state_.anemometerList.isEmpty())
     {
         // if Gill
@@ -2490,7 +2490,6 @@ bool DlProject::masterAnemHasGoodWindmasterFwVersion()
                 project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_8())
             {
-                test = true;
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
                 if (!anem_version.isEmpty())
                 {
