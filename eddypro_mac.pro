@@ -12,20 +12,6 @@ VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 QT_VER = $$[QT_VERSION]
 QT_PATH = $$[QT_INSTALL_PREFIX]
 
-#message(Qt version: $$[QT_VERSION])
-#message(Qt is installed in $$[QT_INSTALL_PREFIX])
-#message(Qt resources can be found in the following locations:)
-#message(Documentation: $$[QT_INSTALL_DOCS])
-#message(Header files: $$[QT_INSTALL_HEADERS])
-#message(Libraries: $$[QT_INSTALL_LIBS])
-#message(Binary files (executables): $$[QT_INSTALL_BINS])
-#message(Plugins: $$[QT_INSTALL_PLUGINS])
-#message(Data files: $$[QT_INSTALL_DATA])
-#message(Translation files: $$[QT_INSTALL_TRANSLATIONS])
-#message(Settings: $$[QT_INSTALL_SETTINGS])
-#message(Examples: $$[QT_INSTALL_EXAMPLES])
-#message(Demonstrations: $$[QT_INSTALL_DEMOS])
-
 # Qt config
 QT += core gui widgets network concurrent
 CONFIG += warn_on
@@ -117,6 +103,20 @@ DEFINES += QT_NO_CAST_FROM_BYTEARRAY
 DEFINES += QT_NO_CAST_TO_ASCII
 DEFINES += QT_NO_URL_CAST_FROM_STRING
 DEFINES += QT_USE_QSTRINGBUILDER
+
+#message(Qt version: $$QT_VERSION)
+#message(Qt is installed in $$QT_INSTALL_PREFIX)
+#message(Qt resources can be found in the following locations:)
+#message(Documentation: $$QT_INSTALL_DOCS)
+#message(Header files: $$QT_INSTALL_HEADERS)
+#message(Libraries: $$QT_INSTALL_LIBS)
+#message(Binary files (executables): $$QT_INSTALL_BINS)
+#message(Plugins: $$QT_INSTALL_PLUGINS)
+#message(Data files: $$QT_INSTALL_DATA)
+#message(Translation files: $$QT_INSTALL_TRANSLATIONS)
+#message(Settings: $$QT_INSTALL_SETTINGS)
+#message(Examples: $$QT_INSTALL_EXAMPLES)
+#message(Demonstrations: $$QT_INSTALL_DEMOS)
 
 #build_pass:message(QMAKE_CFLAGS: $$QMAKE_CFLAGS)
 #build_pass:message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
