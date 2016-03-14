@@ -2,7 +2,7 @@
   ecproject.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -185,6 +185,7 @@ public:
     void setScreenUOffset(double d);
     void setScreenVOffset(double d);
     void setScreenWOffset(double d);
+    void setScreenWBoost(int n);
     void setScreenFlowDistortion(int n);
     void setScreenCrossWind(int n);
     void setScreenRotMethod(int n);
@@ -562,6 +563,7 @@ public:
     double screenUOffset() const { return ec_project_state_.screenSetting.u_offset; }
     double screenVOffset() const { return ec_project_state_.screenSetting.v_offset; }
     double screenWOffset() const { return ec_project_state_.screenSetting.w_offset; }
+    int screenWBoost() const { return ec_project_state_.screenSetting.gill_wm_wboost; }
     int screenFlowDistortion() const { return ec_project_state_.screenSetting.flow_distortion; }
     int screenCrossWind() const { return ec_project_state_.screenSetting.cross_wind; }
     int screenRotMethod() const { return ec_project_state_.screenSetting.rot_meth; }

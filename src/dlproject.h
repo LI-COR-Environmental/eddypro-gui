@@ -2,7 +2,7 @@
   dlproject.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -55,8 +55,8 @@ public:
     bool hasGoodIrgaSeparations();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
-    bool hasAnemFwVersion();
-    bool hasGoodWindmasterSwVersion();
+    bool masterAnemHasFwVersion();
+    bool masterAnemHasGoodWindmasterFwVersion();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);
@@ -169,6 +169,8 @@ public:
     IrgaDescList* irgas();
     VariableDescList* variables();
 
+    bool masterAnemContainsGillWindmaster();
+
     static const QString getANEM_MODEL_STRING_0();
     static const QString getANEM_MODEL_STRING_1();
     static const QString getANEM_MODEL_STRING_2();
@@ -182,7 +184,7 @@ public:
     static const QString getANEM_MODEL_STRING_10();
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
-    static const QStringList restrictedGillModelStringList();
+    static const QString getANEM_MODEL_STRING_13();
 
 signals:
     // send that a new project has been created

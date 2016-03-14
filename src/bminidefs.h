@@ -1,7 +1,7 @@
 /***************************************************************************
   bminidefs.h
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -28,24 +28,24 @@ class QString;
 namespace BmIni
 {
     // processing file ini keys
-    const QString INI_PREFIX = QStringLiteral("biomet_");
+    const auto INI_PREFIX = QStringLiteral("biomet_");
 
-    const QString INIGROUP_FILE = QStringLiteral("BiometFileDescription");
-    const QString INI_FILE_0    = QStringLiteral("separator");
-    const QString INI_FILE_1    = QStringLiteral("header_rows");
-    const QString INI_FILE_2    = QStringLiteral("file_duration");
-    const QString INI_FILE_3    = QStringLiteral("data_rate");
-    const QString INI_FILE_4    = QStringLiteral("data_label");
+    const auto INIGROUP_FILE = QStringLiteral("BiometFileDescription");
+    const auto INI_FILE_0    = QStringLiteral("separator");
+    const auto INI_FILE_1    = QStringLiteral("header_rows");
+    const auto INI_FILE_2    = QStringLiteral("file_duration");
+    const auto INI_FILE_3    = QStringLiteral("data_rate");
+    const auto INI_FILE_4    = QStringLiteral("data_label");
 
-    const QString INIGROUP_VARS_OLD = QStringLiteral("biomet_variables");
-    const QString INIGROUP_VARS     = QStringLiteral("BiometVariables");
-    const QString INI_VARS_0        = QStringLiteral("variable");
-    const QString INI_VARS_1        = QStringLiteral("id");
-    const QString INI_VARS_2        = QStringLiteral("instrument");
-    const QString INI_VARS_3        = QStringLiteral("unit_in");
-    const QString INI_VARS_4        = QStringLiteral("gain");
-    const QString INI_VARS_5        = QStringLiteral("offset");
-    const QString INI_VARS_6        = QStringLiteral("unit_out");
+    const auto INIGROUP_VARS_OLD = QStringLiteral("biomet_variables");
+    const auto INIGROUP_VARS     = QStringLiteral("BiometVariables");
+    const auto INI_VARS_0        = QStringLiteral("variable");
+    const auto INI_VARS_1        = QStringLiteral("id");
+    const auto INI_VARS_2        = QStringLiteral("instrument");
+    const auto INI_VARS_3        = QStringLiteral("unit_in");
+    const auto INI_VARS_4        = QStringLiteral("gain");
+    const auto INI_VARS_5        = QStringLiteral("offset");
+    const auto INI_VARS_6        = QStringLiteral("unit_out");
 } // namespace BmIni
 
 #endif // BMINIDEFS_H

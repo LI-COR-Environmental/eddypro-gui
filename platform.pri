@@ -22,7 +22,7 @@ win32 {
     RESOURCES += $$_PRO_FILE_PWD_/eddypro_win.qrc
 }
 
-unix {
+linux {
     RESOURCES += $$_PRO_FILE_PWD_/eddypro_lin.qrc
 }
 

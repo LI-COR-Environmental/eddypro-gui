@@ -1,0 +1,108 @@
+*******************
+Executing EddyPro
+*******************
+
+Reading EddyPro project file: C:\Users\ant\.licor\eddypro\5.1.0\ini\processing.eddypro..
+done.
+Retrieving file names from directory: "C:\devel\eddypro\ep5\data\mead\"..
+1 files found.
+Retrieving timestamps from file names.. Done.
+Done.
+Arranging raw files in chronological order.. done.
+Creating master time series for the selected time period..
+Creating master time series for the selected time period..  done.
+Start raw data processing: 0:00:00.000
+Processing time period:
+Start: 2013-11-04 21:00
+End: 2013-11-04 21:30
+Total number of flux averaging periods: 1
+
+
+2014-01-20 16:04:41.475: processing new flux averaging period
+From: 2013-11-04 21:00
+To: 2013-11-04 21:30
+File(s): ..\2013-11-04T210000_AIU-0447.ghg
+Number of samples available for this period: 18000
+Verifying time series integrity.. Done.
+Calculating statistics.. done.
+Calculating user statistics.. done.
+Raw level statistical screening..
+Spike detection/removal test.. done.
+Amplitude resolution and/or dropouts test.. done.
+Absolute limits test.. done.
+Skewness & kurtosis test.. done.
+Done.
+Despiking user set.. done.
+Verifying time series integrity.. Done.
+Re-calculating statistics (2).. done.
+Re-calculating user statistics (2).. done.
+Cross-wind correction not requested or not applicable
+Re-calculating statistics (3).. done.
+Re-calculating user statistics (3).. done.
+Re-calculating statistics (4).. done.
+Re-calculating user statistics (4).. done.
+Converting into mixing ratios.. done.
+Performing tilt correction by: double_rotation
+Done.
+Re-calculating statistics (5).. done.
+Re-calculating user statistics (5).. done.
+Compensating time lags.. done.
+Compensating user variables time-lags.. done.
+Re-calculating statistics (6).. done.
+Re-calculating user statistics (6).. done.
+Verifying time series integrity.. Done.
+Performing stationarity test.. done.
+Detrending.. done.
+Detrending user set.. done.
+Re-calculating statistics (7).. done.
+Re-calculating user statistics (7).. done.
+Re-calculating statistics (8).. done.
+Calculating (co)spectra..
+Tapering timeseries.. done.
+FFT-ing.. done.
+Cospectral densities.. done.
+Done.
+Calculating auxiliary variables.. done.
+Calculating fluxes Level 0.. done.
+High-pass correction for anemometric fluxes. Method: Moncrieff et al. (2004)..
+Done.
+Low-pass correction for anemometric fluxes. Method: Moncrieff et al. (1997)
+Done.
+High-pass correction for gas fluxes. Method: Moncrieff et al. (2004)
+Done.
+Low-pass correction for gas fluxes. Method: Moncrieff et al. (1997)
+Done.
+Calculating fluxes Level 1.. done.
+Calculating fluxes Level 2 and 3.. done.
+Estimating footprint.. done.
+Calculating quality flags.. done.
+Flux averaging period processing time: 0:00:07.157
+
+
+Raw data processing terminated. Creating continuous datasets if necessary..
+Creating Full Output dataset.. Done.
+Creating GHG-EUROPE-style dataset.. Done.
+Creating Metadata dataset.. Done.
+Creating Level 1 Statistics dataset.. Done.
+Creating Level 2 Statistics dataset.. Done.
+Creating Level 3 Statistics dataset.. Done.
+Creating Level 4 Statistics dataset.. Done.
+Creating Level 5 Statistics dataset.. Done.
+Creating Level 6 Statistics dataset.. Done.
+Creating Level 7 Statistics dataset.. Done.
+Creating Level 1 Statistics dataset for user variables.. Done.
+Creating Level 2 Statistics dataset for user variables.. Done.
+Creating Level 3 Statistics dataset for user variables..
+Creating Level 3 Statistics dataset for user variables.. Done.
+Creating Level 4 Statistics dataset for user variables.. Done.
+Creating Level 5 Statistics dataset for user variables.. Done.
+Creating Level 6 Statistics dataset for user variables..
+Creating Level 6 Statistics dataset for user variables.. Done.
+Creating Level 7 Statistics dataset for user variables.. Done.
+Creating Biomet dataset.. Done.
+Done.
+
+****************************************************
+Program EddyPro executed gracefully.
+Check results in the selected output directory.
+****************************************************

@@ -2,7 +2,7 @@
   dlrawfiledesctab.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -256,5 +256,5 @@ void DlRawfileDescTab::clearInstrModels()
 
 void DlRawfileDescTab::onlineHelpTrigger_1()
 {
-//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/")));
+//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/")));
 }

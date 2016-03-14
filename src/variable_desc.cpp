@@ -2,7 +2,7 @@
   variable_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -924,7 +924,8 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_9()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_10()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_11()))
-                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()));
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_13()));
         }
     }
 

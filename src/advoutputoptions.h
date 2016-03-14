@@ -1,7 +1,7 @@
 /***************************************************************************
   advoutputoptions.h
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -96,7 +96,6 @@ private slots:
 
     void onlineHelpTrigger_1();
     void onlineHelpTrigger_2();
-    void onlineHelpTrigger_3();
     void onlineHelpTrigger_4();
     void onlineHelpTrigger_5();
     void onlineHelpTrigger_6();

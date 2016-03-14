@@ -2,7 +2,7 @@
   dlsitetab.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -49,11 +49,11 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     timestampRefLabel = new ClickLabel;
     timestampRefLabel->setText(tr("Timestamps refers to :"));
     timestampRefLabel->setToolTip(tr("<b>Time stamp refers to:</b> Choose whether the timestamp provided in raw file names refers to the beginning or end of the data interval."));
-    timestampRefStartRadio = new QRadioButton(tr("beginning of averaging period"), this);
+    timestampRefStartRadio = new QRadioButton(tr("Beginning of dataset period"), this);
     timestampRefStartRadio->setChecked(true);
-    timestampRefStartRadio->setToolTip(tr("<b>Beginning of averaging period:</b> Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval."));
-    timestampRefEndRadio = new QRadioButton(tr("end of averaging period"), this);
-    timestampRefEndRadio->setToolTip(tr("<b>End of dataset:</b> Select this option if timestamps in the raw file names refer to the end of the data interval."));
+    timestampRefStartRadio->setToolTip(tr("<b>Beginning of dataset period:</b> Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval."));
+    timestampRefEndRadio = new QRadioButton(tr("End of dataset period"), this);
+    timestampRefEndRadio->setToolTip(tr("<b>End of dataset period:</b> Select this option if timestamps in the raw file names refer to the end of the data interval."));
 
     auto timestampRadioGroup = new QButtonGroup(this);
     timestampRadioGroup->addButton(timestampRefStartRadio, 0);
@@ -802,15 +802,15 @@ void DlSiteTab::createQuestionMark()
 
 void DlSiteTab::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Beginning_of_dataset.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Beginning_of_dataset.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Displacement_Height.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Displacement_Height.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Roughness_Length.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Roughness_Length.html")));
 }

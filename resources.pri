@@ -15,7 +15,7 @@ macx {
 }
 
 # linux
-unix {
+linux {
     ICON = $$_PRO_FILE_PWD_/lin_files/app.png
 }
 

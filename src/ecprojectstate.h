@@ -2,7 +2,7 @@
   ecprojectstate.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -311,6 +311,7 @@ struct ScreenSettingState
     qreal m_night_spar4 = 0.026;
     int out_details = 0;
     int power_of_two = 1;
+    int gill_wm_wboost = 1;
 };
 
 /// \struct ScreenTestState

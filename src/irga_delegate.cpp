@@ -2,7 +2,7 @@
   irga_delegate.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -95,9 +95,6 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
           return combo;
       case IrgaModel::SWVERSION:
             ledit = new QLineEdit(parent);
-            ledit->setInputMask(QStringLiteral("00.00.00;_"));
-            ledit->setText(QStringLiteral("000000"));
-            ledit->setCursorPosition(0);
             connect(ledit, SIGNAL(editingFinished()),
                     this, SLOT(commitAndCloseEditor()));
             return ledit;

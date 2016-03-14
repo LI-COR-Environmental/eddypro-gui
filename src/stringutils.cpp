@@ -1,7 +1,7 @@
 /***************************************************************************
   stringutils.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -95,6 +95,7 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
 
 // assume the input is in classic "MM.NN.PP" form (MM = major, NN = minor, PP = patch)
 // and return 0xMMNNPP
+// if patch number is missing, it will be zeroed
 int StringUtils::getVersionFromString(const QString& versionStr)
 {
     auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
@@ -136,6 +137,6 @@ const QStringList StringUtils::subStringList(const QStringList& list, int begin,
 
 QString StringUtils::fromUnixTimeToISOString(double msec)
 {
-    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(msec));
+    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(static_cast<qint64>(msec)));
     return timestamp.toString(Qt::ISODate);
 }

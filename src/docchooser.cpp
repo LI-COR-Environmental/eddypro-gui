@@ -2,7 +2,7 @@
   docchooser.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -110,16 +110,9 @@ void DocChooserDialog::restoreAutoChooserState()
 {
     QSettings config;
 
-    // NOTE: set but not used in fact
-    bool autoChooseHelp = false;
-
     // read state
     config.beginGroup(Defs::CONFGROUP_WINDOW);
-    if (config.contains(Defs::CONF_WIN_AUTOHELP))
-    {
-        autoChooseHelp = config.value(Defs::CONF_WIN_AUTOHELP, false).toBool();
-    }
-    else
+    if (!config.contains(Defs::CONF_WIN_AUTOHELP))
     {
         config.setValue(Defs::CONF_WIN_AUTOHELP, true);
     }
@@ -160,7 +153,7 @@ void DocChooserDialog::close()
     {
         // open local help
         QString htmlHelpPath = qApp->applicationDirPath()
-                + QStringLiteral("/docs/help/Content/EddyPro_Home.html");
+                + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
         qDebug() << QDesktopServices::openUrl(QUrl::fromLocalFile(htmlHelpPath));
     }
 

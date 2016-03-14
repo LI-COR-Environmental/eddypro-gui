@@ -1,7 +1,7 @@
 /***************************************************************************
   ancillaryfiletest.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -39,7 +39,7 @@
 #include "container_helpers.h"
 #include "widget_utils.h"
 
-const QString helpPage = QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Assessment_Tests.html");
+const auto helpPage = QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Assessment_Tests.html");
 
 AncillaryFileTest::AncillaryFileTest(FileType type,
                                      QWidget *parent) :
@@ -132,12 +132,12 @@ bool AncillaryFileTest::testFile()
     bool formalResult = false;
     bool scientificResult = false;
 
-    const QString parseErrorStr_1 =
+    const auto parseErrorStr_1 =
             tr("<b>The formatting and content of the selected file "
                "could not be assessed due to missing "
                "template files. Please, re-install the software.</b>");
 
-    const QString parseErrorStr_2 =
+    const auto parseErrorStr_2 =
             tr("<b>Unable to open the selected file or the file "
                "is empty. Please, select another file.</b>");
 
@@ -167,11 +167,11 @@ bool AncillaryFileTest::testFile()
     formalResult =
             (this->*testFileMap_.value(type_).formalTest)(templateLines_,
                                                           actualLines_);
-    const QString formalErrorStr =
+    const auto formalErrorStr =
             tr("<b>FORMAT test <font color=\"#FF3300\">failed</font>.</b><br />");
-    const QString formalSuccessStr =
+    const auto formalSuccessStr =
             tr("<b>FORMAT test <font color=\"#0066FF\">passed</font>.</b><br />");
-    const QString finalErrorStr =
+    const auto finalErrorStr =
             tr("<b>The selected file does not match the expected "
                "formatting or scientific content. "
                "<p>If you would like to upload a different file or choose an alternate method, please click <i>Cancel</i>. "
@@ -193,7 +193,7 @@ bool AncillaryFileTest::testFile()
         testResults_->append(tr("<b>SCIENTIFIC test</b>"));
         scientificResult =
                 (this->*testFileMap_.value(type_).scientificTest)(actualLines_);
-        const QString scientificErrorStr =
+        const auto scientificErrorStr =
                 tr("<b>SCIENTIFIC test <font color=\"#FF3300\">failed</font>.</b><br />");
 
         if (!scientificResult)
@@ -597,6 +597,7 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
                          + QStringLiteral(": ")
                          + formatPassFail(last_test()));
 
+    qDebug() << "begin test d1";
     // test d1
     test << true;
     for (auto i = 0; i < windSectors; ++i)
@@ -604,24 +605,31 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
         if (StringUtils::subStringList(templateList.value(16), 0, 2)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 0, 2);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 3, 4)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 3, 4);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 7, 9)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9))
         {
+            qDebug() << StringUtils::subStringList(templateList.value(16), 7, 9);
+            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9);
             test.replace(last_test_index(), false);
             break;
         }
     }
     testResults_->append(QLatin1String("Rotation matrices formal structure 1: ")
                          + formatPassFail(last_test()));
+    qDebug() << "end test d1";
 
     // test d2
     test << true;

@@ -4,7 +4,7 @@
   EddyPro is an evolution of the ECO2S Eddy Covariance programs suite
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -274,15 +274,6 @@ int main(int argc, char *argv[])
     pixmap.setDevicePixelRatio(2.0);
 #endif
     CustomSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
-
-    // center splash considering the high dpi res
-#if defined(Q_OS_MAC)
-    auto d = QApplication::desktop();
-    auto t = d->availableGeometry();
-    splash.move((t.width() - splash.width() / 2) / 2,
-                (t.height() - splash.height() / 2) / 2);
-#endif
-
     auto show_splash =
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_GENERAL,
                                                       Defs::CONF_GEN_SHOW_SPLASH,

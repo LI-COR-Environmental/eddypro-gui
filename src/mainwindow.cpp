@@ -2,7 +2,7 @@
   mainwindow.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -1657,8 +1657,8 @@ void MainWindow::restorePreviousStatus()
 //    toggleTooltipOutputAct->setChecked(config_state_.window.tooltipDock);
 //    toggleConsoleOutputAct->setChecked(config_state_.window.consoleDock);
 
-    restoreState(configState_.window.mainwin_state);
     restoreGeometry(configState_.window.mainwin_geometry);
+    restoreState(configState_.window.mainwin_state);
 
     // show or hide statusbar depending on initial setting
     // note: QMainWindow::restoreState() acts on toolbars and dockwidgets
@@ -1716,7 +1716,7 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/EddyPro_Home.html"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
@@ -2453,7 +2453,8 @@ void MainWindow::showGuidedModeMessages_1()
             }
         }
 
-        if (!dlProject_->hasAnemFwVersion())
+        if (!dlProject_->masterAnemHasFwVersion()
+            && !dlProject_->masterAnemContainsGillWindmaster())
         {
             orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
                       "Editor - Raw File Description:</span> "
@@ -2463,16 +2464,16 @@ void MainWindow::showGuidedModeMessages_1()
             qDebug() << "doOrangeFix" << doOrangeFix;
         }
 
-        if (!dlProject_->hasGoodWindmasterSwVersion())
+        if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
         {
-            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+            red_msg += tr("<li><span style=\"color: red;\">Instruments "
                       "Editor - Raw File Description:</span> "
-                      "Please enter the Gill Windmaster/Pro "
+                      "Enter the Gill Windmaster/Pro "
                       "firmware version in the typical form: 2329.600.01. "
                       "Not filling this field will affect the application of "
-                      "the Angle of Attack correction .</li>");
-            doOrangeFix = true;
-            qDebug() << "doOrangeFix" << doOrangeFix;
+                      "the Angle of Attack correction.</li>");
+            doRedFix = true;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         // irga tests
@@ -2725,6 +2726,18 @@ void MainWindow::showGuidedModeMessages_2()
         }
     }
 
+    if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
+    {
+        msg += tr("<li><span style=\"color: red;\">Missing anemometer firmware version:</span> "
+                  "Select <em>Use alternative file</em> in the <em>Project creation page</em> "
+                  "and fill the section \"Instruments Editor - Raw File Description\". "
+                  "Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. "
+                  "Not filling this field will affect the application of "
+                  "the Angle of Attack correction.</li>");
+        doFix = true;
+        qDebug() << "doFix" << doFix;
+    }
+
     if (!doFix && runAdvancedAvailable_ && !configState_.project.smartfluxMode)
     {
         intro = tr("You are ready to run in <span style=\"color: #52893c; \">Express Mode</span> using express default settings or <span style=\"color: #2986f5; \">Advanced Mode</span> using Advanced Settings.<br />"
@@ -2740,12 +2753,6 @@ void MainWindow::showGuidedModeMessages_2()
         doFix = false;
         qDebug() << "doFix" << doFix;
     }
-//    else if (!doFix && !runAdvancedAvailable_ && configState_.project.smartfluxMode)
-//    {
-//        intro.clear();
-//        msg = tr("<ul>");
-//        doFix = false;
-//    }
 
     if (!doFix)
     {
@@ -2755,10 +2762,7 @@ void MainWindow::showGuidedModeMessages_2()
     qDebug() << "title" << intro;
     qDebug() << "msg" << msg;
 
-//    if (!configState_.project.smartfluxMode)
-//    {
-        runExpressAvailable_ = intro.contains(tr("You are ready"));
-//    }
+    runExpressAvailable_ = intro.contains(tr("You are ready"));
 
     updateMenuActionStatus(currentPage());
 
@@ -4283,7 +4287,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro6/Content/Error_Codes.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Error_Codes.html")));
 }
 
 // qt5
@@ -4333,58 +4337,61 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     DEBUG_FUNC_NAME
 
     QSize widgetSize = event->size();
+    QSize widgetOldSize = event->oldSize();
+    qDebug() << "new:" << widgetSize.width() << " x " << widgetSize.height();
+    qDebug() << "old:" << widgetOldSize.width() << " x " << widgetOldSize.height();
+    qDebug() << "this state" << this->windowState();
 
-    qDebug() << widgetSize.width() << " x " << widgetSize.height();
-
-    if (widgetSize.width() < 1200 || widgetSize.height() < 630)
+    if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-
-        mainWidget_->welcomePage()->updateWelcomePage(true);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
-
-        // NOTE: to complete
-        configState_.general.recentnum = 2;
+        qDebug() << "NO LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        minimizeGui();
     }
     else
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        qDebug() << "WITH LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        maximizeGui();
+    }
 
-        mainWidget_->welcomePage()->updateWelcomePage(false);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
-
-        updateMenuActionStatus(currentPage());
-
-        // NOTE: to complete
-        configState_.general.recentnum = 4;
+    if (windowState() == Qt::WindowState::WindowMaximized)
+    {
+        qDebug() << "WindowMaximized";
+        maximizeGui();
     }
 
     updateStatusBar();
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
-
     event->accept();
-//    QWidget::resizeEvent(event);
+}
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
+void MainWindow::minimizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    mainWidget_->welcomePage()->updateWelcomePage(true);
+//    mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
+
+    configState_.general.recentnum = 2;
+}
+
+void MainWindow::maximizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    mainWidget_->welcomePage()->updateWelcomePage(false);
+//   mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
+
+    updateMenuActionStatus(currentPage());
+
+    configState_.general.recentnum = 4;
 }
 
 void MainWindow::updateSpectraPaths()
 {
-//    DEBUG_FUNC_MSG(QString())
-
     // reload after engine_rp updates the ex_file path, i.e. when it finishes
     bool modified = false;
     if (ecProject_->loadEcProject(ecProject_->generalFileName(), false, &modified))
@@ -4601,7 +4608,7 @@ void MainWindow::openLicorSite() const
 void MainWindow::checkInternetConnection()
 {
 #if 0
-    DEBUG_FUNC_MSG(QString(QStringLiteral("online: %1"))
+    DEBUG_FUNC_MSG(QStringLiteral("online: %1")
                    .arg(Networking::isOnline() ? QStringLiteral("true")
                                                : QStringLiteral("false")))
 #endif
