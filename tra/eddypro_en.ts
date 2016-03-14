@@ -2399,17 +2399,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1099"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1097"/>
         <source>Save the test results as...</source>
         <translation>Save the test results as...</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1101"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1099"/>
         <source>%1 assessment file check results (*.txt);;All files (*)</source>
         <translation>%1 assessment file check results (*.txt);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1111"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1109"/>
         <source>%1 check of assessment file %2 against %3</source>
         <translation>%1 check of assessment file %2 against %3</translation>
     </message>
