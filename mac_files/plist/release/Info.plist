@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleVersion</key>
-    <string>6.1.0</string>
+    <string>@FULL_VERSION@</string>
     <key>CFBundleShortVersionString</key>
-    <string>6.1.0</string>
+    <string>@FULL_VERSION@</string>
     <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.1.0</string>
+    <string>6.0</string>
 
     <key>CFBundleName</key>
     <string>EddyPro</string>
     <key>CFBundleDevelopmentRegion</key>
-    <string>English</string>
+    <string>en-US</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
     <key>NSHighResolutionCapable</key>
     <string>True</string>
     <key>CFBundleIconFile</key>
-    <string>app.icns</string>
+    <string>@ICON@</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
-    <string>LICR</string>
+    <string>edpr</string>
     <key>CFBundleExecutable</key>
-    <string>eddypro</string>
+    <string>@EXECUTABLE@</string>
     <key>CFBundleIdentifier</key>
     <string>com.licor.eddypro</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright (c) 2011-2015, LI-COR Biosciences Inc.</string>
+    <string>Copyright © 2011-2016, LI-COR Inc.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.education</string>
     <key>LSMinimumSystemVersion</key>
@@ -38,7 +38,7 @@
     <array>
         <dict>
             <key>CFBundleTypeIconFile</key>
-            <string>app.icns</string>
+            <string>@ICON@</string>
             <key>CFBundleTypeName</key>
             <string>EddyPro Project File</string>
             <key>CFBundleTypeRole</key>
