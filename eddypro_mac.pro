@@ -2,8 +2,11 @@
 
 TEMPLATE = app
 
-# EddyPro version, not used
-VERSION = 6.1.0
+# EddyPro version
+VER_MAJ = 6
+VER_MIN = 2
+VER_PAT = 0
+VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
 QT_VER = $$[QT_VERSION]
