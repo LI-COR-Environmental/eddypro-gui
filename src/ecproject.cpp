@@ -1780,7 +1780,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
-    QVariant v = QVariant(); // container for conversions
+    QVariant v; // container for conversions
 
     // open file
     QFile datafile(filename);
@@ -3190,12 +3190,13 @@ bool EcProject::nativeFormat(const QString &filename)
     }
 
     // test if the first row of the file start with the correct tag
-    // case sensitive for default
+    // case sensitive by default
     QTextStream in(&datafile);
     QString firstLine;
     in >> firstLine;
     datafile.close();
-    // filter metadata files
+
+    // filter out metadata files
     if (firstLine.startsWith(Defs::APP_MD_INI_TAG)
         || firstLine.startsWith(QLatin1String(";ECO2S_METADATA"))
         || firstLine.startsWith(QLatin1String(";ECO2S_DATALOGGING"))
@@ -3208,7 +3209,8 @@ bool EcProject::nativeFormat(const QString &filename)
                                 "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
         return false;
     }
-    // filter generic files
+
+    // filter out other generic files
     if (!firstLine.startsWith(Defs::APP_PD_INI_TAG)
         && !firstLine.startsWith(QLatin1String(";ECO2S_PROCESSING"))
         && !firstLine.startsWith(QLatin1String(";ECO2S_DATAPROCESSING")))

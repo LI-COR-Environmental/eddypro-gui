@@ -135,11 +135,11 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     mainLayout->setRowMinimumHeight(3, 40);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-#if defined(Q_OS_WIN)
+//#if defined(Q_OS_WIN)
     mainLayout->setContentsMargins(15, 15, 15, 15);
-#elif defined(Q_OS_MAC)
-    mainLayout->setContentsMargins(30, 30, 30, 30);
-#endif
+//#elif defined(Q_OS_MAC)
+//    mainLayout->setContentsMargins(30, 30, 30, 30);
+//#endif
     setLayout(mainLayout);
 
     connect(filenameLabel, &ClickLabel::clicked,

@@ -1,7 +1,9 @@
 # platform dependent resource files
 
 # win
-win32:RC_ICONS += $$_PRO_FILE_PWD_/win_files/app.ico
+win32 {
+    RC_ICONS += $$_PRO_FILE_PWD_/win_files/app.ico
+}
 
 # mac
 macx {

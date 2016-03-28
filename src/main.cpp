@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
 #elif defined(Q_OS_MAC)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/macstyle"));
-#else
+#elif defined(Q_OS_LINUX)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/linstyle"));
 #endif
 

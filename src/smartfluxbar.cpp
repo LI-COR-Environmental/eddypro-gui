@@ -320,7 +320,7 @@ void SmartFluxBar::createPackage()
     // because cpDialog->close() not hides the dialog as expected,
     // so it's preferable to delete it
     // TODO: use a std::unique_ptr
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->close();
 #elif defined(Q_OS_MAC)
     if (cpDialog_)
@@ -360,7 +360,7 @@ void SmartFluxBar::showCreatePackageDialog()
         return;
     }
 
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->refresh();
 #elif defined(Q_OS_MAC)
     makeCreatePackageDialog();

@@ -37,7 +37,7 @@
 AboutDialog::AboutDialog(QWidget* parent)
     : QDialog(parent)
 {
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     resize(530, 620);
     setMinimumSize(530, 620);
 #elif defined(Q_OS_MAC)
@@ -63,6 +63,8 @@ AboutDialog::AboutDialog(QWidget* parent)
             .arg(Defs::WIN_COMPILER)
         #elif defined(Q_OS_MAC)
             .arg(Defs::MAC_COMPILER)
+        #elif defined(Q_OS_LINUX)
+            .arg(Defs::LIN_COMPILER)
         #endif
         );
     auto icon = new QLabel;

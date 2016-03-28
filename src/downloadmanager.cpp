@@ -51,7 +51,7 @@ void DownloadManager::abort()
         if (reply->isRunning())
         {
             // TODO(emiola): remove test when bump Qt version on Windows
-#if QT_VERSION > 0x050302
+#if (QT_VERSION > 0x050302) && (__GNUC__ >= 4) && (__GNUC_MINOR__ > 8)
             disconnect(reply, &QNetworkReply::finished,
                        this, &DownloadManager::downloadFinished);
 #else
@@ -80,7 +80,7 @@ void DownloadManager::get(const QUrl &url)
     qDebug() << "reply" << reply;
 
     // TODO(emiola): remove test when bump Qt version on Windows
-#if (QT_VERSION > 0x050302)
+#if (QT_VERSION > 0x050302) && (__GNUC__ >= 4) && (__GNUC_MINOR__ > 8)
     connect(reply, &QNetworkReply::downloadProgress,
             this, &DownloadManager::downloadProgress);
     connect(reply, &QNetworkReply::finished,
