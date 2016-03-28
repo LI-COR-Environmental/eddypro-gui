@@ -166,6 +166,8 @@ private:
 
     ClickLabel* anemRefLabel;
     QComboBox* anemRefCombo;
+    ClickLabel* anemFlagLabel;
+    QComboBox* anemFlagCombo;
     ClickLabel* tsRefLabel;
     QComboBox* tsRefCombo;
     ClickLabel* co2RefLabel;
@@ -355,6 +357,7 @@ private slots:
     void updateEndTime(const QTime &t);
 
     void onClickAnemRefLabel();
+    void onClickAnemFlagLabel();
     void onClickCo2RefLabel();
     void onClickH2oRefLabel();
     void onClickCh4RefLabel();
@@ -374,6 +377,7 @@ private slots:
     void onClickDiag7700Label();
     void onClickTsRefLabel();
     void updateAnemRefCombo(const QString& s);
+    void updateAnemFlagCombo(int i);
     void updateCo2RefCombo(int);
     void updateH2oRefCombo(int);
     void updateCh4RefCombo(int);

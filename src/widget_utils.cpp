@@ -433,6 +433,9 @@ void WidgetUtils::showHelp(const QUrl& url)
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
 
+    qDebug() << "autoChooseHelp" << autoChooseHelp;
+    qDebug() << "offlineHelp" << offlineHelp;
+
     if (autoChooseHelp)
     {
         if (!offlineHelp)

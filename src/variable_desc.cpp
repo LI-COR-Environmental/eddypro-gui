@@ -211,6 +211,12 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_29()
     return s;
 }
 
+const QString VariableDesc::getVARIABLE_VAR_STRING_30()
+{
+    static const QString s(tr("Anemometer Diagnostics"));
+    return s;
+}
+
 const QString VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0()
 {
     static const QString s(tr("Molar/Mass density"));
@@ -567,6 +573,7 @@ const QStringList VariableDesc::variableStringList()
             << getVARIABLE_VAR_STRING_25()
             << getVARIABLE_VAR_STRING_26()
             << getVARIABLE_VAR_STRING_27()
+            << getVARIABLE_VAR_STRING_30()
             );
 }
 
@@ -1298,7 +1305,8 @@ bool VariableDesc::isCustomVariable(const QString& var)
             && var != getVARIABLE_VAR_STRING_26()
             && var != getVARIABLE_VAR_STRING_27()
             && var != getVARIABLE_VAR_STRING_28()
-            && var != getVARIABLE_VAR_STRING_29());
+            && var != getVARIABLE_VAR_STRING_29()
+            && var != getVARIABLE_VAR_STRING_30());
 }
 
 bool VariableDesc::isScalableVariable(const QString& inputUnit)
@@ -1348,7 +1356,8 @@ bool VariableDesc::isDiagnosticVar(const QString& var)
 {
     return (var == getVARIABLE_VAR_STRING_25()
             || var == getVARIABLE_VAR_STRING_26()
-            || var == getVARIABLE_VAR_STRING_27());
+            || var == getVARIABLE_VAR_STRING_27()
+            || var == getVARIABLE_VAR_STRING_30());
 }
 
 const QStringList VariableDesc::velocityInputUnitStringList()

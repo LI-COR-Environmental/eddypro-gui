@@ -67,6 +67,7 @@ struct ProjectGeneralState
     int col_diag_75 = -1;
     int col_diag_72 = -1;
     int col_diag_77 = -1;
+    int col_anem_diag = -1;
     int col_ts = -1;
     qreal gas_mw = -1.0;
     qreal gas_diff = -1.0;

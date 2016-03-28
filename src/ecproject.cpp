@@ -199,7 +199,8 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && (ec_project_state_.projectGeneral.col_int_t_c == previousProject.ec_project_state_.projectGeneral.col_int_t_c)
         && (ec_project_state_.projectGeneral.col_diag_72 == previousProject.ec_project_state_.projectGeneral.col_diag_72)
         && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_75)
-        && (ec_project_state_.projectGeneral.col_diag_77 == previousProject.ec_project_state_.projectGeneral.col_diag_77);
+        && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_77)
+        && (ec_project_state_.projectGeneral.col_anem_diag == previousProject.ec_project_state_.projectGeneral.col_anem_diag);
     qDebug() << "dataSetTest 1" << dataSetTest;
 
     if (ec_project_state_.projectGeneral.subset)
@@ -870,6 +871,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.col_diag_75 = defaultEcProjectState.projectGeneral.col_diag_75;
     ec_project_state_.projectGeneral.col_diag_72 = defaultEcProjectState.projectGeneral.col_diag_72;
     ec_project_state_.projectGeneral.col_diag_77 = defaultEcProjectState.projectGeneral.col_diag_77;
+    ec_project_state_.projectGeneral.col_anem_diag = defaultEcProjectState.projectGeneral.col_anem_diag;
     ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
     ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
     ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
@@ -1305,6 +1307,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_28, ec_project_state_.projectGeneral.col_diag_75);
         project_ini.setValue(EcIni::INI_PROJECT_29, ec_project_state_.projectGeneral.col_diag_72);
         project_ini.setValue(EcIni::INI_PROJECT_30, ec_project_state_.projectGeneral.col_diag_77);
+        project_ini.setValue(EcIni::INI_PROJECT_69, ec_project_state_.projectGeneral.col_anem_diag);
         project_ini.setValue(EcIni::INI_PROJECT_31, QString::number(ec_project_state_.projectGeneral.gas_mw, 'f', 4));
         project_ini.setValue(EcIni::INI_PROJECT_32, QString::number(ec_project_state_.projectGeneral.gas_diff, 'f', 5));
         project_ini.setValue(EcIni::INI_PROJECT_36, ec_project_state_.projectGeneral.col_ts);
@@ -1942,6 +1945,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.col_diag_77
                 = project_ini.value(EcIni::INI_PROJECT_30,
                                     defaultEcProjectState.projectGeneral.col_diag_77).toInt();
+        ec_project_state_.projectGeneral.col_anem_diag
+                = project_ini.value(EcIni::INI_PROJECT_69,
+                                    defaultEcProjectState.projectGeneral.col_anem_diag).toInt();
         ec_project_state_.projectGeneral.col_ts
                 = project_ini.value(EcIni::INI_PROJECT_36,
                                     defaultEcProjectState.projectGeneral.col_ts).toInt();
@@ -5034,6 +5040,12 @@ void EcProject::setGeneralColDiag72(int n)
 void EcProject::setGeneralColDiag77(int n)
 {
     ec_project_state_.projectGeneral.col_diag_77 = n;
+    setModified(true);
+}
+
+void EcProject::setGeneralColAnemDiag(int n)
+{
+    ec_project_state_.projectGeneral.col_anem_diag = n;
     setModified(true);
 }
 

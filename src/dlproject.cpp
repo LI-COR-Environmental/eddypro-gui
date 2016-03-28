@@ -101,6 +101,7 @@ const QString DlProject::VARIABLE_VAR_STRING_26 = QStringLiteral("diag_72");
 const QString DlProject::VARIABLE_VAR_STRING_27 = QStringLiteral("diag_77");
 const QString DlProject::VARIABLE_VAR_STRING_28 = QStringLiteral("fast_t");
 const QString DlProject::VARIABLE_VAR_STRING_29 = QStringLiteral("flowrate");
+const QString DlProject::VARIABLE_VAR_STRING_30 = QStringLiteral("anemometer_diagnostic");
 
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_0 = QStringLiteral("molar_density");
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_1 = QStringLiteral("mole_fraction");
@@ -1529,6 +1530,10 @@ QString DlProject::toIniVariableVar(const QString& s)
     {
         return DlProject::VARIABLE_VAR_STRING_29;
     }
+    else if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
+    {
+        return DlProject::VARIABLE_VAR_STRING_30;
+    }
     else
     {
         return s;
@@ -2040,6 +2045,10 @@ QString DlProject::fromIniVariableVar(const QString& s)
     else if (s == DlProject::VARIABLE_VAR_STRING_29)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_29();
+    }
+    else if (s == DlProject::VARIABLE_VAR_STRING_30)
+    {
+        return VariableDesc::getVARIABLE_VAR_STRING_30();
     }
     else
     {

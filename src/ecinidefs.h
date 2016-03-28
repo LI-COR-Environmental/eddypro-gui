@@ -100,6 +100,7 @@ namespace EcIni
     const auto INI_PROJECT_66   = QStringLiteral("hf_correct_ghg_ba");
     const auto INI_PROJECT_67   = QStringLiteral("hf_correct_ghg_zoh");
     const auto INI_PROJECT_68   = QStringLiteral("sonic_output_rate");
+    const auto INI_PROJECT_69   = QStringLiteral("col_anem_diag");
 
     const auto INIGROUP_SPEC_SETTINGS = QStringLiteral("FluxCorrection_SpectralAnalysis_General");
     const auto INI_SPEC_SETTINGS_0    = QStringLiteral("sa_start_date");
