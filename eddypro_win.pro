@@ -82,6 +82,29 @@ CONFIG(debug, debug|release) {
 
         QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
     }
+    macx {
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtCore.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtCore.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtGui.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtGui.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtWidgets.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtWidgets.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtConcurrent.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtConcurrent.framework/Versions/5/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtNetwork.framework/Headers"
+        QMAKE_CXXFLAGS += -isystem"$$QT_PATH/lib/QtNetwork.framework/Versions/5/Headers"
+
+        QMAKE_CXXFLAGS_WARN_ON += -Weverything
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-c++98-compat -Wno-c++98-compat-pedantic
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-padded
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-covered-switch-default
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-used-but-marked-unused # see http://lists.qt-project.org/pipermail/development/2014-March/016181.html
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-global-constructors # static objects
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-exit-time-destructors # static objects
+        QMAKE_CXXFLAGS_WARN_ON += -Wno-documentation -Wno-documentation-unknown-command -Wno-documentation-deprecated-sync
+
+        QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
+    }
 } else {
     TARGET = eddypro
 
@@ -97,6 +120,11 @@ CONFIG(debug, debug|release) {
         QMAKE_POST_LINK += && strip -S $$OUT_PWD/release/eddypro.app/Contents/MacOS/eddypro
     }
 }
+
+# temporarly necessary with XCode 7 and Qt 5.4.2/QtCreator 3.4.2
+# to avoid compilation issues with the shipped makespec
+# https://forum.qt.io/topic/58926/solved-xcode-7-and-qt-error/4
+#QMAKE_MAC_SDK = macosx10.11
 
 DEFINES += QT_NO_CAST_FROM_ASCII
 DEFINES += QT_NO_CAST_FROM_BYTEARRAY
