@@ -514,12 +514,12 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     rgCombo = new QComboBox;
     rgCombo->setToolTip(rgLabel->toolTip());
 
-    lwinLabel = new ClickLabel(tr("Longwave incoming radiation :"), this);
+    lwinLabel = new ClickLabel(tr("Longwave Incoming Radiation :"), this);
     lwinLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
     lwinCombo = new QComboBox;
     lwinCombo->setToolTip(lwinLabel->toolTip());
 
-    ppfdLabel = new ClickLabel(tr("Photosynthetically active radiation (PAR, PPFD) :"), this);
+    ppfdLabel = new ClickLabel(tr("Photosynthetically Active Radiation (PAR, PPFD) :"), this);
     ppfdLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
     ppfdCombo = new QComboBox;
     ppfdCombo->setToolTip(ppfdLabel->toolTip());

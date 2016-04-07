@@ -2949,6 +2949,16 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the variables to be used for calculating fluxes, among those available.</translation>
     </message>
     <message>
+        <location filename="../src/basicsettingspage.cpp" line="517"/>
+        <source>Longwave Incoming Radiation :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="522"/>
+        <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/basicsettingspage.cpp" line="527"/>
         <source>LI-7500/A/RS Diagnostics :</source>
         <translation>LI-7500/A/RS Diagnostics :</translation>
@@ -3067,16 +3077,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="512"/>
         <source>Global Radiation :</source>
         <translation>Global Radiation :</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="517"/>
-        <source>Longwave incoming radiation :</source>
-        <translation>Longwave incoming radiation :</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="522"/>
-        <source>Photosynthetically active radiation (PAR, PPFD) :</source>
-        <translation>Photosynthetically active radiation (PAR, PPFD) :</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="528"/>
