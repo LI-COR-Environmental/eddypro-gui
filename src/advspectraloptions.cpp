@@ -60,7 +60,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    settingsGroupTitle_1 = new QLabel(tr("Spectra and Cospetra Calculation"));
+    settingsGroupTitle_1 = new QLabel(tr("Spectra and Cospectra Calculation"));
     settingsGroupTitle_1->setProperty("groupTitle2", true);
     settingsGroupTitle_1->setStyleSheet(
             QStringLiteral("QLabel { margin: 2px 0px 3px -2px; padding: 0px; }"));
