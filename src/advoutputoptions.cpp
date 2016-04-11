@@ -500,7 +500,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_2, 5, 2, Qt::AlignRight);
     outputLayout->addWidget(variableVarsOutputRadio, 5, 3, 1, 2, Qt::AlignLeft);
     outputLayout->addWidget(fixedVarsOutputRadio, 6, 3, 1, 2, Qt::AlignLeft);
-    outputLayout->addWidget(vrLabel_1, 5, 5, 6, 1);
+    outputLayout->addWidget(vrLabel_1, 5, 5, 8, 1);
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
