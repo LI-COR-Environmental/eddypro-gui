@@ -3290,7 +3290,7 @@ void BasicSettingsPage::updateAnemRefCombo(const QString& s)
 void BasicSettingsPage::updateAnemFlagCombo(int i)
 {
     DEBUG_FUNC_NAME
-            ecProject_->setGeneralColAnemDiag(anemFlagCombo->itemData(i).toInt());
+            ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(i).toInt());
 }
 
 void BasicSettingsPage::updateCo2RefCombo(int i)
@@ -4202,17 +4202,17 @@ void BasicSettingsPage::reloadSelectedItems_1()
         ecProject_->setGeneralColDiag77(diag7700Combo->itemData(0).toInt());
     }
 //
-    currData = ecProject_->generalColAnemDiag();
+    currData = ecProject_->generalColDiagAnem();
     currItemIndex = anemFlagCombo->findData(currData);
     if (currItemIndex >= 0)
     {
         anemFlagCombo->setCurrentIndex(currItemIndex);
-        ecProject_->setGeneralColAnemDiag(currData);
+        ecProject_->setGeneralColDiagAnem(currData);
     }
     else
     {
         anemFlagCombo->setCurrentIndex(0);
-        ecProject_->setGeneralColAnemDiag(anemFlagCombo->itemData(0).toInt());
+        ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(0).toInt());
     }
     //
     currData = ecProject_->screenFlag1Col();
