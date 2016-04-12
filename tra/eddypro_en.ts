@@ -1089,6 +1089,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Analytic correction of high-pass filtering effects:&lt;/b&gt; Check this option to apply a low frequency spectral correction, to compensate flux losses due to finite averaging length and detrending. The method is adapted to the selected fluctuation computation procedure and its time constant as applicable.</translation>
     </message>
     <message>
+        <location filename="../src/advspectraloptions.cpp" line="63"/>
+        <source>Spectra and Cospectra Calculation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/advspectraloptions.cpp" line="87"/>
         <source>Select a different period</source>
         <translation>Select a different period</translation>
@@ -1281,11 +1286,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advspectraloptions.cpp" line="162"/>
         <source>Lowest noise frequency :</source>
         <translation>Lowest noise frequency :</translation>
-    </message>
-    <message>
-        <location filename="../src/advspectraloptions.cpp" line="63"/>
-        <source>Spectra and Cospetra Calculation</source>
-        <translation>Spectra and Cospetra Calculation</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="69"/>
