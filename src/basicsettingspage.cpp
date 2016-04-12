@@ -415,8 +415,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     anemRefCombo = new QComboBox;
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
-    anemFlagLabel = new ClickLabel(tr("Master Anemometer Flags:"), this);
-    anemFlagLabel->setToolTip(tr("<b>Master anemometer flags:</b> Select ..."));
+    anemFlagLabel = new ClickLabel(tr("Anemometer Diagnostics:"), this);
+    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select ..."));
     anemFlagCombo = new QComboBox;
     anemFlagCombo->setToolTip(anemFlagLabel->toolTip());
 
