@@ -135,7 +135,7 @@ MainWindow::MainWindow(const QString& filename,
     ecProject_ = new EcProject(this, configState_.project);
 
     // set main window components
-    setWindowTitle(Defs::APP_NAME);
+    setWindowTitle(Defs::APP_NAME + QLatin1String(" ") + Defs::REGISTERED_TRADEMARK_SYMBOL);
 
 #if defined(Q_OS_WIN)
     // NOTE: inserted fake (inexistent) icon to prevent icon in the menu bar
@@ -420,7 +420,10 @@ void MainWindow::setFileCaption(const QString& filename, bool clearStar)
         shownName = QFileInfo(filename).fileName();
     }
 
-    setWindowTitle(tr("%1 - [%2[*]]").arg(Defs::APP_NAME).arg(shownName));
+    setWindowTitle(QStringLiteral("%1 %2 - [%3[*]]")
+                   .arg(Defs::APP_NAME)
+                   .arg(Defs::REGISTERED_TRADEMARK_SYMBOL)
+                   .arg(shownName));
 
     if (clearStar)
     {
@@ -2308,7 +2311,7 @@ void MainWindow::windowTitleUpdate(Defs::CurrPage page)
     switch (page)
     {
         case Defs::CurrPage::Welcome:
-            setWindowTitle(Defs::APP_NAME);
+            setWindowTitle(Defs::APP_NAME + QLatin1String(" ") + Defs::REGISTERED_TRADEMARK_SYMBOL);
             break;
         case Defs::CurrPage::ProjectCreation:
         case Defs::CurrPage::BasicSettings:

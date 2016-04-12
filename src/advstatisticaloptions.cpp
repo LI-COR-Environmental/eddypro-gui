@@ -606,7 +606,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_2->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_2 = new QDoubleSpinBox;
     despSpin_2->setDecimals(1);
-    despSpin_2->setRange(1.0, 12.0);
+    despSpin_2->setRange(1.0, 20.0);
     despSpin_2->setSingleStep(0.1);
     despSpin_2->setAccelerated(true);
     despSpin_2->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -616,7 +616,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_3->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_3 = new QDoubleSpinBox;
     despSpin_3->setDecimals(1);
-    despSpin_3->setRange(1.0, 12.0);
+    despSpin_3->setRange(1.0, 20.0);
     despSpin_3->setSingleStep(0.1);
     despSpin_3->setAccelerated(true);
     despSpin_3->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -626,7 +626,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_4->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_4 = new QDoubleSpinBox;
     despSpin_4->setDecimals(1);
-    despSpin_4->setRange(1.0, 12.0);
+    despSpin_4->setRange(1.0, 20.0);
     despSpin_4->setSingleStep(0.1);
     despSpin_4->setAccelerated(true);
     despSpin_4->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -636,7 +636,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_5->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_5 = new QDoubleSpinBox;
     despSpin_5->setDecimals(1);
-    despSpin_5->setRange(1.0, 12.0);
+    despSpin_5->setRange(1.0, 20.0);
     despSpin_5->setSingleStep(0.1);
     despSpin_5->setAccelerated(true);
     despSpin_5->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -646,7 +646,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_6->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_6 = new QDoubleSpinBox;
     despSpin_6->setDecimals(1);
-    despSpin_6->setRange(1.0, 12.0);
+    despSpin_6->setRange(1.0, 20.0);
     despSpin_6->setSingleStep(0.1);
     despSpin_6->setAccelerated(true);
     despSpin_6->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -656,7 +656,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_7->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_7 = new QDoubleSpinBox;
     despSpin_7->setDecimals(1);
-    despSpin_7->setRange(1.0, 12.0);
+    despSpin_7->setRange(1.0, 20.0);
     despSpin_7->setSingleStep(0.1);
     despSpin_7->setAccelerated(true);
     despSpin_7->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
