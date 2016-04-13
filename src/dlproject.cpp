@@ -829,21 +829,25 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
-                    if (checkVersion && firstReading && !alreadyChecked)
+                    // exclude diagnostic variables
+                    if (!VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
                     {
-                        if (!parent->queryDlProjectImport())
+                        if (checkVersion && firstReading && !alreadyChecked)
                         {
-                            return false;
+                            if (!parent->queryDlProjectImport())
+                            {
+                                return false;
+                            }
+                            alreadyChecked = true;
                         }
-                        alreadyChecked = true;
+                        else
+                        {
+                            // silently continue file loading and conversion
+                        }
+                        var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
+                        isVersionCompatible = false;
+                        qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                     }
-                    else
-                    {
-                        // silently continue file loading and conversion
-                    }
-                    var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
-                    isVersionCompatible = false;
-                    qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                 }
                 // if input unit is empty, set conversion to empty
                 else if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())

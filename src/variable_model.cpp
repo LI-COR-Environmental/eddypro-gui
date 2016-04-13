@@ -197,7 +197,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.inputUnit());
                 }
             case CONVERSIONTYPE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                            && VariableDesc::isDiagnosticVar(var)))
                 {
                     const_cast<VariableModel *>(this)->setData(index, nullStrValue);
                     return nullStrValue;
@@ -208,7 +210,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
                 }
             case OUTPUTUNIT:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     const_cast<VariableModel *>(this)->setData(index, nullStrValue);
                     return nullStrValue;
@@ -312,7 +316,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     }
                 }
             case AVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     // reset the gain value to 1
                     const_cast<VariableModel *>(this)->setData(index, 1);
@@ -323,7 +329,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QString::number(variableDesc.aValue(), 'f', 6));
                 }
             case BVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     // reset the offset value to 0
                     const_cast<VariableModel *>(this)->setData(index, 0);
@@ -476,7 +484,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.inputUnit());
                 }
             case CONVERSIONTYPE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -580,7 +590,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     }
                 }
             case AVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -589,7 +601,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.aValue());
                 }
             case BVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -724,7 +738,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
             case BVALUE:
                 if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
                     || variableDesc.ignore() == QLatin1String("yes")
-                    || variableDesc.numeric() == QLatin1String("no"))
+                    || variableDesc.numeric() == QLatin1String("no")
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(variableDesc.variable())))
                 {
                     return QVariant(QBrush(QColor(QStringLiteral("#eff0f1"))));
                 }
@@ -1073,7 +1089,9 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
         case AVALUE:
         case BVALUE:
             if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
-                || variableDesc.numeric() == QLatin1String("no"))
+                || variableDesc.numeric() == QLatin1String("no")
+                || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    && VariableDesc::isDiagnosticVar(variableDesc.variable())))
             {
                 currentFlags &= !Qt::ItemIsEnabled;
                 currentFlags &= !Qt::ItemIsEditable;
