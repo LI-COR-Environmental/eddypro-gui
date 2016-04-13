@@ -780,6 +780,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     var.setAValue(aValue);
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                     isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: input unit is empty, then set conversion to empty";
                 }
                 else
                 {

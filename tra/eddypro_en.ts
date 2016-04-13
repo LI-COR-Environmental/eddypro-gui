@@ -378,8 +378,8 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="413"/>
-        <source>Spectral outputs</source>
-        <translation>Spectral outputs</translation>
+        <source>Spectra and cospectra outputs</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="416"/>
@@ -1091,7 +1091,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="63"/>
         <source>Spectra and Cospectra Calculation</source>
-        <translation type="unfinished"></translation>
+        <translation>Spectra and Cospectra Calculation</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="87"/>
@@ -2914,16 +2914,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Master anemometer:&lt;/b&gt; Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="418"/>
-        <source>Master Anemometer Flags:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="419"/>
-        <source>&lt;b&gt;Master anemometer flags:&lt;/b&gt; Select ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/basicsettingspage.cpp" line="423"/>
         <source>Fast temperature reading (alternative to sonic temp) :</source>
         <translation>Fast temperature reading (alternative to sonic temp) :</translation>
@@ -2959,21 +2949,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the variables to be used for calculating fluxes, among those available.</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/basicsettingspage.cpp" line="532"/>
-=======
-        <location filename="../src/basicsettingspage.cpp" line="517"/>
-        <source>Longwave Incoming Radiation :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/basicsettingspage.cpp" line="522"/>
-        <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
-        <translation type="unfinished"></translation>
+        <source>Longwave Incoming Radiation :</source>
+        <translation>Longwave Incoming Radiation :</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="527"/>
->>>>>>> v6.2.0/devel
+        <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
+        <translation>Photosynthetically Active Radiation (PAR, PPFD) :</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="532"/>
         <source>LI-7500/A/RS Diagnostics :</source>
         <translation>LI-7500/A/RS Diagnostics :</translation>
     </message>
@@ -2996,6 +2982,13 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="1564"/>
         <source>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</source>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="5286"/>
+        <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
+
+</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5453"/>
@@ -3093,20 +3086,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Global Radiation :</translation>
     </message>
     <message>
-<<<<<<< HEAD
-        <location filename="../src/basicsettingspage.cpp" line="522"/>
-        <source>Longwave incoming radiation :</source>
-        <translation>Longwave incoming radiation :</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="527"/>
-        <source>Photosynthetically active radiation (PAR, PPFD) :</source>
-        <translation>Photosynthetically active radiation (PAR, PPFD) :</translation>
-    </message>
-    <message>
-=======
-        <location filename="../src/basicsettingspage.cpp" line="528"/>
->>>>>>> v6.2.0/devel
         <location filename="../src/basicsettingspage.cpp" line="533"/>
         <location filename="../src/basicsettingspage.cpp" line="538"/>
         <location filename="../src/basicsettingspage.cpp" line="543"/>
@@ -3247,6 +3226,16 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="170"/>
         <source>Select the Previous Results Directory</source>
         <translation>Select the Previous Results Directory</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="418"/>
+        <source>Anemometer Diagnostics:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="419"/>
+        <source>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select ...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="1501"/>
@@ -3420,14 +3409,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="5282"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="5286"/>
-        <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
-
-</source>
-        <translation>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
-</translation>
     </message>
 </context>
 <context>
@@ -3909,14 +3890,14 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="413"/>
-        <location filename="../src/dlproject.cpp" line="905"/>
+        <location filename="../src/dlproject.cpp" line="910"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="925"/>
+        <location filename="../src/dlproject.cpp" line="930"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -3924,46 +3905,46 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="412"/>
-        <location filename="../src/dlproject.cpp" line="904"/>
-        <location filename="../src/dlproject.cpp" line="924"/>
+        <location filename="../src/dlproject.cpp" line="909"/>
+        <location filename="../src/dlproject.cpp" line="929"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="942"/>
-        <location filename="../src/dlproject.cpp" line="1233"/>
+        <location filename="../src/dlproject.cpp" line="947"/>
+        <location filename="../src/dlproject.cpp" line="1238"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="943"/>
+        <location filename="../src/dlproject.cpp" line="948"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1234"/>
+        <location filename="../src/dlproject.cpp" line="1239"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1719"/>
+        <location filename="../src/dlproject.cpp" line="1724"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1758"/>
+        <location filename="../src/dlproject.cpp" line="1763"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1762"/>
+        <location filename="../src/dlproject.cpp" line="1767"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1767"/>
+        <location filename="../src/dlproject.cpp" line="1772"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -5058,7 +5039,7 @@ Retriever</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="2734"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2811"/>
@@ -6565,7 +6546,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/variable_desc.cpp" line="216"/>
         <source>Anemometer Diagnostics</source>
-        <translation type="unfinished"></translation>
+        <translation>Anemometer Diagnostics</translation>
     </message>
     <message>
         <location filename="../src/variable_desc.cpp" line="222"/>
