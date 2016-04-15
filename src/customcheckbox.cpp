@@ -30,7 +30,7 @@
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QWidget(parent)
 {
-    this->setAttribute(Qt::WA_Hover, true);
+    this->setAttribute(Qt::WA_Hover);
 
     checkbox = new HoverCheckBox;
     label = new ClickableLabel;
