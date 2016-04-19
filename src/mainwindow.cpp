@@ -1674,8 +1674,22 @@ void MainWindow::restorePreviousStatus()
     toggleOfflineHelpAct->setChecked(configState_.window.offlineHelp);
 }
 
+// remove splash screen, for example before going full screen
+void MainWindow::removeSplashScreen()
+{
+    if (splash_screen_)
+    {
+        qDebug() << ">>>>>>>>>> remove splash screen <<<<<<<<<<";
+        splash_screen_->close();
+//        splash_screen_->deleteLater();
+    }
+}
+
+// Used only on Windows
 void MainWindow::setFullScreen(bool on)
 {
+    removeSplashScreen();
+
     configState_.window.fullScreen = on;
     if (on)
     {

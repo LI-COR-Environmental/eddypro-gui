@@ -359,6 +359,8 @@ private:
     void minimizeGui();
     void maximizeGui();
 
+    void removeSplashScreen();
+
 signals:
     void updateMetadataReadRequest();
     void updateCrossWindRequest();
