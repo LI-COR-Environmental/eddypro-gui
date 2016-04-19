@@ -289,7 +289,18 @@ int main(int argc, char *argv[])
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_GENERAL,
                                                       Defs::CONF_GEN_SHOW_SPLASH,
                                                       true).toBool();
-    qDebug() << "show_splash:" <<show_splash;
+
+#if defined(Q_OS_MAC)
+    auto is_full_screen_set =
+        GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                                      Defs::CONF_WIN_FULLSCREEN,
+                                                      true).toBool();
+    if (is_full_screen_set)
+    {
+        show_splash = false;
+    }
+#endif
+    qDebug() << "show_splash:" << show_splash;
 
     if (show_splash)
     {
