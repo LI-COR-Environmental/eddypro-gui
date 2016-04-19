@@ -37,6 +37,7 @@ class QLabel;
 
 class AboutDialog;
 class ClickLabel;
+class CustomSplashScreen;
 class DlProject;
 class EcProject;
 class InfoMessage;
@@ -54,7 +55,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(const QString& filename = QString(),
                const QString& appEnvPath = QString(),
-               QWidget* parent = nullptr);
+               CustomSplashScreen* splashscreen = nullptr,
+               QWidget* parent = nullptr,
+               Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
 
     bool queryEcProjectImport(const QString &filename);
@@ -259,9 +262,9 @@ private:
     QAction *runAdvancedAction;
     QAction *runRetrieverAction;
     QAction *stopAction;
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     QAction *toggleFullScreenAction;
-#endif
+//#endif
     QAction *toggleStatusbarAct;
     QAction* toggleInfoOutputAct;
     QAction *toggleTooltipOutputAct;
@@ -284,6 +287,7 @@ private:
     QPlainTextEdit *consoleOutput;
 
     AboutDialog *aboutDialog;
+    CustomSplashScreen *splash_screen_;
 
 private:
     TooltipFilter *tooltipFilter_;
@@ -354,6 +358,8 @@ private:
 
     void minimizeGui();
     void maximizeGui();
+
+    void removeSplashScreen();
 
 signals:
     void updateMetadataReadRequest();

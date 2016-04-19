@@ -135,11 +135,18 @@ QVariant WidgetUtils::currentComboItemData(QComboBox* combo, int role)
 
 // remove the context help button from the widget
 // (tipically a dialog or message box)
+void WidgetUtils::removeFlagFromWidget(Qt::WindowFlags flag, QWidget* w)
+{
+    Qt::WindowFlags winFlags = w->windowFlags();
+    winFlags &= ~flag;
+    w->setWindowFlags(winFlags);
+}
+
+// remove the context help button from the widget
+// (tipically a dialog or message box)
 void WidgetUtils::removeContextHelpButton(QWidget* w)
 {
-    Qt::WindowFlags winFflags = w->windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    w->setWindowFlags(winFflags);
+    removeFlagFromWidget(Qt::WindowContextHelpButtonHint, w);
 }
 
 // set the text of the label with specified elide mode and width

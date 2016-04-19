@@ -55,6 +55,7 @@
 #include "basicsettingspage.h"
 #include "binarysettingsdialog.h"
 #include "clicklabel.h"
+#include "customsplashscreen.h"
 #include "detectdaterangedialog.h"
 #include "dbghelper.h"
 #include "dlproject.h"
@@ -77,9 +78,12 @@
 
 MainWindow::MainWindow(const QString& filename,
                        const QString& appEnvPath,
-                       QWidget* parent) :
-    QMainWindow(parent),
+                       CustomSplashScreen* splashscreen,
+                       QWidget* parent,
+                       Qt::WindowFlags flags) :
+    QMainWindow(parent, flags),
     aboutDialog(nullptr),
+    splash_screen_(splashscreen),
     mainWidget_(nullptr),
     configState_(ConfigState()),
     dlProject_(nullptr),
@@ -111,6 +115,8 @@ MainWindow::MainWindow(const QString& filename,
     scheduledSilentMdCleanup_(false)
 {
     DEBUG_FUNC_NAME
+
+//    WidgetUtils::removeFlagFromWidget(Qt::WindowFullscreenButtonHint, this);
 
     readSettings();
 
@@ -263,11 +269,10 @@ MainWindow::MainWindow(const QString& filename,
     // NOTE: for testing only
 //    notificationTimer_->start(5000);
 
+    // NOTE: for testing only
 //    QStringList list;
 //    Process::getProcessIdsByProcessName(QStringLiteral("eddypro_debug"), list);
 //    qDebug() << "eddypro_debug" << list;
-//    Process::getProcessIdsByProcessName(QStringLiteral("firefox"), list);
-//    qDebug() << "firefox" << list;
 }
 
 MainWindow::~MainWindow()
@@ -329,6 +334,25 @@ void MainWindow::initialize()
             fileOpen(currentProjectFile());
         }
     }
+
+
+    // remove the automatic full screen button on Mac to manage conflicts
+    // with the splash screen
+//#if defined(Q_OS_MAC)
+//    Qt::WindowFlags winFflags = windowFlags();
+//    // winFflags QFlags<Qt::WindowType>(Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint)
+//    qDebug() << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>winFflags" << winFflags;
+//    winFflags &= ~Qt::WindowFullscreenButtonHint;
+//    qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<winFflags" << winFflags;
+//    setWindowFlags(winFflags);
+//    showNormal();
+//    QCoreApplication::processEvents();
+
+//    qDebug() << "action_list" << viewMenu->actions().size();
+//    foreach (auto a, viewMenu->actions()) {
+//        qDebug() << a->text();
+//    }
+//#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -1162,14 +1186,14 @@ void MainWindow::createActions()
     stopAction->setToolTip(tr("Stop processing. (%1)")
                            .arg((stopAction->shortcut().toString())));
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
     toggleFullScreenAction->setCheckable(true);
     toggleFullScreenAction->setShortcut(QKeySequence(QKeySequence::FullScreen));
     toggleFullScreenAction->setStatusTip(tr("Full screen mode view"));
-#endif
+//#endif
 
     toggleStatusbarAct = new QAction(this);
     toggleStatusbarAct->setText(tr("&Statusbar"));
@@ -1263,10 +1287,10 @@ void MainWindow::connectActions()
     connect(stopAction, &QAction::triggered,
             this, &MainWindow::stopEngine);
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     connect(toggleFullScreenAction, &QAction::toggled,
             this, &MainWindow::setFullScreen);
-#endif
+//#endif
 
     connect(toggleStatusbarAct, &QAction::triggered,
             this, &MainWindow::toggleStatusbar);
@@ -1343,9 +1367,9 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleInfoOutputAct);
     viewMenu->addAction(toggleTooltipOutputAct);
     viewMenu->addAction(toggleStatusbarAct);
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     viewMenu->addAction(toggleFullScreenAction);
-#endif
+//#endif
 
     toolsMenu = new MyMenu(this);
     toolsMenu->setTitle(tr("&Run"));
@@ -1652,9 +1676,9 @@ void MainWindow::restorePreviousStatus()
 
     // must be before restoreGeometry(), which restore the possible full screen
     // state, because otherwise setFullScreen() reset restoreGeometry()
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     toggleFullScreenAction->setChecked(configState_.window.fullScreen);
-#endif
+//#endif
 
     // the dockwidgets checked state is restored by restoreState()
 //    toggleTooltipOutputAct->setChecked(config_state_.window.tooltipDock);
@@ -1671,8 +1695,22 @@ void MainWindow::restorePreviousStatus()
     toggleOfflineHelpAct->setChecked(configState_.window.offlineHelp);
 }
 
+// remove splash screen, for example before going full screen
+void MainWindow::removeSplashScreen()
+{
+    if (splash_screen_)
+    {
+        qDebug() << ">>>>>>>>>> remove splash screen <<<<<<<<<<";
+        splash_screen_->close();
+//        splash_screen_->deleteLater();
+    }
+}
+
+// Used only on Windows
 void MainWindow::setFullScreen(bool on)
 {
+    removeSplashScreen();
+
     configState_.window.fullScreen = on;
     if (on)
     {
@@ -4335,15 +4373,88 @@ bool MainWindow::okToStopRun()
                                 QStringLiteral("stopMessage"));
 }
 
+// NOTE: hack to prevent that WindowStateChange events can change visibility of
+// the console. Indeed those events are able to fire a toggled signals on the
+// toggleConsoleOutputAct action and so hide the console
+bool MainWindow::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::WindowStateChange)
+    {
+        if (windowState() == Qt::WindowFullScreen)
+        {
+//            removeSplashScreen();
+            configState_.window.fullScreen = true;
+        }
+        else if (windowState() == Qt::WindowNoState)
+        {
+            configState_.window.fullScreen = false;
+        }
+        writeSettings();
+        qDebug() << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+        qDebug() << "windowState()" << windowState();
+        qDebug() << "event->type()" << e->type();
+        qDebug() << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+    }
+
+    if (o == this)
+    {
+        bool previousVisible = consoleDock->isVisible();
+
+        if (e->type() == QEvent::WindowStateChange)
+        {
+            toggleConsoleOutputAct->setChecked(previousVisible);
+            return true;
+        }
+    }
+
+    return QMainWindow::eventFilter(o, e);
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+//    QWindowStateChangeEvent sce(windowState());
+//    qDebug() << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC";
+//    qDebug() << "event->type()" << event->type();
+//    qDebug() << "sce" << sce.oldState();
+//    qDebug() << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC";
+
+//    QWidget::changeEvent(event);
+//    removeSplashScreen();
+
+//    if (event->type() == QEvent::WindowStateChange)
+//    {
+//        DEBUG_FUNC_NAME
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        toggleFullScreenAction->setChecked(isFullScreen());
+//        removeSplashScreen();
+//        if (splash_screen_)
+//        {
+//            qDebug() << "remove splash screen";
+//            splash_screen_->close();
+//        }
+//    }
+//    event->accept();
+
+//    if (windowState() == Qt::WindowFullScreen)
+//    {
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        removeSplashScreen();
+//    }
+    QWidget::changeEvent(event);
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     DEBUG_FUNC_NAME
 
     QSize widgetSize = event->size();
     QSize widgetOldSize = event->oldSize();
+    qDebug() << "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR";
     qDebug() << "new:" << widgetSize.width() << " x " << widgetSize.height();
     qDebug() << "old:" << widgetOldSize.width() << " x " << widgetOldSize.height();
     qDebug() << "this state" << this->windowState();
+    qDebug() << "this flags" << this->windowFlags();
+    qDebug() << "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR";
 
     if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
     {
@@ -4617,25 +4728,6 @@ void MainWindow::checkInternetConnection()
 #endif
 }
 
-// NOTE: hack to prevent that WindowStateChange events can change visibility of
-// the console. Indeed those events are able to fire a toggled signals on the
-// toggleConsoleOutputAct action and so hide the console
-bool MainWindow::eventFilter(QObject *o, QEvent *e)
-{
-    if (o == this)
-    {
-        bool previousVisible = consoleDock->isVisible();
-
-        if (e->type() == QEvent::WindowStateChange)
-        {
-            toggleConsoleOutputAct->setChecked(previousVisible);
-            return true;
-        }
-    }
-
-    return QMainWindow::eventFilter(o, e);
-}
-
 void MainWindow::connectBinarySettingsDialog()
 {
     BinarySettingsDialog* binary_settings_dialog =
@@ -4699,19 +4791,6 @@ void MainWindow::wheelEvent(QWheelEvent* event)
             resize(width() - width() / 10, height() - height() / 10);
         }
     }
-}
-
-void MainWindow::changeEvent(QEvent *event)
-{
-    QWidget::changeEvent(event);
-
-//    if (event->type() == QEvent::WindowStateChange)
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
-//    event->accept();
 }
 
 // NOTE: to implement
