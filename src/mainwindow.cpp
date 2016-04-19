@@ -77,8 +77,10 @@
 
 MainWindow::MainWindow(const QString& filename,
                        const QString& appEnvPath,
-                       QWidget* parent) :
-    QMainWindow(parent),
+                       CustomSplashScreen* splashscreen,
+                       QWidget* parent,
+                       Qt::WindowFlags flags) :
+    QMainWindow(parent, flags),
     aboutDialog(nullptr),
     mainWidget_(nullptr),
     configState_(ConfigState()),

@@ -54,7 +54,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(const QString& filename = QString(),
                const QString& appEnvPath = QString(),
-               QWidget* parent = nullptr);
+               QWidget* parent = nullptr,
+               Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
 
     bool queryEcProjectImport(const QString &filename);
