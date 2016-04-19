@@ -55,6 +55,7 @@
 #include "basicsettingspage.h"
 #include "binarysettingsdialog.h"
 #include "clicklabel.h"
+#include "customsplashscreen.h"
 #include "detectdaterangedialog.h"
 #include "dbghelper.h"
 #include "dlproject.h"
@@ -82,6 +83,7 @@ MainWindow::MainWindow(const QString& filename,
                        Qt::WindowFlags flags) :
     QMainWindow(parent, flags),
     aboutDialog(nullptr),
+    splash_screen_(splashscreen),
     mainWidget_(nullptr),
     configState_(ConfigState()),
     dlProject_(nullptr),

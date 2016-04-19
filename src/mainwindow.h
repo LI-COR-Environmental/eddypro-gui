@@ -37,6 +37,7 @@ class QLabel;
 
 class AboutDialog;
 class ClickLabel;
+class CustomSplashScreen;
 class DlProject;
 class EcProject;
 class InfoMessage;
@@ -54,6 +55,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(const QString& filename = QString(),
                const QString& appEnvPath = QString(),
+               CustomSplashScreen* splashscreen = nullptr,
                QWidget* parent = nullptr,
                Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
@@ -285,6 +287,7 @@ private:
     QPlainTextEdit *consoleOutput;
 
     AboutDialog *aboutDialog;
+    CustomSplashScreen *splash_screen_;
 
 private:
     TooltipFilter *tooltipFilter_;
