@@ -410,7 +410,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     title_1->setProperty("groupLabel", true);
 
     auto title_6 = new QLabel;
-    title_6->setText(tr("Spectral outputs"));
+    title_6->setText(tr("Spectra and cospectra outputs"));
     title_6->setProperty("groupLabel", true);
 
     auto title_2 = WidgetUtils::createBlueLabel(this, tr("Reduced spectra and ogives"));

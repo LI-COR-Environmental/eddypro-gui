@@ -415,6 +415,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     anemRefCombo = new QComboBox;
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
+    anemFlagLabel = new ClickLabel(tr("Anemometer Diagnostics:"), this);
+    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select ..."));
+    anemFlagCombo = new QComboBox;
+    anemFlagCombo->setToolTip(anemFlagLabel->toolTip());
+
     tsRefLabel = new ClickLabel(tr("Fast temperature reading (alternative to sonic temp) :"), this);
     tsRefLabel->setToolTip(tr("<b>Fast temperature reading:</b> If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied."));
     tsRefCombo = new QComboBox;
@@ -916,9 +921,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     varContainerLayout->addWidget(anemRefLabel, 0, 0, Qt::AlignRight);
     varContainerLayout->addWidget(anemRefCombo, 0, 1);
     varContainerLayout->addWidget(crossWindCheckBox, 1, 1);
-    varContainerLayout->addWidget(tsRefLabel, 2, 0, Qt::AlignRight);
-    varContainerLayout->addWidget(tsRefCombo, 2, 1);
-    varContainerLayout->addWidget(varTab, 3, 0, 1, -1);
+    varContainerLayout->addWidget(anemFlagLabel, 2, 0, Qt::AlignRight);
+    varContainerLayout->addWidget(anemFlagCombo, 2, 1);
+    varContainerLayout->addWidget(tsRefLabel, 3, 0, Qt::AlignRight);
+    varContainerLayout->addWidget(tsRefCombo, 3, 1);
+    varContainerLayout->addWidget(varTab, 4, 0, 1, -1);
     varContainerLayout->setColumnStretch(0, 1);
     varContainerLayout->setColumnStretch(1, 2);
     varContainerLayout->setColumnStretch(2, 1);
@@ -1031,6 +1038,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
             this, &BasicSettingsPage::onClickAnemRefLabel);
     connect(anemRefCombo, SIGNAL(activated(QString)),
             this, SLOT(updateAnemRefCombo(QString)));
+
+    connect(anemFlagLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickAnemFlagLabel);
+    connect(anemFlagCombo, SIGNAL(activated(int)),
+            this, SLOT(updateAnemFlagCombo(int)));
 
     connect(co2RefLabel, &ClickLabel::clicked,
             this, &BasicSettingsPage::onClickCo2RefLabel);
@@ -1849,7 +1861,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_26())
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_27())
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_28())
-                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_29());
+                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_29())
+                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_30());
 
         if (ignoreFlag == QLatin1String("no")
             && numericFlag == QLatin1String("yes"))
@@ -2050,7 +2063,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_25()
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_26()
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_27()
-                     || varName == VariableDesc::getVARIABLE_VAR_STRING_28())
+                     || varName == VariableDesc::getVARIABLE_VAR_STRING_28()
+                     || varName == VariableDesc::getVARIABLE_VAR_STRING_30())
             {
                 qDebug() << "SECTION ambient temperatures and diagnostics";
 
@@ -2110,6 +2124,16 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                     diag7700Label->setEnabled(true);
                     diag7700Combo->setEnabled(true);
                     diag7700Combo->addItem(varString, k);
+                }
+                // Anem diagnostics
+                else if (varName == VariableDesc::getVARIABLE_VAR_STRING_30()
+                         && instrType != tr("Other"))
+                {
+                    qDebug() << "INSERT varName" << varName;
+                    qDebug() << "varString" << varString;
+                    anemFlagLabel->setEnabled(true);
+                    anemFlagCombo->setEnabled(true);
+                    anemFlagCombo->addItem(varString, k);
                 }
             } // else if
 
@@ -2261,6 +2285,7 @@ void BasicSettingsPage::addNoneStr_1()
     DEBUG_FUNC_NAME
 
     foreach (QComboBox *combo, QList<QComboBox *>()
+             << anemFlagCombo
              << tsRefCombo
              << co2RefCombo
              << h2oRefCombo
@@ -2362,6 +2387,7 @@ void BasicSettingsPage::clearVarsCombo()
 
     foreach (QLabel *label, QList<QLabel *>()
              << anemRefLabel
+             << anemFlagLabel
              << co2RefLabel
              << h2oRefLabel
              << ch4RefLabel
@@ -2388,6 +2414,7 @@ void BasicSettingsPage::clearVarsCombo()
 
     foreach (QComboBox *combo, QList<QComboBox *>()
              << anemRefCombo
+             << anemFlagCombo
              << co2RefCombo
              << h2oRefCombo
              << ch4RefCombo
@@ -2544,6 +2571,7 @@ void BasicSettingsPage::filterVariables()
     const auto genericStr = tr("Generic");
     const auto openPathStr1 = QStringLiteral("open");
     const auto openPathStr2 = QStringLiteral("OP");
+    const auto anemStr = QStringLiteral("Anemometer");
 
     // filter vars (always possible)
     for (int i = 0; i < co2RefCombo->count(); ++i)
@@ -2743,6 +2771,19 @@ void BasicSettingsPage::filterVariables()
             if (!diag7700Combo->itemText(i).contains(li7700Str))
             {
                 diag7700Combo->removeItem(i);
+            }
+        }
+    }
+
+    // filter vars (always possible)
+    for (int i = 0; i < anemFlagCombo->count(); ++i)
+    {
+        if (!anemFlagCombo->itemText(i).contains(noneStr))
+        {
+            qDebug() << "anemFlagCombo" << i << anemFlagCombo->itemText(i);
+            if (!anemFlagCombo->itemText(i).contains(anemStr))
+            {
+                anemFlagCombo->removeItem(i);
             }
         }
     }
@@ -3246,6 +3287,12 @@ void BasicSettingsPage::updateAnemRefCombo(const QString& s)
              << ecProject_->generalColMasterSonic();
 }
 
+void BasicSettingsPage::updateAnemFlagCombo(int i)
+{
+    DEBUG_FUNC_NAME
+            ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(i).toInt());
+}
+
 void BasicSettingsPage::updateCo2RefCombo(int i)
 {
     DEBUG_FUNC_NAME
@@ -3552,7 +3599,8 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_25()
              || var == VariableDesc::getVARIABLE_VAR_STRING_26()
-             || var == VariableDesc::getVARIABLE_VAR_STRING_27())
+             || var == VariableDesc::getVARIABLE_VAR_STRING_27()
+             || var == VariableDesc::getVARIABLE_VAR_STRING_30())
     {
         return QStringLiteral("[-]");
     }
@@ -3628,6 +3676,12 @@ void BasicSettingsPage::onClickAnemRefLabel()
 {
     anemRefCombo->setFocus();
     anemRefCombo->showPopup();
+}
+
+void BasicSettingsPage::onClickAnemFlagLabel()
+{
+    anemFlagCombo->setFocus();
+    anemFlagCombo->showPopup();
 }
 
 void BasicSettingsPage::onClickCo2RefLabel()
@@ -4148,6 +4202,19 @@ void BasicSettingsPage::reloadSelectedItems_1()
         ecProject_->setGeneralColDiag77(diag7700Combo->itemData(0).toInt());
     }
 //
+    currData = ecProject_->generalColDiagAnem();
+    currItemIndex = anemFlagCombo->findData(currData);
+    if (currItemIndex >= 0)
+    {
+        anemFlagCombo->setCurrentIndex(currItemIndex);
+        ecProject_->setGeneralColDiagAnem(currData);
+    }
+    else
+    {
+        anemFlagCombo->setCurrentIndex(0);
+        ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(0).toInt());
+    }
+    //
     currData = ecProject_->screenFlag1Col();
     currItemIndex = flag1VarCombo->findData(currData);
     noneIndex = flag1VarCombo->findData(0);
@@ -5346,6 +5413,8 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
          << previousDatapathBrowse
          << anemRefLabel
          << anemRefCombo
+         << anemFlagLabel
+         << anemFlagCombo
          << recursionCheckBox
          << subsetCheckBox
          << dateRangeDetectButton;

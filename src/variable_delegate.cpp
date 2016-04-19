@@ -175,7 +175,9 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
 
             return combo;
         case VariableModel::CONVERSIONTYPE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
@@ -193,7 +195,9 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                 return combo;
             }
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
@@ -249,7 +253,9 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
             }
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
@@ -360,7 +366,9 @@ void VariableDelegate::setEditorData(QWidget* editor,
             break;
         case VariableModel::CONVERSIONTYPE:
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
@@ -377,7 +385,9 @@ void VariableDelegate::setEditorData(QWidget* editor,
             break;
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
@@ -444,7 +454,9 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         break;
         case VariableModel::CONVERSIONTYPE:
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
@@ -474,7 +486,9 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             break;
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }

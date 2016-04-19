@@ -66,6 +66,7 @@ public:
     static const QString getVARIABLE_VAR_STRING_27();
     static const QString getVARIABLE_VAR_STRING_28();
     static const QString getVARIABLE_VAR_STRING_29();
+    static const QString getVARIABLE_VAR_STRING_30();
 
     static const QString getVARIABLE_MEASURE_TYPE_STRING_0();
     static const QString getVARIABLE_MEASURE_TYPE_STRING_1();

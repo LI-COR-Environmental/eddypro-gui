@@ -378,8 +378,8 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="413"/>
-        <source>Spectral outputs</source>
-        <translation>Spectral outputs</translation>
+        <source>Spectra and cospectra outputs</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="416"/>
@@ -1091,7 +1091,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="63"/>
         <source>Spectra and Cospectra Calculation</source>
-        <translation type="unfinished"></translation>
+        <translation>Spectra and Cospectra Calculation</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="87"/>
@@ -2862,19 +2862,19 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="308"/>
-        <location filename="../src/basicsettingspage.cpp" line="5012"/>
+        <location filename="../src/basicsettingspage.cpp" line="5079"/>
         <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="309"/>
-        <location filename="../src/basicsettingspage.cpp" line="5013"/>
+        <location filename="../src/basicsettingspage.cpp" line="5080"/>
         <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="310"/>
-        <location filename="../src/basicsettingspage.cpp" line="5014"/>
+        <location filename="../src/basicsettingspage.cpp" line="5081"/>
         <source>(?:(180)%1\s(00)&apos;\s(E|W))</source>
         <translation>(?:(180)%1\s(00)&apos;\s(E|W))</translation>
     </message>
@@ -2914,28 +2914,27 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Master anemometer:&lt;/b&gt; Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="418"/>
+        <location filename="../src/basicsettingspage.cpp" line="423"/>
         <source>Fast temperature reading (alternative to sonic temp) :</source>
         <translation>Fast temperature reading (alternative to sonic temp) :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="419"/>
+        <location filename="../src/basicsettingspage.cpp" line="424"/>
         <source>&lt;b&gt;Fast temperature reading:&lt;/b&gt; If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied.</source>
         <translation>&lt;b&gt;Fast temperature reading:&lt;/b&gt; If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="423"/>
         <location filename="../src/basicsettingspage.cpp" line="428"/>
         <location filename="../src/basicsettingspage.cpp" line="433"/>
+        <location filename="../src/basicsettingspage.cpp" line="438"/>
         <source>%1 :</source>
         <translation>%1 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="424"/>
         <location filename="../src/basicsettingspage.cpp" line="429"/>
         <location filename="../src/basicsettingspage.cpp" line="434"/>
         <location filename="../src/basicsettingspage.cpp" line="439"/>
-        <location filename="../src/basicsettingspage.cpp" line="478"/>
+        <location filename="../src/basicsettingspage.cpp" line="444"/>
         <location filename="../src/basicsettingspage.cpp" line="483"/>
         <location filename="../src/basicsettingspage.cpp" line="488"/>
         <location filename="../src/basicsettingspage.cpp" line="493"/>
@@ -2945,66 +2944,74 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="513"/>
         <location filename="../src/basicsettingspage.cpp" line="518"/>
         <location filename="../src/basicsettingspage.cpp" line="523"/>
+        <location filename="../src/basicsettingspage.cpp" line="528"/>
         <source>Select the variables to be used for calculating fluxes, among those available.</source>
         <translation>Select the variables to be used for calculating fluxes, among those available.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="517"/>
-        <source>Longwave Incoming Radiation :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/basicsettingspage.cpp" line="522"/>
-        <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
-        <translation type="unfinished"></translation>
+        <source>Longwave Incoming Radiation :</source>
+        <translation>Longwave Incoming Radiation :</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="527"/>
+        <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
+        <translation>Photosynthetically Active Radiation (PAR, PPFD) :</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="532"/>
         <source>LI-7500/A/RS Diagnostics :</source>
         <translation>LI-7500/A/RS Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="532"/>
+        <location filename="../src/basicsettingspage.cpp" line="537"/>
         <source>LI-7200/RS Diagnostics :</source>
         <translation>LI-7200/RS Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="800"/>
+        <location filename="../src/basicsettingspage.cpp" line="805"/>
         <source>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</source>
         <translation>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1490"/>
+        <location filename="../src/basicsettingspage.cpp" line="1502"/>
         <source>The selected directory doesn&apos;t contain any valid LI-COR GHG data.</source>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1552"/>
+        <location filename="../src/basicsettingspage.cpp" line="1564"/>
         <source>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</source>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5384"/>
+        <location filename="../src/basicsettingspage.cpp" line="5286"/>
+        <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="5453"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5385"/>
+        <location filename="../src/basicsettingspage.cpp" line="5454"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5399"/>
+        <location filename="../src/basicsettingspage.cpp" line="5468"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5401"/>
+        <location filename="../src/basicsettingspage.cpp" line="5470"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="438"/>
+        <location filename="../src/basicsettingspage.cpp" line="443"/>
         <source>%1 trace gas (passive scalar) :</source>
         <translation>%1 trace gas (passive scalar) :</translation>
     </message>
@@ -3029,184 +3036,184 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Detect Dataset Dates:&lt;/b&gt; Click this button to ask EddyPro to retrieve the starting and ending date of the raw dataset contained in the &lt;i&gt;Raw data directory&lt;/i&gt;. You can override this automatic setting by using the &lt;i&gt;Select a different period&lt;/i&gt; option.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="443"/>
+        <location filename="../src/basicsettingspage.cpp" line="448"/>
         <source>Molecular weight :</source>
         <translation>Molecular weight :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="452"/>
+        <location filename="../src/basicsettingspage.cpp" line="457"/>
         <source>Molecular diffusivity in air :</source>
         <translation>Molecular diffusivity in air :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="477"/>
+        <location filename="../src/basicsettingspage.cpp" line="482"/>
         <source>Average Cell Temperature :</source>
         <translation>Average Cell Temperature :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="482"/>
+        <location filename="../src/basicsettingspage.cpp" line="487"/>
         <source>Cell Temperature In :</source>
         <translation>Cell Temperature In :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="487"/>
+        <location filename="../src/basicsettingspage.cpp" line="492"/>
         <source>Cell Temperature Out :</source>
         <translation>Cell Temperature Out :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="492"/>
+        <location filename="../src/basicsettingspage.cpp" line="497"/>
         <source>Cell Pressure :</source>
         <translation>Cell Pressure :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="497"/>
+        <location filename="../src/basicsettingspage.cpp" line="502"/>
         <source>Ambient Temperature :</source>
         <translation>Ambient Temperature :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="502"/>
+        <location filename="../src/basicsettingspage.cpp" line="507"/>
         <source>Ambient Pressure :</source>
         <translation>Ambient Pressure :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="507"/>
+        <location filename="../src/basicsettingspage.cpp" line="512"/>
         <source>Ambient Relative Humidity :</source>
         <translation>Ambient Relative Humidity :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="512"/>
+        <location filename="../src/basicsettingspage.cpp" line="517"/>
         <source>Global Radiation :</source>
         <translation>Global Radiation :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="528"/>
         <location filename="../src/basicsettingspage.cpp" line="533"/>
         <location filename="../src/basicsettingspage.cpp" line="538"/>
+        <location filename="../src/basicsettingspage.cpp" line="543"/>
         <source>Select the variables to be used for diagnostics of this gas analyzer.</source>
         <translation>Select the variables to be used for diagnostics of this gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="537"/>
+        <location filename="../src/basicsettingspage.cpp" line="542"/>
         <source>LI-7700 Diagnostics :</source>
         <translation>LI-7700 Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="542"/>
+        <location filename="../src/basicsettingspage.cpp" line="547"/>
         <source>Flag 1 :</source>
         <translation>Flag 1 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="544"/>
-        <location filename="../src/basicsettingspage.cpp" line="564"/>
-        <location filename="../src/basicsettingspage.cpp" line="584"/>
-        <location filename="../src/basicsettingspage.cpp" line="604"/>
-        <location filename="../src/basicsettingspage.cpp" line="624"/>
-        <location filename="../src/basicsettingspage.cpp" line="644"/>
-        <location filename="../src/basicsettingspage.cpp" line="664"/>
-        <location filename="../src/basicsettingspage.cpp" line="684"/>
-        <location filename="../src/basicsettingspage.cpp" line="704"/>
-        <location filename="../src/basicsettingspage.cpp" line="725"/>
+        <location filename="../src/basicsettingspage.cpp" line="549"/>
+        <location filename="../src/basicsettingspage.cpp" line="569"/>
+        <location filename="../src/basicsettingspage.cpp" line="589"/>
+        <location filename="../src/basicsettingspage.cpp" line="609"/>
+        <location filename="../src/basicsettingspage.cpp" line="629"/>
+        <location filename="../src/basicsettingspage.cpp" line="649"/>
+        <location filename="../src/basicsettingspage.cpp" line="669"/>
+        <location filename="../src/basicsettingspage.cpp" line="689"/>
+        <location filename="../src/basicsettingspage.cpp" line="709"/>
+        <location filename="../src/basicsettingspage.cpp" line="730"/>
         <source>&lt;b&gt;Flags:&lt;/b&gt; Each column of the raw data file that was not tagged as &lt;i&gt;to be ignored&lt;/i&gt; can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion.</source>
         <translation>&lt;b&gt;Flags:&lt;/b&gt; Each column of the raw data file that was not tagged as &lt;i&gt;to be ignored&lt;/i&gt; can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="562"/>
+        <location filename="../src/basicsettingspage.cpp" line="567"/>
         <source>Flag 2 :</source>
         <translation>Flag 2 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="582"/>
+        <location filename="../src/basicsettingspage.cpp" line="587"/>
         <source>Flag 3 :</source>
         <translation>Flag 3 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="602"/>
+        <location filename="../src/basicsettingspage.cpp" line="607"/>
         <source>Flag 4 :</source>
         <translation>Flag 4 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="622"/>
+        <location filename="../src/basicsettingspage.cpp" line="627"/>
         <source>Flag 5 :</source>
         <translation>Flag 5 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="642"/>
+        <location filename="../src/basicsettingspage.cpp" line="647"/>
         <source>Flag 6 :</source>
         <translation>Flag 6 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="662"/>
+        <location filename="../src/basicsettingspage.cpp" line="667"/>
         <source>Flag 7 :</source>
         <translation>Flag 7 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="682"/>
+        <location filename="../src/basicsettingspage.cpp" line="687"/>
         <source>Flag 8 :</source>
         <translation>Flag 8 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="702"/>
+        <location filename="../src/basicsettingspage.cpp" line="707"/>
         <source>Flag 9 :</source>
         <translation>Flag 9 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="723"/>
+        <location filename="../src/basicsettingspage.cpp" line="728"/>
         <source>Flag 10 :</source>
         <translation>Flag 10 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="744"/>
+        <location filename="../src/basicsettingspage.cpp" line="749"/>
         <source>Gas measurements (eddy data, used for covariances and fluxes)</source>
         <translation>Gas measurements (eddy data, used for covariances and fluxes)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="746"/>
+        <location filename="../src/basicsettingspage.cpp" line="751"/>
         <source>Cell measurements (closed-path eddy data, used for covariances and fluxes)</source>
         <translation>Cell measurements (closed-path eddy data, used for covariances and fluxes)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="748"/>
+        <location filename="../src/basicsettingspage.cpp" line="753"/>
         <source>Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)</source>
         <translation>Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="750"/>
+        <location filename="../src/basicsettingspage.cpp" line="755"/>
         <source>Diagnostic measurements (eddy data, for quality screening and assurance)</source>
         <translation>Diagnostic measurements (eddy data, for quality screening and assurance)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="818"/>
-        <location filename="../src/basicsettingspage.cpp" line="910"/>
+        <location filename="../src/basicsettingspage.cpp" line="823"/>
+        <location filename="../src/basicsettingspage.cpp" line="915"/>
         <source>Flags</source>
         <translation>Flags</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="820"/>
+        <location filename="../src/basicsettingspage.cpp" line="825"/>
         <source>Unit</source>
         <translation>Unit</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="822"/>
+        <location filename="../src/basicsettingspage.cpp" line="827"/>
         <source>Threshold</source>
         <translation>Threshold</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="824"/>
+        <location filename="../src/basicsettingspage.cpp" line="829"/>
         <source>Policy: Discard if</source>
         <translation>Policy: Discard if</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="909"/>
+        <location filename="../src/basicsettingspage.cpp" line="914"/>
         <source>Variables</source>
         <translation>Variables</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="912"/>
+        <location filename="../src/basicsettingspage.cpp" line="917"/>
         <source>Select Items for Flux Computation</source>
         <translation>Select Items for Flux Computation</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="938"/>
+        <location filename="../src/basicsettingspage.cpp" line="945"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
@@ -3221,136 +3228,147 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the Previous Results Directory</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1489"/>
+        <location filename="../src/basicsettingspage.cpp" line="418"/>
+        <source>Anemometer Diagnostics:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="419"/>
+        <source>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="1501"/>
         <source>Raw Data Missing</source>
         <translation>Raw Data Missing</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1551"/>
+        <location filename="../src/basicsettingspage.cpp" line="1563"/>
         <source>Biomet Data Missing</source>
         <translation>Biomet Data Missing</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1615"/>
-        <location filename="../src/basicsettingspage.cpp" line="1634"/>
-        <location filename="../src/basicsettingspage.cpp" line="1660"/>
-        <location filename="../src/basicsettingspage.cpp" line="1700"/>
+        <location filename="../src/basicsettingspage.cpp" line="1627"/>
+        <location filename="../src/basicsettingspage.cpp" line="1646"/>
+        <location filename="../src/basicsettingspage.cpp" line="1672"/>
+        <location filename="../src/basicsettingspage.cpp" line="1712"/>
         <source>Metadata Error</source>
         <translation>Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1616"/>
-        <location filename="../src/basicsettingspage.cpp" line="1635"/>
+        <location filename="../src/basicsettingspage.cpp" line="1628"/>
+        <location filename="../src/basicsettingspage.cpp" line="1647"/>
         <source>Error reading raw data metadata information!</source>
         <translation>Error reading raw data metadata information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1661"/>
+        <location filename="../src/basicsettingspage.cpp" line="1673"/>
         <source>Error reading biomet metadata information!</source>
         <translation>Error reading biomet metadata information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1701"/>
+        <location filename="../src/basicsettingspage.cpp" line="1713"/>
         <source>Error reading biomet information!</source>
         <translation>Error reading biomet information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1735"/>
+        <location filename="../src/basicsettingspage.cpp" line="1747"/>
         <source> [Anemometer </source>
         <translation> [Anemometer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1881"/>
-        <location filename="../src/basicsettingspage.cpp" line="2106"/>
+        <location filename="../src/basicsettingspage.cpp" line="1894"/>
+        <location filename="../src/basicsettingspage.cpp" line="2120"/>
+        <location filename="../src/basicsettingspage.cpp" line="2130"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1889"/>
+        <location filename="../src/basicsettingspage.cpp" line="1902"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1891"/>
+        <location filename="../src/basicsettingspage.cpp" line="1904"/>
         <source>Anemometer </source>
         <translation>Anemometer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1893"/>
+        <location filename="../src/basicsettingspage.cpp" line="1906"/>
         <source>Irga</source>
         <translation>Irga</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1895"/>
+        <location filename="../src/basicsettingspage.cpp" line="1908"/>
         <source>Gas analyzer </source>
         <translation>Gas analyzer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1905"/>
+        <location filename="../src/basicsettingspage.cpp" line="1918"/>
         <source>from </source>
         <translation>from </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1917"/>
+        <location filename="../src/basicsettingspage.cpp" line="1930"/>
         <source>from other instruments</source>
         <translation>from other instruments</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1924"/>
+        <location filename="../src/basicsettingspage.cpp" line="1937"/>
         <source> from raw data files: Column # </source>
         <translation> from raw data files: Column # </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2205"/>
+        <location filename="../src/basicsettingspage.cpp" line="2229"/>
         <source>&apos; from biomet files: </source>
         <translation>&apos; from biomet files: </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2206"/>
+        <location filename="../src/basicsettingspage.cpp" line="2230"/>
         <source>Column # </source>
         <translation>Column # </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2211"/>
+        <location filename="../src/basicsettingspage.cpp" line="2235"/>
         <source>Ambient Temperature &apos;</source>
         <translation>Ambient Temperature &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2218"/>
+        <location filename="../src/basicsettingspage.cpp" line="2242"/>
         <source>Ambient Pressure &apos;</source>
         <translation>Ambient Pressure &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2225"/>
+        <location filename="../src/basicsettingspage.cpp" line="2249"/>
         <source>Ambient Relative Humidity &apos;</source>
         <translation>Ambient Relative Humidity &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2232"/>
+        <location filename="../src/basicsettingspage.cpp" line="2256"/>
         <source>Global Radiation &apos;</source>
         <translation>Global Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2239"/>
+        <location filename="../src/basicsettingspage.cpp" line="2263"/>
         <source>Longwave Incoming Radiation &apos;</source>
         <translation>Longwave Incoming Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2246"/>
+        <location filename="../src/basicsettingspage.cpp" line="2270"/>
         <source>Photosynthetically Active Radiation &apos;</source>
         <translation>Photosynthetically Active Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2288"/>
-        <location filename="../src/basicsettingspage.cpp" line="2310"/>
-        <location filename="../src/basicsettingspage.cpp" line="2328"/>
-        <location filename="../src/basicsettingspage.cpp" line="2543"/>
-        <location filename="../src/basicsettingspage.cpp" line="3469"/>
+        <location filename="../src/basicsettingspage.cpp" line="2313"/>
+        <location filename="../src/basicsettingspage.cpp" line="2335"/>
+        <location filename="../src/basicsettingspage.cpp" line="2353"/>
+        <location filename="../src/basicsettingspage.cpp" line="2570"/>
+        <location filename="../src/basicsettingspage.cpp" line="3516"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2544"/>
+        <location filename="../src/basicsettingspage.cpp" line="2571"/>
         <source>Generic</source>
         <translation>Generic</translation>
     </message>
@@ -3360,45 +3378,37 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the Output Directory</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="3033"/>
-        <location filename="../src/basicsettingspage.cpp" line="3143"/>
-        <location filename="../src/basicsettingspage.cpp" line="4976"/>
+        <location filename="../src/basicsettingspage.cpp" line="3074"/>
+        <location filename="../src/basicsettingspage.cpp" line="3184"/>
+        <location filename="../src/basicsettingspage.cpp" line="5043"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4661"/>
+        <location filename="../src/basicsettingspage.cpp" line="4728"/>
         <source>1 file found</source>
         <translation>1 file found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4665"/>
+        <location filename="../src/basicsettingspage.cpp" line="4732"/>
         <source>%1 files found</source>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4963"/>
+        <location filename="../src/basicsettingspage.cpp" line="5030"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5078"/>
-        <location filename="../src/basicsettingspage.cpp" line="5120"/>
+        <location filename="../src/basicsettingspage.cpp" line="5145"/>
+        <location filename="../src/basicsettingspage.cpp" line="5187"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5215"/>
+        <location filename="../src/basicsettingspage.cpp" line="5282"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="5219"/>
-        <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
-
-</source>
-        <translation>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
-</translation>
     </message>
 </context>
 <context>
@@ -3873,68 +3883,68 @@ End: %3
 <context>
     <name>DlProject</name>
     <message>
-        <location filename="../src/dlproject.cpp" line="361"/>
-        <location filename="../src/dlproject.cpp" line="627"/>
+        <location filename="../src/dlproject.cpp" line="362"/>
+        <location filename="../src/dlproject.cpp" line="628"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="412"/>
-        <location filename="../src/dlproject.cpp" line="904"/>
+        <location filename="../src/dlproject.cpp" line="413"/>
+        <location filename="../src/dlproject.cpp" line="910"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="924"/>
+        <location filename="../src/dlproject.cpp" line="930"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="411"/>
-        <location filename="../src/dlproject.cpp" line="903"/>
-        <location filename="../src/dlproject.cpp" line="923"/>
+        <location filename="../src/dlproject.cpp" line="412"/>
+        <location filename="../src/dlproject.cpp" line="909"/>
+        <location filename="../src/dlproject.cpp" line="929"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="941"/>
-        <location filename="../src/dlproject.cpp" line="1232"/>
+        <location filename="../src/dlproject.cpp" line="947"/>
+        <location filename="../src/dlproject.cpp" line="1238"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="942"/>
+        <location filename="../src/dlproject.cpp" line="948"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1233"/>
+        <location filename="../src/dlproject.cpp" line="1239"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1714"/>
+        <location filename="../src/dlproject.cpp" line="1724"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1753"/>
+        <location filename="../src/dlproject.cpp" line="1763"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1757"/>
+        <location filename="../src/dlproject.cpp" line="1767"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1762"/>
+        <location filename="../src/dlproject.cpp" line="1772"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -4228,52 +4238,52 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>EcProject</name>
     <message>
-        <location filename="../src/ecproject.cpp" line="1239"/>
+        <location filename="../src/ecproject.cpp" line="1241"/>
         <source>Cannot write file %1:
 %2</source>
         <translation>Cannot write file %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1766"/>
+        <location filename="../src/ecproject.cpp" line="1769"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3217"/>
+        <location filename="../src/ecproject.cpp" line="3223"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1793"/>
+        <location filename="../src/ecproject.cpp" line="1796"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1238"/>
-        <location filename="../src/ecproject.cpp" line="1765"/>
+        <location filename="../src/ecproject.cpp" line="1240"/>
+        <location filename="../src/ecproject.cpp" line="1768"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1792"/>
-        <location filename="../src/ecproject.cpp" line="3186"/>
-        <location filename="../src/ecproject.cpp" line="3206"/>
+        <location filename="../src/ecproject.cpp" line="1795"/>
+        <location filename="../src/ecproject.cpp" line="3192"/>
+        <location filename="../src/ecproject.cpp" line="3212"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3187"/>
+        <location filename="../src/ecproject.cpp" line="3193"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3207"/>
-        <location filename="../src/ecproject.cpp" line="3218"/>
+        <location filename="../src/ecproject.cpp" line="3213"/>
+        <location filename="../src/ecproject.cpp" line="3224"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -5029,7 +5039,7 @@ Retriever</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="2734"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="2811"/>
@@ -6272,12 +6282,12 @@ Output</translation>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="558"/>
+        <location filename="../src/widget_utils.cpp" line="561"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="559"/>
+        <location filename="../src/widget_utils.cpp" line="562"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>
@@ -6535,67 +6545,72 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/variable_desc.cpp" line="216"/>
+        <source>Anemometer Diagnostics</source>
+        <translation>Anemometer Diagnostics</translation>
+    </message>
+    <message>
+        <location filename="../src/variable_desc.cpp" line="222"/>
         <source>Molar/Mass density</source>
         <translation>Molar/Mass density</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="222"/>
+        <location filename="../src/variable_desc.cpp" line="228"/>
         <source>Mole fraction</source>
         <translation>Mole fraction</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="228"/>
+        <location filename="../src/variable_desc.cpp" line="234"/>
         <source>Mixing ratio</source>
         <translation>Mixing ratio</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="234"/>
-        <location filename="../src/variable_desc.cpp" line="348"/>
+        <location filename="../src/variable_desc.cpp" line="240"/>
+        <location filename="../src/variable_desc.cpp" line="354"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="342"/>
+        <location filename="../src/variable_desc.cpp" line="348"/>
         <source>Dimensionless</source>
         <translation>Dimensionless</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="402"/>
+        <location filename="../src/variable_desc.cpp" line="408"/>
         <source>Degrees</source>
         <translation>Degrees</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="408"/>
+        <location filename="../src/variable_desc.cpp" line="414"/>
         <source>Zero (A) - Full scale (B)</source>
         <translation>Zero (A) - Full scale (B)</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="414"/>
+        <location filename="../src/variable_desc.cpp" line="420"/>
         <source>Gain - Offset</source>
         <translation>Gain - Offset</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="420"/>
+        <location filename="../src/variable_desc.cpp" line="426"/>
         <source>Doesn&apos;t need scaling</source>
         <translation>Doesn&apos;t need scaling</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="660"/>
+        <location filename="../src/variable_desc.cpp" line="667"/>
         <source>yes</source>
         <translation>yes</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="661"/>
+        <location filename="../src/variable_desc.cpp" line="668"/>
         <source>no</source>
         <translation>no</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="696"/>
+        <location filename="../src/variable_desc.cpp" line="703"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="822"/>
+        <location filename="../src/variable_desc.cpp" line="829"/>
         <source>Irga</source>
         <translation>Irga</translation>
     </message>

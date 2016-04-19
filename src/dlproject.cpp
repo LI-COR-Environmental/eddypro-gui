@@ -101,6 +101,7 @@ const QString DlProject::VARIABLE_VAR_STRING_26 = QStringLiteral("diag_72");
 const QString DlProject::VARIABLE_VAR_STRING_27 = QStringLiteral("diag_77");
 const QString DlProject::VARIABLE_VAR_STRING_28 = QStringLiteral("fast_t");
 const QString DlProject::VARIABLE_VAR_STRING_29 = QStringLiteral("flowrate");
+const QString DlProject::VARIABLE_VAR_STRING_30 = QStringLiteral("anemometer_diagnostic");
 
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_0 = QStringLiteral("molar_density");
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_1 = QStringLiteral("mole_fraction");
@@ -779,6 +780,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     var.setAValue(aValue);
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                     isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: input unit is empty, then set conversion to empty";
                 }
                 else
                 {
@@ -828,21 +830,25 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
-                    if (checkVersion && firstReading && !alreadyChecked)
+                    // exclude diagnostic variables
+                    if (!VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
                     {
-                        if (!parent->queryDlProjectImport())
+                        if (checkVersion && firstReading && !alreadyChecked)
                         {
-                            return false;
+                            if (!parent->queryDlProjectImport())
+                            {
+                                return false;
+                            }
+                            alreadyChecked = true;
                         }
-                        alreadyChecked = true;
+                        else
+                        {
+                            // silently continue file loading and conversion
+                        }
+                        var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
+                        isVersionCompatible = false;
+                        qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                     }
-                    else
-                    {
-                        // silently continue file loading and conversion
-                    }
-                    var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
-                    isVersionCompatible = false;
-                    qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                 }
                 // if input unit is empty, set conversion to empty
                 else if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
@@ -1529,6 +1535,10 @@ QString DlProject::toIniVariableVar(const QString& s)
     {
         return DlProject::VARIABLE_VAR_STRING_29;
     }
+    else if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
+    {
+        return DlProject::VARIABLE_VAR_STRING_30;
+    }
     else
     {
         return s;
@@ -2040,6 +2050,10 @@ QString DlProject::fromIniVariableVar(const QString& s)
     else if (s == DlProject::VARIABLE_VAR_STRING_29)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_29();
+    }
+    else if (s == DlProject::VARIABLE_VAR_STRING_30)
+    {
+        return VariableDesc::getVARIABLE_VAR_STRING_30();
     }
     else
     {
