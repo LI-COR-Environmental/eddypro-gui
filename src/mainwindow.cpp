@@ -116,6 +116,8 @@ MainWindow::MainWindow(const QString& filename,
 {
     DEBUG_FUNC_NAME
 
+//    WidgetUtils::removeFlagFromWidget(Qt::WindowFullscreenButtonHint, this);
+
     readSettings();
 
     qDebug() << "appEnvPath_" << appEnvPath_;
@@ -332,6 +334,25 @@ void MainWindow::initialize()
             fileOpen(currentProjectFile());
         }
     }
+
+
+    // remove the automatic full screen button on Mac to manage conflicts
+    // with the splash screen
+//#if defined(Q_OS_MAC)
+//    Qt::WindowFlags winFflags = windowFlags();
+//    // winFflags QFlags<Qt::WindowType>(Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint)
+//    qDebug() << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>winFflags" << winFflags;
+//    winFflags &= ~Qt::WindowFullscreenButtonHint;
+//    qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<winFflags" << winFflags;
+//    setWindowFlags(winFflags);
+//    showNormal();
+//    QCoreApplication::processEvents();
+
+//    qDebug() << "action_list" << viewMenu->actions().size();
+//    foreach (auto a, viewMenu->actions()) {
+//        qDebug() << a->text();
+//    }
+//#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -1165,14 +1186,14 @@ void MainWindow::createActions()
     stopAction->setToolTip(tr("Stop processing. (%1)")
                            .arg((stopAction->shortcut().toString())));
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
     toggleFullScreenAction->setCheckable(true);
     toggleFullScreenAction->setShortcut(QKeySequence(QKeySequence::FullScreen));
     toggleFullScreenAction->setStatusTip(tr("Full screen mode view"));
-#endif
+//#endif
 
     toggleStatusbarAct = new QAction(this);
     toggleStatusbarAct->setText(tr("&Statusbar"));
@@ -1266,10 +1287,10 @@ void MainWindow::connectActions()
     connect(stopAction, &QAction::triggered,
             this, &MainWindow::stopEngine);
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     connect(toggleFullScreenAction, &QAction::toggled,
             this, &MainWindow::setFullScreen);
-#endif
+//#endif
 
     connect(toggleStatusbarAct, &QAction::triggered,
             this, &MainWindow::toggleStatusbar);
@@ -1346,9 +1367,9 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleInfoOutputAct);
     viewMenu->addAction(toggleTooltipOutputAct);
     viewMenu->addAction(toggleStatusbarAct);
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     viewMenu->addAction(toggleFullScreenAction);
-#endif
+//#endif
 
     toolsMenu = new MyMenu(this);
     toolsMenu->setTitle(tr("&Run"));
@@ -1655,9 +1676,9 @@ void MainWindow::restorePreviousStatus()
 
     // must be before restoreGeometry(), which restore the possible full screen
     // state, because otherwise setFullScreen() reset restoreGeometry()
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     toggleFullScreenAction->setChecked(configState_.window.fullScreen);
-#endif
+//#endif
 
     // the dockwidgets checked state is restored by restoreState()
 //    toggleTooltipOutputAct->setChecked(config_state_.window.tooltipDock);

@@ -327,7 +327,16 @@ int main(int argc, char *argv[])
     }
     qApp->processEvents();
 
-    MainWindow mainWin(filename, appEnvPath);
+//#if defined(Q_OS_MAC)
+//    MainWindow mainWin(filename, appEnvPath, &splash, 0,
+//                       Qt::WindowFlags()
+//                       Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint
+//                       Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint
+//                       );
+//#elif defined(Q_OS_WIN)
+    MainWindow mainWin(filename, appEnvPath, &splash);
+//#endif
+
     if (show_splash)
     {
         splash.setProgressValue(40);
