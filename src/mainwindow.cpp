@@ -4767,7 +4767,7 @@ void MainWindow::connectTimeLagDialog()
     Q_ASSERT(c2);
 }
 
-// Reimplement wheel event handler to support resizing with Ctl+Wheel
+// Reimplement wheel event handler to support resizing with Ctl + Wheel
 void MainWindow::wheelEvent(QWheelEvent* event)
 {
     if (Qt::ControlModifier == QApplication::keyboardModifiers())
@@ -4775,7 +4775,7 @@ void MainWindow::wheelEvent(QWheelEvent* event)
         if (event->angleDelta().y() > 0)
         {
             // limit the maximum resize
-            auto screen = QGuiApplication::screens().first();
+            auto screen = QGuiApplication::screens().at(0);
             auto maxDesktopWidth = screen->availableVirtualSize().width();
             qDebug() << "maxDesktopWidth" << maxDesktopWidth;
 
