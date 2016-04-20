@@ -32,7 +32,9 @@ bool Networking::isOnline()
     QNetworkConfigurationManager ifConfigManager;
     QList<QNetworkConfiguration> activeConfigs
             = ifConfigManager.allConfigurations(QNetworkConfiguration::Active);
-    if (activeConfigs.count() > 0)
+    if (!activeConfigs.isEmpty())
+    {
         return ifConfigManager.isOnline();
-    return !ifConfigManager.isOnline();
+    }
+    return (!ifConfigManager.isOnline());
 }
