@@ -225,6 +225,7 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
 }
 
 // Append a horizontal rule <hr> to QTextEdit.
+// NOTE: Not used yet.
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
