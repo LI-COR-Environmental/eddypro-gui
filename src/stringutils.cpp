@@ -25,8 +25,8 @@
 #include <QByteArray>
 #include <QDate>
 #include <QDebug>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QString>
 #include <QStringList>
 
@@ -58,16 +58,16 @@ int StringUtils::daysToFromString(const QString& d_1, const QString& d_2)
 
 bool StringUtils::isISODateTimeString(const QString& s)
 {
-    QRegExp dateExp;
+    QRegularExpression dateExp;
     dateExp.setPattern(QStringLiteral("([0-9]{,4})-([0-9]{,2})-([0-9]{,2})"));
 
-    QRegExp timeExp;
+    QRegularExpression timeExp;
     timeExp.setPattern(QStringLiteral("([0-9]{,2})([0-9]{,2})([0-9]{,2})"));
 
-    QRegExp dateTimeExp;
+    QRegularExpression dateTimeExp;
     dateTimeExp.setPattern(dateExp.pattern() + QLatin1Char('T') + timeExp.pattern());
 
-    QRegExpValidator validator(dateTimeExp);
+    QRegularExpressionValidator validator(dateTimeExp);
 
     const auto dateTimeLenght = 17;
     auto pos = 0;

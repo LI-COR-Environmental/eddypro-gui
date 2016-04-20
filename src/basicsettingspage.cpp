@@ -37,8 +37,8 @@
 #include <QNetworkReply>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QScrollArea>
 #include <QSpinBox>
 #include <QtConcurrentRun>
@@ -308,8 +308,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
-    QRegExp decRx(dec_pattern);
-    auto decValidator = new QRegExpValidator(decRx, declinationEdit);
+    QRegularExpression decRx(dec_pattern);
+    auto decValidator = new QRegularExpressionValidator(decRx, declinationEdit);
     declinationEdit->setValidator(decValidator);
     declinationEdit->setInputMask(tr("000%1 00' >A;x").arg(Defs::DEGREE));
     declinationEdit->setAlignment(Qt::AlignRight);
@@ -5079,22 +5079,22 @@ double BasicSettingsPage::numDeclination(const QString &text)
     QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
-    QRegExp decRx(dec_pattern);
-    bool res = decRx.exactMatch(text);
-    if (res)
+    QRegularExpression decRx(dec_pattern);
+    auto match = decRx.match(text);
+    if (match.hasMatch())
     {
         bool ok;
-        if (!decRx.cap(1).isEmpty())
+        if (!match.captured(1).isEmpty())
         {
             // first case: pattern from cap(1) to cap(3)
-            dec = decRx.cap(1).toDouble(&ok);
-            dec += decRx.cap(2).toDouble(&ok) / 60.0;
+            dec = match.captured(1).toDouble(&ok);
+            dec += match.captured(2).toDouble(&ok) / 60.0;
         }
-        else if (!decRx.cap(4).isEmpty())
+        else if (!match.captured(4).isEmpty())
         {
             // second case: pattern from cap(4) to cap(6)
-            dec = decRx.cap(4).toDouble(&ok);
-            dec += decRx.cap(5).toDouble(&ok) / 60.0;
+            dec = match.captured(4).toDouble(&ok);
+            dec += match.captured(5).toDouble(&ok) / 60.0;
         }
         else
         {
@@ -5102,7 +5102,9 @@ double BasicSettingsPage::numDeclination(const QString &text)
             dec = 180.0;
         }
         // negative coordinates case
-        if ((decRx.cap(3) == QLatin1String("W"))||(decRx.cap(6) == QLatin1String("W"))||(decRx.cap(9) == QLatin1String("W")))
+        if ((match.captured(3) == QLatin1String("W"))
+                || (match.captured(6) == QLatin1String("W"))
+                || (match.captured(9) == QLatin1String("W")))
         {
             dec = 0.0 - dec;
         }
