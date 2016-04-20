@@ -224,15 +224,14 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
                                                 Qt::NoModifier));
 }
 
-// NOTE: hack to add <hr> to QTextEdit. Not working as expected.
-// See https://bugreports.qt-project.org/browse/QTBUG-747
-// NOTE: not used
+// Append a horizontal rule <hr> to QTextEdit.
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
     auto blockFmt = textCursor.blockFormat();
     te->append(QLatin1String("<hr>"));
-    te->textCursor().setBlockFormat(blockFmt);
+    textCursor.setBlockFormat(blockFmt);
+    te->setTextCursor(textCursor);
 }
 
 void WidgetUtils::openAppWebsite()
