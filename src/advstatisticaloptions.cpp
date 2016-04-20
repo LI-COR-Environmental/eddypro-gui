@@ -238,16 +238,15 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(nonSteadyCheckBox, &QCheckBox::toggled,
             this, &AdvStatisticalOptions::on_nonSteadyCheckBox_clicked);
 
-    foreach (QCheckBox *checkbox,
-             QList<QCheckBox *>() << spikeRemCheckBox
-                                  << amplitudeResCheckBox
-                                  << dropoutsCheckBox
-                                  << absLimCheckBox
-                                  << skewnessCheckBox
-                                  << discontCheckBox
-                                  << timeLagCheckBox
-                                  << attackAngleCheckBox
-                                  << nonSteadyCheckBox)
+    foreach (auto checkbox, QList<QCheckBox *>() << spikeRemCheckBox
+                                                 << amplitudeResCheckBox
+                                                 << dropoutsCheckBox
+                                                 << absLimCheckBox
+                                                 << skewnessCheckBox
+                                                 << discontCheckBox
+                                                 << timeLagCheckBox
+                                                 << attackAngleCheckBox
+                                                 << nonSteadyCheckBox)
     {
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
@@ -543,9 +542,8 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvStatisticalOptions::refresh);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << randomMethodCombo
-                                  << itsDefinitionCombo)
+    foreach (auto combo, QList<QComboBox *>() << randomMethodCombo
+                                              << itsDefinitionCombo)
     {
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));

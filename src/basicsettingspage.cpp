@@ -1235,33 +1235,31 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     connect(declinationFetchButton, &QPushButton::clicked,
             this, &BasicSettingsPage::fetchMagneticDeclination);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << flag1VarCombo
-                                  << flag2VarCombo
-                                  << flag3VarCombo
-                                  << flag4VarCombo
-                                  << flag5VarCombo
-                                  << flag6VarCombo
-                                  << flag7VarCombo
-                                  << flag8VarCombo
-                                  << flag9VarCombo
-                                  << flag10VarCombo)
+    foreach (auto combo, QList<QComboBox *>() << flag1VarCombo
+                                              << flag2VarCombo
+                                              << flag3VarCombo
+                                              << flag4VarCombo
+                                              << flag5VarCombo
+                                              << flag6VarCombo
+                                              << flag7VarCombo
+                                              << flag8VarCombo
+                                              << flag9VarCombo
+                                              << flag10VarCombo)
     {
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateFlagUnit(int)));
     }
 
-    foreach (ClickLabel *label,
-             QList<ClickLabel *>() << flag1Label
-                                   << flag2Label
-                                   << flag3Label
-                                   << flag4Label
-                                   << flag5Label
-                                   << flag6Label
-                                   << flag7Label
-                                   << flag8Label
-                                   << flag9Label
-                                   << flag10Label)
+    foreach (auto label, QList<ClickLabel *>() << flag1Label
+                                               << flag2Label
+                                               << flag3Label
+                                               << flag4Label
+                                               << flag5Label
+                                               << flag6Label
+                                               << flag7Label
+                                               << flag8Label
+                                               << flag9Label
+                                               << flag10Label)
     {
         connect(label, &ClickLabel::clicked,
                 this, &BasicSettingsPage::onClickFlagLabel);
@@ -2284,7 +2282,7 @@ void BasicSettingsPage::addNoneStr_1()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << anemFlagCombo
              << tsRefCombo
              << co2RefCombo
@@ -2322,7 +2320,7 @@ void BasicSettingsPage::addNoneStr_2()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QWidget *w, QWidgetList()
+    foreach (auto w, QWidgetList()
              << airTRefCombo
              << airPRefCombo
              << rhCombo
@@ -2339,7 +2337,7 @@ void BasicSettingsPage::addNoneStr_2()
 void BasicSettingsPage::clearBiometCombo()
 {
     DEBUG_FUNC_NAME
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << rhCombo
              << rgCombo
              << lwinCombo
@@ -2385,7 +2383,7 @@ void BasicSettingsPage::clearVarsCombo()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << anemRefLabel
              << anemFlagLabel
              << co2RefLabel
@@ -2412,7 +2410,7 @@ void BasicSettingsPage::clearVarsCombo()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << anemRefCombo
              << anemFlagCombo
              << co2RefCombo
@@ -2446,7 +2444,7 @@ void BasicSettingsPage::clearFlagVars()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1Label
              << flag2Label
              << flag3Label
@@ -2461,7 +2459,7 @@ void BasicSettingsPage::clearFlagVars()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << flag1VarCombo
              << flag2VarCombo
              << flag3VarCombo
@@ -2482,7 +2480,7 @@ void BasicSettingsPage::clearFlagUnits()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1UnitLabel
              << flag2UnitLabel
              << flag3UnitLabel
@@ -2502,7 +2500,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QDoubleSpinBox *spin, QList<QDoubleSpinBox *>()
+    foreach (auto spin, QList<QDoubleSpinBox *>()
              << flag1ThresholdSpin
              << flag2ThresholdSpin
              << flag3ThresholdSpin
@@ -2518,7 +2516,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
         spin->setValue(-9999.0);
     }
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1UnitLabel
              << flag2UnitLabel
              << flag3UnitLabel
@@ -2533,7 +2531,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << flag1PolicyCombo
              << flag2PolicyCombo
              << flag3PolicyCombo
@@ -2848,7 +2846,7 @@ void BasicSettingsPage::preselectVariables()
     DEBUG_FUNC_NAME
 
     // set none as initial value on the flags (not always possible)
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << flag1VarCombo
              << flag2VarCombo
              << flag3VarCombo
@@ -2909,7 +2907,7 @@ void BasicSettingsPage::updateSubsetSelection(bool b)
 {
     ecProject_->setGeneralSubset(b);
 
-    foreach (QWidget *w, QWidgetList()
+    foreach (auto w, QWidgetList()
              << startDateLabel
              << startDateEdit
              << startTimeEdit
@@ -3799,10 +3797,10 @@ void BasicSettingsPage::createQuestionMark()
     questionMark_4 = new QPushButton;
     questionMark_5 = new QPushButton;
 
-    foreach (QPushButton *btn, QList<QPushButton *>() << questionMark_2
-                                                      << questionMark_3
-                                                      << questionMark_4
-                                                      << questionMark_5)
+    foreach (auto btn, QList<QPushButton *>() << questionMark_2
+                                              << questionMark_3
+                                              << questionMark_4
+                                              << questionMark_5)
     {
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
@@ -5421,7 +5419,7 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
          << subsetCheckBox
          << dateRangeDetectButton;
 
-    foreach (QWidget *w, widgets)
+    foreach (auto w, widgets)
     {
         if (on)
         {

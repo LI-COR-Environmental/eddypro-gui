@@ -119,7 +119,7 @@ void RawFilenameDialog::reset()
     rawFilenameFormatEdit->clear();
 
     // clean the radiogroup
-    foreach (QAbstractButton* button, extRadioGroup->buttons())
+    foreach (auto button, extRadioGroup->buttons())
     {
         extRadioGroup->removeButton(button);
     }

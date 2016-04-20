@@ -870,14 +870,13 @@ void PlanarFitSettingsDialog::updateSubsetSelection(bool b)
 {
     ecProject_->setPlanarFitSubset(b);
 
-    foreach (QWidget *w,
-             QWidgetList() << startDateLabel
-                           << startDateEdit
-                           << startTimeEdit
-                           << lockedIcon
-                           << endDateLabel
-                           << endDateEdit
-                           << endTimeEdit)
+    foreach (auto w, QWidgetList() << startDateLabel
+                                   << startDateEdit
+                                   << startTimeEdit
+                                   << lockedIcon
+                                   << endDateLabel
+                                   << endDateEdit
+                                   << endTimeEdit)
     {
         w->setEnabled(b);
     }
