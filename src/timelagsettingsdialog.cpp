@@ -144,7 +144,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     pgRangeSpin->setAccelerated(true);
     pgRangeSpin->setSuffix(tr("  [mad]"));
     pgRangeSpin->setToolTip(pgRangeLabel->toolTip());
-    pgRangeLabel_2 = new QLabel(tr("(<tt>%1%2n%3mad</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::MID_DOT));
+    pgRangeLabel_2 = new QLabel(tr("(<tt>%1%2n%3mad</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO, Defs::PLUSMINUS, Defs::MID_DOT));
 
     rhClassLabel = new ClickLabel(tr("Number of RH classes :"));
     rhClassLabel->setToolTip(tr("<b>Number of RH classes:</b> Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range or RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. Selecting 1 class, the label <b><i>Do not sort in RH classes</i></b> appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines."));

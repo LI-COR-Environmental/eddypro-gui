@@ -1794,7 +1794,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file<br /><p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -3191,7 +3191,7 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -3211,7 +3211,7 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
     // filter generic files
@@ -3223,7 +3223,7 @@ bool EcProject::nativeFormat(const QString &filename)
                              tr("Load Error"),
                              tr("Cannot read file <p>%1:</p>\n"
                                 "<b>not in %2 native format.</b>")
-                             .arg(filename).arg(Defs::APP_NAME));
+                             .arg(filename, Defs::APP_NAME));
         return false;
     }
 

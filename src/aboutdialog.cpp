@@ -54,11 +54,11 @@ AboutDialog::AboutDialog(QWidget* parent)
     introduction->setText(
         tr("<h2>%1<sup>&reg;</sup> version %2 %3</h2>"
            "<h6>Built on %4 at %5<br />With %7<br /></h6>"
-           ).arg(Defs::APP_NAME)
-            .arg(Defs::APP_VERSION_STR)
-            .arg(Defs::APP_STAGE_STR)
-            .arg(QStringLiteral(__DATE__))
-            .arg(QStringLiteral(__TIME__))
+           ).arg(Defs::APP_NAME,
+            Defs::APP_VERSION_STR,
+            Defs::APP_STAGE_STR,
+            QStringLiteral(__DATE__),
+            QStringLiteral(__TIME__))
         #if defined(Q_OS_WIN)
             .arg(Defs::WIN_COMPILER)
         #elif defined(Q_OS_MAC)
@@ -94,7 +94,7 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<div style=\"text-indent: 20px;\">Fax: 1-402-467-2819</div>"
            "<div style=\"text-indent: 20px;\">Email: <a href=\"mailto:envsupport@licor.com?subject=EddyPro %3\">envsupport@licor.com</a></div>"
            "<div style=\"text-indent: 20px;\">Website: <a href=\"http://www.licor.com\">http://www.licor.com</a></div>"
-           ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR)
+           ).arg(Defs::APP_NAME, Defs::CURRENT_COPYRIGHT_YEAR, Defs::APP_VERSION_STR)
         );
     infoLabel->setOpenExternalLinks(true);
     infoLabel->setWordWrap(true);
@@ -215,7 +215,7 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<a href=\"mailto:envsupport@licor.com?subject=%1 %3&body="
            "Please, send me a copy of the source package."
            "\">envsupport@licor.com</a>."
-        ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR));
+        ).arg(Defs::APP_NAME, Defs::CURRENT_COPYRIGHT_YEAR, Defs::APP_VERSION_STR));
     licenseLabel->setWordWrap(true);
     licenseLabel->setOpenExternalLinks(true);
 

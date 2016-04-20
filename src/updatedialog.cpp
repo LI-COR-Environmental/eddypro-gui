@@ -137,7 +137,7 @@ void UpdateDialog::getNewVersion(const QString& version)
                          "<p>%1 can automatically check for new and updated "
                          "versions using <br />its Software Update Notification feature.<br />"
                          "The new version does not overwrite previously installed versions."
-                         "</p>").arg(Defs::APP_NAME).arg(version).arg(Defs::ORG_NAME));
+                         "</p>").arg(Defs::APP_NAME, version, Defs::ORG_NAME));
     msgLabel->setOpenExternalLinks(true);
     okButton->setVisible(false);
     yesButton->setVisible(true);

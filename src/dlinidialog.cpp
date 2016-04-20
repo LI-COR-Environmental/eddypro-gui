@@ -266,7 +266,7 @@ void DlIniDialog::apply()
             WidgetUtils::warning(this,
                                  tr("Save Metadata Error"),
                                  tr("%1 was unable to save <b>%2</b>")
-                                 .arg(Defs::APP_NAME).arg(filename_));
+                                 .arg(Defs::APP_NAME, filename_));
         }
     }
 }

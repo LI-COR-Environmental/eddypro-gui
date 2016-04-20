@@ -908,7 +908,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -928,7 +928,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
 

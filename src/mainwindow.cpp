@@ -505,7 +505,7 @@ void MainWindow::fileOpen(const QString &fileName)
         fileStr = QFileDialog::getOpenFileName(this,
                         tr("Select an %1 Project File").arg(Defs::APP_NAME),
                         WidgetUtils::getSearchPathHint(),
-                        tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME).arg(Defs::PROJECT_FILE_EXT),
+                        tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
                         0
                         // , QFileDialog::DontUseNativeDialog
                         );
@@ -767,7 +767,7 @@ bool MainWindow::fileSaveAs(const QString& fileName)
         fileToSave = QFileDialog::getSaveFileName(this,
                 tr("Save the Project File Name As..."),
                 filenameHint,
-                tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME).arg(Defs::PROJECT_FILE_EXT),
+                tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
                 0
                 // see after
                                                  ,
@@ -843,7 +843,7 @@ bool MainWindow::fileSaveSilently()
     DEBUG_FUNC_NAME
 
 //    QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO),
-//    tr("New 1: %1\nModified: %2").arg(newFlag_).arg(modifiedFlag_));
+//    tr("New 1: %1\nModified: %2").arg(newFlag_, modifiedFlag_));
 
     qDebug() << "newFlag_" << newFlag_;
     qDebug() << "modifiedFlag_" << modifiedFlag_;
@@ -872,7 +872,7 @@ bool MainWindow::fileSaveSilently()
 //    return fileSave(quiet);
 
 //    QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO),
-//    tr("New 2: %1\nModified: %2").arg(newFlag_).arg(modifiedFlag_));
+//    tr("New 2: %1\nModified: %2").arg(newFlag_, modifiedFlag_));
     return true;
 }
 

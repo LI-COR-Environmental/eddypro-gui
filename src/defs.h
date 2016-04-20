@@ -243,8 +243,8 @@ namespace Defs
     const auto TEMPLATE_FILE_EXT        = QStringLiteral(".txt");
 
     // eddypro engine
-    const auto ENGINE_RP  = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
-    const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+    const auto ENGINE_RP  = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
+    const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
 
     // helper tools
     const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
@@ -265,12 +265,12 @@ namespace Defs
     const auto APP_PD_INI_TAG = QStringLiteral(";%1_PROCESSING").arg(APP_NAME_UCASE);
 
     // file names
-    const auto DEFAULT_METADATA_FILENAME = QStringLiteral("%1.%2").arg(APP_NAME_LCASE).arg(METADATA_FILE_EXT);
+    const auto DEFAULT_METADATA_FILENAME = QStringLiteral("%1.%2").arg(APP_NAME_LCASE, METADATA_FILE_EXT);
     const auto DEFAULT_PROCESSING_FILENAME = QStringLiteral("processing.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_PROJECT_FILENAME = QObject::tr("project-untitled.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_BIOMET_SUFFIX = QStringLiteral("-biomet");
     const auto DEFAULT_SMARTFLUX_SUFFIX = QStringLiteral("-smartflux");
-    const auto DEFAULT_SMARTFLUX_PROJECT_FILENAME = QObject::tr("project-untitled%1.%2").arg(DEFAULT_SMARTFLUX_SUFFIX).arg(PROJECT_FILE_EXT);
+    const auto DEFAULT_SMARTFLUX_PROJECT_FILENAME = QObject::tr("project-untitled%1.%2").arg(DEFAULT_SMARTFLUX_SUFFIX, PROJECT_FILE_EXT);
 
     const auto SPECTRA_FILE_TEMPLATE = QStringLiteral("eddypro_sample_spectral_assessment");
     const auto PLANAR_FIT_FILE_TEMPLATE = QStringLiteral("eddypro_sample_planar_fit");
