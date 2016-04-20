@@ -28,7 +28,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 #include "clicklabel.h"
 #include "configstate.h"
@@ -76,8 +76,8 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     // plus the following:
     // '|', '\', '/', ':', ';', '?', '*', '"', ''', '`', '<', '>'
     auto filenameRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
-    QRegExp filenameRe(filenameRegexp);
-    auto filenameValidator = new QRegExpValidator(filenameRe, filenameEdit);
+    QRegularExpression filenameRe(filenameRegexp);
+    auto filenameValidator = new QRegularExpressionValidator(filenameRe, filenameEdit);
     filenameEdit->setValidator(filenameValidator);
 
 #if defined(Q_OS_WIN)

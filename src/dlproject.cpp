@@ -508,7 +508,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 qDebug() << "anem k" << k;
                 AnemDesc anem;
-                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
@@ -556,7 +556,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 qDebug() << "irga k" << k;
                 IrgaDesc irga;
-                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
@@ -2251,10 +2251,10 @@ DlProject::InstrumentType DlProject::getInstrumentType(const QSettings& iniGroup
 
 DlProject::InstrumentType DlProject::getInstrumentTypeFromModel(const QString& model)
 {
-    if (model.contains(QRegExp(QStringLiteral("li*")))
-        || model.contains(QRegExp(QStringLiteral("open_path*")))
-        || model.contains(QRegExp(QStringLiteral("closed_path*")))
-        || model.contains(QRegExp(QStringLiteral("generic*path"))))
+    if (model.contains(QRegularExpression(QStringLiteral("li*")))
+        || model.contains(QRegularExpression(QStringLiteral("open_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("closed_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("generic*path"))))
     {
         return InstrumentType::IRGA;
     }

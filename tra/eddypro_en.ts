@@ -2984,29 +2984,29 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5286"/>
+        <location filename="../src/basicsettingspage.cpp" line="5288"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5453"/>
+        <location filename="../src/basicsettingspage.cpp" line="5455"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5454"/>
+        <location filename="../src/basicsettingspage.cpp" line="5456"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5468"/>
+        <location filename="../src/basicsettingspage.cpp" line="5470"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5470"/>
+        <location filename="../src/basicsettingspage.cpp" line="5472"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -3400,13 +3400,13 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5145"/>
-        <location filename="../src/basicsettingspage.cpp" line="5187"/>
+        <location filename="../src/basicsettingspage.cpp" line="5147"/>
+        <location filename="../src/basicsettingspage.cpp" line="5189"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5282"/>
+        <location filename="../src/basicsettingspage.cpp" line="5284"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
@@ -3996,211 +3996,211 @@ End: %3
 <context>
     <name>DlSiteTab</name>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="50"/>
+        <location filename="../src/dlsitetab.cpp" line="51"/>
         <source>Timestamps refers to :</source>
         <translation>Timestamps refers to :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="51"/>
+        <location filename="../src/dlsitetab.cpp" line="52"/>
         <source>&lt;b&gt;Time stamp refers to:&lt;/b&gt; Choose whether the timestamp provided in raw file names refers to the beginning or end of the data interval.</source>
         <translation>&lt;b&gt;Time stamp refers to:&lt;/b&gt; Choose whether the timestamp provided in raw file names refers to the beginning or end of the data interval.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="52"/>
+        <location filename="../src/dlsitetab.cpp" line="53"/>
         <source>Beginning of dataset period</source>
         <translation>Beginning of dataset period</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="54"/>
+        <location filename="../src/dlsitetab.cpp" line="55"/>
         <source>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</source>
         <translation>&lt;b&gt;Beginning of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the beginning of the data interval. Note that timestamps on EddyPro output files always refer to the end of the averaging interval.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="55"/>
+        <location filename="../src/dlsitetab.cpp" line="56"/>
         <source>End of dataset period</source>
         <translation>End of dataset period</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="56"/>
+        <location filename="../src/dlsitetab.cpp" line="57"/>
         <source>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</source>
         <translation>&lt;b&gt;End of dataset period:&lt;/b&gt; Select this option if timestamps in the raw file names refer to the end of the data interval.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="63"/>
+        <location filename="../src/dlsitetab.cpp" line="64"/>
         <source>File duration :</source>
         <translation>File duration :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="64"/>
+        <location filename="../src/dlsitetab.cpp" line="65"/>
         <source>&lt;b&gt; File duration:&lt;/b&gt; Enter the time span covered by each raw file.</source>
         <translation>&lt;b&gt; File duration:&lt;/b&gt; Enter the time span covered by each raw file.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="70"/>
+        <location filename="../src/dlsitetab.cpp" line="71"/>
         <source> [min] </source>
         <comment>minute</comment>
         <translation> [min] </translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="76"/>
+        <location filename="../src/dlsitetab.cpp" line="77"/>
         <source>Acquisition frequency :</source>
         <translation>Acquisition frequency :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="77"/>
+        <location filename="../src/dlsitetab.cpp" line="78"/>
         <source>&lt;b&gt;Acquisition frequency:&lt;/b&gt; The number of records (samples) per second in the raw data files. Also referred to as &lt;i&gt;Update Rate&lt;/i&gt; or &lt;i&gt;Output Rate&lt;/i&gt;.</source>
         <translation>&lt;b&gt;Acquisition frequency:&lt;/b&gt; The number of records (samples) per second in the raw data files. Also referred to as &lt;i&gt;Update Rate&lt;/i&gt; or &lt;i&gt;Output Rate&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="84"/>
+        <location filename="../src/dlsitetab.cpp" line="85"/>
         <source> [Hz] </source>
         <comment>Hertz</comment>
         <translation> [Hz] </translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="90"/>
+        <location filename="../src/dlsitetab.cpp" line="91"/>
         <source>Canopy height :</source>
         <translation>Canopy height :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="91"/>
+        <location filename="../src/dlsitetab.cpp" line="92"/>
         <source>&lt;b&gt;Canopy height:&lt;/b&gt; Effective average distance between the ground and the top of the plant canopy. Also referred to as aerodynamic canopy height.</source>
         <translation>&lt;b&gt;Canopy height:&lt;/b&gt; Effective average distance between the ground and the top of the plant canopy. Also referred to as aerodynamic canopy height.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="97"/>
-        <location filename="../src/dlsitetab.cpp" line="111"/>
-        <location filename="../src/dlsitetab.cpp" line="125"/>
-        <location filename="../src/dlsitetab.cpp" line="139"/>
+        <location filename="../src/dlsitetab.cpp" line="98"/>
+        <location filename="../src/dlsitetab.cpp" line="112"/>
+        <location filename="../src/dlsitetab.cpp" line="126"/>
+        <location filename="../src/dlsitetab.cpp" line="140"/>
         <source> [m] </source>
         <comment>meter</comment>
         <translation> [m] </translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="103"/>
+        <location filename="../src/dlsitetab.cpp" line="104"/>
         <source>Displacement height :</source>
         <translation>Displacement height :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="104"/>
+        <location filename="../src/dlsitetab.cpp" line="105"/>
         <source>&lt;b&gt;Displacement height:&lt;/b&gt; Zero plane displacement height is the average level at which elements of the plant community absorb momentum. If left blank, this parameter is automatically estimated based on canopy height.</source>
         <translation>&lt;b&gt;Displacement height:&lt;/b&gt; Zero plane displacement height is the average level at which elements of the plant community absorb momentum. If left blank, this parameter is automatically estimated based on canopy height.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="117"/>
+        <location filename="../src/dlsitetab.cpp" line="118"/>
         <source>Roughness length :</source>
         <translation>Roughness length :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="118"/>
+        <location filename="../src/dlsitetab.cpp" line="119"/>
         <source>&lt;b&gt;Roughness length:&lt;/b&gt; Canopy roughness length is a quantification of the surface roughness. If left blank, this parameter is automatically estimated based on canopy height.</source>
         <translation>&lt;b&gt;Roughness length:&lt;/b&gt; Canopy roughness length is a quantification of the surface roughness. If left blank, this parameter is automatically estimated based on canopy height.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="131"/>
+        <location filename="../src/dlsitetab.cpp" line="132"/>
         <source>Altitude :</source>
         <translation>Altitude :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="132"/>
+        <location filename="../src/dlsitetab.cpp" line="133"/>
         <source>&lt;b&gt;Altitude:&lt;/b&gt; Elevation above sea level to the base of the flux tower.</source>
         <translation>&lt;b&gt;Altitude:&lt;/b&gt; Elevation above sea level to the base of the flux tower.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="145"/>
+        <location filename="../src/dlsitetab.cpp" line="146"/>
         <source>Latitude :</source>
         <translation>Latitude :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="146"/>
+        <location filename="../src/dlsitetab.cpp" line="147"/>
         <source>&lt;b&gt;Latitude:&lt;/b&gt; Latitude at the site. Use N and S for north and south latitudes, respectively.</source>
         <translation>&lt;b&gt;Latitude:&lt;/b&gt; Latitude at the site. Use N and S for north and south latitudes, respectively.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="149"/>
+        <location filename="../src/dlsitetab.cpp" line="150"/>
         <source>00%1 00&apos; 00.000&apos;&apos; N</source>
         <translation>00%1 00&apos; 00.000&apos;&apos; N</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="150"/>
-        <location filename="../src/dlsitetab.cpp" line="310"/>
-        <location filename="../src/dlsitetab.cpp" line="587"/>
+        <location filename="../src/dlsitetab.cpp" line="151"/>
+        <location filename="../src/dlsitetab.cpp" line="311"/>
+        <location filename="../src/dlsitetab.cpp" line="595"/>
         <source>(?:([0-8]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(N|S))</source>
         <translation>(?:([0-8]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(N|S))</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="151"/>
-        <location filename="../src/dlsitetab.cpp" line="311"/>
-        <location filename="../src/dlsitetab.cpp" line="588"/>
+        <location filename="../src/dlsitetab.cpp" line="152"/>
+        <location filename="../src/dlsitetab.cpp" line="312"/>
+        <location filename="../src/dlsitetab.cpp" line="596"/>
         <source>|(?:(90)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(N|S))</source>
         <translation>|(?:(90)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(N|S))</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="155"/>
-        <location filename="../src/dlsitetab.cpp" line="592"/>
+        <location filename="../src/dlsitetab.cpp" line="156"/>
+        <location filename="../src/dlsitetab.cpp" line="600"/>
         <source>00%1 00&apos; 00.000&apos;&apos; &gt;A;x</source>
         <translation>00%1 00&apos; 00.000&apos;&apos; &gt;A;x</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="161"/>
+        <location filename="../src/dlsitetab.cpp" line="162"/>
         <source>Longitude :</source>
         <translation>Longitude :</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="162"/>
+        <location filename="../src/dlsitetab.cpp" line="163"/>
         <source>&lt;b&gt;Longitude:&lt;/b&gt; Longitude at the site. Use E and W for east and west longitudes, respectively.</source>
         <translation>&lt;b&gt;Longitude:&lt;/b&gt; Longitude at the site. Use E and W for east and west longitudes, respectively.</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="165"/>
+        <location filename="../src/dlsitetab.cpp" line="166"/>
         <source>000%1 00&apos; 00.000&apos;&apos; E</source>
         <translation>000%1 00&apos; 00.000&apos;&apos; E</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="166"/>
-        <location filename="../src/dlsitetab.cpp" line="413"/>
-        <location filename="../src/dlsitetab.cpp" line="594"/>
+        <location filename="../src/dlsitetab.cpp" line="167"/>
+        <location filename="../src/dlsitetab.cpp" line="417"/>
+        <location filename="../src/dlsitetab.cpp" line="602"/>
         <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</source>
         <translation>(?:(0\d\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="167"/>
-        <location filename="../src/dlsitetab.cpp" line="414"/>
-        <location filename="../src/dlsitetab.cpp" line="595"/>
+        <location filename="../src/dlsitetab.cpp" line="168"/>
+        <location filename="../src/dlsitetab.cpp" line="418"/>
+        <location filename="../src/dlsitetab.cpp" line="603"/>
         <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</source>
         <translation>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="168"/>
-        <location filename="../src/dlsitetab.cpp" line="415"/>
-        <location filename="../src/dlsitetab.cpp" line="596"/>
+        <location filename="../src/dlsitetab.cpp" line="169"/>
+        <location filename="../src/dlsitetab.cpp" line="419"/>
+        <location filename="../src/dlsitetab.cpp" line="604"/>
         <source>(?:(180)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(E|W))</source>
         <translation>(?:(180)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(E|W))</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="172"/>
-        <location filename="../src/dlsitetab.cpp" line="600"/>
+        <location filename="../src/dlsitetab.cpp" line="173"/>
+        <location filename="../src/dlsitetab.cpp" line="608"/>
         <source>000%1 00&apos; 00.000&apos;&apos; &gt;A;x</source>
         <translation>000%1 00&apos; 00.000&apos;&apos; &gt;A;x</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="177"/>
+        <location filename="../src/dlsitetab.cpp" line="178"/>
         <source>Sexagesimal Degrees</source>
         <translation>Sexagesimal Degrees</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="178"/>
+        <location filename="../src/dlsitetab.cpp" line="179"/>
         <source>Decimal Degrees</source>
         <translation>Decimal Degrees</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="226"/>
+        <location filename="../src/dlsitetab.cpp" line="227"/>
         <source>Station Info</source>
         <translation>Station Info</translation>
     </message>
     <message>
-        <location filename="../src/dlsitetab.cpp" line="388"/>
-        <location filename="../src/dlsitetab.cpp" line="496"/>
+        <location filename="../src/dlsitetab.cpp" line="392"/>
+        <location filename="../src/dlsitetab.cpp" line="504"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
