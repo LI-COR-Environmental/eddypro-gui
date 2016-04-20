@@ -61,10 +61,11 @@ void CustomDropLineEdit::dropEvent(QDropEvent *event)
 #endif
 
     QFileInfo dropPathInfo(dropPath);
-    if (!dropPathInfo.exists())
+    if (!QFileInfo::exists(dropPath))
     {
         return;
     }
+
     if ((canBeFile_ && dropPathInfo.isFile()) || dropPathInfo.isDir())
     {
         const auto path = dropPathInfo.absoluteFilePath();
