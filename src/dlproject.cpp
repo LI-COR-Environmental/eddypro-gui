@@ -890,7 +890,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     qDebug() << "final modified 1:" << *modified;
     if (!isVersionCompatible)
+    {
         *modified = true;
+    }
     qDebug() << "final modified 2:" << *modified;
 
     return true;

@@ -73,6 +73,8 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
     auto fontSize = 10;
 #if defined(Q_OS_MAC)
     fontSize = 13;
+#elif defined(Q_OS_WIN)
+    fontSize = 10;
 #endif
 
     auto font = QFont(QStringLiteral("Open Sans"), fontSize, QFont::Normal);
