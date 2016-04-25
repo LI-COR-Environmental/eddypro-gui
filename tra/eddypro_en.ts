@@ -49,27 +49,27 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
  and feature enhancements. These are summarized in the change log below.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="260"/>
+        <location filename="../src/aboutdialog.cpp" line="258"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="261"/>
+        <location filename="../src/aboutdialog.cpp" line="259"/>
         <source>Acknowledgments</source>
         <translation>Acknowledgments</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="262"/>
+        <location filename="../src/aboutdialog.cpp" line="260"/>
         <source>License</source>
         <translation>License</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="263"/>
+        <location filename="../src/aboutdialog.cpp" line="261"/>
         <source>Changes</source>
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="265"/>
+        <location filename="../src/aboutdialog.cpp" line="263"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -6242,52 +6242,52 @@ Output</translation>
         <translation>no</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="245"/>
+        <location filename="../src/widget_utils.cpp" line="246"/>
         <source>Overwrite File</source>
         <translation>Overwrite File</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="246"/>
+        <location filename="../src/widget_utils.cpp" line="247"/>
         <source>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="248"/>
+        <location filename="../src/widget_utils.cpp" line="249"/>
         <source>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</source>
         <translation>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="250"/>
+        <location filename="../src/widget_utils.cpp" line="251"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="251"/>
+        <location filename="../src/widget_utils.cpp" line="252"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="257"/>
+        <location filename="../src/widget_utils.cpp" line="258"/>
         <source>Remove Column</source>
         <translation>Remove Column</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="258"/>
+        <location filename="../src/widget_utils.cpp" line="259"/>
         <source>Do you want to remove this column?</source>
         <translation>Do you want to remove this column?</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="285"/>
+        <location filename="../src/widget_utils.cpp" line="286"/>
         <source>Do &amp;Not Save</source>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="567"/>
+        <location filename="../src/widget_utils.cpp" line="568"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="568"/>
+        <location filename="../src/widget_utils.cpp" line="569"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>

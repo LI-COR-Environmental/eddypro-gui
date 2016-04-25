@@ -55,7 +55,7 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     // create the X matrix
     for ( size_t nRow = 0; nRow < nCount; nRow++ )
     {
-        T nVal = 1.0f;
+        T nVal = 1.0;
         for ( int nCol = 0; nCol < nDegree; nCol++ )
         {
             oXMatrix(nRow, static_cast<size_t>(nCol)) = nVal;

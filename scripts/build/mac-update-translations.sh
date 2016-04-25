@@ -5,7 +5,7 @@ echo 'Update translation files...'
 PWD=$(pwd)
 echo "[pwd: $PWD]"
 
-export PATH="~/Qt/5.6.0/5.6/clang_64/bin:$PATH"
+export PATH="~/Qt/5.7.0-beta/5.7/clang_64/bin:$PATH"
 
 lupdate -verbose -no-obsolete ../../source/eddypro_mac.pro
 lrelease -verbose ../../source/eddypro_mac.pro
