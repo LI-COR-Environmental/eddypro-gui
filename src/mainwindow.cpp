@@ -3518,7 +3518,7 @@ bool MainWindow::getDatesRangeDialog(Defs::CurrRunMode mode)
 
     // if there are and we are not in paused run,
     // notify with a blocking dialog
-    if (currentStatus() == Defs::CurrStatus::Ready)
+    if (isSubperiodSet && currentStatus() == Defs::CurrStatus::Ready)
     {
         auto dialogAccepted = showDatesRangeDialog(mode);
         return dialogAccepted;
