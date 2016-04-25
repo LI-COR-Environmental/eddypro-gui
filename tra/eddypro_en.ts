@@ -3892,14 +3892,14 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="413"/>
-        <location filename="../src/dlproject.cpp" line="910"/>
+        <location filename="../src/dlproject.cpp" line="912"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="930"/>
+        <location filename="../src/dlproject.cpp" line="932"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -3907,46 +3907,46 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="412"/>
-        <location filename="../src/dlproject.cpp" line="909"/>
-        <location filename="../src/dlproject.cpp" line="929"/>
+        <location filename="../src/dlproject.cpp" line="911"/>
+        <location filename="../src/dlproject.cpp" line="931"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="947"/>
-        <location filename="../src/dlproject.cpp" line="1238"/>
+        <location filename="../src/dlproject.cpp" line="949"/>
+        <location filename="../src/dlproject.cpp" line="1240"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="948"/>
+        <location filename="../src/dlproject.cpp" line="950"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1239"/>
+        <location filename="../src/dlproject.cpp" line="1241"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1724"/>
+        <location filename="../src/dlproject.cpp" line="1726"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1763"/>
+        <location filename="../src/dlproject.cpp" line="1765"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1767"/>
+        <location filename="../src/dlproject.cpp" line="1769"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1772"/>
+        <location filename="../src/dlproject.cpp" line="1774"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
