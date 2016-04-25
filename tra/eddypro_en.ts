@@ -379,7 +379,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="413"/>
         <source>Spectra and cospectra outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Spectra and cospectra output</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="416"/>
@@ -2988,7 +2988,9 @@ Missing flux averaging period are filled with error codes)</translation>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
+
+</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5453"/>
@@ -3230,12 +3232,12 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="418"/>
         <source>Anemometer Diagnostics:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anemometer Diagnostics</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="419"/>
         <source>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select ..</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="1499"/>
