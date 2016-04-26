@@ -140,10 +140,6 @@ private:
     void forceEndTimePolicy();
 
     void createQuestionMarks();
-
-    double getLowestFrequencyValue();
-    double getHighestFrequencyValue();
-
     void setHfMethod(int hfMethComboIndex);
 
     QCheckBox* vmFlagsCheckBox;

@@ -132,8 +132,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
     createMetadataEditor();
 
-    createSlowMeasuresEditor();
-
     metadataEditors = new MyTabWidget;
     metadataEditors->setObjectName(QStringLiteral("metadataEditorsTabwidget"));
     metadataEditors->getTabBarAsPublic()->setObjectName(QStringLiteral("metadataEditorsTabbar"));
@@ -454,24 +452,6 @@ void ProjectPage::createMetadataEditor()
     metadataTab->addWidget(dlIniDialog_);
     metadataTab->setCurrentIndex(0);
     qDebug() << "metadataTab->setCurrentIndex(0)";
-}
-
-// NOTE: not used
-void ProjectPage::createSlowMeasuresEditor()
-{
-//    QLabel* comingSoonLabel = new QLabel;
-//    comingSoonLabel->setText(tr("COOMING SOON"));
-//    comingSoonLabel->setObjectName(QStringLiteral("comingSoonLabel"));
-
-//    QVBoxLayout *comingSoonLayout = new QVBoxLayout;
-//    comingSoonLayout->addWidget(comingSoonLabel);
-//    comingSoonLayout->addStretch();
-
-//    QFrame* comingSoonGroup_ = new QFrame;
-//    comingSoonGroup_->setLayout(comingSoonLayout);
-
-//    slowMeasuresTab = new QStackedWidget;
-//    slowMeasuresTab->addWidget(comingSoonLabel);
 }
 
 void ProjectPage::fadeInWidget(int filetype)

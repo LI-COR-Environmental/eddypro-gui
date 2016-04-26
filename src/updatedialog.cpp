@@ -160,15 +160,6 @@ void UpdateDialog::noConnection()
     noButton->setVisible(false);
 }
 
-// NOTE: not used
-void UpdateDialog::connectionError()
-{
-    msgLabel->setText(tr("<b>Connection error.</b>"));
-    okButton->setVisible(true);
-    yesButton->setVisible(false);
-    noButton->setVisible(false);
-}
-
 void UpdateDialog::downloadError()
 {
     msgLabel->setText(tr("<b>Download error.</b>"));

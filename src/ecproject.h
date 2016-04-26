@@ -833,8 +833,6 @@ public:
     int biomParamColLwin() const { return ec_project_state_.biomParam.col_lwin; }
     int biomParamColPpfd() const { return ec_project_state_.biomParam.col_ppfd; }
 
-    bool planarFitSectorDefined();
-
     void addPlanarFitAngle(const AngleItem& angle);
 
     // is the project modified?

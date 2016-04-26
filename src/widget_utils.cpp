@@ -81,7 +81,7 @@ void updateStyle(QWidget* widget)
     widget->update();
 }
 
-// NOTE: not used, but possibly useful
+// NOTE: never used, but possibly useful
 //void updatePropertyAndStyle(QWidget* widget,
 //                            const char* name,
 //                            const QVariant& value)
@@ -162,7 +162,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 }
 
 // set the text of the line edit with specified elide mode and width
-// NOTE: not used
+// NOTE: never used
 void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
                                           const QString& text,
                                           Qt::TextElideMode mode,
@@ -225,7 +225,7 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
 }
 
 // Append a horizontal rule <hr> to QTextEdit.
-// NOTE: Not used yet.
+// NOTE: never used yet.
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
@@ -538,21 +538,9 @@ QString WidgetUtils::getSearchPathHint(/*ConfigState *config*/)
 {
     // default search path
     auto searchPath = QDir::homePath();
-
-    auto lastDataPath = QString();
-
-    // a cached file path exists
-//    if (!config->window.last_data_path.isEmpty())
-//    {
-//        lastDataPath = config->window.last_data_path;
-//    }
-//    else
-//    {
-        // last available search path
-        lastDataPath = GlobalSettings::getAppPersistentSettings(
-                           Defs::CONFGROUP_WINDOW,
-                           Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
-//    }
+    auto lastDataPath = GlobalSettings::getAppPersistentSettings(
+                       Defs::CONFGROUP_WINDOW,
+                       Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
 
     if (!lastDataPath.isEmpty() && FileUtils::existsPath(lastDataPath))
     {

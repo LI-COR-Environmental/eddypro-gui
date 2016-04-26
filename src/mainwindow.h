@@ -104,7 +104,6 @@ private slots:
     void setOfflineHelp(bool yes);
     void setSmartfluxMode(bool on);
     void about();
-    void whatsHelp();
 
     void setEcProjectModified();
     void recentMenuShow();

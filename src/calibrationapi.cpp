@@ -29,7 +29,12 @@
 #include "defs.h"
 #include "globalsettings.h"
 
-CalibrationAPI::CalibrationAPI(QObject *parent) : QObject(parent)
+CalibrationAPI::CalibrationAPI(QObject *parent)
+    : QObject(parent),
+      manager_(),
+      cal_info_download_(nullptr),
+      cal_file_download_(nullptr),
+      cal_file_()
 {
 }
 

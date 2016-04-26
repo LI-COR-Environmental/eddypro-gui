@@ -80,7 +80,7 @@ bool Process::engineProcessStart(const QString& fullPath, const QString& working
 
 // add file to an archive fileName
 // using an external helper (7z)
-// NOTE: not used
+// NOTE: never used
 bool Process::zipProcessAddStart(const QString &fileName,
                                  const QString &toArchive,
                                  const QString &workingDir,
@@ -156,7 +156,7 @@ bool Process::zipProcessAddStart(const QString &fileName,
 
 // extract int the outDir all the metadata files in the fileName archive
 // using an external helper (7z)
-// NOTE: not used
+// NOTE: never used
 bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDir)
 {
     QStringList args;
@@ -187,7 +187,7 @@ bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDi
 
 // return if a specific file type is present in the archive
 // using an external helper (7z)
-// NOTE: not used
+// NOTE: never used
 bool Process::zipContainsFiletype(const QString& fileName, const QString& filePattern)
 {
     DEBUG_FUNC_NAME

@@ -2002,35 +2002,6 @@ void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
     }
 }
 
-// NOTE: not used
-double AdvSpectralOptions::getLowestFrequencyValue()
-{
-    DEBUG_FUNC_NAME
-
-    int avrgLen = ecProject_->screenAvrgLen();
-    int fileDuration = dlProject_->fileDuration();
-    double lowestValue = 1.0;
-
-    if (avrgLen > 0)
-    {
-        lowestValue = 1.0 / (avrgLen * 60);
-    }
-    else
-    {
-        if (fileDuration)
-        {
-            lowestValue = 1.0 / (fileDuration * 60);
-        }
-    }
-    return lowestValue;
-}
-
-// NOTE: not used
-double AdvSpectralOptions::getHighestFrequencyValue()
-{
-    return (dlProject_->acquisitionFrequency() / 5.0);
-}
-
 void AdvSpectralOptions::updateFilter(int n)
 {
     ecProject_->setScreenTapWin(n);

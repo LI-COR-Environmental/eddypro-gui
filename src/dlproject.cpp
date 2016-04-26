@@ -890,7 +890,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     qDebug() << "final modified 1:" << *modified;
     if (!isVersionCompatible)
+    {
         *modified = true;
+    }
     qDebug() << "final modified 2:" << *modified;
 
     return true;
@@ -1777,12 +1779,6 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
         tableInstrumentStr.clear();
     }
     return tableInstrumentStr;
-}
-
-// NOTE: not used
-QString DlProject::toIniBool(const QString& s)
-{
-    return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
 }
 
 QString DlProject::fromIniAnemManufacturer(const QString& s)

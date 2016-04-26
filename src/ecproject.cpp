@@ -5405,12 +5405,6 @@ void EcProject::setRandomErrorItsSecFactor(double d)
     setModified(true);
 }
 
-// NOTE: not used
-bool EcProject::planarFitSectorDefined()
-{
-    return false;
-}
-
 QList<AngleItem>* EcProject::planarFitAngles()
 {
     return &ec_project_state_.screenTilt.angles;

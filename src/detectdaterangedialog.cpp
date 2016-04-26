@@ -664,11 +664,9 @@ void DetectDateRangeDialog::updateOverlap(QLabel *label,
 QPair<QDateTime, QDateTime> DetectDateRangeDialog::getBinnedCospectraDateRange()
 {
     FileUtils::DateRange dates = qMakePair(QDateTime(), QDateTime());
-    auto binnedCospectraDataList = QStringList();
-
     auto csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
     auto binnedCospectraDir = ecProject_->generalOutPath() + Defs::OUT_BINNED_COSPECTRA_DIR;
-    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
+    auto binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
 
     if (!binnedCospectraDataList.isEmpty())
     {

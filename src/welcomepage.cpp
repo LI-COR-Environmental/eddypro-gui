@@ -445,25 +445,6 @@ void WelcomePage::updateSmartfluxCheckBox()
     smartfluxModeCheckbox_->blockSignals(false);
 }
 
-// NOTE: not used
-void WelcomePage::updateMainLayout(bool on)
-{
-    if (on)
-    {
-        mainLayout_->removeWidget(smartfluxBarPlaceholder_);
-        smartfluxBarPlaceholder_->setVisible(false);
-        mainLayout_->addWidget(smartfluxBar_, 0, 0, 1, -1);
-        smartfluxBar_->setVisible(true);
-    }
-    else
-    {
-        mainLayout_->removeWidget(smartfluxBar_);
-        smartfluxBar_->setVisible(false);
-        mainLayout_->addWidget(smartfluxBarPlaceholder_, 0, 0, 1, -1);
-        smartfluxBarPlaceholder_->setVisible(true);
-    }
-}
-
 void WelcomePage::createQuestionMark()
 {
     questionMark_1 = new QPushButton;

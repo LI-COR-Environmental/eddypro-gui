@@ -75,7 +75,6 @@ private:
     void getNewVersion(const QString& version);
     void noNewVersion();
     void noConnection();
-    void connectionError();
     void downloadError();
 
     bool isNewVersionAvailable_;

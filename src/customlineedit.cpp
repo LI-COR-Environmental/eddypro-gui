@@ -62,6 +62,7 @@ void CustomLineEdit::setDefaultIcon(const QIcon &icon)
     defaultIcon_ = icon;
 }
 
+// NOTE: never used
 QString CustomLineEdit::regExp() const
 {
     return re_;
