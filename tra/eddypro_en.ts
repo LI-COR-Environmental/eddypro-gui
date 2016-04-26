@@ -2914,6 +2914,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Master anemometer:&lt;/b&gt; Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes.</translation>
     </message>
     <message>
+        <location filename="../src/basicsettingspage.cpp" line="418"/>
+        <source>Anemometer Diagnostics :</source>
+        <translation>Anemometer Diagnostics :</translation>
+    </message>
+    <message>
         <location filename="../src/basicsettingspage.cpp" line="423"/>
         <source>Fast temperature reading (alternative to sonic temp) :</source>
         <translation>Fast temperature reading (alternative to sonic temp) :</translation>
@@ -3228,11 +3233,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="170"/>
         <source>Select the Previous Results Directory</source>
         <translation>Select the Previous Results Directory</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="418"/>
-        <source>Anemometer Diagnostics:</source>
-        <translation>Anemometer Diagnostics</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="419"/>
