@@ -9,14 +9,14 @@
         <translation>About %1</translation>
     </message>
     <message>
+        <location filename="../src/aboutdialog.cpp" line="55"/>
+        <source>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2-%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</source>
+        <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2-%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</translation>
+    </message>
+    <message>
         <location filename="../src/aboutdialog.cpp" line="111"/>
         <source>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</source>
         <translation>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</translation>
-    </message>
-    <message>
-        <location filename="../src/aboutdialog.cpp" line="55"/>
-        <source>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; version %2 %3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</source>
-        <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; version %2 %3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="79"/>
@@ -4497,12 +4497,12 @@ Change this setting under the Help menu.</translation>
     <message>
         <location filename="../src/irga_view.cpp" line="41"/>
         <source>&amp;Add Gas Analyzer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Add Gas Analyzer</translation>
     </message>
     <message>
         <location filename="../src/irga_view.cpp" line="45"/>
         <source>&amp;Remove Gas Analyzer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Remove Gas Analyzer</translation>
     </message>
     <message>
         <location filename="../src/irga_view.cpp" line="49"/>
