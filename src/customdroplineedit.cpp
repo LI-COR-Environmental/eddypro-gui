@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QMimeData>
 
+// NOTE: never used
 bool CustomDropLineEdit::canBeFile() const
 {
     return canBeFile_;

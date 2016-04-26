@@ -42,6 +42,7 @@ void CustomResetLineEdit::setDefaultText(const QString &text)
     action()->setVisible(false);
 }
 
+// NOTE: never used
 QString CustomResetLineEdit::defaultText() const
 {
     return stdText_;

@@ -46,8 +46,6 @@ public:
 
     void reset();
     void refresh();
-    void anemViewRefresh();
-    void irgaViewRefresh();
 
     AnemView *anemView_;
     IrgaView *irgaView_;

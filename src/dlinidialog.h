@@ -49,8 +49,6 @@ public:
 
     inline QString iniFilename() { return filename_; }
     inline DlRawfileDescTab* rawFileDescTab() { return rawfile_tab; }
-    // NOTE: not used
-    inline QTabWidget* tabWidget() { return tabwidget_; }
     inline DlProject *dlProject() { return dlProject_; }
     inline void setNewFlag(bool b) { newFlag_ = b; }
     bool requestMetadataReset();

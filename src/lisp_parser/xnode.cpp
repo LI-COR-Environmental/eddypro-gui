@@ -33,7 +33,7 @@ xnode::~xnode()
    while(it != children.end())
    {
       delete *it;
-      it++;
+      ++it;
    }
 }
 
@@ -58,7 +58,7 @@ void xnode::printNode(std::ostream& os) const
         while(it != children.end())
         {
             os<<(**it);
-            it++;
+            ++it;
         }
         os<<")";
    }
@@ -102,7 +102,7 @@ void xnode::setValue(std::string val, bool ignore_perm)
     {
         std::ostringstream os;
         os<<"The value of "<<name<<" is is read-only (locked) and can not be updated.";
-        throw xmlError(os.str().c_str());
+        throw xmlError(os.str());
     }
 }
 
@@ -146,7 +146,7 @@ xnode* xnode::getChild(std::string childname)
          found=true;
          retval=*it;
       }
-      it++;
+      ++it;
    }
    return retval;
 }
@@ -178,7 +178,7 @@ float xnode::getFloat() const
             std::ostringstream os;
             os<<"Float conversion error.";
             std::cout << e.what() << std::endl;
-            throw xmlError(os.str().c_str());
+            throw xmlError(os.str());
         }
     }
 
@@ -202,7 +202,7 @@ int xnode::getInt() const
             std::ostringstream os;
             os<<"Integer conversion error. "<<name;
             std::cout << e.what() << std::endl;
-            throw xmlError(os.str().c_str());
+            throw xmlError(os.str());
         }
     }
     return val;
@@ -222,7 +222,7 @@ bool xnode::getBool() const
     {
         std::ostringstream os;
         os<<"Boolean conversion error. "<<name;
-        throw xmlError(os.str().c_str());
+        throw xmlError(os.str());
      }
 
     return retval;

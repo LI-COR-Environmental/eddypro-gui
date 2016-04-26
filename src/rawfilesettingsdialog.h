@@ -59,7 +59,6 @@ public:
     ~RawFileSettingsDialog();
 
 public slots:
-    void initialize();
     void refresh();
 
 private slots:

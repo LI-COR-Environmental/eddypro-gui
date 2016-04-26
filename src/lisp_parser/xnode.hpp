@@ -15,7 +15,7 @@
 class xmlError
 {
    public:
-      xmlError(std::string e) : error(e) {}
+      explicit xmlError(std::string e) : error(e) {}
       std::string getError(){return error;}
    private:
       std::string error;

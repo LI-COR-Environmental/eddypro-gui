@@ -130,10 +130,6 @@ MainWindow::MainWindow(const QString& filename,
     auto wheelFilter_ = new WheelEventFilter(this);
     qApp->installEventFilter(wheelFilter_);
 
-    // NOTE: not used
-//    connect(tooltipFilter_, SIGNAL(updateTooltipRequest(QString)),
-//            this, SLOT(updateTooltipDock(QString)));
-
     // create metadata file
     dlProject_ = new DlProject(this, configState_.project);
 
@@ -482,7 +478,7 @@ void MainWindow::fileNew()
 }
 
 /// \fn void MainWindow::fileOpen(const QString &filename)
-/// \param[in] filename not used
+/// \param[in] filename
 /// \return void
 void MainWindow::fileOpen(const QString &fileName)
 {
@@ -2328,12 +2324,6 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
         toggleStatusbar(configState_.window.statusBar);
     }
     updateRunButtonsAvailability();
-}
-
-// NOTE: not used
-void MainWindow::whatsHelp()
-{
-    QWhatsThis::enterWhatsThisMode();
 }
 
 void MainWindow::showStatusTip(const QString &text) const

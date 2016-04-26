@@ -145,23 +145,6 @@ void BinarySettingsDialog::close()
     emit saveRequest();
 }
 
-// NOTE: not used
-void BinarySettingsDialog::initialize()
-{
-    // save the modified flag to prevent side effects of setting widgets
-    bool oldmod = ecProject_->modified();
-    ecProject_->blockSignals(true);
-
-    binaryHLinesSpin->setValue(-1);
-    binaryEolCombo->setCurrentIndex(-1);
-    binaryNBytesSpin->setValue(-1);
-    binaryEndianessCombo->setCurrentIndex(-1);
-
-    // restore modified flag
-    ecProject_->setModified(oldmod);
-    ecProject_->blockSignals(false);
-}
-
 void BinarySettingsDialog::refresh()
 {
     // save the modified flag to prevent side effects of setting widgets

@@ -204,7 +204,6 @@ private:
     QString toIniVariableMeasureUnit(const QString& s);
     QString toIniVariableConversionType(const QString& s);
     QString toIniVariableInstrument(const QString& s);
-    QString toIniBool(const QString& s);
     QString fromIniAnemManufacturer(const QString& s);
     QString fromIniAnemWindFormat(const QString& s);
     QString fromIniAnemNorthAlign(const QString &model, const QString& s);

@@ -226,18 +226,6 @@ void DlInstrTab::refresh()
     dlProject_->blockSignals(false);
 }
 
-// NOTE: not used
-void DlInstrTab::anemViewRefresh()
-{
-    anemView_->clearSelection();
-}
-
-// NOTE: not used
-void DlInstrTab::irgaViewRefresh()
-{
-    irgaView_->clearSelection();
-}
-
 // NOTE: verify if it's still necessary
 void DlInstrTab::updateScrollBars()
 {
@@ -246,5 +234,7 @@ void DlInstrTab::updateScrollBars()
     QWidgetList wl = anemView_->scrollBarWidgets(Qt::AlignBottom);
 
     if (!wl.isEmpty())
+    {
         wl.at(0)->update();
+    }
 }

@@ -43,12 +43,14 @@ const QString StringUtils::insertIndex(const QString& srcStr, int pos, const QSt
     return strData.insert(pos, str);
 }
 
+// NOTE: never used
 const char* StringUtils::qString2Char(const QString& str)
 {
     QByteArray ba = str.toLatin1();
     return ba.constData();
 }
 
+// NOTE: never used
 int StringUtils::daysToFromString(const QString& d_1, const QString& d_2)
 {
     QDate dStart(QDate::fromString(d_1, Qt::ISODate));

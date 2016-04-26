@@ -58,7 +58,6 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
     QComboBox *combo;
     CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
 
     int column = index.column();
     QString currentVar = index.model()->data(index.model()->index(VariableModel::VARIABLE, column)).toString();
@@ -262,7 +261,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
             }
             else
             {
-                nzdspin = new NonZeroDoubleSpinBox(parent);
+                auto nzdspin = new NonZeroDoubleSpinBox(parent);
                 nzdspin->setDecimals(6);
                 nzdspin->setRange(-999999.0, 999999.0);
                 nzdspin->setSingleStep(1.0);
@@ -295,7 +294,6 @@ void VariableDelegate::setEditorData(QWidget* editor,
     QComboBox *combo;
     CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
 
     int column = index.column();
     QString currentVar = index.model()->data(index.model()->index(VariableModel::VARIABLE, column)).toString();
@@ -394,7 +392,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
             }
             else
             {
-                nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
+                auto nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
                 if (!nzdspin) { return; }
                 nzdspin->setValue(value.toReal());
             }
@@ -417,7 +415,6 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
 {
     QComboBox *combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
     QVariant value;
     QLabel *label;
 
@@ -495,7 +492,7 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             }
             else
             {
-                nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
+                auto nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
                 if (!nzdspin) { return; }
                 value = nzdspin->value();
                 model->setData(index, value);

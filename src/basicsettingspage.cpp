@@ -2840,28 +2840,6 @@ void BasicSettingsPage::preselect7700Variables(QComboBox* combo)
     }
 }
 
-// NOTE: not used
-void BasicSettingsPage::preselectVariables()
-{
-    DEBUG_FUNC_NAME
-
-    // set none as initial value on the flags (not always possible)
-    foreach (auto combo, QList<QComboBox *>()
-             << flag1VarCombo
-             << flag2VarCombo
-             << flag3VarCombo
-             << flag4VarCombo
-             << flag5VarCombo
-             << flag6VarCombo
-             << flag7VarCombo
-             << flag8VarCombo
-             << flag9VarCombo
-             << flag10VarCombo)
-    {
-        combo->setCurrentIndex(combo->findData(0));
-    }
-}
-
 void BasicSettingsPage::outpathBrowseSelected(const QString& dir_path)
 {
     outpathBrowse->setPath(dir_path);
@@ -4624,18 +4602,6 @@ void BasicSettingsPage::updateFlag10Policy(int n)
     ecProject_->setScreenFlag10Policy(n);
 }
 
-// NOTE: not used
-void BasicSettingsPage::triggerGasProperties()
-{
-    DEBUG_FUNC_NAME
-
-    bool gasExtHidden = gasExtension->isHidden();
-
-    gasExtension->setVisible(gasExtHidden);
-    moreButton->setChecked(gasExtHidden);
-    updateGeometry();
-}
-
 void BasicSettingsPage::onClickFlagLabel()
 {
     QLabel* labelSender = qobject_cast<QLabel *>(sender());
@@ -5159,7 +5125,7 @@ QString BasicSettingsPage::strDeclination(double dec)
 
 // get variation of declination in decimal minutes / year, i.e. in mmss.sss
 // string from signed decimal degrees
-// NOTE: not used
+// NOTE: never used
 QString BasicSettingsPage::strVariation(double dec)
 {
     QString dms = QString();

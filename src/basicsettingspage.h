@@ -300,7 +300,6 @@ private:
     void clearFlagUnits();
     void clearFlagThresholdsAndPolicies();
     void filterVariables();
-    void preselectVariables();
     void preselectDensityVariables(QComboBox* combo);
     void preselect7700Variables(QComboBox* combo);
 
@@ -443,8 +442,6 @@ private slots:
     void onlineHelpTrigger_3();
     void onlineHelpTrigger_4();
     void onlineHelpTrigger_5();
-
-    void triggerGasProperties();
 
     void reset();
 

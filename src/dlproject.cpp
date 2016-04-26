@@ -1781,12 +1781,6 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
     return tableInstrumentStr;
 }
 
-// NOTE: not used
-QString DlProject::toIniBool(const QString& s)
-{
-    return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
-}
-
 QString DlProject::fromIniAnemManufacturer(const QString& s)
 {
     if (s == DlProject::ANEM_MANUFACTURER_STRING_0)

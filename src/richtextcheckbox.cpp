@@ -104,6 +104,7 @@ void RichTextCheckBox::setText(const QString& text)
     label->setText(text);
 }
 
+// NOTE: never used
 QString RichTextCheckBox::plainText() const
 {
     QTextDocument doc;

@@ -34,6 +34,7 @@
 #include "defs.h"
 #include "widget_utils.h"
 
+// NOTE: never used
 bool FileUtils::isFileEmpty(const QString& fileName)
 {
     QFile f(fileName);
@@ -72,23 +73,6 @@ bool FileUtils::projectFileForcedCopy(const QString& fileName,
     bool res = QFile::copy(fileName, destFile);
     Q_ASSERT(res);
     return res;
-}
-
-bool FileUtils::fileForcedCopy(const QString& fileName, const QString& destDir)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "fileName" << fileName;
-    qDebug() << "destDir" << destDir;
-
-    QString destFile = destDir + QLatin1Char('/') + fileName;
-    qDebug() << "destFile" << destFile;
-
-    if (QFile::exists(destFile))
-    {
-        qDebug() << "destFile exist: true";
-        QFile::remove(destFile);
-    }
-    return QFile::copy(fileName, destFile);
 }
 
 // creates dirName, which can be absolute or relative if absoluteDirDest is provided
@@ -184,18 +168,6 @@ void FileUtils::cleanDirRecursively(const QString& d)
     QDir dir(d);
     dir.removeRecursively();
     createDir(d);
-}
-
-void FileUtils::cleanDirRecursively_alt(const QString& d)
-{
-    if (existsPath(d))
-    {
-        if (!isDirEmpty(d))
-        {
-            removeDirRecursively(d);
-            createDir(d);
-        }
-    }
 }
 
 // not recursive
@@ -619,6 +591,7 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
 }
 
 // append string to filename
+// NOTE: never used
 bool FileUtils::appendToFile(const QString &str, const QString &filename)
 {
     QFile datafile(filename);

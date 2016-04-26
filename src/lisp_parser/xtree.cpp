@@ -63,7 +63,7 @@ std::string xtreefuncs::getToken(std::istream& data, bool& end_node)
       }
    }
    std::string g = cur_token.str();
-   return cur_token.str();
+   return g;
 }
 //---------------------------------------------------------
 //Method Name: getValue
@@ -131,7 +131,6 @@ void xtree::parse(std::istream& xml, bool ignore_perm, bool ignore_extra_xml)
     std::ostringstream log;
     std::string token;
     std::string value;
-    std::string attribute="";
     std::stack<xnode*> node_stack;
     bool end_node;
 
@@ -161,7 +160,7 @@ void xtree::parse(std::istream& xml, bool ignore_perm, bool ignore_extra_xml)
 
             std::string x = currentnode->getName();
 
-            if(token == currentnode->getName())
+            if(token == x)
             {
                 node_stack.push(currentnode);
             }
@@ -174,7 +173,7 @@ void xtree::parse(std::istream& xml, bool ignore_perm, bool ignore_extra_xml)
                     node_stack.push(currentnode);
                     value=getValue(xml);
 
-                    if(value != "" || (value =="" && currentnode->allowEV()) )
+                    if (value != "" || currentnode->allowEV())
                         currentnode->setValue(value, ignore_perm);
                 }
                 else
@@ -200,10 +199,9 @@ void xtree::parse(std::istream& xml, bool ignore_perm, bool ignore_extra_xml)
 
                     if(!found)
                     {
-                        std::istringstream old(currentstate.str());
                         std::ostringstream os;
                         os<<"Parse Error: "<<token<<" in :"<<log.str();
-                        throw xmlError(os.str().c_str());
+                        throw xmlError(os.str());
                      }
                 }
             }
@@ -233,7 +231,6 @@ xnode* xtree::query(std::istream& xml)
     xnode* tnode=0;
     std::ostringstream log;
     std::string token;
-    std::string value;
     std::stack<xnode*> node_stack;
     bool end_node;
 
@@ -260,7 +257,7 @@ xnode* xtree::query(std::istream& xml)
                 {
                     std::ostringstream os;
                     os<<"Could not process query: "<<token<<" in :"<<log.str();
-                    throw xmlError(os.str().c_str());
+                    throw xmlError(os.str());
                 }
             }
         }
@@ -319,8 +316,6 @@ xtree* xtreefactory::createTree(std::istream& dtd)
                 xnode* tn=node_stack.top();
                 node=new xnode(token,tn);
                 node->setNodePermissions(perm);
-
-                std::string top_node = tn->getName();
 
                 tn->addChild(node);
                 node_stack.push(node);

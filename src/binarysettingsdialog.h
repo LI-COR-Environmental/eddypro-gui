@@ -56,7 +56,6 @@ public:
 
 public slots:
     void close();
-    void initialize();
     void refresh();
 
 private slots:

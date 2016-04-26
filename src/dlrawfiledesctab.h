@@ -42,7 +42,6 @@ public:
 
     void reset();
     void refresh();
-    void rawfileViewRefresh();
 
     VariableView* variableView_;
     QPushButton* rawSettingsButton;

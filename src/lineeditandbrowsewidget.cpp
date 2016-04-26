@@ -92,6 +92,7 @@ void LineEditAndBrowseWidget::setButtonText(const QString& text)
     button_->setText(text);
 }
 
+// NOTE: never used
 QString LineEditAndBrowseWidget::buttonText() const
 {
     return button_->text();
