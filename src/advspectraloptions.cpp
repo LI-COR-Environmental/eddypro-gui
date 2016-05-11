@@ -425,6 +425,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     sonicFrequencyLabel = new ClickLabel;
     sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
     sonicFrequencyLabel->setVisible(false);
+
     sonicFrequency = new QSpinBox;
     sonicFrequency->setRange(4, 100);
     sonicFrequency->setSpecialValueText(QStringLiteral("Default"));
