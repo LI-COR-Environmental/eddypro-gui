@@ -1396,7 +1396,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_48, ec_project_state_.spectraSettings.use_foken_low);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
-        // NOTE: temporary placeholders for SA Groups
+        // NOTE: temporary placeholders for SA Groups. Not used right now
         project_ini.setValue(QStringLiteral("sa_co2_g1_start"), 1);
         project_ini.setValue(QStringLiteral("sa_co2_g1_stop"), 12);
         project_ini.setValue(QStringLiteral("sa_ch4_g1_start"), 1);

@@ -1074,12 +1074,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>High frequency range</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="439"/>
+        <location filename="../src/advspectraloptions.cpp" line="440"/>
         <source>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run, and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</source>
         <translation>&lt;b&gt;Spectral assessment file available:&lt;/b&gt; If you have a spectral assessment file from a previous run and it applies to the current dataset, you can use the same file to by providing the path to the file named &quot;eddypro_spectral_assessment_ID.txt&quot;. This file includes the results of the assessment. It can be used to shorten program execution time and assure full comparability between previous and current results.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="445"/>
+        <location filename="../src/advspectraloptions.cpp" line="446"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing spectral assessment file</translation>
     </message>
@@ -1195,7 +1195,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Horst and Lenschow (2009), only crosswind and vertical:&lt;/b&gt; Select this option to account for sensor separations only in the crosswind and vertical directions. Recommended when a time lag compensation method is selected.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="454"/>
+        <location filename="../src/advspectraloptions.cpp" line="455"/>
         <source>Assessment of high-frequency attenuation</source>
         <translation>Assessment of high-frequency attenuation</translation>
     </message>
@@ -1210,36 +1210,36 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>End :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="524"/>
+        <location filename="../src/advspectraloptions.cpp" line="525"/>
         <source>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</source>
         <translation>&lt;b&gt;Minimum number of spectra for valid averages:&lt;/b&gt; Select the minimum number of spectra that should be found in each class, for the corresponding ensemble average to be valid. Currently classes are defined only for H&lt;sub&gt;2&lt;/sub&gt;O with respect to ambient relative humidity: 9 classes are defined between RH = 5% and RH = 95%. We expect to add classes also for passive gases, related to time periods. Entering a number that is too high may imply that, for certain classes, average spectra cannot be calculated. A number that is too small may result in poor characterization of average spectra. The higher this number, the longer the time period needed.</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="157"/>
-        <location filename="../src/advspectraloptions.cpp" line="457"/>
+        <location filename="../src/advspectraloptions.cpp" line="458"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="158"/>
-        <location filename="../src/advspectraloptions.cpp" line="458"/>
+        <location filename="../src/advspectraloptions.cpp" line="459"/>
         <source>%2</source>
         <translation>%2</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="159"/>
-        <location filename="../src/advspectraloptions.cpp" line="459"/>
+        <location filename="../src/advspectraloptions.cpp" line="460"/>
         <source>%3</source>
         <translation>%3</translation>
     </message>
     <message>
         <location filename="../src/advspectraloptions.cpp" line="160"/>
-        <location filename="../src/advspectraloptions.cpp" line="460"/>
+        <location filename="../src/advspectraloptions.cpp" line="461"/>
         <source>%4 Gas</source>
         <translation>%4 Gas</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="462"/>
+        <location filename="../src/advspectraloptions.cpp" line="463"/>
         <source>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</source>
         <translation>Frequency range for fitting in-situ transfer functions (based on temperature and concentrations spectra)</translation>
     </message>
@@ -1263,22 +1263,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation> [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="468"/>
+        <location filename="../src/advspectraloptions.cpp" line="469"/>
         <source>Lowest frequency :</source>
         <translation>Lowest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="469"/>
+        <location filename="../src/advspectraloptions.cpp" line="470"/>
         <source>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</source>
         <translation>&lt;b&gt;Lowest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature considered as proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At lower frequencies, slow-paced atmospheric and source/sink dynamics may imply a breakdown of the similarity assumption. Default values can be good in most occasions, but the lower frequency should be adapted based mostly on the averaging interval.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="471"/>
+        <location filename="../src/advspectraloptions.cpp" line="472"/>
         <source>Highest frequency :</source>
         <translation>Highest frequency :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="472"/>
+        <location filename="../src/advspectraloptions.cpp" line="473"/>
         <source>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</source>
         <translation>&lt;b&gt;Highest frequency:&lt;/b&gt; The assessment of the system transfer function implies the frequency-wise ratio of gas concentration to temperature spectra (temperature being considered as a proxy for un-attenuated atmospheric scalar spectra). This ratio must be taken in the frequency range where the system filtering is expected to occur. At higher frequencies, noise and aliasing may corrupt the procedure. Default values can be good in most occasions, but the higher frequency should be adapted based on acquisition frequency and instrument performance.</translation>
     </message>
@@ -1527,77 +1527,77 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;DAC zero-order hold:&lt;/b&gt; ...</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="434"/>
+        <location filename="../src/advspectraloptions.cpp" line="435"/>
         <source>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</source>
         <translation>&lt;b&gt;Sonic frequency: &lt;/b&gt;...</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="438"/>
+        <location filename="../src/advspectraloptions.cpp" line="439"/>
         <source>Spectral assessment file available for this dataset :</source>
         <translation>Spectral assessment file available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="441"/>
+        <location filename="../src/advspectraloptions.cpp" line="442"/>
         <source>Spectral assessment file not available</source>
         <translation>Spectral assessment file not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="442"/>
+        <location filename="../src/advspectraloptions.cpp" line="443"/>
         <source>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</source>
         <translation>&lt;b&gt;Spectral assessment file not available:&lt;/b&gt; Choose this option and provide the following information if you need to calculate cut-off frequencies for your system. The assessment will be performed as an intermediate step, after all binned (co)spectra for the current dataset are calculated and before calculating and correcting fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="446"/>
+        <location filename="../src/advspectraloptions.cpp" line="447"/>
         <source>Select the Spectral Assessment File</source>
         <translation>Select the Spectral Assessment File</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="466"/>
+        <location filename="../src/advspectraloptions.cpp" line="467"/>
         <source>Removal of high frequency noise</source>
         <translation>Removal of high frequency noise</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="523"/>
+        <location filename="../src/advspectraloptions.cpp" line="524"/>
         <source>Minimum number of (co)spectra for valid averages :</source>
         <translation>Minimum number of (co)spectra for valid averages :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="535"/>
+        <location filename="../src/advspectraloptions.cpp" line="536"/>
         <source>Full w/Ts cospectra files available for this dataset :</source>
         <translation>Full w/Ts cospectra files available for this dataset :</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="536"/>
+        <location filename="../src/advspectraloptions.cpp" line="537"/>
         <source>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</source>
         <translation>&lt;b&gt;Full w/Ts cospectra files available:&lt;/b&gt; Select this option if you already obtained &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that the cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically deselected and activated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="538"/>
+        <location filename="../src/advspectraloptions.cpp" line="539"/>
         <source>Full w/Ts cospectra files not available</source>
         <translation>Full w/Ts cospectra files not available</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="539"/>
+        <location filename="../src/advspectraloptions.cpp" line="540"/>
         <source>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</source>
         <translation>&lt;b&gt;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files not available:&lt;/b&gt; Select this option if you do not have &lt;i&gt;Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; for the current dataset (from a previous run of EddyPro). Note that existing cospectra files need to correspond exactly to the current dataset. Full cospectra of w/T&lt;sub&gt;s&lt;/sub&gt; (sensible heat) are used for definition of the spectral correction factor for each flux with the method by Fratini et al. (2012). If you select this option, the option &lt;i&gt;Full length cospectra w/T&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt; in the Output Files page will be automatically selected and deactivated.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="542"/>
+        <location filename="../src/advspectraloptions.cpp" line="543"/>
         <source>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</source>
         <translation>&lt;b&gt;Browse:&lt;/b&gt; Specify the folder that contains the full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra files.</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="532"/>
+        <location filename="../src/advspectraloptions.cpp" line="533"/>
         <source>Fratini et al. (2012) method settings</source>
         <translation>Fratini et al. (2012) method settings</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="550"/>
+        <location filename="../src/advspectraloptions.cpp" line="551"/>
         <source>Include anemometer losses for path averaging and time response</source>
         <translation>Include anemometer losses for path averaging and time response</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="551"/>
+        <location filename="../src/advspectraloptions.cpp" line="552"/>
         <source>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</source>
         <translation>&lt;b&gt;Include anemometer losses for path averaging and time response:&lt;/b&gt; Select this option to instruct EddyPro to correct sensible heat cospectra for those losses, before using them as a model to calculate correction factors according to Fratini et al. (2012).</translation>
     </message>
@@ -1607,12 +1607,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Spectral Correction Options</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="448"/>
+        <location filename="../src/advspectraloptions.cpp" line="449"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/advspectraloptions.cpp" line="543"/>
+        <location filename="../src/advspectraloptions.cpp" line="544"/>
         <source>Select the Full Spectra Files Directory</source>
         <translation>Select the Full Spectra Files Directory</translation>
     </message>
@@ -2523,13 +2523,13 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
-        <source>&lt;i&gt;Embedded software version&lt;/i&gt;</source>
-        <translation>&lt;i&gt;Embedded software version&lt;/i&gt;</translation>
+        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</source>
+        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
-        <source>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</source>
-        <translation>&lt;b&gt;Embedded software version:&lt;/b&gt; Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers&apos; firmware version is recommended for good recordkeeping.</translation>
+        <source>Embedded software version</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="48"/>
