@@ -1054,6 +1054,10 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
                 currentFlags &= !Qt::ItemIsSelectable;
                 return currentFlags;
             }
+            else
+            {
+                return currentFlags;
+            }
 #if defined(Q_OS_MAC)
             [[clang::fallthrough]];
 #endif
