@@ -3506,7 +3506,7 @@ bool MainWindow::getDatesRangeDialog(Defs::CurrRunMode mode)
                          || ecProject_->timelagOptSubset();
     }
 
-    // if there are and we are not in paused run,
+    // if there are subperiods and we are not in paused run,
     // notify with a blocking dialog
     if (isSubperiodSet && currentStatus() == Defs::CurrStatus::Ready)
     {
