@@ -642,11 +642,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             // ignore yes if (var == 'ignore' || var == 'not_numeric')
             var.setIgnore(StringUtils::fromBool2YesNoString((varStr == VARIABLE_VAR_STRING_14)
                           || (varStr == VARIABLE_VAR_STRING_18)));
+
             // numeric yes if (var != 'not_numeric')
             var.setNumeric(StringUtils::fromBool2YesNoString(varStr != VARIABLE_VAR_STRING_18));
+
             // std numeric var
             if (var.ignore() == QLatin1String("no") && var.numeric() == QLatin1String("yes"))
+            {
                 var.setVariable(fromIniVariableVar(varStr));
+            }
 
             var.setInstrument(fromIniVariableInstrument(project_ini.value(prefix + DlIni::INI_VARDESC_INSTRUMENT, QString()).toString()));
 
@@ -745,6 +749,19 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 var.setBValue(bValue);
 //                isVersionCompatible = false;
                 qDebug() << "var:" << k << "var isVersionCompatible false: scaling zero_fullscale";
+
+
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    qDebug() << "diagnostic variable";
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: diagnostic variable with gain offset, then set conversion to empty";
+                }
             }
             // if conversion is gain-offset
             else if (project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_1)
@@ -771,6 +788,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     isVersionCompatible = false;
                     qDebug() << "var:" << k << "aValue isVersionCompatible false: 0.0 -> 1.0";
                 }
+
                 // if input unit is empty, set conversion to empty
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
                 {
@@ -791,6 +809,17 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                 }
 
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    qDebug() << "diagnostic variable";
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: diagnostic variable with gain offset, then set conversion to empty";
+                }
             }
             // if conversion is none or empty
             else if ((project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_2)
