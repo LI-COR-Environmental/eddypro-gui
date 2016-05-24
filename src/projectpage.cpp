@@ -197,7 +197,11 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     biometExtFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing biomet external file"));
     biometExtFileBrowse->setDialogTitle(tr("Select the Biomet File"));
     biometExtFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
+#if defined(Q_OS_MAC)
+    biometExtFileBrowse->setDialogFilter(tr("All Files (*.*)").arg(Defs::APP_NAME));
+#else
     biometExtFileBrowse->setDialogFilter(tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME));
+#endif
 
     biomExtDirRadio = new QRadioButton(tr("Use external directory:"));
     biomExtDirRadio->setToolTip(tr("<b>Use external directory:</b> Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the <b><i>Browse...</i></b> button. <br /><b>IMPORTANT:</b> All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User\'s Guide. Click on the question mark at the right side of the <b><i>Browse...</i></b> button to access the guidelines page on EddyPro Help."));
