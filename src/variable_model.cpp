@@ -804,14 +804,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
 
     switch (row)
     {
-        case NUMERIC:
-            qDebug() << "NUMERIC";
-            if (value == variableDesc.numeric())
-            {
-                return false;
-            }
-            variableDesc.setNumeric(value.toString());
-            break;
         case IGNORE:
             qDebug() << "IGNORE";
             if (value == variableDesc.ignore())
@@ -827,6 +819,14 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             {
                 variableDesc.setIgnore(value.toString());
             }
+            break;
+        case NUMERIC:
+            qDebug() << "NUMERIC";
+            if (value == variableDesc.numeric())
+            {
+                return false;
+            }
+            variableDesc.setNumeric(value.toString());
             break;
         case VARIABLE:
             qDebug() << "VARIABLE";
@@ -1058,9 +1058,6 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
             {
                 return currentFlags;
             }
-#if defined(Q_OS_MAC)
-            [[clang::fallthrough]];
-#endif
         case INSTRUMENT:
         case INPUTUNIT:
         case NOMTIMELAG:
