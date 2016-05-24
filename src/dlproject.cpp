@@ -2532,7 +2532,12 @@ bool DlProject::masterAnemHasGoodWindmasterFwVersion()
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
                 if (!anem_version.isEmpty())
                 {
-                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
+                    // accept Gill's anemometer firmware version in these forms:
+                    // 123-456 or
+                    // 123.456 or
+                    // 123-456-678 or
+                    // 123.456.678
+                    QRegularExpression re(QStringLiteral("^(\\d+[.|-]\\d+|\\d+[.|-]\\d+[.|-]\\d+)$"));
                     qDebug() << "re.valid:" << re.isValid();
 
                     if (!re.match(anem_version).hasMatch())
