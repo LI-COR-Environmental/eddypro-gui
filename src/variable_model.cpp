@@ -1046,7 +1046,24 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     switch (row)
     {
         case IGNORE:
+            return currentFlags;
+        case NUMERIC:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                currentFlags &= !Qt::ItemIsEnabled;
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
+            return currentFlags;
         case VARIABLE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                currentFlags &= !Qt::ItemIsEnabled;
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
             if (variableDesc.variable() == QLatin1String("Standard Variables")
                 || variableDesc.variable() == QLatin1String("Custom Variables"))
             {
@@ -1063,6 +1080,13 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
         case NOMTIMELAG:
         case MINTIMELAG:
         case MAXTIMELAG:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                currentFlags &= !Qt::ItemIsEnabled;
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
             if (variableDesc.numeric() == QLatin1String("no"))
             {
                 currentFlags &= !Qt::ItemIsEnabled;
@@ -1075,6 +1099,13 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
                 return currentFlags;
             }
         case MEASURETYPE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                currentFlags &= !Qt::ItemIsEnabled;
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
             if (variableDesc.numeric() == QLatin1String("no")
                 || (!VariableDesc::isGasVariable(variableDesc.variable())
                 && !VariableDesc::isCustomVariable(variableDesc.variable())))
@@ -1092,6 +1123,13 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
         case OUTPUTUNIT:
         case AVALUE:
         case BVALUE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                currentFlags &= !Qt::ItemIsEnabled;
+                currentFlags &= !Qt::ItemIsEditable;
+                currentFlags &= !Qt::ItemIsSelectable;
+                return currentFlags;
+            }
             if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
                 || variableDesc.numeric() == QLatin1String("no")
                 || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
