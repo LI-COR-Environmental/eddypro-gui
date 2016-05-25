@@ -313,7 +313,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
             if (!combo) { return; }
 
             // prevent empty variables
-            if (stringValue.isEmpty()) break;
+            if (stringValue.isEmpty()) { break; }
 
             combo->setCurrentIndex(combo->findText(stringValue));
             break;
