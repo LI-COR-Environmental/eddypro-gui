@@ -1034,9 +1034,15 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     if (!index.isValid()) return Qt::ItemIsEnabled;
 
     Qt::ItemFlags currentFlags = QAbstractTableModel::flags(index);
-    currentFlags |= Qt::ItemIsEnabled;
-    currentFlags |= Qt::ItemIsEditable;
-    currentFlags |= Qt::ItemIsSelectable;
+
+    Qt::ItemFlags normalFlags = currentFlags;
+    normalFlags |= Qt::ItemIsEnabled;
+    normalFlags |= Qt::ItemIsEditable;
+    normalFlags |= Qt::ItemIsSelectable;
+
+    Qt::ItemFlags disabledFlags = currentFlags;
+    disabledFlags &= !Qt::ItemIsEditable;
+    disabledFlags &= !Qt::ItemIsSelectable;
 
     int row = index.row();
     int column = index.column();
@@ -1046,35 +1052,29 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     switch (row)
     {
         case IGNORE:
-            return currentFlags;
-        case NUMERIC:
-            if (variableDesc.ignore() == QLatin1String("yes"))
+            if (variableDesc.numeric() == QLatin1String("no"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            return currentFlags;
+            return normalFlags;
+        case NUMERIC:
+            if (variableDesc.ignore() == QLatin1String("yes")
+                && variableDesc.numeric() == QLatin1String("yes"))
+            {
+                return disabledFlags;
+            }
+            return normalFlags;
         case VARIABLE:
             if (variableDesc.ignore() == QLatin1String("yes"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
             if (variableDesc.variable() == QLatin1String("Standard Variables")
                 || variableDesc.variable() == QLatin1String("Custom Variables"))
             {
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         case INSTRUMENT:
         case INPUTUNIT:
         case NOMTIMELAG:
@@ -1082,70 +1082,39 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
         case MAXTIMELAG:
             if (variableDesc.ignore() == QLatin1String("yes"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            if (variableDesc.numeric() == QLatin1String("no"))
-            {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
-            }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         case MEASURETYPE:
             if (variableDesc.ignore() == QLatin1String("yes"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
             if (variableDesc.numeric() == QLatin1String("no")
                 || (!VariableDesc::isGasVariable(variableDesc.variable())
                 && !VariableDesc::isCustomVariable(variableDesc.variable())))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         case CONVERSIONTYPE:
         case OUTPUTUNIT:
         case AVALUE:
         case BVALUE:
             if (variableDesc.ignore() == QLatin1String("yes"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
             if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
                 || variableDesc.numeric() == QLatin1String("no")
                 || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
                     && VariableDesc::isDiagnosticVar(variableDesc.variable())))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         default:
-            return currentFlags;
+            return normalFlags;
     }
 }
 
