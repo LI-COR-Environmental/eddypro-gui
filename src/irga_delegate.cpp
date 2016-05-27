@@ -460,13 +460,13 @@ void IrgaDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
 }
 
 void IrgaDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
 }
 
 bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)

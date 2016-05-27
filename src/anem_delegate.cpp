@@ -385,13 +385,13 @@ void AnemDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
 }
 
 void AnemDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
 }
 
 bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
