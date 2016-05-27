@@ -106,11 +106,13 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
           return combo;
       case AnemModel::SWVERSION:
           ledit = new QLineEdit(parent);
+          ledit->setPlaceholderText(QStringLiteral("2329-660-01"));
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;
       case AnemModel::ID:
           ledit = new QLineEdit(parent);
+          ledit->setPlaceholderText(QStringLiteral("Alphanumeric ID"));
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;

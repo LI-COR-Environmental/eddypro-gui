@@ -95,6 +95,7 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
           return combo;
       case IrgaModel::SWVERSION:
             ledit = new QLineEdit(parent);
+            ledit->setPlaceholderText(QStringLiteral("8.0.0"));
             connect(ledit, SIGNAL(editingFinished()),
                     this, SLOT(commitAndCloseEditor()));
             return ledit;
