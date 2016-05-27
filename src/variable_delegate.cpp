@@ -357,8 +357,6 @@ void VariableDelegate::setEditorData(QWidget* editor,
                 combo = static_cast<QComboBox*>(editor);
                 if (!combo) { return; }
 
-//                if (combo->findText(value.toString()) < 0)
-//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
@@ -376,8 +374,6 @@ void VariableDelegate::setEditorData(QWidget* editor,
                 combo = static_cast<QComboBox*>(editor);
                 if (!combo) { return; }
 
-//                if (combo->findText(value.toString()) < 0)
-//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
@@ -548,14 +544,16 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
     QEvent::Type eventType = event->type();
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
     if (combo
-         && (eventType == QEvent::MouseButtonRelease
-             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
-                                                || eventKey == Qt::Key_Enter
+        && (eventType == QEvent::MouseButtonRelease
+            || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
+                                               || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
 //        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)

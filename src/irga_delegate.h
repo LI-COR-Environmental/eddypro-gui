@@ -29,7 +29,6 @@
 class IrgaDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
-
 public:
     explicit IrgaDelegate(QObject* parent = nullptr);
     ~IrgaDelegate();

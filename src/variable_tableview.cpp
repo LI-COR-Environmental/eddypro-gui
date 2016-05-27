@@ -117,8 +117,10 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
     qDebug() << "hint:" << hint;
     if (hint == QAbstractItemDelegate::NoHint)
     {
-        QAbstractItemView::closeEditor(editor, QAbstractItemDelegate::SubmitModelCache);
+        QAbstractItemView::closeEditor(editor,
+                                       QAbstractItemDelegate::SubmitModelCache);
     }
+
 //    else if (hint == QAbstractItemDelegate::EditNextItem
 //             || hint == QAbstractItemDelegate::EditPreviousItem)
 //    {
@@ -143,6 +145,7 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 //            edit(editableIndex);
 //        }
 //    }
+
     else
     {
         QAbstractItemView::closeEditor(editor, hint);

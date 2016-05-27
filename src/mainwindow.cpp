@@ -331,7 +331,6 @@ void MainWindow::initialize()
         }
     }
 
-
     // remove the automatic full screen button on Mac to manage conflicts
     // with the splash screen
 //#if defined(Q_OS_MAC)

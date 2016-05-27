@@ -475,14 +475,16 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
     QEvent::Type eventType = event->type();
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
     if (combo
-         && (eventType == QEvent::MouseButtonRelease
-             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
-                                                || eventKey == Qt::Key_Enter
-                                                || eventKey == Qt::Key_Return))))
+        && (eventType == QEvent::MouseButtonRelease
+            || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
+                                               || eventKey == Qt::Key_Enter
+                                               || eventKey == Qt::Key_Return))))
     {
 //        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)

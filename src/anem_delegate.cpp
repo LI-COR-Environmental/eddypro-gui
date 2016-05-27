@@ -241,7 +241,6 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
 void AnemDelegate::setEditorData(QWidget* editor,
                                   const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -315,7 +314,6 @@ void AnemDelegate::setEditorData(QWidget* editor,
 void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                 const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -407,9 +405,10 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
                                                 || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
-//        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
