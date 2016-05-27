@@ -626,7 +626,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::TextAlignmentRole)
     {
-//        qDebug() << "TextAlignmentRole" << row;
         switch (row)
         {
             case IGNORE:
@@ -660,11 +659,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(Qt::red)));
                 }
-//                else if (variableDesc.ignore() == QLatin1String("no")
-//                         && variableDesc.numeric() == QLatin1String("yes"))
-//                {
-//                    return QVariant(QColor(Qt::black));
-//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -679,11 +673,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(QStringLiteral("#D69696"))));
                 }
-//                else if (variableDesc.numeric() == QLatin1String("no")
-//                         && variableDesc.ignore() == QLatin1String("yes"))
-//                {
-//                    return QVariant(QColor(Qt::black));
-//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -752,7 +741,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QColor(Qt::white));
                 }
             default:
-//                return QVariant(QColor(Qt::white));
                 if (variableDesc.ignore() == QLatin1String("yes")
                     || variableDesc.numeric() == QLatin1String("no"))
                 {
@@ -766,7 +754,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::SizeHintRole)
     {
-//        qDebug() << "SizeHintRole" << row;
         switch (row)
         {
             default:
@@ -775,7 +762,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else
     {
-//        qDebug() << "else" << row;
         return QVariant();
     }
 }
@@ -783,16 +769,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
 // Set data at index
 bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    DEBUG_FUNC_NAME
-
     int row = index.row();
     int column = index.column();
-
-    qDebug() << "row" << row;
-    qDebug() << "column" << column;
-    qDebug() << "value.toString()" << value.toString();
-    qDebug() << "role" << role;
-    qDebug() << "list_->count()" << list_->count();
 
     if (!index.isValid()) return false;
     if (role != Qt::EditRole) return false;
@@ -800,12 +778,10 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
 
     // grab existing var desc for the column
     VariableDesc variableDesc = list_->value(column);
-//    qDebug() << "instrModelList_" << instrModelList_;
 
     switch (row)
     {
         case IGNORE:
-            qDebug() << "IGNORE";
             if (value == variableDesc.ignore())
             {
                 return false;
@@ -821,7 +797,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             }
             break;
         case NUMERIC:
-            qDebug() << "NUMERIC";
             if (value == variableDesc.numeric())
             {
                 return false;
@@ -829,7 +804,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setNumeric(value.toString());
             break;
         case VARIABLE:
-            qDebug() << "VARIABLE";
             // update only if new value is not equal to the old value
             if (value == variableDesc.variable())
             {
@@ -847,13 +821,10 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             }
             break;
         case INSTRUMENT:
-            qDebug() << "INSTRUMENT";
             if (value == variableDesc.instrument())
             {
                 return false;
             }
-//            qDebug() << "instrModelList_" << instrModelList_;
-//            qDebug() << "value.toString()" << value.toString();
 
             // filter no more available instruments
             if (instrModelList_.contains(value.toString()))
@@ -866,7 +837,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             }
             break;
         case MEASURETYPE:
-            qDebug() << "MEASURETYPE";
             if (value == variableDesc.measureType())
             {
                 return false;
@@ -874,7 +844,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setMeasureType(value.toString());
             break;
         case INPUTUNIT:
-            qDebug() << "INPUTUNIT";
             if (value == variableDesc.inputUnit())
             {
                 return false;
@@ -882,7 +851,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setInputUnit(value.toString());
             break;
         case CONVERSIONTYPE:
-            qDebug() << "CONVERSIONTYPE";
             if (value == variableDesc.conversionType())
             {
                 return false;
@@ -890,7 +858,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setConversionType(value.toString());
             break;
         case OUTPUTUNIT:
-            qDebug() << "OUTPUTUNIT";
             if (value == variableDesc.outputUnit())
             {
                 return false;
@@ -898,7 +865,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setOutputUnit(value.toString());
             break;
         case AVALUE:
-            qDebug() << "AVALUE";
             if (value == variableDesc.aValue())
             {
                 return false;
@@ -906,7 +872,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setAValue(value.toReal());
             break;
         case BVALUE:
-            qDebug() << "BVALUE";
             if (value == variableDesc.bValue())
             {
                 return false;
@@ -914,7 +879,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setBValue(value.toReal());
             break;
         case NOMTIMELAG:
-            qDebug() << "NOMTIMELAG";
             if (value == variableDesc.nomTimelag())
             {
                 return false;
@@ -922,7 +886,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setNomTimelag(value.toReal());
             break;
         case MINTIMELAG:
-            qDebug() << "MINTIMELAG";
             if (value == variableDesc.minTimelag())
             {
                 return false;
@@ -930,7 +893,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setMinTimelag(value.toReal());
             break;
         case MAXTIMELAG:
-            qDebug() << "MAXTIMELAG";
             if (value == variableDesc.maxTimelag())
             {
                 return false;
