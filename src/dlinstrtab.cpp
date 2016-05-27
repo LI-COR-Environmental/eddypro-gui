@@ -49,8 +49,6 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
     anemModel_ = new AnemModel(anemView_, dlProject_->anems());
     anemDelegate_ = new AnemDelegate(anemView_);
 
-    // NOTE: test if delegate clipping is necessary
-    anemDelegate_->setClipping(false);
     anemView_->setModel(anemModel_);
     anemView_->setItemDelegate(anemDelegate_);
     anemView_->setSelectionMode(QAbstractItemView::SingleSelection);

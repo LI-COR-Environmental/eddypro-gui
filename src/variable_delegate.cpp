@@ -38,7 +38,7 @@
 #include "widget_utils.h"
 
 VariableDelegate::VariableDelegate(QObject *parent) :
-    QItemDelegate(parent),
+    QStyledItemDelegate(parent),
     varsBuffer_(new QStringList())
 {
     installEventFilter(this);
@@ -283,7 +283,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                     this, SLOT(commitAndCloseEditor()));
             return dspin;
         default:
-            return QItemDelegate::createEditor(parent, option, index);
+            return QStyledItemDelegate::createEditor(parent, option, index);
     }
 }
 
@@ -405,7 +405,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
             dspin->setValue(value.toReal());
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -507,7 +507,7 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             model->setData(index, value);
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }

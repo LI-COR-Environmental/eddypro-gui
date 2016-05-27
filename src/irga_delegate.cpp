@@ -36,7 +36,7 @@
 #include "irga_desc.h"
 #include "irga_model.h"
 
-IrgaDelegate::IrgaDelegate(QObject *parent) : QItemDelegate(parent)
+IrgaDelegate::IrgaDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
     installEventFilter(this);
 }
@@ -240,7 +240,7 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
                 return dspin;
             }
           default:
-              return QItemDelegate::createEditor(parent, option, index);
+              return QStyledItemDelegate::createEditor(parent, option, index);
     }
 }
 
@@ -336,7 +336,7 @@ void IrgaDelegate::setEditorData(QWidget* editor,
             }
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -440,7 +440,7 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             }
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }
@@ -452,14 +452,6 @@ void IrgaDelegate::updateEditorGeometry(QWidget* editor,
     Q_UNUSED(index)
 
     if (editor) editor->setGeometry(option.rect);
-}
-
-void IrgaDelegate::drawDisplay(QPainter* painter,
-    const QStyleOptionViewItem& option, const QRect& rect,
-    const QString& text) const
-{
-   QRect r(rect.x(), rect.y(), rect.width(), rect.height());
-   QItemDelegate::drawDisplay(painter, option, r, text);
 }
 
 void IrgaDelegate::commitAndCloseEditor()

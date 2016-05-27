@@ -24,9 +24,9 @@
 #ifndef IRGA_DELEGATE_H
 #define IRGA_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class IrgaDelegate : public QItemDelegate
+class IrgaDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
@@ -46,11 +46,6 @@ public:
     void updateEditorGeometry(QWidget* editor,
                               const QStyleOptionViewItem& option,
                               const QModelIndex& index) const Q_DECL_OVERRIDE;
-
-    void drawDisplay(QPainter* painter,
-                     const QStyleOptionViewItem& option,
-                     const QRect& rect,
-                     const QString& text) const Q_DECL_OVERRIDE;
 
 private slots:
     void commitAndCloseEditor();

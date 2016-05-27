@@ -35,7 +35,7 @@
 #include "defs.h"
 #include "dbghelper.h"
 
-AnemDelegate::AnemDelegate(QObject *parent) : QItemDelegate(parent)
+AnemDelegate::AnemDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
     installEventFilter(this);
 }
@@ -305,7 +305,7 @@ void AnemDelegate::setEditorData(QWidget* editor,
             }
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -367,7 +367,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             model->setData(index, value);
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }
