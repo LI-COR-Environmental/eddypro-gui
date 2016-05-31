@@ -2417,7 +2417,7 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AnemDelegate</name>
     <message>
-        <location filename="../src/anem_delegate.cpp" line="173"/>
+        <location filename="../src/anem_delegate.cpp" line="175"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
@@ -3842,42 +3842,42 @@ End: %3
 <context>
     <name>DlInstrTab</name>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="77"/>
+        <location filename="../src/dlinstrtab.cpp" line="75"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add a new anemometer.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add a new anemometer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="81"/>
+        <location filename="../src/dlinstrtab.cpp" line="79"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove the currently selected anemometer.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove the currently selected anemometer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="93"/>
+        <location filename="../src/dlinstrtab.cpp" line="91"/>
         <source>Anemometers Info</source>
         <translation>Anemometers Info</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="96"/>
+        <location filename="../src/dlinstrtab.cpp" line="94"/>
         <source>&lt;b&gt;Anemometers info:&lt;/b&gt; Describe anemometers used at the flux station to collect data you want to process.</source>
         <translation>&lt;b&gt;Anemometers info:&lt;/b&gt; Describe anemometers used at the flux station to collect data you want to process.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="128"/>
+        <location filename="../src/dlinstrtab.cpp" line="126"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add a new gas analyzer.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add a new gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="132"/>
+        <location filename="../src/dlinstrtab.cpp" line="130"/>
         <source>&lt;b&gt;-&lt;/b&gt;Remove the currently selected gas analyzer.</source>
         <translation>&lt;b&gt;-&lt;/b&gt;Remove the currently selected gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="144"/>
+        <location filename="../src/dlinstrtab.cpp" line="142"/>
         <source>Gas Analyzers Info</source>
         <translation>Gas Analyzers Info</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="147"/>
+        <location filename="../src/dlinstrtab.cpp" line="145"/>
         <source>&lt;b&gt;Gas analyzers info:&lt;/b&gt; Describe gas analyzers used to collect the data you want to process.</source>
         <translation>&lt;b&gt;Gas analyzers info:&lt;/b&gt; Describe gas analyzers used to collect the data you want to process.</translation>
     </message>
@@ -3892,14 +3892,14 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="413"/>
-        <location filename="../src/dlproject.cpp" line="912"/>
+        <location filename="../src/dlproject.cpp" line="941"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="932"/>
+        <location filename="../src/dlproject.cpp" line="961"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -3907,46 +3907,46 @@ End: %3
     </message>
     <message>
         <location filename="../src/dlproject.cpp" line="412"/>
-        <location filename="../src/dlproject.cpp" line="911"/>
-        <location filename="../src/dlproject.cpp" line="931"/>
+        <location filename="../src/dlproject.cpp" line="940"/>
+        <location filename="../src/dlproject.cpp" line="960"/>
         <source>Load Metadata Error</source>
         <translation>Load Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="949"/>
-        <location filename="../src/dlproject.cpp" line="1240"/>
+        <location filename="../src/dlproject.cpp" line="978"/>
+        <location filename="../src/dlproject.cpp" line="1269"/>
         <source>Write Metadata Error</source>
         <translation>Write Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="950"/>
+        <location filename="../src/dlproject.cpp" line="979"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1241"/>
+        <location filename="../src/dlproject.cpp" line="1270"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1726"/>
+        <location filename="../src/dlproject.cpp" line="1755"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1765"/>
+        <location filename="../src/dlproject.cpp" line="1794"/>
         <source>Sonic </source>
         <translation>Sonic </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1769"/>
+        <location filename="../src/dlproject.cpp" line="1798"/>
         <source>Irga </source>
         <translation>Irga </translation>
     </message>
     <message>
-        <location filename="../src/dlproject.cpp" line="1774"/>
+        <location filename="../src/dlproject.cpp" line="1803"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
@@ -4518,693 +4518,693 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="474"/>
+        <location filename="../src/mainwindow.cpp" line="473"/>
         <source>New project created</source>
         <translation>New project created</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="494"/>
+        <location filename="../src/mainwindow.cpp" line="493"/>
         <source>Opening...</source>
         <translation>Opening...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="502"/>
+        <location filename="../src/mainwindow.cpp" line="501"/>
         <source>Select an %1 Project File</source>
         <translation>Select an %1 Project File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="504"/>
+        <location filename="../src/mainwindow.cpp" line="503"/>
         <source>%1 Project Files (*.%2);;All Files (*.*)</source>
         <translation>%1 Project Files (*.%2);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="523"/>
+        <location filename="../src/mainwindow.cpp" line="522"/>
         <source>Project loaded</source>
         <translation>Project loaded</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="545"/>
+        <location filename="../src/mainwindow.cpp" line="544"/>
         <source>Project loading failed</source>
         <translation>Project loading failed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="593"/>
+        <location filename="../src/mainwindow.cpp" line="592"/>
         <source>Unable to load the project.</source>
         <translation>Unable to load the project.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="651"/>
+        <location filename="../src/mainwindow.cpp" line="650"/>
         <source>Recent project loaded</source>
         <translation>Recent project loaded</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="666"/>
+        <location filename="../src/mainwindow.cpp" line="665"/>
         <source>Recent project loading failed</source>
         <translation>Recent project loading failed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="703"/>
-        <location filename="../src/mainwindow.cpp" line="810"/>
+        <location filename="../src/mainwindow.cpp" line="702"/>
+        <location filename="../src/mainwindow.cpp" line="809"/>
         <source>Project saved</source>
         <translation>Project saved</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="714"/>
-        <location filename="../src/mainwindow.cpp" line="825"/>
+        <location filename="../src/mainwindow.cpp" line="713"/>
+        <location filename="../src/mainwindow.cpp" line="824"/>
         <source>Error in saving project</source>
         <translation>Error in saving project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="758"/>
+        <location filename="../src/mainwindow.cpp" line="757"/>
         <source>Saving project...</source>
         <translation>Saving project...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="764"/>
+        <location filename="../src/mainwindow.cpp" line="763"/>
         <source>Save the Project File Name As...</source>
         <translation>Save the Project File Name As...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="766"/>
+        <location filename="../src/mainwindow.cpp" line="765"/>
         <source>%1 Project Files (*.%2)</source>
         <translation>%1 Project Files (*.%2)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="692"/>
-        <location filename="../src/mainwindow.cpp" line="793"/>
-        <location filename="../src/mainwindow.cpp" line="799"/>
-        <location filename="../src/mainwindow.cpp" line="946"/>
-        <location filename="../src/mainwindow.cpp" line="963"/>
-        <location filename="../src/mainwindow.cpp" line="3300"/>
-        <location filename="../src/mainwindow.cpp" line="3319"/>
-        <location filename="../src/mainwindow.cpp" line="3348"/>
-        <location filename="../src/mainwindow.cpp" line="3367"/>
+        <location filename="../src/mainwindow.cpp" line="691"/>
+        <location filename="../src/mainwindow.cpp" line="792"/>
+        <location filename="../src/mainwindow.cpp" line="798"/>
+        <location filename="../src/mainwindow.cpp" line="945"/>
+        <location filename="../src/mainwindow.cpp" line="962"/>
+        <location filename="../src/mainwindow.cpp" line="3299"/>
+        <location filename="../src/mainwindow.cpp" line="3318"/>
+        <location filename="../src/mainwindow.cpp" line="3347"/>
+        <location filename="../src/mainwindow.cpp" line="3366"/>
         <source>Canceled...</source>
         <translation>Canceled...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="831"/>
+        <location filename="../src/mainwindow.cpp" line="830"/>
         <source>Saving aborted</source>
         <translation>Saving aborted</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="893"/>
+        <location filename="../src/mainwindow.cpp" line="892"/>
         <source>Project closed</source>
         <translation>Project closed</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="937"/>
-        <location filename="../src/mainwindow.cpp" line="4360"/>
+        <location filename="../src/mainwindow.cpp" line="936"/>
+        <location filename="../src/mainwindow.cpp" line="4359"/>
         <source>EddyPro is processing (running or in pause).</source>
         <translation>EddyPro is processing (running or in pause).</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="955"/>
+        <location filename="../src/mainwindow.cpp" line="954"/>
         <source>Save Project</source>
         <translation>Save Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1033"/>
+        <location filename="../src/mainwindow.cpp" line="1032"/>
         <source>&amp;New
 Project</source>
         <translation>&amp;New
 Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1040"/>
+        <location filename="../src/mainwindow.cpp" line="1039"/>
         <source>&amp;Open
 Project...</source>
         <translation>&amp;Open
 Project...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1047"/>
+        <location filename="../src/mainwindow.cpp" line="1046"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1049"/>
+        <location filename="../src/mainwindow.cpp" line="1048"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1055"/>
+        <location filename="../src/mainwindow.cpp" line="1054"/>
         <source>Open &amp;Recent...</source>
         <translation>Open &amp;Recent...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1067"/>
+        <location filename="../src/mainwindow.cpp" line="1066"/>
         <source>Save
 &amp;As...</source>
         <translation>Save
 &amp;As...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1070"/>
+        <location filename="../src/mainwindow.cpp" line="1069"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1078"/>
+        <location filename="../src/mainwindow.cpp" line="1077"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1083"/>
+        <location filename="../src/mainwindow.cpp" line="1082"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1085"/>
+        <location filename="../src/mainwindow.cpp" line="1084"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1092"/>
+        <location filename="../src/mainwindow.cpp" line="1091"/>
         <source>Welcome</source>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1106"/>
+        <location filename="../src/mainwindow.cpp" line="1105"/>
         <source>Project
 Creation</source>
         <translation>Project
 Creation</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1114"/>
+        <location filename="../src/mainwindow.cpp" line="1113"/>
         <source>Basic
 Settings</source>
         <translation>Basic
 Settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1121"/>
+        <location filename="../src/mainwindow.cpp" line="1120"/>
         <source>Advanced
 Settings</source>
         <translation>Advanced
 Settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1143"/>
+        <location filename="../src/mainwindow.cpp" line="1142"/>
         <source>Express
 Mode</source>
         <translation>Express
 Mode</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1146"/>
+        <location filename="../src/mainwindow.cpp" line="1145"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1152"/>
+        <location filename="../src/mainwindow.cpp" line="1151"/>
         <source>Advanced
 Mode</source>
         <translation>Advanced
 Mode</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1155"/>
+        <location filename="../src/mainwindow.cpp" line="1154"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1161"/>
+        <location filename="../src/mainwindow.cpp" line="1160"/>
         <source>Metadata
 Retriever</source>
         <translation>Metadata
 Retriever</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1164"/>
+        <location filename="../src/mainwindow.cpp" line="1163"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1177"/>
+        <location filename="../src/mainwindow.cpp" line="1176"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1180"/>
+        <location filename="../src/mainwindow.cpp" line="1179"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1188"/>
+        <location filename="../src/mainwindow.cpp" line="1187"/>
         <source>Full Screen</source>
         <translation>Full Screen</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1191"/>
+        <location filename="../src/mainwindow.cpp" line="1190"/>
         <source>Full screen mode view</source>
         <translation>Full screen mode view</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1195"/>
+        <location filename="../src/mainwindow.cpp" line="1194"/>
         <source>&amp;Statusbar</source>
         <translation>&amp;Statusbar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1199"/>
+        <location filename="../src/mainwindow.cpp" line="1198"/>
         <source>&amp;Message Info</source>
         <translation>&amp;Message Info</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1204"/>
+        <location filename="../src/mainwindow.cpp" line="1203"/>
         <source>&amp;Tooltip Help</source>
         <translation>&amp;Tooltip Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1209"/>
+        <location filename="../src/mainwindow.cpp" line="1208"/>
         <source>&amp;Output Console</source>
         <translation>&amp;Output Console</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1214"/>
+        <location filename="../src/mainwindow.cpp" line="1213"/>
         <source>%1 Help</source>
         <translation>%1 Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1219"/>
+        <location filename="../src/mainwindow.cpp" line="1218"/>
         <source>Instruction Manual (PDF)</source>
         <translation>Instruction Manual (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1224"/>
+        <location filename="../src/mainwindow.cpp" line="1223"/>
         <source>Getting Started (PDF)</source>
         <translation>Getting Started (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1228"/>
+        <location filename="../src/mainwindow.cpp" line="1227"/>
         <source>Use Offline Help</source>
         <translation>Use Offline Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1232"/>
+        <location filename="../src/mainwindow.cpp" line="1231"/>
         <source>Video Tutorials</source>
         <translation>Video Tutorials</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1235"/>
+        <location filename="../src/mainwindow.cpp" line="1234"/>
         <source>EddyPro Web Page</source>
         <translation>EddyPro Web Page</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1238"/>
+        <location filename="../src/mainwindow.cpp" line="1237"/>
         <source>Check for Updates...</source>
         <translation>Check for Updates...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1239"/>
+        <location filename="../src/mainwindow.cpp" line="1238"/>
         <source>Ctrl+U</source>
         <translation>Ctrl+U</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1242"/>
+        <location filename="../src/mainwindow.cpp" line="1241"/>
         <source>&amp;About...</source>
         <translation>&amp;About...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1339"/>
+        <location filename="../src/mainwindow.cpp" line="1338"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1344"/>
+        <location filename="../src/mainwindow.cpp" line="1343"/>
         <source>&amp;Open Recent</source>
         <translation>&amp;Open Recent</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1358"/>
+        <location filename="../src/mainwindow.cpp" line="1357"/>
         <source>&amp;View</source>
         <translation>&amp;View</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1371"/>
+        <location filename="../src/mainwindow.cpp" line="1370"/>
         <source>&amp;Run</source>
         <translation>&amp;Run</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1379"/>
+        <location filename="../src/mainwindow.cpp" line="1378"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1396"/>
+        <location filename="../src/mainwindow.cpp" line="1395"/>
         <source>&amp;File ToolBar</source>
         <translation>&amp;File ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1419"/>
+        <location filename="../src/mainwindow.cpp" line="1418"/>
         <source>&amp;View ToolBar</source>
         <translation>&amp;View ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1433"/>
+        <location filename="../src/mainwindow.cpp" line="1432"/>
         <source>&amp;Tools ToolBar</source>
         <translation>&amp;Tools ToolBar</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1435"/>
+        <location filename="../src/mainwindow.cpp" line="1434"/>
         <source>  Run:  </source>
         <translation>  Run:  </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1479"/>
+        <location filename="../src/mainwindow.cpp" line="1478"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1506"/>
+        <location filename="../src/mainwindow.cpp" line="1505"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1521"/>
+        <location filename="../src/mainwindow.cpp" line="1520"/>
         <source>Output Console</source>
         <translation>Output Console</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1539"/>
+        <location filename="../src/mainwindow.cpp" line="1538"/>
         <source>Messages</source>
         <translation>Messages</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1816"/>
+        <location filename="../src/mainwindow.cpp" line="1815"/>
         <source>The SmartFlux configuration will use a renamed copy of your current project file. &lt;br /&gt;</source>
         <translation>The SmartFlux configuration will use a renamed copy of your current project file. &lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2395"/>
+        <location filename="../src/mainwindow.cpp" line="2394"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page is incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page is incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2398"/>
-        <location filename="../src/mainwindow.cpp" line="2408"/>
-        <location filename="../src/mainwindow.cpp" line="2684"/>
-        <location filename="../src/mainwindow.cpp" line="2776"/>
-        <location filename="../src/mainwindow.cpp" line="2783"/>
-        <location filename="../src/mainwindow.cpp" line="2826"/>
-        <location filename="../src/mainwindow.cpp" line="2955"/>
-        <location filename="../src/mainwindow.cpp" line="2961"/>
+        <location filename="../src/mainwindow.cpp" line="2397"/>
+        <location filename="../src/mainwindow.cpp" line="2407"/>
+        <location filename="../src/mainwindow.cpp" line="2683"/>
+        <location filename="../src/mainwindow.cpp" line="2775"/>
+        <location filename="../src/mainwindow.cpp" line="2782"/>
+        <location filename="../src/mainwindow.cpp" line="2825"/>
+        <location filename="../src/mainwindow.cpp" line="2954"/>
+        <location filename="../src/mainwindow.cpp" line="2960"/>
         <source>&lt;ul&gt;</source>
         <translation>&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2420"/>
+        <location filename="../src/mainwindow.cpp" line="2419"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata file:&lt;/span&gt; Load or create one using the Metadata File Editor.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata file:&lt;/span&gt; Load or create one using the Metadata File Editor.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2430"/>
+        <location filename="../src/mainwindow.cpp" line="2429"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - File Duration:&lt;/span&gt; A file duration greater than zero is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - File Duration:&lt;/span&gt; A file duration greater than zero is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2442"/>
+        <location filename="../src/mainwindow.cpp" line="2441"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Field separator required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Field separator required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2455"/>
+        <location filename="../src/mainwindow.cpp" line="2454"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Number of header rows required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; Number of header rows required. Click the &quot;Raw File Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2466"/>
+        <location filename="../src/mainwindow.cpp" line="2465"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; The complete description of at least one anemometer is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; The complete description of at least one anemometer is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2477"/>
+        <location filename="../src/mainwindow.cpp" line="2476"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; The complete description of 3-d wind components and at least one fast ambient temperature or speed-of-sound measurement is required.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Metadata File Editor - Raw File Description:&lt;/span&gt; The complete description of 3-d wind components and at least one fast ambient temperature or speed-of-sound measurement is required.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2490"/>
+        <location filename="../src/mainwindow.cpp" line="2489"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; We suggest to enter the anemometer firmware version for sake of record tracking and future implementations.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2500"/>
+        <location filename="../src/mainwindow.cpp" line="2499"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Instruments Editor - Raw File Description:&lt;/span&gt; Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2513"/>
+        <location filename="../src/mainwindow.cpp" line="2512"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed gas analyzers are not well described, because of incomplete manufacturer or model.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2523"/>
+        <location filename="../src/mainwindow.cpp" line="2522"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more gas analyzers do not have at least one separation different from zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more gas analyzers do not have at least one separation different from zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2532"/>
+        <location filename="../src/mainwindow.cpp" line="2531"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed path gas analyzers are not well described, not having tube length, diameter and flow rate all greater than zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more closed path gas analyzers are not well described, not having tube length, diameter and flow rate all greater than zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2542"/>
+        <location filename="../src/mainwindow.cpp" line="2541"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more generic gas analyzers are not well described, not having path lengths and time response all greater than zero.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;Metadata File Editor - Instruments:&lt;/span&gt; One or more generic gas analyzers are not well described, not having path lengths and time response all greater than zero.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2557"/>
+        <location filename="../src/mainwindow.cpp" line="2556"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of ASCII header lines required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of ASCII header lines required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2579"/>
+        <location filename="../src/mainwindow.cpp" line="2578"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of bytes per variable required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Number of bytes per variable required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2589"/>
+        <location filename="../src/mainwindow.cpp" line="2588"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Endianess required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; Endianess required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2606"/>
+        <location filename="../src/mainwindow.cpp" line="2605"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Dynamic metadata file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button or uncheck this option.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Dynamic metadata file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button or uncheck this option.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2620"/>
+        <location filename="../src/mainwindow.cpp" line="2619"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet file: &lt;/span&gt;Select a file using the &quot;Load...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2630"/>
+        <location filename="../src/mainwindow.cpp" line="2629"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet directory: &lt;/span&gt;Select a directory using the &quot;Browse...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Biomet directory: &lt;/span&gt;Select a directory using the &quot;Browse...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2681"/>
+        <location filename="../src/mainwindow.cpp" line="2680"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Basic Settings&lt;/b&gt; page is incomplete. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Basic Settings&lt;/b&gt; page is incomplete. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2691"/>
+        <location filename="../src/mainwindow.cpp" line="2690"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw data directory.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw data directory.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2706"/>
+        <location filename="../src/mainwindow.cpp" line="2705"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw file name format.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose a Raw file name format.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2713"/>
+        <location filename="../src/mainwindow.cpp" line="2712"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output directory.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output directory.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2720"/>
+        <location filename="../src/mainwindow.cpp" line="2719"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output ID.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Choose an Output ID.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2745"/>
+        <location filename="../src/mainwindow.cpp" line="2744"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp), or go back to the Project Creation page and describe either a Sonic Temperature or a Speed-of-Sound measurement for the selected anemometer.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp), or go back to the Project Creation page and describe either a Sonic Temperature or a Speed-of-Sound measurement for the selected anemometer.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2751"/>
+        <location filename="../src/mainwindow.cpp" line="2750"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp).&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Select Items:&lt;/span&gt; Select a Fast temperature reading (alternative to sonic temp).&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2762"/>
+        <location filename="../src/mainwindow.cpp" line="2761"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Missing anemometer firmware version:&lt;/span&gt; Select &lt;em&gt;Use alternative file&lt;/em&gt; in the &lt;em&gt;Project creation page&lt;/em&gt; and fill the section &quot;Instruments Editor - Raw File Description&quot;. Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. Not filling this field will affect the application of the Angle of Attack correction.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2839"/>
+        <location filename="../src/mainwindow.cpp" line="2838"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Complete wind sectors configuration.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Complete wind sectors configuration.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2847"/>
+        <location filename="../src/mainwindow.cpp" line="2846"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum number of elements per sector.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum number of elements per sector.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2855"/>
+        <location filename="../src/mainwindow.cpp" line="2854"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Maximum mean vertical wind component.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Maximum mean vertical wind component.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2863"/>
+        <location filename="../src/mainwindow.cpp" line="2862"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum mean horizontal wind component.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Set Minimum mean horizontal wind component.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2873"/>
+        <location filename="../src/mainwindow.cpp" line="2872"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Load a Planar fit file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Planar Fit Settings:&lt;/span&gt; Load a Planar fit file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2898"/>
+        <location filename="../src/mainwindow.cpp" line="2897"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Timelag Optimization Settings:&lt;/span&gt; Load a Time lag file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Timelag Optimization Settings:&lt;/span&gt; Load a Time lag file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2921"/>
+        <location filename="../src/mainwindow.cpp" line="2920"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4097"/>
+        <location filename="../src/mainwindow.cpp" line="4096"/>
         <source>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4104"/>
+        <location filename="../src/mainwindow.cpp" line="4103"/>
         <source>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4110"/>
-        <location filename="../src/mainwindow.cpp" line="4121"/>
-        <location filename="../src/mainwindow.cpp" line="4248"/>
+        <location filename="../src/mainwindow.cpp" line="4109"/>
+        <location filename="../src/mainwindow.cpp" line="4120"/>
+        <location filename="../src/mainwindow.cpp" line="4247"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4231"/>
+        <location filename="../src/mainwindow.cpp" line="4230"/>
         <source>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4237"/>
+        <location filename="../src/mainwindow.cpp" line="4236"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4361"/>
+        <location filename="../src/mainwindow.cpp" line="4360"/>
         <source>Do you really want to stop the computations?</source>
         <translation>Do you really want to stop the computations?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4809"/>
+        <location filename="../src/mainwindow.cpp" line="4808"/>
         <source>Import Project</source>
         <translation>Import Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4810"/>
+        <location filename="../src/mainwindow.cpp" line="4809"/>
         <source>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4820"/>
+        <location filename="../src/mainwindow.cpp" line="4819"/>
         <source>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4828"/>
+        <location filename="../src/mainwindow.cpp" line="4827"/>
         <source>Import Metadata</source>
         <translation>Import Metadata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4829"/>
+        <location filename="../src/mainwindow.cpp" line="4828"/>
         <source>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4831"/>
+        <location filename="../src/mainwindow.cpp" line="4830"/>
         <source>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2567"/>
+        <location filename="../src/mainwindow.cpp" line="2566"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; ASCII header end of line required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Generic Binary:&lt;/span&gt; ASCII header end of line required. Click the &quot;Settings...&quot; button.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2790"/>
-        <location filename="../src/mainwindow.cpp" line="2968"/>
+        <location filename="../src/mainwindow.cpp" line="2789"/>
+        <location filename="../src/mainwindow.cpp" line="2967"/>
         <source>&lt;/ul&gt;</source>
         <translation>&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2699"/>
+        <location filename="../src/mainwindow.cpp" line="2698"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Raw file name format not well described.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Files Info:&lt;/span&gt; Raw file name format not well described.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1221"/>
+        <location filename="../src/mainwindow.cpp" line="1220"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2774"/>
-        <location filename="../src/mainwindow.cpp" line="2953"/>
+        <location filename="../src/mainwindow.cpp" line="2773"/>
+        <location filename="../src/mainwindow.cpp" line="2952"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings or &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt; using Advanced Settings.&lt;br /&gt;Please note that running in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; means EddyPro will ignore all your entries in the Advanced Settings pages. In this case, your settings will not be overridden. You will be able to retrieve them at any time, but they will not be used for the computations.</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings or &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt; using Advanced Settings.&lt;br /&gt;Please note that running in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; means EddyPro will ignore all your entries in the Advanced Settings pages. In this case, your settings will not be overridden. You will be able to retrieve them at any time, but they will not be used for the computations.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2782"/>
+        <location filename="../src/mainwindow.cpp" line="2781"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;br /&gt;</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2796"/>
+        <location filename="../src/mainwindow.cpp" line="2795"/>
         <source>You are ready</source>
         <translation>You are ready</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2819"/>
+        <location filename="../src/mainwindow.cpp" line="2818"/>
         <source>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;/span&gt;&lt;br /&gt;&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</source>
         <translation>You are ready to run in &lt;span style=&quot;color: #52893c; &quot;&gt;Express Mode&lt;/span&gt; using express default settings.&lt;/span&gt;&lt;br /&gt;&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2824"/>
+        <location filename="../src/mainwindow.cpp" line="2823"/>
         <source>&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Additional settings need to be configured to use &lt;span style=&quot;color: #2986f5; &quot;&gt;Advanced Mode&lt;/span&gt;, including:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2942"/>
+        <location filename="../src/mainwindow.cpp" line="2941"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra&apos; files are stored.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Full w/T&lt;sub&gt;s&lt;/sub&gt; cospectra&apos; files are stored.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2974"/>
+        <location filename="../src/mainwindow.cpp" line="2973"/>
         <source>Additional settings</source>
         <translation>Additional settings</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3292"/>
-        <location filename="../src/mainwindow.cpp" line="3331"/>
+        <location filename="../src/mainwindow.cpp" line="3291"/>
+        <location filename="../src/mainwindow.cpp" line="3330"/>
         <source>Previous Results Available</source>
         <translation>Previous Results Available</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3332"/>
+        <location filename="../src/mainwindow.cpp" line="3331"/>
         <source>Previous results available!
 
 Do you want to proceed using results from a previous run? (Recommended)
@@ -5215,81 +5215,81 @@ Do you want to proceed using results from a previous run? (Recommended)
 </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3308"/>
-        <location filename="../src/mainwindow.cpp" line="3356"/>
+        <location filename="../src/mainwindow.cpp" line="3307"/>
+        <location filename="../src/mainwindow.cpp" line="3355"/>
         <source>No Previous Results Available</source>
         <translation>No Previous Results Available</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="581"/>
+        <location filename="../src/mainwindow.cpp" line="580"/>
         <source>Load Project</source>
         <translation>Load Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="582"/>
+        <location filename="../src/mainwindow.cpp" line="581"/>
         <source>The project was successfully imported and updated.</source>
         <translation>The project was successfully imported and updated.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="584"/>
+        <location filename="../src/mainwindow.cpp" line="583"/>
         <source>Save the project to complete the update.</source>
         <translation>Save the project to complete the update.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="592"/>
+        <location filename="../src/mainwindow.cpp" line="591"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="710"/>
-        <location filename="../src/mainwindow.cpp" line="817"/>
+        <location filename="../src/mainwindow.cpp" line="709"/>
+        <location filename="../src/mainwindow.cpp" line="816"/>
         <source>Save Project Error</source>
         <translation>Save Project Error</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="711"/>
-        <location filename="../src/mainwindow.cpp" line="818"/>
+        <location filename="../src/mainwindow.cpp" line="710"/>
+        <location filename="../src/mainwindow.cpp" line="817"/>
         <source>%1 was unable to save to %2</source>
         <translation>%1 was unable to save to %2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="917"/>
+        <location filename="../src/mainwindow.cpp" line="916"/>
         <source>Changes During Run</source>
         <translation>Changes During Run</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="938"/>
+        <location filename="../src/mainwindow.cpp" line="937"/>
         <source>Do you want to stop the computations before proceeding?</source>
         <translation>Do you want to stop the computations before proceeding?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="956"/>
+        <location filename="../src/mainwindow.cpp" line="955"/>
         <source>Current project has been modified.</source>
         <translation>Current project has been modified.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="957"/>
+        <location filename="../src/mainwindow.cpp" line="956"/>
         <source>Do you want to save your changes?</source>
         <translation>Do you want to save your changes?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1077"/>
-        <location filename="../src/mainwindow.cpp" line="1814"/>
+        <location filename="../src/mainwindow.cpp" line="1076"/>
+        <location filename="../src/mainwindow.cpp" line="1813"/>
         <source>SmartFlux Configuration</source>
         <translation>SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1246"/>
+        <location filename="../src/mainwindow.cpp" line="1245"/>
         <source>About Qt...</source>
         <translation>About Qt...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3293"/>
+        <location filename="../src/mainwindow.cpp" line="3292"/>
         <source>Previous results available!</source>
         <translation>Previous results available!</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3294"/>
+        <location filename="../src/mainwindow.cpp" line="3293"/>
         <source>Most likely results of this run will be identical to results of a previous run available in the &quot;Previous Output Directory&quot;, so you wouldn&apos;t need to proceed.
 
 Do you prefer to proceed anyway?</source>
@@ -5298,253 +5298,253 @@ Do you prefer to proceed anyway?</source>
 Do you prefer to proceed anyway?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3309"/>
-        <location filename="../src/mainwindow.cpp" line="3357"/>
+        <location filename="../src/mainwindow.cpp" line="3308"/>
+        <location filename="../src/mainwindow.cpp" line="3356"/>
         <source>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</source>
         <translation>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="821"/>
+        <location filename="../src/mainwindow.cpp" line="820"/>
         <source>Make sure the file is not in use by another application.If the problem persists, contact envsupport@licor.com .</source>
         <translation>Make sure the file is not in use by another application.If the problem persists, contact envsupport@licor.com .</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="918"/>
+        <location filename="../src/mainwindow.cpp" line="917"/>
         <source>You can not save changes while EddyPro is running. </source>
         <translation>You can not save changes while EddyPro is running. </translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="920"/>
+        <location filename="../src/mainwindow.cpp" line="919"/>
         <source>Wait until run has finished before saving.</source>
         <translation>Wait until run has finished before saving.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="936"/>
+        <location filename="../src/mainwindow.cpp" line="935"/>
         <source>Close EddyPro</source>
         <translation>Close EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1036"/>
+        <location filename="../src/mainwindow.cpp" line="1035"/>
         <source>Start a new project. (%1)</source>
         <translation>Start a new project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1043"/>
+        <location filename="../src/mainwindow.cpp" line="1042"/>
         <source>Open an existing project. (%1)</source>
         <translation>Open an existing project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1051"/>
+        <location filename="../src/mainwindow.cpp" line="1050"/>
         <source>Close the current project. (%1)</source>
         <translation>Close the current project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1057"/>
+        <location filename="../src/mainwindow.cpp" line="1056"/>
         <source>Open a recent project.</source>
         <translation>Open a recent project.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1060"/>
+        <location filename="../src/mainwindow.cpp" line="1059"/>
         <source>&amp;Save</source>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1063"/>
+        <location filename="../src/mainwindow.cpp" line="1062"/>
         <source>Save the current project. (%1)</source>
         <translation>Save the current project. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1071"/>
+        <location filename="../src/mainwindow.cpp" line="1070"/>
         <source>Save the current project with a new name. (%1)</source>
         <translation>Save the current project with a new name. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1079"/>
+        <location filename="../src/mainwindow.cpp" line="1078"/>
         <source>&lt;b&gt;SmartFlux Configuration&lt;/b&gt;. (%1)</source>
         <translation>&lt;b&gt;SmartFlux Configuration&lt;/b&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1087"/>
+        <location filename="../src/mainwindow.cpp" line="1086"/>
         <source>&lt;b&gt;Quit:&lt;/b&gt; Quit the application. (%1)</source>
         <translation>&lt;b&gt;Quit:&lt;/b&gt; Quit the application. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1101"/>
+        <location filename="../src/mainwindow.cpp" line="1100"/>
         <source>Alt+1</source>
         <translation>Alt+1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1102"/>
+        <location filename="../src/mainwindow.cpp" line="1101"/>
         <source>Go to the &lt;i&gt;Welcome page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Welcome page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1108"/>
+        <location filename="../src/mainwindow.cpp" line="1107"/>
         <source>Alt+2</source>
         <translation>Alt+2</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1109"/>
+        <location filename="../src/mainwindow.cpp" line="1108"/>
         <source>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1116"/>
+        <location filename="../src/mainwindow.cpp" line="1115"/>
         <source>Alt+3</source>
         <translation>Alt+3</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1117"/>
+        <location filename="../src/mainwindow.cpp" line="1116"/>
         <source>Go to the &lt;i&gt;Basic Settings Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Basic Settings Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1123"/>
+        <location filename="../src/mainwindow.cpp" line="1122"/>
         <source>Alt+4</source>
         <translation>Alt+4</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1124"/>
+        <location filename="../src/mainwindow.cpp" line="1123"/>
         <source>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1129"/>
+        <location filename="../src/mainwindow.cpp" line="1128"/>
         <source>Run
 Output</source>
         <translation>Run
 Output</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1131"/>
+        <location filename="../src/mainwindow.cpp" line="1130"/>
         <source>Alt+5</source>
         <translation>Alt+5</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1132"/>
+        <location filename="../src/mainwindow.cpp" line="1131"/>
         <source>Go to the &lt;i&gt;Output Console Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Output Console Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1148"/>
+        <location filename="../src/mainwindow.cpp" line="1147"/>
         <source>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1157"/>
+        <location filename="../src/mainwindow.cpp" line="1156"/>
         <source>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1166"/>
+        <location filename="../src/mainwindow.cpp" line="1165"/>
         <source>&lt;b&gt;Metadata retriever:&lt;/b&gt; Only available for GHG files, this tool retrieves metadata from GHG files and organizes them into a unique file that can be examined (e.g., to create a time series of canopy heights at the site) and can also be provided to EddyPro as a dynamic metadata file. (%1)</source>
         <translation>&lt;b&gt;Metadata retriever:&lt;/b&gt; Only available for GHG files, this tool retrieves metadata from GHG files and organizes them into a unique file that can be examined (e.g., to create a time series of canopy heights at the site) and can also be provided to EddyPro as a dynamic metadata file. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1182"/>
+        <location filename="../src/mainwindow.cpp" line="1181"/>
         <source>Stop processing. (%1)</source>
         <translation>Stop processing. (%1)</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1216"/>
+        <location filename="../src/mainwindow.cpp" line="1215"/>
         <source>Ctrl+F1</source>
         <translation>Ctrl+F1</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2405"/>
+        <location filename="../src/mainwindow.cpp" line="2404"/>
         <source>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</source>
         <translation>&lt;p&gt;Some information in the &lt;b&gt;Project Creation&lt;/b&gt; page might be incomplete or erroneous. Please address the following issues:&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="2932"/>
+        <location filename="../src/mainwindow.cpp" line="2931"/>
         <source>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Binned (co)spectra&apos; files are stored.&lt;/li&gt;</source>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Binned (co)spectra&apos; files are stored.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3546"/>
-        <location filename="../src/mainwindow.cpp" line="3644"/>
-        <location filename="../src/mainwindow.cpp" line="3799"/>
+        <location filename="../src/mainwindow.cpp" line="3545"/>
+        <location filename="../src/mainwindow.cpp" line="3643"/>
+        <location filename="../src/mainwindow.cpp" line="3798"/>
         <source>Running</source>
         <translation>Running</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3549"/>
+        <location filename="../src/mainwindow.cpp" line="3548"/>
         <source>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</source>
         <translation>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3647"/>
+        <location filename="../src/mainwindow.cpp" line="3646"/>
         <source>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</source>
         <translation>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3802"/>
+        <location filename="../src/mainwindow.cpp" line="3801"/>
         <source>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</source>
         <translation>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4078"/>
-        <location filename="../src/mainwindow.cpp" line="4210"/>
+        <location filename="../src/mainwindow.cpp" line="4077"/>
+        <location filename="../src/mainwindow.cpp" line="4209"/>
         <source>EddyPro Results</source>
         <translation>EddyPro Results</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4080"/>
+        <location filename="../src/mainwindow.cpp" line="4079"/>
         <source>Open the output folder</source>
         <translation>Open the output folder</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4111"/>
-        <location filename="../src/mainwindow.cpp" line="4151"/>
-        <location filename="../src/mainwindow.cpp" line="4238"/>
-        <location filename="../src/mainwindow.cpp" line="4278"/>
+        <location filename="../src/mainwindow.cpp" line="4110"/>
+        <location filename="../src/mainwindow.cpp" line="4150"/>
+        <location filename="../src/mainwindow.cpp" line="4237"/>
+        <location filename="../src/mainwindow.cpp" line="4277"/>
         <source>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4126"/>
-        <location filename="../src/mainwindow.cpp" line="4253"/>
+        <location filename="../src/mainwindow.cpp" line="4125"/>
+        <location filename="../src/mainwindow.cpp" line="4252"/>
         <source>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4136"/>
-        <location filename="../src/mainwindow.cpp" line="4263"/>
+        <location filename="../src/mainwindow.cpp" line="4135"/>
+        <location filename="../src/mainwindow.cpp" line="4262"/>
         <source>&lt;p&gt;Computations crashed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations crashed.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4139"/>
-        <location filename="../src/mainwindow.cpp" line="4266"/>
+        <location filename="../src/mainwindow.cpp" line="4138"/>
+        <location filename="../src/mainwindow.cpp" line="4265"/>
         <source>&lt;p&gt;Computations timed out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations timed out.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4142"/>
-        <location filename="../src/mainwindow.cpp" line="4269"/>
+        <location filename="../src/mainwindow.cpp" line="4141"/>
+        <location filename="../src/mainwindow.cpp" line="4268"/>
         <source>&lt;p&gt;Computations write error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations write error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4145"/>
-        <location filename="../src/mainwindow.cpp" line="4272"/>
+        <location filename="../src/mainwindow.cpp" line="4144"/>
+        <location filename="../src/mainwindow.cpp" line="4271"/>
         <source>&lt;p&gt;Computations read error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations read error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4148"/>
-        <location filename="../src/mainwindow.cpp" line="4275"/>
+        <location filename="../src/mainwindow.cpp" line="4147"/>
+        <location filename="../src/mainwindow.cpp" line="4274"/>
         <source>&lt;p&gt;Computations unknown error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations unknown error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4161"/>
-        <location filename="../src/mainwindow.cpp" line="4288"/>
+        <location filename="../src/mainwindow.cpp" line="4160"/>
+        <location filename="../src/mainwindow.cpp" line="4287"/>
         <source>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4359"/>
+        <location filename="../src/mainwindow.cpp" line="4358"/>
         <source>Stop Data Processing</source>
         <translation>Stop Data Processing</translation>
     </message>
@@ -5963,42 +5963,42 @@ Output</translation>
         <translation>&lt;b&gt;Use external file:&lt;/b&gt; Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button to access the guidelines on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="202"/>
+        <location filename="../src/projectpage.cpp" line="206"/>
         <source>Use external directory:</source>
         <translation>Use external directory:</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="206"/>
+        <location filename="../src/projectpage.cpp" line="210"/>
         <source>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</source>
         <translation>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="215"/>
+        <location filename="../src/projectpage.cpp" line="219"/>
         <source>Search in subfolders</source>
         <translation>Search in subfolders</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="218"/>
+        <location filename="../src/projectpage.cpp" line="222"/>
         <source>Files extension :</source>
         <translation>Files extension :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="219"/>
+        <location filename="../src/projectpage.cpp" line="223"/>
         <source>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</source>
         <translation>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="310"/>
+        <location filename="../src/projectpage.cpp" line="314"/>
         <source>Project Info</source>
         <translation>Project Info</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="318"/>
+        <location filename="../src/projectpage.cpp" line="322"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="435"/>
+        <location filename="../src/projectpage.cpp" line="439"/>
         <source>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -6018,7 +6018,7 @@ Output</translation>
         <translation>Select the Biomet File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="200"/>
+        <location filename="../src/projectpage.cpp" line="203"/>
         <source>%1 Biomet Files (*.csv);;All Files (*.*)</source>
         <translation>%1 Biomet Files (*.csv);;All Files (*.*)</translation>
     </message>
@@ -6044,6 +6044,7 @@ Output</translation>
     </message>
     <message>
         <location filename="../src/projectpage.cpp" line="182"/>
+        <location filename="../src/projectpage.cpp" line="201"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
@@ -6058,27 +6059,27 @@ Output</translation>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing biomet external file</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="203"/>
+        <location filename="../src/projectpage.cpp" line="207"/>
         <source>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</source>
         <translation>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="211"/>
+        <location filename="../src/projectpage.cpp" line="215"/>
         <source>Select the Biomet Files Directory</source>
         <translation>Select the Biomet Files Directory</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="216"/>
+        <location filename="../src/projectpage.cpp" line="220"/>
         <source>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</source>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1137"/>
+        <location filename="../src/projectpage.cpp" line="1141"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1138"/>
+        <location filename="../src/projectpage.cpp" line="1142"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>

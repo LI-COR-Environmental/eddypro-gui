@@ -529,27 +529,33 @@ void VariableDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
 }
 
 void VariableDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
 }
 
 bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
 {
     QComboBox* combo = qobject_cast<QComboBox *>(editor);
+//    QDoubleSpinBox* spin = qobject_cast<QDoubleSpinBox *>(editor);
     QEvent::Type eventType = event->type();
+
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
+
+    qDebug() << "eventType" << eventType;
+
+    // if ((combo || spin)
     if (combo
         && (eventType == QEvent::MouseButtonRelease
             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
                                                || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
-//        qDebug() << eventType << combo;
+        qDebug() << eventType << combo;
         if (combo)
         {
             combo->showPopup();
@@ -559,7 +565,7 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
-//        qDebug() << eventType << "ShortcutOverride";
+        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

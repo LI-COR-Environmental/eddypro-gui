@@ -36,10 +36,10 @@ VariableTableView::VariableTableView(QWidget *parent) :
 {
     DEBUG_FUNC_NAME
 
-//    QHeaderView *hHeaderView = horizontalHeader();
-//    hHeaderView->show();
-//    connect(hHeaderView, &QHeaderView::sectionClicked,
-//            this, &VariableTableView::hHeaderClicked);
+    auto hHeaderView = horizontalHeader();
+    hHeaderView->show();
+    connect(hHeaderView, &QHeaderView::sectionClicked,
+            this, &VariableTableView::hHeaderClicked);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -163,4 +163,33 @@ void VariableTableView::hHeaderClicked(int section)
 //        reset();
 ////        clearSelection();
 //    }
+
+    clearSelection();
+}
+
+//void VariableTableView::firstEditableIndex(const QModelIndex& originalIndex,
+//                                           columnIndexes)
+//{
+
+//}
+
+// Returns the first editable index at the left of `originalIndex` or None.
+void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
+{
+//    auto h = horizontalHeader();
+//    auto myCol = originalIndex.column();
+//    columnIndexes = [h.logicalIndex(i) for i in range(h.count())];
+
+//    // keep only columns before myCol
+//    columnIndexes = columnIndexes[:columnIndexes.index(myCol)];
+
+//    // We want the previous item, the columns have to be in reverse order
+//    columnIndexes = reversed(columnIndexes);
+
+//    return firstEditableIndex(originalIndex, columnIndexes);
+}
+
+void VariableTableView::nextEditableIndex(const QModelIndex& originalIndex)
+{
+
 }

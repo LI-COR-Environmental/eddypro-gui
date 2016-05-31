@@ -49,6 +49,8 @@ protected:
 private:
     CustomHeader *m_header;
 
+    void previousEditableIndex(const QModelIndex &originalIndex);
+    void nextEditableIndex(const QModelIndex &originalIndex);
 };
 
 #endif // VARIABLE_TABLEVIEW_H
