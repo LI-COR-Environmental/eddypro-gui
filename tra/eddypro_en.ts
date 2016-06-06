@@ -2529,7 +2529,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/anem_tableview.cpp" line="47"/>
         <source>Embedded software version</source>
-        <translation type="unfinished"></translation>
+        <translation>Embedded software version</translation>
     </message>
     <message>
         <location filename="../src/anem_tableview.cpp" line="48"/>
