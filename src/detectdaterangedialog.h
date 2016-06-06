@@ -73,7 +73,7 @@ private:
                             const QTime &start_time,
                             const QDate &end_date,
                             const QTime &end_time);
-    QPair<QDateTime, QDateTime> getBinnedCospectraDateRange();
+    FileUtils::DateRange getBinnedCospectraDateRange();
     void updateSpectraOverlap(QLabel *label,
                             const QDate &start_date,
                             const QTime &start_time,

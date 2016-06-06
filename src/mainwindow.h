@@ -28,6 +28,7 @@
 
 #include "configstate.h"
 #include "defs.h"
+#include "fileutils.h"
 #include "process.h"
 
 class QPlainTextEdit;
@@ -353,7 +354,7 @@ private:
 
     bool getDatesRangeDialog(Defs::CurrRunMode mode);
     bool showDatesRangeDialog(Defs::CurrRunMode mode);
-    QPair<QDateTime, QDateTime> getCurrentDateRange();
+    FileUtils::DateRange getCurrentDateRange();
 
     void minimizeGui();
     void maximizeGui();

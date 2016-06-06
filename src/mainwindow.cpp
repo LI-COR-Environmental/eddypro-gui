@@ -60,7 +60,6 @@
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "infomessage.h"
 #include "mainwidget.h"
@@ -3401,7 +3400,7 @@ void MainWindow::closeOpenDialogs()
 //    DEBUG_FUNC_MSG(QString())
 }
 
-QPair<QDateTime, QDateTime> MainWindow::getCurrentDateRange()
+FileUtils::DateRange MainWindow::getCurrentDateRange()
 {
     auto recursion = ecProject_->screenRecurse();
     auto ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;

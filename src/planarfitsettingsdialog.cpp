@@ -49,7 +49,6 @@
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
 
@@ -477,7 +476,7 @@ void PlanarFitSettingsDialog::partialRefresh()
     ecProject_->blockSignals(false);
 }
 
-void PlanarFitSettingsDialog::setDateRange(QPair<QDateTime, QDateTime> dates)
+void PlanarFitSettingsDialog::setDateRange(FileUtils::DateRange dates)
 {
     DEBUG_FUNC_NAME
     qDebug() << dates.first.date();

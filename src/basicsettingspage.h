@@ -27,7 +27,9 @@
 #include <QDateTime>
 #include <QWidget>
 
-#include<vector>
+#include <vector>
+
+#include "fileutils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/basicsettingspage.h
@@ -470,7 +472,7 @@ private slots:
 
 signals:
     void updateMetadataReadResult(bool b);
-    void setDateRangeRequest(QPair<QDateTime, QDateTime>);
+    void setDateRangeRequest(FileUtils::DateRange);
     void saveSilentlyRequest();
 };
 

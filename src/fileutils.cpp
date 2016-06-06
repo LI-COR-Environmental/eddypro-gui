@@ -393,7 +393,7 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
     return QDateTime(date, time);
 }
 
-QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringList& fileList,
+FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& fileList,
                                                                 const QString& filenameProtoype)
 {
     QDateTime dateStart;
@@ -419,11 +419,11 @@ QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringLis
         dateStart = dateList.first();
         dateEnd = dateList.last();
 
-        return QPair<QDateTime, QDateTime>(dateStart, dateEnd);
+        return DateRange(dateStart, dateEnd);
     }
     else
     {
-        return QPair<QDateTime, QDateTime>();
+        return DateRange();
     }
 }
 

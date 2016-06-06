@@ -661,7 +661,7 @@ void DetectDateRangeDialog::updateOverlap(QLabel *label,
     update();
 }
 
-QPair<QDateTime, QDateTime> DetectDateRangeDialog::getBinnedCospectraDateRange()
+FileUtils::DateRange DetectDateRangeDialog::getBinnedCospectraDateRange()
 {
     FileUtils::DateRange dates = qMakePair(QDateTime(), QDateTime());
     auto csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;

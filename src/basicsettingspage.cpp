@@ -74,7 +74,6 @@
 #include "dirbrowsewidget.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "fileutils.h"
 #include "fileformatwidget.h"
 #include "globalsettings.h"
 #include "infomessage.h"
@@ -5327,9 +5326,9 @@ void BasicSettingsPage::dateRangeDetect()
     {
         progressWidget_2->startAnimation();
 
-        QPair<QDateTime, QDateTime> dates;
+        FileUtils::DateRange dates;
 
-        QFuture<QPair<QDateTime, QDateTime>> future = QtConcurrent::run(&FileUtils::getDateRangeFromFileList, currentRawDataList_, ecProject_->generalFilePrototype());
+        QFuture<FileUtils::DateRange> future = QtConcurrent::run(&FileUtils::getDateRangeFromFileList, currentRawDataList_, ecProject_->generalFilePrototype());
         while (!future.isFinished())
         {
             QCoreApplication::processEvents();

@@ -41,7 +41,6 @@
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
 
@@ -574,7 +573,7 @@ void TimeLagSettingsDialog::refresh()
     ecProject_->blockSignals(false);
 }
 
-void TimeLagSettingsDialog::setDateRange(QPair<QDateTime, QDateTime> dates)
+void TimeLagSettingsDialog::setDateRange(FileUtils::DateRange dates)
 {
     if (!ecProject_->timelagOptSubset())
     {
