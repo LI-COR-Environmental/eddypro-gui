@@ -415,7 +415,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
     anemFlagLabel = new ClickLabel(tr("Anemometer Diagnostics :"), this);
-    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select ..."));
+    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured."));
     anemFlagCombo = new QComboBox;
     anemFlagCombo->setToolTip(anemFlagLabel->toolTip());
 
