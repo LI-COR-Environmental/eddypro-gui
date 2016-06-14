@@ -1261,7 +1261,7 @@ void AdvOutputOptions::selectMin()
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(false);
-    createDatasetCheckBox->setChecked(false);
+    createDatasetCheckBox->setChecked(true);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(false);
     outMeanSpectraCheckBox->setChecked(false);
