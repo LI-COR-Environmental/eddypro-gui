@@ -361,7 +361,7 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
     auto isGoodClosedPath = false;
     if (isClosedPath)
     {
-        isGoodClosedPath = isGoodTubeLength  && isGoodTubeDiameter;
+        isGoodClosedPath = isGoodTubeLength && isGoodTubeDiameter;
     }
     else
     {
