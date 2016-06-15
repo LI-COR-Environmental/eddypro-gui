@@ -2530,8 +2530,17 @@ void MainWindow::showGuidedModeMessages_1()
             orange_msg += tr("<li><span style=\"color: orange;\">Metadata File "
                              "Editor - Instruments:</span> One or more closed "
                              "path gas analyzers are not well described, "
-                             "not having tube length, diameter and flow rate "
+                             "not having tube length and diameter "
                              "all greater than zero.</li>");
+            doOrangeFix = true;
+        }
+
+        if (!dlProject_->hasGoodIrgaFlowRate())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Metadata File "
+                             "Editor - Instruments:</span> One or more closed "
+                             "path gas analyzers are not well described, "
+                             "not having flow rate greater than zero.</li>");
             doOrangeFix = true;
         }
 
@@ -2652,6 +2661,7 @@ void MainWindow::showGuidedModeMessages_1()
     qDebug() << "last doOrangeFix" << doOrangeFix;
     qDebug() << "red title" << red_intro;
     qDebug() << "red msg" << red_msg;
+    qDebug() << "orange msg" << orange_msg;
 
     basicSettingsPageAvailable_ = red_intro.isEmpty();
     qDebug() << "processingPageAvailable_" << basicSettingsPageAvailable_;

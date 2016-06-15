@@ -349,7 +349,6 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 
     auto isGoodTubeLength = irga.tubeLength() > 0.0;
     auto isGoodTubeDiameter = irga.tubeDiameter() > 0.0;
-    auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
 
     auto isClosedPath = (model == getIRGA_MODEL_STRING_0())
                         || (model == getIRGA_MODEL_STRING_1())
@@ -362,15 +361,39 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
     auto isGoodClosedPath = false;
     if (isClosedPath)
     {
-        isGoodClosedPath = isGoodTubeLength
-                            && isGoodTubeDiameter
-                            && isGoodTubeFlowRate;
+        isGoodClosedPath = isGoodTubeLength  && isGoodTubeDiameter;
     }
     else
     {
         isGoodClosedPath = true;
     }
     return isGoodClosedPath;
+}
+
+bool IrgaDesc::hasGoodFlowRate(const IrgaDesc& irga)
+{
+    const auto model = irga.model();
+
+    auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
+
+    auto isClosedPath = (model == getIRGA_MODEL_STRING_0())
+                        || (model == getIRGA_MODEL_STRING_1())
+                        || (model == getIRGA_MODEL_STRING_4())
+                        || (model == getIRGA_MODEL_STRING_7())
+                        || (model == getIRGA_MODEL_STRING_10())
+                        || (model == getIRGA_MODEL_STRING_11())
+                        || (model == getIRGA_MODEL_STRING_13());
+
+    auto hasGoodFlowRate = false;
+    if (isClosedPath)
+    {
+        hasGoodFlowRate = isGoodTubeFlowRate;
+    }
+    else
+    {
+        hasGoodFlowRate = true;
+    }
+    return hasGoodFlowRate;
 }
 
 bool IrgaDesc::hasGoodPathLength(const IrgaDesc& irga)

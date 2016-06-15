@@ -53,6 +53,7 @@ public:
     bool hasOneFastTemperature();
     bool hasGoodIrgaNames();
     bool hasGoodIrgaSeparations();
+    bool hasGoodIrgaFlowRate();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
     bool masterAnemHasFwVersion();

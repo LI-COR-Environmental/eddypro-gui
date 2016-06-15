@@ -2475,6 +2475,18 @@ bool DlProject::hasGoodIrgaSeparations()
     return test;
 }
 
+bool DlProject::hasGoodIrgaFlowRate()
+{
+    DEBUG_FUNC_NAME
+
+    auto test = true;
+    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    {
+        test &= IrgaDesc::hasGoodFlowRate(irga);
+    }
+    return test;
+}
+
 bool DlProject::hasGoodIrgaClosedPath()
 {
     DEBUG_FUNC_NAME
