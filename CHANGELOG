@@ -4,9 +4,10 @@
     - Add: new supported variable "anemometer_diagnostic". If selected,
       it filters anemometer data if the diagnostic value is different from zero.
     - Add: now biomet variables that are provided without positional qualifiers
-      are by default given a "null qualifier" in the form of _0_0_n, with n progressing
-      from 1. This applies now also to external biomet files, which means that users no longer
-      need to assign 'fake' positional qualifiers to variables
+      are by default given a "null qualifier" in the form of _0_0_n, with n
+      progressing from 1. This applies now also to external biomet files, which
+      means that users no longer need to assign 'fake' positional qualifiers to
+      variables
     - Add: support of Gill WindMaster and WindMaster Pro "w-boost"
       correction, necessary to fix firmware bug for firmware versions:
       [2329.x.y with x<700].
@@ -19,16 +20,16 @@
       However, EddyPro controls that both corrections are applicable to the
       current anemometer and overrides user's settings (and output
       corresponding warnings) if necessary.
-    - Refine: now planar fit settings are not read if planar-fit file is used. The
-      useless reading operation did not cause any problems.
+    - Refine: now planar fit settings are not read if planar-fit file is used.
+      The useless reading operation did not cause any problems.
     - Refine: changed "time lag" into "time-lag" everywhere
     - Fix: Kelvin/Celsius conversion factor harmonised everywhere (273.15 instead
       of some occurring 273.16)
-    - Fix: now biomet data is not read in during planar fit (which was never useful anyway)
-      and this fixes an array allocation issue that was causing a crash when both planar fit and
-      biomet data were used.
-    - Fix: eliminate 'allocatable' property for TempFact in drift_correction.f90, which is
-      however not yet enabled, so it was causing no issues.
+    - Fix: now biomet data is not read in during planar fit (which was never
+      useful anyway) and this fixes an array allocation issue that was causing
+      a crash when both planar fit and biomet data were used.
+    - Fix: eliminate 'allocatable' property for TempFact in drift_correction.f90,
+      which is however not yet enabled, so it was causing no issues.
     - Fix: missing time-lag optimization file when requested caused tilt correction
       method to be set to inexistent value and thus default to no correction
     - Fix: flags for absolute limits is now correctly calculated. Flags for
@@ -55,7 +56,8 @@
       table has almost all the fields disabled.
     - Fix: toolbar with no labels in initial maximized state.
 
-    - Refine: make sure that on Mac is possible to load any kind of external biomet files.
+    - Refine: make sure that on Mac is possible to load any kind of external
+      biomet files.
     - Refine: Remove italic from anemometer firmware version.
     - Refine: trim spaces reading variables in external biomet files.
 
