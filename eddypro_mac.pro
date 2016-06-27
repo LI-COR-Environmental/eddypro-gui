@@ -16,7 +16,7 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 QT += core gui widgets network concurrent
 CONFIG += warn_on
 CONFIG += debug_and_release
-CONFIG += c++11
+CONFIG += c++14
 
 # Build tree with shadow building approach
 include(build_tree.pri)

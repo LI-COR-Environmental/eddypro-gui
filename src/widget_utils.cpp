@@ -46,7 +46,6 @@
 #include <QWidget>
 
 #include <memory>
-#include "make_unique.h"
 
 #include "QScienceSpinBox.h"
 
