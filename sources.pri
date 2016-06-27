@@ -86,7 +86,6 @@ HEADERS += \
     src/angles_view.h \
     src/angle_item.h \
     src/ancillaryfiletest.h \
-    src/make_unique.h \
     src/customcombobox.h \
     src/advmenudelegate.h \
     src/container_helpers.h \
