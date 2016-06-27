@@ -1226,9 +1226,6 @@ void MainWindow::createActions()
     toggleOfflineHelpAct->setText(tr("Use Offline Help"));
     toggleOfflineHelpAct->setCheckable(true);
 
-    videoTutorialsAction = new QAction(this);
-    videoTutorialsAction->setText(tr("Video Tutorials"));
-
     swWebpageAction = new QAction(this);
     swWebpageAction->setText(tr("EddyPro Web Page"));
 

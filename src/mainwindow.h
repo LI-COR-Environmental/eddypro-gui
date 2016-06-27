@@ -275,7 +275,6 @@ private:
     QAction *starterPdfHelpAction;
     QAction *toggleOfflineHelpAct;
     QAction *whatsHelpAction;
-    QAction *videoTutorialsAction;
     QAction* swWebpageAction;
     QAction* checkUpdateAction;
     QAction *aboutAction;
