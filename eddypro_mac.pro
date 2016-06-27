@@ -121,3 +121,6 @@ DEFINES += QT_USE_QSTRINGBUILDER
 #build_pass:message(QMAKE_CFLAGS: $$QMAKE_CFLAGS)
 #build_pass:message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
+
+# workaround for QTBUG-34424
+TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0/*
