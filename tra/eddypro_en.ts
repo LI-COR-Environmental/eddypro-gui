@@ -7464,19 +7464,9 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="179"/>
-        <source>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
-        <translation>New! SoilFluxPro™ Software – Expanded processing for soil gas flux data</translation>
-    </message>
-    <message>
         <location filename="../src/welcomepage.cpp" line="182"/>
         <source>Eddy Covariance Case Studies and Applications</source>
         <translation>Eddy Covariance Case Studies and Applications</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="185"/>
-        <source>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</source>
-        <translation>Small add-on provides big benefits for eddy covariance systems - The SMARTFlux™ System</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="188"/>
@@ -7502,6 +7492,16 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <location filename="../src/welcomepage.cpp" line="176"/>
         <source>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
         <translation>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="179"/>
+        <source>New SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="185"/>
+        <source>New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="213"/>
