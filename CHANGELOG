@@ -1,4 +1,4 @@
-6.2.0 (2016-06-25)
+6.2.0 (2016-07-25)
 
     Engine
     - Add: new supported variable "anemometer_diagnostic". If selected,
@@ -51,14 +51,16 @@
       affected, and only at the low frequency end.
 
     GUI
-    - Fix: Make non blocking a zero flow rate gas analyzer description.
+    - Fix: make non blocking a zero flow rate gas analyzer description.
     - Fix: make sure that an ignored variable in the metadata raw file description
       table has almost all the fields disabled.
     - Fix: toolbar with no labels in initial maximized state.
+    - Fix: inconsistent value of the data set available date on the detect
+      range dialog showing when running in advanced mode.
 
     - Refine: make sure that on Mac is possible to load any kind of external
       biomet files.
-    - Refine: Remove italic from anemometer firmware version.
+    - Refine: remove italic from anemometer firmware version.
     - Refine: trim spaces reading variables in external biomet files.
 
     - Add: set the Angle of Attack checkbox default setting to disabled.
@@ -66,12 +68,11 @@
       (the current default).
     - Add: some textual hint in the metadata tables.
     - Add: accept Gill Windmaster/Pro two or three fields firmware versions.
-    - Add: Change max plausibility range from 12 to 20 sigma as per user request.
+    - Add: change max plausibility range from 12 to 20 sigma as per user request.
     - Add: enable drag and drop tips on Windows.
     - Add: the registered trademark symbol to the main window title.
-    - Add: Master Anemometer Flags combo in Basic Settings page.
+    - Add: master Anemometer Flags combo in Basic Settings page.
     - Add: support for Campbell CSAT-3B.
-    - Add: complete 10 digits on variable flags.
     - Add: raise variable flags decimals from 4 to 10 digits.
     - Add: make anemometer firmware version mandatory for Gill WindMaster/Pro.
     - Add: checkbox for Gill's w-boost bug.
