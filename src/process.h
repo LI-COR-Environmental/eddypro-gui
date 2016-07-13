@@ -66,16 +66,16 @@ public:
 
     bool engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList);
 
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipProcessAddStart(const QString& fileName,
                             const QString &toArchive,
                             const QString &workingDir = QString(),
                             const QString& fileType = QString());
 
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipProcessExtMdStart(const QString& fileName,
                               const QString& outDir);
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipContainsFiletype(const QString& fileName,
                              const QString& fileExt);
 

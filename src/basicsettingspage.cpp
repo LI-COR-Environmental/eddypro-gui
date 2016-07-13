@@ -37,8 +37,8 @@
 #include <QNetworkReply>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QScrollArea>
 #include <QSpinBox>
 #include <QtConcurrentRun>
@@ -74,7 +74,6 @@
 #include "dirbrowsewidget.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "fileutils.h"
 #include "fileformatwidget.h"
 #include "globalsettings.h"
 #include "infomessage.h"
@@ -308,8 +307,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
-    QRegExp decRx(dec_pattern);
-    auto decValidator = new QRegExpValidator(decRx, declinationEdit);
+    QRegularExpression decRx(dec_pattern);
+    auto decValidator = new QRegularExpressionValidator(decRx, declinationEdit);
     declinationEdit->setValidator(decValidator);
     declinationEdit->setInputMask(tr("000%1 00' >A;x").arg(Defs::DEGREE));
     declinationEdit->setAlignment(Qt::AlignRight);
@@ -415,6 +414,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     anemRefCombo = new QComboBox;
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
+    anemFlagLabel = new ClickLabel(tr("Anemometer Diagnostics :"), this);
+    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured."));
+    anemFlagCombo = new QComboBox;
+    anemFlagCombo->setToolTip(anemFlagLabel->toolTip());
+
     tsRefLabel = new ClickLabel(tr("Fast temperature reading (alternative to sonic temp) :"), this);
     tsRefLabel->setToolTip(tr("<b>Fast temperature reading:</b> If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied."));
     tsRefCombo = new QComboBox;
@@ -514,12 +518,12 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     rgCombo = new QComboBox;
     rgCombo->setToolTip(rgLabel->toolTip());
 
-    lwinLabel = new ClickLabel(tr("Longwave incoming radiation :"), this);
+    lwinLabel = new ClickLabel(tr("Longwave Incoming Radiation :"), this);
     lwinLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
     lwinCombo = new QComboBox;
     lwinCombo->setToolTip(lwinLabel->toolTip());
 
-    ppfdLabel = new ClickLabel(tr("Photosynthetically active radiation (PAR, PPFD) :"), this);
+    ppfdLabel = new ClickLabel(tr("Photosynthetically Active Radiation (PAR, PPFD) :"), this);
     ppfdLabel->setToolTip(tr("Select the variables to be used for calculating fluxes, among those available."));
     ppfdCombo = new QComboBox;
     ppfdCombo->setToolTip(ppfdLabel->toolTip());
@@ -916,9 +920,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     varContainerLayout->addWidget(anemRefLabel, 0, 0, Qt::AlignRight);
     varContainerLayout->addWidget(anemRefCombo, 0, 1);
     varContainerLayout->addWidget(crossWindCheckBox, 1, 1);
-    varContainerLayout->addWidget(tsRefLabel, 2, 0, Qt::AlignRight);
-    varContainerLayout->addWidget(tsRefCombo, 2, 1);
-    varContainerLayout->addWidget(varTab, 3, 0, 1, -1);
+    varContainerLayout->addWidget(anemFlagLabel, 2, 0, Qt::AlignRight);
+    varContainerLayout->addWidget(anemFlagCombo, 2, 1);
+    varContainerLayout->addWidget(tsRefLabel, 3, 0, Qt::AlignRight);
+    varContainerLayout->addWidget(tsRefCombo, 3, 1);
+    varContainerLayout->addWidget(varTab, 4, 0, 1, -1);
     varContainerLayout->setColumnStretch(0, 1);
     varContainerLayout->setColumnStretch(1, 2);
     varContainerLayout->setColumnStretch(2, 1);
@@ -1031,6 +1037,11 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
             this, &BasicSettingsPage::onClickAnemRefLabel);
     connect(anemRefCombo, SIGNAL(activated(QString)),
             this, SLOT(updateAnemRefCombo(QString)));
+
+    connect(anemFlagLabel, &ClickLabel::clicked,
+            this, &BasicSettingsPage::onClickAnemFlagLabel);
+    connect(anemFlagCombo, SIGNAL(activated(int)),
+            this, SLOT(updateAnemFlagCombo(int)));
 
     connect(co2RefLabel, &ClickLabel::clicked,
             this, &BasicSettingsPage::onClickCo2RefLabel);
@@ -1223,33 +1234,31 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     connect(declinationFetchButton, &QPushButton::clicked,
             this, &BasicSettingsPage::fetchMagneticDeclination);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << flag1VarCombo
-                                  << flag2VarCombo
-                                  << flag3VarCombo
-                                  << flag4VarCombo
-                                  << flag5VarCombo
-                                  << flag6VarCombo
-                                  << flag7VarCombo
-                                  << flag8VarCombo
-                                  << flag9VarCombo
-                                  << flag10VarCombo)
+    foreach (auto combo, QList<QComboBox *>() << flag1VarCombo
+                                              << flag2VarCombo
+                                              << flag3VarCombo
+                                              << flag4VarCombo
+                                              << flag5VarCombo
+                                              << flag6VarCombo
+                                              << flag7VarCombo
+                                              << flag8VarCombo
+                                              << flag9VarCombo
+                                              << flag10VarCombo)
     {
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateFlagUnit(int)));
     }
 
-    foreach (ClickLabel *label,
-             QList<ClickLabel *>() << flag1Label
-                                   << flag2Label
-                                   << flag3Label
-                                   << flag4Label
-                                   << flag5Label
-                                   << flag6Label
-                                   << flag7Label
-                                   << flag8Label
-                                   << flag9Label
-                                   << flag10Label)
+    foreach (auto label, QList<ClickLabel *>() << flag1Label
+                                               << flag2Label
+                                               << flag3Label
+                                               << flag4Label
+                                               << flag5Label
+                                               << flag6Label
+                                               << flag7Label
+                                               << flag8Label
+                                               << flag9Label
+                                               << flag10Label)
     {
         connect(label, &ClickLabel::clicked,
                 this, &BasicSettingsPage::onClickFlagLabel);
@@ -1849,7 +1858,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_26())
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_27())
                              && (varName != VariableDesc::getVARIABLE_VAR_STRING_28())
-                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_29());
+                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_29())
+                             && (varName != VariableDesc::getVARIABLE_VAR_STRING_30());
 
         if (ignoreFlag == QLatin1String("no")
             && numericFlag == QLatin1String("yes"))
@@ -2050,7 +2060,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_25()
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_26()
                      || varName == VariableDesc::getVARIABLE_VAR_STRING_27()
-                     || varName == VariableDesc::getVARIABLE_VAR_STRING_28())
+                     || varName == VariableDesc::getVARIABLE_VAR_STRING_28()
+                     || varName == VariableDesc::getVARIABLE_VAR_STRING_30())
             {
                 qDebug() << "SECTION ambient temperatures and diagnostics";
 
@@ -2110,6 +2121,16 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                     diag7700Label->setEnabled(true);
                     diag7700Combo->setEnabled(true);
                     diag7700Combo->addItem(varString, k);
+                }
+                // Anem diagnostics
+                else if (varName == VariableDesc::getVARIABLE_VAR_STRING_30()
+                         && instrType != tr("Other"))
+                {
+                    qDebug() << "INSERT varName" << varName;
+                    qDebug() << "varString" << varString;
+                    anemFlagLabel->setEnabled(true);
+                    anemFlagCombo->setEnabled(true);
+                    anemFlagCombo->addItem(varString, k);
                 }
             } // else if
 
@@ -2260,7 +2281,8 @@ void BasicSettingsPage::addNoneStr_1()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
+             << anemFlagCombo
              << tsRefCombo
              << co2RefCombo
              << h2oRefCombo
@@ -2297,7 +2319,7 @@ void BasicSettingsPage::addNoneStr_2()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QWidget *w, QWidgetList()
+    foreach (auto w, QWidgetList()
              << airTRefCombo
              << airPRefCombo
              << rhCombo
@@ -2314,7 +2336,7 @@ void BasicSettingsPage::addNoneStr_2()
 void BasicSettingsPage::clearBiometCombo()
 {
     DEBUG_FUNC_NAME
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << rhCombo
              << rgCombo
              << lwinCombo
@@ -2360,8 +2382,9 @@ void BasicSettingsPage::clearVarsCombo()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << anemRefLabel
+             << anemFlagLabel
              << co2RefLabel
              << h2oRefLabel
              << ch4RefLabel
@@ -2386,8 +2409,9 @@ void BasicSettingsPage::clearVarsCombo()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << anemRefCombo
+             << anemFlagCombo
              << co2RefCombo
              << h2oRefCombo
              << ch4RefCombo
@@ -2419,7 +2443,7 @@ void BasicSettingsPage::clearFlagVars()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1Label
              << flag2Label
              << flag3Label
@@ -2434,7 +2458,7 @@ void BasicSettingsPage::clearFlagVars()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << flag1VarCombo
              << flag2VarCombo
              << flag3VarCombo
@@ -2455,7 +2479,7 @@ void BasicSettingsPage::clearFlagUnits()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1UnitLabel
              << flag2UnitLabel
              << flag3UnitLabel
@@ -2475,7 +2499,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 {
     DEBUG_FUNC_NAME
 
-    foreach (QDoubleSpinBox *spin, QList<QDoubleSpinBox *>()
+    foreach (auto spin, QList<QDoubleSpinBox *>()
              << flag1ThresholdSpin
              << flag2ThresholdSpin
              << flag3ThresholdSpin
@@ -2491,7 +2515,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
         spin->setValue(-9999.0);
     }
 
-    foreach (QLabel *label, QList<QLabel *>()
+    foreach (auto label, QList<QLabel *>()
              << flag1UnitLabel
              << flag2UnitLabel
              << flag3UnitLabel
@@ -2506,7 +2530,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
         label->setEnabled(false);
     }
 
-    foreach (QComboBox *combo, QList<QComboBox *>()
+    foreach (auto combo, QList<QComboBox *>()
              << flag1PolicyCombo
              << flag2PolicyCombo
              << flag3PolicyCombo
@@ -2544,6 +2568,7 @@ void BasicSettingsPage::filterVariables()
     const auto genericStr = tr("Generic");
     const auto openPathStr1 = QStringLiteral("open");
     const auto openPathStr2 = QStringLiteral("OP");
+    const auto anemStr = QStringLiteral("Anemometer");
 
     // filter vars (always possible)
     for (int i = 0; i < co2RefCombo->count(); ++i)
@@ -2746,6 +2771,19 @@ void BasicSettingsPage::filterVariables()
             }
         }
     }
+
+    // filter vars (always possible)
+    for (int i = 0; i < anemFlagCombo->count(); ++i)
+    {
+        if (!anemFlagCombo->itemText(i).contains(noneStr))
+        {
+            qDebug() << "anemFlagCombo" << i << anemFlagCombo->itemText(i);
+            if (!anemFlagCombo->itemText(i).contains(anemStr))
+            {
+                anemFlagCombo->removeItem(i);
+            }
+        }
+    }
 }
 
 void BasicSettingsPage::preselectDensityVariables(QComboBox* combo)
@@ -2801,28 +2839,6 @@ void BasicSettingsPage::preselect7700Variables(QComboBox* combo)
     }
 }
 
-// NOTE: not used
-void BasicSettingsPage::preselectVariables()
-{
-    DEBUG_FUNC_NAME
-
-    // set none as initial value on the flags (not always possible)
-    foreach (QComboBox *combo, QList<QComboBox *>()
-             << flag1VarCombo
-             << flag2VarCombo
-             << flag3VarCombo
-             << flag4VarCombo
-             << flag5VarCombo
-             << flag6VarCombo
-             << flag7VarCombo
-             << flag8VarCombo
-             << flag9VarCombo
-             << flag10VarCombo)
-    {
-        combo->setCurrentIndex(combo->findData(0));
-    }
-}
-
 void BasicSettingsPage::outpathBrowseSelected(const QString& dir_path)
 {
     outpathBrowse->setPath(dir_path);
@@ -2868,7 +2884,7 @@ void BasicSettingsPage::updateSubsetSelection(bool b)
 {
     ecProject_->setGeneralSubset(b);
 
-    foreach (QWidget *w, QWidgetList()
+    foreach (auto w, QWidgetList()
              << startDateLabel
              << startDateEdit
              << startTimeEdit
@@ -3246,6 +3262,12 @@ void BasicSettingsPage::updateAnemRefCombo(const QString& s)
              << ecProject_->generalColMasterSonic();
 }
 
+void BasicSettingsPage::updateAnemFlagCombo(int i)
+{
+    DEBUG_FUNC_NAME
+            ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(i).toInt());
+}
+
 void BasicSettingsPage::updateCo2RefCombo(int i)
 {
     DEBUG_FUNC_NAME
@@ -3557,7 +3579,8 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     }
     else if (var == VariableDesc::getVARIABLE_VAR_STRING_25()
              || var == VariableDesc::getVARIABLE_VAR_STRING_26()
-             || var == VariableDesc::getVARIABLE_VAR_STRING_27())
+             || var == VariableDesc::getVARIABLE_VAR_STRING_27()
+             || var == VariableDesc::getVARIABLE_VAR_STRING_30())
     {
         return QStringLiteral("[-]");
     }
@@ -3633,6 +3656,12 @@ void BasicSettingsPage::onClickAnemRefLabel()
 {
     anemRefCombo->setFocus();
     anemRefCombo->showPopup();
+}
+
+void BasicSettingsPage::onClickAnemFlagLabel()
+{
+    anemFlagCombo->setFocus();
+    anemFlagCombo->showPopup();
 }
 
 void BasicSettingsPage::onClickCo2RefLabel()
@@ -3750,10 +3779,10 @@ void BasicSettingsPage::createQuestionMark()
     questionMark_4 = new QPushButton;
     questionMark_5 = new QPushButton;
 
-    foreach (QPushButton *btn, QList<QPushButton *>() << questionMark_2
-                                                      << questionMark_3
-                                                      << questionMark_4
-                                                      << questionMark_5)
+    foreach (auto btn, QList<QPushButton *>() << questionMark_2
+                                              << questionMark_3
+                                              << questionMark_4
+                                              << questionMark_5)
     {
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
@@ -4153,6 +4182,19 @@ void BasicSettingsPage::reloadSelectedItems_1()
         ecProject_->setGeneralColDiag77(diag7700Combo->itemData(0).toInt());
     }
 //
+    currData = ecProject_->generalColDiagAnem();
+    currItemIndex = anemFlagCombo->findData(currData);
+    if (currItemIndex >= 0)
+    {
+        anemFlagCombo->setCurrentIndex(currItemIndex);
+        ecProject_->setGeneralColDiagAnem(currData);
+    }
+    else
+    {
+        anemFlagCombo->setCurrentIndex(0);
+        ecProject_->setGeneralColDiagAnem(anemFlagCombo->itemData(0).toInt());
+    }
+    //
     currData = ecProject_->screenFlag1Col();
     currItemIndex = flag1VarCombo->findData(currData);
     noneIndex = flag1VarCombo->findData(0);
@@ -4562,18 +4604,6 @@ void BasicSettingsPage::updateFlag9Policy(int n)
 void BasicSettingsPage::updateFlag10Policy(int n)
 {
     ecProject_->setScreenFlag10Policy(n);
-}
-
-// NOTE: not used
-void BasicSettingsPage::triggerGasProperties()
-{
-    DEBUG_FUNC_NAME
-
-    bool gasExtHidden = gasExtension->isHidden();
-
-    gasExtension->setVisible(gasExtHidden);
-    moreButton->setChecked(gasExtHidden);
-    updateGeometry();
 }
 
 void BasicSettingsPage::onClickFlagLabel()
@@ -5017,22 +5047,22 @@ double BasicSettingsPage::numDeclination(const QString &text)
     QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
             dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
-    QRegExp decRx(dec_pattern);
-    bool res = decRx.exactMatch(text);
-    if (res)
+    QRegularExpression decRx(dec_pattern);
+    auto match = decRx.match(text);
+    if (match.hasMatch())
     {
         bool ok;
-        if (!decRx.cap(1).isEmpty())
+        if (!match.captured(1).isEmpty())
         {
             // first case: pattern from cap(1) to cap(3)
-            dec = decRx.cap(1).toDouble(&ok);
-            dec += decRx.cap(2).toDouble(&ok) / 60.0;
+            dec = match.captured(1).toDouble(&ok);
+            dec += match.captured(2).toDouble(&ok) / 60.0;
         }
-        else if (!decRx.cap(4).isEmpty())
+        else if (!match.captured(4).isEmpty())
         {
             // second case: pattern from cap(4) to cap(6)
-            dec = decRx.cap(4).toDouble(&ok);
-            dec += decRx.cap(5).toDouble(&ok) / 60.0;
+            dec = match.captured(4).toDouble(&ok);
+            dec += match.captured(5).toDouble(&ok) / 60.0;
         }
         else
         {
@@ -5040,7 +5070,9 @@ double BasicSettingsPage::numDeclination(const QString &text)
             dec = 180.0;
         }
         // negative coordinates case
-        if ((decRx.cap(3) == QLatin1String("W"))||(decRx.cap(6) == QLatin1String("W"))||(decRx.cap(9) == QLatin1String("W")))
+        if ((match.captured(3) == QLatin1String("W"))
+                || (match.captured(6) == QLatin1String("W"))
+                || (match.captured(9) == QLatin1String("W")))
         {
             dec = 0.0 - dec;
         }
@@ -5097,7 +5129,7 @@ QString BasicSettingsPage::strDeclination(double dec)
 
 // get variation of declination in decimal minutes / year, i.e. in mmss.sss
 // string from signed decimal degrees
-// NOTE: not used
+// NOTE: never used
 QString BasicSettingsPage::strVariation(double dec)
 {
     QString dms = QString();
@@ -5299,9 +5331,9 @@ void BasicSettingsPage::dateRangeDetect()
     {
         progressWidget_2->startAnimation();
 
-        QPair<QDateTime, QDateTime> dates;
+        FileUtils::DateRange dates;
 
-        QFuture<QPair<QDateTime, QDateTime>> future = QtConcurrent::run(&FileUtils::getDateRangeFromFileList, currentRawDataList_, ecProject_->generalFilePrototype());
+        QFuture<FileUtils::DateRange> future = QtConcurrent::run(&FileUtils::getDateRangeFromFileList, currentRawDataList_, ecProject_->generalFilePrototype());
         while (!future.isFinished())
         {
             QCoreApplication::processEvents();
@@ -5351,11 +5383,13 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
          << previousDatapathBrowse
          << anemRefLabel
          << anemRefCombo
+         << anemFlagLabel
+         << anemFlagCombo
          << recursionCheckBox
          << subsetCheckBox
          << dateRangeDetectButton;
 
-    foreach (QWidget *w, widgets)
+    foreach (auto w, widgets)
     {
         if (on)
         {

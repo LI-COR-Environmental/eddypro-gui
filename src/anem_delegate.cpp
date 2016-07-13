@@ -35,7 +35,7 @@
 #include "defs.h"
 #include "dbghelper.h"
 
-AnemDelegate::AnemDelegate(QObject *parent) : QItemDelegate(parent)
+AnemDelegate::AnemDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
     installEventFilter(this);
 }
@@ -106,11 +106,13 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
           return combo;
       case AnemModel::SWVERSION:
           ledit = new QLineEdit(parent);
+          ledit->setPlaceholderText(QStringLiteral("2329-660-01"));
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;
       case AnemModel::ID:
           ledit = new QLineEdit(parent);
+          ledit->setPlaceholderText(QStringLiteral("Alphanumeric ID"));
           connect(ledit, SIGNAL(editingFinished()),
                   this, SLOT(commitAndCloseEditor()));
           return ledit;
@@ -239,7 +241,6 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
 void AnemDelegate::setEditorData(QWidget* editor,
                                   const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -305,7 +306,7 @@ void AnemDelegate::setEditorData(QWidget* editor,
             }
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -313,7 +314,6 @@ void AnemDelegate::setEditorData(QWidget* editor,
 void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                 const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -367,7 +367,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             model->setData(index, value);
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }
@@ -385,13 +385,13 @@ void AnemDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
 }
 
 void AnemDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
 }
 
 bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
@@ -405,9 +405,10 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
                                                 || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
-//        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)

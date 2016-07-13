@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QMimeData>
 
+// NOTE: never used
 bool CustomDropLineEdit::canBeFile() const
 {
     return canBeFile_;
@@ -61,10 +62,11 @@ void CustomDropLineEdit::dropEvent(QDropEvent *event)
 #endif
 
     QFileInfo dropPathInfo(dropPath);
-    if (!dropPathInfo.exists())
+    if (!QFileInfo::exists(dropPath))
     {
         return;
     }
+
     if ((canBeFile_ && dropPathInfo.isFile()) || dropPathInfo.isDir())
     {
         const auto path = dropPathInfo.absoluteFilePath();

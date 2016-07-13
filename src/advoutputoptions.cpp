@@ -410,7 +410,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     title_1->setProperty("groupLabel", true);
 
     auto title_6 = new QLabel;
-    title_6->setText(tr("Spectral outputs"));
+    title_6->setText(tr("Spectra and cospectra outputs"));
     title_6->setProperty("groupLabel", true);
 
     auto title_2 = WidgetUtils::createBlueLabel(this, tr("Reduced spectra and ogives"));
@@ -500,7 +500,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_2, 5, 2, Qt::AlignRight);
     outputLayout->addWidget(variableVarsOutputRadio, 5, 3, 1, 2, Qt::AlignLeft);
     outputLayout->addWidget(fixedVarsOutputRadio, 6, 3, 1, 2, Qt::AlignLeft);
-    outputLayout->addWidget(vrLabel_1, 5, 5, 6, 1);
+    outputLayout->addWidget(vrLabel_1, 5, 5, 8, 1);
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
@@ -805,7 +805,7 @@ void AdvOutputOptions::setSmartfluxUI()
                       << outRawPairCheckBox
                       << outVarsAllCheckBox;
 
-    foreach (QWidget* w, enableableWidgets)
+    foreach (auto w, enableableWidgets)
     {
         if (on)
         {
@@ -827,7 +827,7 @@ void AdvOutputOptions::setSmartfluxUI()
             << typicalSelectionDesc
             << hrLabel_1;
 
-    foreach (QWidget* w, visibleWidgets)
+    foreach (auto w, visibleWidgets)
     {
         if (on)
         {
@@ -853,7 +853,7 @@ void AdvOutputOptions::setSmartfluxUI()
     checkableWidgets << outFullCheckBox
                      << outBiometCheckBox
                      << fixedVarsOutputRadio;
-    foreach (QAbstractButton* w, checkableWidgets)
+    foreach (auto w, checkableWidgets)
     {
         if (on)
         {
@@ -890,7 +890,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRaw6CheckBox
                        << outRaw7CheckBox
                        << outVarsAllCheckBox;
-    foreach (QCheckBox* w, uncheckableCheckbox)
+    foreach (auto w, uncheckableCheckbox)
     {
         if (on)
         {
@@ -924,7 +924,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRawGas4CheckBox
                        << outRawTairCheckBox
                        << outRawPairCheckBox;
-    foreach (RichTextCheckBox* w, uncheckableRichTextCheckbox)
+    foreach (auto w, uncheckableRichTextCheckbox)
     {
         if (on)
         {
@@ -1261,7 +1261,7 @@ void AdvOutputOptions::selectMin()
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(false);
-    createDatasetCheckBox->setChecked(false);
+    createDatasetCheckBox->setChecked(true);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(false);
     outMeanSpectraCheckBox->setChecked(false);

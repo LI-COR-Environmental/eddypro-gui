@@ -132,6 +132,17 @@ int main(int argc, char *argv[])
     QApplication::setEffectEnabled(Qt::UI_AnimateTooltip);
     QApplication::setEffectEnabled(Qt::UI_FadeTooltip);
 
+    ///
+    /// A set of flags to workaroud issues in specific cases
+    ///
+    //  QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    //  QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    //  QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
+    //  QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    //  QCoreApplication::setAttribute(Qt::AA_SetPalette);
+    //  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+
     QApplication app(argc, argv);
     app.setApplicationName(Defs::APP_NAME);
     app.setApplicationDisplayName(Defs::APP_NAME);
@@ -278,7 +289,18 @@ int main(int argc, char *argv[])
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_GENERAL,
                                                       Defs::CONF_GEN_SHOW_SPLASH,
                                                       true).toBool();
-    qDebug() << "show_splash:" <<show_splash;
+
+#if defined(Q_OS_MAC)
+    auto is_full_screen_set =
+        GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                                      Defs::CONF_WIN_FULLSCREEN,
+                                                      true).toBool();
+    if (is_full_screen_set)
+    {
+        show_splash = false;
+    }
+#endif
+    qDebug() << "show_splash:" << show_splash;
 
     if (show_splash)
     {
@@ -305,7 +327,16 @@ int main(int argc, char *argv[])
     }
     qApp->processEvents();
 
-    MainWindow mainWin(filename, appEnvPath);
+//#if defined(Q_OS_MAC)
+//    MainWindow mainWin(filename, appEnvPath, &splash, 0,
+//                       Qt::WindowFlags()
+//                       Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint
+//                       Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint
+//                       );
+//#elif defined(Q_OS_WIN)
+    MainWindow mainWin(filename, appEnvPath, &splash);
+//#endif
+
     if (show_splash)
     {
         splash.setProgressValue(40);

@@ -147,6 +147,7 @@ public:
     static bool isWellNamed(const IrgaDesc& irga);
     static bool hasGoodSeparations(const IrgaDesc& irga);
     static bool isAGoodClosedPath(const IrgaDesc& irga);
+    static bool hasGoodFlowRate(const IrgaDesc& irga);
     static bool hasGoodPathLength(const IrgaDesc& irga);
     static bool isGoodIrga(const IrgaDesc& irga);
 

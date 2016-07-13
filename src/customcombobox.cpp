@@ -22,7 +22,6 @@
 
 #include "customcombobox.h"
 
-#include <QItemDelegate>
 #include <QModelIndex>
 #include <QPainter>
 #include <QStandardItem>

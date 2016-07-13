@@ -38,7 +38,7 @@
 #include "widget_utils.h"
 
 VariableDelegate::VariableDelegate(QObject *parent) :
-    QItemDelegate(parent),
+    QStyledItemDelegate(parent),
     varsBuffer_(new QStringList())
 {
     installEventFilter(this);
@@ -58,7 +58,6 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
     QComboBox *combo;
     CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
 
     int column = index.column();
     QString currentVar = index.model()->data(index.model()->index(VariableModel::VARIABLE, column)).toString();
@@ -175,7 +174,9 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
 
             return combo;
         case VariableModel::CONVERSIONTYPE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
@@ -193,7 +194,9 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                 return combo;
             }
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
@@ -249,14 +252,16 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
             }
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = new QLabel(parent);
                 return label;
             }
             else
             {
-                nzdspin = new NonZeroDoubleSpinBox(parent);
+                auto nzdspin = new NonZeroDoubleSpinBox(parent);
                 nzdspin->setDecimals(6);
                 nzdspin->setRange(-999999.0, 999999.0);
                 nzdspin->setSingleStep(1.0);
@@ -278,7 +283,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
                     this, SLOT(commitAndCloseEditor()));
             return dspin;
         default:
-            return QItemDelegate::createEditor(parent, option, index);
+            return QStyledItemDelegate::createEditor(parent, option, index);
     }
 }
 
@@ -289,7 +294,6 @@ void VariableDelegate::setEditorData(QWidget* editor,
     QComboBox *combo;
     CustomComboBox *custom_combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
 
     int column = index.column();
     QString currentVar = index.model()->data(index.model()->index(VariableModel::VARIABLE, column)).toString();
@@ -309,7 +313,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
             if (!combo) { return; }
 
             // prevent empty variables
-            if (stringValue.isEmpty()) break;
+            if (stringValue.isEmpty()) { break; }
 
             combo->setCurrentIndex(combo->findText(stringValue));
             break;
@@ -353,14 +357,14 @@ void VariableDelegate::setEditorData(QWidget* editor,
                 combo = static_cast<QComboBox*>(editor);
                 if (!combo) { return; }
 
-//                if (combo->findText(value.toString()) < 0)
-//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
         case VariableModel::CONVERSIONTYPE:
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
@@ -370,21 +374,21 @@ void VariableDelegate::setEditorData(QWidget* editor,
                 combo = static_cast<QComboBox*>(editor);
                 if (!combo) { return; }
 
-//                if (combo->findText(value.toString()) < 0)
-//                    combo->addItem(value.toString());
                 combo->setCurrentIndex(combo->findText(stringValue));
             }
             break;
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
             }
             else
             {
-                nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
+                auto nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
                 if (!nzdspin) { return; }
                 nzdspin->setValue(value.toReal());
             }
@@ -397,7 +401,7 @@ void VariableDelegate::setEditorData(QWidget* editor,
             dspin->setValue(value.toReal());
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -407,7 +411,6 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
 {
     QComboBox *combo;
     QDoubleSpinBox *dspin;
-    NonZeroDoubleSpinBox *nzdspin;
     QVariant value;
     QLabel *label;
 
@@ -444,7 +447,9 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         break;
         case VariableModel::CONVERSIONTYPE:
         case VariableModel::OUTPUTUNIT:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
@@ -474,14 +479,16 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             break;
         case VariableModel::AVALUE:
         case VariableModel::BVALUE:
-            if (!VariableDesc::isScalableVariable(currentInputUnit))
+            if (!VariableDesc::isScalableVariable(currentInputUnit)
+                || (VariableDesc::isScalableVariable(currentInputUnit)
+                    && VariableDesc::isDiagnosticVar(currentVar)))
             {
                 label = static_cast<QLabel*>(editor);
                 if (!label) { return; }
             }
             else
             {
-                nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
+                auto nzdspin = static_cast<NonZeroDoubleSpinBox*>(editor);
                 if (!nzdspin) { return; }
                 value = nzdspin->value();
                 model->setData(index, value);
@@ -496,7 +503,7 @@ void VariableDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             model->setData(index, value);
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }
@@ -522,35 +529,43 @@ void VariableDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
 }
 
 void VariableDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
 }
 
 bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
 {
     QComboBox* combo = qobject_cast<QComboBox *>(editor);
+//    QDoubleSpinBox* spin = qobject_cast<QDoubleSpinBox *>(editor);
     QEvent::Type eventType = event->type();
+
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
+
+    qDebug() << "eventType" << eventType;
+
+    // if ((combo || spin)
     if (combo
-         && (eventType == QEvent::MouseButtonRelease
-             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
-                                                || eventKey == Qt::Key_Enter
+        && (eventType == QEvent::MouseButtonRelease
+            || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
+                                               || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
-//        qDebug() << eventType << combo;
+        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
-//        qDebug() << eventType << "ShortcutOverride";
+        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

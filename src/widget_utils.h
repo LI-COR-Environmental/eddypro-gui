@@ -60,6 +60,7 @@ namespace WidgetUtils
     QPushButton* createCommonButton(QWidget *parent, const QString &text);
 
     // dialog
+    void removeFlagFromWidget(Qt::WindowFlags flag, QWidget* w);
     void removeContextHelpButton(QWidget* w);
 
     // label

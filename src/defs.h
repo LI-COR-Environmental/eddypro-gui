@@ -53,7 +53,7 @@ namespace Defs
 {
     const auto APP_VERSION = 0x060100;
     const auto APP_VERSION_STR = QStringLiteral("6.2.0");
-    const auto APP_STAGE_STR = QStringLiteral("beta1");
+    const auto APP_STAGE_STR = QStringLiteral("rc4");
 
     const auto PROJECT_FILE_VERSION = 0x040402;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.2");
@@ -61,9 +61,9 @@ namespace Defs
     const auto METADATA_FILE_VERSION = 0x030201;
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
 
-    const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86-32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.0.2 x86-64 (clang-700.1.81) on Mac OS X<sup>&reg;</sup> 10.11.3");
-    const auto LIN_COMPILER = QStringLiteral("GCC 5.2.1 x86-64 on Linux");
+    const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86_32 on Windows<sup>&reg;</sup> 10");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.3.0 (clang-703.0.31) x86_64 on Mac OS X<sup>&reg;</sup> 10.11.4");
+    const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
     const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2016");
 
@@ -170,6 +170,7 @@ namespace Defs
     const auto DEGREE_K    = QChar(0x212A);
     const auto MAC_COMMAND_KEY    = QChar(0x2318);
     const auto TRADEMARK_SYMBOL   = QChar(0x2122);
+    const auto REGISTERED_TRADEMARK_SYMBOL   = QChar(0x00AE);
 
     const QString CDEGREE_C_STRING = QStringLiteral("c") + DEGREE_C;
     const QString CDEGREE_K_STRING = QStringLiteral("c") + DEGREE_K;
@@ -243,8 +244,8 @@ namespace Defs
     const auto TEMPLATE_FILE_EXT        = QStringLiteral(".txt");
 
     // eddypro engine
-    const auto ENGINE_RP  = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
-    const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE).arg(EXEC_FILE_EXT);
+    const auto ENGINE_RP  = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
+    const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
 
     // helper tools
     const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
@@ -265,12 +266,12 @@ namespace Defs
     const auto APP_PD_INI_TAG = QStringLiteral(";%1_PROCESSING").arg(APP_NAME_UCASE);
 
     // file names
-    const auto DEFAULT_METADATA_FILENAME = QStringLiteral("%1.%2").arg(APP_NAME_LCASE).arg(METADATA_FILE_EXT);
+    const auto DEFAULT_METADATA_FILENAME = QStringLiteral("%1.%2").arg(APP_NAME_LCASE, METADATA_FILE_EXT);
     const auto DEFAULT_PROCESSING_FILENAME = QStringLiteral("processing.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_PROJECT_FILENAME = QObject::tr("project-untitled.%1").arg(PROJECT_FILE_EXT);
     const auto DEFAULT_BIOMET_SUFFIX = QStringLiteral("-biomet");
     const auto DEFAULT_SMARTFLUX_SUFFIX = QStringLiteral("-smartflux");
-    const auto DEFAULT_SMARTFLUX_PROJECT_FILENAME = QObject::tr("project-untitled%1.%2").arg(DEFAULT_SMARTFLUX_SUFFIX).arg(PROJECT_FILE_EXT);
+    const auto DEFAULT_SMARTFLUX_PROJECT_FILENAME = QObject::tr("project-untitled%1.%2").arg(DEFAULT_SMARTFLUX_SUFFIX, PROJECT_FILE_EXT);
 
     const auto SPECTRA_FILE_TEMPLATE = QStringLiteral("eddypro_sample_spectral_assessment");
     const auto PLANAR_FIT_FILE_TEMPLATE = QStringLiteral("eddypro_sample_planar_fit");

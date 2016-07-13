@@ -16,7 +16,7 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 QT += core gui widgets network concurrent
 CONFIG += warn_on
 CONFIG += debug_and_release
-CONFIG += c++11
+CONFIG += c++14
 
 # Build tree with shadow building approach
 include(build_tree.pri)
@@ -55,7 +55,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_59_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
@@ -121,3 +121,6 @@ DEFINES += QT_USE_QSTRINGBUILDER
 #build_pass:message(QMAKE_CFLAGS: $$QMAKE_CFLAGS)
 #build_pass:message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
+
+# workaround for QTBUG-34424
+TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0/*

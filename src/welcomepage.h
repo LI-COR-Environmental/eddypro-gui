@@ -101,7 +101,6 @@ private slots:
     void supportItemRequested(QListWidgetItem* item);
     void updateRecentList();
     void openForumFeedback();
-    void updateMainLayout(bool on);
     void onlineHelpTrigger_1();
 
 signals:

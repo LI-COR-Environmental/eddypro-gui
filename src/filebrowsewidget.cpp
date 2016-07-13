@@ -34,9 +34,9 @@ FileBrowseWidget::FileBrowseWidget() :
     button()->setText(tr("Load..."));
     lineEdit()->setCanBeFile(true);
 
-#if defined(Q_OS_MAC)
+//#if defined(Q_OS_MAC)
     lineEdit()->setPlaceholderText(tr("drag and drop here"));
-#endif
+//#endif
 
     lineEdit()->setAcceptDrops(true);
 

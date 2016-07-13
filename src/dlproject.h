@@ -53,6 +53,7 @@ public:
     bool hasOneFastTemperature();
     bool hasGoodIrgaNames();
     bool hasGoodIrgaSeparations();
+    bool hasGoodIrgaFlowRate();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
     bool masterAnemHasFwVersion();
@@ -204,7 +205,6 @@ private:
     QString toIniVariableMeasureUnit(const QString& s);
     QString toIniVariableConversionType(const QString& s);
     QString toIniVariableInstrument(const QString& s);
-    QString toIniBool(const QString& s);
     QString fromIniAnemManufacturer(const QString& s);
     QString fromIniAnemWindFormat(const QString& s);
     QString fromIniAnemNorthAlign(const QString &model, const QString& s);
@@ -260,6 +260,7 @@ private:
     static const QString VARIABLE_VAR_STRING_27;
     static const QString VARIABLE_VAR_STRING_28;
     static const QString VARIABLE_VAR_STRING_29;
+    static const QString VARIABLE_VAR_STRING_30;
 
     static const QString VARIABLE_MEASURE_TYPE_STRING_0;
     static const QString VARIABLE_MEASURE_TYPE_STRING_1;

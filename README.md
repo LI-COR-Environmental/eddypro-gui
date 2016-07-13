@@ -29,7 +29,6 @@ The EddyPro installer installs the following components:
 
 Both are pre-built for a particular environment (operating system and compiler).
 
-
 ##Source Code Repository
 
 EddyPro is a fully cross-platform application, which consists of a set of
@@ -37,10 +36,8 @@ command line programs and a graphical user interface (GUI).
 
 The source code is developed using two independent Git repositories, namely:
 
-
   - eddypro-engine
   - eddypro-gui
-
 
 ## Installing EddyPro
 
@@ -52,15 +49,14 @@ Start the installation program like any executable on the development platform.
 Select the components that you want to install and follow the instructions of
 the installation program to complete the installation.
 
-
 ## Building EddyPro from source
 
 To build EddyPro follow these instructions:
 
-
 ### Engine
 
-To compile the Engine use [gfortran](https://gcc.gnu.org/wiki/GFortran) (The GNU Fortran compiler) and run:
+To compile the Engine use [gfortran](https://gcc.gnu.org/wiki/GFortran)
+(The GNU Fortran compiler) and run:
 
     $ make Makefile_rp
     $ make Makefile_fcc
@@ -116,7 +112,6 @@ following command line utilities under the 'bin' sub-directory:
 - 7-zip
 - pausep
 
-
 ### 7-zip
 
 [7-Zip](http://www.7-zip.org/) is a file archiver.
@@ -138,12 +133,10 @@ It consists of one file:
 License: Code Project Open License,
 [CPOL](http://www.codeproject.com/info/cpol10.aspx).
 
-
 ## Using EddyPro sample data
 
 You can run EddyPro using sample data files available in the LI-COR
 [EddyPro website](http://www.licor.com/eddypro).
-
 
 ## Data Processing Options in EddyPro
 
@@ -153,13 +146,11 @@ You can run EddyPro using sample data files available in the LI-COR
   - Sector-wise planar fit (Wilczak et al., 2001)
   - Sector-wise planar fit with no velocity bias (van Dijk et al., 2004)
 
-
 + Detrending of raw time series
   - Block averaging
   - Linear detrending
   - Running mean
   - Exponential running mean
-
 
 + Compensation of time lag between sonic anemometer and gas analyzer measurements
   - Automatic time lag optimization (optionally as a function of RH for H<sub>2</sub>O)
@@ -167,7 +158,6 @@ You can run EddyPro using sample data files available in the LI-COR
   - Maximum covariance without default
   - Constant
   - None (option to not apply compensation)
-
 
 + Statistical tests for raw time series data (Vickers and Mahrt, 1997)
   - Spike count/removal (Mauder et al., 2013)
@@ -181,13 +171,11 @@ You can run EddyPro using sample data files available in the LI-COR
   - Steadiness of horizontal wind
   - Individually selectable and customizable
 
-
 + Compensation for air density fluctuations
   - Webb et al., 1980 (open path) / Ibrom et al., 2007a (closed path)
   - Use (or convert to) mixing ratio (Burba et al., 2012)
   - Optional off-season upatake correction for LI-7500 (Burba et al., 2008)
   - None (option to not apply compensation)
-
 
 + Correction for frequency response (attenuation)
   - Analytic high-pass filtering correction (Moncrieff et al., 2004)
@@ -199,23 +187,19 @@ You can run EddyPro using sample data files available in the LI-COR
     - Horst and Lenschow (2009)
     - Fratini et. al. (2012)
 
-
 + Quality control tests for fluxes according to Foken et al. (2004)
   - Flagging according to Carbo Europe standard (Mauder and Foken, 2004)
   - Flagging according to Foken (2003)
   - Flagging after Göckede et al. (2004)
 
-
 + Random uncertainty estimation
   - Mann and Lenschow (1994)
   - Finkelstein and Sims (2001)
-
 
 + Flux footprint estimation
   - Kljun et al. (2004)
   - Kormann and Meixner (2001)
   - Hsieh et al. (2000)
-
 
 + Other options applied in both Express and/or Advanced Mode include:
   - Sonic temperature correction for humidity following van Dijk et al. (2004)
@@ -223,7 +207,6 @@ You can run EddyPro using sample data files available in the LI-COR
   - Angle of attack corrections for Gill anemometers following Nakai et al. (2006)
   - Angle of attack corrections for Gill anemometers following Nakai and Shimoyama (2012)
   - Inclusion of biomet data for improved flux computation/correction
-
 
 + Available outputs
   - Full (rich) output with fluxes, quality flags and much more (standard format
@@ -240,26 +223,23 @@ You can run EddyPro using sample data files available in the LI-COR
   - Raw data time series after each statistical tests/correction
   - Averaged biomet data
 
-
 ## EddyPro Trademark and Logo Policy
 
 In order to help users who want to cite EddyPro on posters or publications,
 LI-COR provides [guidelines](docs/EddyPro_Trademark_Policy.pdf) for the proper
 use of the EddyPro wordmark and logo.
 
-
 ## Want to Know More?
 
 More information is available at:
 
-  - http://www.licor.com/eddypro
-  - http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html
+  - [EddyPro web page](http://www.licor.com/eddypro)
+  - [EddyPro help](http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html)
 
 Be sure to check out the
 '[What's new](http://www.licor.com/env/help/eddypro/topics_eddypro/Whats_New.html)'
 page, which will list any known problems or limitations of the current and
 past versions.
-
 
 See also the [CHANGELOG](CHANGELOG).
 

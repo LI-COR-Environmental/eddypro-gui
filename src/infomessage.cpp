@@ -46,14 +46,14 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     buttonBox_ = new QDialogButtonBox(buttons);
 
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    foreach (auto button, buttonBox_->buttons())
     {
         button->setProperty("mdDialogButton", true);
     }
 
     // NOTE: use QSignalMapper
     // map dialog results to messagebox buttons
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    foreach (auto button, buttonBox_->buttons())
     {
         switch (buttonBox_->buttonRole(button))
         {

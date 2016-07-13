@@ -24,9 +24,9 @@
 #ifndef ANEM_DELEGATE_H
 #define ANEM_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class AnemDelegate : public QItemDelegate
+class AnemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:

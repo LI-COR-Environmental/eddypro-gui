@@ -105,6 +105,7 @@ public:
     void setGeneralColDiag75(int n);
     void setGeneralColDiag72(int n);
     void setGeneralColDiag77(int n);
+    void setGeneralColDiagAnem(int n);
     void setGeneralColTs(int n);
     void setGeneralColGasMw(double n);
     void setGeneralColGasDiff(double n);
@@ -485,6 +486,7 @@ public:
     int generalColDiag75() const { return ec_project_state_.projectGeneral.col_diag_75; }
     int generalColDiag72() const { return ec_project_state_.projectGeneral.col_diag_72; }
     int generalColDiag77() const { return ec_project_state_.projectGeneral.col_diag_77; }
+    int generalColDiagAnem() const { return ec_project_state_.projectGeneral.col_diag_anem; }
     int generalColTs() const { return ec_project_state_.projectGeneral.col_ts; }
     qreal generalGasMw() const { return ec_project_state_.projectGeneral.gas_mw; }
     qreal generalGasDiff() const { return ec_project_state_.projectGeneral.gas_diff; }
@@ -830,8 +832,6 @@ public:
     int biomParamColRg() const { return ec_project_state_.biomParam.col_rg; }
     int biomParamColLwin() const { return ec_project_state_.biomParam.col_lwin; }
     int biomParamColPpfd() const { return ec_project_state_.biomParam.col_ppfd; }
-
-    bool planarFitSectorDefined();
 
     void addPlanarFitAngle(const AngleItem& angle);
 

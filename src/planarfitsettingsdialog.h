@@ -26,6 +26,8 @@
 #include <QDateTime>
 #include <QDialog>
 
+#include "fileutils.h"
+
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/planarfitsettingsdialog.h
 /// \brief
@@ -81,7 +83,7 @@ public slots:
     void reset();
     void refresh();
     void partialRefresh();
-    void setDateRange(QPair<QDateTime, QDateTime> dates);
+    void setDateRange(FileUtils::DateRange dates);
 
 private slots:
     void updatePfMode(int radioButton);

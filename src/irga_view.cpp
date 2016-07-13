@@ -38,11 +38,11 @@ IrgaView::IrgaView(QWidget *parent) :
     clearAction_(0)
 {
     // create context menu actions
-    addAction_ = new QAction(tr("&Add Irga"), this);
+    addAction_ = new QAction(tr("&Add Gas Analyzer"), this);
     addAction_->setShortcut(QKeySequence(QKeySequence::ZoomIn));
     addAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
-    removeAction_ = new QAction(tr("&Remove Irga"), this);
+    removeAction_ = new QAction(tr("&Remove Gas Analyzer"), this);
     removeAction_->setShortcut(QKeySequence(QKeySequence::ZoomOut));
     removeAction_->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 

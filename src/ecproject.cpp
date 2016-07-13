@@ -199,7 +199,8 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && (ec_project_state_.projectGeneral.col_int_t_c == previousProject.ec_project_state_.projectGeneral.col_int_t_c)
         && (ec_project_state_.projectGeneral.col_diag_72 == previousProject.ec_project_state_.projectGeneral.col_diag_72)
         && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_75)
-        && (ec_project_state_.projectGeneral.col_diag_77 == previousProject.ec_project_state_.projectGeneral.col_diag_77);
+        && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_77)
+        && (ec_project_state_.projectGeneral.col_diag_anem == previousProject.ec_project_state_.projectGeneral.col_diag_anem);
     qDebug() << "dataSetTest 1" << dataSetTest;
 
     if (ec_project_state_.projectGeneral.subset)
@@ -870,6 +871,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.col_diag_75 = defaultEcProjectState.projectGeneral.col_diag_75;
     ec_project_state_.projectGeneral.col_diag_72 = defaultEcProjectState.projectGeneral.col_diag_72;
     ec_project_state_.projectGeneral.col_diag_77 = defaultEcProjectState.projectGeneral.col_diag_77;
+    ec_project_state_.projectGeneral.col_diag_anem = defaultEcProjectState.projectGeneral.col_diag_anem;
     ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
     ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
     ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
@@ -1305,6 +1307,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_28, ec_project_state_.projectGeneral.col_diag_75);
         project_ini.setValue(EcIni::INI_PROJECT_29, ec_project_state_.projectGeneral.col_diag_72);
         project_ini.setValue(EcIni::INI_PROJECT_30, ec_project_state_.projectGeneral.col_diag_77);
+        project_ini.setValue(EcIni::INI_PROJECT_69, ec_project_state_.projectGeneral.col_diag_anem);
         project_ini.setValue(EcIni::INI_PROJECT_31, QString::number(ec_project_state_.projectGeneral.gas_mw, 'f', 4));
         project_ini.setValue(EcIni::INI_PROJECT_32, QString::number(ec_project_state_.projectGeneral.gas_diff, 'f', 5));
         project_ini.setValue(EcIni::INI_PROJECT_36, ec_project_state_.projectGeneral.col_ts);
@@ -1393,7 +1396,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_48, ec_project_state_.spectraSettings.use_foken_low);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
-        // NOTE: temporary placeholders for SA Groups
+        // NOTE: temporary placeholders for SA Groups. Not used right now
         project_ini.setValue(QStringLiteral("sa_co2_g1_start"), 1);
         project_ini.setValue(QStringLiteral("sa_co2_g1_stop"), 12);
         project_ini.setValue(QStringLiteral("sa_ch4_g1_start"), 1);
@@ -1791,7 +1794,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file<br /><p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -1942,6 +1945,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.col_diag_77
                 = project_ini.value(EcIni::INI_PROJECT_30,
                                     defaultEcProjectState.projectGeneral.col_diag_77).toInt();
+        ec_project_state_.projectGeneral.col_diag_anem
+                = project_ini.value(EcIni::INI_PROJECT_69,
+                                    defaultEcProjectState.projectGeneral.col_diag_anem).toInt();
         ec_project_state_.projectGeneral.col_ts
                 = project_ini.value(EcIni::INI_PROJECT_36,
                                     defaultEcProjectState.projectGeneral.col_ts).toInt();
@@ -3185,7 +3191,7 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -3206,7 +3212,7 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
 
@@ -3219,7 +3225,7 @@ bool EcProject::nativeFormat(const QString &filename)
                              tr("Load Error"),
                              tr("Cannot read file <p>%1:</p>\n"
                                 "<b>not in %2 native format.</b>")
-                             .arg(filename).arg(Defs::APP_NAME));
+                             .arg(filename, Defs::APP_NAME));
         return false;
     }
 
@@ -5039,6 +5045,12 @@ void EcProject::setGeneralColDiag77(int n)
     setModified(true);
 }
 
+void EcProject::setGeneralColDiagAnem(int n)
+{
+    ec_project_state_.projectGeneral.col_diag_anem = n;
+    setModified(true);
+}
+
 void EcProject::setGeneralColGasMw(double n)
 {
     ec_project_state_.projectGeneral.gas_mw = n;
@@ -5393,12 +5405,6 @@ void EcProject::setRandomErrorItsSecFactor(double d)
 {
     ec_project_state_.randomError.its_sec_factor = d;
     setModified(true);
-}
-
-// NOTE: not used
-bool EcProject::planarFitSectorDefined()
-{
-    return false;
 }
 
 QList<AngleItem>* EcProject::planarFitAngles()

@@ -101,6 +101,7 @@ const QString DlProject::VARIABLE_VAR_STRING_26 = QStringLiteral("diag_72");
 const QString DlProject::VARIABLE_VAR_STRING_27 = QStringLiteral("diag_77");
 const QString DlProject::VARIABLE_VAR_STRING_28 = QStringLiteral("fast_t");
 const QString DlProject::VARIABLE_VAR_STRING_29 = QStringLiteral("flowrate");
+const QString DlProject::VARIABLE_VAR_STRING_30 = QStringLiteral("anemometer_diagnostic");
 
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_0 = QStringLiteral("molar_density");
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_1 = QStringLiteral("mole_fraction");
@@ -507,7 +508,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 qDebug() << "anem k" << k;
                 AnemDesc anem;
-                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
@@ -555,7 +556,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 qDebug() << "irga k" << k;
                 IrgaDesc irga;
-                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
@@ -641,11 +642,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             // ignore yes if (var == 'ignore' || var == 'not_numeric')
             var.setIgnore(StringUtils::fromBool2YesNoString((varStr == VARIABLE_VAR_STRING_14)
                           || (varStr == VARIABLE_VAR_STRING_18)));
+
             // numeric yes if (var != 'not_numeric')
             var.setNumeric(StringUtils::fromBool2YesNoString(varStr != VARIABLE_VAR_STRING_18));
+
             // std numeric var
             if (var.ignore() == QLatin1String("no") && var.numeric() == QLatin1String("yes"))
+            {
                 var.setVariable(fromIniVariableVar(varStr));
+            }
 
             var.setInstrument(fromIniVariableInstrument(project_ini.value(prefix + DlIni::INI_VARDESC_INSTRUMENT, QString()).toString()));
 
@@ -744,6 +749,19 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 var.setBValue(bValue);
 //                isVersionCompatible = false;
                 qDebug() << "var:" << k << "var isVersionCompatible false: scaling zero_fullscale";
+
+
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    qDebug() << "diagnostic variable";
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: diagnostic variable with gain offset, then set conversion to empty";
+                }
             }
             // if conversion is gain-offset
             else if (project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_1)
@@ -770,6 +788,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     isVersionCompatible = false;
                     qDebug() << "var:" << k << "aValue isVersionCompatible false: 0.0 -> 1.0";
                 }
+
                 // if input unit is empty, set conversion to empty
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
                 {
@@ -779,6 +798,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     var.setAValue(aValue);
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                     isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: input unit is empty, then set conversion to empty";
                 }
                 else
                 {
@@ -789,6 +809,17 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                 }
 
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    qDebug() << "diagnostic variable";
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                    qDebug() << "var:" << k << "aValue isVersionCompatible false: diagnostic variable with gain offset, then set conversion to empty";
+                }
             }
             // if conversion is none or empty
             else if ((project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_2)
@@ -828,21 +859,25 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
-                    if (checkVersion && firstReading && !alreadyChecked)
+                    // exclude diagnostic variables
+                    if (!VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
                     {
-                        if (!parent->queryDlProjectImport())
+                        if (checkVersion && firstReading && !alreadyChecked)
                         {
-                            return false;
+                            if (!parent->queryDlProjectImport())
+                            {
+                                return false;
+                            }
+                            alreadyChecked = true;
                         }
-                        alreadyChecked = true;
+                        else
+                        {
+                            // silently continue file loading and conversion
+                        }
+                        var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
+                        isVersionCompatible = false;
+                        qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                     }
-                    else
-                    {
-                        // silently continue file loading and conversion
-                    }
-                    var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
-                    isVersionCompatible = false;
-                    qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                 }
                 // if input unit is empty, set conversion to empty
                 else if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
@@ -884,7 +919,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     qDebug() << "final modified 1:" << *modified;
     if (!isVersionCompatible)
+    {
         *modified = true;
+    }
     qDebug() << "final modified 2:" << *modified;
 
     return true;
@@ -902,7 +939,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -922,7 +959,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
 
@@ -1529,6 +1566,10 @@ QString DlProject::toIniVariableVar(const QString& s)
     {
         return DlProject::VARIABLE_VAR_STRING_29;
     }
+    else if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
+    {
+        return DlProject::VARIABLE_VAR_STRING_30;
+    }
     else
     {
         return s;
@@ -1767,12 +1808,6 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
         tableInstrumentStr.clear();
     }
     return tableInstrumentStr;
-}
-
-// NOTE: not used
-QString DlProject::toIniBool(const QString& s)
-{
-    return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
 }
 
 QString DlProject::fromIniAnemManufacturer(const QString& s)
@@ -2041,6 +2076,10 @@ QString DlProject::fromIniVariableVar(const QString& s)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_29();
     }
+    else if (s == DlProject::VARIABLE_VAR_STRING_30)
+    {
+        return VariableDesc::getVARIABLE_VAR_STRING_30();
+    }
     else
     {
         return s;
@@ -2237,10 +2276,10 @@ DlProject::InstrumentType DlProject::getInstrumentType(const QSettings& iniGroup
 
 DlProject::InstrumentType DlProject::getInstrumentTypeFromModel(const QString& model)
 {
-    if (model.contains(QRegExp(QStringLiteral("li*")))
-        || model.contains(QRegExp(QStringLiteral("open_path*")))
-        || model.contains(QRegExp(QStringLiteral("closed_path*")))
-        || model.contains(QRegExp(QStringLiteral("generic*path"))))
+    if (model.contains(QRegularExpression(QStringLiteral("li*")))
+        || model.contains(QRegularExpression(QStringLiteral("open_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("closed_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("generic*path"))))
     {
         return InstrumentType::IRGA;
     }
@@ -2436,6 +2475,18 @@ bool DlProject::hasGoodIrgaSeparations()
     return test;
 }
 
+bool DlProject::hasGoodIrgaFlowRate()
+{
+    DEBUG_FUNC_NAME
+
+    auto test = true;
+    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    {
+        test &= IrgaDesc::hasGoodFlowRate(irga);
+    }
+    return test;
+}
+
 bool DlProject::hasGoodIrgaClosedPath()
 {
     DEBUG_FUNC_NAME
@@ -2493,7 +2544,12 @@ bool DlProject::masterAnemHasGoodWindmasterFwVersion()
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
                 if (!anem_version.isEmpty())
                 {
-                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
+                    // accept Gill's anemometer firmware version in these forms:
+                    // 123-456 or
+                    // 123.456 or
+                    // 123-456-678 or
+                    // 123.456.678
+                    QRegularExpression re(QStringLiteral("^(\\d+[.|-]\\d+|\\d+[.|-]\\d+[.|-]\\d+)$"));
                     qDebug() << "re.valid:" << re.isValid();
 
                     if (!re.match(anem_version).hasMatch())

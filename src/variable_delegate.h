@@ -24,11 +24,11 @@
 #ifndef VARIABLE_DELEGATE_H
 #define VARIABLE_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
 class QStringList;
 
-class VariableDelegate : public QItemDelegate
+class VariableDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:

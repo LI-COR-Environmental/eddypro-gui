@@ -317,7 +317,7 @@ void SmartFluxBar::createPackage()
 
     qDebug() << "cpDialog_->close()";
     // on mac nested dialogs don't work well,
-    // because cpDialog->close() not hides the dialog as expected,
+    // because cpDialog->close() does not hide the dialog as expected,
     // so it's preferable to delete it
     // TODO: use a std::unique_ptr
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)

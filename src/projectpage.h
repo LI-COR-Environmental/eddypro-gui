@@ -140,7 +140,6 @@ private:
 
 private slots:
     void createMetadataEditor();
-    void createSlowMeasuresEditor();
 
     void fileTypeRadioClicked_1(int fileType);
     void fileTypeRadioClicked_2(int fileType);

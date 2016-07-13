@@ -23,8 +23,8 @@
 #include "customlineedit.h"
 
 #include <QAction>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 CustomLineEdit::CustomLineEdit(QWidget *parent) :
     QLineEdit(parent),
@@ -62,6 +62,7 @@ void CustomLineEdit::setDefaultIcon(const QIcon &icon)
     defaultIcon_ = icon;
 }
 
+// NOTE: never used
 QString CustomLineEdit::regExp() const
 {
     return re_;
@@ -76,8 +77,8 @@ void CustomLineEdit::setRegExp(const QString &s)
         return;
     }
 
-    QRegExp re(s);
-    setValidator(new QRegExpValidator(re, this));
+    QRegularExpression re(s);
+    setValidator(new QRegularExpressionValidator(re, this));
 
     re_ = s;
 }
