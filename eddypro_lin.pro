@@ -55,7 +55,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_59_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
@@ -83,7 +83,7 @@ CONFIG(debug, debug|release) {
         QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
     }
     unix {
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_59_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0"
 
         #QMAKE_CXXFLAGS_WARN_ON += -Wno-c++98-compat -Wno-c++98-compat-pedantic
         #QMAKE_CXXFLAGS_WARN_ON += -Wno-padded
