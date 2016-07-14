@@ -55,6 +55,7 @@
 #include "docchooser.h"
 #include "fileutils.h"
 #include "globalsettings.h"
+#include "make_unique.h"
 
 const QColor WidgetUtils::getColor(int step)
 {
