@@ -276,7 +276,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 //    smartfluxBar_->setMinimumHeight(35);
 
     smartfluxBarPlaceholder_ = new QWidget;
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     smartfluxBarPlaceholder_->setMinimumHeight(35);
 #elif defined(Q_OS_MAC)
     smartfluxBarPlaceholder_->setMinimumHeight(50);

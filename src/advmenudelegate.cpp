@@ -72,7 +72,7 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 
 #if defined(Q_OS_MAC)
     auto fontSize = 13;
-#elif defined(Q_OS_WIN)
+#elif defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     auto fontSize = 10;
 #endif
 

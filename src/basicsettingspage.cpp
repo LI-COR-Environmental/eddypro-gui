@@ -3294,6 +3294,11 @@ void BasicSettingsPage::updateFourthGasSettings(const QString& s)
 {
     DEBUG_FUNC_NAME
 
+    if (s.isEmpty())
+    {
+        return;
+    }
+
     const auto N2OStr = QLatin1Char('N') + Defs::SUBTWO + QLatin1Char('O');
     const auto COStr = QStringLiteral("CO");
     const auto SO2Str = QStringLiteral("SO") + Defs::SUBTWO;
@@ -3302,7 +3307,7 @@ void BasicSettingsPage::updateFourthGasSettings(const QString& s)
     const auto NOStr = QStringLiteral("NO");
     const auto NO2Str = QStringLiteral("NO") + Defs::SUBTWO;
 
-    QString gasStr(s.split(QLatin1Char(' ')).at(0));
+    QString gasStr(s.split(QLatin1Char(' ')).first());
 
     qDebug() << "gasStr" << gasStr << Defs::N2O_STRING;
 

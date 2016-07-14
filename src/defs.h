@@ -63,6 +63,7 @@ namespace Defs
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86_32 on Windows<sup>&reg;</sup> 10");
     const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.3.0 (clang-703.0.31) x86_64 on Mac OS X<sup>&reg;</sup> 10.11.4");
+    const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
     const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2016");
 
@@ -221,7 +222,7 @@ namespace Defs
 #elif defined(Q_OS_MAC)
     const auto LICOR_ENV_DIR        = QStringLiteral("licor");
 #elif defined(Q_OS_LINUX)
-    const auto LICOR_ENV_DIR        = QStringLiteral("licor");
+    const auto LICOR_ENV_DIR        = ORG_NAME;
 #endif
 
     // file extensions
@@ -277,7 +278,7 @@ namespace Defs
     const auto TIME_LAG_FILE_TEMPLATE = QStringLiteral("eddypro_sample_timelag_opt");
 
     // register configuration strings
-    const auto CONFGROUP_GENERAL      = QStringLiteral("/general");
+    const auto CONFGROUP_GENERAL      = QStringLiteral("/program");
     const auto CONF_GEN_LOOK_FEEL     = QStringLiteral("/lookfeel");
     const auto CONF_GEN_SHOW_SPLASH   = QStringLiteral("/showsplash");
     const auto CONF_GEN_LOADLAST      = QStringLiteral("/loadlast");

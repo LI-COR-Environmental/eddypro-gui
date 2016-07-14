@@ -47,7 +47,7 @@ void GlobalSettings::setAppPersistentSettings(const QString& group,
 {
     if (group.isEmpty() || key.isEmpty() || !value.isValid()) { return; }
 
-    qDebug() << "setting";
+    qDebug() << "setting key:" << key << ", value:" << value;
     QSettings settings;
 
     settings.beginGroup(group);

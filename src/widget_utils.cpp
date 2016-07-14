@@ -56,6 +56,17 @@
 #include "fileutils.h"
 #include "globalsettings.h"
 
+// Test for GCC < 4.9.0
+// std::make_unique.h is implemented from GCC >= 4.9.0
+#if defined(Q_CC_GNU)
+#define GCC_VERSION (__GNUC__ * 10000 \
+                     + __GNUC_MINOR__ * 100 \
+                     + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION < 40900
+#include "make_unique.h"
+#endif
+#endif // Q_CC_GNU
+
 const QColor WidgetUtils::getColor(int step)
 {
     QColor c("#aae6ff");
