@@ -15,7 +15,7 @@ echo "[pwd: $PWD]"
 BUILD_DIR="./$DEBUG_OR_RELEASE"
 echo "[BUILD_DIR: $BUILD_DIR]"
 
-QUAZIP_BUILD_DIR="build-quazip-0.7.1-qt-5.6.0-gcc-5.2.1-x86_64/quazip"
+QUAZIP_BUILD_DIR="build-quazip-0.7.1-qt-5.7.0-centos-gcc-4.8.5-x86_64/quazip"
 echo "[QUAZIP_BUILD_DIR: $QUAZIP_BUILD_DIR]"
 
 echo "Copy quazip in the app binary folder..."
