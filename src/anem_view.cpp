@@ -61,7 +61,6 @@ AnemView::AnemView(QWidget *parent) :
 
 AnemView::~AnemView()
 {
-    DEBUG_FUNC_NAME
 }
 
 // Create and show context menu
