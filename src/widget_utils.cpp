@@ -58,7 +58,7 @@
 
 // Test for GCC < 4.9.0
 // std::make_unique.h is implemented from GCC >= 4.9.0
-#if defined(Q_CC_GNU)
+#if defined(Q_CC_GNU) && !defined(Q_CC_CLANG)
 #define GCC_VERSION (__GNUC__ * 10000 \
                      + __GNUC_MINOR__ * 100 \
                      + __GNUC_PATCHLEVEL__)
