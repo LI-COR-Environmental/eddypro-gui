@@ -14,24 +14,24 @@
         <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2-%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="111"/>
+        <location filename="../src/aboutdialog.cpp" line="113"/>
         <source>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</source>
         <translation>&lt;br /&gt;We would like to thank the whole Eddy Covariance community, the authors, testers, the users and the following people (and the missing ones), in no special order, for their collaboration and source code contribution to create this free software.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="79"/>
+        <location filename="../src/aboutdialog.cpp" line="81"/>
         <source>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-%2 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %3&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</source>
         <translation>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-%2 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %3&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="120"/>
+        <location filename="../src/aboutdialog.cpp" line="122"/>
         <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Trenton Schulz (Trolltech AS): Fader widget&lt;/li&gt;&lt;li&gt;Morgan Leborgne: QProgressIndicator widget&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
 &lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="208"/>
+        <location filename="../src/aboutdialog.cpp" line="210"/>
         <source>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
 
 You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
@@ -40,7 +40,7 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
 You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="238"/>
+        <location filename="../src/aboutdialog.cpp" line="240"/>
         <source>&lt;br /&gt;Software updates include bug fixes, usability improvements
 
  and feature enhancements. These are summarized in the change log below.</source>
@@ -49,27 +49,27 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
  and feature enhancements. These are summarized in the change log below.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="258"/>
+        <location filename="../src/aboutdialog.cpp" line="260"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="259"/>
+        <location filename="../src/aboutdialog.cpp" line="261"/>
         <source>Acknowledgments</source>
         <translation>Acknowledgments</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="260"/>
+        <location filename="../src/aboutdialog.cpp" line="262"/>
         <source>License</source>
         <translation>License</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="261"/>
+        <location filename="../src/aboutdialog.cpp" line="263"/>
         <source>Changes</source>
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="263"/>
+        <location filename="../src/aboutdialog.cpp" line="265"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -2862,19 +2862,19 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="307"/>
-        <location filename="../src/basicsettingspage.cpp" line="5042"/>
+        <location filename="../src/basicsettingspage.cpp" line="5047"/>
         <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="308"/>
-        <location filename="../src/basicsettingspage.cpp" line="5043"/>
+        <location filename="../src/basicsettingspage.cpp" line="5048"/>
         <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</source>
         <translation>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="309"/>
-        <location filename="../src/basicsettingspage.cpp" line="5044"/>
+        <location filename="../src/basicsettingspage.cpp" line="5049"/>
         <source>(?:(180)%1\s(00)&apos;\s(E|W))</source>
         <translation>(?:(180)%1\s(00)&apos;\s(E|W))</translation>
     </message>
@@ -2994,7 +2994,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5251"/>
+        <location filename="../src/basicsettingspage.cpp" line="5256"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
@@ -3003,22 +3003,22 @@ Missing flux averaging period are filled with error codes)</translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5418"/>
+        <location filename="../src/basicsettingspage.cpp" line="5423"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5419"/>
+        <location filename="../src/basicsettingspage.cpp" line="5424"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5433"/>
+        <location filename="../src/basicsettingspage.cpp" line="5438"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5435"/>
+        <location filename="../src/basicsettingspage.cpp" line="5440"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -3365,7 +3365,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="2332"/>
         <location filename="../src/basicsettingspage.cpp" line="2350"/>
         <location filename="../src/basicsettingspage.cpp" line="2567"/>
-        <location filename="../src/basicsettingspage.cpp" line="3491"/>
+        <location filename="../src/basicsettingspage.cpp" line="3496"/>
         <source>None</source>
         <translation>None</translation>
     </message>
@@ -3382,33 +3382,33 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="3049"/>
         <location filename="../src/basicsettingspage.cpp" line="3159"/>
-        <location filename="../src/basicsettingspage.cpp" line="5006"/>
+        <location filename="../src/basicsettingspage.cpp" line="5011"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4691"/>
+        <location filename="../src/basicsettingspage.cpp" line="4696"/>
         <source>1 file found</source>
         <translation>1 file found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4695"/>
+        <location filename="../src/basicsettingspage.cpp" line="4700"/>
         <source>%1 files found</source>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4993"/>
+        <location filename="../src/basicsettingspage.cpp" line="4998"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5110"/>
-        <location filename="../src/basicsettingspage.cpp" line="5152"/>
+        <location filename="../src/basicsettingspage.cpp" line="5115"/>
+        <location filename="../src/basicsettingspage.cpp" line="5157"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5247"/>
+        <location filename="../src/basicsettingspage.cpp" line="5252"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
@@ -4252,7 +4252,7 @@ Change this setting under the Help menu.</translation>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3223"/>
+        <location filename="../src/ecproject.cpp" line="3225"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
@@ -4272,7 +4272,7 @@ Change this setting under the Help menu.</translation>
     <message>
         <location filename="../src/ecproject.cpp" line="1795"/>
         <location filename="../src/ecproject.cpp" line="3192"/>
-        <location filename="../src/ecproject.cpp" line="3212"/>
+        <location filename="../src/ecproject.cpp" line="3213"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
@@ -4284,8 +4284,8 @@ Change this setting under the Help menu.</translation>
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="3213"/>
-        <location filename="../src/ecproject.cpp" line="3224"/>
+        <location filename="../src/ecproject.cpp" line="3214"/>
+        <location filename="../src/ecproject.cpp" line="3226"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -6194,22 +6194,22 @@ Output</translation>
         <translation>Below threshold</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="204"/>
+        <location filename="../src/defs.h" line="205"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="205"/>
+        <location filename="../src/defs.h" line="206"/>
         <source>LI-COR EddyPro software suite.</source>
         <translation>LI-COR EddyPro software suite.</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="270"/>
+        <location filename="../src/defs.h" line="271"/>
         <source>project-untitled.%1</source>
         <translation>project-untitled.%1</translation>
     </message>
     <message>
-        <location filename="../src/defs.h" line="273"/>
+        <location filename="../src/defs.h" line="274"/>
         <source>project-untitled%1.%2</source>
         <translation>project-untitled%1.%2</translation>
     </message>
@@ -6245,52 +6245,52 @@ Output</translation>
         <translation>no</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="245"/>
+        <location filename="../src/widget_utils.cpp" line="256"/>
         <source>Overwrite File</source>
         <translation>Overwrite File</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="246"/>
+        <location filename="../src/widget_utils.cpp" line="257"/>
         <source>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to overwrite the following file?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="248"/>
+        <location filename="../src/widget_utils.cpp" line="259"/>
         <source>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</source>
         <translation>&lt;p&gt;&quot;%1&quot;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="250"/>
+        <location filename="../src/widget_utils.cpp" line="261"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="251"/>
+        <location filename="../src/widget_utils.cpp" line="262"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="257"/>
+        <location filename="../src/widget_utils.cpp" line="268"/>
         <source>Remove Column</source>
         <translation>Remove Column</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="258"/>
+        <location filename="../src/widget_utils.cpp" line="269"/>
         <source>Do you want to remove this column?</source>
         <translation>Do you want to remove this column?</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="285"/>
+        <location filename="../src/widget_utils.cpp" line="296"/>
         <source>Do &amp;Not Save</source>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="555"/>
+        <location filename="../src/widget_utils.cpp" line="566"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="556"/>
+        <location filename="../src/widget_utils.cpp" line="567"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>
@@ -6305,14 +6305,14 @@ Output</translation>
         <translation>Error creating dir %1</translation>
     </message>
     <message>
-        <location filename="../src/fileutils.cpp" line="575"/>
-        <location filename="../src/fileutils.cpp" line="603"/>
+        <location filename="../src/fileutils.cpp" line="569"/>
+        <location filename="../src/fileutils.cpp" line="597"/>
         <source>Write Error</source>
         <translation>Write Error</translation>
     </message>
     <message>
-        <location filename="../src/fileutils.cpp" line="576"/>
-        <location filename="../src/fileutils.cpp" line="604"/>
+        <location filename="../src/fileutils.cpp" line="570"/>
+        <location filename="../src/fileutils.cpp" line="598"/>
         <source>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot write file &lt;p&gt;%1:&lt;/p&gt;
@@ -7496,12 +7496,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="179"/>
         <source>New SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
-        <translation type="unfinished"></translation>
+        <translation>New SoilFluxPro™ Software – Expanded processing for soil gas flux dat</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="185"/>
         <source>New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance.</source>
-        <translation type="unfinished"></translation>
+        <translation>New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="213"/>
