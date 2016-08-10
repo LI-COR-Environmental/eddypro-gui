@@ -529,13 +529,13 @@ void VariableDelegate::commitAndCloseEditor()
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
-    emit closeEditor(senderWidget, QAbstractItemDelegate::EditNextItem);
+    emit closeEditor(senderWidget, QAbstractItemDelegate::NoHint);
 }
 
 void VariableDelegate::commitAndCloseEditor(QObject* editor)
 {
     emit commitData(qobject_cast<QWidget *>(editor));
-    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::EditNextItem);
+    emit closeEditor(qobject_cast<QWidget *>(editor), QAbstractItemDelegate::NoHint);
 }
 
 bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)

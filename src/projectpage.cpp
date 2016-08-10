@@ -198,7 +198,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     biometExtFileBrowse->setDialogTitle(tr("Select the Biomet File"));
     biometExtFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
 #if defined(Q_OS_MAC)
-    biometExtFileBrowse->setDialogFilter(tr("All Files (*.*)").arg(Defs::APP_NAME));
+    biometExtFileBrowse->setDialogFilter(tr("All Files (*.*)"));
 #else
     biometExtFileBrowse->setDialogFilter(tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME));
 #endif
