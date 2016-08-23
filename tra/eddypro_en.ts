@@ -417,12 +417,12 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Output File Options</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1438"/>
+        <location filename="../src/advoutputoptions.cpp" line="1425"/>
         <source>Error Label</source>
         <translation>Error Label</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1439"/>
+        <location filename="../src/advoutputoptions.cpp" line="1426"/>
         <source>Enter a label other than &quot;none&quot; (case insensitive).</source>
         <translation>Enter a label other than &quot;none&quot; (case insensitive).</translation>
     </message>
@@ -634,8 +634,8 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="208"/>
-        <location filename="../src/advprocessingoptions.cpp" line="772"/>
-        <location filename="../src/advprocessingoptions.cpp" line="792"/>
+        <location filename="../src/advprocessingoptions.cpp" line="767"/>
+        <location filename="../src/advprocessingoptions.cpp" line="787"/>
         <source>  [s]</source>
         <comment>Second</comment>
         <translation>  [s]</translation>
@@ -766,7 +766,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Compensation of density fluctuations</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="783"/>
+        <location filename="../src/advprocessingoptions.cpp" line="778"/>
         <source>  [min]</source>
         <comment>Minute</comment>
         <translation>  [min]</translation>
@@ -946,117 +946,117 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Raw Processing Options</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1193"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1203"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1271"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1342"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1188"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1198"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1266"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1337"/>
         <source>Bottom :</source>
         <translation>Bottom :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1194"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1204"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1189"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1199"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1195"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1198"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1201"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1205"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1208"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1211"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1190"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1193"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1196"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1200"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1203"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1206"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1268"/>
         <location filename="../src/advprocessingoptions.cpp" line="1273"/>
         <location filename="../src/advprocessingoptions.cpp" line="1278"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1283"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1339"/>
         <location filename="../src/advprocessingoptions.cpp" line="1344"/>
         <location filename="../src/advprocessingoptions.cpp" line="1349"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1354"/>
         <source> * T&lt;sub&gt;a&lt;/sub&gt; + </source>
         <translation> * T&lt;sub&gt;a&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1196"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1206"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1276"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1347"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1191"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1201"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1271"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1342"/>
         <source>Top :</source>
         <translation>Top :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1197"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1207"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1192"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1202"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1199"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1209"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1281"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1352"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1194"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1204"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1276"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1347"/>
         <source>Spar :</source>
         <translation>Spar :</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1200"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1210"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1195"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1205"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1272"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1343"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1267"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1338"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="1269"/>
         <location filename="../src/advprocessingoptions.cpp" line="1274"/>
         <location filename="../src/advprocessingoptions.cpp" line="1279"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1284"/>
         <source> * R&lt;sub&gt;g&lt;/sub&gt; + </source>
         <translation> * R&lt;sub&gt;g&lt;/sub&gt; + </translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="1270"/>
         <location filename="../src/advprocessingoptions.cpp" line="1275"/>
         <location filename="../src/advprocessingoptions.cpp" line="1280"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1285"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1341"/>
         <location filename="../src/advprocessingoptions.cpp" line="1346"/>
         <location filename="../src/advprocessingoptions.cpp" line="1351"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1356"/>
         <source> * U + </source>
         <translation> * U + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1277"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1348"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1272"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1343"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1282"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1353"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1277"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1348"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="1340"/>
         <location filename="../src/advprocessingoptions.cpp" line="1345"/>
         <location filename="../src/advprocessingoptions.cpp" line="1350"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1355"/>
         <source> * LWin + </source>
         <translation> * LWin + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1624"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1619"/>
         <source>Reset Surface Heating Correction</source>
         <translation>Reset Surface Heating Correction</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1625"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1620"/>
         <source>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1627"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1622"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -2298,17 +2298,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3206"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3203"/>
         <source>Reset Statistical Analysis Settings</source>
         <translation>Reset Statistical Analysis Settings</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3207"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3204"/>
         <source>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3209"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3206"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -2326,17 +2326,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Restore Default Values&lt;/b&gt;: Resets all the Advanced Settings to the default settings.</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="175"/>
+        <location filename="../src/advancedsettingspage.cpp" line="173"/>
         <source>Reset Advanced Settings</source>
         <translation>Reset Advanced Settings</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="176"/>
+        <location filename="../src/advancedsettingspage.cpp" line="174"/>
         <source>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset all the Advanced Settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advancedsettingspage.cpp" line="178"/>
+        <location filename="../src/advancedsettingspage.cpp" line="176"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -2364,52 +2364,52 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Save to file</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="136"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="135"/>
         <source>&lt;b&gt;The formatting and content of the selected file could not be assessed due to missing template files. Please, re-install the software.&lt;/b&gt;</source>
         <translation>&lt;b&gt;The formatting and content of the selected file could not be assessed due to missing template files. Please, re-install the software.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="141"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="140"/>
         <source>&lt;b&gt;Unable to open the selected file or the file is empty. Please, select another file.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Unable to open the selected file or the file is empty. Please, select another file.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="171"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="170"/>
         <source>&lt;b&gt;FORMAT test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
         <translation>&lt;b&gt;FORMAT test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="173"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="172"/>
         <source>&lt;b&gt;FORMAT test &lt;font color=&quot;#0066FF&quot;&gt;passed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
         <translation>&lt;b&gt;FORMAT test &lt;font color=&quot;#0066FF&quot;&gt;passed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="175"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="174"/>
         <source>&lt;b&gt;The selected file does not match the expected formatting or scientific content. &lt;p&gt;If you would like to upload a different file or choose an alternate method, please click &lt;i&gt;Cancel&lt;/i&gt;. If you click &lt;i&gt;Continue&lt;/i&gt;, EddyPro will probably not use the file and will resort to the default method.&lt;/p&gt;&lt;p&gt;More information about the testing performed can be found in the help.&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;%1&quot;&gt;&lt;img src=&quot;qrc:/icons/qm-enabled&quot;&gt;&lt;/img&gt;&lt;/a&gt;</source>
         <translation>&lt;b&gt;The selected file does not match the expected formatting or scientific content. &lt;p&gt;If you would like to upload a different file or choose an alternate method, please click &lt;i&gt;Cancel&lt;/i&gt;. If you click &lt;i&gt;Continue&lt;/i&gt;, EddyPro will probably not use the file and will resort to the default method.&lt;/p&gt;&lt;p&gt;More information about the testing performed can be found in the help.&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;%1&quot;&gt;&lt;img src=&quot;qrc:/icons/qm-enabled&quot;&gt;&lt;/img&gt;&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="193"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="192"/>
         <source>&lt;b&gt;SCIENTIFIC test&lt;/b&gt;</source>
         <translation>&lt;b&gt;SCIENTIFIC test&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="197"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="196"/>
         <source>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</source>
         <translation>&lt;b&gt;SCIENTIFIC test &lt;font color=&quot;#FF3300&quot;&gt;failed&lt;/font&gt;.&lt;/b&gt;&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1097"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1088"/>
         <source>Save the test results as...</source>
         <translation>Save the test results as...</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1099"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1090"/>
         <source>%1 assessment file check results (*.txt);;All files (*)</source>
         <translation>%1 assessment file check results (*.txt);;All files (*)</translation>
     </message>
     <message>
-        <location filename="../src/ancillaryfiletest.cpp" line="1109"/>
+        <location filename="../src/ancillaryfiletest.cpp" line="1100"/>
         <source>%1 check of assessment file %2 against %3</source>
         <translation>%1 check of assessment file %2 against %3</translation>
     </message>
@@ -2669,7 +2669,7 @@ Missing flux averaging period are filled with error codes)</translation>
 <context>
     <name>AngleTableModel</name>
     <message>
-        <location filename="../src/angle_tablemodel.cpp" line="144"/>
+        <location filename="../src/angle_tablemodel.cpp" line="139"/>
         <source>Degrees</source>
         <translation>Degrees</translation>
     </message>
@@ -6285,12 +6285,12 @@ Output</translation>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="566"/>
+        <location filename="../src/widget_utils.cpp" line="567"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="567"/>
+        <location filename="../src/widget_utils.cpp" line="568"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>

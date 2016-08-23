@@ -442,6 +442,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
 
 void WidgetUtils::showHelp(const QUrl& url)
 {
+    qDebug() << "showHelp";
     // read state
     auto autoChooseHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
