@@ -1351,17 +1351,9 @@ void AdvOutputOptions::updateVarsAvailable()
 
 void AdvOutputOptions::updateOutputs(int n)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << n << "ecProject_->spectraMode()"
-             << ecProject_->spectraMode();
-
     // horst/ibrom
     if (n == 2 || n == 3)
     {
-        qDebug() << "ecProject_->generalBinSpectraAvail()"
-                 << ecProject_->generalBinSpectraAvail();
-
         if (ecProject_->spectraMode())
         {
             if (ecProject_->generalBinSpectraAvail())
@@ -1383,9 +1375,6 @@ void AdvOutputOptions::updateOutputs(int n)
     //fratini
     else if (n == 4)
     {
-        qDebug() << "ecProject_->generalBinSpectraAvail()"
-                 << ecProject_->generalBinSpectraAvail();
-
         if (ecProject_->spectraMode())
         {
             if (ecProject_->generalBinSpectraAvail())
@@ -1404,8 +1393,6 @@ void AdvOutputOptions::updateOutputs(int n)
             outBinSpectraCheckBox->setEnabled(true);
         }
 
-        qDebug() << "ecProject_->generalFullSpectraAvail()"
-                 << ecProject_->generalFullSpectraAvail();
         if (ecProject_->generalFullSpectraAvail())
         {
             outFullCospectraCheckBoxTs->setChecked(false);

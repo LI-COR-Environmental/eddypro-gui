@@ -747,11 +747,6 @@ void AdvProcessingOptions::updateTlagMeth_2(int n)
 
 void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "previousDetrendMethod" << static_cast<int>(previousDetrendMethod_);
-    qDebug() << "timeConstantSpin->value()" << timeConstantSpin->value();
-
     DetrendMethod currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
 
     if (previousDetrendMethod_ == DetrendMethod::LinearDetrending)
@@ -1674,7 +1669,6 @@ void AdvProcessingOptions::parseCalibrationFile()
     FileUtils::cleanDirFromFiletypeRecursively(calDir, QStringList() << QStringLiteral("pdf"));
 
     calibration_file_ = FileUtils::getFiles(calDir, QStringLiteral("*.l7x")).first();
-    qDebug() << calibration_file_;
     FileUtils::chmod_644(calibration_file_);
 
     // parsing calibration data
@@ -1767,9 +1761,6 @@ void AdvProcessingOptions::parseCalibrationFile()
             {
                 calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(CX)")->getValue()).toDouble();
                 calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(WX)")->getValue()).toDouble();
-
-                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
-                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
             }
             catch(xmlError& e)
             {
@@ -1781,9 +1772,6 @@ void AdvProcessingOptions::parseCalibrationFile()
             {
                 calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(CX)")->getValue()).toDouble();
                 calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(WX)")->getValue()).toDouble();
-
-                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
-                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
             }
             catch(xmlError& e)
             {
@@ -1812,9 +1800,6 @@ void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
 
     std::vector<double> co2_inv_coeffs = VectorUtils::poly_boost(x_range, co2_dir_coeffs, 6);
     std::vector<double> h2o_inv_coeffs = VectorUtils::poly_boost(x_range, h2o_dir_coeffs, 6);
-
-    qDebug() << "co2_dir_coeffs" << co2_dir_coeffs.size();
-    qDebug() << "h2o_inv_coeffs" << h2o_inv_coeffs.size();
 
     cal.co2_0_inv = co2_inv_coeffs.at(0);
     cal.co2_1_inv = co2_inv_coeffs.at(1);

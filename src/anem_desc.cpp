@@ -509,16 +509,13 @@ bool AnemDesc::isGoodAnemometer(AnemDesc anem)
     // always true by min value
     bool isGoodGeneric = false;
     if ((model == getANEM_MODEL_STRING_12()))
+    {
         isGoodGeneric = (anem.hPathLength() > 0) && (anem.vPathLength() > 0) && (anem.tau() > 0);
+    }
     else
+    {
         isGoodGeneric = true;
-
-    qDebug() << ">> isGoodManufacturer" << isGoodManufacturer;
-    qDebug() << ">> isGoodModel" << isGoodModel;
-    qDebug() << ">> isGoodHeight" << isGoodHeight;
-    qDebug() << ">> isGoodWindFormat" << isGoodWindFormat;
-    qDebug() << ">> isGoodNorthAlignment" << isGoodNorthAlignment;
-    qDebug() << ">> isGoodGeneric" << isGoodGeneric;
+    }
 
     // all
     return (isGoodManufacturer

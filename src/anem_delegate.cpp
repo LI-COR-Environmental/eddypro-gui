@@ -414,7 +414,6 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
-//        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

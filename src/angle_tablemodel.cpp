@@ -78,11 +78,6 @@ QVariant AngleTableModel::data(const QModelIndex &index, int role) const
         || column < 0
         || column >= MaxColumns)
     {
-//        qDebug() << "false init test";
-//        qDebug() << "index.isValid()" << index.isValid();
-//        qDebug() << "angles_.count()" << angles_.count();
-//        qDebug() << "index.row()" << index.row();
-//        qDebug() << "column" << column;
         return QVariant();
     }
 

@@ -223,7 +223,7 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     auto licenseEdit = new QTextEdit;
     QFile licenseFile(QStringLiteral(":/docs/license"));
-    qDebug() << licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
     licenseEdit->setText(QLatin1String(licenseFile.readAll()));
     licenseEdit->setReadOnly(true);
     licenseFile.close();
@@ -245,7 +245,7 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     auto changelogEdit = new QTextEdit;
     QFile changelogFile(QStringLiteral(":/docs/changelog"));
-    qDebug() << changelogFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    changelogFile.open(QIODevice::ReadOnly | QIODevice::Text);
     changelogEdit->setText(QLatin1String(changelogFile.readAll()));
     changelogEdit->setReadOnly(true);
     changelogFile.close();
@@ -278,5 +278,4 @@ AboutDialog::AboutDialog(QWidget* parent)
 
 AboutDialog::~AboutDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }

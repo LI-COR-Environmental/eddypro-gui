@@ -2640,8 +2640,6 @@ void AdvStatisticalOptions::resizeEvent(QResizeEvent *event)
     DEBUG_FUNC_NAME
 
     QSize widgetSize = event->size();
-    qDebug() << "widgetSize.width()" << widgetSize.width();
-    qDebug() << "widgetSize.height()" << widgetSize.height();
 
     if (widgetSize.width() <= 608 && widgetSize.height() <= 650)
     {
@@ -2681,7 +2679,6 @@ void AdvStatisticalOptions::showThumbnailGraphLabel(bool visible)
 
     for (int i = 0; i < testToolbox->count(); ++i)
     {
-        qDebug() << "i" << i;
         if (testToolbox->currentIndex() == i)
         {
             switch(i)

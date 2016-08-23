@@ -127,8 +127,6 @@ void AdvancedSettingsPage::createMenu()
 
     menuWidget = new QListWidget;
     menuWidget->setSelectionRectVisible(false);
-    qDebug() << "isSelectionRectVisible" << menuWidget->isSelectionRectVisible();
-    qDebug() << "selectionMode" << menuWidget->selectionMode();
     // to reduce the select decoration
     menuWidget->setObjectName(QStringLiteral("advSettingsMenu"));
     menuWidget->setIconSize(QSize(42, 42));
@@ -194,7 +192,6 @@ void AdvancedSettingsPage::resetButtonCLicked()
 void AdvancedSettingsPage::updateSmartfluxBar()
 {
     DEBUG_FUNC_NAME
-    qDebug() << configState_->project.smartfluxMode;
     smartfluxBar->setVisible(configState_->project.smartfluxMode);
 
     advancedSettingContainer->processingOptions()->getPlanarFitSettingsDialog()

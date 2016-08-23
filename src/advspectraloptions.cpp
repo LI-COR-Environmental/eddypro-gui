@@ -1362,8 +1362,6 @@ void AdvSpectralOptions::testSelectedSpectraFile(const QString& fp)
     test_dialog.refresh(canonicalParamFile);
 
     auto test_result = test_dialog.makeTest();
-    qDebug() << "test_result" << test_result;
-
     auto dialog_result = true;
 
     // blocking behavior if test fails
@@ -1560,8 +1558,6 @@ void AdvSpectralOptions::setHfMethod(int hfMethComboIndex)
         ecProject_->setGeneralHfMethod(4);
         break;
     }
-    qDebug() << "hfMethComboIndex" << hfMethComboIndex;
-    qDebug() << "ecProject_->generalHfMethod()" << ecProject_->generalHfMethod();
 }
 
 void AdvSpectralOptions::updateHfMethod_1(bool b)
@@ -1754,8 +1750,6 @@ void AdvSpectralOptions::updateHorst_1(bool b)
 
 void AdvSpectralOptions::updateHorst_2(int n)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "n" << n;
     ecProject_->setSpectraHorst(n + 1);
 }
 
@@ -1914,10 +1908,6 @@ void AdvSpectralOptions::forceEndDatePolicy()
 // enforce (start date&time) <= (end date&time)
 void AdvSpectralOptions::forceEndTimePolicy()
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "start - end, dates:" << startDateEdit->date() << endDateEdit->date();
-
     if (startDateEdit->date() == endDateEdit->date())
     {
         endTimeEdit->setMinimumTime(startTimeEdit->time());

@@ -112,8 +112,7 @@ QString AncillaryFileTest::formatPassFail(bool test_result)
 
 bool AncillaryFileTest::makeTest()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "name_" << name_;
+    qDebug() << "makeTest name_" << name_;
 
     auto result = testFile();
     if (!result)
@@ -605,24 +604,18 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
         if (StringUtils::subStringList(templateList.value(16), 0, 2)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2))
         {
-            qDebug() << StringUtils::subStringList(templateList.value(16), 0, 2);
-            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 0, 2);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 3, 4)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4))
         {
-            qDebug() << StringUtils::subStringList(templateList.value(16), 3, 4);
-            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 3, 4);
             test.replace(last_test_index(), false);
             break;
         }
         if (StringUtils::subStringList(templateList.value(16), 7, 9)
             != StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9))
         {
-            qDebug() << StringUtils::subStringList(templateList.value(16), 7, 9);
-            qDebug() << StringUtils::subStringList(actualList.value(12 + windSectors + 4 * i), 7, 9);
             test.replace(last_test_index(), false);
             break;
         }
@@ -900,7 +893,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                  + formatPassFail(last_test()));
         }
         qDebug() << "begin testTimeLagF c1";
-        qDebug() << "rhClassCount" << rhClassCount;
 
         // test c2
         if (rhClassCount <= 20)
@@ -1027,7 +1019,6 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
         // test c.2
         test << true;
         auto rhClassCount = h2oTimelagValues[0].size();
-        qDebug() << "rhClassCount" << rhClassCount;
         for (auto i = 0; i < rhClassCount; ++i)
         {
             if (!((h2oTimelagValues[0][i] >= h2oTimelagValues[1][i])
