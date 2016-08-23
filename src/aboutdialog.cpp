@@ -52,8 +52,8 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     auto introduction = new QLabel;
     introduction->setText(
-        tr("<h2>%1<sup>&reg;</sup> v%2-%3</h2>"
-           "<h6>Built on %4 at %5<br />With %7<br /></h6>"
+        tr("<h2>%1<sup>&reg;</sup> v%2%3</h2>"
+           "<h6>Built on %4 at %5<br />With %6<br /></h6>"
            ).arg(Defs::APP_NAME,
             Defs::APP_VERSION_STR,
             Defs::APP_STAGE_STR,

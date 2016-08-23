@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="55"/>
-        <source>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2-%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</source>
-        <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2-%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %7&lt;br /&gt;&lt;/h6&gt;</translation>
+        <source>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %6&lt;br /&gt;&lt;/h6&gt;</source>
+        <translation>&lt;h2&gt;%1&lt;sup&gt;&amp;reg;&lt;/sup&gt; v%2%3&lt;/h2&gt;&lt;h6&gt;Built on %4 at %5&lt;br /&gt;With %6&lt;br /&gt;&lt;/h6</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="113"/>
