@@ -2,7 +2,7 @@
   dlsitetab.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -30,6 +30,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QRegularExpression>
 #include <QScrollArea>
 #include <QSpinBox>
 #include <QTextStream>
@@ -149,8 +150,8 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     latitudeEdit->setText(tr("00%1 00' 00.000'' N").arg(Defs::DEGREE));
     QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
             lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
-    QRegExp latRx(lat_pattern);
-    auto latValidator = new QRegExpValidator(latRx, latitudeEdit);
+    QRegularExpression latRx(lat_pattern);
+    auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
     latitudeEdit->setValidator(latValidator);
     latitudeEdit->setInputMask(tr("00%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
     latitudeEdit->setAlignment(Qt::AlignRight);
@@ -166,8 +167,8 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
             lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
             lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
-    QRegExp lonRx(lon_pattern);
-    auto lonValidator = new QRegExpValidator(lonRx, longitudeEdit);
+    QRegularExpression lonRx(lon_pattern);
+    auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
     longitudeEdit->setValidator(lonValidator);
     longitudeEdit->setInputMask(tr("000%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
     longitudeEdit->setAlignment(Qt::AlignRight);
@@ -309,17 +310,19 @@ double DlSiteTab::numLatitude(const QString &text)
     {
         QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
                 lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
-        QRegExp latRx(lat_pattern);
-        bool res = latRx.exactMatch(text);
-        if (res)
+        QRegularExpression latRx(lat_pattern);
+        auto match = latRx.match(text);
+        if (match.hasMatch())
         {
             bool ok;
-            if (!latRx.cap(1).isEmpty())
+            if (!match.captured(1).isEmpty())
             {
                 // first case: pattern from cap(1) to cap(5)
-                lat = latRx.cap(1).toDouble(&ok);
-                lat += latRx.cap(2).toDouble(&ok) / 60.0;
-                lat += QString(latRx.cap(3) + QStringLiteral(".") + latRx.cap(4)).toDouble(&ok) / 60.0 / 60.0;
+                lat = match.captured(1).toDouble(&ok);
+                lat += match.captured(2).toDouble(&ok) / 60.0;
+                lat += QString(match.captured(3)
+                               + QStringLiteral(".")
+                               + match.captured(4)).toDouble(&ok) / 60.0 / 60.0;
             }
             else
             {
@@ -328,7 +331,8 @@ double DlSiteTab::numLatitude(const QString &text)
             }
 
             // negative coordinates case
-            if ((latRx.cap(5) == QLatin1String("S"))||(latRx.cap(10) == QLatin1String("S")))
+            if ((match.captured(5) == QLatin1String("S"))
+                    || (match.captured(10) == QLatin1String("S")))
             {
                 lat = 0.0 - lat;
             }
@@ -338,10 +342,10 @@ double DlSiteTab::numLatitude(const QString &text)
     {
         QString lat_pattern = QStringLiteral("(?:(?:\\+|-)(?:[0-8]\\d)\\.(?:\\d+))|");
                 lat_pattern += QLatin1String("(?:(?:\\+|-)(?:90)\\.(?:0+))");
-        QRegExp latRx(lat_pattern);
-        bool res = latRx.exactMatch(text);
+        QRegularExpression latRx(lat_pattern);
+        auto match = latRx.match(text);
 
-        if (res)
+        if (match.hasMatch())
         {
             lat = text.toDouble();
         }
@@ -413,24 +417,26 @@ double DlSiteTab::numLongitude(const QString &text)
         QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
                 lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
                 lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
-        QRegExp lonRx(lon_pattern);
-        bool res = lonRx.exactMatch(text);
-        if (res)
+        QRegularExpression lonRx(lon_pattern);
+        auto match = lonRx.match(text);
+        if (match.hasMatch())
         {
             bool ok;
-            if (!lonRx.cap(1).isEmpty())
+            if (!match.captured(1).isEmpty())
             {
                 // first case: pattern from cap(1) to cap(5)
-                lon = lonRx.cap(1).toDouble(&ok);
-                lon += lonRx.cap(2).toDouble(&ok) / 60.0;
-                lon += QString(lonRx.cap(3) + QStringLiteral(".") + lonRx.cap(4)).toDouble(&ok) / 60.0 / 60.0;
+                lon = match.captured(1).toDouble(&ok);
+                lon += match.captured(2).toDouble(&ok) / 60.0;
+                lon += QString(match.captured(3) + QStringLiteral(".")
+                               + match.captured(4)).toDouble(&ok) / 60.0 / 60.0;
             }
-            else if (!lonRx.cap(6).isEmpty())
+            else if (!match.captured(6).isEmpty())
             {
                 // second case: pattern from cap(6) to cap(10)
-                lon = lonRx.cap(6).toDouble(&ok);
-                lon += lonRx.cap(7).toDouble(&ok) / 60.0;
-                lon += QString(lonRx.cap(8) + QStringLiteral(".") + lonRx.cap(9)).toDouble(&ok) / 60.0 / 60.0;
+                lon = match.captured(6).toDouble(&ok);
+                lon += match.captured(7).toDouble(&ok) / 60.0;
+                lon += QString(match.captured(8) + QStringLiteral(".")
+                               + match.captured(9)).toDouble(&ok) / 60.0 / 60.0;
             }
             else
             {
@@ -438,7 +444,9 @@ double DlSiteTab::numLongitude(const QString &text)
                 lon = 180.0;
             }
             // negative coordinates case
-            if ((lonRx.cap(5) == QLatin1String("W"))||(lonRx.cap(10) == QLatin1String("W"))||(lonRx.cap(15) == QLatin1String("W")))
+            if ((match.captured(5) == QLatin1String("W"))
+                    || (match.captured(10) == QLatin1String("W"))
+                    || (match.captured(15) == QLatin1String("W")))
             {
                 lon = 0.0 - lon;
             }
@@ -449,10 +457,10 @@ double DlSiteTab::numLongitude(const QString &text)
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
-        QRegExp lonRx(lon_pattern);
-        bool res = lonRx.exactMatch(text);
+        QRegularExpression lonRx(lon_pattern);
+        auto match = lonRx.match(text);
 
-        if (res)
+        if (match.hasMatch())
         {
             lon = text.toDouble();
         }
@@ -586,16 +594,16 @@ void DlSiteTab::sexDegRadioToogled(bool checked)
 
         QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
                 lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
-        QRegExp latRx(lat_pattern);
-        auto latValidator = new QRegExpValidator(latRx, latitudeEdit);
+        QRegularExpression latRx(lat_pattern);
+        auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
         latitudeEdit->setValidator(latValidator);
         latitudeEdit->setInputMask(tr("00%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
 
         QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
                 lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
                 lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
-        QRegExp lonRx(lon_pattern);
-        auto lonValidator = new QRegExpValidator(lonRx, longitudeEdit);
+        QRegularExpression lonRx(lon_pattern);
+        auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
         longitudeEdit->setValidator(lonValidator);
         longitudeEdit->setInputMask(tr("000%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
 
@@ -619,16 +627,16 @@ void DlSiteTab::decDegRadioToogled(bool checked)
 
         QString lat_pattern = QStringLiteral("(?:(?:\\+|-)(?:[0-8]\\d)\\.(?:\\d+))|");
                 lat_pattern += QLatin1String("(?:(?:\\+|-)(?:90)\\.(?:0+))");
-        QRegExp latRx(lat_pattern);
-        auto latValidator = new QRegExpValidator(latRx, latitudeEdit);
+        QRegularExpression latRx(lat_pattern);
+        auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
         latitudeEdit->setValidator(latValidator);
         latitudeEdit->setInputMask(QStringLiteral("#00.000000"));
 
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
-        QRegExp lonRx(lon_pattern);
-        auto lonValidator = new QRegExpValidator(lonRx, longitudeEdit);
+        QRegularExpression lonRx(lon_pattern);
+        auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
         longitudeEdit->setValidator(lonValidator);
         longitudeEdit->setInputMask(QStringLiteral("#000.000000"));
 

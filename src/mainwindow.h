@@ -2,7 +2,7 @@
   mainwindow.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -28,6 +28,7 @@
 
 #include "configstate.h"
 #include "defs.h"
+#include "fileutils.h"
 #include "process.h"
 
 class QPlainTextEdit;
@@ -37,6 +38,7 @@ class QLabel;
 
 class AboutDialog;
 class ClickLabel;
+class CustomSplashScreen;
 class DlProject;
 class EcProject;
 class InfoMessage;
@@ -54,7 +56,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(const QString& filename = QString(),
                const QString& appEnvPath = QString(),
-               QWidget* parent = nullptr);
+               CustomSplashScreen* splashscreen = nullptr,
+               QWidget* parent = nullptr,
+               Qt::WindowFlags flags = Qt::WindowFlags());
     ~MainWindow();
 
     bool queryEcProjectImport(const QString &filename);
@@ -101,7 +105,6 @@ private slots:
     void setOfflineHelp(bool yes);
     void setSmartfluxMode(bool on);
     void about();
-    void whatsHelp();
 
     void setEcProjectModified();
     void recentMenuShow();
@@ -259,9 +262,9 @@ private:
     QAction *runAdvancedAction;
     QAction *runRetrieverAction;
     QAction *stopAction;
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     QAction *toggleFullScreenAction;
-#endif
+//#endif
     QAction *toggleStatusbarAct;
     QAction* toggleInfoOutputAct;
     QAction *toggleTooltipOutputAct;
@@ -272,7 +275,6 @@ private:
     QAction *starterPdfHelpAction;
     QAction *toggleOfflineHelpAct;
     QAction *whatsHelpAction;
-    QAction *videoTutorialsAction;
     QAction* swWebpageAction;
     QAction* checkUpdateAction;
     QAction *aboutAction;
@@ -284,6 +286,7 @@ private:
     QPlainTextEdit *consoleOutput;
 
     AboutDialog *aboutDialog;
+    CustomSplashScreen *splash_screen_;
 
 private:
     TooltipFilter *tooltipFilter_;
@@ -350,7 +353,12 @@ private:
 
     bool getDatesRangeDialog(Defs::CurrRunMode mode);
     bool showDatesRangeDialog(Defs::CurrRunMode mode);
-    QPair<QDateTime, QDateTime> getCurrentDateRange();
+    FileUtils::DateRange getCurrentDateRange();
+
+    void minimizeGui();
+    void maximizeGui();
+
+    void removeSplashScreen();
 
 signals:
     void updateMetadataReadRequest();

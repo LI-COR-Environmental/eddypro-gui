@@ -2,7 +2,7 @@
   welcomepage.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -101,7 +101,6 @@ private slots:
     void supportItemRequested(QListWidgetItem* item);
     void updateRecentList();
     void openForumFeedback();
-    void updateMainLayout(bool on);
     void onlineHelpTrigger_1();
 
 signals:

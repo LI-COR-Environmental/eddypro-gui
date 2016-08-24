@@ -1,0 +1,6 @@
+configure remote repo:
+$ git remote add licor ssh://antonio@git.licor.com/var/lib/git/styleguide.git 
+
+push with dry-run:
+$ git push -n licor licor
+

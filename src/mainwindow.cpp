@@ -2,7 +2,7 @@
   mainwindow.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -55,11 +55,11 @@
 #include "basicsettingspage.h"
 #include "binarysettingsdialog.h"
 #include "clicklabel.h"
+#include "customsplashscreen.h"
 #include "detectdaterangedialog.h"
 #include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "infomessage.h"
 #include "mainwidget.h"
@@ -77,9 +77,12 @@
 
 MainWindow::MainWindow(const QString& filename,
                        const QString& appEnvPath,
-                       QWidget* parent) :
-    QMainWindow(parent),
+                       CustomSplashScreen* splashscreen,
+                       QWidget* parent,
+                       Qt::WindowFlags flags) :
+    QMainWindow(parent, flags),
     aboutDialog(nullptr),
+    splash_screen_(splashscreen),
     mainWidget_(nullptr),
     configState_(ConfigState()),
     dlProject_(nullptr),
@@ -112,6 +115,8 @@ MainWindow::MainWindow(const QString& filename,
 {
     DEBUG_FUNC_NAME
 
+//    WidgetUtils::removeFlagFromWidget(Qt::WindowFullscreenButtonHint, this);
+
     readSettings();
 
     qDebug() << "appEnvPath_" << appEnvPath_;
@@ -124,10 +129,6 @@ MainWindow::MainWindow(const QString& filename,
     auto wheelFilter_ = new WheelEventFilter(this);
     qApp->installEventFilter(wheelFilter_);
 
-    // NOTE: not used
-//    connect(tooltipFilter_, SIGNAL(updateTooltipRequest(QString)),
-//            this, SLOT(updateTooltipDock(QString)));
-
     // create metadata file
     dlProject_ = new DlProject(this, configState_.project);
 
@@ -135,7 +136,7 @@ MainWindow::MainWindow(const QString& filename,
     ecProject_ = new EcProject(this, configState_.project);
 
     // set main window components
-    setWindowTitle(Defs::APP_NAME);
+    setWindowTitle(Defs::APP_NAME + QLatin1String(" ") + Defs::REGISTERED_TRADEMARK_SYMBOL);
 
 #if defined(Q_OS_WIN)
     // NOTE: inserted fake (inexistent) icon to prevent icon in the menu bar
@@ -263,11 +264,10 @@ MainWindow::MainWindow(const QString& filename,
     // NOTE: for testing only
 //    notificationTimer_->start(5000);
 
+    // NOTE: for testing only
 //    QStringList list;
 //    Process::getProcessIdsByProcessName(QStringLiteral("eddypro_debug"), list);
 //    qDebug() << "eddypro_debug" << list;
-//    Process::getProcessIdsByProcessName(QStringLiteral("firefox"), list);
-//    qDebug() << "firefox" << list;
 }
 
 MainWindow::~MainWindow()
@@ -329,6 +329,24 @@ void MainWindow::initialize()
             fileOpen(currentProjectFile());
         }
     }
+
+    // remove the automatic full screen button on Mac to manage conflicts
+    // with the splash screen
+//#if defined(Q_OS_MAC)
+//    Qt::WindowFlags winFflags = windowFlags();
+//    // winFflags QFlags<Qt::WindowType>(Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint)
+//    qDebug() << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>winFflags" << winFflags;
+//    winFflags &= ~Qt::WindowFullscreenButtonHint;
+//    qDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<winFflags" << winFflags;
+//    setWindowFlags(winFflags);
+//    showNormal();
+//    QCoreApplication::processEvents();
+
+//    qDebug() << "action_list" << viewMenu->actions().size();
+//    foreach (auto a, viewMenu->actions()) {
+//        qDebug() << a->text();
+//    }
+//#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -420,7 +438,10 @@ void MainWindow::setFileCaption(const QString& filename, bool clearStar)
         shownName = QFileInfo(filename).fileName();
     }
 
-    setWindowTitle(tr("%1 - [%2[*]]").arg(Defs::APP_NAME).arg(shownName));
+    setWindowTitle(QStringLiteral("%1 %2 - [%3[*]]")
+                   .arg(Defs::APP_NAME)
+                   .arg(Defs::REGISTERED_TRADEMARK_SYMBOL)
+                   .arg(shownName));
 
     if (clearStar)
     {
@@ -455,7 +476,7 @@ void MainWindow::fileNew()
 }
 
 /// \fn void MainWindow::fileOpen(const QString &filename)
-/// \param[in] filename not used
+/// \param[in] filename
 /// \return void
 void MainWindow::fileOpen(const QString &fileName)
 {
@@ -478,7 +499,7 @@ void MainWindow::fileOpen(const QString &fileName)
         fileStr = QFileDialog::getOpenFileName(this,
                         tr("Select an %1 Project File").arg(Defs::APP_NAME),
                         WidgetUtils::getSearchPathHint(),
-                        tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME).arg(Defs::PROJECT_FILE_EXT),
+                        tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
                         0
                         // , QFileDialog::DontUseNativeDialog
                         );
@@ -740,7 +761,7 @@ bool MainWindow::fileSaveAs(const QString& fileName)
         fileToSave = QFileDialog::getSaveFileName(this,
                 tr("Save the Project File Name As..."),
                 filenameHint,
-                tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME).arg(Defs::PROJECT_FILE_EXT),
+                tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
                 0
                 // see after
                                                  ,
@@ -816,7 +837,7 @@ bool MainWindow::fileSaveSilently()
     DEBUG_FUNC_NAME
 
 //    QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO),
-//    tr("New 1: %1\nModified: %2").arg(newFlag_).arg(modifiedFlag_));
+//    tr("New 1: %1\nModified: %2").arg(newFlag_, modifiedFlag_));
 
     qDebug() << "newFlag_" << newFlag_;
     qDebug() << "modifiedFlag_" << modifiedFlag_;
@@ -845,7 +866,7 @@ bool MainWindow::fileSaveSilently()
 //    return fileSave(quiet);
 
 //    QMessageBox::warning(nullptr, QLatin1String(Q_FUNC_INFO),
-//    tr("New 2: %1\nModified: %2").arg(newFlag_).arg(modifiedFlag_));
+//    tr("New 2: %1\nModified: %2").arg(newFlag_, modifiedFlag_));
     return true;
 }
 
@@ -1159,14 +1180,14 @@ void MainWindow::createActions()
     stopAction->setToolTip(tr("Stop processing. (%1)")
                            .arg((stopAction->shortcut().toString())));
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
     toggleFullScreenAction->setCheckable(true);
     toggleFullScreenAction->setShortcut(QKeySequence(QKeySequence::FullScreen));
     toggleFullScreenAction->setStatusTip(tr("Full screen mode view"));
-#endif
+//#endif
 
     toggleStatusbarAct = new QAction(this);
     toggleStatusbarAct->setText(tr("&Statusbar"));
@@ -1204,9 +1225,6 @@ void MainWindow::createActions()
     toggleOfflineHelpAct = new QAction(this);
     toggleOfflineHelpAct->setText(tr("Use Offline Help"));
     toggleOfflineHelpAct->setCheckable(true);
-
-    videoTutorialsAction = new QAction(this);
-    videoTutorialsAction->setText(tr("Video Tutorials"));
 
     swWebpageAction = new QAction(this);
     swWebpageAction->setText(tr("EddyPro Web Page"));
@@ -1260,10 +1278,10 @@ void MainWindow::connectActions()
     connect(stopAction, &QAction::triggered,
             this, &MainWindow::stopEngine);
 
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     connect(toggleFullScreenAction, &QAction::toggled,
             this, &MainWindow::setFullScreen);
-#endif
+//#endif
 
     connect(toggleStatusbarAct, &QAction::triggered,
             this, &MainWindow::toggleStatusbar);
@@ -1340,9 +1358,9 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleInfoOutputAct);
     viewMenu->addAction(toggleTooltipOutputAct);
     viewMenu->addAction(toggleStatusbarAct);
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     viewMenu->addAction(toggleFullScreenAction);
-#endif
+//#endif
 
     toolsMenu = new MyMenu(this);
     toolsMenu->setTitle(tr("&Run"));
@@ -1649,16 +1667,16 @@ void MainWindow::restorePreviousStatus()
 
     // must be before restoreGeometry(), which restore the possible full screen
     // state, because otherwise setFullScreen() reset restoreGeometry()
-#if 1 // !defined(Q_OS_MAC)
+//#if !defined(Q_OS_MAC)
     toggleFullScreenAction->setChecked(configState_.window.fullScreen);
-#endif
+//#endif
 
     // the dockwidgets checked state is restored by restoreState()
 //    toggleTooltipOutputAct->setChecked(config_state_.window.tooltipDock);
 //    toggleConsoleOutputAct->setChecked(config_state_.window.consoleDock);
 
-    restoreState(configState_.window.mainwin_state);
     restoreGeometry(configState_.window.mainwin_geometry);
+    restoreState(configState_.window.mainwin_state);
 
     // show or hide statusbar depending on initial setting
     // note: QMainWindow::restoreState() acts on toolbars and dockwidgets
@@ -1668,8 +1686,22 @@ void MainWindow::restorePreviousStatus()
     toggleOfflineHelpAct->setChecked(configState_.window.offlineHelp);
 }
 
+// remove splash screen, for example before going full screen
+void MainWindow::removeSplashScreen()
+{
+    if (splash_screen_)
+    {
+        qDebug() << ">>>>>>>>>> remove splash screen <<<<<<<<<<";
+        splash_screen_->close();
+//        splash_screen_->deleteLater();
+    }
+}
+
+// Used only on Windows
 void MainWindow::setFullScreen(bool on)
 {
+    removeSplashScreen();
+
     configState_.window.fullScreen = on;
     if (on)
     {
@@ -2289,12 +2321,6 @@ void MainWindow::updateMenuActionStatus(Defs::CurrPage page)
     updateRunButtonsAvailability();
 }
 
-// NOTE: not used
-void MainWindow::whatsHelp()
-{
-    QWhatsThis::enterWhatsThisMode();
-}
-
 void MainWindow::showStatusTip(const QString &text) const
 {
     statusBar()->showMessage(text, 2000);
@@ -2308,7 +2334,7 @@ void MainWindow::windowTitleUpdate(Defs::CurrPage page)
     switch (page)
     {
         case Defs::CurrPage::Welcome:
-            setWindowTitle(Defs::APP_NAME);
+            setWindowTitle(Defs::APP_NAME + QLatin1String(" ") + Defs::REGISTERED_TRADEMARK_SYMBOL);
             break;
         case Defs::CurrPage::ProjectCreation:
         case Defs::CurrPage::BasicSettings:
@@ -2453,7 +2479,8 @@ void MainWindow::showGuidedModeMessages_1()
             }
         }
 
-        if (!dlProject_->hasAnemFwVersion())
+        if (!dlProject_->masterAnemHasFwVersion()
+            && !dlProject_->masterAnemContainsGillWindmaster())
         {
             orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
                       "Editor - Raw File Description:</span> "
@@ -2463,16 +2490,16 @@ void MainWindow::showGuidedModeMessages_1()
             qDebug() << "doOrangeFix" << doOrangeFix;
         }
 
-        if (!dlProject_->hasGoodWindmasterSwVersion())
+        if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
         {
-            orange_msg += tr("<li><span style=\"color: orange;\">Instruments "
+            red_msg += tr("<li><span style=\"color: red;\">Instruments "
                       "Editor - Raw File Description:</span> "
                       "Enter the Gill Windmaster/Pro "
                       "firmware version in the typical form: 2329.600.01. "
                       "Not filling this field will affect the application of "
                       "the Angle of Attack correction.</li>");
-            doOrangeFix = true;
-            qDebug() << "doOrangeFix" << doOrangeFix;
+            doRedFix = true;
+            qDebug() << "doRedFix" << doRedFix;
         }
 
         // irga tests
@@ -2500,8 +2527,17 @@ void MainWindow::showGuidedModeMessages_1()
             orange_msg += tr("<li><span style=\"color: orange;\">Metadata File "
                              "Editor - Instruments:</span> One or more closed "
                              "path gas analyzers are not well described, "
-                             "not having tube length, diameter and flow rate "
+                             "not having tube length and diameter "
                              "all greater than zero.</li>");
+            doOrangeFix = true;
+        }
+
+        if (!dlProject_->hasGoodIrgaFlowRate())
+        {
+            orange_msg += tr("<li><span style=\"color: orange;\">Metadata File "
+                             "Editor - Instruments:</span> One or more closed "
+                             "path gas analyzers are not well described, "
+                             "not having flow rate greater than zero.</li>");
             doOrangeFix = true;
         }
 
@@ -2622,6 +2658,7 @@ void MainWindow::showGuidedModeMessages_1()
     qDebug() << "last doOrangeFix" << doOrangeFix;
     qDebug() << "red title" << red_intro;
     qDebug() << "red msg" << red_msg;
+    qDebug() << "orange msg" << orange_msg;
 
     basicSettingsPageAvailable_ = red_intro.isEmpty();
     qDebug() << "processingPageAvailable_" << basicSettingsPageAvailable_;
@@ -2725,6 +2762,18 @@ void MainWindow::showGuidedModeMessages_2()
         }
     }
 
+    if (!dlProject_->masterAnemHasGoodWindmasterFwVersion())
+    {
+        msg += tr("<li><span style=\"color: red;\">Missing anemometer firmware version:</span> "
+                  "Select <em>Use alternative file</em> in the <em>Project creation page</em> "
+                  "and fill the section \"Instruments Editor - Raw File Description\". "
+                  "Enter the Gill Windmaster/Pro firmware version in the typical form: 2329.600.01. "
+                  "Not filling this field will affect the application of "
+                  "the Angle of Attack correction.</li>");
+        doFix = true;
+        qDebug() << "doFix" << doFix;
+    }
+
     if (!doFix && runAdvancedAvailable_ && !configState_.project.smartfluxMode)
     {
         intro = tr("You are ready to run in <span style=\"color: #52893c; \">Express Mode</span> using express default settings or <span style=\"color: #2986f5; \">Advanced Mode</span> using Advanced Settings.<br />"
@@ -2740,12 +2789,6 @@ void MainWindow::showGuidedModeMessages_2()
         doFix = false;
         qDebug() << "doFix" << doFix;
     }
-//    else if (!doFix && !runAdvancedAvailable_ && configState_.project.smartfluxMode)
-//    {
-//        intro.clear();
-//        msg = tr("<ul>");
-//        doFix = false;
-//    }
 
     if (!doFix)
     {
@@ -2755,10 +2798,7 @@ void MainWindow::showGuidedModeMessages_2()
     qDebug() << "title" << intro;
     qDebug() << "msg" << msg;
 
-//    if (!configState_.project.smartfluxMode)
-//    {
-        runExpressAvailable_ = intro.contains(tr("You are ready"));
-//    }
+    runExpressAvailable_ = intro.contains(tr("You are ready"));
 
     updateMenuActionStatus(currentPage());
 
@@ -3367,7 +3407,7 @@ void MainWindow::closeOpenDialogs()
 //    DEBUG_FUNC_MSG(QString())
 }
 
-QPair<QDateTime, QDateTime> MainWindow::getCurrentDateRange()
+FileUtils::DateRange MainWindow::getCurrentDateRange()
 {
     auto recursion = ecProject_->screenRecurse();
     auto ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;
@@ -3471,9 +3511,9 @@ bool MainWindow::getDatesRangeDialog(Defs::CurrRunMode mode)
                          || ecProject_->timelagOptSubset();
     }
 
-    // if there are and we are not in paused run,
+    // if there are subperiods and we are not in paused run,
     // notify with a blocking dialog
-    if (currentStatus() == Defs::CurrStatus::Ready)
+    if (isSubperiodSet && currentStatus() == Defs::CurrStatus::Ready)
     {
         auto dialogAccepted = showDatesRangeDialog(mode);
         return dialogAccepted;
@@ -4328,63 +4368,139 @@ bool MainWindow::okToStopRun()
                                 QStringLiteral("stopMessage"));
 }
 
+// NOTE: hack to prevent that WindowStateChange events can change visibility of
+// the console. Indeed those events are able to fire a toggled signals on the
+// toggleConsoleOutputAct action and so hide the console
+bool MainWindow::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::WindowStateChange)
+    {
+        if (windowState() == Qt::WindowFullScreen)
+        {
+//            removeSplashScreen();
+            configState_.window.fullScreen = true;
+        }
+        else if (windowState() == Qt::WindowNoState)
+        {
+            configState_.window.fullScreen = false;
+        }
+        writeSettings();
+        qDebug() << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+        qDebug() << "windowState()" << windowState();
+        qDebug() << "event->type()" << e->type();
+        qDebug() << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+    }
+
+    if (o == this)
+    {
+        bool previousVisible = consoleDock->isVisible();
+
+        if (e->type() == QEvent::WindowStateChange)
+        {
+            toggleConsoleOutputAct->setChecked(previousVisible);
+            return true;
+        }
+    }
+
+    return QMainWindow::eventFilter(o, e);
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+//    QWindowStateChangeEvent sce(windowState());
+//    qDebug() << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC";
+//    qDebug() << "event->type()" << event->type();
+//    qDebug() << "sce" << sce.oldState();
+//    qDebug() << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC";
+
+//    QWidget::changeEvent(event);
+//    removeSplashScreen();
+
+//    if (event->type() == QEvent::WindowStateChange)
+//    {
+//        DEBUG_FUNC_NAME
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        toggleFullScreenAction->setChecked(isFullScreen());
+//        removeSplashScreen();
+//        if (splash_screen_)
+//        {
+//            qDebug() << "remove splash screen";
+//            splash_screen_->close();
+//        }
+//    }
+//    event->accept();
+
+//    if (windowState() == Qt::WindowFullScreen)
+//    {
+//        qDebug() << "isFullScreen()" << isFullScreen();
+//        removeSplashScreen();
+//    }
+    QWidget::changeEvent(event);
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     DEBUG_FUNC_NAME
 
     QSize widgetSize = event->size();
+    QSize widgetOldSize = event->oldSize();
+    qDebug() << "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR";
+    qDebug() << "new:" << widgetSize.width() << " x " << widgetSize.height();
+    qDebug() << "old:" << widgetOldSize.width() << " x " << widgetOldSize.height();
+    qDebug() << "this state" << this->windowState();
+    qDebug() << "this flags" << this->windowFlags();
+    qDebug() << "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR";
 
-    qDebug() << widgetSize.width() << " x " << widgetSize.height();
-
-    if (widgetSize.width() < 1200 || widgetSize.height() < 630)
+    if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-
-        mainWidget_->welcomePage()->updateWelcomePage(true);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
-
-        // NOTE: to complete
-        configState_.general.recentnum = 2;
+        qDebug() << "NO LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        minimizeGui();
     }
     else
     {
-        fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        qDebug() << "WITH LABELS" << widgetSize.width() << " x " << widgetSize.height();
+        maximizeGui();
+    }
 
-        mainWidget_->welcomePage()->updateWelcomePage(false);
-//        mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
-
-        updateMenuActionStatus(currentPage());
-
-        // NOTE: to complete
-        configState_.general.recentnum = 4;
+    if (windowState() == Qt::WindowState::WindowMaximized)
+    {
+        qDebug() << "WindowMaximized";
+        maximizeGui();
     }
 
     updateStatusBar();
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
-
     event->accept();
-//    QWidget::resizeEvent(event);
+}
 
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
+void MainWindow::minimizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    mainWidget_->welcomePage()->updateWelcomePage(true);
+//    mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
+
+    configState_.general.recentnum = 2;
+}
+
+void MainWindow::maximizeGui()
+{
+    fileToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    viewToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    mainWidget_->welcomePage()->updateWelcomePage(false);
+//   mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
+
+    updateMenuActionStatus(currentPage());
+
+    configState_.general.recentnum = 4;
 }
 
 void MainWindow::updateSpectraPaths()
 {
-//    DEBUG_FUNC_MSG(QString())
-
     // reload after engine_rp updates the ex_file path, i.e. when it finishes
     bool modified = false;
     if (ecProject_->loadEcProject(ecProject_->generalFileName(), false, &modified))
@@ -4607,25 +4723,6 @@ void MainWindow::checkInternetConnection()
 #endif
 }
 
-// NOTE: hack to prevent that WindowStateChange events can change visibility of
-// the console. Indeed those events are able to fire a toggled signals on the
-// toggleConsoleOutputAct action and so hide the console
-bool MainWindow::eventFilter(QObject *o, QEvent *e)
-{
-    if (o == this)
-    {
-        bool previousVisible = consoleDock->isVisible();
-
-        if (e->type() == QEvent::WindowStateChange)
-        {
-            toggleConsoleOutputAct->setChecked(previousVisible);
-            return true;
-        }
-    }
-
-    return QMainWindow::eventFilter(o, e);
-}
-
 void MainWindow::connectBinarySettingsDialog()
 {
     BinarySettingsDialog* binary_settings_dialog =
@@ -4665,7 +4762,7 @@ void MainWindow::connectTimeLagDialog()
     Q_ASSERT(c2);
 }
 
-// Reimplement wheel event handler to support resizing with Ctl+Wheel
+// Reimplement wheel event handler to support resizing with Ctl + Wheel
 void MainWindow::wheelEvent(QWheelEvent* event)
 {
     if (Qt::ControlModifier == QApplication::keyboardModifiers())
@@ -4673,7 +4770,7 @@ void MainWindow::wheelEvent(QWheelEvent* event)
         if (event->angleDelta().y() > 0)
         {
             // limit the maximum resize
-            auto screen = QGuiApplication::screens().first();
+            auto screen = QGuiApplication::screens().at(0);
             auto maxDesktopWidth = screen->availableVirtualSize().width();
             qDebug() << "maxDesktopWidth" << maxDesktopWidth;
 
@@ -4689,19 +4786,6 @@ void MainWindow::wheelEvent(QWheelEvent* event)
             resize(width() - width() / 10, height() - height() / 10);
         }
     }
-}
-
-void MainWindow::changeEvent(QEvent *event)
-{
-    QWidget::changeEvent(event);
-
-//    if (event->type() == QEvent::WindowStateChange)
-//    {
-//        DEBUG_FUNC_NAME
-//        qDebug() << "isFullScreen()" << isFullScreen();
-//        toggleFullScreenAction->setChecked(isFullScreen());
-//    }
-//    event->accept();
 }
 
 // NOTE: to implement

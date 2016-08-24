@@ -1,7 +1,7 @@
 /***************************************************************************
   customcheckbox.cpp
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -30,7 +30,7 @@
 
 CustomCheckBox::CustomCheckBox(QWidget *parent) : QWidget(parent)
 {
-    this->setAttribute(Qt::WA_Hover, true);
+    this->setAttribute(Qt::WA_Hover);
 
     checkbox = new HoverCheckBox;
     label = new ClickableLabel;
@@ -58,7 +58,7 @@ CustomCheckBox::~CustomCheckBox()
 {
 }
 
-// NOTE: not used
+// NOTE: never used
 void CustomCheckBox::setLabel(const QString &text)
 {
     label->setText(text);

@@ -3,7 +3,7 @@
   -------------------
   Variation of lineedit and browse widget
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,9 +34,9 @@ DirBrowseWidget::DirBrowseWidget()
 {
     button()->setText(tr("Browse..."));
 
-#if defined(Q_OS_MAC)
+//#if defined(Q_OS_MAC)
     lineEdit()->setPlaceholderText(tr("drag and drop here"));
-#endif
+//#endif
 
     lineEdit()->setAcceptDrops(true);
 

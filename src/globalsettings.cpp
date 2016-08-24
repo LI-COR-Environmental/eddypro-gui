@@ -1,7 +1,7 @@
 /***************************************************************************
   globalsettings.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -47,7 +47,7 @@ void GlobalSettings::setAppPersistentSettings(const QString& group,
 {
     if (group.isEmpty() || key.isEmpty() || !value.isValid()) { return; }
 
-    qDebug() << "setting";
+    qDebug() << "setting key:" << key << ", value:" << value;
     QSettings settings;
 
     settings.beginGroup(group);

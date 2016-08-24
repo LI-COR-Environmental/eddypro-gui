@@ -2,7 +2,7 @@
   network_helpers.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -32,7 +32,9 @@ bool Networking::isOnline()
     QNetworkConfigurationManager ifConfigManager;
     QList<QNetworkConfiguration> activeConfigs
             = ifConfigManager.allConfigurations(QNetworkConfiguration::Active);
-    if (activeConfigs.count() > 0)
+    if (!activeConfigs.isEmpty())
+    {
         return ifConfigManager.isOnline();
-    return !ifConfigManager.isOnline();
+    }
+    return (!ifConfigManager.isOnline());
 }

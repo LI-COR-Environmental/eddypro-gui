@@ -2,7 +2,7 @@
   ecprojectstate.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -67,6 +67,7 @@ struct ProjectGeneralState
     int col_diag_75 = -1;
     int col_diag_72 = -1;
     int col_diag_77 = -1;
+    int col_diag_anem = -1;
     int col_ts = -1;
     qreal gas_mw = -1.0;
     qreal gas_diff = -1.0;
@@ -217,7 +218,7 @@ struct ScreenSettingState
 {
     int max_lack = 10;
     int cross_wind = 0;
-    int flow_distortion = -1;
+    int flow_distortion = 0;
     int rot_meth = 1;
     int detrend_meth = 0;
     qreal timeconst = 250.0;
@@ -311,6 +312,7 @@ struct ScreenSettingState
     qreal m_night_spar4 = 0.026;
     int out_details = 0;
     int power_of_two = 1;
+    int gill_wm_wboost = 1;
 };
 
 /// \struct ScreenTestState

@@ -29,7 +29,7 @@ class xtreefuncs
 class xtree : public xtreefuncs
 {
    public:
-      xtree(xnode* xn):root(xn){}
+      explicit xtree(xnode* xn):root(xn){}
       ~xtree(){delete root;}
       xnode* query(std::istream& xml);
       xnode* query(const char* xml);

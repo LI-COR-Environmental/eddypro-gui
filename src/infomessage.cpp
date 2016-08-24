@@ -1,7 +1,7 @@
 /***************************************************************************
   infomessages.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -46,14 +46,14 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     buttonBox_ = new QDialogButtonBox(buttons);
 
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    foreach (auto button, buttonBox_->buttons())
     {
         button->setProperty("mdDialogButton", true);
     }
 
     // NOTE: use QSignalMapper
     // map dialog results to messagebox buttons
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    foreach (auto button, buttonBox_->buttons())
     {
         switch (buttonBox_->buttonRole(button))
         {

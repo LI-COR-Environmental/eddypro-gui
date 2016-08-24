@@ -2,7 +2,7 @@
   dlinidialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -266,7 +266,7 @@ void DlIniDialog::apply()
             WidgetUtils::warning(this,
                                  tr("Save Metadata Error"),
                                  tr("%1 was unable to save <b>%2</b>")
-                                 .arg(Defs::APP_NAME).arg(filename_));
+                                 .arg(Defs::APP_NAME, filename_));
         }
     }
 }

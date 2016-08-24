@@ -1,7 +1,7 @@
 /***************************************************************************
   runpage.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -625,7 +625,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     static QDate currentPlanarFitDate;
     static QDate currentTimeLagDate;
 
-    // NOTE: set but not used yet
+    // NOTE: flag set but not used yet
     bool inCycle = false;
 
 #ifdef QT_DEBUG

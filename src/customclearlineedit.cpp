@@ -48,8 +48,6 @@ void CustomClearLineEdit::setDisconnectedAction() const
 
 void CustomClearLineEdit::updateAction(const QString &text)
 {
-    DEBUG_FUNC_NAME
-
     action()->setVisible(!text.isEmpty());
 
     // NOTE: without this the icon would be only grayed out

@@ -1,7 +1,7 @@
 /***************************************************************************
   rawfilenamedialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -119,14 +119,14 @@ void RawFilenameDialog::reset()
     rawFilenameFormatEdit->clear();
 
     // clean the radiogroup
-    foreach (QAbstractButton* button, extRadioGroup->buttons())
+    foreach (auto button, extRadioGroup->buttons())
     {
         extRadioGroup->removeButton(button);
     }
 
     // remove the objects
-    // the first object is the layout...
-    QObjectList buttonList = radioGroupBox->children();
+    // but the first object, which is the layout...
+    auto buttonList = radioGroupBox->children();
     qDeleteAll(buttonList.begin() + 1, buttonList.end());
 }
 
@@ -375,8 +375,11 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
         radioGroupBoxLayout->addWidget(button);
     }
 
-    extRadioGroup->buttons().first()->setChecked(true);
-    radioGroupBox->setVisible(true);
+    if (!extRadioGroup->buttons().isEmpty())
+    {
+        extRadioGroup->buttons().at(0)->setChecked(true);
+        radioGroupBox->setVisible(true);
+    }
 }
 
 void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
@@ -390,8 +393,12 @@ void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
         radioGroupBoxLayout->addWidget(button);
         ++i;
     }
-    extRadioGroup->buttons().first()->setChecked(true);
-    radioGroupBox->setVisible(true);
+
+    if (!extRadioGroup->buttons().isEmpty())
+    {
+        extRadioGroup->buttons().at(0)->setChecked(true);
+        radioGroupBox->setVisible(true);
+    }
 }
 
 // update prototype line edit

@@ -2,7 +2,7 @@
   variable_delegate.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -24,11 +24,11 @@
 #ifndef VARIABLE_DELEGATE_H
 #define VARIABLE_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
 class QStringList;
 
-class VariableDelegate : public QItemDelegate
+class VariableDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:

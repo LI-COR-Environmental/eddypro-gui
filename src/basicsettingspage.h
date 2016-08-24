@@ -2,7 +2,7 @@
   basicsettingspage.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -27,7 +27,9 @@
 #include <QDateTime>
 #include <QWidget>
 
-#include<vector>
+#include <vector>
+
+#include "fileutils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/basicsettingspage.h
@@ -166,6 +168,8 @@ private:
 
     ClickLabel* anemRefLabel;
     QComboBox* anemRefCombo;
+    ClickLabel* anemFlagLabel;
+    QComboBox* anemFlagCombo;
     ClickLabel* tsRefLabel;
     QComboBox* tsRefCombo;
     ClickLabel* co2RefLabel;
@@ -298,7 +302,6 @@ private:
     void clearFlagUnits();
     void clearFlagThresholdsAndPolicies();
     void filterVariables();
-    void preselectVariables();
     void preselectDensityVariables(QComboBox* combo);
     void preselect7700Variables(QComboBox* combo);
 
@@ -355,6 +358,7 @@ private slots:
     void updateEndTime(const QTime &t);
 
     void onClickAnemRefLabel();
+    void onClickAnemFlagLabel();
     void onClickCo2RefLabel();
     void onClickH2oRefLabel();
     void onClickCh4RefLabel();
@@ -374,6 +378,7 @@ private slots:
     void onClickDiag7700Label();
     void onClickTsRefLabel();
     void updateAnemRefCombo(const QString& s);
+    void updateAnemFlagCombo(int i);
     void updateCo2RefCombo(int);
     void updateH2oRefCombo(int);
     void updateCh4RefCombo(int);
@@ -440,8 +445,6 @@ private slots:
     void onlineHelpTrigger_4();
     void onlineHelpTrigger_5();
 
-    void triggerGasProperties();
-
     void reset();
 
     void updateFilesFound(bool recursionToggled);
@@ -469,7 +472,7 @@ private slots:
 
 signals:
     void updateMetadataReadResult(bool b);
-    void setDateRangeRequest(QPair<QDateTime, QDateTime>);
+    void setDateRangeRequest(FileUtils::DateRange);
     void saveSilentlyRequest();
 };
 

@@ -2,7 +2,7 @@
   projectpage.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -132,8 +132,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
     createMetadataEditor();
 
-    createSlowMeasuresEditor();
-
     metadataEditors = new MyTabWidget;
     metadataEditors->setObjectName(QStringLiteral("metadataEditorsTabwidget"));
     metadataEditors->getTabBarAsPublic()->setObjectName(QStringLiteral("metadataEditorsTabbar"));
@@ -199,7 +197,11 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     biometExtFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing biomet external file"));
     biometExtFileBrowse->setDialogTitle(tr("Select the Biomet File"));
     biometExtFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
+#if defined(Q_OS_MAC)
+    biometExtFileBrowse->setDialogFilter(tr("All Files (*.*)"));
+#else
     biometExtFileBrowse->setDialogFilter(tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME));
+#endif
 
     biomExtDirRadio = new QRadioButton(tr("Use external directory:"));
     biomExtDirRadio->setToolTip(tr("<b>Use external directory:</b> Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the <b><i>Browse...</i></b> button. <br /><b>IMPORTANT:</b> All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User\'s Guide. Click on the question mark at the right side of the <b><i>Browse...</i></b> button to access the guidelines page on EddyPro Help."));
@@ -454,24 +456,6 @@ void ProjectPage::createMetadataEditor()
     metadataTab->addWidget(dlIniDialog_);
     metadataTab->setCurrentIndex(0);
     qDebug() << "metadataTab->setCurrentIndex(0)";
-}
-
-// NOTE: not used
-void ProjectPage::createSlowMeasuresEditor()
-{
-//    QLabel* comingSoonLabel = new QLabel;
-//    comingSoonLabel->setText(tr("COOMING SOON"));
-//    comingSoonLabel->setObjectName(QStringLiteral("comingSoonLabel"));
-
-//    QVBoxLayout *comingSoonLayout = new QVBoxLayout;
-//    comingSoonLayout->addWidget(comingSoonLabel);
-//    comingSoonLayout->addStretch();
-
-//    QFrame* comingSoonGroup_ = new QFrame;
-//    comingSoonGroup_->setLayout(comingSoonLayout);
-
-//    slowMeasuresTab = new QStackedWidget;
-//    slowMeasuresTab->addWidget(comingSoonLabel);
 }
 
 void ProjectPage::fadeInWidget(int filetype)
@@ -1062,9 +1046,8 @@ void ProjectPage::updateTooltip(int i)
 void ProjectPage::on_biomDataCheckBox_clicked(bool clicked)
 {
     DEBUG_FUNC_NAME
-    foreach (QWidget *w,
-             QWidgetList() << biomExtFileRadio
-                         << biomExtDirRadio)
+    foreach (auto w, QWidgetList() << biomExtFileRadio
+                                   << biomExtDirRadio)
     {
         w->setEnabled(clicked);
     }

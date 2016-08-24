@@ -21,3 +21,5 @@ void Test_AboutDialog_Class::testCase2()
 void Test_AboutDialog_Class::cleanupTestCase()
 {
 }
+
+QTTESTUTIL_REGISTER_TEST(Test_AboutDialog_Class);

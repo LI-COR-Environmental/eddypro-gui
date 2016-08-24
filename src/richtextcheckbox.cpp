@@ -3,7 +3,7 @@
   -------------------
   Checkbox with rich text support
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -104,6 +104,7 @@ void RichTextCheckBox::setText(const QString& text)
     label->setText(text);
 }
 
+// NOTE: never used
 QString RichTextCheckBox::plainText() const
 {
     QTextDocument doc;

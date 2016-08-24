@@ -1,7 +1,7 @@
 /***************************************************************************
   filebrowsewidget.cpp
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,9 +34,9 @@ FileBrowseWidget::FileBrowseWidget() :
     button()->setText(tr("Load..."));
     lineEdit()->setCanBeFile(true);
 
-#if defined(Q_OS_MAC)
+//#if defined(Q_OS_MAC)
     lineEdit()->setPlaceholderText(tr("drag and drop here"));
-#endif
+//#endif
 
     lineEdit()->setAcceptDrops(true);
 

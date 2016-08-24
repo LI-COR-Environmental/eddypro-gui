@@ -2,7 +2,7 @@
   irga_delegate.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -24,12 +24,11 @@
 #ifndef IRGA_DELEGATE_H
 #define IRGA_DELEGATE_H
 
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
-class IrgaDelegate : public QItemDelegate
+class IrgaDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
-
 public:
     explicit IrgaDelegate(QObject* parent = nullptr);
     ~IrgaDelegate();
@@ -46,11 +45,6 @@ public:
     void updateEditorGeometry(QWidget* editor,
                               const QStyleOptionViewItem& option,
                               const QModelIndex& index) const Q_DECL_OVERRIDE;
-
-    void drawDisplay(QPainter* painter,
-                     const QStyleOptionViewItem& option,
-                     const QRect& rect,
-                     const QString& text) const Q_DECL_OVERRIDE;
 
 private slots:
     void commitAndCloseEditor();

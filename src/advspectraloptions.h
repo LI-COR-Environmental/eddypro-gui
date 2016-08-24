@@ -1,7 +1,7 @@
 /***************************************************************************
   advspectraloptions.h
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -140,10 +140,6 @@ private:
     void forceEndTimePolicy();
 
     void createQuestionMarks();
-
-    double getLowestFrequencyValue();
-    double getHighestFrequencyValue();
-
     void setHfMethod(int hfMethComboIndex);
 
     QCheckBox* vmFlagsCheckBox;

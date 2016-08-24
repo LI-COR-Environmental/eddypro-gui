@@ -4,7 +4,7 @@
   Custom splash screen
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -51,11 +51,8 @@ CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f
     auto rowLayout = new QHBoxLayout;
     rowLayout->addWidget(showSplashCheckbox_, Qt::AlignLeft);
     rowLayout->addWidget(okButton, Qt::AlignCenter);
-#if defined(Q_OS_WIN)
     rowLayout->addStretch(1);
-#elif defined(Q_OS_MAC)
-    rowLayout->addStretch(4);
-#endif
+
     auto layout = new QVBoxLayout(this);
     layout->addSpacerItem(new QSpacerItem(1, 335));
     layout->addLayout(rowLayout);

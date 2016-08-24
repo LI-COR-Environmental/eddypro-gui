@@ -2,7 +2,7 @@
   variable_model.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -78,7 +78,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
             case NUMERIC:
                 return QVariant(variableDesc.numeric());
             case VARIABLE:
-                return QVariant(variableDesc.variable());
+                return QVariant(var);
             case INSTRUMENT:
                 // filter no more available instruments
                 if (instrModelList_.contains(variableDesc.instrument()))
@@ -91,8 +91,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return nullStrValue;
                 }
             case MEASURETYPE:
-                if (!VariableDesc::isGasVariable(variableDesc.variable())
-                    && !VariableDesc::isCustomVariable(variableDesc.variable()))
+                if (!VariableDesc::isGasVariable(var)
+                    && !VariableDesc::isCustomVariable(var))
                 {
                     const_cast<VariableModel *>(this)->setData(index, nullStrValue);
                     return nullStrValue;
@@ -102,7 +102,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.measureType());
                 }
             case INPUTUNIT:
-                if (VariableDesc::isVelocityVar(variableDesc.variable()))
+                if (VariableDesc::isVelocityVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::velocityInputUnitStringList()))
@@ -117,7 +117,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isAngleVar(variableDesc.variable()))
+                else if (VariableDesc::isAngleVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::angleInputUnitStringList()))
@@ -130,7 +130,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isTemperatureVar(variableDesc.variable()))
+                else if (VariableDesc::isTemperatureVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::temperatureInputUnitStringList()))
@@ -143,7 +143,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isPressureVar(variableDesc.variable()))
+                else if (VariableDesc::isPressureVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::pressureInputUnitStringList()))
@@ -156,7 +156,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isGasVariable(variableDesc.variable()))
+                else if (VariableDesc::isGasVariable(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::gasInputUnitStringList()))
@@ -169,7 +169,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isFlowRateVar(variableDesc.variable()))
+                else if (VariableDesc::isFlowRateVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                   VariableDesc::flowRateInputUnitStringList()))
@@ -182,10 +182,12 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isDiagnosticVar(variableDesc.variable()))
+                else if (VariableDesc::isDiagnosticVar(var))
                 {
                     if (variableDesc.inputUnit() == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
+                    {
                         return QVariant(variableDesc.inputUnit());
+                    }
                     else
                     {
                         const_cast<VariableModel *>(this)->setData(index, nullStrValue);
@@ -197,7 +199,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.inputUnit());
                 }
             case CONVERSIONTYPE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                            && VariableDesc::isDiagnosticVar(var)))
                 {
                     const_cast<VariableModel *>(this)->setData(index, nullStrValue);
                     return nullStrValue;
@@ -208,14 +212,16 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
                 }
             case OUTPUTUNIT:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     const_cast<VariableModel *>(this)->setData(index, nullStrValue);
                     return nullStrValue;
                 }
                 else
                 {
-                    if (VariableDesc::isVelocityVar(variableDesc.variable()))
+                    if (VariableDesc::isVelocityVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::velocityOutputUnitStringList()))
@@ -229,7 +235,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isAngleVar(variableDesc.variable()))
+                    else if (VariableDesc::isAngleVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::angleOutputUnitStringList()))
@@ -242,7 +248,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isTemperatureVar(variableDesc.variable()))
+                    else if (VariableDesc::isTemperatureVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::temperatureOutputUnitStringList()))
@@ -255,7 +261,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isPressureVar(variableDesc.variable()))
+                    else if (VariableDesc::isPressureVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::pressureOutputUnitStringList()))
@@ -268,7 +274,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isGasVariable(variableDesc.variable()))
+                    else if (VariableDesc::isGasVariable(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::gasOutputUnitStringList()))
@@ -281,7 +287,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isFlowRateVar(variableDesc.variable()))
+                    else if (VariableDesc::isFlowRateVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                       VariableDesc::flowRateOutputUnitStringList()))
@@ -294,7 +300,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isDiagnosticVar(variableDesc.variable()))
+                    else if (VariableDesc::isDiagnosticVar(var))
                     {
                         if (variableDesc.outputUnit() == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
                         {
@@ -312,7 +318,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     }
                 }
             case AVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     // reset the gain value to 1
                     const_cast<VariableModel *>(this)->setData(index, 1);
@@ -323,7 +331,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QString::number(variableDesc.aValue(), 'f', 6));
                 }
             case BVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     // reset the offset value to 0
                     const_cast<VariableModel *>(this)->setData(index, 0);
@@ -345,7 +355,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::EditRole)
     {
-//        qDebug() << "EditRole" << row;
         switch (row)
         {
             case IGNORE:
@@ -359,7 +368,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
             case VARIABLE:
                 if (!var.isEmpty())
                 {
-                    return QVariant(variableDesc.variable());
+                    return QVariant(var);
                 }
                 // to avoid editing parent items ('standard/custom variables')
                 // pick the first available var
@@ -378,8 +387,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return nullStrValue;
                 }
             case MEASURETYPE:
-                if (!VariableDesc::isGasVariable(variableDesc.variable())
-                    && !VariableDesc::isCustomVariable(variableDesc.variable()))
+                if (!VariableDesc::isGasVariable(var)
+                    && !VariableDesc::isCustomVariable(var))
                 {
                     return nullStrValue;
                 }
@@ -388,7 +397,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.measureType());
                 }
             case INPUTUNIT:
-                if (VariableDesc::isVelocityVar(variableDesc.variable()))
+                if (VariableDesc::isVelocityVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::velocityInputUnitStringList()))
@@ -400,7 +409,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isAngleVar(variableDesc.variable()))
+                else if (VariableDesc::isAngleVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::angleInputUnitStringList()))
@@ -412,7 +421,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isTemperatureVar(variableDesc.variable()))
+                else if (VariableDesc::isTemperatureVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::temperatureInputUnitStringList()))
@@ -424,7 +433,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isPressureVar(variableDesc.variable()))
+                else if (VariableDesc::isPressureVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::pressureInputUnitStringList()))
@@ -436,7 +445,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isGasVariable(variableDesc.variable()))
+                else if (VariableDesc::isGasVariable(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::gasInputUnitStringList()))
@@ -448,7 +457,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isFlowRateVar(variableDesc.variable()))
+                else if (VariableDesc::isFlowRateVar(var))
                 {
                     if (StringUtils::stringBelongsToList(variableDesc.inputUnit(),
                                                          VariableDesc::flowRateInputUnitStringList()))
@@ -460,7 +469,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                         return nullStrValue;
                     }
                 }
-                else if (VariableDesc::isDiagnosticVar(variableDesc.variable()))
+                else if (VariableDesc::isDiagnosticVar(var))
                 {
                     if (variableDesc.inputUnit() == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
                     {
@@ -476,7 +485,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.inputUnit());
                 }
             case CONVERSIONTYPE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -485,13 +496,15 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
                 }
             case OUTPUTUNIT:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
                 else
                 {
-                    if (VariableDesc::isVelocityVar(variableDesc.variable()))
+                    if (VariableDesc::isVelocityVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::velocityOutputUnitStringList()))
@@ -503,7 +516,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isAngleVar(variableDesc.variable()))
+                    else if (VariableDesc::isAngleVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::angleOutputUnitStringList()))
@@ -515,7 +528,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isTemperatureVar(variableDesc.variable()))
+                    else if (VariableDesc::isTemperatureVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::temperatureOutputUnitStringList()))
@@ -527,7 +540,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isPressureVar(variableDesc.variable()))
+                    else if (VariableDesc::isPressureVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::pressureOutputUnitStringList()))
@@ -539,7 +552,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isGasVariable(variableDesc.variable()))
+                    else if (VariableDesc::isGasVariable(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::gasOutputUnitStringList()))
@@ -551,7 +564,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isFlowRateVar(variableDesc.variable()))
+                    else if (VariableDesc::isFlowRateVar(var))
                     {
                         if (StringUtils::stringBelongsToList(variableDesc.outputUnit(),
                                                              VariableDesc::flowRateOutputUnitStringList()))
@@ -563,7 +576,7 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                             return nullStrValue;
                         }
                     }
-                    else if (VariableDesc::isDiagnosticVar(variableDesc.variable()))
+                    else if (VariableDesc::isDiagnosticVar(var))
                     {
                         if (variableDesc.outputUnit() == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
                         {
@@ -580,7 +593,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     }
                 }
             case AVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -589,7 +604,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(variableDesc.aValue());
                 }
             case BVALUE:
-                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit()))
+                if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(var)))
                 {
                     return nullStrValue;
                 }
@@ -609,7 +626,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::TextAlignmentRole)
     {
-//        qDebug() << "TextAlignmentRole" << row;
         switch (row)
         {
             case IGNORE:
@@ -643,11 +659,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(Qt::red)));
                 }
-//                else if (variableDesc.ignore() == QLatin1String("no")
-//                         && variableDesc.numeric() == QLatin1String("yes"))
-//                {
-//                    return QVariant(QColor(Qt::black));
-//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -662,11 +673,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                 {
                     return QVariant(QBrush(QColor(QStringLiteral("#D69696"))));
                 }
-//                else if (variableDesc.numeric() == QLatin1String("no")
-//                         && variableDesc.ignore() == QLatin1String("yes"))
-//                {
-//                    return QVariant(QColor(Qt::black));
-//                }
                 else
                 {
                     return QVariant(QColor(Qt::black));
@@ -707,8 +713,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QColor(Qt::white));
                 }
             case MEASURETYPE:
-                if ((!VariableDesc::isGasVariable(variableDesc.variable())
-                    && !VariableDesc::isCustomVariable(variableDesc.variable()))
+                if ((!VariableDesc::isGasVariable(var)
+                    && !VariableDesc::isCustomVariable(var))
                     || variableDesc.ignore() == QLatin1String("yes")
                     || variableDesc.numeric() == QLatin1String("no"))
                 {
@@ -724,7 +730,9 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
             case BVALUE:
                 if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
                     || variableDesc.ignore() == QLatin1String("yes")
-                    || variableDesc.numeric() == QLatin1String("no"))
+                    || variableDesc.numeric() == QLatin1String("no")
+                    || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                        && VariableDesc::isDiagnosticVar(variableDesc.variable())))
                 {
                     return QVariant(QBrush(QColor(QStringLiteral("#eff0f1"))));
                 }
@@ -733,7 +741,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
                     return QVariant(QColor(Qt::white));
                 }
             default:
-//                return QVariant(QColor(Qt::white));
                 if (variableDesc.ignore() == QLatin1String("yes")
                     || variableDesc.numeric() == QLatin1String("no"))
                 {
@@ -747,7 +754,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else if (role == Qt::SizeHintRole)
     {
-//        qDebug() << "SizeHintRole" << row;
         switch (row)
         {
             default:
@@ -756,7 +762,6 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
     }
     else
     {
-//        qDebug() << "else" << row;
         return QVariant();
     }
 }
@@ -764,16 +769,8 @@ QVariant VariableModel::data(const QModelIndex& index, int role) const
 // Set data at index
 bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    DEBUG_FUNC_NAME
-
     int row = index.row();
     int column = index.column();
-
-    qDebug() << "row" << row;
-    qDebug() << "column" << column;
-    qDebug() << "value.toString()" << value.toString();
-    qDebug() << "role" << role;
-    qDebug() << "list_->count()" << list_->count();
 
     if (!index.isValid()) return false;
     if (role != Qt::EditRole) return false;
@@ -781,20 +778,10 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
 
     // grab existing var desc for the column
     VariableDesc variableDesc = list_->value(column);
-//    qDebug() << "instrModelList_" << instrModelList_;
 
     switch (row)
     {
-        case NUMERIC:
-            qDebug() << "NUMERIC";
-            if (value == variableDesc.numeric())
-            {
-                return false;
-            }
-            variableDesc.setNumeric(value.toString());
-            break;
         case IGNORE:
-            qDebug() << "IGNORE";
             if (value == variableDesc.ignore())
             {
                 return false;
@@ -809,8 +796,14 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
                 variableDesc.setIgnore(value.toString());
             }
             break;
+        case NUMERIC:
+            if (value == variableDesc.numeric())
+            {
+                return false;
+            }
+            variableDesc.setNumeric(value.toString());
+            break;
         case VARIABLE:
-            qDebug() << "VARIABLE";
             // update only if new value is not equal to the old value
             if (value == variableDesc.variable())
             {
@@ -828,13 +821,10 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             }
             break;
         case INSTRUMENT:
-            qDebug() << "INSTRUMENT";
             if (value == variableDesc.instrument())
             {
                 return false;
             }
-//            qDebug() << "instrModelList_" << instrModelList_;
-//            qDebug() << "value.toString()" << value.toString();
 
             // filter no more available instruments
             if (instrModelList_.contains(value.toString()))
@@ -847,7 +837,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             }
             break;
         case MEASURETYPE:
-            qDebug() << "MEASURETYPE";
             if (value == variableDesc.measureType())
             {
                 return false;
@@ -855,7 +844,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setMeasureType(value.toString());
             break;
         case INPUTUNIT:
-            qDebug() << "INPUTUNIT";
             if (value == variableDesc.inputUnit())
             {
                 return false;
@@ -863,7 +851,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setInputUnit(value.toString());
             break;
         case CONVERSIONTYPE:
-            qDebug() << "CONVERSIONTYPE";
             if (value == variableDesc.conversionType())
             {
                 return false;
@@ -871,7 +858,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setConversionType(value.toString());
             break;
         case OUTPUTUNIT:
-            qDebug() << "OUTPUTUNIT";
             if (value == variableDesc.outputUnit())
             {
                 return false;
@@ -879,7 +865,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setOutputUnit(value.toString());
             break;
         case AVALUE:
-            qDebug() << "AVALUE";
             if (value == variableDesc.aValue())
             {
                 return false;
@@ -887,7 +872,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setAValue(value.toReal());
             break;
         case BVALUE:
-            qDebug() << "BVALUE";
             if (value == variableDesc.bValue())
             {
                 return false;
@@ -895,7 +879,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setBValue(value.toReal());
             break;
         case NOMTIMELAG:
-            qDebug() << "NOMTIMELAG";
             if (value == variableDesc.nomTimelag())
             {
                 return false;
@@ -903,7 +886,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setNomTimelag(value.toReal());
             break;
         case MINTIMELAG:
-            qDebug() << "MINTIMELAG";
             if (value == variableDesc.minTimelag())
             {
                 return false;
@@ -911,7 +893,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
             variableDesc.setMinTimelag(value.toReal());
             break;
         case MAXTIMELAG:
-            qDebug() << "MAXTIMELAG";
             if (value == variableDesc.maxTimelag())
             {
                 return false;
@@ -1015,9 +996,15 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     if (!index.isValid()) return Qt::ItemIsEnabled;
 
     Qt::ItemFlags currentFlags = QAbstractTableModel::flags(index);
-    currentFlags |= Qt::ItemIsEnabled;
-    currentFlags |= Qt::ItemIsEditable;
-    currentFlags |= Qt::ItemIsSelectable;
+
+    Qt::ItemFlags normalFlags = currentFlags;
+    normalFlags |= Qt::ItemIsEnabled;
+    normalFlags |= Qt::ItemIsEditable;
+    normalFlags |= Qt::ItemIsSelectable;
+
+    Qt::ItemFlags disabledFlags = currentFlags;
+    disabledFlags &= !Qt::ItemIsEditable;
+    disabledFlags &= !Qt::ItemIsSelectable;
 
     int row = index.row();
     int column = index.column();
@@ -1027,65 +1014,69 @@ Qt::ItemFlags VariableModel::flags(const QModelIndex& index) const
     switch (row)
     {
         case IGNORE:
+            if (variableDesc.numeric() == QLatin1String("no"))
+            {
+                return disabledFlags;
+            }
+            return normalFlags;
+        case NUMERIC:
+            if (variableDesc.ignore() == QLatin1String("yes")
+                && variableDesc.numeric() == QLatin1String("yes"))
+            {
+                return disabledFlags;
+            }
+            return normalFlags;
         case VARIABLE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                return disabledFlags;
+            }
             if (variableDesc.variable() == QLatin1String("Standard Variables")
                 || variableDesc.variable() == QLatin1String("Custom Variables"))
             {
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-#if defined(Q_OS_MAC)
-            [[clang::fallthrough]];
-#endif
+            return normalFlags;
         case INSTRUMENT:
         case INPUTUNIT:
         case NOMTIMELAG:
         case MINTIMELAG:
         case MAXTIMELAG:
-            if (variableDesc.numeric() == QLatin1String("no"))
+            if (variableDesc.ignore() == QLatin1String("yes"))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         case MEASURETYPE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                return disabledFlags;
+            }
             if (variableDesc.numeric() == QLatin1String("no")
                 || (!VariableDesc::isGasVariable(variableDesc.variable())
                 && !VariableDesc::isCustomVariable(variableDesc.variable())))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         case CONVERSIONTYPE:
         case OUTPUTUNIT:
         case AVALUE:
         case BVALUE:
+            if (variableDesc.ignore() == QLatin1String("yes"))
+            {
+                return disabledFlags;
+            }
             if (!VariableDesc::isScalableVariable(variableDesc.inputUnit())
-                || variableDesc.numeric() == QLatin1String("no"))
+                || variableDesc.numeric() == QLatin1String("no")
+                || (VariableDesc::isScalableVariable(variableDesc.inputUnit())
+                    && VariableDesc::isDiagnosticVar(variableDesc.variable())))
             {
-                currentFlags &= !Qt::ItemIsEnabled;
-                currentFlags &= !Qt::ItemIsEditable;
-                currentFlags &= !Qt::ItemIsSelectable;
-                return currentFlags;
+                return disabledFlags;
             }
-            else
-            {
-                return currentFlags;
-            }
+            return normalFlags;
         default:
-            return currentFlags;
+            return normalFlags;
     }
 }
 
@@ -1135,7 +1126,7 @@ void VariableModel::setInstrModels(const QStringList& list)
     emit layoutChanged();
 }
 
-// NOTE: not used
+// NOTE: never used
 void VariableModel::triggerSetData() const
 {
     DEBUG_FUNC_NAME

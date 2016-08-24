@@ -1,7 +1,7 @@
 /***************************************************************************
   createpackagedialog.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -28,7 +28,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 #include "clicklabel.h"
 #include "configstate.h"
@@ -76,8 +76,8 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     // plus the following:
     // '|', '\', '/', ':', ';', '?', '*', '"', ''', '`', '<', '>'
     auto filenameRegexp = QStringLiteral("[^\\000-\\040|\\\\/:;\\?\\*\"'`<>]+");
-    QRegExp filenameRe(filenameRegexp);
-    auto filenameValidator = new QRegExpValidator(filenameRe, filenameEdit);
+    QRegularExpression filenameRe(filenameRegexp);
+    auto filenameValidator = new QRegularExpressionValidator(filenameRe, filenameEdit);
     filenameEdit->setValidator(filenameValidator);
 
 #if defined(Q_OS_WIN)
@@ -135,11 +135,11 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
     mainLayout->setRowMinimumHeight(3, 40);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-#if defined(Q_OS_WIN)
+//#if defined(Q_OS_WIN)
     mainLayout->setContentsMargins(15, 15, 15, 15);
-#elif defined(Q_OS_MAC)
-    mainLayout->setContentsMargins(30, 30, 30, 30);
-#endif
+//#elif defined(Q_OS_MAC)
+//    mainLayout->setContentsMargins(30, 30, 30, 30);
+//#endif
     setLayout(mainLayout);
 
     connect(filenameLabel, &ClickLabel::clicked,

@@ -1,7 +1,7 @@
 /***************************************************************************
   advspectraloptions.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -60,7 +60,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    settingsGroupTitle_1 = new QLabel(tr("Spectra and Cospetra Calculation"));
+    settingsGroupTitle_1 = new QLabel(tr("Spectra and Cospectra Calculation"));
     settingsGroupTitle_1->setProperty("groupTitle2", true);
     settingsGroupTitle_1->setStyleSheet(
             QStringLiteral("QLabel { margin: 2px 0px 3px -2px; padding: 0px; }"));
@@ -68,7 +68,12 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     // spectra and cospectra section
     binnedSpectraNonExistingRadio = new QRadioButton(tr("Binned (co)spectra files not available"));
     binnedSpectraNonExistingRadio->setToolTip(tr("<b>Binned (co)spectra files not available:</b> Select this option if you did not yet obtain <i>Binned spectra and cospectra files</i> for the current dataset in a previous run of EddyPro. Note that such binned (co)spectra files do not need to correspond exactly to the current dataset, rather they need to be representative of it. Binned (co)spectra files are used by certain spectral corrections procedures to quantify spectral attenuations, thus they must have been collected in conditions comparable to those of the current dataset (e.g., same EC system and similar canopy heights, measurement height, instrument spatial separations, etc.). At least one month of spectra files is needed for a robust spectral attenuation assessment. If you select this option, the option <i>All binned spectra and cospectra</i> in the Output Files page will be automatically selected."));
+
+#if defined(Q_OS_MAC)
     binnedSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton { margin-left: 5px; }"));
+#elif defined(Q_OS_WIN)
+    binnedSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton { margin-left: 1px; }"));
+#endif
 
     binnedSpectraExistingRadio = new QRadioButton(tr("Binned (co)spectra files available for this dataset :"));
     binnedSpectraExistingRadio->setToolTip(tr("<b>Binned (co)spectra files available:</b> Select this option if you already obtained <i>Binned spectra and cospectra files</i> for the current dataset in a previous run of EddyPro. Note that the binned (co)spectra files do not need to correspond exactly to the current dataset, rather they need to be representative of it. Binned (co)spectra are used here for quantification of spectral attenuations, thus they must have been collected in conditions comparable to those of the current dataset (e.g., the same EC system and similar canopy heights, measurement height, instrument spatial separations). At least one month of spectra files is needed for a robust spectral attenuation assessment. If you select this option, the option <i>All binned spectra and cospectra</i> in the Output Files page will be automatically deselected and activated."));
@@ -391,7 +396,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     hfMethCombo->addItem(tr("Ibrom et al. (2007) - In situ/analytic"));
     hfMethCombo->addItem(tr("Fratini et al. (2012) - In situ/analytic"));
     hfMethCombo->setItemData(0, tr("<b>Moncrieff et al. (1997):</b> This method models all major sources of flux attenuation by means of a mathematical formulation. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) - notably for water vapor - when the sampling line is long and/or not heated, because of the dependency of attenuation of H<sub>2</sub>O on relative humidity."), Qt::ToolTipRole);
-    hfMethCombo->setItemData(1, tr("<b>Massmann (2000, 2001):</b> This method provides a simple analytical expression for the spectral correction factors. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) for water vapor, when the sampling line is long and/or not heated, because of the dependency of attenuation of %2 on relative humidity. For closed path systems, this method is only applicable for %1, %2, %3, %4 and %5 fluxes.").arg(Defs::CO2_STRING).arg(Defs::H2O_STRING).arg(Defs::CH4_STRING).arg(Defs::N2O_STRING).arg(Defs::O3_STRING), Qt::ToolTipRole);
+    hfMethCombo->setItemData(1, tr("<b>Massmann (2000, 2001):</b> This method provides a simple analytical expression for the spectral correction factors. The use of this method is suggested for open path EC systems or for closed path systems if the sampling line is short and heated. This method may seriously underestimate the attenuation (and hence the correction) for water vapor, when the sampling line is long and/or not heated, because of the dependency of attenuation of %2 on relative humidity. For closed path systems, this method is only applicable for %1, %2, %3, %4 and %5 fluxes.").arg(Defs::CO2_STRING, Defs::H2O_STRING, Defs::CH4_STRING, Defs::N2O_STRING, Defs::O3_STRING), Qt::ToolTipRole);
     hfMethCombo->setItemData(3, tr("<b>Horst (1997):</b> Correction method based on an analytical formulation of the spectral correction factor that requires an in-situ assessment of the system's cut-off frequency. Provide the information below to specify how to perform such assessment."), Qt::ToolTipRole);
     hfMethCombo->setItemData(4, tr("<b>Ibrom et al. (2007):</b> Correction method based on an analytical formulation of the spectra correction factors, that requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. Provide the settings in the <i>Assessment of high-frequency attenuation</i> to specify how to perform the assessment. This method is recommended in most cases, notably for closed-path systems placed high over rough canopies."), Qt::ToolTipRole);
     hfMethCombo->setItemData(5, tr("<b>Fratini et al. (2012):</b> Correction method based on the combination of a direct approach (similar to Hollinger et al., 2009) and the analytical formulation of Ibrom et al., 2007. It requires an in-situ assessment of the system's cut-off frequencies, separately for each instrument and gas, and as a function of relative humidity for water vapor. It also requires full length cospectra of measured sensible heat. This method is recommendable in most cases, notably for closed-path systems placed low over smooth surfaces."), Qt::ToolTipRole);
@@ -425,6 +430,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     sonicFrequencyLabel = new ClickLabel;
     sonicFrequencyLabel->setText(QStringLiteral("Sonic frequency:"));
     sonicFrequencyLabel->setVisible(false);
+
     sonicFrequency = new QSpinBox;
     sonicFrequency->setRange(4, 100);
     sonicFrequency->setSpecialValueText(QStringLiteral("Default"));
@@ -914,9 +920,8 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvSpectralOptions::refresh);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << hfMethCombo
-                                  << horstCombo)
+    foreach (auto combo, QList<QComboBox *>() << hfMethCombo
+                                              << horstCombo)
     {
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
@@ -924,18 +929,17 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
 
     // fix layout alignment
     auto max_spin_width = spin33->width();
-    foreach(QWidget* w,
-            QWidgetList() << spin34
-                          << spin24
-                          << qcMinUnstableCo2Spin
-                          << qcMinUnstableCh4Spin
-                          << qcMinUnstableGas4Spin
-                          << qcMinStableCo2Spin
-                          << qcMinStableCh4Spin
-                          << qcMinStableGas4Spin
-                          << qcMaxCo2Spin
-                          << qcMaxCh4Spin
-                          << qcMaxGas4Spin)
+    foreach (auto w, QWidgetList() << spin34
+                                   << spin24
+                                   << qcMinUnstableCo2Spin
+                                   << qcMinUnstableCh4Spin
+                                   << qcMinUnstableGas4Spin
+                                   << qcMinStableCo2Spin
+                                   << qcMinStableCh4Spin
+                                   << qcMinStableGas4Spin
+                                   << qcMaxCo2Spin
+                                   << qcMaxCh4Spin
+                                   << qcMaxGas4Spin)
     {
         w->setMaximumWidth(max_spin_width);
     }
@@ -1358,8 +1362,6 @@ void AdvSpectralOptions::testSelectedSpectraFile(const QString& fp)
     test_dialog.refresh(canonicalParamFile);
 
     auto test_result = test_dialog.makeTest();
-    qDebug() << "test_result" << test_result;
-
     auto dialog_result = true;
 
     // blocking behavior if test fails
@@ -1556,8 +1558,6 @@ void AdvSpectralOptions::setHfMethod(int hfMethComboIndex)
         ecProject_->setGeneralHfMethod(4);
         break;
     }
-    qDebug() << "hfMethComboIndex" << hfMethComboIndex;
-    qDebug() << "ecProject_->generalHfMethod()" << ecProject_->generalHfMethod();
 }
 
 void AdvSpectralOptions::updateHfMethod_1(bool b)
@@ -1750,8 +1750,6 @@ void AdvSpectralOptions::updateHorst_1(bool b)
 
 void AdvSpectralOptions::updateHorst_2(int n)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "n" << n;
     ecProject_->setSpectraHorst(n + 1);
 }
 
@@ -1910,10 +1908,6 @@ void AdvSpectralOptions::forceEndDatePolicy()
 // enforce (start date&time) <= (end date&time)
 void AdvSpectralOptions::forceEndTimePolicy()
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "start - end, dates:" << startDateEdit->date() << endDateEdit->date();
-
     if (startDateEdit->date() == endDateEdit->date())
     {
         endTimeEdit->setMinimumTime(startTimeEdit->time());
@@ -1992,47 +1986,16 @@ void AdvSpectralOptions::updateTooltip(int i)
 
 void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
 {
-    foreach (QWidget *w,
-             QWidgetList()
-                 << startDateLabel
-                 << startDateEdit
-                 << startTimeEdit
-                 << lockedIcon
-                 << endDateLabel
-                 << endDateEdit
-                 << endTimeEdit)
+    foreach (auto w, QWidgetList() << startDateLabel
+                                   << startDateEdit
+                                   << startTimeEdit
+                                   << lockedIcon
+                                   << endDateLabel
+                                   << endDateEdit
+                                   << endTimeEdit)
     {
         w->setEnabled(b);
     }
-}
-
-// NOTE: not used
-double AdvSpectralOptions::getLowestFrequencyValue()
-{
-    DEBUG_FUNC_NAME
-
-    int avrgLen = ecProject_->screenAvrgLen();
-    int fileDuration = dlProject_->fileDuration();
-    double lowestValue = 1.0;
-
-    if (avrgLen > 0)
-    {
-        lowestValue = 1.0 / (avrgLen * 60);
-    }
-    else
-    {
-        if (fileDuration)
-        {
-            lowestValue = 1.0 / (fileDuration * 60);
-        }
-    }
-    return lowestValue;
-}
-
-// NOTE: not used
-double AdvSpectralOptions::getHighestFrequencyValue()
-{
-    return (dlProject_->acquisitionFrequency() / 5.0);
 }
 
 void AdvSpectralOptions::updateFilter(int n)

@@ -2,7 +2,7 @@
   irga_delegate.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -36,7 +36,7 @@
 #include "irga_desc.h"
 #include "irga_model.h"
 
-IrgaDelegate::IrgaDelegate(QObject *parent) : QItemDelegate(parent)
+IrgaDelegate::IrgaDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
     installEventFilter(this);
 }
@@ -95,6 +95,7 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
           return combo;
       case IrgaModel::SWVERSION:
             ledit = new QLineEdit(parent);
+            ledit->setPlaceholderText(QStringLiteral("8.0.0"));
             connect(ledit, SIGNAL(editingFinished()),
                     this, SLOT(commitAndCloseEditor()));
             return ledit;
@@ -240,7 +241,7 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
                 return dspin;
             }
           default:
-              return QItemDelegate::createEditor(parent, option, index);
+              return QStyledItemDelegate::createEditor(parent, option, index);
     }
 }
 
@@ -336,7 +337,7 @@ void IrgaDelegate::setEditorData(QWidget* editor,
             }
             break;
         default:
-            QItemDelegate::setEditorData(editor, index);
+            QStyledItemDelegate::setEditorData(editor, index);
             break;
     }
 }
@@ -440,7 +441,7 @@ void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
             }
             break;
         default:
-            QItemDelegate::setModelData(editor, model, index);
+            QStyledItemDelegate::setModelData(editor, model, index);
             break;
     }
 }
@@ -452,14 +453,6 @@ void IrgaDelegate::updateEditorGeometry(QWidget* editor,
     Q_UNUSED(index)
 
     if (editor) editor->setGeometry(option.rect);
-}
-
-void IrgaDelegate::drawDisplay(QPainter* painter,
-    const QStyleOptionViewItem& option, const QRect& rect,
-    const QString& text) const
-{
-   QRect r(rect.x(), rect.y(), rect.width(), rect.height());
-   QItemDelegate::drawDisplay(painter, option, r, text);
 }
 
 void IrgaDelegate::commitAndCloseEditor()
@@ -482,14 +475,16 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
     QEvent::Type eventType = event->type();
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
     if (combo
-         && (eventType == QEvent::MouseButtonRelease
-             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
-                                                || eventKey == Qt::Key_Enter
-                                                || eventKey == Qt::Key_Return))))
+        && (eventType == QEvent::MouseButtonRelease
+            || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
+                                               || eventKey == Qt::Key_Enter
+                                               || eventKey == Qt::Key_Return))))
     {
 //        qDebug() << eventType << combo;
         if (combo)
+        {
             combo->showPopup();
+        }
         return true;
     }
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)

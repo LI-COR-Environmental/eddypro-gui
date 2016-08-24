@@ -2,7 +2,7 @@
   ecinidefs.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -100,6 +100,7 @@ namespace EcIni
     const auto INI_PROJECT_66   = QStringLiteral("hf_correct_ghg_ba");
     const auto INI_PROJECT_67   = QStringLiteral("hf_correct_ghg_zoh");
     const auto INI_PROJECT_68   = QStringLiteral("sonic_output_rate");
+    const auto INI_PROJECT_69   = QStringLiteral("col_diag_anem");
 
     const auto INIGROUP_SPEC_SETTINGS = QStringLiteral("FluxCorrection_SpectralAnalysis_General");
     const auto INI_SPEC_SETTINGS_0    = QStringLiteral("sa_start_date");
@@ -283,7 +284,8 @@ namespace EcIni
     const auto INI_SCREEN_SETTINGS_97   = QStringLiteral("out_raw_t_air");
     const auto INI_SCREEN_SETTINGS_98   = QStringLiteral("out_raw_p_air");
     const auto INI_SCREEN_SETTINGS_99   = QStringLiteral("out_qc_details");
-    const auto INI_SCREEN_SETTINGS_101  = QStringLiteral("power_of_two");
+    const auto INI_SCREEN_SETTINGS_100  = QStringLiteral("power_of_two");
+    const auto INI_SCREEN_SETTINGS_101  = QStringLiteral("gill_wm_wboost");
 
     const auto INIGROUP_SCREEN_TESTS = QStringLiteral("RawProcess_Tests");
     const auto INI_SCREEN_TESTS_0    = QStringLiteral("test_sr");

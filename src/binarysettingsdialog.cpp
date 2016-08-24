@@ -1,7 +1,7 @@
 /***************************************************************************
   binarysettingsdialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -143,23 +143,6 @@ void BinarySettingsDialog::close()
     if (isVisible())
         hide();
     emit saveRequest();
-}
-
-// NOTE: not used
-void BinarySettingsDialog::initialize()
-{
-    // save the modified flag to prevent side effects of setting widgets
-    bool oldmod = ecProject_->modified();
-    ecProject_->blockSignals(true);
-
-    binaryHLinesSpin->setValue(-1);
-    binaryEolCombo->setCurrentIndex(-1);
-    binaryNBytesSpin->setValue(-1);
-    binaryEndianessCombo->setCurrentIndex(-1);
-
-    // restore modified flag
-    ecProject_->setModified(oldmod);
-    ecProject_->blockSignals(false);
 }
 
 void BinarySettingsDialog::refresh()

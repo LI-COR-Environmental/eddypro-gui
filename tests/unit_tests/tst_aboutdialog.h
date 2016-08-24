@@ -21,6 +21,6 @@ private slots:
 };
 
 //DECLARE_TEST(Test_AboutDialog_Class)
-QTTESTUTIL_REGISTER_TEST(Test_AboutDialog_Class);
+//QTTESTUTIL_REGISTER_TEST(Test_AboutDialog_Class);
 
 #endif // TST_ABOUTDIALOG_H

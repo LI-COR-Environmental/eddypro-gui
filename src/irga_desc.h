@@ -2,7 +2,7 @@
   irga_desc.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -147,6 +147,7 @@ public:
     static bool isWellNamed(const IrgaDesc& irga);
     static bool hasGoodSeparations(const IrgaDesc& irga);
     static bool isAGoodClosedPath(const IrgaDesc& irga);
+    static bool hasGoodFlowRate(const IrgaDesc& irga);
     static bool hasGoodPathLength(const IrgaDesc& irga);
     static bool isGoodIrga(const IrgaDesc& irga);
 

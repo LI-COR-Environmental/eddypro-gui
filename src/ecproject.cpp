@@ -2,7 +2,7 @@
   ecproject.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -199,7 +199,8 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && (ec_project_state_.projectGeneral.col_int_t_c == previousProject.ec_project_state_.projectGeneral.col_int_t_c)
         && (ec_project_state_.projectGeneral.col_diag_72 == previousProject.ec_project_state_.projectGeneral.col_diag_72)
         && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_75)
-        && (ec_project_state_.projectGeneral.col_diag_77 == previousProject.ec_project_state_.projectGeneral.col_diag_77);
+        && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_77)
+        && (ec_project_state_.projectGeneral.col_diag_anem == previousProject.ec_project_state_.projectGeneral.col_diag_anem);
     qDebug() << "dataSetTest 1" << dataSetTest;
 
     if (ec_project_state_.projectGeneral.subset)
@@ -870,6 +871,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.col_diag_75 = defaultEcProjectState.projectGeneral.col_diag_75;
     ec_project_state_.projectGeneral.col_diag_72 = defaultEcProjectState.projectGeneral.col_diag_72;
     ec_project_state_.projectGeneral.col_diag_77 = defaultEcProjectState.projectGeneral.col_diag_77;
+    ec_project_state_.projectGeneral.col_diag_anem = defaultEcProjectState.projectGeneral.col_diag_anem;
     ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
     ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
     ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
@@ -953,6 +955,7 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.screenSetting.v_offset = defaultEcProjectState.screenSetting.v_offset;
     ec_project_state_.screenSetting.w_offset = defaultEcProjectState.screenSetting.w_offset;
     ec_project_state_.screenSetting.cross_wind = defaultEcProjectState.screenSetting.cross_wind;
+    ec_project_state_.screenSetting.gill_wm_wboost = defaultEcProjectState.screenSetting.gill_wm_wboost;
     ec_project_state_.screenSetting.flow_distortion = defaultEcProjectState.screenSetting.flow_distortion;
     ec_project_state_.screenSetting.rot_meth = defaultEcProjectState.screenSetting.rot_meth;
     ec_project_state_.screenSetting.detrend_meth = defaultEcProjectState.screenSetting.detrend_meth;
@@ -1304,6 +1307,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_28, ec_project_state_.projectGeneral.col_diag_75);
         project_ini.setValue(EcIni::INI_PROJECT_29, ec_project_state_.projectGeneral.col_diag_72);
         project_ini.setValue(EcIni::INI_PROJECT_30, ec_project_state_.projectGeneral.col_diag_77);
+        project_ini.setValue(EcIni::INI_PROJECT_69, ec_project_state_.projectGeneral.col_diag_anem);
         project_ini.setValue(EcIni::INI_PROJECT_31, QString::number(ec_project_state_.projectGeneral.gas_mw, 'f', 4));
         project_ini.setValue(EcIni::INI_PROJECT_32, QString::number(ec_project_state_.projectGeneral.gas_diff, 'f', 5));
         project_ini.setValue(EcIni::INI_PROJECT_36, ec_project_state_.projectGeneral.col_ts);
@@ -1392,7 +1396,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_48, ec_project_state_.spectraSettings.use_foken_low);
         project_ini.setValue(EcIni::INI_SPEC_SETTINGS_49, ec_project_state_.spectraSettings.use_foken_mid);
 
-        // NOTE: temporary placeholders for SA Groups
+        // NOTE: temporary placeholders for SA Groups. Not used right now
         project_ini.setValue(QStringLiteral("sa_co2_g1_start"), 1);
         project_ini.setValue(QStringLiteral("sa_co2_g1_stop"), 12);
         project_ini.setValue(QStringLiteral("sa_ch4_g1_start"), 1);
@@ -1409,34 +1413,34 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_38, ec_project_state_.screenGeneral.mag_dec);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_39, ec_project_state_.screenGeneral.dec_date);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_8, ec_project_state_.screenGeneral.flag1_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_9, QString::number(ec_project_state_.screenGeneral.flag1_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_9, QString::number(ec_project_state_.screenGeneral.flag1_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_10, ec_project_state_.screenGeneral.flag1_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_11, ec_project_state_.screenGeneral.flag2_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_12, QString::number(ec_project_state_.screenGeneral.flag2_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_12, QString::number(ec_project_state_.screenGeneral.flag2_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_13, ec_project_state_.screenGeneral.flag2_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_14, ec_project_state_.screenGeneral.flag3_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_15, QString::number(ec_project_state_.screenGeneral.flag3_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_15, QString::number(ec_project_state_.screenGeneral.flag3_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_16, ec_project_state_.screenGeneral.flag3_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_17, ec_project_state_.screenGeneral.flag4_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_18, QString::number(ec_project_state_.screenGeneral.flag4_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_18, QString::number(ec_project_state_.screenGeneral.flag4_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_19, ec_project_state_.screenGeneral.flag4_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_20, ec_project_state_.screenGeneral.flag5_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_21, QString::number(ec_project_state_.screenGeneral.flag5_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_21, QString::number(ec_project_state_.screenGeneral.flag5_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_22, ec_project_state_.screenGeneral.flag5_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_23, ec_project_state_.screenGeneral.flag6_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_24, QString::number(ec_project_state_.screenGeneral.flag6_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_24, QString::number(ec_project_state_.screenGeneral.flag6_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_25, ec_project_state_.screenGeneral.flag6_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_26, ec_project_state_.screenGeneral.flag7_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_27, QString::number(ec_project_state_.screenGeneral.flag7_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_27, QString::number(ec_project_state_.screenGeneral.flag7_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_28, ec_project_state_.screenGeneral.flag7_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_29, ec_project_state_.screenGeneral.flag8_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_30, QString::number(ec_project_state_.screenGeneral.flag8_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_30, QString::number(ec_project_state_.screenGeneral.flag8_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_31, ec_project_state_.screenGeneral.flag8_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_32, ec_project_state_.screenGeneral.flag9_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_33, QString::number(ec_project_state_.screenGeneral.flag9_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_33, QString::number(ec_project_state_.screenGeneral.flag9_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_34, ec_project_state_.screenGeneral.flag9_policy);
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_35, ec_project_state_.screenGeneral.flag10_col);
-        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_36, QString::number(ec_project_state_.screenGeneral.flag10_threshold, 'f', 4));
+        project_ini.setValue(EcIni::INI_SCREEN_GENERAL_36, QString::number(ec_project_state_.screenGeneral.flag10_threshold, 'f', 10));
         project_ini.setValue(EcIni::INI_SCREEN_GENERAL_37, ec_project_state_.screenGeneral.flag10_policy);
     project_ini.endGroup();
 
@@ -1446,6 +1450,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_12, ec_project_state_.screenSetting.u_offset);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_13, ec_project_state_.screenSetting.v_offset);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_14, ec_project_state_.screenSetting.w_offset);
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.gill_wm_wboost);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_2, ec_project_state_.screenSetting.cross_wind);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_3, ec_project_state_.screenSetting.flow_distortion);
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_4, ec_project_state_.screenSetting.rot_meth);
@@ -1537,7 +1542,7 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_80, QString::number(ec_project_state_.screenSetting.m_night_spar3, 'f', 8));
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_81, QString::number(ec_project_state_.screenSetting.m_night_spar4, 'f', 8));
         project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_99, ec_project_state_.screenSetting.out_details);
-        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_101, ec_project_state_.screenSetting.power_of_two);
+        project_ini.setValue(EcIni::INI_SCREEN_SETTINGS_100, ec_project_state_.screenSetting.power_of_two);
     project_ini.endGroup();
 
     // screen test section
@@ -1778,7 +1783,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
-    QVariant v = QVariant(); // container for conversions
+    QVariant v; // container for conversions
 
     // open file
     QFile datafile(filename);
@@ -1789,7 +1794,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file<br /><p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -1940,6 +1945,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.col_diag_77
                 = project_ini.value(EcIni::INI_PROJECT_30,
                                     defaultEcProjectState.projectGeneral.col_diag_77).toInt();
+        ec_project_state_.projectGeneral.col_diag_anem
+                = project_ini.value(EcIni::INI_PROJECT_69,
+                                    defaultEcProjectState.projectGeneral.col_diag_anem).toInt();
         ec_project_state_.projectGeneral.col_ts
                 = project_ini.value(EcIni::INI_PROJECT_36,
                                     defaultEcProjectState.projectGeneral.col_ts).toInt();
@@ -2347,6 +2355,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.screenSetting.cross_wind
                 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_2,
                                     defaultEcProjectState.screenSetting.cross_wind).toInt();
+        ec_project_state_.screenSetting.gill_wm_wboost
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101,
+                                    defaultEcProjectState.screenSetting.gill_wm_wboost).toInt();
         ec_project_state_.screenSetting.flow_distortion
                 = project_ini.value(EcIni::INI_SCREEN_SETTINGS_3,
                                     defaultEcProjectState.screenSetting.flow_distortion).toInt();
@@ -2618,7 +2629,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 project_ini.value(EcIni::INI_SCREEN_SETTINGS_99,
                                   defaultEcProjectState.screenSetting.out_details).toInt();
         ec_project_state_.screenSetting.power_of_two
-                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_101,
+                = project_ini.value(EcIni::INI_SCREEN_SETTINGS_100,
                                     defaultEcProjectState.screenSetting.power_of_two).toInt();
     project_ini.endGroup();
 
@@ -3180,17 +3191,18 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
     // test if the first row of the file start with the correct tag
-    // case sensitive for default
+    // case sensitive by default
     QTextStream in(&datafile);
     QString firstLine;
     in >> firstLine;
     datafile.close();
-    // filter metadata files
+
+    // filter out metadata files
     if (firstLine.startsWith(Defs::APP_MD_INI_TAG)
         || firstLine.startsWith(QLatin1String(";ECO2S_METADATA"))
         || firstLine.startsWith(QLatin1String(";ECO2S_DATALOGGING"))
@@ -3200,10 +3212,11 @@ bool EcProject::nativeFormat(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Project Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
-    // filter generic files
+
+    // filter out other generic files
     if (!firstLine.startsWith(Defs::APP_PD_INI_TAG)
         && !firstLine.startsWith(QLatin1String(";ECO2S_PROCESSING"))
         && !firstLine.startsWith(QLatin1String(";ECO2S_DATAPROCESSING")))
@@ -3212,7 +3225,7 @@ bool EcProject::nativeFormat(const QString &filename)
                              tr("Load Error"),
                              tr("Cannot read file <p>%1:</p>\n"
                                 "<b>not in %2 native format.</b>")
-                             .arg(filename).arg(Defs::APP_NAME));
+                             .arg(filename, Defs::APP_NAME));
         return false;
     }
 
@@ -3786,6 +3799,12 @@ void EcProject::setScreenVOffset(double d)
 void EcProject::setScreenWOffset(double d)
 {
     ec_project_state_.screenSetting.w_offset = d;
+    setModified(true);
+}
+
+void EcProject::setScreenWBoost(int n)
+{
+    ec_project_state_.screenSetting.gill_wm_wboost = n;
     setModified(true);
 }
 
@@ -5026,6 +5045,12 @@ void EcProject::setGeneralColDiag77(int n)
     setModified(true);
 }
 
+void EcProject::setGeneralColDiagAnem(int n)
+{
+    ec_project_state_.projectGeneral.col_diag_anem = n;
+    setModified(true);
+}
+
 void EcProject::setGeneralColGasMw(double n)
 {
     ec_project_state_.projectGeneral.gas_mw = n;
@@ -5380,12 +5405,6 @@ void EcProject::setRandomErrorItsSecFactor(double d)
 {
     ec_project_state_.randomError.its_sec_factor = d;
     setModified(true);
-}
-
-// NOTE: not used
-bool EcProject::planarFitSectorDefined()
-{
-    return false;
 }
 
 QList<AngleItem>* EcProject::planarFitAngles()

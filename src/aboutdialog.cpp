@@ -2,7 +2,7 @@
   aboutdialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -37,7 +37,7 @@
 AboutDialog::AboutDialog(QWidget* parent)
     : QDialog(parent)
 {
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     resize(530, 620);
     setMinimumSize(530, 620);
 #elif defined(Q_OS_MAC)
@@ -52,17 +52,19 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     auto introduction = new QLabel;
     introduction->setText(
-        tr("<h2>%1<sup>&reg;</sup> version %2 %3</h2>"
-           "<h6>Built on %4 at %5<br />With %7<br /></h6>"
-           ).arg(Defs::APP_NAME)
-            .arg(Defs::APP_VERSION_STR)
-            .arg(Defs::APP_STAGE_STR)
-            .arg(QStringLiteral(__DATE__))
-            .arg(QStringLiteral(__TIME__))
+        tr("<h2>%1<sup>&reg;</sup> v%2%3</h2>"
+           "<h6>Built on %4 at %5<br />With %6<br /></h6>"
+           ).arg(Defs::APP_NAME,
+            Defs::APP_VERSION_STR,
+            Defs::APP_STAGE_STR,
+            QStringLiteral(__DATE__),
+            QStringLiteral(__TIME__))
         #if defined(Q_OS_WIN)
             .arg(Defs::WIN_COMPILER)
         #elif defined(Q_OS_MAC)
             .arg(Defs::MAC_COMPILER)
+        #elif defined(Q_OS_LINUX)
+            .arg(Defs::LIN_COMPILER)
         #endif
         );
     auto icon = new QLabel;
@@ -94,7 +96,7 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<div style=\"text-indent: 20px;\">Fax: 1-402-467-2819</div>"
            "<div style=\"text-indent: 20px;\">Email: <a href=\"mailto:envsupport@licor.com?subject=EddyPro %3\">envsupport@licor.com</a></div>"
            "<div style=\"text-indent: 20px;\">Website: <a href=\"http://www.licor.com\">http://www.licor.com</a></div>"
-           ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR)
+           ).arg(Defs::APP_NAME, Defs::CURRENT_COPYRIGHT_YEAR, Defs::APP_VERSION_STR)
         );
     infoLabel->setOpenExternalLinks(true);
     infoLabel->setWordWrap(true);
@@ -215,13 +217,13 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<a href=\"mailto:envsupport@licor.com?subject=%1 %3&body="
            "Please, send me a copy of the source package."
            "\">envsupport@licor.com</a>."
-        ).arg(Defs::APP_NAME).arg(Defs::CURRENT_COPYRIGHT_YEAR).arg(Defs::APP_VERSION_STR));
+        ).arg(Defs::APP_NAME, Defs::CURRENT_COPYRIGHT_YEAR, Defs::APP_VERSION_STR));
     licenseLabel->setWordWrap(true);
     licenseLabel->setOpenExternalLinks(true);
 
     auto licenseEdit = new QTextEdit;
     QFile licenseFile(QStringLiteral(":/docs/license"));
-    qDebug() << licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
     licenseEdit->setText(QLatin1String(licenseFile.readAll()));
     licenseEdit->setReadOnly(true);
     licenseFile.close();
@@ -243,7 +245,7 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     auto changelogEdit = new QTextEdit;
     QFile changelogFile(QStringLiteral(":/docs/changelog"));
-    qDebug() << changelogFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    changelogFile.open(QIODevice::ReadOnly | QIODevice::Text);
     changelogEdit->setText(QLatin1String(changelogFile.readAll()));
     changelogEdit->setReadOnly(true);
     changelogFile.close();
@@ -276,5 +278,4 @@ AboutDialog::AboutDialog(QWidget* parent)
 
 AboutDialog::~AboutDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }

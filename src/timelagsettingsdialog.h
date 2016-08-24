@@ -1,7 +1,7 @@
 /***************************************************************************
   timelagsettingsdialog.h
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -25,6 +25,8 @@
 
 #include <QDateTime>
 #include <QDialog>
+
+#include "fileutils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/timelagsettingsdialog.h
@@ -72,7 +74,7 @@ public slots:
     void reset();
     void refresh();
     void partialRefresh();
-    void setDateRange(QPair<QDateTime, QDateTime> dates);
+    void setDateRange(FileUtils::DateRange dates);
 
 private slots:
     void updateTlMode(int radioButton);

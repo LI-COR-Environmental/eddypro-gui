@@ -1,7 +1,7 @@
 /***************************************************************************
   fileutils.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,6 +34,7 @@
 #include "defs.h"
 #include "widget_utils.h"
 
+// NOTE: never used
 bool FileUtils::isFileEmpty(const QString& fileName)
 {
     QFile f(fileName);
@@ -72,23 +73,6 @@ bool FileUtils::projectFileForcedCopy(const QString& fileName,
     bool res = QFile::copy(fileName, destFile);
     Q_ASSERT(res);
     return res;
-}
-
-bool FileUtils::fileForcedCopy(const QString& fileName, const QString& destDir)
-{
-    DEBUG_FUNC_NAME
-    qDebug() << "fileName" << fileName;
-    qDebug() << "destDir" << destDir;
-
-    QString destFile = destDir + QLatin1Char('/') + fileName;
-    qDebug() << "destFile" << destFile;
-
-    if (QFile::exists(destFile))
-    {
-        qDebug() << "destFile exist: true";
-        QFile::remove(destFile);
-    }
-    return QFile::copy(fileName, destFile);
 }
 
 // creates dirName, which can be absolute or relative if absoluteDirDest is provided
@@ -184,18 +168,6 @@ void FileUtils::cleanDirRecursively(const QString& d)
     QDir dir(d);
     dir.removeRecursively();
     createDir(d);
-}
-
-void FileUtils::cleanDirRecursively_alt(const QString& d)
-{
-    if (existsPath(d))
-    {
-        if (!isDirEmpty(d))
-        {
-            removeDirRecursively(d);
-            createDir(d);
-        }
-    }
 }
 
 // not recursive
@@ -421,7 +393,7 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
     return QDateTime(date, time);
 }
 
-QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringList& fileList,
+FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& fileList,
                                                                 const QString& filenameProtoype)
 {
     QDateTime dateStart;
@@ -447,11 +419,11 @@ QPair<QDateTime, QDateTime> FileUtils::getDateRangeFromFileList(const QStringLis
         dateStart = dateList.first();
         dateEnd = dateList.last();
 
-        return QPair<QDateTime, QDateTime>(dateStart, dateEnd);
+        return DateRange(dateStart, dateEnd);
     }
     else
     {
-        return QPair<QDateTime, QDateTime>();
+        return DateRange();
     }
 }
 
@@ -507,56 +479,46 @@ void FileUtils::loadStyleSheetFile(const QString &sheetPath)
 
 QString FileUtils::setupEnv()
 {
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    auto env = QProcessEnvironment::systemEnvironment();
+    QString userHomePath;
+    QString configPath;
 
 #if defined(Q_OS_WIN)
-    QString userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
-#elif defined(Q_OS_MAC)
-    QString userHomePath = env.value(QStringLiteral("HOME"));
-    QString configPath = QStringLiteral(".config");
-#else
-    QString userHomePath = env.value(QStringLiteral("HOME"));
-    QString configPath = QStringLiteral(".config");
+    userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
+#elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
+    userHomePath = env.value(QStringLiteral("HOME"));
+    configPath = QStringLiteral(".config");
 #endif
 
     qDebug() << "env" << env.value(QStringLiteral("HOME"));
     qDebug() << "userHomePath" << userHomePath;
-#if defined(Q_OS_MAC)
     qDebug() << "configPath" << configPath;
-#elif defined(Q_OS_LINUX)
-    qDebug() << "configPath" << configPath;
-#endif
 
-    if (!userHomePath.isEmpty())
-    {
-#if defined(Q_OS_MAC)
-        FileUtils::createDir(configPath, userHomePath);
-        userHomePath = userHomePath + QStringLiteral("/") + configPath;
-#elif defined(Q_OS_LINUX)
-        FileUtils::createDir(configPath, userHomePath);
-        userHomePath = userHomePath + QStringLiteral("/") + configPath;
-#endif
-
-        FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
-        QString licorDir = userHomePath + QLatin1Char('/') + Defs::LICOR_ENV_DIR;
-        FileUtils::createDir(Defs::APP_NAME_LCASE, licorDir);
-
-        QString appDir = licorDir + QLatin1Char('/') + Defs::APP_NAME_LCASE;
-        FileUtils::createDir(Defs::APP_VERSION_STR, appDir);
-
-        QString appVerDir = appDir + QLatin1Char('/') + Defs::APP_VERSION_STR;
-        FileUtils::createDir(Defs::INI_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
-        FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
-
-        return appVerDir;
-    }
-    else
+    if (userHomePath.isEmpty())
     {
         return QString();
     }
+
+#if defined(Q_OS_MAC) || defined(Q_OS_LINUX)
+    FileUtils::createDir(configPath, userHomePath);
+    userHomePath = userHomePath + QStringLiteral("/") + configPath;
+#endif
+
+    FileUtils::createDir(Defs::LICOR_ENV_DIR, userHomePath);
+    QString licorDir = userHomePath + QLatin1Char('/') + Defs::LICOR_ENV_DIR;
+    FileUtils::createDir(Defs::APP_NAME_LCASE, licorDir);
+
+    QString appDir = licorDir + QLatin1Char('/') + Defs::APP_NAME_LCASE;
+    FileUtils::createDir(Defs::APP_VERSION_STR, appDir);
+
+    QString appVerDir = appDir + QLatin1Char('/') + Defs::APP_VERSION_STR;
+    FileUtils::createDir(Defs::INI_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::LOG_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::TMP_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::SMF_FILE_DIR, appVerDir);
+    FileUtils::createDir(Defs::CAL_FILE_DIR, appVerDir);
+
+    return appVerDir;
 }
 
 bool FileUtils::zipContainsFiletype(const QString& fileName, const QString& filePattern)
@@ -623,6 +585,7 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
 }
 
 // append string to filename
+// NOTE: never used
 bool FileUtils::appendToFile(const QString &str, const QString &filename)
 {
     QFile datafile(filename);

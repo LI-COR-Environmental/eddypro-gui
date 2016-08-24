@@ -2,7 +2,7 @@
   dlproject.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -53,10 +53,11 @@ public:
     bool hasOneFastTemperature();
     bool hasGoodIrgaNames();
     bool hasGoodIrgaSeparations();
+    bool hasGoodIrgaFlowRate();
     bool hasGoodIrgaClosedPath();
     bool hasGoodIrgaGeneric();
-    bool hasAnemFwVersion();
-    bool hasGoodWindmasterSwVersion();
+    bool masterAnemHasFwVersion();
+    bool masterAnemHasGoodWindmasterFwVersion();
 
     // start a new project
     void newProject(const ProjConfigState &project_config);
@@ -169,6 +170,8 @@ public:
     IrgaDescList* irgas();
     VariableDescList* variables();
 
+    bool masterAnemContainsGillWindmaster();
+
     static const QString getANEM_MODEL_STRING_0();
     static const QString getANEM_MODEL_STRING_1();
     static const QString getANEM_MODEL_STRING_2();
@@ -182,7 +185,7 @@ public:
     static const QString getANEM_MODEL_STRING_10();
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
-    static const QStringList restrictedGillModelStringList();
+    static const QString getANEM_MODEL_STRING_13();
 
 signals:
     // send that a new project has been created
@@ -202,7 +205,6 @@ private:
     QString toIniVariableMeasureUnit(const QString& s);
     QString toIniVariableConversionType(const QString& s);
     QString toIniVariableInstrument(const QString& s);
-    QString toIniBool(const QString& s);
     QString fromIniAnemManufacturer(const QString& s);
     QString fromIniAnemWindFormat(const QString& s);
     QString fromIniAnemNorthAlign(const QString &model, const QString& s);
@@ -258,6 +260,7 @@ private:
     static const QString VARIABLE_VAR_STRING_27;
     static const QString VARIABLE_VAR_STRING_28;
     static const QString VARIABLE_VAR_STRING_29;
+    static const QString VARIABLE_VAR_STRING_30;
 
     static const QString VARIABLE_MEASURE_TYPE_STRING_0;
     static const QString VARIABLE_MEASURE_TYPE_STRING_1;

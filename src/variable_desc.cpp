@@ -2,7 +2,7 @@
   variable_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -208,6 +208,12 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_28()
 const QString VariableDesc::getVARIABLE_VAR_STRING_29()
 {
     static const QString s(tr("Sampling Line Flow Rate"));
+    return s;
+}
+
+const QString VariableDesc::getVARIABLE_VAR_STRING_30()
+{
+    static const QString s(tr("Anemometer Diagnostics"));
     return s;
 }
 
@@ -567,6 +573,7 @@ const QStringList VariableDesc::variableStringList()
             << getVARIABLE_VAR_STRING_25()
             << getVARIABLE_VAR_STRING_26()
             << getVARIABLE_VAR_STRING_27()
+            << getVARIABLE_VAR_STRING_30()
             );
 }
 
@@ -924,7 +931,8 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_9()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_10()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_11()))
-                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()));
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_13()));
         }
     }
 
@@ -1297,7 +1305,8 @@ bool VariableDesc::isCustomVariable(const QString& var)
             && var != getVARIABLE_VAR_STRING_26()
             && var != getVARIABLE_VAR_STRING_27()
             && var != getVARIABLE_VAR_STRING_28()
-            && var != getVARIABLE_VAR_STRING_29());
+            && var != getVARIABLE_VAR_STRING_29()
+            && var != getVARIABLE_VAR_STRING_30());
 }
 
 bool VariableDesc::isScalableVariable(const QString& inputUnit)
@@ -1347,7 +1356,8 @@ bool VariableDesc::isDiagnosticVar(const QString& var)
 {
     return (var == getVARIABLE_VAR_STRING_25()
             || var == getVARIABLE_VAR_STRING_26()
-            || var == getVARIABLE_VAR_STRING_27());
+            || var == getVARIABLE_VAR_STRING_27()
+            || var == getVARIABLE_VAR_STRING_30());
 }
 
 const QStringList VariableDesc::velocityInputUnitStringList()

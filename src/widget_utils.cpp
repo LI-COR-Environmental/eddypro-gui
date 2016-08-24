@@ -2,7 +2,7 @@
 /***************************************************************************
   widget_utils.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -46,7 +46,6 @@
 #include <QWidget>
 
 #include <memory>
-#include "make_unique.h"
 
 #include "QScienceSpinBox.h"
 
@@ -56,6 +55,17 @@
 #include "docchooser.h"
 #include "fileutils.h"
 #include "globalsettings.h"
+
+// Test for GCC < 4.9.0
+// std::make_unique.h is implemented from GCC >= 4.9.0
+#if defined(Q_CC_GNU) && !defined(Q_CC_CLANG)
+#define GCC_VERSION (__GNUC__ * 10000 \
+                     + __GNUC_MINOR__ * 100 \
+                     + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION < 40900
+#include "make_unique.h"
+#endif
+#endif // Q_CC_GNU
 
 const QColor WidgetUtils::getColor(int step)
 {
@@ -81,7 +91,7 @@ void updateStyle(QWidget* widget)
     widget->update();
 }
 
-// NOTE: not used, but possibly useful
+// NOTE: never used, but possibly useful
 //void updatePropertyAndStyle(QWidget* widget,
 //                            const char* name,
 //                            const QVariant& value)
@@ -135,11 +145,18 @@ QVariant WidgetUtils::currentComboItemData(QComboBox* combo, int role)
 
 // remove the context help button from the widget
 // (tipically a dialog or message box)
+void WidgetUtils::removeFlagFromWidget(Qt::WindowFlags flag, QWidget* w)
+{
+    Qt::WindowFlags winFlags = w->windowFlags();
+    winFlags &= ~flag;
+    w->setWindowFlags(winFlags);
+}
+
+// remove the context help button from the widget
+// (tipically a dialog or message box)
 void WidgetUtils::removeContextHelpButton(QWidget* w)
 {
-    Qt::WindowFlags winFflags = w->windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    w->setWindowFlags(winFflags);
+    removeFlagFromWidget(Qt::WindowContextHelpButtonHint, w);
 }
 
 // set the text of the label with specified elide mode and width
@@ -155,7 +172,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 }
 
 // set the text of the line edit with specified elide mode and width
-// NOTE: not used
+// NOTE: never used
 void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
                                           const QString& text,
                                           Qt::TextElideMode mode,
@@ -217,15 +234,15 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
                                                 Qt::NoModifier));
 }
 
-// NOTE: hack to add <hr> to QTextEdit. Not working as expected.
-// See https://bugreports.qt-project.org/browse/QTBUG-747
-// NOTE: not used
+// Append a horizontal rule <hr> to QTextEdit.
+// NOTE: never used yet.
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
     auto blockFmt = textCursor.blockFormat();
     te->append(QLatin1String("<hr>"));
-    te->textCursor().setBlockFormat(blockFmt);
+    textCursor.setBlockFormat(blockFmt);
+    te->setTextCursor(textCursor);
 }
 
 void WidgetUtils::openAppWebsite()
@@ -425,6 +442,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
 
 void WidgetUtils::showHelp(const QUrl& url)
 {
+    qDebug() << "showHelp";
     // read state
     auto autoChooseHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
@@ -432,6 +450,9 @@ void WidgetUtils::showHelp(const QUrl& url)
     auto offlineHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
+
+    qDebug() << "autoChooseHelp" << autoChooseHelp;
+    qDebug() << "offlineHelp" << offlineHelp;
 
     if (autoChooseHelp)
     {
@@ -528,21 +549,9 @@ QString WidgetUtils::getSearchPathHint(/*ConfigState *config*/)
 {
     // default search path
     auto searchPath = QDir::homePath();
-
-    auto lastDataPath = QString();
-
-    // a cached file path exists
-//    if (!config->window.last_data_path.isEmpty())
-//    {
-//        lastDataPath = config->window.last_data_path;
-//    }
-//    else
-//    {
-        // last available search path
-        lastDataPath = GlobalSettings::getAppPersistentSettings(
-                           Defs::CONFGROUP_WINDOW,
-                           Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
-//    }
+    auto lastDataPath = GlobalSettings::getAppPersistentSettings(
+                       Defs::CONFGROUP_WINDOW,
+                       Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
 
     if (!lastDataPath.isEmpty() && FileUtils::existsPath(lastDataPath))
     {

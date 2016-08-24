@@ -2,7 +2,7 @@
   calibrationapi.cpp
   -------------------
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -29,7 +29,12 @@
 #include "defs.h"
 #include "globalsettings.h"
 
-CalibrationAPI::CalibrationAPI(QObject *parent) : QObject(parent)
+CalibrationAPI::CalibrationAPI(QObject *parent)
+    : QObject(parent),
+      manager_(),
+      cal_info_download_(nullptr),
+      cal_file_download_(nullptr),
+      cal_file_()
 {
 }
 

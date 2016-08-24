@@ -1,7 +1,7 @@
 /***************************************************************************
   angles_view.cpp
   -------------------
-  Copyright (C) 2012-2015, LI-COR Biosciences
+  Copyright (C) 2012-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -559,13 +559,11 @@ void AnglesView::rowsAboutToBeRemoved(const QModelIndex &parent, int start, int 
     QAbstractItemView::rowsAboutToBeRemoved(parent, start, end);
 }
 
-// NOTE: not used
 void AnglesView::scrollContentsBy(int dx, int dy)
 {
     viewport()->scroll(dx, dy);
 }
 
-// NOTE: not used
 void AnglesView::scrollTo(const QModelIndex &index, ScrollHint)
 {
     QRect area = viewport()->rect();
@@ -593,7 +591,6 @@ void AnglesView::scrollTo(const QModelIndex &index, ScrollHint)
 /*
     Find the indices corresponding to the extent of the selection.
 */
-// NOTE: not used
 void AnglesView::setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags command)
 {
     DEBUG_FUNC_NAME

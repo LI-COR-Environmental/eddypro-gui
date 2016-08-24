@@ -1,7 +1,7 @@
 /***************************************************************************
   planarfitsettingsdialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -49,7 +49,6 @@
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
 
@@ -477,7 +476,7 @@ void PlanarFitSettingsDialog::partialRefresh()
     ecProject_->blockSignals(false);
 }
 
-void PlanarFitSettingsDialog::setDateRange(QPair<QDateTime, QDateTime> dates)
+void PlanarFitSettingsDialog::setDateRange(FileUtils::DateRange dates)
 {
     DEBUG_FUNC_NAME
     qDebug() << dates.first.date();
@@ -870,14 +869,13 @@ void PlanarFitSettingsDialog::updateSubsetSelection(bool b)
 {
     ecProject_->setPlanarFitSubset(b);
 
-    foreach (QWidget *w,
-             QWidgetList() << startDateLabel
-                           << startDateEdit
-                           << startTimeEdit
-                           << lockedIcon
-                           << endDateLabel
-                           << endDateEdit
-                           << endTimeEdit)
+    foreach (auto w, QWidgetList() << startDateLabel
+                                   << startDateEdit
+                                   << startTimeEdit
+                                   << lockedIcon
+                                   << endDateLabel
+                                   << endDateEdit
+                                   << endTimeEdit)
     {
         w->setEnabled(b);
     }

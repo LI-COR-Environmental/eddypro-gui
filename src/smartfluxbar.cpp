@@ -1,7 +1,7 @@
 /***************************************************************************
   smartfluxbar.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -317,10 +317,10 @@ void SmartFluxBar::createPackage()
 
     qDebug() << "cpDialog_->close()";
     // on mac nested dialogs don't work well,
-    // because cpDialog->close() not hides the dialog as expected,
+    // because cpDialog->close() does not hide the dialog as expected,
     // so it's preferable to delete it
     // TODO: use a std::unique_ptr
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->close();
 #elif defined(Q_OS_MAC)
     if (cpDialog_)
@@ -360,7 +360,7 @@ void SmartFluxBar::showCreatePackageDialog()
         return;
     }
 
-#if defined(Q_OS_WIN)
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->refresh();
 #elif defined(Q_OS_MAC)
     makeCreatePackageDialog();

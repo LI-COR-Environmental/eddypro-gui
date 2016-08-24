@@ -2,47 +2,49 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>CFBundleVersion</key>
+    <string>@FULL_VERSION@</string>
+    <key>CFBundleShortVersionString</key>
+    <string>@FULL_VERSION@</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+
+    <key>CFBundleName</key>
+    <string>EddyPro</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en-US</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
     <key>NSHighResolutionCapable</key>
     <string>True</string>
-    <key>CFBundleDevelopmentRegion</key>
-    <string>English</string>
     <key>CFBundleIconFile</key>
-    <string>app.icns</string>
+    <string>@ICON@</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
-    <string>APPL</string>
+    <string>edpr</string>
     <key>CFBundleExecutable</key>
-    <string>eddypro</string>
-    <key>ForAppStore</key>
-    <string>no</string>
+    <string>@EXECUTABLE@</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.licor.eddypro</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright (c) 2011-2015, LI-COR Biosciences Inc.</string>
-    <key>CFBundleShortVersionString</key>
-    <string>6.1.0</string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
-    <key>CFBundleName</key>
-    <string>EddyPro</string>
+    <string>Copyright © 2011-2016, LI-COR Inc.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.education</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.7</string>
+
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>
             <key>CFBundleTypeIconFile</key>
-            <string>app.icns</string>
+            <string>@ICON@</string>
             <key>CFBundleTypeName</key>
             <string>EddyPro Project File</string>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>LSHandlerRank</key>
             <string>Owner</string>
-            <key>LSTypeIsPackage</key>
-            <false />
             <key>LSItemContentTypes</key>
             <array>
                 <string>com.licor.eddypro.eddypro</string>

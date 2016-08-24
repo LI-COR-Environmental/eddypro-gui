@@ -2,7 +2,7 @@
   updatedialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -137,7 +137,7 @@ void UpdateDialog::getNewVersion(const QString& version)
                          "<p>%1 can automatically check for new and updated "
                          "versions using <br />its Software Update Notification feature.<br />"
                          "The new version does not overwrite previously installed versions."
-                         "</p>").arg(Defs::APP_NAME).arg(version).arg(Defs::ORG_NAME));
+                         "</p>").arg(Defs::APP_NAME, version, Defs::ORG_NAME));
     msgLabel->setOpenExternalLinks(true);
     okButton->setVisible(false);
     yesButton->setVisible(true);
@@ -155,15 +155,6 @@ void UpdateDialog::noNewVersion()
 void UpdateDialog::noConnection()
 {
     msgLabel->setText(tr("<b>No connection available or connection error.</b>"));
-    okButton->setVisible(true);
-    yesButton->setVisible(false);
-    noButton->setVisible(false);
-}
-
-// NOTE: not used
-void UpdateDialog::connectionError()
-{
-    msgLabel->setText(tr("<b>Connection error.</b>"));
     okButton->setVisible(true);
     yesButton->setVisible(false);
     noButton->setVisible(false);

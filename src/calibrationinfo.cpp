@@ -2,7 +2,7 @@
   calibrationinfo.h
   -------------------
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -101,6 +101,7 @@ double CalibrationInfo::responseCode() const
     return response_code_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::responseCodeAsStr() const
 {
     return QString::number(response_code_, 'f', 0);
@@ -111,6 +112,7 @@ double CalibrationInfo::calDate() const
     return cal_date_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::calDateAsStr() const
 {
     return StringUtils::fromUnixTimeToISOString(cal_date_);
@@ -126,6 +128,7 @@ bool CalibrationInfo::calRecal() const
     return cal_recal_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::calRecalAsStr() const
 {
     return StringUtils::fromBool2YesNoString(cal_recal_);

@@ -1,7 +1,7 @@
 /***************************************************************************
   advmenudelegate.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2016, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -70,9 +70,10 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         icon.paint(painter, r.adjusted(8, 0, 8, 0), Qt::AlignVCenter | Qt::AlignLeft);
     }
 
-    auto fontSize = 10;
 #if defined(Q_OS_MAC)
-    fontSize = 13;
+    auto fontSize = 13;
+#elif defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    auto fontSize = 10;
 #endif
 
     auto font = QFont(QStringLiteral("Open Sans"), fontSize, QFont::Normal);
