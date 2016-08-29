@@ -920,26 +920,28 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvSpectralOptions::refresh);
 
-    foreach (auto combo, QList<QComboBox *>() << hfMethCombo
-                                              << horstCombo)
+    auto combo_list = QWidgetList() << hfMethCombo
+                                    << horstCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
 
     // fix layout alignment
     auto max_spin_width = spin33->width();
-    foreach (auto w, QWidgetList() << spin34
-                                   << spin24
-                                   << qcMinUnstableCo2Spin
-                                   << qcMinUnstableCh4Spin
-                                   << qcMinUnstableGas4Spin
-                                   << qcMinStableCo2Spin
-                                   << qcMinStableCh4Spin
-                                   << qcMinStableGas4Spin
-                                   << qcMaxCo2Spin
-                                   << qcMaxCh4Spin
-                                   << qcMaxGas4Spin)
+    for (auto w : QWidgetList() << spin34
+                                << spin24
+                                << qcMinUnstableCo2Spin
+                                << qcMinUnstableCh4Spin
+                                << qcMinUnstableGas4Spin
+                                << qcMinStableCo2Spin
+                                << qcMinStableCh4Spin
+                                << qcMinStableGas4Spin
+                                << qcMaxCo2Spin
+                                << qcMaxCh4Spin
+                                << qcMaxGas4Spin)
     {
         w->setMaximumWidth(max_spin_width);
     }
@@ -1986,13 +1988,13 @@ void AdvSpectralOptions::updateTooltip(int i)
 
 void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
 {
-    foreach (auto w, QWidgetList() << startDateLabel
-                                   << startDateEdit
-                                   << startTimeEdit
-                                   << lockedIcon
-                                   << endDateLabel
-                                   << endDateEdit
-                                   << endTimeEdit)
+    for (auto w : QWidgetList() << startDateLabel
+                                << startDateEdit
+                                << startTimeEdit
+                                << lockedIcon
+                                << endDateLabel
+                                << endDateEdit
+                                << endTimeEdit)
     {
         w->setEnabled(b);
     }

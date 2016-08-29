@@ -237,7 +237,7 @@ void SmartFluxBar::createPackage()
 
     if (!mdFileList.isEmpty())
     {
-        foreach (const QString& str, mdFileList)
+        for (const auto &str : mdFileList)
         {
             FileUtils::chmod_644(smfDir + QLatin1Char('/') + str);
             if (!QFile::copy(smfDir + QLatin1Char('/') + str,

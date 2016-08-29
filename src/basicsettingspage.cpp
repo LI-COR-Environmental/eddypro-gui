@@ -1234,32 +1234,36 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     connect(declinationFetchButton, &QPushButton::clicked,
             this, &BasicSettingsPage::fetchMagneticDeclination);
 
-    foreach (auto combo, QList<QComboBox *>() << flag1VarCombo
-                                              << flag2VarCombo
-                                              << flag3VarCombo
-                                              << flag4VarCombo
-                                              << flag5VarCombo
-                                              << flag6VarCombo
-                                              << flag7VarCombo
-                                              << flag8VarCombo
-                                              << flag9VarCombo
-                                              << flag10VarCombo)
+    auto combo_list = QWidgetList() << flag1VarCombo
+                                    << flag2VarCombo
+                                    << flag3VarCombo
+                                    << flag4VarCombo
+                                    << flag5VarCombo
+                                    << flag6VarCombo
+                                    << flag7VarCombo
+                                    << flag8VarCombo
+                                    << flag9VarCombo
+                                    << flag10VarCombo;
+    for (auto widget :combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateFlagUnit(int)));
     }
 
-    foreach (auto label, QList<ClickLabel *>() << flag1Label
-                                               << flag2Label
-                                               << flag3Label
-                                               << flag4Label
-                                               << flag5Label
-                                               << flag6Label
-                                               << flag7Label
-                                               << flag8Label
-                                               << flag9Label
-                                               << flag10Label)
+    auto label_list = QWidgetList() << flag1Label
+                                    << flag2Label
+                                    << flag3Label
+                                    << flag4Label
+                                    << flag5Label
+                                    << flag6Label
+                                    << flag7Label
+                                    << flag8Label
+                                    << flag9Label
+                                    << flag10Label;
+    for (auto widget : label_list)
     {
+        auto label = static_cast<ClickLabel *>(widget);
         connect(label, &ClickLabel::clicked,
                 this, &BasicSettingsPage::onClickFlagLabel);
     }
@@ -1430,7 +1434,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
     QString biometMdFile;
     bool hasMd = false;
     bool hasBiometMd = false;
-    foreach (const QString& zipFile, currentRawDataList_)
+    for (const auto &zipFile : currentRawDataList_)
     {
         qDebug() << "zipFile" << zipFile;
 
@@ -1521,7 +1525,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
 
             if (!mdFileList.isEmpty())
             {
-                foreach (const QString& str, mdFileList)
+                for (const auto &str : mdFileList)
                 {
                     // raw embedded metadata
                     if (!str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
@@ -1584,7 +1588,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
 
             if (!mdFileList.isEmpty())
             {
-                foreach (const QString& str, mdFileList)
+                for (const auto &str : mdFileList)
                 {
                     if (str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
                     {
@@ -1730,7 +1734,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
 
     // parse anemometers
     int k = 0;
-    foreach (const AnemDesc& anem, *adl)
+    for (const auto & anem : *adl)
     {
         ++k;
         qDebug() << "k" << k << "###===============================###";
@@ -1802,7 +1806,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
         }
     }
 
-    qDebug() << "foreach 1";
+    qDebug() << "for 1";
 
     if (!anemList.isEmpty())
     {
@@ -1822,7 +1826,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
 
     // parse described variables
     k = 0;
-    foreach (const VariableDesc& var, *vdl)
+    for (const auto &var : *vdl)
     {
         ++k;
         const QString varName = var.variable();
@@ -2138,64 +2142,65 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
             // flags
             if (!varName.isEmpty())
             {
-                foreach (QComboBox *combo, QList<QComboBox *>()
-                         << flag1VarCombo
-                         << flag2VarCombo
-                         << flag3VarCombo
-                         << flag4VarCombo
-                         << flag5VarCombo
-                         << flag6VarCombo
-                         << flag7VarCombo
-                         << flag8VarCombo
-                         << flag9VarCombo
-                         << flag10VarCombo)
+                for (auto w : QWidgetList()
+                                << flag1VarCombo
+                                << flag2VarCombo
+                                << flag3VarCombo
+                                << flag4VarCombo
+                                << flag5VarCombo
+                                << flag6VarCombo
+                                << flag7VarCombo
+                                << flag8VarCombo
+                                << flag9VarCombo
+                                << flag10VarCombo)
                 {
+                    auto combo = static_cast<QComboBox *>(w);
                     combo->setEnabled(true);
                     combo->addItem(varString, k);
                     qDebug() << varString << k;
                 }
 
-                foreach (QWidget *w, QWidgetList()
-                         << flag1Label
-                         << flag2Label
-                         << flag3Label
-                         << flag4Label
-                         << flag5Label
-                         << flag6Label
-                         << flag7Label
-                         << flag8Label
-                         << flag9Label
-                         << flag10Label
-                         << flag1ThresholdSpin
-                         << flag2ThresholdSpin
-                         << flag3ThresholdSpin
-                         << flag4ThresholdSpin
-                         << flag5ThresholdSpin
-                         << flag6ThresholdSpin
-                         << flag7ThresholdSpin
-                         << flag8ThresholdSpin
-                         << flag9ThresholdSpin
-                         << flag10ThresholdSpin
-                         << flag1UnitLabel
-                         << flag2UnitLabel
-                         << flag3UnitLabel
-                         << flag4UnitLabel
-                         << flag5UnitLabel
-                         << flag6UnitLabel
-                         << flag7UnitLabel
-                         << flag8UnitLabel
-                         << flag9UnitLabel
-                         << flag10UnitLabel
-                         << flag1PolicyCombo
-                         << flag2PolicyCombo
-                         << flag3PolicyCombo
-                         << flag4PolicyCombo
-                         << flag5PolicyCombo
-                         << flag6PolicyCombo
-                         << flag7PolicyCombo
-                         << flag8PolicyCombo
-                         << flag9PolicyCombo
-                         << flag10PolicyCombo)
+                for (auto w : QWidgetList()
+                              << flag1Label
+                              << flag2Label
+                              << flag3Label
+                              << flag4Label
+                              << flag5Label
+                              << flag6Label
+                              << flag7Label
+                              << flag8Label
+                              << flag9Label
+                              << flag10Label
+                              << flag1ThresholdSpin
+                              << flag2ThresholdSpin
+                              << flag3ThresholdSpin
+                              << flag4ThresholdSpin
+                              << flag5ThresholdSpin
+                              << flag6ThresholdSpin
+                              << flag7ThresholdSpin
+                              << flag8ThresholdSpin
+                              << flag9ThresholdSpin
+                              << flag10ThresholdSpin
+                              << flag1UnitLabel
+                              << flag2UnitLabel
+                              << flag3UnitLabel
+                              << flag4UnitLabel
+                              << flag5UnitLabel
+                              << flag6UnitLabel
+                              << flag7UnitLabel
+                              << flag8UnitLabel
+                              << flag9UnitLabel
+                              << flag10UnitLabel
+                              << flag1PolicyCombo
+                              << flag2PolicyCombo
+                              << flag3PolicyCombo
+                              << flag4PolicyCombo
+                              << flag5PolicyCombo
+                              << flag6PolicyCombo
+                              << flag7PolicyCombo
+                              << flag8PolicyCombo
+                              << flag9PolicyCombo
+                              << flag10PolicyCombo)
                 {
                     w->setEnabled(true);
                 }
@@ -2203,9 +2208,9 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
             qDebug() << "end SECTION flags";
 
         } // if (ignore == no && numeric == yes)
-    } // foreach
+    } // for
 
-    qDebug() << "foreach 2";
+    qDebug() << "for 2";
 
     addNoneStr_1();
     filterVariables();
@@ -2219,7 +2224,7 @@ void BasicSettingsPage::parseBiomMetadata()
     qDebug() << "biomList_.count:" << biomList_.count();
 
     DEBUG_FUNC_NAME
-    foreach (const BiomItem& bi, biomList_)
+    for (const auto &bi : biomList_)
     {
         qDebug() << biomList_.count() << bi.type_ << bi.id_ << bi.col_ + 1000;
         QString varString = bi.type_
@@ -2281,7 +2286,7 @@ void BasicSettingsPage::addNoneStr_1()
 {
     DEBUG_FUNC_NAME
 
-    foreach (auto combo, QList<QComboBox *>()
+    for (auto w : QWidgetList()
              << anemFlagCombo
              << tsRefCombo
              << co2RefCombo
@@ -2306,8 +2311,11 @@ void BasicSettingsPage::addNoneStr_1()
              << flag9VarCombo
              << flag10VarCombo)
     {
+        auto combo = static_cast<QComboBox *>(w);
         if (combo->findData(0) < 0)
+        {
             combo->addItem(tr("None"), 0);
+        }
     }
 
     if (ecProject_->generalUseBiomet() == 0)
@@ -2319,29 +2327,32 @@ void BasicSettingsPage::addNoneStr_2()
 {
     DEBUG_FUNC_NAME
 
-    foreach (auto w, QWidgetList()
-             << airTRefCombo
-             << airPRefCombo
-             << rhCombo
-             << rgCombo
-             << lwinCombo
-             << ppfdCombo)
+    for (auto w : QWidgetList()
+                     << airTRefCombo
+                     << airPRefCombo
+                     << rhCombo
+                     << rgCombo
+                     << lwinCombo
+                     << ppfdCombo)
     {
         QComboBox *combo = static_cast<QComboBox*>(w);
         if (combo->findData(0) < 0)
+        {
             combo->addItem(tr("None"), 0);
+        }
     }
 }
 
 void BasicSettingsPage::clearBiometCombo()
 {
     DEBUG_FUNC_NAME
-    foreach (auto combo, QList<QComboBox *>()
-             << rhCombo
-             << rgCombo
-             << lwinCombo
-             << ppfdCombo)
+    for (auto w : QWidgetList()
+                     << rhCombo
+                     << rgCombo
+                     << lwinCombo
+                     << ppfdCombo)
     {
+        QComboBox *combo = static_cast<QComboBox*>(w);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2380,57 +2391,59 @@ void BasicSettingsPage::clearBiometCombo()
 
 void BasicSettingsPage::clearVarsCombo()
 {
-    DEBUG_FUNC_NAME
-
-    foreach (auto label, QList<QLabel *>()
-             << anemRefLabel
-             << anemFlagLabel
-             << co2RefLabel
-             << h2oRefLabel
-             << ch4RefLabel
-             << fourthGasRefLabel
-             << gasMwLabel
-             << gasDiffLabel
-             << intTcRefLabel
-             << intT1RefLabel
-             << intT2RefLabel
-             << intPRefLabel
-             << airTRefLabel
-             << airPRefLabel
-             << rhLabel
-             << rgLabel
-             << lwinLabel
-             << ppfdLabel
-             << diag7500Label
-             << diag7200Label
-             << diag7700Label
-             << tsRefLabel)
+    auto label_list = QWidgetList()
+                         << anemRefLabel
+                         << anemFlagLabel
+                         << co2RefLabel
+                         << h2oRefLabel
+                         << ch4RefLabel
+                         << fourthGasRefLabel
+                         << gasMwLabel
+                         << gasDiffLabel
+                         << intTcRefLabel
+                         << intT1RefLabel
+                         << intT2RefLabel
+                         << intPRefLabel
+                         << airTRefLabel
+                         << airPRefLabel
+                         << rhLabel
+                         << rgLabel
+                         << lwinLabel
+                         << ppfdLabel
+                         << diag7500Label
+                         << diag7200Label
+                         << diag7700Label
+                         << tsRefLabel;
+    for (auto widget : label_list)
     {
+        auto label = static_cast<QLabel *>(widget);
         label->setEnabled(false);
     }
 
-    foreach (auto combo, QList<QComboBox *>()
-             << anemRefCombo
-             << anemFlagCombo
-             << co2RefCombo
-             << h2oRefCombo
-             << ch4RefCombo
-             << fourthGasRefCombo
-             << intTcRefCombo
-             << intT1RefCombo
-             << intT2RefCombo
-             << intPRefCombo
-             << airTRefCombo
-             << airPRefCombo
-             << rhCombo
-             << rgCombo
-             << lwinCombo
-             << ppfdCombo
-             << diag7500Combo
-             << diag7200Combo
-             << diag7700Combo
-             << tsRefCombo)
+    auto combo_list = QWidgetList()
+                        << anemRefCombo
+                        << anemFlagCombo
+                        << co2RefCombo
+                        << h2oRefCombo
+                        << ch4RefCombo
+                        << fourthGasRefCombo
+                        << intTcRefCombo
+                        << intT1RefCombo
+                        << intT2RefCombo
+                        << intPRefCombo
+                        << airTRefCombo
+                        << airPRefCombo
+                        << rhCombo
+                        << rgCombo
+                        << lwinCombo
+                        << ppfdCombo
+                        << diag7500Combo
+                        << diag7200Combo
+                        << diag7700Combo
+                        << tsRefCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2443,7 +2456,7 @@ void BasicSettingsPage::clearFlagVars()
 {
     DEBUG_FUNC_NAME
 
-    foreach (auto label, QList<QLabel *>()
+    for (auto label : QWidgetList()
              << flag1Label
              << flag2Label
              << flag3Label
@@ -2458,18 +2471,20 @@ void BasicSettingsPage::clearFlagVars()
         label->setEnabled(false);
     }
 
-    foreach (auto combo, QList<QComboBox *>()
-             << flag1VarCombo
-             << flag2VarCombo
-             << flag3VarCombo
-             << flag4VarCombo
-             << flag5VarCombo
-             << flag6VarCombo
-             << flag7VarCombo
-             << flag8VarCombo
-             << flag9VarCombo
-             << flag10VarCombo)
+    auto combo_list = QWidgetList()
+            << flag1VarCombo
+            << flag2VarCombo
+            << flag3VarCombo
+            << flag4VarCombo
+            << flag5VarCombo
+            << flag6VarCombo
+            << flag7VarCombo
+            << flag8VarCombo
+            << flag9VarCombo
+            << flag10VarCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2478,70 +2493,77 @@ void BasicSettingsPage::clearFlagVars()
 void BasicSettingsPage::clearFlagUnits()
 {
     DEBUG_FUNC_NAME
-
-    foreach (auto label, QList<QLabel *>()
-             << flag1UnitLabel
-             << flag2UnitLabel
-             << flag3UnitLabel
-             << flag4UnitLabel
-             << flag5UnitLabel
-             << flag6UnitLabel
-             << flag7UnitLabel
-             << flag8UnitLabel
-             << flag9UnitLabel
-             << flag10UnitLabel)
+    auto widget_list = QWidgetList()
+                         << flag1UnitLabel
+                         << flag2UnitLabel
+                         << flag3UnitLabel
+                         << flag4UnitLabel
+                         << flag5UnitLabel
+                         << flag6UnitLabel
+                         << flag7UnitLabel
+                         << flag8UnitLabel
+                         << flag9UnitLabel
+                         << flag10UnitLabel;
+    for (auto w : widget_list)
     {
+        auto label = static_cast<QLabel *>(w);
         label->clear();
     }
 }
 
 void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 {
-    DEBUG_FUNC_NAME
+    auto spin_list = QWidgetList()
+                        << flag1ThresholdSpin
+                        << flag2ThresholdSpin
+                        << flag3ThresholdSpin
+                        << flag4ThresholdSpin
+                        << flag5ThresholdSpin
+                        << flag6ThresholdSpin
+                        << flag7ThresholdSpin
+                        << flag8ThresholdSpin
+                        << flag9ThresholdSpin
+                        << flag10ThresholdSpin;
 
-    foreach (auto spin, QList<QDoubleSpinBox *>()
-             << flag1ThresholdSpin
-             << flag2ThresholdSpin
-             << flag3ThresholdSpin
-             << flag4ThresholdSpin
-             << flag5ThresholdSpin
-             << flag6ThresholdSpin
-             << flag7ThresholdSpin
-             << flag8ThresholdSpin
-             << flag9ThresholdSpin
-             << flag10ThresholdSpin)
+    for (auto widget : spin_list)
     {
+        auto spin = static_cast<QDoubleSpinBox *>(widget);
         spin->setEnabled(false);
         spin->setValue(-9999.0);
     }
 
-    foreach (auto label, QList<QLabel *>()
-             << flag1UnitLabel
-             << flag2UnitLabel
-             << flag3UnitLabel
-             << flag4UnitLabel
-             << flag5UnitLabel
-             << flag6UnitLabel
-             << flag7UnitLabel
-             << flag8UnitLabel
-             << flag9UnitLabel
-             << flag10UnitLabel)
+    auto label_list = QWidgetList()
+                         << flag1UnitLabel
+                         << flag2UnitLabel
+                         << flag3UnitLabel
+                         << flag4UnitLabel
+                         << flag5UnitLabel
+                         << flag6UnitLabel
+                         << flag7UnitLabel
+                         << flag8UnitLabel
+                         << flag9UnitLabel
+                         << flag10UnitLabel;
+    for (auto widget: label_list)
     {
+        auto label = static_cast<QLabel *>(widget);
         label->setEnabled(false);
     }
 
-    foreach (auto combo, QList<QComboBox *>()
-             << flag1PolicyCombo
-             << flag2PolicyCombo
-             << flag3PolicyCombo
-             << flag4PolicyCombo
-             << flag5PolicyCombo
-             << flag6PolicyCombo
-             << flag7PolicyCombo
-             << flag8PolicyCombo
-             << flag9PolicyCombo
-             << flag10PolicyCombo)
+    auto combo_list = QWidgetList()
+                        << flag1PolicyCombo
+                        << flag2PolicyCombo
+                        << flag3PolicyCombo
+                        << flag4PolicyCombo
+                        << flag5PolicyCombo
+                        << flag6PolicyCombo
+                        << flag7PolicyCombo
+                        << flag8PolicyCombo
+                        << flag9PolicyCombo
+                        << flag10PolicyCombo;
+
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox*>(widget);
         combo->setEnabled(false);
         combo->setCurrentIndex(1);
     }
@@ -2884,14 +2906,14 @@ void BasicSettingsPage::updateSubsetSelection(bool b)
 {
     ecProject_->setGeneralSubset(b);
 
-    foreach (auto w, QWidgetList()
-             << startDateLabel
-             << startDateEdit
-             << startTimeEdit
-             << lockedIcon
-             << endDateLabel
-             << endDateEdit
-             << endTimeEdit)
+    for (auto w : QWidgetList()
+                  << startDateLabel
+                  << startDateEdit
+                  << startTimeEdit
+                  << lockedIcon
+                  << endDateLabel
+                  << endDateEdit
+                  << endTimeEdit)
     {
         w->setEnabled(b);
     }
@@ -3779,10 +3801,10 @@ void BasicSettingsPage::createQuestionMark()
     questionMark_4 = new QPushButton;
     questionMark_5 = new QPushButton;
 
-    foreach (auto btn, QList<QPushButton *>() << questionMark_2
-                                              << questionMark_3
-                                              << questionMark_4
-                                              << questionMark_5)
+    for (auto btn : QWidgetList() << questionMark_2
+                                  << questionMark_3
+                                  << questionMark_4
+                                  << questionMark_5)
     {
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
@@ -3922,7 +3944,7 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
                      << ecProject_->generalBiomExt()
                      << ecProject_->generalBiomRecurse()
                      << biomFileList;
-            foreach (const QString& file, biomFileList)
+            for (const auto &file : biomFileList)
             {
                 qDebug() << "file" << file;
                 if (readBiomAltMetadata(file))
@@ -4750,7 +4772,7 @@ QStringList BasicSettingsPage::filterRawDataWithPrototype(const QString& p)
     {
         currentFilteredRawDataList_ = currentRawDataList_;
 
-        foreach (const auto &filename, currentFilteredRawDataList_)
+        for (const auto &filename : currentFilteredRawDataList_)
         {
             qDebug() << "filename" << filename;
             if (!filename.contains(re))
@@ -5389,7 +5411,7 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
          << subsetCheckBox
          << dateRangeDetectButton;
 
-    foreach (auto w, widgets)
+    for (auto w : widgets)
     {
         if (on)
         {

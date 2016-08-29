@@ -343,7 +343,7 @@ void MainWindow::initialize()
 //    QCoreApplication::processEvents();
 
 //    qDebug() << "action_list" << viewMenu->actions().size();
-//    foreach (auto a, viewMenu->actions()) {
+//    for (auto a : viewMenu->actions()) {
 //        qDebug() << a->text();
 //    }
 //#endif
@@ -1921,7 +1921,7 @@ void MainWindow::recentMenuShow()
 {
     fileMenuOpenRecent->clear();
 
-    foreach (const QString& recentfile, configState_.general.recentfiles)
+    for (const auto &recentfile : configState_.general.recentfiles)
     {
         if (QFile::exists(recentfile))
         {
@@ -3395,7 +3395,7 @@ void MainWindow::closeOpenDialogs()
 {
     QList<QDialog *> childDialogs = findChildren<QDialog *>(QString());
 
-    foreach (auto dialog, childDialogs)
+    for (auto dialog : childDialogs)
     {
         qDebug() << dialog->objectName();
         if (dialog->objectName() != QStringLiteral("DlIniDialog")
@@ -4037,7 +4037,7 @@ void MainWindow::setRunRetIcon2Pause()
 void MainWindow::cleanOverdueMessageBox(const QString& messageBoxName)
 {
     auto childMessageBox = findChildren<QMessageBox *>(messageBoxName);
-    foreach (auto child, childMessageBox)
+    for (auto child : childMessageBox)
     {
         child->close();
     }
@@ -4639,7 +4639,7 @@ bool MainWindow::testForPreviousData()
     qDebug() << "previousEssentialList" << previousEssentialList << previousEssentialList.count();
 
     // prunes the previousRunList if there are no corresponding essential files
-    foreach (const QString& processingFile, previousRunList)
+    for (const auto & processingFile : previousRunList)
     {
         QFileInfo info(processingFile);
         QString filenameDate = info.fileName().mid(11, 17);
@@ -4663,7 +4663,7 @@ bool MainWindow::testForPreviousData()
     QScopedPointer<EcProject> currEcProject(new EcProject(this, currConfigState.project));
     QScopedPointer<EcProject> prevEcProject(new EcProject(this, currConfigState.project));
     int i = 0;
-    foreach (const QString& processingFile, previousRunList)
+    for (const auto &processingFile : previousRunList)
     {
         bool modified; // not necessary in this case
 

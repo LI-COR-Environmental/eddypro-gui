@@ -198,7 +198,7 @@ void DlRawfileDescTab::updateModels()
 
     QStringList models;
     int k = 0;
-    foreach (const AnemDesc& anem, *adl)
+    for (const auto &anem : *adl)
     {
         ++k;
         const QString aModel = anem.model();
@@ -209,7 +209,7 @@ void DlRawfileDescTab::updateModels()
     }
 
     k = 0;
-    foreach (const IrgaDesc& irga, *idl)
+    for (const auto &irga : *idl)
     {
         ++k;
         const QString iModel = irga.model();

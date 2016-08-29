@@ -1083,7 +1083,7 @@ bool DlProject::saveProject(const QString& filename)
 
         // iterate through the instrument lists
         int k = 0;
-        foreach (const AnemDesc& anem, project_state_.anemometerList)
+        for (const auto &anem : project_state_.anemometerList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_INSTR_PREFIX, 5, index);
@@ -1128,7 +1128,7 @@ bool DlProject::saveProject(const QString& filename)
         }
 
         int j = 0;
-        foreach (const IrgaDesc& irga, project_state_.irgaList)
+        for (const auto &irga : project_state_.irgaList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_INSTR_PREFIX, 5, index);
@@ -1204,7 +1204,7 @@ bool DlProject::saveProject(const QString& filename)
 
         // iterate through instruments list
         k = 0;
-        foreach (const VariableDesc& var, project_state_.variableList)
+        for (const auto & var : project_state_.variableList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_VARDESC_PREFIX, 3, index);
@@ -2253,10 +2253,12 @@ QString DlProject::fromIniVariableConversionType(const QString& s)
 int DlProject::countInstruments(const QStringList& list)
 {
     int i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(DlIni::INI_ANEM_1))
+        {
             ++i;
+        }
     }
     return i;
 }
@@ -2456,7 +2458,7 @@ bool DlProject::hasGoodIrgaNames()
     DEBUG_FUNC_NAME
 
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::isWellNamed(irga);
     }
@@ -2468,7 +2470,7 @@ bool DlProject::hasGoodIrgaSeparations()
     DEBUG_FUNC_NAME
 
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodSeparations(irga);
     }
@@ -2480,7 +2482,7 @@ bool DlProject::hasGoodIrgaFlowRate()
     DEBUG_FUNC_NAME
 
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodFlowRate(irga);
     }
@@ -2492,7 +2494,7 @@ bool DlProject::hasGoodIrgaClosedPath()
     DEBUG_FUNC_NAME
 
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::isAGoodClosedPath(irga);
     }
@@ -2504,7 +2506,7 @@ bool DlProject::hasGoodIrgaGeneric()
     DEBUG_FUNC_NAME
 
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodPathLength(irga);
     }
@@ -2572,7 +2574,7 @@ bool DlProject::hasOneGoodAnemometer()
     DEBUG_FUNC_NAME
 
     bool test = false;
-    foreach (const AnemDesc& anem, project_state_.anemometerList)
+    for (const auto &anem : project_state_.anemometerList)
     {
         if (AnemDesc::isGoodAnemometer(anem))
         {
@@ -2595,7 +2597,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
     QList<QHash<QString, int>> comp_hash_list;
 
     int i = 0;
-    foreach (const VariableDesc& var, *variables())
+    for (const auto &var : *variables())
     {
         // populate a hash table with all the well described
         // anemometers variables
@@ -2623,7 +2625,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
 
     // populate a new hash of anemometers which have variables, to list and
     // count the unique anememeters
-    foreach (int value, var_hash)
+    for (auto value : var_hash)
     {
         QString sonicKey = var_hash.key(value);
         sonicKey = sonicKey.split(QLatin1Char('|')).at(0);
@@ -2642,7 +2644,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
     {
         QMultiHash<QString, int> hash;
 
-        foreach (int value, sonic_hash)
+        for (auto value : sonic_hash)
         {
             if (sonic_hash.key(value) == uniqueAnems.at(k))
             {
@@ -2664,7 +2666,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
             qDebug() << "hasTemperature" << hasTemperature;
 
             int k = 0;
-            foreach (AnemDesc anem, project_state_.anemometerList)
+            for (auto anem : project_state_.anemometerList)
             {
                 int checkedAnemColumn = QVariant(uniqueAnems.at(j).split(QLatin1Char(' ')).at(1)).toInt();
                 int checkedAnemIndex = checkedAnemColumn - 1;
@@ -2682,7 +2684,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
         else
         {
             int k = 0;
-            foreach (AnemDesc anem, project_state_.anemometerList)
+            for (auto anem : project_state_.anemometerList)
             {
                 int checkedAnemColumn = QVariant(uniqueAnems.at(j).split(QLatin1Char(' ')).at(1)).toInt();
                 int checkedAnemIndex = checkedAnemColumn - 1;

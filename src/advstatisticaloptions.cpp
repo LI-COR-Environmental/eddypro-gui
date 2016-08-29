@@ -238,16 +238,18 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(nonSteadyCheckBox, &QCheckBox::toggled,
             this, &AdvStatisticalOptions::on_nonSteadyCheckBox_clicked);
 
-    foreach (auto checkbox, QList<QCheckBox *>() << spikeRemCheckBox
-                                                 << amplitudeResCheckBox
-                                                 << dropoutsCheckBox
-                                                 << absLimCheckBox
-                                                 << skewnessCheckBox
-                                                 << discontCheckBox
-                                                 << timeLagCheckBox
-                                                 << attackAngleCheckBox
-                                                 << nonSteadyCheckBox)
+    auto checkbox_list = QWidgetList() << spikeRemCheckBox
+                                       << amplitudeResCheckBox
+                                       << dropoutsCheckBox
+                                       << absLimCheckBox
+                                       << skewnessCheckBox
+                                       << discontCheckBox
+                                       << timeLagCheckBox
+                                       << attackAngleCheckBox
+                                       << nonSteadyCheckBox;
+    for (auto widget : checkbox_list)
     {
+        auto checkbox = static_cast<QCheckBox *>(widget);
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
     }
@@ -542,9 +544,11 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvStatisticalOptions::refresh);
 
-    foreach (auto combo, QList<QComboBox *>() << randomMethodCombo
-                                              << itsDefinitionCombo)
+    auto combo_list = QWidgetList() << randomMethodCombo
+                                    << itsDefinitionCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }

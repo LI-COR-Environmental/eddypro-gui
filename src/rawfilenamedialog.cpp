@@ -119,7 +119,7 @@ void RawFilenameDialog::reset()
     rawFilenameFormatEdit->clear();
 
     // clean the radiogroup
-    foreach (auto button, extRadioGroup->buttons())
+    for (auto button : extRadioGroup->buttons())
     {
         extRadioGroup->removeButton(button);
     }
@@ -150,7 +150,7 @@ void RawFilenameDialog::refresh()
     if (buttonsNumber)
     {
         auto selectionIndex = 0;
-        foreach (const auto btn, extRadioGroup->buttons())
+        for (const auto btn : extRadioGroup->buttons())
         {
             // stop if found
             // 1. GHG case
@@ -293,7 +293,7 @@ void RawFilenameDialog::populateDialog()
 
 void RawFilenameDialog::removeFileExtensionFromList(const QString& ext)
 {
-    foreach (auto type, fileList_)
+    for (auto type : fileList_)
     {
         if (QFileInfo(type).suffix().contains(ext))
         {
@@ -354,7 +354,7 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
     auto i = 0;
     auto equalLengthSuffix = true;
     QRadioButton* button;
-    foreach (const auto& suffix, *ghgSuffixList_)
+    for (const auto& suffix : *ghgSuffixList_)
     {
         button = new QRadioButton(suffix);
         extRadioGroup->addButton(button, i);
@@ -385,7 +385,7 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
 void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
 {
     auto i = 0;
-    foreach (const QString& file, list)
+    for (const auto &file : list)
     {
         qDebug() << QFileInfo(file).suffix();
         auto button = new QRadioButton(QFileInfo(file).suffix());

@@ -805,7 +805,7 @@ void AdvOutputOptions::setSmartfluxUI()
                       << outRawPairCheckBox
                       << outVarsAllCheckBox;
 
-    foreach (auto w, enableableWidgets)
+    for (auto w : enableableWidgets)
     {
         if (on)
         {
@@ -827,7 +827,7 @@ void AdvOutputOptions::setSmartfluxUI()
             << typicalSelectionDesc
             << hrLabel_1;
 
-    foreach (auto w, visibleWidgets)
+    for (auto w : visibleWidgets)
     {
         if (on)
         {
@@ -853,7 +853,7 @@ void AdvOutputOptions::setSmartfluxUI()
     checkableWidgets << outFullCheckBox
                      << outBiometCheckBox
                      << fixedVarsOutputRadio;
-    foreach (auto w, checkableWidgets)
+    for (auto w : checkableWidgets)
     {
         if (on)
         {
@@ -890,7 +890,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRaw6CheckBox
                        << outRaw7CheckBox
                        << outVarsAllCheckBox;
-    foreach (auto w, uncheckableCheckbox)
+    for (auto w : uncheckableCheckbox)
     {
         if (on)
         {
@@ -924,7 +924,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRawGas4CheckBox
                        << outRawTairCheckBox
                        << outRawPairCheckBox;
-    foreach (auto w, uncheckableRichTextCheckbox)
+    for (auto w : uncheckableRichTextCheckbox)
     {
         if (on)
         {

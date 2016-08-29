@@ -397,7 +397,7 @@ void WelcomePage::updateRecentList()
 
     recentListWidget->clear();
 
-    foreach (const QString& recentfile, configState_->general.recentfiles)
+    for (const auto &recentfile : configState_->general.recentfiles)
     {
         if (QFile::exists(recentfile))
         {

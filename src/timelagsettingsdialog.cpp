@@ -953,13 +953,14 @@ void TimeLagSettingsDialog::updateSubsetSelection(bool b)
 {
     ecProject_->setTimelagOptSubset(b);
 
-    foreach (auto w, QWidgetList() << startDateLabel
-                                   << startDateEdit
-                                   << startTimeEdit
-                                   << lockedIcon
-                                   << endDateLabel
-                                   << endDateEdit
-                                   << endTimeEdit)
+    auto widget_list = QWidgetList() << startDateLabel
+                                     << startDateEdit
+                                     << startTimeEdit
+                                     << lockedIcon
+                                     << endDateLabel
+                                     << endDateEdit
+                                     << endTimeEdit;
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }

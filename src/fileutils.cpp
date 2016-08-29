@@ -115,12 +115,12 @@ bool FileUtils::removeDirRecursively(const QString &dirName)
 
     if (dir.exists(dirName))
     {
-        foreach (const QFileInfo& info, dir.entryInfoList(QDir::NoDotAndDotDot
-                                                    | QDir::System
-                                                    | QDir::Hidden
-                                                    | QDir::AllDirs
-                                                    | QDir::Files,
-                                                      QDir::DirsFirst))
+        for (const auto &info : dir.entryInfoList(QDir::NoDotAndDotDot
+                                                  | QDir::System
+                                                  | QDir::Hidden
+                                                  | QDir::AllDirs
+                                                  | QDir::Files,
+                                                    QDir::DirsFirst))
         {
             QString absolutePath = info.absoluteFilePath();
             if (info.isDir())
@@ -178,8 +178,8 @@ void FileUtils::cleanDir(const QString& d)
         if (!isDirEmpty(d))
         {
             QDir dir(d);
-            foreach (const QFileInfo& fileInfo, dir.entryInfoList(QDir::Files
-                                                                  | QDir::NoDotAndDotDot))
+            for (const auto & fileInfo : dir.entryInfoList(QDir::Files
+                                                           | QDir::NoDotAndDotDot))
             {
                 QFile::remove(fileInfo.absoluteFilePath());
             }
@@ -198,7 +198,7 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
 
         bool illegalFile = false;
 
-        foreach (const QString &illegalType, illegalFileTypes)
+        for (const auto &illegalType : illegalFileTypes)
         {
             if (it.fileInfo().absoluteFilePath().endsWith(illegalType, Qt::CaseInsensitive))
             {
@@ -400,7 +400,7 @@ FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& file
     QDateTime dateEnd;
     QList<QDateTime> dateList;
 
-    foreach (const QString& s, fileList)
+    for (const auto &s : fileList)
     {
         QString filename = s.mid(s.lastIndexOf(QLatin1Char('/')) + 1);
         qDebug() << filename;
@@ -440,7 +440,7 @@ QStringList FileUtils::getGhgFileSuffixList(const QStringList& fileList)
     DEBUG_FUNC_NAME
     QStringList suffixList;
 
-    foreach (const QString& s, fileList)
+    for (const auto &s : fileList)
     {
         QString filename = s.mid(s.lastIndexOf(QLatin1Char('/')) + 1);
         qDebug() << filename;
@@ -530,7 +530,8 @@ bool FileUtils::zipContainsFiletype(const QString& fileName, const QString& file
     QStringList entries = JlCompress::getFileList(fileName);
     qDebug() << "entries" << entries;
 
-    foreach (const QString& item, entries) {
+    for (const auto &item : entries)
+    {
         if (item.contains(filePattern.mid(1)))
             return true;
     }

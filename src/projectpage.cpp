@@ -1046,7 +1046,7 @@ void ProjectPage::updateTooltip(int i)
 void ProjectPage::on_biomDataCheckBox_clicked(bool clicked)
 {
     DEBUG_FUNC_NAME
-    foreach (auto w, QWidgetList() << biomExtFileRadio
+    for (auto w : QWidgetList() << biomExtFileRadio
                                    << biomExtDirRadio)
     {
         w->setEnabled(clicked);

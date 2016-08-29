@@ -168,7 +168,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 int BiomMetadataReader::countEmbVariables(const QStringList& list)
 {
     auto i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(BmIni::INI_VARS_0))
         {

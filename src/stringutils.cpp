@@ -84,7 +84,7 @@ bool StringUtils::isISODateTimeString(const QString& s)
 bool StringUtils::stringBelongsToList(const QString& str, const QStringList& list)
 {
     bool ok = false;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (str == s)
         {

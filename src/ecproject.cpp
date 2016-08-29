@@ -1643,7 +1643,7 @@ bool EcProject::saveEcProject(const QString &filename)
 
         // iterate through angle list
         int k = 0;
-        foreach (const AngleItem& angle, ec_project_state_.screenTilt.angles)
+        for (const auto &angle : ec_project_state_.screenTilt.angles)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(EcIni::INI_SCREEN_TILT_PREFIX, 7, index);
@@ -5433,10 +5433,12 @@ void EcProject::addPlanarFitAngle(const AngleItem& angle)
 int EcProject::countPlanarFitAngles(const QStringList& list)
 {
     int i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(QStringLiteral("width")))
+        {
             ++i;
+        }
     }
     return i;
 }

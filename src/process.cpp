@@ -379,7 +379,7 @@ void Process::setReadChannels(QProcess::ProcessChannel channel)
 void Process::setEnv(const QStringList &envList)
 {
     QProcessEnvironment env;
-    foreach (const QString& keyValue, envList)
+    for (const auto &keyValue : envList)
     {
         env.insert(keyValue.split(QStringLiteral("=")).first(),
                    keyValue.split(QStringLiteral("=")).last());

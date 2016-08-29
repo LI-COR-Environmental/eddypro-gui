@@ -592,13 +592,15 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvProcessingOptions::refresh);
 
-    foreach (auto combo, QList<QComboBox *>() << aoaMethCombo
-                                              << rotMethCombo
-                                              << detrendCombo
-                                              << timeLagMethodCombo
-                                              << qcMethodCombo
-                                              << fpMethodCombo)
+    auto combo_list = QWidgetList() << aoaMethCombo
+                                    << rotMethCombo
+                                    << detrendCombo
+                                    << timeLagMethodCombo
+                                    << qcMethodCombo
+                                    << fpMethodCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }

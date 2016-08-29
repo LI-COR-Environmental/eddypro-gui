@@ -108,7 +108,7 @@ void updateStyle(QWidget* widget)
 void WidgetUtils::updatePropertyListAndStyle(QWidget* widget,
                                              QList<PropertyList> propertyList)
 {
-    foreach(const PropertyList& prop, propertyList)
+    for (const auto &prop : propertyList)
     {
         // set property
         widget->setProperty(prop.first, prop.second);
