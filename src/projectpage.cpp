@@ -703,7 +703,9 @@ void ProjectPage::refresh()
             biomExtDirCombo->setCurrentIndex(biomExtDirCombo->findText(s));
         }
         else
+        {
             biomExtDirCombo->setCurrentIndex(n);
+        }
     }
     else
     {
