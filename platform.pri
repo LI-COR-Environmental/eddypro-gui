@@ -9,7 +9,8 @@ macx {
     # 10.9 = mavericks
     # 10.10 = yosemite
     # 10.11 = el capitan
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+    # 10.12 = sierra
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
     QMAKE_MAC_SDK = macosx
 
     QMAKE_CFLAGS += -gdwarf-2
