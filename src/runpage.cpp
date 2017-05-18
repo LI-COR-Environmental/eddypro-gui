@@ -625,9 +625,6 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     static QDate currentPlanarFitDate;
     static QDate currentTimeLagDate;
 
-    // NOTE: flag set but not used yet
-    bool inCycle = false;
-
 #ifdef QT_DEBUG
     QFile outfile(QStringLiteral("parse-engine-output.txt"));
     outfile.open(QIODevice::WriteOnly | QIODevice::Append);
@@ -662,7 +659,6 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         fromStr.clear();
         toStr.clear();
 
-        inCycle = false;
         inPlanarFit_ = false;
         inTimeLag_ = false;
         currentFileList.clear();
@@ -983,7 +979,6 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // start raw data processing
     if (cleanLine.contains(QByteArrayLiteral("Start raw data processing")))
     {
-        inCycle = true;
         progressLabel_->setText(tr("Processing raw data..."));
 
         main_progress_timer_.restart(); // restart to measure main cycle run time
@@ -1322,8 +1317,6 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     // end raw data processing
     if (cleanLine.contains(QByteArrayLiteral("Raw data processing terminated")))
     {
-        inCycle = false;
-
         errorEdit_->append(QStringLiteral("Raw data processing terminated"));
 
         return;
