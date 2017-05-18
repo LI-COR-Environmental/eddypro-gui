@@ -16,14 +16,14 @@ echo "[pwd: $PWD]"
 
 echo "[FRAMEWORKS_DIR: $FRAMEWORKS_DIR]"
 
-QUAZIP_BUILD_DIR="build-quazip-0.7.1-qt-5.7.0-clang-7.0.3-x86_64"
+QUAZIP_BUILD_DIR="build-quazip-0.7.3-qt-5.8.0-clang-8.1.0-x86_64"
 echo "[QUAZIP_BUILD_DIR: $QUAZIP_BUILD_DIR]"
 
 echo "Create framework dir in the app bundle..."
 mkdir -p $FRAMEWORKS_DIR
 
 echo "Run 'install_name_tool -id' to change inner QuaZIP identification name..."
-install_name_tool -id "@loader_path/../Frameworks/$QUAZIP_LIB" ../libs/$QUAZIP_BUILD_DIR/$QUAZIP_LIB
+install_name_tool -id "@loader_path/../Frameworks/$QUAZIP_LIB" ../../libs/mac/$QUAZIP_BUILD_DIR/$QUAZIP_LIB
 
 echo "Copy quazip in the app bundle..."
-cp ../libs/$QUAZIP_BUILD_DIR/$QUAZIP_LIB $FRAMEWORKS_DIR
+cp ../../libs/mac/$QUAZIP_BUILD_DIR/$QUAZIP_LIB $FRAMEWORKS_DIR
