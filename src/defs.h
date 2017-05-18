@@ -62,10 +62,10 @@ namespace Defs
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86_32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.3.0 (clang-703.0.31) x86_64 on Mac OS X<sup>&reg;</sup> 10.11.4");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 8.1.0 (clang-802.0.42) x86_64 on Mac OS X<sup>&reg;</sup> 10.12.4");
     const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
-    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2016");
+    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2017");
 
     enum class CurrPage
     {
