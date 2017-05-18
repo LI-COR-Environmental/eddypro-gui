@@ -298,6 +298,7 @@ private:
     static const QString IRGA_MODEL_STRING_11;
     static const QString IRGA_MODEL_STRING_12;
     static const QString IRGA_MODEL_STRING_13;
+    static const QString IRGA_MODEL_STRING_14;
 
     static const QString IRGA_SW_VERSION_STRING_0;
     static const QString IRGA_SW_VERSION_STRING_1;

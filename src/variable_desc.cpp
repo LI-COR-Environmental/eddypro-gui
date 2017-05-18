@@ -1093,7 +1093,8 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_4()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_5()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_12()))
-                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13())));
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()))
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_14())));
 
             qDebug() << "3 isGoodInstrument" << isGoodInstrument;
         }

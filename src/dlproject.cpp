@@ -65,6 +65,7 @@ const QString DlProject::IRGA_MODEL_STRING_10 = QStringLiteral("closed_path_kryp
 const QString DlProject::IRGA_MODEL_STRING_11 = QStringLiteral("closed_path_lyman");
 const QString DlProject::IRGA_MODEL_STRING_12 = QStringLiteral("li7500rs");
 const QString DlProject::IRGA_MODEL_STRING_13 = QStringLiteral("li7200rs");
+const QString DlProject::IRGA_MODEL_STRING_14 = QStringLiteral("li7500ds");
 
 const QString DlProject::IRGA_SW_VERSION_STRING_0 = QStringLiteral("0.0.0");
 const QString DlProject::IRGA_SW_VERSION_STRING_1 = QStringLiteral("5.0.3");
@@ -2362,6 +2363,10 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_13();
     }
+    else if (s == DlProject::IRGA_MODEL_STRING_14)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_14();
+    }
     else
     {
         return QString();
@@ -2441,6 +2446,10 @@ QString DlProject::toIniIrgaModel(const QString& s)
     else if (s == IrgaDesc::getIRGA_MODEL_STRING_13())
     {
         return DlProject::IRGA_MODEL_STRING_13;
+    }
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_14())
+    {
+        return DlProject::IRGA_MODEL_STRING_14;
     }
     else
     {

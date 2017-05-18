@@ -128,6 +128,12 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_13()
     return s;
 }
 
+const QString IrgaDesc::getIRGA_MODEL_STRING_14()
+{
+    static const QString s(QStringLiteral("LI-7500DS"));
+    return s;
+}
+
 IrgaDesc::IrgaDesc() :
     manufacturer_(QString(getIRGA_MANUFACTURER_STRING_0())),
     model_(QString()),
@@ -265,7 +271,8 @@ const QStringList IrgaDesc::allModelStringList()
             << getIRGA_MODEL_STRING_8()
             << getIRGA_MODEL_STRING_9()
             << getIRGA_MODEL_STRING_10()
-            << getIRGA_MODEL_STRING_11());
+            << getIRGA_MODEL_STRING_11()
+            << getIRGA_MODEL_STRING_14());
 }
 
 // Return string list of usage types
@@ -279,7 +286,8 @@ const QStringList IrgaDesc::licorModelStringList()
             << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
             << getIRGA_MODEL_STRING_13()
-            << getIRGA_MODEL_STRING_5());
+            << getIRGA_MODEL_STRING_5()
+            << getIRGA_MODEL_STRING_14());
 }
 
 // Return string list of usage types
@@ -303,7 +311,8 @@ bool IrgaDesc::isALicorModel(const QString& model)
              || (model == getIRGA_MODEL_STRING_4())
              || (model == getIRGA_MODEL_STRING_5())
              || (model == getIRGA_MODEL_STRING_12())
-             || (model == getIRGA_MODEL_STRING_13()));
+             || (model == getIRGA_MODEL_STRING_13())
+             || (model == getIRGA_MODEL_STRING_14()));
 }
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
@@ -472,5 +481,6 @@ bool IrgaDesc::isOpenPathModel(const QString& model)
              || model == IrgaDesc::getIRGA_MODEL_STRING_6()
              || model == IrgaDesc::getIRGA_MODEL_STRING_8()
              || model == IrgaDesc::getIRGA_MODEL_STRING_9()
-             || model == IrgaDesc::getIRGA_MODEL_STRING_12());
+             || model == IrgaDesc::getIRGA_MODEL_STRING_12()
+             || model == IrgaDesc::getIRGA_MODEL_STRING_14());
 }

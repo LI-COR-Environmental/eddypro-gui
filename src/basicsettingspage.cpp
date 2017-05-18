@@ -2595,6 +2595,7 @@ void BasicSettingsPage::filterVariables()
     const auto li7500Str = QStringLiteral("LI-7500");
     const auto li7500AStr = QStringLiteral("LI-7500A");
     const auto li7500RSStr = QStringLiteral("LI-7500RS");
+    const auto li7500DSStr = QStringLiteral("LI-7500DS");
     const auto li7700Str = QStringLiteral("LI-7700");
 //    const auto densityStr = QStringLiteral("density");
     const auto fractionStr = QStringLiteral("fraction");
@@ -2615,6 +2616,7 @@ void BasicSettingsPage::filterVariables()
             if (co2RefCombo->itemText(i).contains(li7500Str)
                 || co2RefCombo->itemText(i).contains(li7500AStr)
                 || co2RefCombo->itemText(i).contains(li7500RSStr)
+                || co2RefCombo->itemText(i).contains(li7500DSStr)
                 || co2RefCombo->itemText(i).contains(li7700Str)
                 || co2RefCombo->itemText(i).contains(openPathStr1)
                 || co2RefCombo->itemText(i).contains(openPathStr2))
@@ -2638,6 +2640,7 @@ void BasicSettingsPage::filterVariables()
             if (h2oRefCombo->itemText(i).contains(li7500Str)
                 || h2oRefCombo->itemText(i).contains(li7500AStr)
                 || h2oRefCombo->itemText(i).contains(li7500RSStr)
+                || h2oRefCombo->itemText(i).contains(li7500DSStr)
                 || h2oRefCombo->itemText(i).contains(li7700Str)
                 || h2oRefCombo->itemText(i).contains(openPathStr1)
                 || h2oRefCombo->itemText(i).contains(openPathStr2))
@@ -2688,6 +2691,7 @@ void BasicSettingsPage::filterVariables()
                 || fourthGasRefCombo->itemText(i).contains(li7500Str)
                 || fourthGasRefCombo->itemText(i).contains(li7500AStr)
                 || fourthGasRefCombo->itemText(i).contains(li7500RSStr)
+                || fourthGasRefCombo->itemText(i).contains(li7500DSStr)
                 || fourthGasRefCombo->itemText(i).contains(li7700Str))
             {
                 fourthGasRefCombo->removeItem(i);
@@ -2706,6 +2710,7 @@ void BasicSettingsPage::filterVariables()
                 || intT1RefCombo->itemText(i).contains(li7500Str)
                 || intT1RefCombo->itemText(i).contains(li7500AStr)
                 || intT1RefCombo->itemText(i).contains(li7500RSStr)
+                || intT1RefCombo->itemText(i).contains(li7500DSStr)
                 || intT1RefCombo->itemText(i).contains(li7700Str))
             {
                 intT1RefCombo->removeItem(i);
@@ -2724,6 +2729,7 @@ void BasicSettingsPage::filterVariables()
                 || intT2RefCombo->itemText(i).contains(li7500Str)
                 || intT2RefCombo->itemText(i).contains(li7500AStr)
                 || intT2RefCombo->itemText(i).contains(li7500RSStr)
+                || intT2RefCombo->itemText(i).contains(li7500DSStr)
                 || intT2RefCombo->itemText(i).contains(li7700Str))
             {
                 intT2RefCombo->removeItem(i);
@@ -2740,6 +2746,7 @@ void BasicSettingsPage::filterVariables()
             if (intTcRefCombo->itemText(i).contains(li7500Str)
                 || intTcRefCombo->itemText(i).contains(li7500AStr)
                 || intTcRefCombo->itemText(i).contains(li7500RSStr)
+                || intTcRefCombo->itemText(i).contains(li7500DSStr)
                 || intTcRefCombo->itemText(i).contains(li7700Str))
             {
                 intTcRefCombo->removeItem(i);
@@ -2756,6 +2763,7 @@ void BasicSettingsPage::filterVariables()
             if (intPRefCombo->itemText(i).contains(li7500Str)
                 || intPRefCombo->itemText(i).contains(li7500AStr)
                 || intPRefCombo->itemText(i).contains(li7500RSStr)
+                || intPRefCombo->itemText(i).contains(li7500DSStr)
                 || intPRefCombo->itemText(i).contains(li7700Str))
             {
                 intPRefCombo->removeItem(i);
@@ -2773,7 +2781,8 @@ void BasicSettingsPage::filterVariables()
             qDebug() << "diag7500Combo" << i << diag7500Combo->itemText(i);
             if (!diag7500Combo->itemText(i).contains(li7500Str)
                 && !diag7500Combo->itemText(i).contains(li7500AStr)
-                && !diag7500Combo->itemText(i).contains(li7500RSStr))
+                && !diag7500Combo->itemText(i).contains(li7500RSStr)
+                && !diag7500Combo->itemText(i).contains(li7500DSStr))
             {
                 diag7500Combo->removeItem(i);
             }
