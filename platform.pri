@@ -12,6 +12,7 @@ macx {
     # 10.12 = sierra
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
     QMAKE_MAC_SDK = macosx
+    QMAKE_MAC_SDK.macosx.version = 10.12
 
     QMAKE_CFLAGS += -gdwarf-2
     QMAKE_CXXFLAGS += -gdwarf-2
