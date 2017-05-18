@@ -74,7 +74,10 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     permutation_matrix<int> pert(oXtXMatrix.size1());
     const std::size_t singular = lu_factorize(oXtXMatrix, pert);
     // must be singular
-    BOOST_ASSERT( singular == 0 );
+
+    // FIXME with boost 1.64, clang 8.1.0 and qt 5.8.0 breaks with
+    // error: use of undeclared identifier 'BOOST_ASSERT'
+//    BOOST_ASSERT( singular == 0 );
 
     // backsubstitution
     lu_substitute(oXtXMatrix, pert, oXtYMatrix);
