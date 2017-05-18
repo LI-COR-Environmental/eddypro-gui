@@ -4,7 +4,7 @@ TEMPLATE = app
 
 # EddyPro version
 VER_MAJ = 6
-VER_MIN = 2
+VER_MIN = 3
 VER_PAT = 0
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
