@@ -2142,17 +2142,19 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
             // flags
             if (!varName.isEmpty())
             {
-                for (auto w : QWidgetList()
-                                << flag1VarCombo
-                                << flag2VarCombo
-                                << flag3VarCombo
-                                << flag4VarCombo
-                                << flag5VarCombo
-                                << flag6VarCombo
-                                << flag7VarCombo
-                                << flag8VarCombo
-                                << flag9VarCombo
-                                << flag10VarCombo)
+                auto flag_vars_list = QWidgetList()
+                        << flag1VarCombo
+                        << flag2VarCombo
+                        << flag3VarCombo
+                        << flag4VarCombo
+                        << flag5VarCombo
+                        << flag6VarCombo
+                        << flag7VarCombo
+                        << flag8VarCombo
+                        << flag9VarCombo
+                        << flag10VarCombo;
+
+                for (auto w : flag_vars_list)
                 {
                     auto combo = static_cast<QComboBox *>(w);
                     combo->setEnabled(true);
@@ -2160,47 +2162,49 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                     qDebug() << varString << k;
                 }
 
-                for (auto w : QWidgetList()
-                              << flag1Label
-                              << flag2Label
-                              << flag3Label
-                              << flag4Label
-                              << flag5Label
-                              << flag6Label
-                              << flag7Label
-                              << flag8Label
-                              << flag9Label
-                              << flag10Label
-                              << flag1ThresholdSpin
-                              << flag2ThresholdSpin
-                              << flag3ThresholdSpin
-                              << flag4ThresholdSpin
-                              << flag5ThresholdSpin
-                              << flag6ThresholdSpin
-                              << flag7ThresholdSpin
-                              << flag8ThresholdSpin
-                              << flag9ThresholdSpin
-                              << flag10ThresholdSpin
-                              << flag1UnitLabel
-                              << flag2UnitLabel
-                              << flag3UnitLabel
-                              << flag4UnitLabel
-                              << flag5UnitLabel
-                              << flag6UnitLabel
-                              << flag7UnitLabel
-                              << flag8UnitLabel
-                              << flag9UnitLabel
-                              << flag10UnitLabel
-                              << flag1PolicyCombo
-                              << flag2PolicyCombo
-                              << flag3PolicyCombo
-                              << flag4PolicyCombo
-                              << flag5PolicyCombo
-                              << flag6PolicyCombo
-                              << flag7PolicyCombo
-                              << flag8PolicyCombo
-                              << flag9PolicyCombo
-                              << flag10PolicyCombo)
+                auto flag_labels = QWidgetList()
+                        << flag1Label
+                        << flag2Label
+                        << flag3Label
+                        << flag4Label
+                        << flag5Label
+                        << flag6Label
+                        << flag7Label
+                        << flag8Label
+                        << flag9Label
+                        << flag10Label
+                        << flag1ThresholdSpin
+                        << flag2ThresholdSpin
+                        << flag3ThresholdSpin
+                        << flag4ThresholdSpin
+                        << flag5ThresholdSpin
+                        << flag6ThresholdSpin
+                        << flag7ThresholdSpin
+                        << flag8ThresholdSpin
+                        << flag9ThresholdSpin
+                        << flag10ThresholdSpin
+                        << flag1UnitLabel
+                        << flag2UnitLabel
+                        << flag3UnitLabel
+                        << flag4UnitLabel
+                        << flag5UnitLabel
+                        << flag6UnitLabel
+                        << flag7UnitLabel
+                        << flag8UnitLabel
+                        << flag9UnitLabel
+                        << flag10UnitLabel
+                        << flag1PolicyCombo
+                        << flag2PolicyCombo
+                        << flag3PolicyCombo
+                        << flag4PolicyCombo
+                        << flag5PolicyCombo
+                        << flag6PolicyCombo
+                        << flag7PolicyCombo
+                        << flag8PolicyCombo
+                        << flag9PolicyCombo
+                        << flag10PolicyCombo;
+
+                for (auto w : flag_labels)
                 {
                     w->setEnabled(true);
                 }
@@ -2286,30 +2290,32 @@ void BasicSettingsPage::addNoneStr_1()
 {
     DEBUG_FUNC_NAME
 
-    for (auto w : QWidgetList()
-             << anemFlagCombo
-             << tsRefCombo
-             << co2RefCombo
-             << h2oRefCombo
-             << ch4RefCombo
-             << fourthGasRefCombo
-             << intTcRefCombo
-             << intT1RefCombo
-             << intT2RefCombo
-             << intPRefCombo
-             << diag7500Combo
-             << diag7200Combo
-             << diag7700Combo
-             << flag1VarCombo
-             << flag2VarCombo
-             << flag3VarCombo
-             << flag4VarCombo
-             << flag5VarCombo
-             << flag6VarCombo
-             << flag7VarCombo
-             << flag8VarCombo
-             << flag9VarCombo
-             << flag10VarCombo)
+    auto combo_list = QWidgetList()
+            << anemFlagCombo
+            << tsRefCombo
+            << co2RefCombo
+            << h2oRefCombo
+            << ch4RefCombo
+            << fourthGasRefCombo
+            << intTcRefCombo
+            << intT1RefCombo
+            << intT2RefCombo
+            << intPRefCombo
+            << diag7500Combo
+            << diag7200Combo
+            << diag7700Combo
+            << flag1VarCombo
+            << flag2VarCombo
+            << flag3VarCombo
+            << flag4VarCombo
+            << flag5VarCombo
+            << flag6VarCombo
+            << flag7VarCombo
+            << flag8VarCombo
+            << flag9VarCombo
+            << flag10VarCombo;
+
+    for (auto w : combo_list)
     {
         auto combo = static_cast<QComboBox *>(w);
         if (combo->findData(0) < 0)
@@ -2327,13 +2333,15 @@ void BasicSettingsPage::addNoneStr_2()
 {
     DEBUG_FUNC_NAME
 
-    for (auto w : QWidgetList()
-                     << airTRefCombo
-                     << airPRefCombo
-                     << rhCombo
-                     << rgCombo
-                     << lwinCombo
-                     << ppfdCombo)
+    auto combo_list = QWidgetList()
+            << airTRefCombo
+            << airPRefCombo
+            << rhCombo
+            << rgCombo
+            << lwinCombo
+            << ppfdCombo;
+
+    for (auto w : combo_list)
     {
         QComboBox *combo = static_cast<QComboBox*>(w);
         if (combo->findData(0) < 0)
@@ -2346,11 +2354,14 @@ void BasicSettingsPage::addNoneStr_2()
 void BasicSettingsPage::clearBiometCombo()
 {
     DEBUG_FUNC_NAME
-    for (auto w : QWidgetList()
-                     << rhCombo
-                     << rgCombo
-                     << lwinCombo
-                     << ppfdCombo)
+
+    auto combo_list = QWidgetList()
+            << rhCombo
+            << rgCombo
+            << lwinCombo
+            << ppfdCombo;
+
+    for (auto w : combo_list)
     {
         QComboBox *combo = static_cast<QComboBox*>(w);
         combo->clear();
@@ -2456,17 +2467,19 @@ void BasicSettingsPage::clearFlagVars()
 {
     DEBUG_FUNC_NAME
 
-    for (auto label : QWidgetList()
-             << flag1Label
-             << flag2Label
-             << flag3Label
-             << flag4Label
-             << flag5Label
-             << flag6Label
-             << flag7Label
-             << flag8Label
-             << flag9Label
-             << flag10Label)
+    auto label_list = QWidgetList()
+            << flag1Label
+            << flag2Label
+            << flag3Label
+            << flag4Label
+            << flag5Label
+            << flag6Label
+            << flag7Label
+            << flag8Label
+            << flag9Label
+            << flag10Label;
+
+    for (auto label : label_list)
     {
         label->setEnabled(false);
     }
@@ -2906,14 +2919,16 @@ void BasicSettingsPage::updateSubsetSelection(bool b)
 {
     ecProject_->setGeneralSubset(b);
 
-    for (auto w : QWidgetList()
-                  << startDateLabel
-                  << startDateEdit
-                  << startTimeEdit
-                  << lockedIcon
-                  << endDateLabel
-                  << endDateEdit
-                  << endTimeEdit)
+    auto widget_list = QWidgetList()
+            << startDateLabel
+            << startDateEdit
+            << startTimeEdit
+            << lockedIcon
+            << endDateLabel
+            << endDateEdit
+            << endTimeEdit;
+
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }
