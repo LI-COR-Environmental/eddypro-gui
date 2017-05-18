@@ -931,17 +931,19 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
 
     // fix layout alignment
     auto max_spin_width = spin33->width();
-    for (auto w : QWidgetList() << spin34
-                                << spin24
-                                << qcMinUnstableCo2Spin
-                                << qcMinUnstableCh4Spin
-                                << qcMinUnstableGas4Spin
-                                << qcMinStableCo2Spin
-                                << qcMinStableCh4Spin
-                                << qcMinStableGas4Spin
-                                << qcMaxCo2Spin
-                                << qcMaxCh4Spin
-                                << qcMaxGas4Spin)
+    auto spin_list = QWidgetList() << spin34
+                                   << spin24
+                                   << qcMinUnstableCo2Spin
+                                   << qcMinUnstableCh4Spin
+                                   << qcMinUnstableGas4Spin
+                                   << qcMinStableCo2Spin
+                                   << qcMinStableCh4Spin
+                                   << qcMinStableGas4Spin
+                                   << qcMaxCo2Spin
+                                   << qcMaxCh4Spin
+                                   << qcMaxGas4Spin;
+
+    for (auto w : spin_list)
     {
         w->setMaximumWidth(max_spin_width);
     }
@@ -1988,13 +1990,14 @@ void AdvSpectralOptions::updateTooltip(int i)
 
 void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
 {
-    for (auto w : QWidgetList() << startDateLabel
-                                << startDateEdit
-                                << startTimeEdit
-                                << lockedIcon
-                                << endDateLabel
-                                << endDateEdit
-                                << endTimeEdit)
+    auto widget_list = QWidgetList() << startDateLabel
+                                     << startDateEdit
+                                     << startTimeEdit
+                                     << lockedIcon
+                                     << endDateLabel
+                                     << endDateEdit
+                                     << endTimeEdit;
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }

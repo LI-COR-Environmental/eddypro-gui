@@ -3801,10 +3801,11 @@ void BasicSettingsPage::createQuestionMark()
     questionMark_4 = new QPushButton;
     questionMark_5 = new QPushButton;
 
-    for (auto btn : QWidgetList() << questionMark_2
+    auto btn_list = QWidgetList() << questionMark_2
                                   << questionMark_3
                                   << questionMark_4
-                                  << questionMark_5)
+                                  << questionMark_5;
+    for (auto btn : btn_list)
     {
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
