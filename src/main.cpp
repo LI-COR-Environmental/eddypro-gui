@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 //    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #endif
 
-    QApplication::setColorSpec(QApplication::ManyColor);
+//    QApplication::setColorSpec(QApplication::ManyColor);
 //    QApplication::setDesktopSettingsAware(false);
 
     QApplication::setEffectEnabled(Qt::UI_AnimateMenu);
