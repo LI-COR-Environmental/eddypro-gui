@@ -22,6 +22,8 @@
 
 #include "fileutils.h"
 
+#include <algorithm>
+
 #include <QApplication>
 #include <QCoreApplication>
 #include <QDebug>
@@ -412,7 +414,7 @@ FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& file
         }
     }
 
-    qSort(dateList.begin(), dateList.end());
+    std::sort(dateList.begin(), dateList.end());
 
     if (!dateList.isEmpty())
     {
