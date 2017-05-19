@@ -176,6 +176,7 @@ void VariableTableView::hHeaderClicked(int section)
 // Returns the first editable index at the left of `originalIndex` or None.
 void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
 {
+    Q_UNUSED(originalIndex)
 //    auto h = horizontalHeader();
 //    auto myCol = originalIndex.column();
 //    columnIndexes = [h.logicalIndex(i) for i in range(h.count())];
@@ -191,5 +192,5 @@ void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
 
 void VariableTableView::nextEditableIndex(const QModelIndex& originalIndex)
 {
-
+    Q_UNUSED(originalIndex)
 }
