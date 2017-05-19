@@ -503,8 +503,8 @@ VariableDesc& VariableDesc::operator=(const VariableDesc& fileDesc)
 {
     if (this != &fileDesc)
     {
-        ignore_ = fileDesc.ignore_,
-        numeric_ = fileDesc.numeric_,
+        ignore_ = fileDesc.ignore_;
+        numeric_ = fileDesc.numeric_;
         variable_ = fileDesc.variable_;
         instrument_ = fileDesc.instrument_;
         measureType_ = fileDesc.measureType_;
