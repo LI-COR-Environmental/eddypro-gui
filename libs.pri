@@ -17,7 +17,7 @@ CONFIG(debug, debug|release) {
     }
     linux {
         # quazip
-        LIBS += -L$$OUT_PWD/../libs/build-quazip-0.7.1-qt-5.7.0-centos-gcc-4.8.5-x86_64/quazip -lquazip_debug
+        LIBS += -L$$OUT_PWD/../../libs/centos/build-quazip-0.7.3-qt-5.8.0-centos-gcc-4.8.5-x86_64/quazip -lquazip_debug
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug
@@ -39,7 +39,7 @@ CONFIG(debug, debug|release) {
     }
     linux {
         # quazip
-        LIBS += -L$$OUT_PWD/../libs/build-quazip-0.7.1-qt-5.7.0-centos-gcc-4.8.5-x86_64/quazip -lquazip
+        LIBS += -L$$OUT_PWD/../../libs/centos/build-quazip-0.7.3-qt-5.8.0-centos-gcc-4.8.5-x86_64/quazip -lquazip
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release
