@@ -12,8 +12,8 @@ index 3e10f36..34a9075 100644
 +    LIBS += -L/usr/lib -lz
 +    INCLUDEPATH += /usr/include
 +
-+    QMAKE_MAC_SDK = macosx
-+    QMAKE_MAC_SDK = macosx.version.10.12
++#    QMAKE_MAC_SDK = macosx
++#    QMAKE_MAC_SDK = macosx.version.10.12
 +}
 +
 +win32 {
