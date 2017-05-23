@@ -60,6 +60,7 @@ public:
     explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
     explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
     explicit ClickLabel(const ClickLabel& clabel);
+    ClickLabel& operator=(const ClickLabel& clabel);
     ~ClickLabel();
 
     enum HeaderData {

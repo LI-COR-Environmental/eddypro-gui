@@ -28,7 +28,7 @@
 
 // polynomial inversion of a polynomium of degree deg with coefficients coeffs
 // in incremental powers on the range x_range
-std::vector<double> VectorUtils::poly_boost(std::vector<double> x_range, std::vector<double> coeffs, int deg)
+std::vector<double> VectorUtils::poly_boost(const std::vector<double> &x_range, const std::vector<double> &coeffs, int deg)
 {
     // evaluate the polynomium on the range x_range
     auto y = polyval(coeffs, x_range);

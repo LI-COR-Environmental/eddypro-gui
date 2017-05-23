@@ -46,6 +46,15 @@ ClickLabel::ClickLabel(const ClickLabel& clabel)
     Q_UNUSED(clabel)
 }
 
+ClickLabel &ClickLabel::operator=(const ClickLabel &clabel)
+{
+    if (this != &clabel)
+    {
+        headerData_ = clabel.headerData_;
+    }
+    return *this;
+}
+
 ClickLabel::~ClickLabel()
 {}
 

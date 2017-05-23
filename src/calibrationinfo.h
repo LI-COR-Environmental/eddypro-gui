@@ -30,9 +30,10 @@
 class CalibrationInfo
 {
 public:
-    CalibrationInfo();
-    CalibrationInfo(double responseCode, double calDate, const QString &calLink, bool calRecal);
+    explicit CalibrationInfo();
+    explicit CalibrationInfo(double responseCode, double calDate, const QString &calLink, bool calRecal);
     explicit CalibrationInfo(const QByteArray &calibrationAsJson);
+    explicit CalibrationInfo(const CalibrationInfo& calibrationInfo);
     CalibrationInfo& operator=(const CalibrationInfo& calibrationInfo);
 
     double responseCode() const;

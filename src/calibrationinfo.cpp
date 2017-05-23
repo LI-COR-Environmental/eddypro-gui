@@ -48,7 +48,6 @@ CalibrationInfo::CalibrationInfo(double responseCode,
     cal_date_(calDate),
     cal_link_(calLink),
     cal_recal_(calRecal)
-
 { ; }
 
 CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
@@ -82,6 +81,14 @@ CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
     {
         qWarning() << "Calibration API: json parsing failure.";
     }
+}
+
+CalibrationInfo::CalibrationInfo(const CalibrationInfo& calibrationInfo)
+{
+    response_code_ = calibrationInfo.responseCode();
+    cal_date_ = calibrationInfo.calDate();
+    cal_link_ = calibrationInfo.calLink();
+    cal_recal_ = calibrationInfo.calRecal();
 }
 
 CalibrationInfo &CalibrationInfo::operator=(const CalibrationInfo &calibrationInfo)
