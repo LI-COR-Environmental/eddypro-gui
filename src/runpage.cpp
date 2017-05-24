@@ -618,7 +618,9 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     static QString fromStr;
     static QString toStr;
 
-    QString elapsedTimeMSecStr; // just for debug
+#ifdef QT_DEBUG
+    QString elapsedTimeMSecStr;
+#endif
 
     QStringList currentFileList;
 

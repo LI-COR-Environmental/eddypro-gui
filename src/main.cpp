@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
     qDebug() << "Default Style: " << app.style()->metaObject()->className();
 
     MyStyle myStyle(app.style()->objectName());
-    app.setStyle(&myStyle);
+    QApplication::setStyle(&myStyle);
 
 #if defined(Q_OS_WIN)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
@@ -667,6 +667,8 @@ bool extractDocs(const QString& currentDir)
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
 
+    qDebug() << "docDir" << docDir;
+
     // skip if already extracted
     if (FileUtils::existsPath(docDir))
     {
@@ -677,6 +679,7 @@ bool extractDocs(const QString& currentDir)
     auto docArchive = docDir
                       + QStringLiteral(".")
                       + Defs::ZIP_NATIVE_DATA_FILE_EXT;
+    qDebug() << "docArchive" << docArchive;
 
     if (!QFile::exists(docArchive))
     {
@@ -685,6 +688,5 @@ bool extractDocs(const QString& currentDir)
     }
 
     auto extractedFiles = JlCompress::extractDir(docArchive, currentDir);
-
     return (!extractedFiles.isEmpty());
 }
