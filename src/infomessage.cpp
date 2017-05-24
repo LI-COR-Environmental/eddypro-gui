@@ -88,7 +88,7 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     icon_ = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/msg-info"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     icon_->setPixmap(pixmap);
@@ -198,7 +198,7 @@ void InfoMessage::setTitle(const QString &title)
 void InfoMessage::setIcon(const QPixmap &icon)
 {
     auto pixmap = const_cast<QPixmap&>(icon);
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     icon_->setPixmap(pixmap);

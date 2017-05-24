@@ -108,7 +108,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     auto title = new ClickLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-grey"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     title->setPixmap(pixmap);
@@ -278,7 +278,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     smartfluxBarPlaceholder_ = new QWidget;
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     smartfluxBarPlaceholder_->setMinimumHeight(35);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     smartfluxBarPlaceholder_->setMinimumHeight(50);
 #endif
 

@@ -82,7 +82,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     filenameEdit->setMaximumWidth(400);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     filenameEdit->setMaximumWidth(395);
 #endif
 
@@ -97,7 +97,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     outpathBrowse->setMaximumWidth(400);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     outpathBrowse->setMaximumWidth(395);
 #endif
 
@@ -137,7 +137,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 //#if defined(Q_OS_WIN)
     mainLayout->setContentsMargins(15, 15, 15, 15);
-//#elif defined(Q_OS_MAC)
+//#elif defined(Q_OS_DARWIN)
 //    mainLayout->setContentsMargins(30, 30, 30, 30);
 //#endif
     setLayout(mainLayout);

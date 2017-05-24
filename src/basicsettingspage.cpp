@@ -49,14 +49,14 @@
 
 #include <cmath>
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconversion"
 #endif
 
 #include <boost/math/common_factor.hpp>
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
 #pragma clang diagnostic pop
 #endif
 
@@ -222,7 +222,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     lockedIcon = new QLabel;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap_2x);

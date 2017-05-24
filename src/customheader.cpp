@@ -54,7 +54,7 @@ void CustomHeader::addSection(const QString &txt,
         auto questionMarkLabel = new ClickLabel;
 
         auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
         pixmap_2x.setDevicePixelRatio(2.0);
 #endif
         questionMarkLabel->setPixmap(pixmap_2x);

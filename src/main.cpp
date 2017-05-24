@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 #endif
 
     // initialize resources at startup (qrc file loading)
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     Q_INIT_RESOURCE(eddypro_mac);
 #elif defined(Q_OS_WIN)
     Q_INIT_RESOURCE(eddypro_win);
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     // file to open at start
     auto fileToOpen = QString();
     // install event filter to open clicked files in Mac OS X
@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
 
 #if defined(Q_OS_WIN)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/macstyle"));
 #elif defined(Q_OS_LINUX)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/linstyle"));
@@ -246,7 +246,7 @@ int main(int argc, char *argv[])
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     if (!fileToOpen.isEmpty())
     {
         filename = fileToOpen;
@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
 
     // create and show splash screen
     QPixmap pixmap(QStringLiteral(":/icons/splash-img"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     CustomSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
                                                       Defs::CONF_GEN_SHOW_SPLASH,
                                                       true).toBool();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     auto is_full_screen_set =
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_WINDOW,
                                                       Defs::CONF_WIN_FULLSCREEN,
@@ -327,7 +327,7 @@ int main(int argc, char *argv[])
     }
     qApp->processEvents();
 
-//#if defined(Q_OS_MAC)
+//#if defined(Q_OS_DARWIN)
 //    MainWindow mainWin(filename, appEnvPath, &splash, 0,
 //                       Qt::WindowFlags()
 //                       Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint
@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "applicationDisplayName" << qApp->applicationDisplayName();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     qDebug() << "____________________________________________________";
     auto docExtraction = extractDocs(installationDir);
     qDebug() << "docs.zip extraction:" << docExtraction;
