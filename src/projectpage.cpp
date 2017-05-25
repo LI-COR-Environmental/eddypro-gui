@@ -143,6 +143,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     metadataLabel->setToolTip(tr("<b>Metadata:</b> Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format."));
     embMetadataFileRadio = new QRadioButton(tr("Use embedded file"));
     embMetadataFileRadio->setToolTip(tr("<b>Use embedded metadata file:</b> Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive."));
+    embMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 2px; } "));
     altMetadataFileRadio = new QRadioButton(tr("Use alternative file: "));
     altMetadataFileRadio->setToolTip(tr("<b>Use alternative metadata file:</b> Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the <b><i>Metadata File Editor</i></b>. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file <b><i>Load</i></b> button. Make changes if needed and save the file."));
     altMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 0px; } "));
