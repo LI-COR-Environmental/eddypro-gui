@@ -528,7 +528,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     ppfdCombo = new QComboBox;
     ppfdCombo->setToolTip(ppfdLabel->toolTip());
 
-    diag7500Label = new ClickLabel(tr("LI-7500/A/RS Diagnostics :"), this);
+    diag7500Label = new ClickLabel(tr("LI-7500/A/RS/DS Diagnostics :"), this);
     diag7500Label->setToolTip(tr("Select the variables to be used for diagnostics of this gas analyzer."));
     diag7500Combo = new QComboBox;
     diag7500Combo->setToolTip(diag7500Label->toolTip());
@@ -2583,7 +2583,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 }
 
 /// \fn void BasicSettingsPage::filterVariables()
-/// \brief Show only molar density gas variables if 7500/A/RS, 7700
+/// \brief Show only molar density gas variables if 7500/A/RS/DS, 7700
 /// For 7200/RS order will be: molar density, mixing ratio, mole fraction
 void BasicSettingsPage::filterVariables()
 {

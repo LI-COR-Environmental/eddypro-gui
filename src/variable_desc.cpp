@@ -183,7 +183,7 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_24()
 
 const QString VariableDesc::getVARIABLE_VAR_STRING_25()
 {
-    static const QString s(tr("LI-7500/A/RS Diagnostics"));
+    static const QString s(tr("LI-7500/A/RS/DS Diagnostics"));
     return s;
 }
 
