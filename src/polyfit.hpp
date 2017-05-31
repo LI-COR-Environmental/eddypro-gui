@@ -81,7 +81,6 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     // with error: use of undeclared identifier 'BOOST_ASSERT'
     Q_ASSERT(singular == 0);
 
-
     // backsubstitution
     lu_substitute(oXtXMatrix, pert, oXtYMatrix);
 
