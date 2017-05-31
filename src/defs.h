@@ -56,7 +56,7 @@ namespace Defs
     const auto APP_STAGE_STR = QStringLiteral("-rc3"); // -rc6
 
     const auto PROJECT_FILE_VERSION = 0x040402;
-    const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.2");
+    const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.3");
 
     const auto METADATA_FILE_VERSION = 0x030201;
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
