@@ -47,7 +47,6 @@ VariableDelegate::VariableDelegate(QObject *parent) :
 
 VariableDelegate::~VariableDelegate()
 {
-    DEBUG_FUNC_NAME
 }
 
 QWidget *VariableDelegate::createEditor(QWidget* parent,
@@ -525,7 +524,6 @@ void VariableDelegate::clearCustomVariableBuffer()
 
 void VariableDelegate::commitAndCloseEditor()
 {
-    DEBUG_FUNC_NAME
     QWidget* senderWidget = qobject_cast<QWidget *>(sender());
 
     emit commitData(senderWidget);
@@ -546,8 +544,6 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
 
     int eventKey = static_cast<const QKeyEvent*>(event)->key();
 
-    qDebug() << "eventType" << eventType;
-
     // if ((combo || spin)
     if (combo
         && (eventType == QEvent::MouseButtonRelease
@@ -555,7 +551,6 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
                                                || eventKey == Qt::Key_Enter
                                                 || eventKey == Qt::Key_Return))))
     {
-        qDebug() << eventType << combo;
         if (combo)
         {
             combo->showPopup();
@@ -565,7 +560,6 @@ bool VariableDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
-        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

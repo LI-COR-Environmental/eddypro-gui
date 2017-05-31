@@ -61,7 +61,6 @@ IrgaView::IrgaView(QWidget *parent) :
 
 IrgaView::~IrgaView()
 {
-    DEBUG_FUNC_NAME
 }
 
 // Create and show context menu
@@ -79,8 +78,6 @@ void IrgaView::contextMenuEvent(QContextMenuEvent *event)
 // no selection
 void IrgaView::addIrga()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = irgaCount();
 
@@ -102,8 +99,6 @@ void IrgaView::addIrga()
 // Remove the selected irga or the last if there is no selection
 void IrgaView::removeIrga()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = irgaCount() - 1;
 

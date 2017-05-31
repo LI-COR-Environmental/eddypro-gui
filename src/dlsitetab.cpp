@@ -298,7 +298,6 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
 
 DlSiteTab::~DlSiteTab()
 {
-    DEBUG_FUNC_NAME
 }
 
 // get latitude in signed decimal degrees from ddmmss.sss string

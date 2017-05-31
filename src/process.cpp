@@ -57,13 +57,10 @@ Process::Process(QWidget* parent, const QString &fullPath) :
 
 Process::~Process()
 {
-    DEBUG_FUNC_NAME
 }
 
 bool Process::engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList)
 {
-    DEBUG_FUNC_NAME
-
     connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
     connect(process_, SIGNAL(error(QProcess::ProcessError)),
@@ -133,11 +130,6 @@ bool Process::zipProcessAddStart(const QString &fileName,
             + Defs::BIN_FILE_DIR
             + QLatin1Char('/')
             + Defs::COMPRESSOR_BIN);
-    qDebug() << "fp" << fp;
-    qDebug() << "filename" << fileName;
-    qDebug() << "toArchive" << toArchive;
-    qDebug() << "args" << args;
-    qDebug() << "workDir" << workDir;
 
     connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -174,8 +166,6 @@ bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDi
             + Defs::BIN_FILE_DIR
             + QLatin1Char('/')
             + Defs::COMPRESSOR_BIN);
-    qDebug() << fp;
-    qDebug() << args;
 
     process_->start(fp, args, QProcess::Unbuffered | QProcess::ReadWrite);
 
@@ -190,10 +180,7 @@ bool Process::zipProcessExtMdStart(const QString& fileName, const QString& outDi
 // NOTE: never used
 bool Process::zipContainsFiletype(const QString& fileName, const QString& filePattern)
 {
-    DEBUG_FUNC_NAME
     QStringList args;
-
-    qDebug() << "filePattern" << filePattern;
 
     args << QStringLiteral("l");
     args << fileName;
@@ -216,13 +203,11 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
         return false;
 
     QByteArray dataList = process_->readAllStandardOutput();
-//    qDebug() << "dataList" << dataList;
     return dataList.contains(filePattern.mid(1).toLatin1());
 }
 
 void Process::processPause(Defs::CurrRunStatus mode)
 {
-    DEBUG_FUNC_NAME
     Q_UNUSED(mode)
 
     // file path of the utility to pause the engine
@@ -250,15 +235,12 @@ void Process::processPause(Defs::CurrRunStatus mode)
     args << QString::number(processPid_);
 #endif
 
-    qDebug() << "fp" << fp << "args" << args;
-
     freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
 void Process::processResume(Defs::CurrRunStatus mode)
 {
-    DEBUG_FUNC_NAME
     Q_UNUSED(mode)
 
     // file path of the utility to resume the engine
@@ -284,16 +266,12 @@ void Process::processResume(Defs::CurrRunStatus mode)
     args << QString::number(processPid_);
 #endif
 
-    qDebug() << "fp" << fp << "args" << args;
-
     freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
 void Process::processStop()
 {
-    DEBUG_FUNC_NAME
-
     // to avoid crash message error in windows
     disconnect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -306,7 +284,6 @@ void Process::processStop()
 
 void Process::processError(QProcess::ProcessError error)
 {
-    DEBUG_FUNC_NAME
     if (error == QProcess::FailedToStart)
     {
         qWarning() << tr("program not found.");
@@ -324,7 +301,6 @@ void Process::processError(QProcess::ProcessError error)
 
 void Process::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    DEBUG_FUNC_NAME
     // to avoid multiple call
     disconnect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -351,13 +327,11 @@ void Process::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 QByteArray Process::readAllStdOut() const
 {
-    DEBUG_FUNC_NAME
     return process_->readAllStandardOutput();
 }
 
 QByteArray Process::readAllStdErr() const
 {
-    DEBUG_FUNC_NAME
     return process_->readAllStandardError();
 }
 
@@ -391,7 +365,6 @@ void Process::setEnv(const QStringList &envList)
 // analyze the pausep output
 void Process::bufferFreezerOutput()
 {
-    DEBUG_FUNC_NAME
 #if defined(Q_OS_WIN)
     QByteArray data = freezerUtility_->readAllStandardOutput();
 
@@ -428,7 +401,6 @@ void Process::parseFreezerPid(const QByteArray& data)
         QByteArray col = columnList.at(1);
         const char* colData = col.constData();
         winPid_ = QString::fromUtf8(colData);
-        qDebug() << "pid" << winPid_;
 
         freezerUtility_->kill();
 
@@ -443,8 +415,6 @@ void Process::parseFreezerPid(const QByteArray& data)
 // Second run of 'pausep.exe' on Windows
 void Process::processPause_2()
 {
-    DEBUG_FUNC_NAME
-
 #if defined(Q_OS_WIN)
     // file path of the program
     QString fp(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN);
@@ -461,7 +431,6 @@ void Process::processPause_2()
 // from http://www.qtcentre.org/threads/44489-Get-Process-ID-for-a-running-application
 unsigned int Process::getProcessIdsByProcessName(const QString& processName, QStringList &listOfPids)
 {
-    DEBUG_FUNC_NAME
     // Clear content of returned list of PIDS
     listOfPids.clear();
 
@@ -540,8 +509,6 @@ unsigned int Process::getProcessIdsByProcessName(const QString& processName, QSt
     // Remove trailing CR
     if (bytes.endsWith("\n"))
         bytes.resize(bytes.size() - 1);
-
-    qDebug() << bytes;
 
     listOfPids = QString(QLatin1String(bytes)).split(QStringLiteral("\n"));
     return listOfPids.count();

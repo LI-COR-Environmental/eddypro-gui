@@ -122,7 +122,6 @@ void InfoMessage::initialize()
 
 void InfoMessage::refresh()
 {
-    DEBUG_FUNC_NAME
     bool showDialog = false;
 
     QSettings config;
@@ -152,8 +151,6 @@ void InfoMessage::refresh()
             break;
     }
     config.endGroup();
-
-    qDebug() << "showDialog" << showDialog;
 
     doNotShowAgainCheckbox_->setChecked(!showDialog);
 }

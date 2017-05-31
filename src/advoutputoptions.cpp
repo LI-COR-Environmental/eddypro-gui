@@ -49,8 +49,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    DEBUG_FUNC_NAME
-
     QString tooltipStr;
 
     minSelectionButton = new QPushButton;
@@ -747,7 +745,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
 void AdvOutputOptions::setSmartfluxUI()
 {
-    DEBUG_FUNC_NAME
     bool on = configState_->project.smartfluxMode;
 
     QWidgetList enableableWidgets;
@@ -948,8 +945,6 @@ void AdvOutputOptions::setSmartfluxUI()
 
 void AdvOutputOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -973,8 +968,6 @@ void AdvOutputOptions::reset()
 
 void AdvOutputOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1064,14 +1057,11 @@ void AdvOutputOptions::refresh()
 
 void AdvOutputOptions::updateOutBinSpectra(bool b)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setScreenOutBinSpectra(b);
 }
 
 void AdvOutputOptions::updateBinSpectra(bool b)
 {
-    DEBUG_FUNC_NAME
-
     updateOutBinSpectra(b);
     outBinSpectraCheckBox->setDisabled(b);
 }
@@ -1216,7 +1206,6 @@ void AdvOutputOptions::checkFullCospectraAll(bool b)
 
 void AdvOutputOptions::checkStAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outSt1CheckBox->setChecked(b);
     outSt2CheckBox->setChecked(b);
     outSt3CheckBox->setChecked(b);
@@ -1228,7 +1217,6 @@ void AdvOutputOptions::checkStAll(bool b)
 
 void AdvOutputOptions::checkTimeSeriesAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outRaw1CheckBox->setChecked(b);
     outRaw2CheckBox->setChecked(b);
     outRaw3CheckBox->setChecked(b);
@@ -1240,7 +1228,6 @@ void AdvOutputOptions::checkTimeSeriesAll(bool b)
 
 void AdvOutputOptions::checkVarsAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outRawUCheckBox->setChecked(b);
     outRawVCheckBox->setChecked(b);
     outRawWCheckBox->setChecked(b);
@@ -1418,7 +1405,6 @@ void AdvOutputOptions::updateFixedOuputFormat(int n)
 
 void AdvOutputOptions::updateErrorLabel(const QString& s)
 {
-    DEBUG_FUNC_NAME
     if (s.isEmpty() || s.toUpper() == QLatin1String("NONE"))
     {
         WidgetUtils::warning(this,
@@ -1517,8 +1503,6 @@ void AdvOutputOptions::checkMetadataOutput()
 
 void AdvOutputOptions::updateSelectAllCheckbox()
 {
-    DEBUG_FUNC_NAME
-
     outVarsAllCheckBox->blockSignals(true);
 
     if (areAllCheckedVars())

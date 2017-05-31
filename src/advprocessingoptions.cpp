@@ -69,8 +69,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     configState_(config),
     calibration_info_()
 {
-    DEBUG_FUNC_NAME
-
     createQuestionMark();
 
     auto rawProcessingTitle = new QLabel(tr("Raw data processing"));
@@ -613,8 +611,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
 AdvProcessingOptions::~AdvProcessingOptions()
 {
-    DEBUG_FUNC_NAME
-
     if (pfDialog_)
         delete pfDialog_;
 
@@ -643,7 +639,6 @@ void AdvProcessingOptions::updateWOffset(double d)
 // update project properties
 void AdvProcessingOptions::updateAoaMethod_1(bool b)
 {
-    DEBUG_FUNC_NAME
     if (b)
     {
         auto value = aoaMethCombo->itemData(aoaMethCombo->currentIndex());
@@ -710,8 +705,6 @@ void AdvProcessingOptions::updateDetrendMeth(int l)
 
 void AdvProcessingOptions::updateTimeConst(double l)
 {
-    DEBUG_FUNC_NAME
-
     // write [min] on the GUI but [sec] in the file
     if (detrendCombo->currentIndex() == 1)
     {
@@ -861,8 +854,6 @@ void AdvProcessingOptions::onWLabelClicked()
 
 void AdvProcessingOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -927,8 +918,6 @@ void AdvProcessingOptions::reset()
 
 void AdvProcessingOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1072,8 +1061,6 @@ void AdvProcessingOptions::refresh()
 
 void AdvProcessingOptions::createPfSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!pfDialog_)
     {
         pfDialog_ = new PlanarFitSettingsDialog(this, ecProject_, configState_);
@@ -1090,8 +1077,6 @@ void AdvProcessingOptions::showPfSettingsDialog()
 
 void AdvProcessingOptions::createTlSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!tlDialog_)
     {
         tlDialog_ = new TimeLagSettingsDialog(this, ecProject_, configState_);
@@ -1100,8 +1085,6 @@ void AdvProcessingOptions::createTlSettingsDialog()
 
 void AdvProcessingOptions::showTlSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     tlDialog_->refresh();
     tlDialog_->show();
     tlDialog_->raise();
@@ -1110,8 +1093,6 @@ void AdvProcessingOptions::showTlSettingsDialog()
 
 void AdvProcessingOptions::createCalibDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!calibDialog_)
     {
         calibDialog_ = new CalibrationDialog(this, ecProject_, configState_);
@@ -1120,8 +1101,6 @@ void AdvProcessingOptions::createCalibDialog()
 
 void AdvProcessingOptions::showCalibDialog()
 {
-    DEBUG_FUNC_NAME
-
     calibDialog_->refresh();
     calibDialog_->show();
     calibDialog_->raise();
@@ -1539,8 +1518,6 @@ void AdvProcessingOptions::setBurbaDefaultValues()
 
 void AdvProcessingOptions::on_setDefaultsButton_clicked()
 {
-    DEBUG_FUNC_NAME
-
     if (requestBurbaSettingsReset())
     {
         setBurbaDefaultValues();
@@ -1549,13 +1526,11 @@ void AdvProcessingOptions::on_setDefaultsButton_clicked()
 
 void AdvProcessingOptions::updateWplMeth_1(bool b)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setGeneralWplMeth(b);
 }
 
 void AdvProcessingOptions::enableBurbaCorrectionArea(bool b)
 {
-    DEBUG_FUNC_NAME
     burbaTypeLabel->setEnabled(b);
     burbaSimpleRadio->setEnabled(b);
     burbaMultiRadio->setEnabled(b);
@@ -1626,8 +1601,6 @@ bool AdvProcessingOptions::requestBurbaSettingsReset()
 
 void AdvProcessingOptions::fetchCalibration()
 {
-    DEBUG_FUNC_NAME
-
     calibration_api_ = new CalibrationAPI(this);
 
     connect(calibration_api_, &CalibrationAPI::calibrationInfoReady,
@@ -1640,8 +1613,6 @@ void AdvProcessingOptions::fetchCalibration()
 
 void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
 {
-    DEBUG_FUNC_NAME
-
     CalibrationInfo calResponse(data);
     calibration_info_ = calResponse;
 
@@ -1657,8 +1628,6 @@ void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
 
 void AdvProcessingOptions::parseCalibrationFile()
 {
-    DEBUG_FUNC_NAME
-
     auto calDir = configState_->general.env
             + QLatin1Char('/')
             + Defs::CAL_FILE_DIR
@@ -1734,31 +1703,6 @@ void AdvProcessingOptions::parseCalibrationFile()
             calibration_.h2o_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Val)")->getValue()).toDouble();
             calibration_.h2o_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Date)")->getValue());
 
-            qDebug() << "calibration.co2_A" << calibration_.co2_1_dir;
-            qDebug() << "calibration.co2_B" << calibration_.co2_2_dir;
-            qDebug() << "calibration.co2_C" << calibration_.co2_3_dir;
-            qDebug() << "calibration.co2_D" << calibration_.co2_4_dir;
-            qDebug() << "calibration.co2_E" << calibration_.co2_5_dir;
-            qDebug() << "calibration.co2_XS" << calibration_.co2_XS;
-            qDebug() << "calibration.co2_Z" << calibration_.co2_Z;
-            qDebug() << "calibration.co2_Zero" << calibration_.co2_Zero;
-            qDebug() << "calibration.co2_Zero_date" << calibration_.co2_Zero_date;
-            qDebug() << "calibration.co2_Span" << calibration_.co2_Span;
-            qDebug() << "calibration.co2_Span_date" << calibration_.co2_Span_date;
-            qDebug() << "calibration.co2_Span_2" << calibration_.co2_Span_2;
-            qDebug() << "calibration.co2_Span_2_date" << calibration_.co2_Span_2_date;
-            qDebug() << "calibration.h2o_A" << calibration_.h2o_1_dir;
-            qDebug() << "calibration.h2o_B" << calibration_.h2o_2_dir;
-            qDebug() << "calibration.h2o_C" << calibration_.h2o_3_dir;
-            qDebug() << "calibration.h2o_XS" << calibration_.h2o_XS;
-            qDebug() << "calibration.h2o_Z" << calibration_.h2o_Z;
-            qDebug() << "calibration.h2o_Zero" << calibration_.h2o_Zero;
-            qDebug() << "calibration.h2o_Zero_date" << calibration_.h2o_Zero_date;
-            qDebug() << "calibration.h2o_Span" << calibration_.h2o_Span;
-            qDebug() << "calibration.h2o_Span_date" << calibration_.h2o_Span_date;
-            qDebug() << "calibration.h2o_Span_2" << calibration_.h2o_Span_2;
-            qDebug() << "calibration.h2o_Span_2_date" << calibration_.h2o_Span_2_date;
-
             try
             {
                 calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(CX)")->getValue()).toDouble();
@@ -1793,8 +1737,6 @@ void AdvProcessingOptions::parseCalibrationFile()
 
 void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
 {
-    DEBUG_FUNC_NAME
-
     auto x_range = VectorUtils::arange<double>(0.000416, 0.001192, 0.000004);
 
     std::vector<double> co2_dir_coeffs = {0.0, cal.co2_1_dir, cal.co2_2_dir, cal.co2_3_dir, cal.co2_4_dir, cal.co2_5_dir, 0.0};

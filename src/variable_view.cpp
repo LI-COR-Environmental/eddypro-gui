@@ -60,7 +60,6 @@ VariableView::VariableView(QWidget *parent) :
 
 VariableView::~VariableView()
 {
-    DEBUG_FUNC_NAME
 }
 
 // Create and show context menu

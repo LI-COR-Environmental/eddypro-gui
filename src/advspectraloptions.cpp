@@ -953,7 +953,6 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
 
 AdvSpectralOptions::~AdvSpectralOptions()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvSpectralOptions::setSmartfluxUI()
@@ -997,8 +996,6 @@ void AdvSpectralOptions::setSmartfluxUI()
 
 void AdvSpectralOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1132,8 +1129,6 @@ void AdvSpectralOptions::reset()
 
 void AdvSpectralOptions::partialRefresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1161,8 +1156,6 @@ void AdvSpectralOptions::partialRefresh()
 
 void AdvSpectralOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1348,7 +1341,6 @@ void AdvSpectralOptions::updateSpectraFile(const QString &fp)
 
 void AdvSpectralOptions::updateBinnedSpectraFile(const QString &fp)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setSpectraBinSpectra(QDir::cleanPath(fp));
 }
 
@@ -1390,8 +1382,6 @@ void AdvSpectralOptions::testSelectedSpectraFile(const QString& fp)
 
 void AdvSpectralOptions::binnedSpectraDirSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     binnedSpectraDirBrowse->setPath(dir_path);
 
     QDir dataDir(dir_path);
@@ -1402,8 +1392,6 @@ void AdvSpectralOptions::binnedSpectraDirSelected(const QString& dir_path)
 
 void AdvSpectralOptions::fullSpectraDirSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     fullSpectraDirBrowse->setPath(dir_path);
 
     QDir dataDir(dir_path);
@@ -1498,14 +1486,12 @@ void AdvSpectralOptions::fullSpectraRadioClicked(int radioButton)
 
 void AdvSpectralOptions::onStartDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     startDateEdit->setFocus();
     WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void AdvSpectralOptions::onEndDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     endDateEdit->setFocus();
     WidgetUtils::showCalendarOf(endDateEdit);
 }
@@ -1542,8 +1528,6 @@ void AdvSpectralOptions::onClickHfMethLabel()
 
 void AdvSpectralOptions::setHfMethod(int hfMethComboIndex)
 {
-    DEBUG_FUNC_NAME
-
     switch (hfMethComboIndex)
     {
     case 0: // moncrieff
@@ -1741,7 +1725,6 @@ void AdvSpectralOptions::onClickHorstLabel()
 
 void AdvSpectralOptions::updateHorst_1(bool b)
 {
-    DEBUG_FUNC_NAME
     if (b)
     {
         ecProject_->setSpectraHorst(horstCombo->currentIndex() + 1);
@@ -1904,8 +1887,6 @@ void AdvSpectralOptions::updateHfnGas4(double d)
 // enforce (start date&time) <= (end date&time)
 void AdvSpectralOptions::forceEndDatePolicy()
 {
-    DEBUG_FUNC_NAME
-
     endDateEdit->setMinimumDate(startDateEdit->date());
 }
 

@@ -34,8 +34,6 @@
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
     auto hHeaderView = horizontalHeader();
     hHeaderView->show();
     connect(hHeaderView, &QHeaderView::sectionClicked,
@@ -113,8 +111,6 @@ void VariableTableView::mousePressEvent(QMouseEvent *event)
 // http://stackoverflow.com/questions/12380107/in-qtableview-what-signal-triggers-the-editing-mode
 void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndEditHint hint)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "hint:" << hint;
     if (hint == QAbstractItemDelegate::NoHint)
     {
         QAbstractItemView::closeEditor(editor,
@@ -155,15 +151,6 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 // NOTE: to finish
 void VariableTableView::hHeaderClicked(int section)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "section" << section;
-
-//    if (selectionModel()->isColumnSelected(section, QModelIndex()))
-//    {
-//        reset();
-////        clearSelection();
-//    }
-
     clearSelection();
 }
 

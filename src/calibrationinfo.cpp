@@ -57,8 +57,6 @@ CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
     cal_recal_(false)
 
 {
-    DEBUG_FUNC_NAME
-
     QJsonParseError jerror;
     QJsonDocument jdoc = QJsonDocument::fromJson(calibrationAsJson, &jerror);
 

@@ -91,7 +91,6 @@ DetectDateRangeDialog::DetectDateRangeDialog(QWidget *parent, EcProject *ecProje
 
 DetectDateRangeDialog::~DetectDateRangeDialog()
 {
-    DEBUG_FUNC_NAME
 }
 
 // void DetectDateRangeDialog::setLabel(const QString &label)
@@ -621,9 +620,6 @@ bool DetectDateRangeDialog::dateRangesOverlap(FileUtils::DateRange availableData
 
     auto dateSubset = qMakePair(dateStart, dateEnd);
 
-    qDebug() << dateStart;
-    qDebug() << dateEnd;
-
     return FileUtils::dateRangesOverlap(availableDataset, dateSubset);
 }
 
@@ -633,16 +629,6 @@ void DetectDateRangeDialog::updateOverlap(QLabel *label,
                                                const QDate& end_date,
                                                const QTime& end_time)
 {
-    qDebug() << start_date;
-    qDebug() << start_time;
-    qDebug() << end_date;
-    qDebug() << end_time;
-    qDebug() << availableDataRange_.first.date();
-    qDebug() << availableDataRange_.first.time();
-    qDebug() << availableDataRange_.second.date();
-    qDebug() << availableDataRange_.second.time();
-    qDebug() << "overlapLabel" << label->text();
-
     auto overlapStr = QString();
     if (!dateRangesOverlap(availableDataRange_,
                            start_date,
@@ -785,8 +771,6 @@ void DetectDateRangeDialog::updateSpectraOverlap(QLabel *label,
 
 void DetectDateRangeDialog::setToAvailableDates()
 {
-    DEBUG_FUNC_NAME
-
     auto firstAvailableDate = availableDataRange_.first.date();
     auto firstAvailableTime = availableDataRange_.first.time();
     auto lastAvailableDate = availableDataRange_.second.date();

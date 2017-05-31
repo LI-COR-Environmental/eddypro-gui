@@ -185,7 +185,6 @@ void CreatePackageDialog::refresh()
 
 void CreatePackageDialog::showResult(bool ok, const QString& pkgname)
 {
-    DEBUG_FUNC_NAME
     if (ok)
     {
         WidgetUtils::information(this,
@@ -216,13 +215,10 @@ void CreatePackageDialog::refreshButtonStatus()
 
 void CreatePackageDialog::close()
 {
-    DEBUG_FUNC_NAME
-
     if (isVisible())
     {
         hide();
     }
-    qDebug() << "isVisible()" << isVisible();
 }
 
 void CreatePackageDialog::onFilenameLabelClicked()
@@ -262,8 +258,6 @@ void CreatePackageDialog::clearOutpathBrowse()
 
 void CreatePackageDialog::updateOutpath(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     if (fp.isEmpty()) { return; }
 
     GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
@@ -274,8 +268,6 @@ void CreatePackageDialog::updateOutpath(const QString& fp)
 
 void CreatePackageDialog::outpathBrowseSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     outpathBrowse->setPath(dir_path);
 
     QDir outDir(dir_path);

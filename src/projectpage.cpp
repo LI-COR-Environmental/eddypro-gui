@@ -75,8 +75,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     currentMetadataFile_(QString()),
     binDialog_(nullptr)
 {
-    DEBUG_FUNC_NAME
-
     titleLabel = new ClickLabel(tr("Project name :"));
     titleLabel->setProperty("optionalField", true);
     titleLabel->setToolTip(tr("<b>Project name:</b> Enter a name for the flux computation project. This will be the default file name for this project, but you can edit it while saving the project. This field is optional."));
@@ -428,7 +426,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
 ProjectPage::~ProjectPage()
 {
-    DEBUG_FUNC_NAME
     if (binDialog_)
         delete binDialog_;
 }
@@ -456,13 +453,10 @@ void ProjectPage::createMetadataEditor()
     metadataTab->addWidget(helpGroup_);
     metadataTab->addWidget(dlIniDialog_);
     metadataTab->setCurrentIndex(0);
-    qDebug() << "metadataTab->setCurrentIndex(0)";
 }
 
 void ProjectPage::fadeInWidget(int filetype)
 {
-    DEBUG_FUNC_NAME
-
     Defs::RawFileType type
             = static_cast<Defs::RawFileType>(filetype);
     Defs::RawFileType previousType
@@ -499,8 +493,6 @@ void ProjectPage::fadeInWidget(int filetype)
 
 void ProjectPage::metadataFileSelected(const QString& file_path)
 {
-    DEBUG_FUNC_NAME
-
     QFileInfo mdDir(file_path);
     auto mdPath = mdDir.canonicalPath();
     configState_->window.last_data_path = mdPath;
@@ -519,8 +511,6 @@ void ProjectPage::metadataFileSelected(const QString& file_path)
 
 void ProjectPage::biomExtFileSelected(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     biometExtFileBrowse->setPath(fp);
     updateMetadataLoading();
 
@@ -538,7 +528,6 @@ void ProjectPage::onTitleLabelClicked()
 
 void ProjectPage::updateMetadataFileBrowse(const QString &filename)
 {
-    DEBUG_FUNC_NAME
     metadataFileBrowse->setPath(filename);
     updateMetadataLoading();
 }
@@ -550,8 +539,6 @@ void ProjectPage::updateFileType(int filetype)
 
 void ProjectPage::updateUseMetadataFile_1(int filetype)
 {
-    DEBUG_FUNC_NAME
-
     Defs::RawFileType type = static_cast<Defs::RawFileType>(filetype);
 
     if (type == Defs::RawFileType::GHG)
@@ -567,7 +554,6 @@ void ProjectPage::updateUseMetadataFile_1(int filetype)
 
 void ProjectPage::updateUseMetadataFile_2(int radio)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setGeneralUseAltMdFile(radio);
     updateMetadataLoading();
 }
@@ -598,23 +584,15 @@ void ProjectPage::onBiomExtDirSuffixLabelClicked()
 
 void ProjectPage::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
 
-    qDebug() << "1";
     titleEdit->clear();
-    qDebug() << "2";
     fileTypeRadioGroup->buttons().at(0)->setChecked(true);
-    qDebug() << "3";
     binSettingsButton->setEnabled(false);
-    qDebug() << "4";
     tobSettingsCombo->setEnabled(false);
-    qDebug() << "5";
     WidgetUtils::resetComboToItem(tobSettingsCombo, 0);
-    qDebug() << "6";
 
     embMetadataFileRadio->setEnabled(true);
     embMetadataFileRadio->setChecked(true);
@@ -646,8 +624,6 @@ void ProjectPage::reset()
 
 void ProjectPage::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -722,8 +698,6 @@ void ProjectPage::refresh()
 // triggered by reset() and refresh()
 void ProjectPage::refreshMetadata()
 {
-    DEBUG_FUNC_NAME
-
     QString mdFile(ecProject_->generalMdFilepath());
     if (mdFile != metadataFileBrowse->path())
     {
@@ -770,8 +744,6 @@ void ProjectPage::refreshMetadata()
 
 void ProjectPage::updateMetadataLoading()
 {
-    DEBUG_FUNC_NAME
-
     updateMetadataFile(metadataFileBrowse->path());
 
     if (!currentMetadataFile_.isEmpty())
@@ -786,8 +758,6 @@ void ProjectPage::updateMetadataLoading()
 
 void ProjectPage::fileTypeRadioClicked_1(int fileType)
 {
-    DEBUG_FUNC_NAME
-
     Defs::RawFileType type = static_cast<Defs::RawFileType>(fileType);
     if (type == Defs::RawFileType::GHG)
     {
@@ -814,8 +784,6 @@ void ProjectPage::fileTypeRadioClicked_1(int fileType)
 
 void ProjectPage::fileTypeRadioClicked_2(int fileType)
 {
-    DEBUG_FUNC_NAME
-
     Defs::RawFileType type = static_cast<Defs::RawFileType>(fileType);
 
     // if licor
@@ -859,8 +827,6 @@ void ProjectPage::fileTypeRadioClicked_2(int fileType)
 
 void ProjectPage::metadataRadioClicked(int b)
 {
-    DEBUG_FUNC_NAME
-
     isMetadataEditorOn_ = b;
     metadataTab->setCurrentIndex(b);
 
@@ -914,10 +880,7 @@ void ProjectPage::createQuestionMark()
 // moreover, set the biomet embedded case
 void ProjectPage::setSmartfluxUI()
 {
-    DEBUG_FUNC_NAME
     bool on = configState_->project.smartfluxMode;
-
-    qDebug() << "on" << on;
 
     // block project modified() signal
     auto oldmod = false;
@@ -947,8 +910,6 @@ void ProjectPage::setSmartfluxUI()
         ecProject_->setModified(oldmod);
         ecProject_->blockSignals(false);
     }
-
-    qDebug() << "ecProject_->generalUseBiomet()" << ecProject_->generalUseBiomet();
 }
 
 void ProjectPage::onlineHelpTrigger_2()
@@ -990,7 +951,6 @@ void ProjectPage::binSettingsDialog()
 {
     if (!binDialog_)
     {
-        qDebug() << "create dialog";
         binDialog_ = new BinarySettingsDialog(this, ecProject_);
         emit connectBinarySettingsRequest();
     }
@@ -1003,7 +963,6 @@ void ProjectPage::binSettingsDialog()
 
 void ProjectPage::tobSettingsUpdate(int n)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setGeneralTob1Format(n);
 }
 
@@ -1014,8 +973,6 @@ void ProjectPage::updateTimelineFile(const QString& fp)
 
 void ProjectPage::dynamicMdFileSelected(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     dynamicMdFileBrowse->setPath(fp);
 
     QFileInfo paramFilePath(fp);
@@ -1040,7 +997,6 @@ void ProjectPage::mdEditorReset()
 
 void ProjectPage::updateTooltip(int i)
 {
-    DEBUG_FUNC_NAME
     QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
@@ -1048,7 +1004,6 @@ void ProjectPage::updateTooltip(int i)
 
 void ProjectPage::on_biomDataCheckBox_clicked(bool clicked)
 {
-    DEBUG_FUNC_NAME
     auto radio_list = QWidgetList() << biomExtFileRadio
                                    << biomExtDirRadio;
     for (auto w : radio_list)
@@ -1126,8 +1081,6 @@ void ProjectPage::updateExtDirRec(bool b)
 
 void ProjectPage::biometExtDirSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     biometExtDirBrowse->setPath(dir_path);
 
     QDir dataDir(dir_path);
@@ -1138,7 +1091,6 @@ void ProjectPage::biometExtDirSelected(const QString& dir_path)
 
 void ProjectPage::updateExtDirSuffix(const QString& s)
 {
-    DEBUG_FUNC_NAME
     if (s.isEmpty())
     {
         WidgetUtils::warning(this,
@@ -1153,7 +1105,5 @@ void ProjectPage::updateExtDirSuffix(const QString& s)
 
 void ProjectPage::updateSmartfluxBar()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << configState_->project.smartfluxMode;
     smartfluxBar_->setVisible(configState_->project.smartfluxMode);
 }

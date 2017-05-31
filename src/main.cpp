@@ -616,8 +616,6 @@ void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, c
 // NOTE: not used
 //void doLog(const QString& appEnvPath)
 //{
-//    DEBUG_FUNC_NAME
-
 //// in debug mode
 ////#ifndef QT_NO_DEBUG_OUTPUT
 ////#ifdef QT_DEBUG
@@ -660,30 +658,22 @@ void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, c
 
 bool extractDocs(const QString& currentDir)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "___________________________________________";
-
     auto docDir = currentDir
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
 
-    qDebug() << "docDir" << docDir;
-
     // skip if already extracted
     if (FileUtils::existsPath(docDir))
     {
-        qDebug() << "docs already extracted";
         return false;
     }
 
     auto docArchive = docDir
                       + QStringLiteral(".")
                       + Defs::ZIP_NATIVE_DATA_FILE_EXT;
-    qDebug() << "docArchive" << docArchive;
 
     if (!QFile::exists(docArchive))
     {
-        qDebug() << "no docs.zip";
         return false;
     }
 

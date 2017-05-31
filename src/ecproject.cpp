@@ -86,28 +86,17 @@ bool EcProject::previousSettingsCompare(bool current, bool previous)
 bool EcProject::previousFourthGasCompare(int currentGas, double currGasMw, double currGasDiff,
                                          int previousGas, double previousGasMw, double previousGasDiff)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "currentGas" << currentGas;
-    qDebug() << "previousGasMw" << previousGasMw;
-    qDebug() << "currGasMw" << currGasMw;
-    qDebug() << "currGasDiff" << currGasDiff;
-    qDebug() << "previousGasMw" << previousGasMw;
-    qDebug() << "previousGasDiff" << previousGasDiff;
-
     if (currentGas >= 0 && currentGas == previousGas)
     {
         if (qFuzzyCompare(currGasMw, previousGasMw) && qFuzzyCompare(currGasDiff, previousGasDiff))
         {
-            qDebug() << "return true";
             return true;
         }
         else
         {
-            qDebug() << "return false 1";
             return false;
         }
     }
-    qDebug() << "return false 2";
     return false;
 }
 
@@ -133,32 +122,11 @@ bool EcProject::compareDates(const QString& currStartDate, const QString& prevSt
     QTime cEndTime = QTime::fromString(currEndTime, QStringLiteral("hh:mm"));
     QTime pEndTime = QTime::fromString(prevEndTime, QStringLiteral("hh:mm"));
 
-    qDebug() << "currStartDate" << currStartDate;
-    qDebug() << "prevStartDate" << prevStartDate;
-    qDebug() << "cStartDate" << cStartDate;
-    qDebug() << "pStartDate" << pStartDate;
-    qDebug() << "currEndDate" << currEndDate;
-    qDebug() << "prevEndDate" << prevEndDate;
-    qDebug() << "cEndDate" << cEndDate;
-    qDebug() << "pEndDate" << pEndDate;
-
-    qDebug() << "currStartTime" << currStartTime;
-    qDebug() << "prevStartTime" << prevStartTime;
-    qDebug() << "cStartTime" << cStartTime;
-    qDebug() << "pStartTime" << pStartTime;
-    qDebug() << "currEndTime" << currEndTime;
-    qDebug() << "prevEndTime" << prevEndTime;
-    qDebug() << "cEndTime" << cEndTime;
-    qDebug() << "pEndTime" << pEndTime;
-
     bool test_1 = (cStartDate > pStartDate);
     bool test_2 = (cStartDate == pStartDate);
     bool test_3 = true;
     if (test_2)
         test_3 = (cStartTime >= pStartTime);
-    qDebug() << "test_1" << test_1;
-    qDebug() << "test_2" << test_2;
-    qDebug() << "test_3" << test_3;
     bool startTest = (test_1 || test_2) && test_3;
 
     bool test_4 = (cEndDate < pEndDate);
@@ -166,19 +134,13 @@ bool EcProject::compareDates(const QString& currStartDate, const QString& prevSt
     bool test_6 = true;
     if (test_5)
         test_6 = (cEndTime <= pEndTime);
-    qDebug() << "test_4" << test_4;
-    qDebug() << "test_5" << test_5;
-    qDebug() << "test_6" << test_6;
     bool endTest = (test_4 || test_5) && test_6;
 
-    qDebug() << "startTest && endTest" << (startTest && endTest) << startTest << endTest;
     return (startTest && endTest);
 }
 
 bool EcProject::fuzzyCompare(const EcProject& previousProject)
 {
-    DEBUG_FUNC_NAME
-
     bool dataSetTest = (ec_project_state_.projectGeneral.file_type == previousProject.ec_project_state_.projectGeneral.file_type)
         && (ec_project_state_.projectGeneral.file_prototype == previousProject.ec_project_state_.projectGeneral.file_prototype)
         && (ec_project_state_.projectGeneral.col_ts == previousProject.ec_project_state_.projectGeneral.col_ts)
@@ -201,12 +163,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_75)
         && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_77)
         && (ec_project_state_.projectGeneral.col_diag_anem == previousProject.ec_project_state_.projectGeneral.col_diag_anem);
-    qDebug() << "dataSetTest 1" << dataSetTest;
 
     if (ec_project_state_.projectGeneral.subset)
     {
-        qDebug() << "subset" << ec_project_state_.projectGeneral.subset;
-
         dataSetTest = dataSetTest
             && compareDates(ec_project_state_.projectGeneral.start_date, previousProject.ec_project_state_.projectGeneral.start_date,
                 ec_project_state_.projectGeneral.start_time, previousProject.ec_project_state_.projectGeneral.start_time,
@@ -215,95 +174,55 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     }
     else
     {
-        qDebug() << "subTest false";
         dataSetTest = dataSetTest
             && (ec_project_state_.projectGeneral.files_found == previousProject.ec_project_state_.projectGeneral.files_found);
     }
-    qDebug() << "dataSetTest 1.1" << dataSetTest;
 
     dataSetTest = dataSetTest
         && previousSettingsCompare(ec_project_state_.screenGeneral.recurse, previousProject.ec_project_state_.screenGeneral.recurse);
-    qDebug() << "dataSetTest 2.1" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_col == previousProject.ec_project_state_.screenGeneral.flag1_col);
-    qDebug() << "dataSetTest 2.2" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag1_threshold, previousProject.ec_project_state_.screenGeneral.flag1_threshold);
-    qDebug() << "dataSetTest 2.3" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_policy == previousProject.ec_project_state_.screenGeneral.flag1_policy);
-    qDebug() << "dataSetTest 2.4" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_col == previousProject.ec_project_state_.screenGeneral.flag2_col);
-    qDebug() << "dataSetTest 2.5" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag2_threshold, previousProject.ec_project_state_.screenGeneral.flag2_threshold);
-    qDebug() << "dataSetTest 2.6" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_policy == previousProject.ec_project_state_.screenGeneral.flag2_policy);
-    qDebug() << "dataSetTest 2.7" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_col == previousProject.ec_project_state_.screenGeneral.flag3_col);
-    qDebug() << "dataSetTest 2.8" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag3_threshold, previousProject.ec_project_state_.screenGeneral.flag3_threshold);
-    qDebug() << "dataSetTest 2.9" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_policy == previousProject.ec_project_state_.screenGeneral.flag3_policy);
-    qDebug() << "dataSetTest 2.10" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_col == previousProject.ec_project_state_.screenGeneral.flag4_col);
-    qDebug() << "dataSetTest 2.11" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag4_threshold, previousProject.ec_project_state_.screenGeneral.flag4_threshold);
-    qDebug() << "dataSetTest 2.12" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_policy == previousProject.ec_project_state_.screenGeneral.flag4_policy);
-    qDebug() << "dataSetTest 2.13" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_col == previousProject.ec_project_state_.screenGeneral.flag5_col);
-    qDebug() << "dataSetTest 2.14" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag5_threshold, previousProject.ec_project_state_.screenGeneral.flag5_threshold);
-    qDebug() << "dataSetTest 2.15" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_policy == previousProject.ec_project_state_.screenGeneral.flag5_policy);
-    qDebug() << "dataSetTest 2.16" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_col == previousProject.ec_project_state_.screenGeneral.flag6_col);
-    qDebug() << "dataSetTest 2.17" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag6_threshold, previousProject.ec_project_state_.screenGeneral.flag6_threshold);
-    qDebug() << "dataSetTest 2.18" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_policy == previousProject.ec_project_state_.screenGeneral.flag6_policy);
-    qDebug() << "dataSetTest 2.19" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_col == previousProject.ec_project_state_.screenGeneral.flag7_col);
-    qDebug() << "dataSetTest 2.20" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag7_threshold, previousProject.ec_project_state_.screenGeneral.flag7_threshold);
-    qDebug() << "dataSetTest 2.21" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_policy == previousProject.ec_project_state_.screenGeneral.flag7_policy);
-    qDebug() << "dataSetTest 2.22" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_col == previousProject.ec_project_state_.screenGeneral.flag8_col);
-    qDebug() << "dataSetTest 2.23" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag8_threshold, previousProject.ec_project_state_.screenGeneral.flag8_threshold);
-    qDebug() << "dataSetTest 2.24" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_policy == previousProject.ec_project_state_.screenGeneral.flag8_policy);
-    qDebug() << "dataSetTest 2.25" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_col == previousProject.ec_project_state_.screenGeneral.flag9_col);
-    qDebug() << "dataSetTest 2.26" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag9_threshold, previousProject.ec_project_state_.screenGeneral.flag9_threshold);
-    qDebug() << "dataSetTest 2.27" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_policy == previousProject.ec_project_state_.screenGeneral.flag9_policy);
-    qDebug() << "dataSetTest 2.28" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_col == previousProject.ec_project_state_.screenGeneral.flag10_col);
-    qDebug() << "dataSetTest 2.29" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag10_threshold, previousProject.ec_project_state_.screenGeneral.flag10_threshold);
-    qDebug() << "dataSetTest 2.30" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_policy == previousProject.ec_project_state_.screenGeneral.flag10_policy);
-    qDebug() << "dataSetTest 2.31" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenSetting.max_lack == previousProject.ec_project_state_.screenSetting.max_lack);
-    qDebug() << "dataSetTest 2.33" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.u_offset, previousProject.ec_project_state_.screenSetting.u_offset);
-    qDebug() << "dataSetTest 2.34" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.v_offset, previousProject.ec_project_state_.screenSetting.v_offset);
-    qDebug() << "dataSetTest 2.35" << dataSetTest;
     dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.w_offset, previousProject.ec_project_state_.screenSetting.w_offset);
-    qDebug() << "dataSetTest 2.36" << dataSetTest;
     dataSetTest = dataSetTest && (ec_project_state_.screenSetting.avrg_len == previousProject.ec_project_state_.screenSetting.avrg_len);
-    qDebug() << "dataSetTest 2.37" << dataSetTest;
 
     bool advSettingsTest = true;
     bool subTest = (ec_project_state_.screenSetting.detrend_meth == previousProject.ec_project_state_.screenSetting.detrend_meth);
-    qDebug() << "advSettingsTest 1" << advSettingsTest;
+
     if (subTest && ec_project_state_.screenSetting.detrend_meth)
     {
-        qDebug() << "advSettingsTest 2" << advSettingsTest;
         advSettingsTest = advSettingsTest && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
     }
-    qDebug() << "advSettingsTest 3" << advSettingsTest;
 
     if ((ec_project_state_.projectGeneral.hf_meth > 1
          && ec_project_state_.projectGeneral.hf_meth < 5
@@ -332,95 +251,73 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && (ec_project_state_.screenSetting.tap_win == previousProject.ec_project_state_.screenSetting.tap_win)
                && (ec_project_state_.screenSetting.nbins == previousProject.ec_project_state_.screenSetting.nbins);
     }
-    qDebug() << "advSettingsTest 2" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
-    qDebug() << "advSettingsTest 21" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && (ec_project_state_.screenSetting.tlag_meth == previousProject.ec_project_state_.screenSetting.tlag_meth);
-    qDebug() << "advSettingsTest 22" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_bin_sp, previousProject.ec_project_state_.screenSetting.out_bin_sp);
-    qDebug() << "advSettingsTest 23" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_bin_og, previousProject.ec_project_state_.screenSetting.out_bin_og);
-    qDebug() << "advSettingsTest 24" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_spectra, previousProject.ec_project_state_.projectGeneral.out_mean_spectra);
-    qDebug() << "advSettingsTest 25a" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_cosp, previousProject.ec_project_state_.projectGeneral.out_mean_cosp);
-    qDebug() << "advSettingsTest 25b" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_u, previousProject.ec_project_state_.screenSetting.out_full_sp_u);
-    qDebug() << "advSettingsTest 26" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_v, previousProject.ec_project_state_.screenSetting.out_full_sp_v);
-    qDebug() << "advSettingsTest 27" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_w, previousProject.ec_project_state_.screenSetting.out_full_sp_w);
-    qDebug() << "advSettingsTest 271" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_ts, previousProject.ec_project_state_.screenSetting.out_full_sp_ts);
-    qDebug() << "advSettingsTest 272" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_co2, previousProject.ec_project_state_.screenSetting.out_full_sp_co2);
-    qDebug() << "advSettingsTest 273" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_h2o, previousProject.ec_project_state_.screenSetting.out_full_sp_h2o);
-    qDebug() << "advSettingsTest 274" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_ch4, previousProject.ec_project_state_.screenSetting.out_full_sp_ch4);
-    qDebug() << "advSettingsTest 275" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_n2o, previousProject.ec_project_state_.screenSetting.out_full_sp_n2o);
-    qDebug() << "advSettingsTest 276" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_u, previousProject.ec_project_state_.screenSetting.out_full_cosp_u);
-    qDebug() << "advSettingsTest 277" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_v, previousProject.ec_project_state_.screenSetting.out_full_cosp_v);
-    qDebug() << "advSettingsTest 278" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_ts, previousProject.ec_project_state_.screenSetting.out_full_cosp_ts);
-    qDebug() << "advSettingsTest 279" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_co2, previousProject.ec_project_state_.screenSetting.out_full_cosp_co2);
-    qDebug() << "advSettingsTest 270" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_h2o, previousProject.ec_project_state_.screenSetting.out_full_cosp_h2o);
-    qDebug() << "advSettingsTest 271" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_ch4, previousProject.ec_project_state_.screenSetting.out_full_cosp_ch4);
-    qDebug() << "advSettingsTest 272" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_n2o, previousProject.ec_project_state_.screenSetting.out_full_cosp_n2o);
-    qDebug() << "advSettingsTest 28" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_st_1, previousProject.ec_project_state_.screenSetting.out_st_1);
-    qDebug() << "advSettingsTest 29" << advSettingsTest;
+
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenSetting.out_st_2, previousProject.ec_project_state_.screenSetting.out_st_2)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_st_3, previousProject.ec_project_state_.screenSetting.out_st_3)
@@ -446,11 +343,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_gas4, previousProject.ec_project_state_.screenSetting.out_raw_gas4)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_tair, previousProject.ec_project_state_.screenSetting.out_raw_tair)
         && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_pair, previousProject.ec_project_state_.screenSetting.out_raw_pair);
-    qDebug() << "advSettingsTest 30" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenTest.test_sr, previousProject.ec_project_state_.screenTest.test_sr);
-    qDebug() << "advSettingsTest 31" << advSettingsTest;
 
     advSettingsTest = advSettingsTest
         && previousSettingsCompare(ec_project_state_.screenTest.test_ar, previousProject.ec_project_state_.screenTest.test_ar)
@@ -461,7 +356,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         && previousSettingsCompare(ec_project_state_.screenTest.test_tl, previousProject.ec_project_state_.screenTest.test_tl)
         && previousSettingsCompare(ec_project_state_.screenTest.test_aa, previousProject.ec_project_state_.screenTest.test_aa)
         && previousSettingsCompare(ec_project_state_.screenTest.test_ns, previousProject.ec_project_state_.screenTest.test_ns);
-    qDebug() << "advSettingsTest 3" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_sr && previousProject.ec_project_state_.screenTest.test_sr);
     if (subTest)
@@ -477,7 +371,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_ch4, previousProject.ec_project_state_.screenParam.sr_lim_ch4)
                && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_n2o, previousProject.ec_project_state_.screenParam.sr_lim_n2o);
     }
-    qDebug() << "advSettingsTest 4" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_ar && previousProject.ec_project_state_.screenTest.test_ar);
     if (subTest)
@@ -487,7 +380,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && (ec_project_state_.screenParam.ar_bins == previousProject.ec_project_state_.screenParam.ar_bins)
                && (ec_project_state_.screenParam.ar_hf_lim == previousProject.ec_project_state_.screenParam.ar_hf_lim);
     }
-    qDebug() << "advSettingsTest 5" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_do && previousProject.ec_project_state_.screenTest.test_do);
     if (subTest)
@@ -497,7 +389,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.do_hf1_lim, previousProject.ec_project_state_.screenParam.do_hf1_lim)
                && qFuzzyCompare(ec_project_state_.screenParam.do_hf2_lim, previousProject.ec_project_state_.screenParam.do_hf2_lim);
     }
-    qDebug() << "advSettingsTest 6" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_al && previousProject.ec_project_state_.screenTest.test_al);
     if (subTest)
@@ -517,7 +408,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.al_n2o_max, previousProject.ec_project_state_.screenParam.al_n2o_max)
                && (ec_project_state_.screenSetting.filter_al == previousProject.ec_project_state_.screenSetting.filter_al);
     }
-    qDebug() << "advSettingsTest 7" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_sk && previousProject.ec_project_state_.screenTest.test_sk);
     if (subTest)
@@ -532,7 +422,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmax, previousProject.ec_project_state_.screenParam.sk_sf_skmax)
                && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmin, previousProject.ec_project_state_.screenParam.sk_sf_skmin);
     }
-    qDebug() << "advSettingsTest 8" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_ds && previousProject.ec_project_state_.screenTest.test_ds);
     if (subTest)
@@ -556,7 +445,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_w, previousProject.ec_project_state_.screenParam.ds_sf_w)
                && ec_project_state_.screenParam.despike_vm == previousProject.ec_project_state_.screenParam.despike_vm;
     }
-    qDebug() << "advSettingsTest 9" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_tl && previousProject.ec_project_state_.screenTest.test_tl);
     if (subTest)
@@ -569,7 +457,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.tl_hf_lim, previousProject.ec_project_state_.screenParam.tl_hf_lim)
                && qFuzzyCompare(ec_project_state_.screenParam.tl_sf_lim, previousProject.ec_project_state_.screenParam.tl_sf_lim);
     }
-    qDebug() << "advSettingsTest 10" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_aa && previousProject.ec_project_state_.screenTest.test_aa);
     if (subTest)
@@ -579,7 +466,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && qFuzzyCompare(ec_project_state_.screenParam.aa_max, previousProject.ec_project_state_.screenParam.aa_max)
                && qFuzzyCompare(ec_project_state_.screenParam.aa_min, previousProject.ec_project_state_.screenParam.aa_min);
     }
-    qDebug() << "advSettingsTest 11" << advSettingsTest;
 
     subTest = (ec_project_state_.screenTest.test_ns && previousProject.ec_project_state_.screenTest.test_ns);
     if (subTest)
@@ -587,11 +473,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
         advSettingsTest = advSettingsTest
                && qFuzzyCompare(ec_project_state_.screenParam.ns_hf_lim, previousProject.ec_project_state_.screenParam.ns_hf_lim);
     }
-    qDebug() << "advSettingsTest 12" << advSettingsTest;
 
     subTest = (ec_project_state_.projectGeneral.use_biomet == previousProject.ec_project_state_.projectGeneral.use_biomet);
     dataSetTest = dataSetTest && subTest;
-    qDebug() << "dataSetTest 3" << dataSetTest;
 
     if (subTest)
     {
@@ -603,7 +487,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                && (ec_project_state_.biomParam.col_rh == previousProject.ec_project_state_.biomParam.col_rh)
                && (ec_project_state_.biomParam.col_ta == previousProject.ec_project_state_.biomParam.col_ta);
     }
-    qDebug() << "advSettingsTest 13" << advSettingsTest;
 
     subTest = (ec_project_state_.projectGeneral.use_alt_md_file == previousProject.ec_project_state_.projectGeneral.use_alt_md_file);
     dataSetTest = dataSetTest && subTest;
@@ -611,7 +494,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest && ec_project_state_.projectGeneral.use_alt_md_file)
         subTest = subTest && previousFileNameCompare(ec_project_state_.projectGeneral.md_file, previousProject.ec_project_state_.projectGeneral.md_file);
     dataSetTest = dataSetTest && subTest;
-    qDebug() << "dataSetTest 4" << dataSetTest;
 
     subTest = (ec_project_state_.projectGeneral.use_tlfile == previousProject.ec_project_state_.projectGeneral.use_tlfile);
     dataSetTest = dataSetTest && subTest;
@@ -619,11 +501,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     if (subTest && ec_project_state_.projectGeneral.use_tlfile)
         subTest = subTest && previousFileNameCompare(ec_project_state_.projectGeneral.timeline_file, previousProject.ec_project_state_.projectGeneral.timeline_file);
     dataSetTest = dataSetTest && subTest;
-    qDebug() << "dataSetTest 5" << dataSetTest;
 
     subTest = (ec_project_state_.projectGeneral.wpl_meth == previousProject.ec_project_state_.projectGeneral.wpl_meth);
     advSettingsTest = advSettingsTest && subTest;
-    qDebug() << "advSettingsTest 14" << advSettingsTest;
 
     if (subTest && ec_project_state_.projectGeneral.wpl_meth)
     {
@@ -671,7 +551,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
                 && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top4, previousProject.ec_project_state_.screenSetting.m_night_top4);
         }
     }
-    qDebug() << "advSettingsTest 15" << advSettingsTest;
 
     subTest = (ec_project_state_.projectGeneral.master_sonic == previousProject.ec_project_state_.projectGeneral.master_sonic);
     dataSetTest = dataSetTest && subTest;
@@ -679,7 +558,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     {
         dataSetTest = dataSetTest && (ec_project_state_.screenSetting.cross_wind == previousProject.ec_project_state_.screenSetting.cross_wind);
     }
-    qDebug() << "dataSetTest 6" << dataSetTest;
+
     if (subTest && (ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("hs"))
                     || ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("wm"))
                     || ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("r2"))
@@ -687,11 +566,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
     {
         dataSetTest = dataSetTest && (ec_project_state_.screenSetting.flow_distortion == previousProject.ec_project_state_.screenSetting.flow_distortion);
     }
-    qDebug() << "dataSetTest 7" << dataSetTest;
 
     subTest = (ec_project_state_.screenSetting.rot_meth == previousProject.ec_project_state_.screenSetting.rot_meth);
     advSettingsTest = advSettingsTest && subTest;
-    qDebug() << "advSettingsTest 16" << advSettingsTest;
 
     if (subTest && (ec_project_state_.screenSetting.rot_meth == 3
                     || ec_project_state_.screenSetting.rot_meth == 4))
@@ -738,11 +615,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
             advSettingsTest = false;
         }
     }
-    qDebug() << "advSettingsTest 17" << advSettingsTest;
 
     subTest = (ec_project_state_.screenSetting.tlag_meth == previousProject.ec_project_state_.screenSetting.tlag_meth);
     advSettingsTest = advSettingsTest && subTest;
-    qDebug() << "advSettingsTest 18" << advSettingsTest;
 
     if (subTest && (ec_project_state_.screenSetting.tlag_meth == 4))
     {
@@ -797,11 +672,9 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
             advSettingsTest = false;
         }
     }
-    qDebug() << "advSettingsTest 19" << advSettingsTest;
 
     subTest = ec_project_state_.randomError.method == previousProject.ec_project_state_.randomError.method;
     advSettingsTest = advSettingsTest && subTest;
-    qDebug() << "advSettingsTest 20" << advSettingsTest;
 
     if (subTest && (ec_project_state_.randomError.method == 1 || ec_project_state_.randomError.method == 2))
     {
@@ -809,10 +682,7 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
             && ec_project_state_.randomError.its_method == previousProject.ec_project_state_.randomError.its_method
             && qFuzzyCompare(ec_project_state_.randomError.its_tlag_max, previousProject.ec_project_state_.randomError.its_tlag_max);
     }
-    qDebug() << "advSettingsTest 21" << advSettingsTest;
-    qDebug() << "dataSetTest 8" << dataSetTest;
 
-    qDebug() << "run_mode" << static_cast<int>(ec_project_state_.projectGeneral.run_mode);
     switch (ec_project_state_.projectGeneral.run_mode)
     {
         case Defs::CurrRunMode::Express:
@@ -828,8 +698,6 @@ bool EcProject::fuzzyCompare(const EcProject& previousProject)
 // New project
 void EcProject::newEcProject(const ProjConfigState& project_config)
 {
-    DEBUG_FUNC_NAME
-
     // data e ora in formato ISO
     auto now = QDateTime::currentDateTime();
     auto now_str = now.toString(Qt::ISODate);
@@ -1228,8 +1096,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
 // Save an ec project
 bool EcProject::saveEcProject(const QString &filename)
 {
-    DEBUG_FUNC_NAME
-
     // try to open file just for checking
     QFile datafile(filename);
     if (!datafile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -1777,8 +1643,6 @@ bool EcProject::saveEcProject(const QString &filename)
 // Load a project. Assumes file has been checked with nativeFormat()
 bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *modified)
 {
-    DEBUG_FUNC_NAME
-
     auto parent = static_cast<MainWindow*>(this->parent());
     if (parent == nullptr) { return false; }
 
@@ -1806,7 +1670,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     {
         projectFilename = filename;
     }
-    qDebug() << "projectFilename" << projectFilename;
 
     EcProjectState defaultEcProjectState;
     // general section
@@ -3180,8 +3043,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
 
 bool EcProject::nativeFormat(const QString &filename)
 {
-    DEBUG_FUNC_NAME
-
     QFile datafile(filename);
     if (!datafile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -4961,7 +4822,6 @@ void EcProject::setGeneralWplMeth(int n)
 
 void EcProject::setGeneralColMasterSonic(const QString &s)
 {
-    DEBUG_FUNC_NAME
     ec_project_state_.projectGeneral.master_sonic = s;
     setModified(true);
     emit updateInfo();
@@ -5509,13 +5369,11 @@ bool EcProject::isEngineStep2Needed()
 
 bool EcProject::isGoodRawFilePrototype(const QString& s)
 {
-    DEBUG_FUNC_NAME
     bool test = !s.isEmpty()
                 && s.contains(QStringLiteral("yy"))
                 && s.contains(QStringLiteral("dd"))
                 && s.contains(QStringLiteral("HH"))
                 && s.contains(QStringLiteral("MM"))
                 && s.contains(QStringLiteral("."));
-    qDebug() << "test" << test;
     return test;
 }

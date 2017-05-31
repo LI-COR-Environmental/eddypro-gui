@@ -442,7 +442,6 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
 
 void WidgetUtils::showHelp(const QUrl& url)
 {
-    qDebug() << "showHelp";
     // read state
     auto autoChooseHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
@@ -450,9 +449,6 @@ void WidgetUtils::showHelp(const QUrl& url)
     auto offlineHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
-
-    qDebug() << "autoChooseHelp" << autoChooseHelp;
-    qDebug() << "offlineHelp" << offlineHelp;
 
     if (autoChooseHelp)
     {
@@ -485,36 +481,24 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else
             {
-                qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
                     | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
-                qDebug() << "localUrlString" << localUrlString;
-
                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();
 
-            qDebug() << "htmlHelpPath" << htmlHelpPath;
             if (htmlHelpPath.contains(QStringLiteral("#")))
             {
-                qDebug() << "localUrl with hash" << localUrl;
                 auto localUrlHost = htmlHelpPath.section(QLatin1Char('#'), 0, 0);
                 auto localUrlFragment = htmlHelpPath.section(QLatin1Char('#'), 1, 1);
-
-                qDebug() << "localUrlFragment" << localUrlFragment;
-
                 localUrl = QUrl::fromLocalFile(localUrlHost);
-                qDebug() << "localUrl" << localUrl;
                 localUrl.setFragment(localUrlFragment);
-                qDebug() << "localUrl.setFragment" << localUrl;
             }
             else
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
-                qDebug() << "localUrl with no hash" << localUrl;
             }
-            qDebug() << "localUrl" << localUrl << QDesktopServices::openUrl(localUrl);
         }
     }
     else

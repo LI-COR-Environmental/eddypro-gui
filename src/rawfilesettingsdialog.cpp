@@ -40,8 +40,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     QDialog(parent),
     dlProject_(dlProject)
 {
-    DEBUG_FUNC_NAME
-
     setWindowModality(Qt::WindowModal);
     setWindowTitle(tr("Raw File Settings"));
     WidgetUtils::removeContextHelpButton(this);
@@ -134,19 +132,15 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
 
 RawFileSettingsDialog::~RawFileSettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void RawFileSettingsDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
 
     QString currFielSep = dlProject_->fieldSep();
-    qDebug() << "currFielSep" << currFielSep.replace(0, 1, currFielSep.left(1).toUpper());
 
     fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep));
 
@@ -167,10 +161,7 @@ void RawFileSettingsDialog::onClickFieldSepLabel()
 
 void RawFileSettingsDialog::updateFieldSep(const QString& s)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << s.simplified().toLower();
     dlProject_->setFieldSep(s.simplified().toLower());
-    qDebug() << dlProject_->fieldSep();
 }
 
 void RawFileSettingsDialog::onClickHeaderRowsLabel()

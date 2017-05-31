@@ -58,18 +58,12 @@ bool FileUtils::isFileEmpty(const QString& fileName)
 bool FileUtils::projectFileForcedCopy(const QString& fileName,
                                       const QString& destDir)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "fileName" << fileName;
-    qDebug() << "destDir" << destDir;
-
     QString destFile = destDir
                        + QLatin1Char('/')
                        + Defs::DEFAULT_PROCESSING_FILENAME;
-    qDebug() << "destFile" << destFile;
 
     if (QFile::exists(destFile))
     {
-        qDebug() << "destFile exist: true";
         QFile::remove(destFile);
     }
     bool res = QFile::copy(fileName, destFile);
@@ -90,13 +84,8 @@ void FileUtils::createDir(const QString& dirName, const QString& absoluteDirDest
     if (!dir.exists(dirPath))
     {
         bool created = dir.mkdir(dirPath);
-        if (created)
+        if (!created)
         {
-            qDebug() << "Created dir" << dirPath;
-        }
-        else
-        {
-            qDebug() << "Failed creating dir" << dirPath;
             WidgetUtils::warning(nullptr,
                                  QObject::tr("mkdir error"),
                                  QObject::tr("Error creating dir %1").arg(dirPath));
@@ -110,8 +99,6 @@ void FileUtils::createDir(const QString& dirName, const QString& absoluteDirDest
 // \return true on success; false on error.
 bool FileUtils::removeDirRecursively(const QString &dirName)
 {
-    DEBUG_FUNC_NAME
-
     bool result = true;
     QDir dir(dirName);
 
@@ -196,8 +183,6 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
 
     while (it.hasNext())
     {
-        qDebug() << "Processing: " <<it.next();
-
         bool illegalFile = false;
 
         for (const auto &illegalType : illegalFileTypes)
@@ -217,7 +202,6 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
         {
             QDir dir;
             dir.remove(it.filePath());
-            qDebug() << "Removed file.";
         }
     }
 }
@@ -225,9 +209,6 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
 // extension = "*.ext"
 const QStringList FileUtils::getFiles(const QString& dir, const QString& extension, bool recurse)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "params:" << dir << extension << recurse;
     QStringList filters;
     filters << extension;
 
@@ -254,8 +235,6 @@ QStringList FileUtils::getDirContent(const QString& dirPath,
                                 QStringList nameFilter,
                                 QDirIterator::IteratorFlag flag)
 {
-    DEBUG_FUNC_NAME
-
     // test empty filter list
     if (nameFilter.isEmpty()) return QStringList();
 
@@ -326,8 +305,6 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
     {
         i.next();
 
-        qDebug() << "key" << i.key() << "value" << i.value();
-
         if (i.value() >= 0)
         {
             if (i.key() == yyStr)
@@ -361,14 +338,6 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
         }
     }
 
-    qDebug() << "yy" << yy;
-    qDebug() << "yyyy" << yyyy;
-    qDebug() << "mm" << mm;
-    qDebug() << "dd" << dd;
-    qDebug() << "ddd" << ddd;
-    qDebug() << "HH" << HH;
-    qDebug() << "MM" << MM;
-
     if (hash.value(yyStr) >= 0 && hash.value(yyyyStr) < 0)
     {
         if (yy > 70)
@@ -376,7 +345,6 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
         else
             yyyy = 2000 + yy;
     }
-    qDebug() << "yyyy" << yyyy;
 
     QDate date;
     if (hash.value(dddStr) >= 0 && hash.value(mmStr) < 0)
@@ -387,10 +355,8 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
     {
         date = QDate(yyyy, mm, dd);
     }
-    qDebug() << "date" << date;
 
     QTime time(HH, MM);
-    qDebug() << "time" << time;
 
     return QDateTime(date, time);
 }
@@ -405,9 +371,7 @@ FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& file
     for (const auto &s : fileList)
     {
         QString filename = s.mid(s.lastIndexOf(QLatin1Char('/')) + 1);
-        qDebug() << filename;
         QDateTime d = getDateTimeFromFilename(filename, filenameProtoype);
-        qDebug() << "d" << d;
         if (d != QDateTime())
         {
             dateList.append(d);
@@ -439,13 +403,11 @@ QString FileUtils::getGhgSuffixFromFilename(const QString& filename)
 // ghg suffix contains the file extension
 QStringList FileUtils::getGhgFileSuffixList(const QStringList& fileList)
 {
-    DEBUG_FUNC_NAME
     QStringList suffixList;
 
     for (const auto &s : fileList)
     {
         QString filename = s.mid(s.lastIndexOf(QLatin1Char('/')) + 1);
-        qDebug() << filename;
         QString suffix = getGhgSuffixFromFilename(filename);
         if (!suffix.isEmpty())
         {
@@ -459,7 +421,6 @@ QStringList FileUtils::getGhgFileSuffixList(const QStringList& fileList)
 
 void FileUtils::loadStyleSheetFile(const QString &sheetPath)
 {
-    qDebug() << "loadStyleSheet" << sheetPath;
     // using a resource alias
     QFile file(sheetPath);
 
@@ -474,7 +435,6 @@ void FileUtils::loadStyleSheetFile(const QString &sheetPath)
     }
     else
     {
-        qDebug() << sheetPath;
         qDebug("\tCSS read error");
     }
 }
@@ -491,10 +451,6 @@ QString FileUtils::setupEnv()
     userHomePath = env.value(QStringLiteral("HOME"));
     configPath = QStringLiteral(".config");
 #endif
-
-    qDebug() << "env" << env.value(QStringLiteral("HOME"));
-    qDebug() << "userHomePath" << userHomePath;
-    qDebug() << "configPath" << configPath;
 
     if (userHomePath.isEmpty())
     {
@@ -525,12 +481,7 @@ QString FileUtils::setupEnv()
 
 bool FileUtils::zipContainsFiletype(const QString& fileName, const QString& filePattern)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "filePattern" << filePattern;
-
     QStringList entries = JlCompress::getFileList(fileName);
-    qDebug() << "entries" << entries;
 
     for (const auto &item : entries)
     {

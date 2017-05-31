@@ -45,8 +45,6 @@ DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* con
     dlProject_(dlProject),
     configState_(config)
 {
-    DEBUG_FUNC_NAME
-
     // tab widget
     tabwidget_ = new QTabWidget(this);
 
@@ -107,14 +105,11 @@ DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* con
 
 DlIniDialog::~DlIniDialog()
 {
-    DEBUG_FUNC_NAME
 }
 
 // flush/reset the entire view
 void DlIniDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
@@ -132,8 +127,6 @@ void DlIniDialog::refresh()
 // reset the entire view
 void DlIniDialog::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
@@ -150,7 +143,6 @@ void DlIniDialog::reset()
 
 void DlIniDialog::saveAsButtonClicked()
 {
-    DEBUG_FUNC_NAME
     newFlag_ = true;
     apply();
 }
@@ -158,14 +150,12 @@ void DlIniDialog::saveAsButtonClicked()
 // OK button was pressed
 void DlIniDialog::accept()
 {
-    DEBUG_FUNC_NAME
     apply();
 }
 
 // Set dialog to default values
 void DlIniDialog::defaults()
 {
-    DEBUG_FUNC_NAME
     if (!newFlag_)
     {
         if (requestMetadataReset())
@@ -178,7 +168,6 @@ void DlIniDialog::defaults()
 // Set dialog to default values
 void DlIniDialog::defaults_2()
 {
-    DEBUG_FUNC_NAME
     dlProject_->newProject(configState_->project);
     newFlag_ = true;
     disableResetButton(newFlag_);
@@ -187,9 +176,6 @@ void DlIniDialog::defaults_2()
 
 bool DlIniDialog::openFile(const QString &fileName, bool embedded)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "embedded" << embedded;
-
     if (!fileName.isEmpty())
     {
         if (QFile::exists(fileName))
@@ -199,8 +185,6 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
                 bool modified = false;
                 if (dlProject_->loadProject(fileName, !embedded, &modified, true))
                 {
-                    qDebug() << "dlProject_" << dlProject_;
-
                     filename_ = fileName;
                     newFlag_ = false;
                     disableResetButton(newFlag_);
@@ -251,9 +235,6 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
 // Apply values
 void DlIniDialog::apply()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << newFlag_;
-
     if (newFlag_)
     {
         fileSaveAs();
@@ -273,8 +254,6 @@ void DlIniDialog::apply()
 
 bool DlIniDialog::saveFile(const QString& filename)
 {
-    DEBUG_FUNC_NAME
-
     bool status = true;
 
     if (!filename.isEmpty())
@@ -286,8 +265,6 @@ bool DlIniDialog::saveFile(const QString& filename)
 
 void DlIniDialog::fileSaveAs()
 {
-    DEBUG_FUNC_NAME
-
     QString fname;
 
     auto searchPath = WidgetUtils::getSearchPathHint();
@@ -305,9 +282,6 @@ void DlIniDialog::fileSaveAs()
     {
         filenameHint = searchPath;
     }
-    qDebug() << dlProject_->filename()
-             << searchPath
-             << filenameHint;
 
     fname = QFileDialog::getSaveFileName(this,
                                          tr("Save the Metadata File As..."),
@@ -325,8 +299,6 @@ void DlIniDialog::fileSaveAs()
         {
             fname += mdExt;
         }
-
-        qDebug() << "fname" << fname;
 
         // overwrite?
         if (QFile::exists(fname))
@@ -355,9 +327,6 @@ void DlIniDialog::fileSaveAs()
 
 void DlIniDialog::saveAvailable()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "newFlag_" << newFlag_;
-
     if (newFlag_)
     {
         WidgetUtils::information(QApplication::activeWindow(),

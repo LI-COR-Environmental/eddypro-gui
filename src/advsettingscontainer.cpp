@@ -66,7 +66,6 @@ AdvSettingsContainer::AdvSettingsContainer(QWidget *parent,
 
 AdvSettingsContainer::~AdvSettingsContainer()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvSettingsContainer::setCurrentPage(int page)

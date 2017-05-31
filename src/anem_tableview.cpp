@@ -34,8 +34,6 @@
 AnemTableView::AnemTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
     horizontalHeader()->show();
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

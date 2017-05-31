@@ -28,11 +28,6 @@
 // custom relation (not useful for lexical ordering)
 bool SpecGroup::operator<(const SpecGroup &sg) const
 {
-    qDebug() << "<" << start_ << stop_;
-    qDebug() << "<" << toSpecGroupCode(start_) << toSpecGroupCode(stop_);
-    qDebug() << "<" << sg.start_ << sg.stop_;
-    qDebug() << "<" << toSpecGroupCode(sg.start_) << toSpecGroupCode(sg.stop_);
-
     // exclude negative values
     if ((toSpecGroupCode(start_) < 0)
         || (toSpecGroupCode(stop_) < 0)

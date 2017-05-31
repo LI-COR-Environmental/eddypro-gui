@@ -42,7 +42,6 @@ AnemDelegate::AnemDelegate(QObject *parent) : QStyledItemDelegate(parent)
 
 AnemDelegate::~AnemDelegate()
 {
-    DEBUG_FUNC_NAME
 }
 
 QWidget *AnemDelegate::createEditor(QWidget* parent,

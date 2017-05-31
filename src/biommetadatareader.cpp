@@ -72,8 +72,6 @@ BiomMetadataReader::BiomMetadataReader(QList<BiomItem> *biomMetadata)
 
 bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -180,8 +178,6 @@ int BiomMetadataReader::countEmbVariables(const QStringList& list)
 
 bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))

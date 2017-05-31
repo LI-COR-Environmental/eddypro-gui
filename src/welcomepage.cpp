@@ -340,13 +340,11 @@ WelcomePage::~WelcomePage()
 
 void WelcomePage::openProjectRequested()
 {
-    DEBUG_FUNC_NAME
     emit openProjectRequest(QString());
 }
 
 void WelcomePage::recentOpenRequested(QListWidgetItem* item)
 {
-    DEBUG_FUNC_NAME
     emit openProjectRequest(item->text());
 }
 
@@ -354,7 +352,6 @@ void WelcomePage::recentOpenRequested(QListWidgetItem* item)
 void WelcomePage::doNothing(QListWidgetItem* item)
 {
     Q_UNUSED(item)
-    DEBUG_FUNC_NAME
 
 #ifdef QT_DEBUG
 //    auto msgBox = new QMessageBox;
@@ -362,7 +359,6 @@ void WelcomePage::doNothing(QListWidgetItem* item)
 //    msgBox->setText(QStringLiteral("Detected Double Open"));
 //    msgBox->show();
 #endif
-    qDebug() << "Detected Double Click";
 }
 
 void WelcomePage::newsItemRequested(QListWidgetItem* item)
@@ -393,8 +389,6 @@ void WelcomePage::supportItemRequested(QListWidgetItem* item)
 
 void WelcomePage::updateRecentList()
 {
-    DEBUG_FUNC_NAME
-
     recentListWidget->clear();
 
     for (const auto &recentfile : configState_->general.recentfiles)
@@ -432,14 +426,11 @@ void WelcomePage::openForumFeedback()
 
 void WelcomePage::updateSmartfluxBar()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << configState_->project.smartfluxMode;
     smartfluxBar_->setVisible(configState_->project.smartfluxMode);
 }
 
 void WelcomePage::updateSmartfluxCheckBox()
 {
-    DEBUG_FUNC_NAME
     smartfluxModeCheckbox_->blockSignals(true);
     smartfluxModeCheckbox_->setChecked(configState_->project.smartfluxMode);
     smartfluxModeCheckbox_->blockSignals(false);

@@ -58,8 +58,6 @@ AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    DEBUG_FUNC_NAME
-
     createMenu();
     createIcons();
 
@@ -123,8 +121,6 @@ AdvancedSettingsPage::~AdvancedSettingsPage()
 
 void AdvancedSettingsPage::createMenu()
 {
-    DEBUG_FUNC_NAME
-
     menuWidget = new QListWidget;
     menuWidget->setSelectionRectVisible(false);
     // to reduce the select decoration
@@ -178,7 +174,6 @@ bool AdvancedSettingsPage::requestSettingsReset()
 
 void AdvancedSettingsPage::resetButtonCLicked()
 {
-    DEBUG_FUNC_NAME
     if (requestSettingsReset())
     {
         advancedSettingContainer->processingOptions()->reset();
@@ -191,7 +186,6 @@ void AdvancedSettingsPage::resetButtonCLicked()
 
 void AdvancedSettingsPage::updateSmartfluxBar()
 {
-    DEBUG_FUNC_NAME
     smartfluxBar->setVisible(configState_->project.smartfluxMode);
 
     advancedSettingContainer->processingOptions()->getPlanarFitSettingsDialog()

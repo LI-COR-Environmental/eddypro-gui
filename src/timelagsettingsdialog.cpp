@@ -443,12 +443,10 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
 
 TimeLagSettingsDialog::~TimeLagSettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void TimeLagSettingsDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (isVisible())
         hide();
     emit saveRequest();
@@ -456,8 +454,6 @@ void TimeLagSettingsDialog::close()
 
 void TimeLagSettingsDialog::reset()
 {
-    DEBUG_FUNC_NAME
-
     updateTlMode(1);
 
     existingRadio->setChecked(false);
@@ -494,8 +490,6 @@ void TimeLagSettingsDialog::reset()
 
 void TimeLagSettingsDialog::partialRefresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -523,8 +517,6 @@ void TimeLagSettingsDialog::partialRefresh()
 
 void TimeLagSettingsDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -663,14 +655,12 @@ void TimeLagSettingsDialog::radioClicked(int radioButton)
 
 void TimeLagSettingsDialog::onStartDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     startDateEdit->setFocus();
     WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void TimeLagSettingsDialog::onEndDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     endDateEdit->setFocus();
     WidgetUtils::showCalendarOf(endDateEdit);
 }
@@ -701,8 +691,6 @@ void TimeLagSettingsDialog::updateEndTime(const QTime& t)
 // enforce (start date&time) <= (end date&time)
 void TimeLagSettingsDialog::forceEndDatePolicy()
 {
-    DEBUG_FUNC_NAME
-
     endDateEdit->setMinimumDate(startDateEdit->date());
 }
 
@@ -710,10 +698,6 @@ void TimeLagSettingsDialog::forceEndDatePolicy()
 // enforce (start date&time) <= (end date&time)
 void TimeLagSettingsDialog::forceEndTimePolicy()
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "start - end, dates:" << startDateEdit->date() << endDateEdit->date();
-
     if (startDateEdit->date() == endDateEdit->date())
     {
         endTimeEdit->setMinimumTime(startTimeEdit->time());
@@ -731,8 +715,6 @@ void TimeLagSettingsDialog::updateFile(const QString& fp)
 
 void TimeLagSettingsDialog::testSelectedFile(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     QString paramFile = QFileDialog::getOpenFileName(this,
                         tr("Select the Timelag Optimization File"),
                         WidgetUtils::getSearchPathHint(),
@@ -747,7 +729,6 @@ void TimeLagSettingsDialog::testSelectedFile(const QString& fp)
     test_dialog.refresh(canonicalParamFile);
 
     auto test_result = test_dialog.makeTest();
-    qDebug() << "test_result" << test_result;
 
     auto dialog_result = true;
 

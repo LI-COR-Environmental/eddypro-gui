@@ -457,13 +457,6 @@ bool IrgaDesc::isGoodIrga(const IrgaDesc &irga)
         isGoodKorLAnalyzer = true;
     }
 
-    qDebug() << "isGoodManufacturer" << isGoodManufacturer;
-    qDebug() << "isGoodModel" << isGoodModel;
-    qDebug() << "isGoodClosedPath" << isGoodClosedPath;
-    qDebug() << "isGoodSeparation" << isGoodSeparation;
-    qDebug() << "isGoodPathLength" << isGoodPathLength;
-    qDebug() << "isGoodKorLAnalyzer" << isGoodKorLAnalyzer;
-
     // all
     return (isGoodManufacturer
             && isGoodModel

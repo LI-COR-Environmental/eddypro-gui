@@ -231,7 +231,6 @@ CalibrationDialog::CalibrationDialog(QWidget* parent, EcProject *ecProject, Conf
 
 void CalibrationDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (isVisible())
     {
         hide();

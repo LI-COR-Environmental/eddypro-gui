@@ -43,8 +43,6 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
     QWidget(parent),
     dlProject_(dlProject)
 {
-    DEBUG_FUNC_NAME
-
     anemView_ = new AnemView(this);
     anemModel_ = new AnemModel(anemView_, dlProject_->anems());
     anemDelegate_ = new AnemDelegate(anemView_);
@@ -193,7 +191,6 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
 
 DlInstrTab::~DlInstrTab()
 {
-    DEBUG_FUNC_NAME
 }
 
 void DlInstrTab::reset()
@@ -227,8 +224,6 @@ void DlInstrTab::refresh()
 // NOTE: verify if it's still necessary
 void DlInstrTab::updateScrollBars()
 {
-    DEBUG_FUNC_NAME
-
     QWidgetList wl = anemView_->scrollBarWidgets(Qt::AlignBottom);
 
     if (!wl.isEmpty())

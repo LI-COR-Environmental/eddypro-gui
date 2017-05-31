@@ -39,13 +39,11 @@ AnemModel::AnemModel(QObject *parent, AnemDescList *list) :
 
 AnemModel::~AnemModel()
 {
-//    DEBUG_FUNC_NAME
 }
 
 // Reset the model
 void AnemModel::flush()
 {
-//    DEBUG_FUNC_NAME
     beginResetModel();
     endResetModel();
 }

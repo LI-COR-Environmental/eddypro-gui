@@ -78,8 +78,6 @@ void AnemView::contextMenuEvent(QContextMenuEvent *event)
 // no selection
 void AnemView::addAnem()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = anemCount();
 
@@ -101,8 +99,6 @@ void AnemView::addAnem()
 // Remove the selected anemometer or the last if there is no selection
 void AnemView::removeAnem()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = anemCount() - 1;
 
