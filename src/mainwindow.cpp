@@ -1696,7 +1696,7 @@ void MainWindow::setSmartfluxMode(bool on)
             smartfluxConfigDialog.setMessage(tr("The SmartFlux configuration will use "
                 "a renamed copy of your current project file. <br />"));
             smartfluxConfigDialog.refresh();
-            int res = smartfluxConfigDialog.exec();
+            smartfluxConfigDialog.exec();
         }
         if (!currentProjectFile().contains(Defs::DEFAULT_SMARTFLUX_SUFFIX))
         {
@@ -2438,14 +2438,12 @@ void MainWindow::showGuidedModeMessages_1()
     {
         red_intro.clear();
         red_msg.clear();
-        doRedFix = false;
     }
 
     if (!doOrangeFix)
     {
         orange_intro.clear();
         orange_msg.clear();
-        doOrangeFix = false;
     }
 
     basicSettingsPageAvailable_ = red_intro.isEmpty();

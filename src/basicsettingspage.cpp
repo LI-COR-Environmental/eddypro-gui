@@ -1865,8 +1865,6 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
             {
                 if (!instrType.isEmpty())
                 {
-                    bool isOtherMeasureType = measureType.trimmed().isEmpty();
-
                     // CO2
                     // 1.2 and 1.3 conditions
                     if (varName == VariableDesc::getVARIABLE_VAR_STRING_5()
@@ -2951,10 +2949,6 @@ void BasicSettingsPage::refresh()
     }
     declinationEdit->setText(strDeclination(ecProject_->screenMagDec()));
 
-    int currData = ecProject_->screenFlag1Col();
-    int currItemIndex = flag1VarCombo->findData(currData);
-    int noneIndex = flag1VarCombo->findData(0);
-
     flag1ThresholdSpin->setValue(ecProject_->screenFlag1Threshold());
     flag1PolicyCombo->setCurrentIndex(ecProject_->screenFlag1Upper());
     flag2ThresholdSpin->setValue(ecProject_->screenFlag2Threshold());
@@ -3800,7 +3794,6 @@ void BasicSettingsPage::reloadSelectedItems_1()
         ecProject_->setGeneralColTs(WidgetUtils::currentComboItemData(tsRefCombo).toInt());
     }
 //
-    int noneIndex = co2RefCombo->findData(0);
     currData = ecProject_->generalColCo2();
     currItemIndex = co2RefCombo->findData(currData);
 
@@ -3996,7 +3989,7 @@ void BasicSettingsPage::reloadSelectedItems_1()
     //
     currData = ecProject_->screenFlag1Col();
     currItemIndex = flag1VarCombo->findData(currData);
-    noneIndex = flag1VarCombo->findData(0);
+    auto noneIndex = flag1VarCombo->findData(0);
 
     if (currItemIndex >= 0)
     {
