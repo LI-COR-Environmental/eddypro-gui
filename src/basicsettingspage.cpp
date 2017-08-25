@@ -4605,7 +4605,7 @@ void BasicSettingsPage::fetchMagneticDeclination()
     progressWidget_3->startAnimation();
     httpManager_ = new QNetworkAccessManager(this);
 
-    auto noaaServiceUrl = QUrl(QStringLiteral("http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
+    auto noaaServiceUrl = QUrl(QStringLiteral("https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
 
     QNetworkRequest postRequest;
     postRequest.setUrl(noaaServiceUrl);
