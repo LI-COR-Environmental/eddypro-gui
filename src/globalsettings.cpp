@@ -91,7 +91,7 @@ void GlobalSettings::setCustomVariableList(const QStringList& varList)
 {
     setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
                              Defs::CONF_PROJ_CUSTOM_VARS,
-                             varList.join(QStringLiteral(",")));
+                             varList.join(QLatin1Char(',')));
 }
 
 //  NOTE: add error management using QSettings::status()

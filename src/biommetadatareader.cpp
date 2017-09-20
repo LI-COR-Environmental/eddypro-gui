@@ -137,7 +137,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
         if (type_components_size > 4)
         {
             QStringList extracted_var_name = type_components_list.mid(0, type_components_size - 3);
-            extracted_type = extracted_var_name.join(QStringLiteral("_"));
+            extracted_type = extracted_var_name.join(QLatin1Char('_'));
         }
         // entry with positional notation and no underscore
         // in the variable name (e.g. PA_1_1_1)
