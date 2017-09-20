@@ -38,7 +38,7 @@ class CustomSplashScreen : public QSplashScreen
     Q_OBJECT
 
 public:
-    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::Widget);
+    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::SplashScreen);
     ~CustomSplashScreen();
 
     void setProgressValue(int value);
