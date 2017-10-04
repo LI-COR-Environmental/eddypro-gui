@@ -9,7 +9,7 @@ CONFIG(debug, debug|release) {
     macx {
         # quazip
         # working but each build delete the install name in the executable, so it requires run install_name_tool after each build
-        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.9.1-clang-8.1.0-x86_64 -lquazip_debug
+        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.9.1-clang-9.0.0-x86_64 -lquazip_debug
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh debug
@@ -31,7 +31,7 @@ CONFIG(debug, debug|release) {
     }
     macx {
         # quazip
-        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.9.1-clang-8.1.0-x86_64 -lquazip
+        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.9.1-clang-9.0.0-x86_64 -lquazip
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh release
