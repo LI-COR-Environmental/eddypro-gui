@@ -7454,118 +7454,108 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>What&apos;s New at LI-COR</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="167"/>
-        <source>New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data</source>
-        <translation>New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="170"/>
-        <source>View the Eddy Covariance Publication List</source>
-        <translation>View the Eddy Covariance Publication List</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="173"/>
-        <source>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</source>
-        <translation>LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="182"/>
-        <source>Eddy Covariance Case Studies and Applications</source>
-        <translation>Eddy Covariance Case Studies and Applications</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="188"/>
-        <source>View Upcoming Eddy Covariance Training Courses</source>
-        <translation>View Upcoming Eddy Covariance Training Courses</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="208"/>
+        <location filename="../src/welcomepage.cpp" line="200"/>
         <source>Help resources</source>
         <translation>Help resources</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="211"/>
+        <location filename="../src/welcomepage.cpp" line="203"/>
         <source>%1 Help</source>
         <translation>%1 Help</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="215"/>
+        <location filename="../src/welcomepage.cpp" line="207"/>
         <source>Video tutorials</source>
         <translation>Video tutorials</translation>
     </message>
     <message>
+        <location filename="../src/welcomepage.cpp" line="167"/>
+        <source>Early access to new Data Analysis software – import EddyPro files and easily perform QA/QC</source>
+        <translation>Early access to new Data Analysis software – import EddyPro files and easily perform QA/QC</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="170"/>
+        <source>New LI-7500DS CO2/H2O Analyzer features a lower price and runs on less power</source>
+        <translation>New LI-7500DS CO2/H2O Analyzer features a lower price and runs on less power</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="173"/>
+        <source>See how LI‑COR gas analyzers are based on proven technologies</source>
+        <translation>See how LI‑COR gas analyzers are based on proven technologies</translation>
+    </message>
+    <message>
         <location filename="../src/welcomepage.cpp" line="176"/>
-        <source>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</source>
-        <translation>FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site</translation>
+        <source>LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities</source>
+        <translation>LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="179"/>
-        <source>New SoilFluxPro™ Software – Expanded processing for soil gas flux data</source>
-        <translation>New SoilFluxPro™ Software – Expanded processing for soil gas flux dat</translation>
+        <source>Learn how to make accurate soil gas flux measurements in a free online training course</source>
+        <translation>Learn how to make accurate soil gas flux measurements in a free online training course</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="185"/>
-        <source>New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance.</source>
-        <translation>New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance.</translation>
+        <location filename="../src/welcomepage.cpp" line="182"/>
+        <source>See upcoming Eddy Covariance training courses</source>
+        <translation>See upcoming Eddy Covariance training courses</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="213"/>
+        <location filename="../src/welcomepage.cpp" line="205"/>
         <source>Getting started (PDF)</source>
         <translation>Getting started (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="217"/>
+        <location filename="../src/welcomepage.cpp" line="209"/>
         <source>Printable manual (PDF)</source>
         <translation>Printable manual (PDF)</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="219"/>
-        <location filename="../src/welcomepage.cpp" line="371"/>
+        <location filename="../src/welcomepage.cpp" line="211"/>
+        <location filename="../src/welcomepage.cpp" line="360"/>
         <source>Download sample data files</source>
         <translation>Download sample data files</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="232"/>
+        <location filename="../src/welcomepage.cpp" line="224"/>
         <source>Support resources</source>
         <translation>Support resources</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="235"/>
+        <location filename="../src/welcomepage.cpp" line="227"/>
         <source>Forum</source>
         <translation>Forum</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="237"/>
+        <location filename="../src/welcomepage.cpp" line="229"/>
         <source>Eddy Covariance Glossary</source>
         <translation>Eddy Covariance Glossary</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="239"/>
+        <location filename="../src/welcomepage.cpp" line="231"/>
         <source>LI-COR Newsline (EddyPro related articles and technical tips)</source>
         <translation>LI-COR Newsline (EddyPro related articles and technical tips)</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="241"/>
+        <location filename="../src/welcomepage.cpp" line="233"/>
         <source>Features request</source>
         <translation>Features request</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="243"/>
+        <location filename="../src/welcomepage.cpp" line="235"/>
         <source>Check for updates</source>
         <translation>Check for updates</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="269"/>
+        <location filename="../src/welcomepage.cpp" line="261"/>
         <source>Manage Projects</source>
         <translation>Manage Projects</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="270"/>
+        <location filename="../src/welcomepage.cpp" line="262"/>
         <source>News</source>
         <translation>News</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="271"/>
+        <location filename="../src/welcomepage.cpp" line="263"/>
         <source>Help and Support</source>
         <translation>Help and Support</translation>
     </message>
