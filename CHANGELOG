@@ -1,10 +1,11 @@
-6.2.1 (2017-06-14)
+6.2.1 (2017-10-09)
 
     Engine
     - Add: support for new LI-7500DS instruments.
 
     GUI
     - Add: support for new LI-7500DS instruments.
+    - Fix magnetic declination retrieval from NOAA.
 
 6.2.0 (2016-08-23)
 
