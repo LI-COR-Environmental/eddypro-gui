@@ -164,29 +164,23 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     newsListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New CO2/H2O Analyzers – Improved stability; Lower maintenance costs; Better data"), newsListWidget);
-    rssItem_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/products/eddy_covariance/gas_analyzers.html"));
+    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/ep")), tr("Early access to new Data Analysis software – import EddyPro files and easily perform QA/QC"), newsListWidget);
+    rssItem_1->setData(Qt::UserRole, QStringLiteral("http://licor.com/env/products/eddy_covariance/earlyaccess.html "));
 
-    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/poster")), tr("View the Eddy Covariance Publication List"), newsListWidget);
-    rssItem_2->setData(Qt::UserRole, QStringLiteral("https://licor.box.com/s/9hfsetsutdqpxg9czmonibcftexwdgfy"));
+    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New LI-7500DS CO2/H2O Analyzer features a lower price and runs on less power"), newsListWidget);
+    rssItem_2->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/LI-7500DS.html"));
 
-    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("LI-COR Launches Redesigned Light Sensors Optimized for Meteorological Measurements"), newsListWidget);
-    rssItem_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/light"));
+    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("See how LI‑COR gas analyzers are based on proven technologies"), newsListWidget);
+    rssItem_3->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/performance.html"));
 
-    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("FluxSuite™ Software – Provides real-time results, status information, and alerts from your EC site"), newsListWidget);
-    rssItem_4->setData(Qt::UserRole, QStringLiteral("http://www.fluxsuite.com"));
+    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities"), newsListWidget);
+    rssItem_4->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/photosynthesis/LI-6800/"));
 
-    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New SoilFluxPro™ Software – Expanded processing for soil gas flux data"), newsListWidget);
-    rssItem_5->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/soilfluxpro"));
+    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("Learn how to make accurate soil gas flux measurements in a free online training course"), newsListWidget);
+    rssItem_5->setData(Qt::UserRole, QStringLiteral("https://accounts.skilljar.com/accounts/signup/?next=%2Fauth%2Fendpoint%2Flogin%2Fresult%3Fd%3D2hffjl7lbimea%26next%3D%252F&d=2hffjl7lbimea&t=zhzzn654u9er"));
 
-    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Eddy Covariance Case Studies and Applications"), newsListWidget);
-    rssItem_6->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/products/eddy_covariance/applications.html"));
-
-    auto rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New LI-6800 Portable Photosynthesis System - The ultimate experience. Unprecedented performance."), newsListWidget);
-    rssItem_7->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/6800"));
-
-    auto rssItem_8 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("View Upcoming Eddy Covariance Training Courses"), newsListWidget);
-    rssItem_8->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/products/eddy_covariance/training.html"));
+    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("See upcoming Eddy Covariance training courses"), newsListWidget);
+    rssItem_6->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/resources.html#training"));
 
     newsListWidget->addItem(rssItem_1);
     newsListWidget->addItem(rssItem_2);
@@ -194,8 +188,6 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->addItem(rssItem_4);
     newsListWidget->addItem(rssItem_5);
     newsListWidget->addItem(rssItem_6);
-    newsListWidget->addItem(rssItem_7);
-    newsListWidget->addItem(rssItem_8);
 
     auto newsLayout = new QGridLayout;
     newsLayout->addWidget(newsTitle, 0, 0);
@@ -271,9 +263,6 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     welcomeTab->addTab(helpWidget, tr("Help and Support"));
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
-
-    // TODO: verify if necessary: it seems not in windows
-//    smartfluxBar_->setMinimumHeight(35);
 
     smartfluxBarPlaceholder_ = new QWidget;
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
