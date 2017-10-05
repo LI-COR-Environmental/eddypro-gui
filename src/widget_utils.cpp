@@ -276,7 +276,7 @@ QMessageBox::ButtonRole WidgetUtils::requestToSave(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -312,7 +312,7 @@ bool WidgetUtils::information(QWidget* parent,
 //    QScopedPointer<QMessageBox> messageBox(new QMessageBox(parent));
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -346,7 +346,7 @@ void WidgetUtils::warning(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -377,7 +377,7 @@ void WidgetUtils::critical(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -412,7 +412,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);

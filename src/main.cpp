@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_DARWIN)
     // file to open at start
     auto fileToOpen = QString();
-    // install event filter to open clicked files in Mac OS X
+    // install event filter to open clicked files in macOS
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
     app.processEvents();

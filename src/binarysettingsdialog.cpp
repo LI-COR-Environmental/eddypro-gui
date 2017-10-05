@@ -56,7 +56,7 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     binaryHLinesSpin->setToolTip(binaryHLinesLabel->toolTip());
 
     binaryEolLabel = new ClickLabel(tr("ASCII header end of line :"));
-    binaryEolLabel->setToolTip(tr("<b>ASCII header end of line:</b> If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses <i>CR+LF</i> (0x0D+0x0A), Linux OS and Mac OS X use <i>LF</i> (0x0A), while Mac OS up to version 9 and OS-9 use <i>CR</i> (0x0D)."));
+    binaryEolLabel->setToolTip(tr("<b>ASCII header end of line:</b> If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses <i>CR+LF</i> (0x0D+0x0A), Linux OS and macOS use <i>LF</i> (0x0A), while Mac OS up to version 9<i>CR</i> (0x0D)."));
     binaryEolCombo = new QComboBox;
     binaryEolCombo->addItem(tr("CR+LF"));
     binaryEolCombo->addItem(tr("CR"));
