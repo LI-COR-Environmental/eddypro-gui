@@ -3448,8 +3448,8 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/binarysettingsdialog.cpp" line="59"/>
-        <source>&lt;b&gt;ASCII header end of line:&lt;/b&gt; If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses &lt;i&gt;CR+LF&lt;/i&gt; (0x0D+0x0A), Linux OS and Mac OS X use &lt;i&gt;LF&lt;/i&gt; (0x0A), while Mac OS up to version 9 and OS-9 use &lt;i&gt;CR&lt;/i&gt; (0x0D).</source>
-        <translation>&lt;b&gt;ASCII header end of line:&lt;/b&gt; If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses &lt;i&gt;CR+LF&lt;/i&gt; (0x0D+0x0A), Linux OS and Mac OS X use &lt;i&gt;LF&lt;/i&gt; (0x0A), while Mac OS up to version 9 and OS-9 use &lt;i&gt;CR&lt;/i&gt; (0x0D).</translation>
+        <source>&lt;b&gt;ASCII header end of line:&lt;/b&gt; If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses &lt;i&gt;CR+LF&lt;/i&gt; (0x0D+0x0A), Linux OS and macOS use &lt;i&gt;LF&lt;/i&gt; (0x0A), while Mac OS up to version 9&lt;i&gt;CR&lt;/i&gt; (0x0D).</source>
+        <translation>&lt;b&gt;ASCII header end of line:&lt;/b&gt; If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses &lt;i&gt;CR+LF&lt;/i&gt; (0x0D+0x0A), Linux OS and macOS use &lt;i&gt;LF&lt;/i&gt; (0x0A), while Mac OS up to version 9&lt;i&gt;CR&lt;/i&gt; (0x0D).</translation>
     </message>
     <message>
         <location filename="../src/binarysettingsdialog.cpp" line="61"/>
@@ -5955,7 +5955,7 @@ Output</translation>
     <message>
         <location filename="../src/projectpage.cpp" line="188"/>
         <source>Use embedded files </source>
-        <translation>Use embedded files</translation>
+        <translation>Use embedded files </translation>
     </message>
     <message>
         <location filename="../src/projectpage.cpp" line="190"/>
@@ -7446,7 +7446,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="120"/>
         <source>Configuration </source>
-        <translation>Configuration</translation>
+        <translation>Configuration </translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="154"/>
