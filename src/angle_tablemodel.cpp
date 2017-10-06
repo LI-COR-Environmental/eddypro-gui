@@ -1,7 +1,7 @@
 /***************************************************************************
   angle_tablemodel.cpp
   -------------------
-  Copyright (C) 2012-2015, LI-COR Biosciences
+  Copyright (C) 2012-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -68,8 +68,6 @@ Qt::ItemFlags AngleTableModel::flags(const QModelIndex &index) const
 
 QVariant AngleTableModel::data(const QModelIndex &index, int role) const
 {
-//    DEBUG_FUNC_NAME
-
     int column = index.column();
 
     if (!index.isValid()
@@ -78,11 +76,6 @@ QVariant AngleTableModel::data(const QModelIndex &index, int role) const
         || column < 0
         || column >= MaxColumns)
     {
-//        qDebug() << "false init test";
-//        qDebug() << "index.isValid()" << index.isValid();
-//        qDebug() << "angles_.count()" << angles_.count();
-//        qDebug() << "index.row()" << index.row();
-//        qDebug() << "column" << column;
         return QVariant();
     }
 
@@ -165,7 +158,6 @@ int AngleTableModel::columnCount(const QModelIndex &index) const
 bool AngleTableModel::setData(const QModelIndex &index,
                          const QVariant &value, int role)
 {
-    DEBUG_FUNC_NAME
     int row = index.row();
     int column = index.column();
     int numAngles = angles_->count();
@@ -177,10 +169,8 @@ bool AngleTableModel::setData(const QModelIndex &index,
         || column < 0
         || column >= MaxColumns)
     {
-        qDebug() << "setData init tests failed";
         return false;
     }
-    qDebug() << "setData init tests passed";
 
     AngleItem item = angles_->value(row);
     int nextRow = (row + 1) % numAngles;
@@ -189,7 +179,6 @@ bool AngleTableModel::setData(const QModelIndex &index,
 
     if (role == Qt::EditRole)
     {
-        qDebug() << "EditRole";
         switch (column)
         {
             case DEGREES:
@@ -199,10 +188,6 @@ bool AngleTableModel::setData(const QModelIndex &index,
                 double currAngle = item.angle_;
                 double currAngleSum = angleSum();
                 double followingAngle = nextItem.angle_;
-                qDebug() << "angle" << angle;
-                qDebug() << "currAngle" << currAngle;
-                qDebug() << "currAngleSum" << currAngleSum;
-                qDebug() << "followingAngle" << followingAngle;
 
                 if (angle > MaxDegrees)
                     angle = MaxDegrees;
@@ -215,27 +200,21 @@ bool AngleTableModel::setData(const QModelIndex &index,
                     // equal to 360 degrees
                     if (qFuzzyCompare(currAngleSum, MaxDegrees))
                     {
-                        qDebug() << "currAngleSum" << currAngleSum;
-
                         // eat following
                         if (angle <= (currAngle + followingAngle))
                         {
-                            qDebug() << "eat following";
                             nextItem.angle_ = followingAngle - (angle - currAngle);
                         }
                         // eat all following but no more
                         else
                         {
-                            qDebug() << "eat all";
                             angle = currAngle + followingAngle;
                             nextItem.angle_ = 0.0;
                         }
 
-                        qDebug() << "row" << row;
                         // set offset on first angle
                         if (row == (numAngles - 1))
                         {
-                            qDebug() << "last row";
                             setOffset(offset_ + (followingAngle - nextItem.angle_));
                         }
                     }
@@ -246,8 +225,6 @@ bool AngleTableModel::setData(const QModelIndex &index,
                         if (angle > (MaxDegrees - (currAngleSum - currAngle)))
                         {
                             angle = MaxDegrees - (currAngleSum - currAngle);
-                            qDebug() << "angleSum()" << currAngleSum;
-                            qDebug() << "max ANGLE" << angle;
                         }
                         else
                         {
@@ -257,7 +234,6 @@ bool AngleTableModel::setData(const QModelIndex &index,
                     // greater than 360 degrees
                     else
                     {
-                        qDebug() << "angleSum()" << currAngleSum;
                         qDebug() << "to be prevented";
                     }
                 }
@@ -275,16 +251,12 @@ bool AngleTableModel::setData(const QModelIndex &index,
 
     if (role == Qt::CheckStateRole)
     {
-        qDebug() << "CheckStateRole";
         switch (column)
         {
             case DEGREES:
             {
-                qDebug() << "1 item.included_" << item.included_;
                 Qt::CheckState included = static_cast<Qt::CheckState>(value.toUInt());
                 item.included_ = included;
-                qDebug() << "2 item.included_" << item.included_;
-                qDebug() << "2 included" << included;
                 break;
             }
             default: Q_ASSERT(false);
@@ -305,8 +277,6 @@ bool AngleTableModel::setData(const QModelIndex &index,
 
 bool AngleTableModel::insertRows(int row, int count, const QModelIndex&)
 {
-    DEBUG_FUNC_NAME
-
     if (count != 1) return false;
     if ((row < 0) || (row >= angles_->count()))
         row = angles_->count();
@@ -331,8 +301,6 @@ bool AngleTableModel::insertRows(int row, int count, const QModelIndex&)
 
 bool AngleTableModel::removeRows(int row, int count, const QModelIndex&)
 {
-    DEBUG_FUNC_NAME
-
     if (count != 1) return false;
     if ((row < 0) || (row >= angles_->count())) return false;
 
@@ -354,19 +322,14 @@ bool AngleTableModel::removeRows(int row, int count, const QModelIndex&)
 
 void AngleTableModel::pruneEmptyRows()
 {
-    DEBUG_FUNC_NAME
     int rows = angles_->count();
-    qDebug() << "rows" << rows;
 
     if (rows > 0)
     {
         for (int i = rows - 1; i >= 0; --i)
         {
-            qDebug() << "i" << i;
-            qDebug() << "value" << angles_->at(i).angle_;
             if (angles_->at(i).angle_ == 0.0)
             {
-                qDebug() << "remove";
                 removeRows(i, 1);
             }
         }
@@ -376,8 +339,6 @@ void AngleTableModel::pruneEmptyRows()
 // Clear the model
 void AngleTableModel::clear()
 {
-    DEBUG_FUNC_NAME
-
     for (int i = 0; i < angles_->count(); ++i)
     {
         removeRows(i, 1);
@@ -393,16 +354,12 @@ void AngleTableModel::flush()
 
 double AngleTableModel::angleSum()
 {
-    DEBUG_FUNC_NAME
     double sum = 0.0;
     for (int row = 0; row < angles_->count(); ++row)
     {
         double value = angles_->value(row).angle_;
         sum += value;
-        qDebug() << "row" << row;
-        qDebug() << "value" << value;
     }
-    qDebug() << "sum" << sum;
     return sum;
 }
 
@@ -419,9 +376,6 @@ double AngleTableModel::angleToBeInserted()
 
 void AngleTableModel::setOffset(double alpha)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "alpha" << alpha;
-
     if (!qFuzzyCompare(alpha, offset_))
     {
         offset_ = alpha;
@@ -431,8 +385,6 @@ void AngleTableModel::setOffset(double alpha)
 
 void AngleTableModel::setSkipPruning(bool skip)
 {
-    DEBUG_FUNC_NAME
-
     if (skip != skipPruning_)
     {
         skipPruning_ = skip;

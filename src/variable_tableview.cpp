@@ -2,7 +2,7 @@
   variable_tableview.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,12 +34,10 @@
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
-//    QHeaderView *hHeaderView = horizontalHeader();
-//    hHeaderView->show();
-//    connect(hHeaderView, &QHeaderView::sectionClicked,
-//            this, &VariableTableView::hHeaderClicked);
+    auto hHeaderView = horizontalHeader();
+    hHeaderView->show();
+    connect(hHeaderView, &QHeaderView::sectionClicked,
+            this, &VariableTableView::hHeaderClicked);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -113,12 +111,12 @@ void VariableTableView::mousePressEvent(QMouseEvent *event)
 // http://stackoverflow.com/questions/12380107/in-qtableview-what-signal-triggers-the-editing-mode
 void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndEditHint hint)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "hint:" << hint;
     if (hint == QAbstractItemDelegate::NoHint)
     {
-        QAbstractItemView::closeEditor(editor, QAbstractItemDelegate::SubmitModelCache);
+        QAbstractItemView::closeEditor(editor,
+                                       QAbstractItemDelegate::SubmitModelCache);
     }
+
 //    else if (hint == QAbstractItemDelegate::EditNextItem
 //             || hint == QAbstractItemDelegate::EditPreviousItem)
 //    {
@@ -143,6 +141,7 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 //            edit(editableIndex);
 //        }
 //    }
+
     else
     {
         QAbstractItemView::closeEditor(editor, hint);
@@ -152,12 +151,33 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 // NOTE: to finish
 void VariableTableView::hHeaderClicked(int section)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "section" << section;
+    clearSelection();
+}
 
-//    if (selectionModel()->isColumnSelected(section, QModelIndex()))
-//    {
-//        reset();
-////        clearSelection();
-//    }
+//void VariableTableView::firstEditableIndex(const QModelIndex& originalIndex,
+//                                           columnIndexes)
+//{
+
+//}
+
+// Returns the first editable index at the left of `originalIndex` or None.
+void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
+{
+    Q_UNUSED(originalIndex)
+//    auto h = horizontalHeader();
+//    auto myCol = originalIndex.column();
+//    columnIndexes = [h.logicalIndex(i) for i in range(h.count())];
+
+//    // keep only columns before myCol
+//    columnIndexes = columnIndexes[:columnIndexes.index(myCol)];
+
+//    // We want the previous item, the columns have to be in reverse order
+//    columnIndexes = reversed(columnIndexes);
+
+//    return firstEditableIndex(originalIndex, columnIndexes);
+}
+
+void VariableTableView::nextEditableIndex(const QModelIndex& originalIndex)
+{
+    Q_UNUSED(originalIndex)
 }

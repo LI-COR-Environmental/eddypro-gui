@@ -1,7 +1,7 @@
 /***************************************************************************
   biometmetadatareader.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -72,8 +72,6 @@ BiomMetadataReader::BiomMetadataReader(QList<BiomItem> *biomMetadata)
 
 bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -91,7 +89,6 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
     // iterate through instrument list
     auto numVars = countEmbVariables(settings.allKeys());
-    qDebug() << "numVars:" << numVars;
 
     // if no variables are found, try new format
     if (numVars == 0)
@@ -100,24 +97,18 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
         settings.beginGroup(BmIni::INIGROUP_VARS);
         numVars = countEmbVariables(settings.allKeys());
-        qDebug() << "numVars:" << numVars;
     }
 
     for (auto k = 0; k < numVars; ++k)
     {
-        qDebug() << "var number" << k + 1;
-
         auto prefix = BmIni::INI_PREFIX;
         prefix += QString::number(k + 1);
         prefix += QStringLiteral("_");
-        qDebug() << "prefix" << prefix;
 
         auto var = settings.value(prefix + BmIni::INI_VARS_0, QString()).toString();
-        qDebug() << "var" << var;
 
         // NOTE: not really needed for now
         auto id = settings.value(prefix + BmIni::INI_VARS_1, QString()).toString();
-        qDebug() << "id" << id;
 
         // skip entries with no type ('variable' field in the biomet metadata
         // file) defined
@@ -146,7 +137,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
         if (type_components_size > 4)
         {
             QStringList extracted_var_name = type_components_list.mid(0, type_components_size - 3);
-            extracted_type = extracted_var_name.join(QStringLiteral("_"));
+            extracted_type = extracted_var_name.join(QLatin1Char('_'));
         }
         // entry with positional notation and no underscore
         // in the variable name (e.g. PA_1_1_1)
@@ -155,10 +146,8 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
         {
             extracted_type = type_components_list.first();
         }
-        qDebug() << "extracted_type" << extracted_type;
 
         auto allowedVar = allowedVarIDs.filter(extracted_type);
-        qDebug() << "allowedVar" << allowedVar;
         // skip not allowed entries
         if (allowedVar.isEmpty())
         {
@@ -167,14 +156,6 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 
         // add allowed biogeo variables
         biomMetadata_->append(BiomItem(var, id, k + 1));
-
-        foreach(const BiomItem& item, *biomMetadata_)
-        {
-            qDebug() << '[' << item.type_
-                     << ", " << item.id_
-                     << ", " << item.col_
-                     << ']';
-        }
     }
     settings.endGroup();
     dataFile.close();
@@ -185,7 +166,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 int BiomMetadataReader::countEmbVariables(const QStringList& list)
 {
     auto i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(BmIni::INI_VARS_0))
         {
@@ -197,8 +178,6 @@ int BiomMetadataReader::countEmbVariables(const QStringList& list)
 
 bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -218,8 +197,6 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
         // skip first 2 rows
         if (line.contains(QStringLiteral("Station Name")))
         {
-            qDebug() << "skip first row";
-
             // read a line
             baLine = dataFile.readLine();
             lineContent = baLine.constData();
@@ -227,8 +204,6 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 
             if (line.contains(QStringLiteral("UC4")))
             {
-                qDebug() << "skip second row";
-
                 // read a line
                 baLine = dataFile.readLine();
                 lineContent = baLine.constData();
@@ -238,13 +213,11 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 
         auto strings = line.split(QLatin1Char(','));
 
-        // iterate on the vars list
+        // iterate on the variable list
         for (auto k = 0; k < strings.count(); ++k)
         {
             auto var = strings.at(k).split(QLatin1Char('_'));
-            auto id = var.at(0).toUpper();
-
-            qDebug() << "k" << k << "id" << id;
+            auto id = var.at(0).toUpper().trimmed();
 
             QStringList allowedVars;
             allowedVars << getVAR_TA()
@@ -253,6 +226,7 @@ bool BiomMetadataReader::readAltMetadata(const QString& fileName)
                         << getVAR_RG()
                         << getVAR_LWIN()
                         << getVAR_PPFD();
+
             if (!allowedVars.filter(id).isEmpty())
             {
                 biomMetadata_->append(BiomItem(id, id, k + 1));

@@ -1,7 +1,7 @@
 /***************************************************************************
   vector_utils.cpp
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -28,7 +28,7 @@
 
 // polynomial inversion of a polynomium of degree deg with coefficients coeffs
 // in incremental powers on the range x_range
-std::vector<double> VectorUtils::poly_boost(std::vector<double> x_range, std::vector<double> coeffs, int deg)
+std::vector<double> VectorUtils::poly_boost(const std::vector<double> &x_range, const std::vector<double> &coeffs, int deg)
 {
     // evaluate the polynomium on the range x_range
     auto y = polyval(coeffs, x_range);

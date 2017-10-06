@@ -1,7 +1,7 @@
 /***************************************************************************
   infomessages.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -46,14 +46,14 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     buttonBox_ = new QDialogButtonBox(buttons);
 
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    for (auto button : buttonBox_->buttons())
     {
         button->setProperty("mdDialogButton", true);
     }
 
     // NOTE: use QSignalMapper
     // map dialog results to messagebox buttons
-    foreach (QAbstractButton* button, buttonBox_->buttons())
+    for (auto button : buttonBox_->buttons())
     {
         switch (buttonBox_->buttonRole(button))
         {
@@ -88,7 +88,7 @@ InfoMessage::InfoMessage(QDialogButtonBox::StandardButtons buttons, QWidget *par
 
     icon_ = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/msg-info"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     icon_->setPixmap(pixmap);
@@ -122,7 +122,6 @@ void InfoMessage::initialize()
 
 void InfoMessage::refresh()
 {
-    DEBUG_FUNC_NAME
     bool showDialog = false;
 
     QSettings config;
@@ -152,8 +151,6 @@ void InfoMessage::refresh()
             break;
     }
     config.endGroup();
-
-    qDebug() << "showDialog" << showDialog;
 
     doNotShowAgainCheckbox_->setChecked(!showDialog);
 }
@@ -198,7 +195,7 @@ void InfoMessage::setTitle(const QString &title)
 void InfoMessage::setIcon(const QPixmap &icon)
 {
     auto pixmap = const_cast<QPixmap&>(icon);
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     icon_->setPixmap(pixmap);

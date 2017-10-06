@@ -1,7 +1,7 @@
 /***************************************************************************
   angle_item.h
   -------------------
-  Copyright (C) 2012-2015, LI-COR Biosciences
+  Copyright (C) 2012-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).

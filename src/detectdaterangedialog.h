@@ -1,7 +1,7 @@
 /***************************************************************************
   detectdaterangedialog.h
   -----------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -73,7 +73,7 @@ private:
                             const QTime &start_time,
                             const QDate &end_date,
                             const QTime &end_time);
-    QPair<QDateTime, QDateTime> getBinnedCospectraDateRange();
+    FileUtils::DateRange getBinnedCospectraDateRange();
     void updateSpectraOverlap(QLabel *label,
                             const QDate &start_date,
                             const QTime &start_time,

@@ -1,7 +1,7 @@
 /***************************************************************************
   advoutputoptions.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -49,8 +49,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    DEBUG_FUNC_NAME
-
     QString tooltipStr;
 
     minSelectionButton = new QPushButton;
@@ -410,7 +408,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     title_1->setProperty("groupLabel", true);
 
     auto title_6 = new QLabel;
-    title_6->setText(tr("Spectral outputs"));
+    title_6->setText(tr("Spectra and cospectra outputs"));
     title_6->setProperty("groupLabel", true);
 
     auto title_2 = WidgetUtils::createBlueLabel(this, tr("Reduced spectra and ogives"));
@@ -500,7 +498,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_2, 5, 2, Qt::AlignRight);
     outputLayout->addWidget(variableVarsOutputRadio, 5, 3, 1, 2, Qt::AlignLeft);
     outputLayout->addWidget(fixedVarsOutputRadio, 6, 3, 1, 2, Qt::AlignLeft);
-    outputLayout->addWidget(vrLabel_1, 5, 5, 6, 1);
+    outputLayout->addWidget(vrLabel_1, 5, 5, 8, 1);
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
@@ -747,7 +745,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
 void AdvOutputOptions::setSmartfluxUI()
 {
-    DEBUG_FUNC_NAME
     bool on = configState_->project.smartfluxMode;
 
     QWidgetList enableableWidgets;
@@ -805,7 +802,7 @@ void AdvOutputOptions::setSmartfluxUI()
                       << outRawPairCheckBox
                       << outVarsAllCheckBox;
 
-    foreach (QWidget* w, enableableWidgets)
+    for (auto w : enableableWidgets)
     {
         if (on)
         {
@@ -827,7 +824,7 @@ void AdvOutputOptions::setSmartfluxUI()
             << typicalSelectionDesc
             << hrLabel_1;
 
-    foreach (QWidget* w, visibleWidgets)
+    for (auto w : visibleWidgets)
     {
         if (on)
         {
@@ -853,7 +850,7 @@ void AdvOutputOptions::setSmartfluxUI()
     checkableWidgets << outFullCheckBox
                      << outBiometCheckBox
                      << fixedVarsOutputRadio;
-    foreach (QAbstractButton* w, checkableWidgets)
+    for (auto w : checkableWidgets)
     {
         if (on)
         {
@@ -890,7 +887,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRaw6CheckBox
                        << outRaw7CheckBox
                        << outVarsAllCheckBox;
-    foreach (QCheckBox* w, uncheckableCheckbox)
+    for (auto w : uncheckableCheckbox)
     {
         if (on)
         {
@@ -924,7 +921,7 @@ void AdvOutputOptions::setSmartfluxUI()
                        << outRawGas4CheckBox
                        << outRawTairCheckBox
                        << outRawPairCheckBox;
-    foreach (RichTextCheckBox* w, uncheckableRichTextCheckbox)
+    for (auto w : uncheckableRichTextCheckbox)
     {
         if (on)
         {
@@ -948,8 +945,6 @@ void AdvOutputOptions::setSmartfluxUI()
 
 void AdvOutputOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -973,8 +968,6 @@ void AdvOutputOptions::reset()
 
 void AdvOutputOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1064,14 +1057,11 @@ void AdvOutputOptions::refresh()
 
 void AdvOutputOptions::updateOutBinSpectra(bool b)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setScreenOutBinSpectra(b);
 }
 
 void AdvOutputOptions::updateBinSpectra(bool b)
 {
-    DEBUG_FUNC_NAME
-
     updateOutBinSpectra(b);
     outBinSpectraCheckBox->setDisabled(b);
 }
@@ -1216,7 +1206,6 @@ void AdvOutputOptions::checkFullCospectraAll(bool b)
 
 void AdvOutputOptions::checkStAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outSt1CheckBox->setChecked(b);
     outSt2CheckBox->setChecked(b);
     outSt3CheckBox->setChecked(b);
@@ -1228,7 +1217,6 @@ void AdvOutputOptions::checkStAll(bool b)
 
 void AdvOutputOptions::checkTimeSeriesAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outRaw1CheckBox->setChecked(b);
     outRaw2CheckBox->setChecked(b);
     outRaw3CheckBox->setChecked(b);
@@ -1240,7 +1228,6 @@ void AdvOutputOptions::checkTimeSeriesAll(bool b)
 
 void AdvOutputOptions::checkVarsAll(bool b)
 {
-    DEBUG_FUNC_NAME
     outRawUCheckBox->setChecked(b);
     outRawVCheckBox->setChecked(b);
     outRawWCheckBox->setChecked(b);
@@ -1261,7 +1248,7 @@ void AdvOutputOptions::selectMin()
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(false);
-    createDatasetCheckBox->setChecked(false);
+    createDatasetCheckBox->setChecked(true);
     outBinSpectraCheckBox->setChecked(true);
     outBinOgivesCheckBox->setChecked(false);
     outMeanSpectraCheckBox->setChecked(false);
@@ -1351,17 +1338,9 @@ void AdvOutputOptions::updateVarsAvailable()
 
 void AdvOutputOptions::updateOutputs(int n)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << n << "ecProject_->spectraMode()"
-             << ecProject_->spectraMode();
-
     // horst/ibrom
     if (n == 2 || n == 3)
     {
-        qDebug() << "ecProject_->generalBinSpectraAvail()"
-                 << ecProject_->generalBinSpectraAvail();
-
         if (ecProject_->spectraMode())
         {
             if (ecProject_->generalBinSpectraAvail())
@@ -1383,9 +1362,6 @@ void AdvOutputOptions::updateOutputs(int n)
     //fratini
     else if (n == 4)
     {
-        qDebug() << "ecProject_->generalBinSpectraAvail()"
-                 << ecProject_->generalBinSpectraAvail();
-
         if (ecProject_->spectraMode())
         {
             if (ecProject_->generalBinSpectraAvail())
@@ -1404,8 +1380,6 @@ void AdvOutputOptions::updateOutputs(int n)
             outBinSpectraCheckBox->setEnabled(true);
         }
 
-        qDebug() << "ecProject_->generalFullSpectraAvail()"
-                 << ecProject_->generalFullSpectraAvail();
         if (ecProject_->generalFullSpectraAvail())
         {
             outFullCospectraCheckBoxTs->setChecked(false);
@@ -1431,7 +1405,6 @@ void AdvOutputOptions::updateFixedOuputFormat(int n)
 
 void AdvOutputOptions::updateErrorLabel(const QString& s)
 {
-    DEBUG_FUNC_NAME
     if (s.isEmpty() || s.toUpper() == QLatin1String("NONE"))
     {
         WidgetUtils::warning(this,
@@ -1530,8 +1503,6 @@ void AdvOutputOptions::checkMetadataOutput()
 
 void AdvOutputOptions::updateSelectAllCheckbox()
 {
-    DEBUG_FUNC_NAME
-
     outVarsAllCheckBox->blockSignals(true);
 
     if (areAllCheckedVars())

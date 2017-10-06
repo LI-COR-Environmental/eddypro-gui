@@ -2,7 +2,7 @@
   advancedsettingspage.cpp
   ------------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -58,8 +58,6 @@ AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
     ecProject_(ecProject),
     configState_(config)
 {
-    DEBUG_FUNC_NAME
-
     createMenu();
     createIcons();
 
@@ -123,12 +121,8 @@ AdvancedSettingsPage::~AdvancedSettingsPage()
 
 void AdvancedSettingsPage::createMenu()
 {
-    DEBUG_FUNC_NAME
-
     menuWidget = new QListWidget;
     menuWidget->setSelectionRectVisible(false);
-    qDebug() << "isSelectionRectVisible" << menuWidget->isSelectionRectVisible();
-    qDebug() << "selectionMode" << menuWidget->selectionMode();
     // to reduce the select decoration
     menuWidget->setObjectName(QStringLiteral("advSettingsMenu"));
     menuWidget->setIconSize(QSize(42, 42));
@@ -180,7 +174,6 @@ bool AdvancedSettingsPage::requestSettingsReset()
 
 void AdvancedSettingsPage::resetButtonCLicked()
 {
-    DEBUG_FUNC_NAME
     if (requestSettingsReset())
     {
         advancedSettingContainer->processingOptions()->reset();
@@ -193,8 +186,6 @@ void AdvancedSettingsPage::resetButtonCLicked()
 
 void AdvancedSettingsPage::updateSmartfluxBar()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << configState_->project.smartfluxMode;
     smartfluxBar->setVisible(configState_->project.smartfluxMode);
 
     advancedSettingContainer->processingOptions()->getPlanarFitSettingsDialog()

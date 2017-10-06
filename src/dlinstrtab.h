@@ -2,7 +2,7 @@
   dlinstrtab.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -46,8 +46,6 @@ public:
 
     void reset();
     void refresh();
-    void anemViewRefresh();
-    void irgaViewRefresh();
 
     AnemView *anemView_;
     IrgaView *irgaView_;

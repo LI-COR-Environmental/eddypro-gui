@@ -1,7 +1,7 @@
 /***************************************************************************
   customdroplineedit.cpp
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -27,6 +27,7 @@
 #include <QFileInfo>
 #include <QMimeData>
 
+// NOTE: never used
 bool CustomDropLineEdit::canBeFile() const
 {
     return canBeFile_;
@@ -61,10 +62,11 @@ void CustomDropLineEdit::dropEvent(QDropEvent *event)
 #endif
 
     QFileInfo dropPathInfo(dropPath);
-    if (!dropPathInfo.exists())
+    if (!QFileInfo::exists(dropPath))
     {
         return;
     }
+
     if ((canBeFile_ && dropPathInfo.isFile()) || dropPathInfo.isDir())
     {
         const auto path = dropPathInfo.absoluteFilePath();

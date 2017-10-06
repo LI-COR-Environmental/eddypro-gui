@@ -2,7 +2,7 @@
   ecproject.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -105,6 +105,7 @@ public:
     void setGeneralColDiag75(int n);
     void setGeneralColDiag72(int n);
     void setGeneralColDiag77(int n);
+    void setGeneralColDiagAnem(int n);
     void setGeneralColTs(int n);
     void setGeneralColGasMw(double n);
     void setGeneralColGasDiff(double n);
@@ -185,6 +186,7 @@ public:
     void setScreenUOffset(double d);
     void setScreenVOffset(double d);
     void setScreenWOffset(double d);
+    void setScreenWBoost(int n);
     void setScreenFlowDistortion(int n);
     void setScreenCrossWind(int n);
     void setScreenRotMethod(int n);
@@ -484,6 +486,7 @@ public:
     int generalColDiag75() const { return ec_project_state_.projectGeneral.col_diag_75; }
     int generalColDiag72() const { return ec_project_state_.projectGeneral.col_diag_72; }
     int generalColDiag77() const { return ec_project_state_.projectGeneral.col_diag_77; }
+    int generalColDiagAnem() const { return ec_project_state_.projectGeneral.col_diag_anem; }
     int generalColTs() const { return ec_project_state_.projectGeneral.col_ts; }
     qreal generalGasMw() const { return ec_project_state_.projectGeneral.gas_mw; }
     qreal generalGasDiff() const { return ec_project_state_.projectGeneral.gas_diff; }
@@ -562,6 +565,7 @@ public:
     double screenUOffset() const { return ec_project_state_.screenSetting.u_offset; }
     double screenVOffset() const { return ec_project_state_.screenSetting.v_offset; }
     double screenWOffset() const { return ec_project_state_.screenSetting.w_offset; }
+    int screenWBoost() const { return ec_project_state_.screenSetting.gill_wm_wboost; }
     int screenFlowDistortion() const { return ec_project_state_.screenSetting.flow_distortion; }
     int screenCrossWind() const { return ec_project_state_.screenSetting.cross_wind; }
     int screenRotMethod() const { return ec_project_state_.screenSetting.rot_meth; }
@@ -828,8 +832,6 @@ public:
     int biomParamColRg() const { return ec_project_state_.biomParam.col_rg; }
     int biomParamColLwin() const { return ec_project_state_.biomParam.col_lwin; }
     int biomParamColPpfd() const { return ec_project_state_.biomParam.col_ppfd; }
-
-    bool planarFitSectorDefined();
 
     void addPlanarFitAngle(const AngleItem& angle);
 

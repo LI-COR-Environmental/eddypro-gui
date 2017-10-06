@@ -1,7 +1,7 @@
 /***************************************************************************
   planarfitsettingsdialog.h
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -25,6 +25,8 @@
 
 #include <QDateTime>
 #include <QDialog>
+
+#include "fileutils.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/planarfitsettingsdialog.h
@@ -81,7 +83,7 @@ public slots:
     void reset();
     void refresh();
     void partialRefresh();
-    void setDateRange(QPair<QDateTime, QDateTime> dates);
+    void setDateRange(FileUtils::DateRange dates);
 
 private slots:
     void updatePfMode(int radioButton);

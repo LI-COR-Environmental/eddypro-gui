@@ -1,7 +1,7 @@
 /***************************************************************************
   fileutils.h
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -37,8 +37,6 @@ namespace FileUtils
     bool isFileEmpty(const QString& fileName);
     bool isDirEmpty(const QString& dirName);
 
-    bool fileForcedCopy(const QString& fileName,
-                        const QString& destDir);
     bool projectFileForcedCopy(const QString& fileName,
                                const QString& destDir);
 
@@ -48,7 +46,6 @@ namespace FileUtils
     bool removeDirRecursively(const QString& dirName);
     void cleanDir(const QString& d);
     void cleanDirRecursively(const QString& d);
-    void cleanDirRecursively_alt(const QString& d);
     void cleanSmfDirRecursively(const QString& appEnvPath);
     void cleanDirFromFiletypeRecursively(const QString& d,
                                           const QStringList& illegalFileTypes);

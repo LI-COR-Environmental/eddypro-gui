@@ -2,7 +2,7 @@
   anem_tableview.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,8 +34,6 @@
 AnemTableView::AnemTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
     horizontalHeader()->show();
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -44,7 +42,7 @@ AnemTableView::AnemTableView(QWidget *parent) :
     m_header = new CustomHeader(this);
     m_header->addSection(tr("Manufacturer"), tr("<b>Manufacturer:</b> Specify the manufacturer of the anemometer among those supported. Choose <i>Other</i> for any manufacturer not explicitly listed. This field is mandatory."));
     m_header->addSection(tr("Model"), tr("<b>Model:</b> Identify the model of the anemometer. Choose <i>Generic Anemometer</i> for any model not explicitly listed. This field is mandatory."));
-    m_header->addSection(tr("<i>Embedded software version</i>"), tr("<b>Embedded software version:</b> Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers' firmware version is recommended for good recordkeeping."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemSwVersion);
+    m_header->addSection(tr("Embedded software version"), tr("<b>Embedded software version:</b> Identify the embedded software (firmware) version that was running on the selected anemometer. For Gill WindMaster and WindMaster Pro models, the firmware version is required in order to select the proper angle of attack correction. Storing other anemometers' firmware version is recommended for good recordkeeping."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::AnemSwVersion);
     m_header->addSection(tr("<i>Instrument ID</i>"), tr("<b>Instrument ID:</b> Enter an ID for the anemometer, to distinguish it from your other instruments. This is only for your records and providing it is optional."));
     m_header->addSection(tr("Height"), tr("<b> Height:</b> Enter the distance between the ground and the center of the device sampling volume. This field is mandatory."));
     m_header->addSection(tr("Wind data format"), tr("<b>Wind data format:</b> Specify the format in which the wind data are provided."));
@@ -67,11 +65,11 @@ AnemTableView::~AnemTableView()
 
 void AnemTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 2, 0, 0);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(rowHeight(0) / 2.0) + 2,
                           m_header->sizeHint().width() + 10,
-                          this->rowHeight(0) * m_header->sectionCount());
+                          rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->updateGeometry();
@@ -81,11 +79,11 @@ void AnemTableView::resizeEvent(QResizeEvent *event)
 
 void AnemTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 2, 0, 0);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(rowHeight(0) / 2.0) + 2,
                           m_header->sizeHint().width() + 10,
-                          this->rowHeight(0) * m_header->sectionCount());
+                          rowHeight(0) * m_header->sectionCount());
 
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));

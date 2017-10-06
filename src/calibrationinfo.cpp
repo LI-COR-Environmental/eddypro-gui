@@ -2,7 +2,7 @@
   calibrationinfo.h
   -------------------
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -48,7 +48,6 @@ CalibrationInfo::CalibrationInfo(double responseCode,
     cal_date_(calDate),
     cal_link_(calLink),
     cal_recal_(calRecal)
-
 { ; }
 
 CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
@@ -58,8 +57,6 @@ CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
     cal_recal_(false)
 
 {
-    DEBUG_FUNC_NAME
-
     QJsonParseError jerror;
     QJsonDocument jdoc = QJsonDocument::fromJson(calibrationAsJson, &jerror);
 
@@ -84,6 +81,14 @@ CalibrationInfo::CalibrationInfo(const QByteArray& calibrationAsJson) :
     }
 }
 
+CalibrationInfo::CalibrationInfo(const CalibrationInfo& calibrationInfo)
+{
+    response_code_ = calibrationInfo.responseCode();
+    cal_date_ = calibrationInfo.calDate();
+    cal_link_ = calibrationInfo.calLink();
+    cal_recal_ = calibrationInfo.calRecal();
+}
+
 CalibrationInfo &CalibrationInfo::operator=(const CalibrationInfo &calibrationInfo)
 {
     if (this != &calibrationInfo)
@@ -101,6 +106,7 @@ double CalibrationInfo::responseCode() const
     return response_code_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::responseCodeAsStr() const
 {
     return QString::number(response_code_, 'f', 0);
@@ -111,6 +117,7 @@ double CalibrationInfo::calDate() const
     return cal_date_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::calDateAsStr() const
 {
     return StringUtils::fromUnixTimeToISOString(cal_date_);
@@ -126,6 +133,7 @@ bool CalibrationInfo::calRecal() const
     return cal_recal_;
 }
 
+// NOTE: never used
 QString CalibrationInfo::calRecalAsStr() const
 {
     return StringUtils::fromBool2YesNoString(cal_recal_);

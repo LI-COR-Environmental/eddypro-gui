@@ -2,7 +2,7 @@
   irga_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -125,6 +125,12 @@ const QString IrgaDesc::getIRGA_MODEL_STRING_12()
 const QString IrgaDesc::getIRGA_MODEL_STRING_13()
 {
     static const QString s(QStringLiteral("LI-7200RS"));
+    return s;
+}
+
+const QString IrgaDesc::getIRGA_MODEL_STRING_14()
+{
+    static const QString s(QStringLiteral("LI-7500DS"));
     return s;
 }
 
@@ -265,7 +271,8 @@ const QStringList IrgaDesc::allModelStringList()
             << getIRGA_MODEL_STRING_8()
             << getIRGA_MODEL_STRING_9()
             << getIRGA_MODEL_STRING_10()
-            << getIRGA_MODEL_STRING_11());
+            << getIRGA_MODEL_STRING_11()
+            << getIRGA_MODEL_STRING_14());
 }
 
 // Return string list of usage types
@@ -279,7 +286,8 @@ const QStringList IrgaDesc::licorModelStringList()
             << getIRGA_MODEL_STRING_12()
             << getIRGA_MODEL_STRING_4()
             << getIRGA_MODEL_STRING_13()
-            << getIRGA_MODEL_STRING_5());
+            << getIRGA_MODEL_STRING_5()
+            << getIRGA_MODEL_STRING_14());
 }
 
 // Return string list of usage types
@@ -303,7 +311,8 @@ bool IrgaDesc::isALicorModel(const QString& model)
              || (model == getIRGA_MODEL_STRING_4())
              || (model == getIRGA_MODEL_STRING_5())
              || (model == getIRGA_MODEL_STRING_12())
-             || (model == getIRGA_MODEL_STRING_13()));
+             || (model == getIRGA_MODEL_STRING_13())
+             || (model == getIRGA_MODEL_STRING_14()));
 }
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
@@ -349,7 +358,6 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 
     auto isGoodTubeLength = irga.tubeLength() > 0.0;
     auto isGoodTubeDiameter = irga.tubeDiameter() > 0.0;
-    auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
 
     auto isClosedPath = (model == getIRGA_MODEL_STRING_0())
                         || (model == getIRGA_MODEL_STRING_1())
@@ -362,15 +370,39 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
     auto isGoodClosedPath = false;
     if (isClosedPath)
     {
-        isGoodClosedPath = isGoodTubeLength
-                            && isGoodTubeDiameter
-                            && isGoodTubeFlowRate;
+        isGoodClosedPath = isGoodTubeLength && isGoodTubeDiameter;
     }
     else
     {
         isGoodClosedPath = true;
     }
     return isGoodClosedPath;
+}
+
+bool IrgaDesc::hasGoodFlowRate(const IrgaDesc& irga)
+{
+    const auto model = irga.model();
+
+    auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
+
+    auto isClosedPath = (model == getIRGA_MODEL_STRING_0())
+                        || (model == getIRGA_MODEL_STRING_1())
+                        || (model == getIRGA_MODEL_STRING_4())
+                        || (model == getIRGA_MODEL_STRING_7())
+                        || (model == getIRGA_MODEL_STRING_10())
+                        || (model == getIRGA_MODEL_STRING_11())
+                        || (model == getIRGA_MODEL_STRING_13());
+
+    auto hasGoodFlowRate = false;
+    if (isClosedPath)
+    {
+        hasGoodFlowRate = isGoodTubeFlowRate;
+    }
+    else
+    {
+        hasGoodFlowRate = true;
+    }
+    return hasGoodFlowRate;
 }
 
 bool IrgaDesc::hasGoodPathLength(const IrgaDesc& irga)
@@ -425,13 +457,6 @@ bool IrgaDesc::isGoodIrga(const IrgaDesc &irga)
         isGoodKorLAnalyzer = true;
     }
 
-    qDebug() << "isGoodManufacturer" << isGoodManufacturer;
-    qDebug() << "isGoodModel" << isGoodModel;
-    qDebug() << "isGoodClosedPath" << isGoodClosedPath;
-    qDebug() << "isGoodSeparation" << isGoodSeparation;
-    qDebug() << "isGoodPathLength" << isGoodPathLength;
-    qDebug() << "isGoodKorLAnalyzer" << isGoodKorLAnalyzer;
-
     // all
     return (isGoodManufacturer
             && isGoodModel
@@ -449,5 +474,6 @@ bool IrgaDesc::isOpenPathModel(const QString& model)
              || model == IrgaDesc::getIRGA_MODEL_STRING_6()
              || model == IrgaDesc::getIRGA_MODEL_STRING_8()
              || model == IrgaDesc::getIRGA_MODEL_STRING_9()
-             || model == IrgaDesc::getIRGA_MODEL_STRING_12());
+             || model == IrgaDesc::getIRGA_MODEL_STRING_12()
+             || model == IrgaDesc::getIRGA_MODEL_STRING_14());
 }

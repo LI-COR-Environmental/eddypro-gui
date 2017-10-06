@@ -2,7 +2,7 @@
   irga_model.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -39,13 +39,11 @@ IrgaModel::IrgaModel(QObject *parent, IrgaDescList *list) :
 {;}
 
 IrgaModel::~IrgaModel(){
-    DEBUG_FUNC_NAME
 }
 
 // Reset the model
 void IrgaModel::flush()
 {
-    DEBUG_FUNC_NAME
     beginResetModel();
     endResetModel();
 }
@@ -551,7 +549,6 @@ bool IrgaModel::insertColumns(int column, int count, const QModelIndex& parent)
 // Remove columns from table
 bool IrgaModel::removeColumns(int column, int count, const QModelIndex& parent)
 {
-    DEBUG_FUNC_NAME
     Q_UNUSED(parent)
 
     if (count != 1) return false; // only remove one column at a time

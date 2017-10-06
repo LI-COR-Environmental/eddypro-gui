@@ -2,7 +2,7 @@
   calibrationinfo.h
   -------------------
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -30,9 +30,10 @@
 class CalibrationInfo
 {
 public:
-    CalibrationInfo();
-    CalibrationInfo(double responseCode, double calDate, const QString &calLink, bool calRecal);
+    explicit CalibrationInfo();
+    explicit CalibrationInfo(double responseCode, double calDate, const QString &calLink, bool calRecal);
     explicit CalibrationInfo(const QByteArray &calibrationAsJson);
+    explicit CalibrationInfo(const CalibrationInfo& calibrationInfo);
     CalibrationInfo& operator=(const CalibrationInfo& calibrationInfo);
 
     double responseCode() const;

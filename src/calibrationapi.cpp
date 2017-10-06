@@ -2,7 +2,7 @@
   calibrationapi.cpp
   -------------------
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -29,15 +29,17 @@
 #include "defs.h"
 #include "globalsettings.h"
 
-CalibrationAPI::CalibrationAPI(QObject *parent) : QObject(parent)
+CalibrationAPI::CalibrationAPI(QObject *parent)
+    : QObject(parent),
+      manager_(),
+      cal_info_download_(nullptr),
+      cal_file_download_(nullptr),
+      cal_file_()
 {
 }
 
 void CalibrationAPI::getCalibrationInfo(const QString &serialNumber)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << serialNumber;
-
     auto url = Defs::CALIBRATION_API_URL;
     url += serialNumber;
     url += QStringLiteral(".json");
@@ -50,9 +52,6 @@ void CalibrationAPI::getCalibrationInfo(const QString &serialNumber)
 
 void CalibrationAPI::getCalibrationFile(const QString &fileUrl)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << fileUrl;
-
     QString filename = saveFileName(QUrl(fileUrl));
     cal_file_.setFileName(filename);
     if (!cal_file_.open(QIODevice::WriteOnly))
@@ -73,8 +72,6 @@ void CalibrationAPI::getCalibrationFile(const QString &fileUrl)
 
 QNetworkReply* CalibrationAPI::getRequest(const QString &urlString)
 {
-    DEBUG_FUNC_NAME
-
     QUrl url(urlString);
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", Defs::EP_USER_AGENT.toLatin1());
@@ -83,12 +80,8 @@ QNetworkReply* CalibrationAPI::getRequest(const QString &urlString)
 
 void CalibrationAPI::downloadInfoFinished()
 {
-    DEBUG_FUNC_NAME
-
     if (cal_info_download_->error())
     {
-        qDebug() << cal_info_download_->errorString();
-
         // A communication error has occurred
         emit networkError(cal_info_download_->error());
         return;
@@ -111,14 +104,11 @@ void CalibrationAPI::downloadFileReadyRead()
 
 void CalibrationAPI::downloadFileFinished()
 {
-    DEBUG_FUNC_NAME
     cal_file_.close();
 
 
     if (cal_file_download_->error())
     {
-        qDebug() << cal_file_download_->errorString();
-
         // A communication error has occurred
         emit networkError(cal_file_download_->error());
         return;
@@ -130,8 +120,6 @@ void CalibrationAPI::downloadFileFinished()
 
 QString CalibrationAPI::saveFileName(const QUrl &url)
 {
-    DEBUG_FUNC_NAME
-
     auto homePath = GlobalSettings::getAppPersistentSettings(
                             Defs::CONFGROUP_GENERAL,
                             Defs::CONF_GEN_ENV,

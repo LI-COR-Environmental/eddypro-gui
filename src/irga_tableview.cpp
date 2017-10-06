@@ -2,7 +2,7 @@
   irga_tableview.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -35,8 +35,6 @@
 IrgaTableView::IrgaTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
     horizontalHeader()->show();
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -67,11 +65,11 @@ IrgaTableView::~IrgaTableView()
 
 void IrgaTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width() - 1, this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width() - 2, rowHeight(0) + 2, 0, 0);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(rowHeight(0) / 2.0) + 2,
                           m_header->sizeHint().width() + 10,
-                          this->rowHeight(0) * m_header->sectionCount());
+                          rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->updateGeometry();
@@ -81,11 +79,11 @@ void IrgaTableView::resizeEvent(QResizeEvent *event)
 
 void IrgaTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width() - 2, rowHeight(0) + 2, 0, 0);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(rowHeight(0) / 2.0) + 2,
                           m_header->sizeHint().width() + 10,
-                          this->rowHeight(0) * m_header->sectionCount());
+                          rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->updateGeometry();

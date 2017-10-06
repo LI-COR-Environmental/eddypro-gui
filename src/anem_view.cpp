@@ -2,7 +2,7 @@
   anem_view.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -61,7 +61,6 @@ AnemView::AnemView(QWidget *parent) :
 
 AnemView::~AnemView()
 {
-    DEBUG_FUNC_NAME
 }
 
 // Create and show context menu
@@ -79,8 +78,6 @@ void AnemView::contextMenuEvent(QContextMenuEvent *event)
 // no selection
 void AnemView::addAnem()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = anemCount();
 
@@ -102,8 +99,6 @@ void AnemView::addAnem()
 // Remove the selected anemometer or the last if there is no selection
 void AnemView::removeAnem()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = anemCount() - 1;
 

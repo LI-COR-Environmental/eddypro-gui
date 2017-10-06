@@ -2,7 +2,7 @@
   projectpage.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -140,7 +140,6 @@ private:
 
 private slots:
     void createMetadataEditor();
-    void createSlowMeasuresEditor();
 
     void fileTypeRadioClicked_1(int fileType);
     void fileTypeRadioClicked_2(int fileType);

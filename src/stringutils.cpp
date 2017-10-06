@@ -1,7 +1,7 @@
 /***************************************************************************
   stringutils.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -25,8 +25,8 @@
 #include <QByteArray>
 #include <QDate>
 #include <QDebug>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include <QString>
 #include <QStringList>
 
@@ -43,12 +43,14 @@ const QString StringUtils::insertIndex(const QString& srcStr, int pos, const QSt
     return strData.insert(pos, str);
 }
 
+// NOTE: never used
 const char* StringUtils::qString2Char(const QString& str)
 {
     QByteArray ba = str.toLatin1();
     return ba.constData();
 }
 
+// NOTE: never used
 int StringUtils::daysToFromString(const QString& d_1, const QString& d_2)
 {
     QDate dStart(QDate::fromString(d_1, Qt::ISODate));
@@ -58,16 +60,16 @@ int StringUtils::daysToFromString(const QString& d_1, const QString& d_2)
 
 bool StringUtils::isISODateTimeString(const QString& s)
 {
-    QRegExp dateExp;
+    QRegularExpression dateExp;
     dateExp.setPattern(QStringLiteral("([0-9]{,4})-([0-9]{,2})-([0-9]{,2})"));
 
-    QRegExp timeExp;
+    QRegularExpression timeExp;
     timeExp.setPattern(QStringLiteral("([0-9]{,2})([0-9]{,2})([0-9]{,2})"));
 
-    QRegExp dateTimeExp;
+    QRegularExpression dateTimeExp;
     dateTimeExp.setPattern(dateExp.pattern() + QLatin1Char('T') + timeExp.pattern());
 
-    QRegExpValidator validator(dateTimeExp);
+    QRegularExpressionValidator validator(dateTimeExp);
 
     const auto dateTimeLenght = 17;
     auto pos = 0;
@@ -82,7 +84,7 @@ bool StringUtils::isISODateTimeString(const QString& s)
 bool StringUtils::stringBelongsToList(const QString& str, const QStringList& list)
 {
     bool ok = false;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (str == s)
         {
@@ -99,27 +101,21 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
 int StringUtils::getVersionFromString(const QString& versionStr)
 {
     auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
-    qDebug() << "major" << major;
-
     auto minor = versionStr.section(QLatin1Char('.'), 1, 1).toInt();
-    qDebug() << "minor" << minor;
-
     auto patchStr = versionStr.section(QLatin1Char('.'), 2, 2);
+
     // in case of 2 digits version only
     if (patchStr.isEmpty())
     {
         patchStr = QStringLiteral("00");
     }
     auto patch = patchStr.toInt();
-    qDebug() << "patch" << patch;
 
     return QT_VERSION_CHECK(major, minor, patch);
 }
 
 bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& localVersion)
 {
-    DEBUG_FUNC_NAME
-
     return getVersionFromString(remoteVersion) > getVersionFromString((localVersion));
 }
 
@@ -134,9 +130,8 @@ const QStringList StringUtils::subStringList(const QStringList& list, int begin,
     return sublist;
 }
 
-
 QString StringUtils::fromUnixTimeToISOString(double msec)
 {
-    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(msec));
+    QDateTime timestamp(QDateTime::fromMSecsSinceEpoch(static_cast<qint64>(msec)));
     return timestamp.toString(Qt::ISODate);
 }

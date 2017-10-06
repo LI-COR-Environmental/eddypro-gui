@@ -4,7 +4,7 @@
   A process management class
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -66,16 +66,16 @@ public:
 
     bool engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList);
 
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipProcessAddStart(const QString& fileName,
                             const QString &toArchive,
                             const QString &workingDir = QString(),
                             const QString& fileType = QString());
 
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipProcessExtMdStart(const QString& fileName,
                               const QString& outDir);
-    // NOTE: not used (7z based)
+    // NOTE: never used (7z based)
     bool zipContainsFiletype(const QString& fileName,
                              const QString& fileExt);
 

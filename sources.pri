@@ -86,7 +86,6 @@ HEADERS += \
     src/angles_view.h \
     src/angle_item.h \
     src/ancillaryfiletest.h \
-    src/make_unique.h \
     src/customcombobox.h \
     src/advmenudelegate.h \
     src/container_helpers.h \
@@ -227,6 +226,7 @@ OTHER_FILES += \
     README.md \
     css/eddypro-mac.qss \
     css/eddypro-win.qss \
+    css/eddypro-lin.qss \
     scripts/build/mac-post-link.sh \
     scripts/build/mac-pre-link.sh \
     scripts/build/mac-update-translations.sh \
@@ -236,6 +236,7 @@ OTHER_FILES += \
     scripts/build/win-build-eddypro.sh \
     scripts/build/win-build-quazip.sh \
     scripts/build/win-build-libs.sh \
+    scripts/build/lin-pre-link.sh \
     scripts/deploy/eddypro-gui-deploy-win.sh \
     scripts/deploy/mac_deploy.sh \
     scripts/test/run-clang-analyzer.sh \

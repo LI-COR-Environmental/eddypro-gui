@@ -2,7 +2,7 @@
   specgroup.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -28,11 +28,6 @@
 // custom relation (not useful for lexical ordering)
 bool SpecGroup::operator<(const SpecGroup &sg) const
 {
-    qDebug() << "<" << start_ << stop_;
-    qDebug() << "<" << toSpecGroupCode(start_) << toSpecGroupCode(stop_);
-    qDebug() << "<" << sg.start_ << sg.stop_;
-    qDebug() << "<" << toSpecGroupCode(sg.start_) << toSpecGroupCode(sg.stop_);
-
     // exclude negative values
     if ((toSpecGroupCode(start_) < 0)
         || (toSpecGroupCode(stop_) < 0)
@@ -150,7 +145,7 @@ bool SpecGroup::operator==(const SpecGroup &sg) const
         && (stop_ == sg.stop_);
 }
 
-// NOTE: not used
+// NOTE: never used
 const QStringList SpecGroup::monthStringList()
 {
     return (QStringList()
@@ -170,7 +165,7 @@ const QStringList SpecGroup::monthStringList()
 }
 
 // convert numeric spectra group code in string var
-// NOTE: not used
+// NOTE: never used
 const QString SpecGroup::toStringSpecGroup(qint8 i)
 {
     switch (i)

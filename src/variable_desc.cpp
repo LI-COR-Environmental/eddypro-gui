@@ -2,7 +2,7 @@
   variable_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -183,7 +183,7 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_24()
 
 const QString VariableDesc::getVARIABLE_VAR_STRING_25()
 {
-    static const QString s(tr("LI-7500/A/RS Diagnostics"));
+    static const QString s(tr("LI-7500/A/RS/DS Diagnostics"));
     return s;
 }
 
@@ -208,6 +208,12 @@ const QString VariableDesc::getVARIABLE_VAR_STRING_28()
 const QString VariableDesc::getVARIABLE_VAR_STRING_29()
 {
     static const QString s(tr("Sampling Line Flow Rate"));
+    return s;
+}
+
+const QString VariableDesc::getVARIABLE_VAR_STRING_30()
+{
+    static const QString s(tr("Anemometer Diagnostics"));
     return s;
 }
 
@@ -497,8 +503,8 @@ VariableDesc& VariableDesc::operator=(const VariableDesc& fileDesc)
 {
     if (this != &fileDesc)
     {
-        ignore_ = fileDesc.ignore_,
-        numeric_ = fileDesc.numeric_,
+        ignore_ = fileDesc.ignore_;
+        numeric_ = fileDesc.numeric_;
         variable_ = fileDesc.variable_;
         instrument_ = fileDesc.instrument_;
         measureType_ = fileDesc.measureType_;
@@ -567,6 +573,7 @@ const QStringList VariableDesc::variableStringList()
             << getVARIABLE_VAR_STRING_25()
             << getVARIABLE_VAR_STRING_26()
             << getVARIABLE_VAR_STRING_27()
+            << getVARIABLE_VAR_STRING_30()
             );
 }
 
@@ -663,20 +670,11 @@ const QStringList VariableDesc::yesNoStringList()
 
 bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 {
-    DEBUG_FUNC_NAME
     const QString name = var.variable();
     const QString instrument = var.instrument();
-    const QString measureType = var.measureType();
     const QString inputUnit = var.inputUnit();
     const QString conversionType = var.conversionType();
     const QString outputUnit = var.outputUnit();
-
-    qDebug() << "name:" << name;
-    qDebug() << "instrument:" << instrument;
-    qDebug() << "measureType:" << measureType;
-    qDebug() << "inputUnit:" << inputUnit;
-    qDebug() << "conversionType:" << conversionType;
-    qDebug() << "outputUnit:" << outputUnit;
 
     // 1
     bool isGoodName = false;
@@ -713,7 +711,6 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
     {
         isGoodInputUnit = true;
     }
-    qDebug() << "isGoodInputUnit" << isGoodInputUnit;
 
     bool isGoodOutputUnit = false;
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
@@ -723,9 +720,6 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
                         || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4());
 
     }
-
-//    bool isGoodUnit = isGoodInputUnit
-//            || ((conversionType == VARIABLE_CONVERSION_TYPE_STRING_1) && isGoodOutputUnit);
 
     bool isGoodUnit = false;
     if (conversionType.isEmpty()
@@ -741,21 +735,11 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
 
-    // 6
-    bool isGoodTimelag = (var.minTimelag() <= var.nomTimelag()) && (var.nomTimelag()<= var.maxTimelag());
-
-    qDebug() << ">> isGoodName" << isGoodName;
-    qDebug() << ">> isGoodInstrument" << isGoodInstrument;
-    qDebug() << ">> isGoodUnit" << isGoodUnit;
-    qDebug() << ">> isGoodABValue" << isGoodABValue;
-    qDebug() << ">> isGoodTimelag" << isGoodTimelag;
-
     // all
     return (isGoodName
             && isGoodInstrument
             && isGoodUnit
-            && isGoodABValue
-            );
+            && isGoodABValue);
 }
 
 namespace {
@@ -790,7 +774,6 @@ bool isGoodGasUnit(const QString& unit, const QString& type)
 
 bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
 {
-    DEBUG_FUNC_NAME
     const QString name = var.variable();
     const QString instrument = var.instrument();
     const QString measureType = var.measureType();
@@ -840,7 +823,6 @@ bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
     {
         isGoodInputUnit = true;
     }
-    qDebug() << "isGoodInputUnit" << isGoodInputUnit;
 
     bool isGoodOutputUnit = false;
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
@@ -862,39 +844,21 @@ bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
     // 6
     bool isGoodABValue = goodGainOffsetTest(var);
 
-    // 7
-    bool isGoodTimelag = (var.minTimelag() <= var.nomTimelag()) && (var.nomTimelag()<= var.maxTimelag());
-
-    qDebug() << ">> isGoodName" << isGoodName;
-    qDebug() << ">> isGoodInstrument" << isGoodInstrument;
-    qDebug() << ">> isGoodMeasureType" << isGoodMeasureType;
-    qDebug() << ">> isGoodUnit" << isGoodUnit;
-    qDebug() << ">> isGoodABValue" << isGoodABValue;
-    qDebug() << ">> isGoodTimelag" << isGoodTimelag;
-
     // all
     return (isGoodName
             && isGoodInstrument
             && isGoodMeasureType
             && isGoodUnit
-            && isGoodABValue
-            );
+            && isGoodABValue);
 }
 
 bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
 {
-    DEBUG_FUNC_NAME
     const QString name = var.variable();
     const QString instrument = var.instrument();
     const QString inputUnit = var.inputUnit();
     const QString conversionType = var.conversionType();
     const QString outputUnit = var.outputUnit();
-
-    qDebug() << "name" << name;
-    qDebug() << "instrument" << instrument;
-    qDebug() << "inputUnit" << inputUnit;
-    qDebug() << "conversionType" << conversionType;
-    qDebug() << "outputUnit" << outputUnit;
 
     // 1
     bool isGoodName = false;
@@ -902,7 +866,6 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
     {
         isGoodName = (name == getVARIABLE_VAR_STRING_3())
                       || (name == getVARIABLE_VAR_STRING_4());
-        qDebug() << "after test, isGoodName" << isGoodName;
     }
 
     // 2
@@ -924,7 +887,8 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_9()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_10()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_11()))
-                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()));
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_13()));
         }
     }
 
@@ -938,7 +902,6 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
             // Ts
             if (name == getVARIABLE_VAR_STRING_3())
             {
-                qDebug() << "Ts";
                 isGoodInputUnit = (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_5())
                                    || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_6())
                                    || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_7())
@@ -948,7 +911,6 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
             // SoS
             else
             {
-                qDebug() << "SOS";
                 isGoodInputUnit = (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_2())
                                    || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_3())
                                    || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_4())
@@ -960,7 +922,6 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
     {
         isGoodInputUnit = true;
     }
-    qDebug() << "isGoodInputUnit" << isGoodInputUnit;
 
     bool isGoodOutputUnit = false;
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
@@ -979,10 +940,6 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
                                || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4());
         }
     }
-    qDebug() << "isGoodOutputUnit" << isGoodOutputUnit;
-
-//    bool isGoodUnit = isGoodInputUnit
-//            || ((conversionType == VARIABLE_CONVERSION_TYPE_STRING_1) && isGoodOutputUnit);
 
     bool isGoodUnit = false;
     if (conversionType.isEmpty()
@@ -998,38 +955,20 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
 
-    // 6
-    bool isGoodTimelag = (var.minTimelag() <= var.nomTimelag()) && (var.nomTimelag()<= var.maxTimelag());
-
-    qDebug() << ">> isGoodName" << isGoodName;
-    qDebug() << ">> isGoodInstrument" << isGoodInstrument;
-    qDebug() << ">> isGoodUnit" << isGoodUnit;
-    qDebug() << ">> isGoodABValue" << isGoodABValue;
-    qDebug() << ">> isGoodTimelag" << isGoodTimelag;
-
     // all
     return (isGoodName
             && isGoodInstrument
             && isGoodUnit
-            && isGoodABValue
-            );
+            && isGoodABValue);
 }
 
 bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
 {
-    DEBUG_FUNC_NAME
     const QString name = var.variable();
     const QString instrument = var.instrument();
     const QString inputUnit = var.inputUnit();
     const QString conversionType = var.conversionType();
     const QString outputUnit = var.outputUnit();
-
-    qDebug() << "type" << static_cast<int>(type);
-    qDebug() << "name" << name;
-    qDebug() << "instrument" << instrument;
-    qDebug() << "inputUnit" << inputUnit;
-    qDebug() << "conversionType" << conversionType;
-    qDebug() << "outputUnit" << outputUnit;
 
     // 1
     bool isGoodName = false;
@@ -1037,7 +976,6 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     {
         if (type == AnalogType::SLOW)
         {
-            qDebug() << "SLOW" << name;
             isGoodName = (name == getVARIABLE_VAR_STRING_9())
                           || (name == getVARIABLE_VAR_STRING_10())
                           || (name == getVARIABLE_VAR_STRING_12())
@@ -1055,7 +993,6 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     {
         if (type == AnalogType::SLOW)
         {
-            qDebug() << "SLOW" << instrument;
             if (name == getVARIABLE_VAR_STRING_9()
                 || name == getVARIABLE_VAR_STRING_10()
                 || name == getVARIABLE_VAR_STRING_15())
@@ -1067,13 +1004,10 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_10()))
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()))
                                     || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()));
-
-                qDebug() << "1 isGoodInstrument" << isGoodInstrument;
             }
             else
             {
                 isGoodInstrument = true;
-                qDebug() << "2 isGoodInstrument" << isGoodInstrument;
             }
         }
         else
@@ -1085,9 +1019,8 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_4()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_5()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_12()))
-                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13())));
-
-            qDebug() << "3 isGoodInstrument" << isGoodInstrument;
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()))
+                                || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_14())));
         }
     }
 
@@ -1109,7 +1042,6 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     {
         isGoodInputUnit = true;
     }
-    qDebug() << "isGoodInputUnit" << isGoodInputUnit;
 
     bool isGoodOutputUnit = false;
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
@@ -1119,9 +1051,6 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
                             || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_7())
                             || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_8());
     }
-
-//    bool isGoodUnit = isGoodInputUnit
-//            || ((conversionType == VARIABLE_CONVERSION_TYPE_STRING_1) && isGoodOutputUnit);
 
     bool isGoodUnit = false;
     if (conversionType.isEmpty()
@@ -1137,24 +1066,17 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
 
-    qDebug() << ">> isGoodName" << isGoodName;
-    qDebug() << ">> isGoodInstrument" << isGoodInstrument;
-    qDebug() << ">> isGoodUnit" << isGoodUnit;
-    qDebug() << ">> isGoodABValue" << isGoodABValue;
-
     // all
     bool ret = isGoodName
                && isGoodInstrument
                && isGoodUnit
                && isGoodABValue;
-    qDebug() << "return" << ret;
 
     return ret;
 }
 
 bool VariableDesc::isGoodPressure(const VariableDesc& var)
 {
-    DEBUG_FUNC_NAME
     const QString name = var.variable();
     const QString instrument = var.instrument();
     const QString inputUnit = var.inputUnit();
@@ -1182,8 +1104,6 @@ bool VariableDesc::isGoodPressure(const VariableDesc& var)
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_10()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_11()))
                                 || (instrument.contains(IrgaDesc::getIRGA_MODEL_STRING_13()));
-
-            qDebug() << "under if isGoodInstrument" << isGoodInstrument;
         }
         else
         {
@@ -1208,7 +1128,6 @@ bool VariableDesc::isGoodPressure(const VariableDesc& var)
     {
         isGoodInputUnit = true;
     }
-    qDebug() << "isGoodInputUnit" << isGoodInputUnit;
 
     bool isGoodOutputUnit = false;
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
@@ -1217,9 +1136,6 @@ bool VariableDesc::isGoodPressure(const VariableDesc& var)
                             || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_15())
                             || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_16());
     }
-
-//    bool isGoodUnit = isGoodInputUnit
-//            || ((conversionType == VARIABLE_CONVERSION_TYPE_STRING_1) && isGoodOutputUnit);
 
     bool isGoodUnit = false;
     if (conversionType.isEmpty()
@@ -1235,21 +1151,11 @@ bool VariableDesc::isGoodPressure(const VariableDesc& var)
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
 
-    // 6
-//    bool isGoodTimelag = (var.minTimelag() <= var.nomTimelag()) && (var.nomTimelag()<= var.maxTimelag());
-
-    qDebug() << ">> isGoodName" << isGoodName;
-    qDebug() << ">> isGoodInstrument" << isGoodInstrument;
-    qDebug() << ">> isGoodUnit" << isGoodUnit;
-    qDebug() << ">> isGoodABValue" << isGoodABValue;
-//    qDebug() << ">> isGoodTimelag" << isGoodTimelag;
-
     // all
     return (isGoodName
             && isGoodInstrument
             && isGoodUnit
-            && isGoodABValue
-            );
+            && isGoodABValue);
 }
 
 bool VariableDesc::isGasVariable(const QString& var)
@@ -1297,7 +1203,8 @@ bool VariableDesc::isCustomVariable(const QString& var)
             && var != getVARIABLE_VAR_STRING_26()
             && var != getVARIABLE_VAR_STRING_27()
             && var != getVARIABLE_VAR_STRING_28()
-            && var != getVARIABLE_VAR_STRING_29());
+            && var != getVARIABLE_VAR_STRING_29()
+            && var != getVARIABLE_VAR_STRING_30());
 }
 
 bool VariableDesc::isScalableVariable(const QString& inputUnit)
@@ -1347,7 +1254,8 @@ bool VariableDesc::isDiagnosticVar(const QString& var)
 {
     return (var == getVARIABLE_VAR_STRING_25()
             || var == getVARIABLE_VAR_STRING_26()
-            || var == getVARIABLE_VAR_STRING_27());
+            || var == getVARIABLE_VAR_STRING_27()
+            || var == getVARIABLE_VAR_STRING_30());
 }
 
 const QStringList VariableDesc::velocityInputUnitStringList()
@@ -1460,8 +1368,6 @@ const QStringList VariableDesc::flowRateOutputUnitStringList()
 
 bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
 {
-    DEBUG_FUNC_NAME
-
     const QString conversionType = var.conversionType();
     qreal aValue = var.aValue();
     qreal bValue = var.bValue();

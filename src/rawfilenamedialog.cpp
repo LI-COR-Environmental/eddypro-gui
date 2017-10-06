@@ -1,7 +1,7 @@
 /***************************************************************************
   rawfilenamedialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -119,14 +119,14 @@ void RawFilenameDialog::reset()
     rawFilenameFormatEdit->clear();
 
     // clean the radiogroup
-    foreach (QAbstractButton* button, extRadioGroup->buttons())
+    for (auto button : extRadioGroup->buttons())
     {
         extRadioGroup->removeButton(button);
     }
 
     // remove the objects
-    // the first object is the layout...
-    QObjectList buttonList = radioGroupBox->children();
+    // but the first object, which is the layout...
+    auto buttonList = radioGroupBox->children();
     qDeleteAll(buttonList.begin() + 1, buttonList.end());
 }
 
@@ -146,11 +146,11 @@ void RawFilenameDialog::refresh()
 
     // select corresponding radio button if possible
     auto buttonsNumber = extRadioGroup->buttons().count();
-    qDebug() << "buttons #" << buttonsNumber;
+
     if (buttonsNumber)
     {
         auto selectionIndex = 0;
-        foreach (const auto btn, extRadioGroup->buttons())
+        for (const auto btn : extRadioGroup->buttons())
         {
             // stop if found
             // 1. GHG case
@@ -171,7 +171,7 @@ void RawFilenameDialog::refresh()
             }
             ++selectionIndex;
         }
-        qDebug() << "last selectionIndex" << selectionIndex;
+
         // process all button
         if (selectionIndex == extRadioGroup->buttons().length())
         {
@@ -190,8 +190,6 @@ void RawFilenameDialog::refresh()
 
 void RawFilenameDialog::populateDialog()
 {
-    DEBUG_FUNC_NAME
-
     QString baseDescText
             = tr("<p>Your entry in this field will describe "
                  "how the timestamp is encoded in the raw file name.<br />"
@@ -210,9 +208,6 @@ void RawFilenameDialog::populateDialog()
     // GHG case
     if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
     {
-        qDebug() << "ghgSuffixList_" << *ghgSuffixList_ << ghgSuffixList_;
-        qDebug() << "ghgSuffixList_ count" << ghgSuffixList_->count();
-
         if (ghgSuffixList_->count() > 1)
         {
             desc->setText(baseDescText +
@@ -241,7 +236,6 @@ void RawFilenameDialog::populateDialog()
     else
     {
         fileList_ = getRawFileTypesAvailable();
-        qDebug() << "fileList_" << fileList_;
 
         // filter fileList by selected extension for known cases
         // notably SLT and TOB1
@@ -262,8 +256,6 @@ void RawFilenameDialog::populateDialog()
         }
         // in all the cases remove GHG
         removeFileExtensionFromList(Defs::GHG_NATIVE_DATA_FILE_EXT);
-
-        qDebug() << "filtered fileList_" << fileList_;
 
         if (fileList_.count() > 1)
         {
@@ -293,7 +285,7 @@ void RawFilenameDialog::populateDialog()
 
 void RawFilenameDialog::removeFileExtensionFromList(const QString& ext)
 {
-    foreach (auto type, fileList_)
+    for (auto type : fileList_)
     {
         if (QFileInfo(type).suffix().contains(ext))
         {
@@ -304,12 +296,9 @@ void RawFilenameDialog::removeFileExtensionFromList(const QString& ext)
 
 QStringList RawFilenameDialog::getRawFileTypesAvailable()
 {
-    DEBUG_FUNC_NAME
-
     // initial test
     if (ecProject_->screenDataPath().isEmpty())
     {
-        qDebug() << "no raw data dir set";
         return QStringList();
     }
 
@@ -349,12 +338,11 @@ QStringList RawFilenameDialog::getRawFileTypesAvailable()
 void RawFilenameDialog::createGhgSuffixRadioButtons()
 {
     auto firstSuffixLenght = ghgSuffixList_->first().length();
-    qDebug() << "firstSuffixLenght" << firstSuffixLenght << ghgSuffixList_->first();
 
     auto i = 0;
     auto equalLengthSuffix = true;
     QRadioButton* button;
-    foreach (const auto& suffix, *ghgSuffixList_)
+    for (const auto& suffix : *ghgSuffixList_)
     {
         button = new QRadioButton(suffix);
         extRadioGroup->addButton(button, i);
@@ -363,7 +351,6 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
         if (equalLengthSuffix)
         {
             equalLengthSuffix = (suffix.length() == firstSuffixLenght);
-            qDebug() << "suffix.length()" << suffix << suffix.length();
         }
     }
 
@@ -375,23 +362,29 @@ void RawFilenameDialog::createGhgSuffixRadioButtons()
         radioGroupBoxLayout->addWidget(button);
     }
 
-    extRadioGroup->buttons().first()->setChecked(true);
-    radioGroupBox->setVisible(true);
+    if (!extRadioGroup->buttons().isEmpty())
+    {
+        extRadioGroup->buttons().at(0)->setChecked(true);
+        radioGroupBox->setVisible(true);
+    }
 }
 
 void RawFilenameDialog::createFileExtensionRadioButtons(const QStringList& list)
 {
     auto i = 0;
-    foreach (const QString& file, list)
+    for (const auto &file : list)
     {
-        qDebug() << QFileInfo(file).suffix();
         auto button = new QRadioButton(QFileInfo(file).suffix());
         extRadioGroup->addButton(button, i);
         radioGroupBoxLayout->addWidget(button);
         ++i;
     }
-    extRadioGroup->buttons().first()->setChecked(true);
-    radioGroupBox->setVisible(true);
+
+    if (!extRadioGroup->buttons().isEmpty())
+    {
+        extRadioGroup->buttons().at(0)->setChecked(true);
+        radioGroupBox->setVisible(true);
+    }
 }
 
 // update prototype line edit
@@ -447,8 +440,6 @@ void RawFilenameDialog::updateFormatEdit(int id)
 // locally but local changes are not preserved
 void RawFilenameDialog::updateFileList(const QString& file)
 {
-    DEBUG_FUNC_NAME
-
     if (ecProject_->generalFileType() == Defs::RawFileType::GHG)
     {
         if (ghgSuffixList_->isEmpty())
@@ -463,9 +454,6 @@ void RawFilenameDialog::updateFileList(const QString& file)
             return;
         }
 
-        qDebug() << extRadioGroup->buttons().count()
-                 << extRadioGroup->checkedId()
-                 << file;
         if (extRadioGroup->buttons().count())
         {
             fileList_.replace(extRadioGroup->checkedId(), file);

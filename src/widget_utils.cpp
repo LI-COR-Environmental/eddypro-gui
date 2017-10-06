@@ -2,7 +2,7 @@
 /***************************************************************************
   widget_utils.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -46,7 +46,6 @@
 #include <QWidget>
 
 #include <memory>
-#include "make_unique.h"
 
 #include "QScienceSpinBox.h"
 
@@ -56,6 +55,17 @@
 #include "docchooser.h"
 #include "fileutils.h"
 #include "globalsettings.h"
+
+// Test for GCC < 4.9.0
+// std::make_unique.h is implemented from GCC >= 4.9.0
+#if defined(Q_CC_GNU) && !defined(Q_CC_CLANG)
+#define GCC_VERSION (__GNUC__ * 10000 \
+                     + __GNUC_MINOR__ * 100 \
+                     + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION < 40900
+#include "make_unique.h"
+#endif
+#endif // Q_CC_GNU
 
 const QColor WidgetUtils::getColor(int step)
 {
@@ -81,7 +91,7 @@ void updateStyle(QWidget* widget)
     widget->update();
 }
 
-// NOTE: not used, but possibly useful
+// NOTE: never used, but possibly useful
 //void updatePropertyAndStyle(QWidget* widget,
 //                            const char* name,
 //                            const QVariant& value)
@@ -98,7 +108,7 @@ void updateStyle(QWidget* widget)
 void WidgetUtils::updatePropertyListAndStyle(QWidget* widget,
                                              QList<PropertyList> propertyList)
 {
-    foreach(const PropertyList& prop, propertyList)
+    for (const auto &prop : propertyList)
     {
         // set property
         widget->setProperty(prop.first, prop.second);
@@ -135,11 +145,18 @@ QVariant WidgetUtils::currentComboItemData(QComboBox* combo, int role)
 
 // remove the context help button from the widget
 // (tipically a dialog or message box)
+void WidgetUtils::removeFlagFromWidget(Qt::WindowFlags flag, QWidget* w)
+{
+    Qt::WindowFlags winFlags = w->windowFlags();
+    winFlags &= ~flag;
+    w->setWindowFlags(winFlags);
+}
+
+// remove the context help button from the widget
+// (tipically a dialog or message box)
 void WidgetUtils::removeContextHelpButton(QWidget* w)
 {
-    Qt::WindowFlags winFflags = w->windowFlags();
-    winFflags &= ~Qt::WindowContextHelpButtonHint;
-    w->setWindowFlags(winFflags);
+    removeFlagFromWidget(Qt::WindowContextHelpButtonHint, w);
 }
 
 // set the text of the label with specified elide mode and width
@@ -155,7 +172,7 @@ void WidgetUtils::setElidedTextToLabel(QLabel* label,
 }
 
 // set the text of the line edit with specified elide mode and width
-// NOTE: not used
+// NOTE: never used
 void WidgetUtils::setElidedTextToLineEdit(QLineEdit* lineEdit,
                                           const QString& text,
                                           Qt::TextElideMode mode,
@@ -175,7 +192,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_left;
     auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
-//#if defined(Q_OS_MAC)
+//#if defined(Q_OS_DARWIN)
 //    left_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_left.addPixmap(left_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -185,7 +202,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_right;
     auto right_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-right-arrow"));
-//#if defined(Q_OS_MAC)
+//#if defined(Q_OS_DARWIN)
 //    right_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_right.addPixmap(right_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -217,15 +234,15 @@ void WidgetUtils::showCalendarOf(QWidget* widget)
                                                 Qt::NoModifier));
 }
 
-// NOTE: hack to add <hr> to QTextEdit. Not working as expected.
-// See https://bugreports.qt-project.org/browse/QTBUG-747
-// NOTE: not used
+// Append a horizontal rule <hr> to QTextEdit.
+// NOTE: never used yet.
 void WidgetUtils::appendHrToTextEdit(QTextEdit* te)
 {
     auto textCursor = te->textCursor();
     auto blockFmt = textCursor.blockFormat();
     te->append(QLatin1String("<hr>"));
-    te->textCursor().setBlockFormat(blockFmt);
+    textCursor.setBlockFormat(blockFmt);
+    te->setTextCursor(textCursor);
 }
 
 void WidgetUtils::openAppWebsite()
@@ -259,13 +276,13 @@ QMessageBox::ButtonRole WidgetUtils::requestToSave(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -295,7 +312,7 @@ bool WidgetUtils::information(QWidget* parent,
 //    QScopedPointer<QMessageBox> messageBox(new QMessageBox(parent));
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -307,7 +324,7 @@ bool WidgetUtils::information(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-info"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -329,7 +346,7 @@ void WidgetUtils::warning(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -341,7 +358,7 @@ void WidgetUtils::warning(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-warning"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -360,7 +377,7 @@ void WidgetUtils::critical(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -372,7 +389,7 @@ void WidgetUtils::critical(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-critical"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -395,7 +412,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -407,7 +424,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -464,36 +481,24 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else
             {
-                qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
                     | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
-                qDebug() << "localUrlString" << localUrlString;
-
                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();
 
-            qDebug() << "htmlHelpPath" << htmlHelpPath;
             if (htmlHelpPath.contains(QStringLiteral("#")))
             {
-                qDebug() << "localUrl with hash" << localUrl;
                 auto localUrlHost = htmlHelpPath.section(QLatin1Char('#'), 0, 0);
                 auto localUrlFragment = htmlHelpPath.section(QLatin1Char('#'), 1, 1);
-
-                qDebug() << "localUrlFragment" << localUrlFragment;
-
                 localUrl = QUrl::fromLocalFile(localUrlHost);
-                qDebug() << "localUrl" << localUrl;
                 localUrl.setFragment(localUrlFragment);
-                qDebug() << "localUrl.setFragment" << localUrl;
             }
             else
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
-                qDebug() << "localUrl with no hash" << localUrl;
             }
-            qDebug() << "localUrl" << localUrl << QDesktopServices::openUrl(localUrl);
         }
     }
     else
@@ -528,21 +533,9 @@ QString WidgetUtils::getSearchPathHint(/*ConfigState *config*/)
 {
     // default search path
     auto searchPath = QDir::homePath();
-
-    auto lastDataPath = QString();
-
-    // a cached file path exists
-//    if (!config->window.last_data_path.isEmpty())
-//    {
-//        lastDataPath = config->window.last_data_path;
-//    }
-//    else
-//    {
-        // last available search path
-        lastDataPath = GlobalSettings::getAppPersistentSettings(
-                           Defs::CONFGROUP_WINDOW,
-                           Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
-//    }
+    auto lastDataPath = GlobalSettings::getAppPersistentSettings(
+                       Defs::CONFGROUP_WINDOW,
+                       Defs::CONF_WIN_LAST_DATAPATH, QString()).toString();
 
     if (!lastDataPath.isEmpty() && FileUtils::existsPath(lastDataPath))
     {

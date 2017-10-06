@@ -1,7 +1,7 @@
 /***************************************************************************
   timelagsettingsdialog.cpp
   -------------------
-  Copyright (C) 2013-2015, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -41,7 +41,6 @@
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
 
@@ -87,7 +86,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
 
     lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);
@@ -144,7 +143,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     pgRangeSpin->setAccelerated(true);
     pgRangeSpin->setSuffix(tr("  [mad]"));
     pgRangeSpin->setToolTip(pgRangeLabel->toolTip());
-    pgRangeLabel_2 = new QLabel(tr("(<tt>%1%2n%3mad</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::MID_DOT));
+    pgRangeLabel_2 = new QLabel(tr("(<tt>%1%2n%3mad</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO, Defs::PLUSMINUS, Defs::MID_DOT));
 
     rhClassLabel = new ClickLabel(tr("Number of RH classes :"));
     rhClassLabel->setToolTip(tr("<b>Number of RH classes:</b> Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range or RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. Selecting 1 class, the label <b><i>Do not sort in RH classes</i></b> appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines."));
@@ -444,12 +443,10 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
 
 TimeLagSettingsDialog::~TimeLagSettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void TimeLagSettingsDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (isVisible())
         hide();
     emit saveRequest();
@@ -457,8 +454,6 @@ void TimeLagSettingsDialog::close()
 
 void TimeLagSettingsDialog::reset()
 {
-    DEBUG_FUNC_NAME
-
     updateTlMode(1);
 
     existingRadio->setChecked(false);
@@ -495,8 +490,6 @@ void TimeLagSettingsDialog::reset()
 
 void TimeLagSettingsDialog::partialRefresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -524,8 +517,6 @@ void TimeLagSettingsDialog::partialRefresh()
 
 void TimeLagSettingsDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -574,7 +565,7 @@ void TimeLagSettingsDialog::refresh()
     ecProject_->blockSignals(false);
 }
 
-void TimeLagSettingsDialog::setDateRange(QPair<QDateTime, QDateTime> dates)
+void TimeLagSettingsDialog::setDateRange(FileUtils::DateRange dates)
 {
     if (!ecProject_->timelagOptSubset())
     {
@@ -664,14 +655,12 @@ void TimeLagSettingsDialog::radioClicked(int radioButton)
 
 void TimeLagSettingsDialog::onStartDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     startDateEdit->setFocus();
     WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void TimeLagSettingsDialog::onEndDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     endDateEdit->setFocus();
     WidgetUtils::showCalendarOf(endDateEdit);
 }
@@ -702,8 +691,6 @@ void TimeLagSettingsDialog::updateEndTime(const QTime& t)
 // enforce (start date&time) <= (end date&time)
 void TimeLagSettingsDialog::forceEndDatePolicy()
 {
-    DEBUG_FUNC_NAME
-
     endDateEdit->setMinimumDate(startDateEdit->date());
 }
 
@@ -711,10 +698,6 @@ void TimeLagSettingsDialog::forceEndDatePolicy()
 // enforce (start date&time) <= (end date&time)
 void TimeLagSettingsDialog::forceEndTimePolicy()
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "start - end, dates:" << startDateEdit->date() << endDateEdit->date();
-
     if (startDateEdit->date() == endDateEdit->date())
     {
         endTimeEdit->setMinimumTime(startTimeEdit->time());
@@ -732,8 +715,6 @@ void TimeLagSettingsDialog::updateFile(const QString& fp)
 
 void TimeLagSettingsDialog::testSelectedFile(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     QString paramFile = QFileDialog::getOpenFileName(this,
                         tr("Select the Timelag Optimization File"),
                         WidgetUtils::getSearchPathHint(),
@@ -748,7 +729,6 @@ void TimeLagSettingsDialog::testSelectedFile(const QString& fp)
     test_dialog.refresh(canonicalParamFile);
 
     auto test_result = test_dialog.makeTest();
-    qDebug() << "test_result" << test_result;
 
     auto dialog_result = true;
 
@@ -954,15 +934,14 @@ void TimeLagSettingsDialog::updateSubsetSelection(bool b)
 {
     ecProject_->setTimelagOptSubset(b);
 
-    foreach (QWidget *w,
-             QWidgetList()
-                  << startDateLabel
-                  << startDateEdit
-                  << startTimeEdit
-                  << lockedIcon
-                  << endDateLabel
-                  << endDateEdit
-                  << endTimeEdit)
+    auto widget_list = QWidgetList() << startDateLabel
+                                     << startDateEdit
+                                     << startTimeEdit
+                                     << lockedIcon
+                                     << endDateLabel
+                                     << endDateEdit
+                                     << endTimeEdit;
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }

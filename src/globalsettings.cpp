@@ -1,7 +1,7 @@
 /***************************************************************************
   globalsettings.cpp
   -------------------
-  Copyright (C) 2014-2015, LI-COR Biosciences
+  Copyright (C) 2014-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -47,12 +47,10 @@ void GlobalSettings::setAppPersistentSettings(const QString& group,
 {
     if (group.isEmpty() || key.isEmpty() || !value.isValid()) { return; }
 
-    qDebug() << "setting";
     QSettings settings;
 
     settings.beginGroup(group);
         settings.setValue(key, value);
-        qDebug() << settings.value(key);
     settings.endGroup();
 
     settings.sync();
@@ -93,7 +91,7 @@ void GlobalSettings::setCustomVariableList(const QStringList& varList)
 {
     setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
                              Defs::CONF_PROJ_CUSTOM_VARS,
-                             varList.join(QStringLiteral(",")));
+                             varList.join(QLatin1Char(',')));
 }
 
 //  NOTE: add error management using QSettings::status()

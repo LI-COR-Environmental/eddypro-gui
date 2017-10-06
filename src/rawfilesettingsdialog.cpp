@@ -2,7 +2,7 @@
   rawfilesettingsdialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -40,8 +40,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     QDialog(parent),
     dlProject_(dlProject)
 {
-    DEBUG_FUNC_NAME
-
     setWindowModality(Qt::WindowModal);
     setWindowTitle(tr("Raw File Settings"));
     WidgetUtils::removeContextHelpButton(this);
@@ -130,44 +128,19 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
 
     connect(okButton, &QPushButton::clicked,
             [=](){ if (this->isVisible()) hide(); });
-
-    // NOTE: not used
-//    initialize();
 }
 
 RawFileSettingsDialog::~RawFileSettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
-}
-
-// NOTE: not used
-void RawFileSettingsDialog::initialize()
-{
-    DEBUG_FUNC_NAME
-
-    // save the modified flag to prevent side effects of setting widgets
-    bool oldmod = dlProject_->modified();
-    dlProject_->blockSignals(true);
-
-    fieldSepCombo->setCurrentIndex(-1);
-    headerRowsSpin->setValue(-1);
-    dataRecLabelEdit->setPlaceholderText(tr("Not set"));
-
-    // restore modified flag
-    dlProject_->setModified(oldmod);
-    dlProject_->blockSignals(false);
 }
 
 void RawFileSettingsDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
 
     QString currFielSep = dlProject_->fieldSep();
-    qDebug() << "currFielSep" << currFielSep.replace(0, 1, currFielSep.left(1).toUpper());
 
     fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep));
 
@@ -188,10 +161,7 @@ void RawFileSettingsDialog::onClickFieldSepLabel()
 
 void RawFileSettingsDialog::updateFieldSep(const QString& s)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << s.simplified().toLower();
     dlProject_->setFieldSep(s.simplified().toLower());
-    qDebug() << dlProject_->fieldSep();
 }
 
 void RawFileSettingsDialog::onClickHeaderRowsLabel()

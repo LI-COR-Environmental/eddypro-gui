@@ -2,7 +2,7 @@
   advprocessingoptions.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -69,8 +69,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     configState_(config),
     calibration_info_()
 {
-    DEBUG_FUNC_NAME
-
     createQuestionMark();
 
     auto rawProcessingTitle = new QLabel(tr("Raw data processing"));
@@ -91,7 +89,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     uOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     uOffsetSpin->setMinimumWidth(uOffsetSpin->sizeHint().width() * 1.3);
-#elif defined (Q_OS_MAC)
+#elif defined (Q_OS_DARWIN)
     uOffsetSpin->setMinimumWidth(102);
 #endif
     uOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -107,7 +105,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     vOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     vOffsetSpin->setMinimumWidth(vOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     vOffsetSpin->setMinimumWidth(102);
 #endif
     vOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -123,7 +121,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     wOffsetSpin->setMinimumWidth(wOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     wOffsetSpin->setMinimumWidth(102);
 #endif
     wOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -138,6 +136,11 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     windComponentLayout->addWidget(wLabel, 0, Qt::AlignRight);
     windComponentLayout->addWidget(wOffsetSpin, 1);
     windComponentLayout->addStretch(1);
+
+    wBoostCheckBox = new RichTextCheckBox;
+    wBoostCheckBox->setText(tr("Fix 'w boost' bug (Gill WindMaster and WindMaster Pro only)"));
+    wBoostCheckBox->setToolTip(tr("<b>Fix 'w boost' bug:</b> Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit <a href=\"http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf\">Gill's Technical Key Note</a>"));
+    wBoostCheckBox->setQuestionMark(QStringLiteral("https://www.licor.com/env/help/eddypro/topics_eddypro/w-boost_bug_correction.html"));
 
     aoaCheckBox = new RichTextCheckBox;
     aoaCheckBox->setToolTip(tr("<b>Angle-of-attack correction:</b> Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used."));
@@ -392,24 +395,25 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(rawProcessingTitle, 0, 0);
     settingsLayout->addLayout(qBox_1, 1, 0, 1, 2);
     settingsLayout->addLayout(windComponentLayout, 1, 2, 1, 1);
-    settingsLayout->addWidget(aoaCheckBox, 2, 0);
-    settingsLayout->addWidget(aoaMethLabel, 2, 1, Qt::AlignRight);
-    settingsLayout->addWidget(aoaMethCombo, 2, 2);
-    settingsLayout->addWidget(rotCheckBox, 3, 0);
-    settingsLayout->addWidget(rotMethLabel, 3, 1, Qt::AlignRight);
-    settingsLayout->addWidget(rotMethCombo, 3, 2);
-    settingsLayout->addWidget(pfSettingsButton, 3, 3);
-    settingsLayout->addLayout(qBox_2, 4, 0);
-    settingsLayout->addWidget(detrendMethLabel, 4, 1, Qt::AlignRight);
-    settingsLayout->addWidget(detrendCombo, 4, 2);
-    settingsLayout->addWidget(timeConstantLabel, 5, 1, Qt::AlignRight);
-    settingsLayout->addWidget(timeConstantSpin, 5, 2);
-    settingsLayout->addWidget(timeLagCheckBox, 6, 0);
-    settingsLayout->addWidget(timeLagMethodLabel, 6, 1, Qt::AlignRight);
-    settingsLayout->addWidget(timeLagMethodCombo, 6, 2);
-    settingsLayout->addWidget(tlSettingsButton, 6, 3);
-    settingsLayout->addWidget(hrLabel, 7, 0, 1, 4);
-    settingsLayout->addWidget(wplTitle, 8, 0);
+    settingsLayout->addWidget(wBoostCheckBox, 2, 0);
+    settingsLayout->addWidget(aoaCheckBox, 3, 0);
+    settingsLayout->addWidget(aoaMethLabel, 3, 1, Qt::AlignRight);
+    settingsLayout->addWidget(aoaMethCombo, 3, 2);
+    settingsLayout->addWidget(rotCheckBox, 4, 0);
+    settingsLayout->addWidget(rotMethLabel, 4, 1, Qt::AlignRight);
+    settingsLayout->addWidget(rotMethCombo, 4, 2);
+    settingsLayout->addWidget(pfSettingsButton, 4, 3);
+    settingsLayout->addLayout(qBox_2, 5, 0);
+    settingsLayout->addWidget(detrendMethLabel, 5, 1, Qt::AlignRight);
+    settingsLayout->addWidget(detrendCombo, 5, 2);
+    settingsLayout->addWidget(timeConstantLabel, 6, 1, Qt::AlignRight);
+    settingsLayout->addWidget(timeConstantSpin, 6, 2);
+    settingsLayout->addWidget(timeLagCheckBox, 7, 0);
+    settingsLayout->addWidget(timeLagMethodLabel, 7, 1, Qt::AlignRight);
+    settingsLayout->addWidget(timeLagMethodCombo, 7, 2);
+    settingsLayout->addWidget(tlSettingsButton, 7, 3);
+    settingsLayout->addWidget(hrLabel, 8, 0, 1, 4);
+    settingsLayout->addWidget(wplTitle, 9, 0);
     settingsLayout->addWidget(wplCheckBox, 10, 0);
     settingsLayout->addWidget(burbaCorrCheckBox, 11, 0);
     settingsLayout->addWidget(burbaTypeLabel, 12, 0, 1, 1, Qt::AlignRight);
@@ -483,6 +487,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(wOffsetSpin, SIGNAL(valueChanged(double)),
             this, SLOT(updateWOffset(double)));
 
+    connect(wBoostCheckBox, &RichTextCheckBox::toggled,
+            this, &AdvProcessingOptions::updateWBoost);
     connect(aoaCheckBox, &RichTextCheckBox::toggled,
             aoaMethLabel, &ClickLabel::setEnabled);
     connect(aoaCheckBox, &RichTextCheckBox::toggled,
@@ -584,14 +590,15 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvProcessingOptions::refresh);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << aoaMethCombo
-                                  << rotMethCombo
-                                  << detrendCombo
-                                  << timeLagMethodCombo
-                                  << qcMethodCombo
-                                  << fpMethodCombo)
+    auto combo_list = QWidgetList() << aoaMethCombo
+                                    << rotMethCombo
+                                    << detrendCombo
+                                    << timeLagMethodCombo
+                                    << qcMethodCombo
+                                    << fpMethodCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -604,8 +611,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
 AdvProcessingOptions::~AdvProcessingOptions()
 {
-    DEBUG_FUNC_NAME
-
     if (pfDialog_)
         delete pfDialog_;
 
@@ -634,7 +639,6 @@ void AdvProcessingOptions::updateWOffset(double d)
 // update project properties
 void AdvProcessingOptions::updateAoaMethod_1(bool b)
 {
-    DEBUG_FUNC_NAME
     if (b)
     {
         auto value = aoaMethCombo->itemData(aoaMethCombo->currentIndex());
@@ -701,8 +705,6 @@ void AdvProcessingOptions::updateDetrendMeth(int l)
 
 void AdvProcessingOptions::updateTimeConst(double l)
 {
-    DEBUG_FUNC_NAME
-
     // write [min] on the GUI but [sec] in the file
     if (detrendCombo->currentIndex() == 1)
     {
@@ -740,11 +742,6 @@ void AdvProcessingOptions::updateTlagMeth_2(int n)
 
 void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "previousDetrendMethod" << static_cast<int>(previousDetrendMethod_);
-    qDebug() << "timeConstantSpin->value()" << timeConstantSpin->value();
-
     DetrendMethod currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
 
     if (previousDetrendMethod_ == DetrendMethod::LinearDetrending)
@@ -808,6 +805,11 @@ void AdvProcessingOptions::onClickTimeConstantLabel()
     }
 }
 
+void AdvProcessingOptions::updateWBoost(bool b)
+{
+    ecProject_->setScreenWBoost(b);
+}
+
 void AdvProcessingOptions::onClickAoaMethLabel()
 {
     if (aoaMethCombo->isEnabled())
@@ -852,8 +854,6 @@ void AdvProcessingOptions::onWLabelClicked()
 
 void AdvProcessingOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -862,6 +862,7 @@ void AdvProcessingOptions::reset()
     vOffsetSpin->setValue(ecProject_->defaultSettings.screenSetting.v_offset);
     wOffsetSpin->setValue(ecProject_->defaultSettings.screenSetting.w_offset);
 
+    wBoostCheckBox->setChecked(ecProject_->defaultSettings.screenSetting.gill_wm_wboost);
     aoaCheckBox->setChecked(ecProject_->defaultSettings.screenSetting.flow_distortion);
     aoaMethCombo->setCurrentIndex(0);
 
@@ -917,8 +918,6 @@ void AdvProcessingOptions::reset()
 
 void AdvProcessingOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -926,6 +925,8 @@ void AdvProcessingOptions::refresh()
     uOffsetSpin->setValue(ecProject_->screenUOffset());
     vOffsetSpin->setValue(ecProject_->screenVOffset());
     wOffsetSpin->setValue(ecProject_->screenWOffset());
+
+    wBoostCheckBox->setChecked(ecProject_->screenWBoost());
 
     auto aoaCorrection = ecProject_->screenFlowDistortion();
     aoaCheckBox->setChecked(aoaCorrection);
@@ -1060,8 +1061,6 @@ void AdvProcessingOptions::refresh()
 
 void AdvProcessingOptions::createPfSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!pfDialog_)
     {
         pfDialog_ = new PlanarFitSettingsDialog(this, ecProject_, configState_);
@@ -1078,8 +1077,6 @@ void AdvProcessingOptions::showPfSettingsDialog()
 
 void AdvProcessingOptions::createTlSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!tlDialog_)
     {
         tlDialog_ = new TimeLagSettingsDialog(this, ecProject_, configState_);
@@ -1088,8 +1085,6 @@ void AdvProcessingOptions::createTlSettingsDialog()
 
 void AdvProcessingOptions::showTlSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-
     tlDialog_->refresh();
     tlDialog_->show();
     tlDialog_->raise();
@@ -1098,8 +1093,6 @@ void AdvProcessingOptions::showTlSettingsDialog()
 
 void AdvProcessingOptions::createCalibDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!calibDialog_)
     {
         calibDialog_ = new CalibrationDialog(this, ecProject_, configState_);
@@ -1108,8 +1101,6 @@ void AdvProcessingOptions::createCalibDialog()
 
 void AdvProcessingOptions::showCalibDialog()
 {
-    DEBUG_FUNC_NAME
-
     calibDialog_->refresh();
     calibDialog_->show();
     calibDialog_->raise();
@@ -1527,8 +1518,6 @@ void AdvProcessingOptions::setBurbaDefaultValues()
 
 void AdvProcessingOptions::on_setDefaultsButton_clicked()
 {
-    DEBUG_FUNC_NAME
-
     if (requestBurbaSettingsReset())
     {
         setBurbaDefaultValues();
@@ -1537,13 +1526,11 @@ void AdvProcessingOptions::on_setDefaultsButton_clicked()
 
 void AdvProcessingOptions::updateWplMeth_1(bool b)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setGeneralWplMeth(b);
 }
 
 void AdvProcessingOptions::enableBurbaCorrectionArea(bool b)
 {
-    DEBUG_FUNC_NAME
     burbaTypeLabel->setEnabled(b);
     burbaSimpleRadio->setEnabled(b);
     burbaMultiRadio->setEnabled(b);
@@ -1614,8 +1601,6 @@ bool AdvProcessingOptions::requestBurbaSettingsReset()
 
 void AdvProcessingOptions::fetchCalibration()
 {
-    DEBUG_FUNC_NAME
-
     calibration_api_ = new CalibrationAPI(this);
 
     connect(calibration_api_, &CalibrationAPI::calibrationInfoReady,
@@ -1628,8 +1613,6 @@ void AdvProcessingOptions::fetchCalibration()
 
 void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
 {
-    DEBUG_FUNC_NAME
-
     CalibrationInfo calResponse(data);
     calibration_info_ = calResponse;
 
@@ -1645,8 +1628,6 @@ void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
 
 void AdvProcessingOptions::parseCalibrationFile()
 {
-    DEBUG_FUNC_NAME
-
     auto calDir = configState_->general.env
             + QLatin1Char('/')
             + Defs::CAL_FILE_DIR
@@ -1659,7 +1640,6 @@ void AdvProcessingOptions::parseCalibrationFile()
     FileUtils::cleanDirFromFiletypeRecursively(calDir, QStringList() << QStringLiteral("pdf"));
 
     calibration_file_ = FileUtils::getFiles(calDir, QStringLiteral("*.l7x")).first();
-    qDebug() << calibration_file_;
     FileUtils::chmod_644(calibration_file_);
 
     // parsing calibration data
@@ -1723,38 +1703,10 @@ void AdvProcessingOptions::parseCalibrationFile()
             calibration_.h2o_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Val)")->getValue()).toDouble();
             calibration_.h2o_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Date)")->getValue());
 
-            qDebug() << "calibration.co2_A" << calibration_.co2_1_dir;
-            qDebug() << "calibration.co2_B" << calibration_.co2_2_dir;
-            qDebug() << "calibration.co2_C" << calibration_.co2_3_dir;
-            qDebug() << "calibration.co2_D" << calibration_.co2_4_dir;
-            qDebug() << "calibration.co2_E" << calibration_.co2_5_dir;
-            qDebug() << "calibration.co2_XS" << calibration_.co2_XS;
-            qDebug() << "calibration.co2_Z" << calibration_.co2_Z;
-            qDebug() << "calibration.co2_Zero" << calibration_.co2_Zero;
-            qDebug() << "calibration.co2_Zero_date" << calibration_.co2_Zero_date;
-            qDebug() << "calibration.co2_Span" << calibration_.co2_Span;
-            qDebug() << "calibration.co2_Span_date" << calibration_.co2_Span_date;
-            qDebug() << "calibration.co2_Span_2" << calibration_.co2_Span_2;
-            qDebug() << "calibration.co2_Span_2_date" << calibration_.co2_Span_2_date;
-            qDebug() << "calibration.h2o_A" << calibration_.h2o_1_dir;
-            qDebug() << "calibration.h2o_B" << calibration_.h2o_2_dir;
-            qDebug() << "calibration.h2o_C" << calibration_.h2o_3_dir;
-            qDebug() << "calibration.h2o_XS" << calibration_.h2o_XS;
-            qDebug() << "calibration.h2o_Z" << calibration_.h2o_Z;
-            qDebug() << "calibration.h2o_Zero" << calibration_.h2o_Zero;
-            qDebug() << "calibration.h2o_Zero_date" << calibration_.h2o_Zero_date;
-            qDebug() << "calibration.h2o_Span" << calibration_.h2o_Span;
-            qDebug() << "calibration.h2o_Span_date" << calibration_.h2o_Span_date;
-            qDebug() << "calibration.h2o_Span_2" << calibration_.h2o_Span_2;
-            qDebug() << "calibration.h2o_Span_2_date" << calibration_.h2o_Span_2_date;
-
             try
             {
                 calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(CX)")->getValue()).toDouble();
                 calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(WX)")->getValue()).toDouble();
-
-                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
-                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
             }
             catch(xmlError& e)
             {
@@ -1766,9 +1718,6 @@ void AdvProcessingOptions::parseCalibrationFile()
             {
                 calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(CX)")->getValue()).toDouble();
                 calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(WX)")->getValue()).toDouble();
-
-                qDebug() << "calibration.co2_CX" << calibration_.co2_CX;
-                qDebug() << "calibration.h2o_WX" << calibration_.h2o_WX;
             }
             catch(xmlError& e)
             {
@@ -1788,8 +1737,6 @@ void AdvProcessingOptions::parseCalibrationFile()
 
 void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
 {
-    DEBUG_FUNC_NAME
-
     auto x_range = VectorUtils::arange<double>(0.000416, 0.001192, 0.000004);
 
     std::vector<double> co2_dir_coeffs = {0.0, cal.co2_1_dir, cal.co2_2_dir, cal.co2_3_dir, cal.co2_4_dir, cal.co2_5_dir, 0.0};
@@ -1797,9 +1744,6 @@ void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
 
     std::vector<double> co2_inv_coeffs = VectorUtils::poly_boost(x_range, co2_dir_coeffs, 6);
     std::vector<double> h2o_inv_coeffs = VectorUtils::poly_boost(x_range, h2o_dir_coeffs, 6);
-
-    qDebug() << "co2_dir_coeffs" << co2_dir_coeffs.size();
-    qDebug() << "h2o_inv_coeffs" << h2o_inv_coeffs.size();
 
     cal.co2_0_inv = co2_inv_coeffs.at(0);
     cal.co2_1_inv = co2_inv_coeffs.at(1);

@@ -35,7 +35,7 @@ void QtHelper::prependApplicationPathToLibraryPaths(const QString& app_name)
     QString executablePath;
 #if defined(Q_OS_WIN)
     executablePath = app_name.mid(0, app_name.lastIndexOf(QStringLiteral("\\")));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
     executablePath = app_name.mid(0, app_name.lastIndexOf(QLatin1String("/")));
 #endif
 

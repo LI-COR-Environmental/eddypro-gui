@@ -2,7 +2,7 @@
   anem_desc.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -54,6 +54,7 @@ public:
     static const QString getANEM_MODEL_STRING_10();
     static const QString getANEM_MODEL_STRING_11();
     static const QString getANEM_MODEL_STRING_12();
+    static const QString getANEM_MODEL_STRING_13();
 
     static const QString getANEM_WIND_FORMAT_STRING_0();
     static const QString getANEM_WIND_FORMAT_STRING_1();
@@ -156,7 +157,6 @@ public:
     static const QStringList allModelStringList();
     static const QStringList campbellModelStringList();
     static const QStringList gillModelStringList();
-    static const QStringList restrictedGillModelStringList();
     static const QStringList metekModelStringList();
     static const QStringList youngModelStringList();
     static const QStringList otherModelStringList();

@@ -2,7 +2,7 @@
   dlproject.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -65,6 +65,7 @@ const QString DlProject::IRGA_MODEL_STRING_10 = QStringLiteral("closed_path_kryp
 const QString DlProject::IRGA_MODEL_STRING_11 = QStringLiteral("closed_path_lyman");
 const QString DlProject::IRGA_MODEL_STRING_12 = QStringLiteral("li7500rs");
 const QString DlProject::IRGA_MODEL_STRING_13 = QStringLiteral("li7200rs");
+const QString DlProject::IRGA_MODEL_STRING_14 = QStringLiteral("li7500ds");
 
 const QString DlProject::IRGA_SW_VERSION_STRING_0 = QStringLiteral("0.0.0");
 const QString DlProject::IRGA_SW_VERSION_STRING_1 = QStringLiteral("5.0.3");
@@ -101,6 +102,7 @@ const QString DlProject::VARIABLE_VAR_STRING_26 = QStringLiteral("diag_72");
 const QString DlProject::VARIABLE_VAR_STRING_27 = QStringLiteral("diag_77");
 const QString DlProject::VARIABLE_VAR_STRING_28 = QStringLiteral("fast_t");
 const QString DlProject::VARIABLE_VAR_STRING_29 = QStringLiteral("flowrate");
+const QString DlProject::VARIABLE_VAR_STRING_30 = QStringLiteral("anemometer_diagnostic");
 
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_0 = QStringLiteral("molar_density");
 const QString DlProject::VARIABLE_MEASURE_TYPE_STRING_1 = QStringLiteral("mole_fraction");
@@ -218,6 +220,12 @@ const QString DlProject::getANEM_MODEL_STRING_12()
     return s;
 }
 
+const QString DlProject::getANEM_MODEL_STRING_13()
+{
+    static const QString s(QStringLiteral("csat3b"));
+    return s;
+}
+
 DlProject::DlProject(QObject* parent) :
     QObject(parent),
     modified_(false),
@@ -260,8 +268,6 @@ DlProject::~DlProject()
 // Clears project (new document)
 void DlProject::newProject(const ProjConfigState& project_config)
 {
-    DEBUG_FUNC_NAME
-
     // data e ora in formato ISO
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
@@ -382,18 +388,11 @@ void DlProject::newProject(const ProjConfigState& project_config)
 // Load a project. Assumes file has been checked with nativeFormat()
 bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *modified, bool firstReading)
 {
-    DEBUG_FUNC_NAME
-
     auto parent = static_cast<MainWindow*>(this->parent());
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
     bool alreadyChecked = false;
-
-    qDebug() << "initial isVersionCompatible:" << isVersionCompatible;
-    qDebug() << "initial modified:" << *modified;
-    qDebug() << "checkVersion:" << checkVersion;
-    qDebug() << "firstReading:" << firstReading;
 
     // open file
     QFile datafile(filename);
@@ -420,7 +419,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     {
         projectFilename = filename;
     }
-    qDebug() << "projectFilename" << projectFilename;
 
     // general section
     project_ini.beginGroup(DlIni::INIGROUP_PROJECT);
@@ -487,21 +485,17 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         // iterate through instrument list
         int numInstr = countInstruments(project_ini.allKeys());
 
-        qDebug() << "number of instrument detected:" << numInstr;
-
         for (int k = 0; k < numInstr; ++k)
         {
             QString prefix = DlIni::INI_INSTR_PREFIX + QString::number(k + 1) + QStringLiteral("_");
 
             InstrumentType instrType = getInstrumentType(project_ini, prefix);
 
-            qDebug() << "instrType" << static_cast<int>(instrType);
             // anem case
             if (instrType == InstrumentType::ANEM)
             {
-                qDebug() << "anem k" << k;
                 AnemDesc anem;
-                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString anemModel = project_ini.value(prefix + DlIni::INI_ANEM_2).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 anem.setManufacturer(fromIniAnemManufacturer(project_ini.value(prefix + DlIni::INI_ANEM_1, QString()).toString()));
                 anem.setModel(fromIniAnemModel(anemModel));
@@ -509,7 +503,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 anem.setId(project_ini.value(prefix + DlIni::INI_ANEM_4, QString()).toString());
 
                 qreal heightVal = project_ini.value(prefix + DlIni::INI_ANEM_5, 0.1).toReal();
-                qDebug() << "heightVal" << heightVal;
+
                 if (heightVal >= 0.1)
                 {
                     anem.setHeight(heightVal);
@@ -530,7 +524,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
                     anem.setHeight(0.1);
                     isVersionCompatible = false;
-                    qDebug() << "anem isVersionCompatible false: height < 0.01";
                 }
 
                 anem.setWindFormat(fromIniAnemWindFormat(project_ini.value(prefix + DlIni::INI_ANEM_6, ANEM_WIND_FORMAT_STRING_0).toString()));
@@ -547,18 +540,15 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             // irga case
             else if (instrType == InstrumentType::IRGA)
             {
-                qDebug() << "irga k" << k;
                 IrgaDesc irga;
-                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegExp(QStringLiteral("_\\d*$")));
+                QString irgaModel = project_ini.value(prefix + DlIni::INI_IRGA_1).toString().remove(QRegularExpression(QStringLiteral("_\\d*$")));
 
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
 
                 // sw version
                 auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                qDebug() << "sw_version_loading" << sw_version_loading;
                 auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
-                qDebug() << "ini_sw_version" << ini_sw_version << QT_VERSION_CHECK(3, 1, 0);
                 if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -592,7 +582,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                         sw_version_loading = QStringLiteral("6.5.0");
                     }
                     isVersionCompatible = false;
-                    qDebug() << "anem isVersionCompatible false: " << "sw_version_loading:" << sw_version_loading;
                 }
                 irga.setSwVersion(sw_version_loading);
 
@@ -623,8 +612,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         // count the number of variables described
         int numVar = project_ini.allKeys().filter(DlIni::INI_VARDESC_VAR).size();
 
-        qDebug() << "numVar" << numVar;
-
         // iterate through variables list
         for (int k = 0; k < numVar; ++k)
         {
@@ -635,17 +622,18 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             // ignore yes if (var == 'ignore' || var == 'not_numeric')
             var.setIgnore(StringUtils::fromBool2YesNoString((varStr == VARIABLE_VAR_STRING_14)
                           || (varStr == VARIABLE_VAR_STRING_18)));
+
             // numeric yes if (var != 'not_numeric')
             var.setNumeric(StringUtils::fromBool2YesNoString(varStr != VARIABLE_VAR_STRING_18));
+
             // std numeric var
             if (var.ignore() == QLatin1String("no") && var.numeric() == QLatin1String("yes"))
+            {
                 var.setVariable(fromIniVariableVar(varStr));
+            }
 
             var.setInstrument(fromIniVariableInstrument(project_ini.value(prefix + DlIni::INI_VARDESC_INSTRUMENT, QString()).toString()));
 
-            qDebug() << "varStr" << varStr
-                     << VariableDesc::isGasVariable(fromIniVariableVar(varStr))
-                     << VariableDesc::isCustomVariable(fromIniVariableVar(varStr));
             if ((!VariableDesc::isGasVariable(fromIniVariableVar(varStr))
                 && !VariableDesc::isCustomVariable(fromIniVariableVar(varStr)))
                 // TODO: temporary solution before introducing a variable
@@ -668,7 +656,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
                     var.setMeasureType(QString());
                     isVersionCompatible = false;
-                    qDebug() << "var:" << k << "measure type isVersionCompatible false: to empty string";
                 }
             }
             else
@@ -681,7 +668,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             var.setMaxValue(project_ini.value(prefix + DlIni::INI_VARDESC_MAX_VALUE, 0.0).toReal());
 
             // NOTE: backward compatibility change, conversion type
-            qDebug() << "var:" << k << "conversion compatibility change; conversion value:" << project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION).toString();
             // if conversion is min-max
             if (project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_0)
             {
@@ -698,14 +684,12 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     // silently continue file loading and conversion
                 }
 
-                qDebug() << "var:" << k << "scaling: backward compatibility mode on";
                 var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
 
                 qreal minValue = project_ini.value(prefix + DlIni::INI_VARDESC_MIN_VALUE).toReal();
                 qreal maxValue = project_ini.value(prefix + DlIni::INI_VARDESC_MAX_VALUE).toReal();
                 qreal minMaxValue = maxValue - minValue;
 
-                qDebug() << "minMaxValue" << minMaxValue;
                 if (minMaxValue == 0.0)
                 {
                     if (checkVersion && firstReading && !alreadyChecked)
@@ -722,7 +706,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
                     minMaxValue = 0.000001;
                     isVersionCompatible = false;
-                    qDebug() << "var:" << k << "minMaxValue isVersionCompatible false: 0.0 -> 0.000001";
                 }
 
                 qreal aValue = (project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE).toReal()
@@ -736,15 +719,21 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 var.setOutputUnit(fromIniVariableMeasureUnit(project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_OUT, QString()).toString()));
                 var.setAValue(aValue);
                 var.setBValue(bValue);
-//                isVersionCompatible = false;
-                qDebug() << "var:" << k << "var isVersionCompatible false: scaling zero_fullscale";
+
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                }
             }
             // if conversion is gain-offset
             else if (project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_1)
             {
-//                DEBUG_FUNC_MSG(project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString())
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
-                qDebug() << "gain-offset aValue" << aValue;
 
                 if (aValue == 0.0)
                 {
@@ -762,12 +751,11 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
                     aValue = 1.0;
                     isVersionCompatible = false;
-                    qDebug() << "var:" << k << "aValue isVersionCompatible false: 0.0 -> 1.0";
                 }
+
                 // if input unit is empty, set conversion to empty
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
                 {
-                    qDebug() << "input unit empty";
                     var.setConversionType(QString());
                     var.setOutputUnit(QString());
                     var.setAValue(aValue);
@@ -776,13 +764,21 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 }
                 else
                 {
-                    qDebug() << "input unit non empty";
                     var.setConversionType(fromIniVariableConversionType(project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString()));
                     var.setOutputUnit(fromIniVariableMeasureUnit(project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_OUT, QString()).toString()));
                     var.setAValue(aValue);
                     var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
                 }
 
+                // if diagnostic variable, set conversion to empty
+                if (VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
+                {
+                    var.setConversionType(QString());
+                    var.setOutputUnit(QString());
+                    var.setAValue(aValue);
+                    var.setBValue(project_ini.value(prefix + DlIni::INI_VARDESC_B_VALUE, 0.0).toReal());
+                    isVersionCompatible = false;
+                }
             }
             // if conversion is none or empty
             else if ((project_ini.value(prefix + DlIni::INI_VARDESC_CONVERSION, QString()).toString() == VARIABLE_CONVERSION_TYPE_STRING_2)
@@ -790,11 +786,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
             {
                 var.setOutputUnit(QString());
                 qreal aValue = project_ini.value(prefix + DlIni::INI_VARDESC_A_VALUE, 1.0).toReal();
-                qDebug() << "conversion none or empty, aValue" << aValue;
+
                 if (aValue == 0.0)
                 {
-                    qDebug() << "var:" << k << "queryBeforeMdFileImport";
-
                     if (checkVersion && firstReading && !alreadyChecked)
                     {
                         if (!parent->queryDlProjectImport())
@@ -809,7 +803,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                     }
 
                     isVersionCompatible = false;
-                    qDebug() << "var:" << k << "aValue isVersionCompatible false: 0.0 -> 1.0";
                 }
                 else
                 {
@@ -818,25 +811,27 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 }
 
                 // if input unit is dimensionless or none, then set conversion type to gain-offset
-                qDebug() << "input unit is dimensionless or none";
                 if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_17
                     || project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString() == VARIABLE_MEASURE_UNIT_STRING_18)
                 {
-                    if (checkVersion && firstReading && !alreadyChecked)
+                    // exclude diagnostic variables
+                    if (!VariableDesc::isDiagnosticVar(fromIniVariableVar(varStr)))
                     {
-                        if (!parent->queryDlProjectImport())
+                        if (checkVersion && firstReading && !alreadyChecked)
                         {
-                            return false;
+                            if (!parent->queryDlProjectImport())
+                            {
+                                return false;
+                            }
+                            alreadyChecked = true;
                         }
-                        alreadyChecked = true;
+                        else
+                        {
+                            // silently continue file loading and conversion
+                        }
+                        var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
+                        isVersionCompatible = false;
                     }
-                    else
-                    {
-                        // silently continue file loading and conversion
-                    }
-                    var.setConversionType(VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1());
-                    isVersionCompatible = false;
-                    qDebug() << "var:" << k << "conversion type isVersionCompatible false: to gain-offset";
                 }
                 // if input unit is empty, set conversion to empty
                 else if (project_ini.value(prefix + DlIni::INI_VARDESC_UNIT_IN, QString()).toString().isEmpty())
@@ -864,7 +859,6 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
     hasGoodWindComponentsAndTemperature();
 
     // just loaded projects are not modified
-    qDebug() << "final isVersionCompatible:" << isVersionCompatible;
     if (!isVersionCompatible && checkVersion && !firstReading)
     {
         setModified(true);
@@ -876,10 +870,10 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     emit projectChanged();
 
-    qDebug() << "final modified 1:" << *modified;
     if (!isVersionCompatible)
+    {
         *modified = true;
-    qDebug() << "final modified 2:" << *modified;
+    }
 
     return true;
 }
@@ -896,7 +890,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename).arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -916,7 +910,7 @@ bool DlProject::nativeFormat(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n"
-                                "<b>not in %2 native format.</b>").arg(filename).arg(Defs::APP_NAME));
+                                "<b>not in %2 native format.</b>").arg(filename, Defs::APP_NAME));
         return false;
     }
 
@@ -956,8 +950,6 @@ bool DlProject::tagProject(const QString& filename)
 // Save a project
 bool DlProject::saveProject(const QString& filename)
 {
-    DEBUG_FUNC_NAME
-
     QDateTime now = QDateTime::currentDateTime();
     QString now_str = now.toString(Qt::ISODate);
     QFileInfo fileinfo = QFileInfo(filename);
@@ -1040,7 +1032,7 @@ bool DlProject::saveProject(const QString& filename)
 
         // iterate through the instrument lists
         int k = 0;
-        foreach (const AnemDesc& anem, project_state_.anemometerList)
+        for (const auto &anem : project_state_.anemometerList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_INSTR_PREFIX, 5, index);
@@ -1085,7 +1077,7 @@ bool DlProject::saveProject(const QString& filename)
         }
 
         int j = 0;
-        foreach (const IrgaDesc& irga, project_state_.irgaList)
+        for (const auto &irga : project_state_.irgaList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_INSTR_PREFIX, 5, index);
@@ -1161,7 +1153,7 @@ bool DlProject::saveProject(const QString& filename)
 
         // iterate through instruments list
         k = 0;
-        foreach (const VariableDesc& var, project_state_.variableList)
+        for (const auto & var : project_state_.variableList)
         {
             QString index = QStringLiteral("_") + QString::number(k + 1);
             QString prefix = StringUtils::insertIndex(DlIni::INI_VARDESC_PREFIX, 3, index);
@@ -1242,8 +1234,6 @@ bool DlProject::modified() const
 
 void DlProject::setModified(bool mod)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "mod" << mod;
     modified_ = mod;
     if (mod)
     {
@@ -1350,6 +1340,10 @@ const QString DlProject::toIniAnemModel(const QString& s)
     else if (s == AnemDesc::getANEM_MODEL_STRING_12())
     {
         return DlProject::getANEM_MODEL_STRING_12();
+    }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_13())
+    {
+        return DlProject::getANEM_MODEL_STRING_13();
     }
     else
     {
@@ -1518,6 +1512,10 @@ QString DlProject::toIniVariableVar(const QString& s)
     else if (s == VariableDesc::getVARIABLE_VAR_STRING_29())
     {
         return DlProject::VARIABLE_VAR_STRING_29;
+    }
+    else if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
+    {
+        return DlProject::VARIABLE_VAR_STRING_30;
     }
     else
     {
@@ -1726,8 +1724,6 @@ QString DlProject::toIniVariableInstrument(const QString& s)
 
 QString DlProject::fromIniVariableInstrument(const QString& s)
 {
-    DEBUG_FUNC_NAME
-
     QString tableInstrumentStr;
     if (!s.isEmpty())
     {
@@ -1757,12 +1753,6 @@ QString DlProject::fromIniVariableInstrument(const QString& s)
         tableInstrumentStr.clear();
     }
     return tableInstrumentStr;
-}
-
-// NOTE: not used
-QString DlProject::toIniBool(const QString& s)
-{
-    return (s == QLatin1String("yes")) ? QStringLiteral("1") : QStringLiteral("0");
 }
 
 QString DlProject::fromIniAnemManufacturer(const QString& s)
@@ -1847,6 +1837,10 @@ const QString DlProject::fromIniAnemModel(const QString& s)
     {
         return AnemDesc::getANEM_MODEL_STRING_12();
     }
+    else if (s == DlProject::getANEM_MODEL_STRING_13())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_13();
+    }
     else
     {
         return QString();
@@ -1884,10 +1878,15 @@ QString DlProject::fromIniAnemNorthAlign(const QString &model, const QString &s)
     else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_1)
     {
         // NOTE: hack for bogus 'spar' value with csat/metek/young
-        if (model == DlProject::getANEM_MODEL_STRING_0())
+        if (model == DlProject::getANEM_MODEL_STRING_0()
+            || model == DlProject::getANEM_MODEL_STRING_13())
+        {
             return AnemDesc::getANEM_NORTH_ALIGN_STRING_2();
+        }
         else
+        {
             return AnemDesc::getANEM_NORTH_ALIGN_STRING_1();
+        }
     }
     // na
     else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_2)
@@ -2021,6 +2020,10 @@ QString DlProject::fromIniVariableVar(const QString& s)
     else if (s == DlProject::VARIABLE_VAR_STRING_29)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_29();
+    }
+    else if (s == DlProject::VARIABLE_VAR_STRING_30)
+    {
+        return VariableDesc::getVARIABLE_VAR_STRING_30();
     }
     else
     {
@@ -2195,10 +2198,12 @@ QString DlProject::fromIniVariableConversionType(const QString& s)
 int DlProject::countInstruments(const QStringList& list)
 {
     int i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(DlIni::INI_ANEM_1))
+        {
             ++i;
+        }
     }
     return i;
 }
@@ -2218,10 +2223,10 @@ DlProject::InstrumentType DlProject::getInstrumentType(const QSettings& iniGroup
 
 DlProject::InstrumentType DlProject::getInstrumentTypeFromModel(const QString& model)
 {
-    if (model.contains(QRegExp(QStringLiteral("li*")))
-        || model.contains(QRegExp(QStringLiteral("open_path*")))
-        || model.contains(QRegExp(QStringLiteral("closed_path*")))
-        || model.contains(QRegExp(QStringLiteral("generic*path"))))
+    if (model.contains(QRegularExpression(QStringLiteral("li*")))
+        || model.contains(QRegularExpression(QStringLiteral("open_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("closed_path*")))
+        || model.contains(QRegularExpression(QStringLiteral("generic*path"))))
     {
         return InstrumentType::IRGA;
     }
@@ -2301,6 +2306,10 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     else if (s == DlProject::IRGA_MODEL_STRING_13)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_13();
+    }
+    else if (s == DlProject::IRGA_MODEL_STRING_14)
+    {
+        return IrgaDesc::getIRGA_MODEL_STRING_14();
     }
     else
     {
@@ -2382,6 +2391,10 @@ QString DlProject::toIniIrgaModel(const QString& s)
     {
         return DlProject::IRGA_MODEL_STRING_13;
     }
+    else if (s == IrgaDesc::getIRGA_MODEL_STRING_14())
+    {
+        return DlProject::IRGA_MODEL_STRING_14;
+    }
     else
     {
         return QString();
@@ -2395,10 +2408,8 @@ bool DlProject::hasOneFastTemperature()
 
 bool DlProject::hasGoodIrgaNames()
 {
-    DEBUG_FUNC_NAME
-
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::isWellNamed(irga);
     }
@@ -2407,22 +2418,28 @@ bool DlProject::hasGoodIrgaNames()
 
 bool DlProject::hasGoodIrgaSeparations()
 {
-    DEBUG_FUNC_NAME
-
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodSeparations(irga);
     }
     return test;
 }
 
+bool DlProject::hasGoodIrgaFlowRate()
+{
+    auto test = true;
+    for (const auto &irga : project_state_.irgaList)
+    {
+        test &= IrgaDesc::hasGoodFlowRate(irga);
+    }
+    return test;
+}
+
 bool DlProject::hasGoodIrgaClosedPath()
 {
-    DEBUG_FUNC_NAME
-
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::isAGoodClosedPath(irga);
     }
@@ -2431,17 +2448,15 @@ bool DlProject::hasGoodIrgaClosedPath()
 
 bool DlProject::hasGoodIrgaGeneric()
 {
-    DEBUG_FUNC_NAME
-
     auto test = true;
-    foreach (const IrgaDesc& irga, project_state_.irgaList)
+    for (const auto &irga : project_state_.irgaList)
     {
         test &= IrgaDesc::hasGoodPathLength(irga);
     }
     return test;
 }
 
-bool DlProject::hasAnemFwVersion()
+bool DlProject::masterAnemHasFwVersion()
 {
     auto test = true;
     if (!project_state_.anemometerList.isEmpty())
@@ -2454,7 +2469,7 @@ bool DlProject::hasAnemFwVersion()
     return test;
 }
 
-bool DlProject::hasGoodWindmasterSwVersion()
+bool DlProject::masterAnemHasGoodWindmasterFwVersion()
 {
     auto test = true;
     if (!project_state_.anemometerList.isEmpty())
@@ -2467,13 +2482,17 @@ bool DlProject::hasGoodWindmasterSwVersion()
             if (project_state_.anemometerList.first().model() ==
                     AnemDesc::getANEM_MODEL_STRING_7() or
                 project_state_.anemometerList.first().model() ==
-                    AnemDesc::getANEM_MODEL_STRING_7())
+                    AnemDesc::getANEM_MODEL_STRING_8())
             {
                 auto anem_version = project_state_.anemometerList.first().swVersion().trimmed();
                 if (!anem_version.isEmpty())
                 {
-                    QRegularExpression re(QStringLiteral("^\\d+[.|-]\\d+[.|-]\\d+$"));
-                    qDebug() << "re.valid:" << re.isValid();
+                    // accept Gill's anemometer firmware version in these forms:
+                    // 123-456 or
+                    // 123.456 or
+                    // 123-456-678 or
+                    // 123.456.678
+                    QRegularExpression re(QStringLiteral("^(\\d+[.|-]\\d+|\\d+[.|-]\\d+[.|-]\\d+)$"));
 
                     if (!re.match(anem_version).hasMatch())
                     {
@@ -2492,10 +2511,8 @@ bool DlProject::hasGoodWindmasterSwVersion()
 
 bool DlProject::hasOneGoodAnemometer()
 {
-    DEBUG_FUNC_NAME
-
     bool test = false;
-    foreach (const AnemDesc& anem, project_state_.anemometerList)
+    for (const auto &anem : project_state_.anemometerList)
     {
         if (AnemDesc::isGoodAnemometer(anem))
         {
@@ -2508,8 +2525,6 @@ bool DlProject::hasOneGoodAnemometer()
 
 bool DlProject::hasGoodWindComponentsAndTemperature()
 {
-    DEBUG_FUNC_NAME
-
     bool testCompResult = false;
     isFastTempAvailable_ = false;
 
@@ -2518,7 +2533,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
     QList<QHash<QString, int>> comp_hash_list;
 
     int i = 0;
-    foreach (const VariableDesc& var, *variables())
+    for (const auto &var : *variables())
     {
         // populate a hash table with all the well described
         // anemometers variables
@@ -2538,26 +2553,21 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
             && VariableDesc::isGoodTemperature(var, VariableDesc::AnalogType::FAST))
         {
             isFastTempAvailable_ = true;
-            qDebug() << "isFastTempAvailable_:" << isFastTempAvailable_ << i;
         }
-        qDebug() << "hash table population, step i:" << i;
         ++i;
     }
 
     // populate a new hash of anemometers which have variables, to list and
     // count the unique anememeters
-    foreach (int value, var_hash)
+    for (auto value : var_hash)
     {
         QString sonicKey = var_hash.key(value);
         sonicKey = sonicKey.split(QLatin1Char('|')).at(0);
         sonic_hash.insert(sonicKey, value);
-        qDebug() << "var_hash(key, value):" << var_hash.key(value) << value;
     }
     QStringList uniqueAnems = sonic_hash.uniqueKeys();
     uniqueAnems.sort();
     int anemsNum = uniqueAnems.size();
-    qDebug() << "sonic_hash" << sonic_hash;
-    qDebug() << "uniqueAnems" << uniqueAnems;
 
     // create an ordered list of hash tables of variables, one for each
     // anemometer which has variables
@@ -2565,7 +2575,7 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
     {
         QMultiHash<QString, int> hash;
 
-        foreach (int value, sonic_hash)
+        for (auto value : sonic_hash)
         {
             if (sonic_hash.key(value) == uniqueAnems.at(k))
             {
@@ -2578,23 +2588,19 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
     // test each hash in the previous list
     for (int j = 0; j < comp_hash_list.size(); ++j)
     {
-        qDebug() << "hash i" << j << ":" << comp_hash_list.at(j);
-
         bool hasTemperature = false;
         if (checkAnemVars(comp_hash_list.at(j), isFastTempAvailable_, &hasTemperature))
         {
             testCompResult = true;
-            qDebug() << "hasTemperature" << hasTemperature;
 
             int k = 0;
-            foreach (AnemDesc anem, project_state_.anemometerList)
+            for (auto anem : project_state_.anemometerList)
             {
                 int checkedAnemColumn = QVariant(uniqueAnems.at(j).split(QLatin1Char(' ')).at(1)).toInt();
                 int checkedAnemIndex = checkedAnemColumn - 1;
-                qDebug() << "checkedAnemColumn" << checkedAnemColumn << "checkedAnemIndex" << checkedAnemIndex;
+
                 if (k == checkedAnemIndex)
                 {
-                    qDebug() << "k" << k << "checkedAnemIndex" << checkedAnemIndex;
                     anem.setHasGoodWindComponents(true);
                     anem.setHasGoodTemp(hasTemperature);
                     project_state_.anemometerList.replace(k, anem);
@@ -2605,13 +2611,12 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
         else
         {
             int k = 0;
-            foreach (AnemDesc anem, project_state_.anemometerList)
+            for (auto anem : project_state_.anemometerList)
             {
                 int checkedAnemColumn = QVariant(uniqueAnems.at(j).split(QLatin1Char(' ')).at(1)).toInt();
                 int checkedAnemIndex = checkedAnemColumn - 1;
                 if (k == checkedAnemIndex)
                 {
-                    qDebug() << "k" << k << "checkedAnemIndex" << checkedAnemIndex;
                     anem.setHasGoodWindComponents(false);
                     anem.setHasGoodTemp(hasTemperature);
                     project_state_.anemometerList.replace(k, anem);
@@ -2620,15 +2625,12 @@ bool DlProject::hasGoodWindComponentsAndTemperature()
             }
         }
     }
-    qDebug() << "testCompResult" << testCompResult;
 
     return testCompResult;
 }
 
 bool DlProject::checkAnemVars(const AnemComponents &hash, bool isFastTempAvailable, bool *anemHasTemp)
 {
-    DEBUG_FUNC_NAME
-
     int uNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_0()).size();
     int vNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_1()).size();
     int wNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_2()).size();
@@ -2636,15 +2638,6 @@ bool DlProject::checkAnemVars(const AnemComponents &hash, bool isFastTempAvailab
     int sosNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_4()).size();
     int rhoNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_16()).size();
     int thetaNum = hash.values(VariableDesc::getVARIABLE_VAR_STRING_17()).size();
-
-    qDebug() << "isFastTempAvailable:" << isFastTempAvailable;
-    qDebug() << "uNum:" << uNum;
-    qDebug() << "vNum:" << vNum;
-    qDebug() << "wNum:" << wNum;
-    qDebug() << "tsNum:" << tsNum;
-    qDebug() << "sosNum:" << sosNum;
-    qDebug() << "rhoNum:" << rhoNum;
-    qDebug() << "thetaNum:" << thetaNum;
 
     bool test_u = (uNum == 1);
     bool test_v = (vNum == 1);
@@ -2660,19 +2653,17 @@ bool DlProject::checkAnemVars(const AnemComponents &hash, bool isFastTempAvailab
                 ||
                (test_rho && test_theta && test_w && (test_Ts || test_Sos || isFastTempAvailable));
 
-    qDebug() << "anemHasTemp" << *anemHasTemp;
-    qDebug() << "res" << res;
-
     return res;
 }
 
-const QStringList DlProject::restrictedGillModelStringList()
+bool DlProject::masterAnemContainsGillWindmaster()
 {
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5()
-            << getANEM_MODEL_STRING_6()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
+    const QString masterAnemModel = project_state_.anemometerList.first().model();
+
+    if (masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7()
+        || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_8())
+    {
+        return true;
+    }
+    return false;
 }

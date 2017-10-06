@@ -2,7 +2,7 @@
   anem_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -131,6 +131,12 @@ const QString AnemDesc::getANEM_MODEL_STRING_11()
 const QString AnemDesc::getANEM_MODEL_STRING_12()
 {
     static const QString s(tr("Generic Anemometer"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_13()
+{
+    static const QString s(QStringLiteral("CSAT-3B"));
     return s;
 }
 
@@ -316,7 +322,8 @@ const QStringList AnemDesc::allModelStringList()
             << getANEM_MODEL_STRING_9()
             << getANEM_MODEL_STRING_10()
             << getANEM_MODEL_STRING_11()
-            << getANEM_MODEL_STRING_12());
+            << getANEM_MODEL_STRING_12()
+            << getANEM_MODEL_STRING_13());
 }
 
 // Return string list of usage types
@@ -324,6 +331,7 @@ const QStringList AnemDesc::campbellModelStringList()
 {
     return (QStringList()
             << getANEM_MODEL_STRING_0()
+            << getANEM_MODEL_STRING_13()
             << getANEM_MODEL_STRING_12());
 }
 
@@ -340,19 +348,6 @@ const QStringList AnemDesc::gillModelStringList()
             << getANEM_MODEL_STRING_7()
             << getANEM_MODEL_STRING_8()
             << getANEM_MODEL_STRING_12());
-}
-
-// Return string list of usage types
-// NOTE: not used
-const QStringList AnemDesc::restrictedGillModelStringList()
-{
-    return (QStringList()
-            << getANEM_MODEL_STRING_3()
-            << getANEM_MODEL_STRING_4()
-            << getANEM_MODEL_STRING_5()
-            << getANEM_MODEL_STRING_6()
-            << getANEM_MODEL_STRING_7()
-            << getANEM_MODEL_STRING_8());
 }
 
 // Return string list of usage types
@@ -449,7 +444,8 @@ bool AnemDesc::isGoodAnemometer(AnemDesc anem)
         if (manufacturer == getANEM_MANUFACTURER_STRING_0())
         {
             isGoodModel = (model == getANEM_MODEL_STRING_0())
-                           || (model == getANEM_MODEL_STRING_12());
+                           || (model == getANEM_MODEL_STRING_12())
+                           || (model == getANEM_MODEL_STRING_13());
         }
         else if (manufacturer == getANEM_MANUFACTURER_STRING_1())
         {
@@ -513,16 +509,13 @@ bool AnemDesc::isGoodAnemometer(AnemDesc anem)
     // always true by min value
     bool isGoodGeneric = false;
     if ((model == getANEM_MODEL_STRING_12()))
+    {
         isGoodGeneric = (anem.hPathLength() > 0) && (anem.vPathLength() > 0) && (anem.tau() > 0);
+    }
     else
+    {
         isGoodGeneric = true;
-
-    qDebug() << ">> isGoodManufacturer" << isGoodManufacturer;
-    qDebug() << ">> isGoodModel" << isGoodModel;
-    qDebug() << ">> isGoodHeight" << isGoodHeight;
-    qDebug() << ">> isGoodWindFormat" << isGoodWindFormat;
-    qDebug() << ">> isGoodNorthAlignment" << isGoodNorthAlignment;
-    qDebug() << ">> isGoodGeneric" << isGoodGeneric;
+    }
 
     // all
     return (isGoodManufacturer

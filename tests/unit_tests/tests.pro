@@ -24,5 +24,4 @@ SOURCES += \
 INCLUDEPATH += $$top_srcdir/src
 message(top_srcdir: $$top_srcdir)
 
-QMAKE_MAC_SDK = macosx10.11
-
+#QMAKE_MAC_SDK = macosx10.11

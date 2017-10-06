@@ -2,7 +2,7 @@
   advstatisticaloptions.cpp
   -------------------
   Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -48,8 +48,6 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     QWidget(parent),
     ecProject_(ecProject)
 {
-    DEBUG_FUNC_NAME
-
     selectAllCheckBox = new QCheckBox(tr("&Select all tests"));
     defaultValuesButton = new QPushButton(tr("Restore Default Values"));
     defaultValuesButton->setProperty("mdButton", true);
@@ -238,17 +236,18 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(nonSteadyCheckBox, &QCheckBox::toggled,
             this, &AdvStatisticalOptions::on_nonSteadyCheckBox_clicked);
 
-    foreach (QCheckBox *checkbox,
-             QList<QCheckBox *>() << spikeRemCheckBox
-                                  << amplitudeResCheckBox
-                                  << dropoutsCheckBox
-                                  << absLimCheckBox
-                                  << skewnessCheckBox
-                                  << discontCheckBox
-                                  << timeLagCheckBox
-                                  << attackAngleCheckBox
-                                  << nonSteadyCheckBox)
+    auto checkbox_list = QWidgetList() << spikeRemCheckBox
+                                       << amplitudeResCheckBox
+                                       << dropoutsCheckBox
+                                       << absLimCheckBox
+                                       << skewnessCheckBox
+                                       << discontCheckBox
+                                       << timeLagCheckBox
+                                       << attackAngleCheckBox
+                                       << nonSteadyCheckBox;
+    for (auto widget : checkbox_list)
     {
+        auto checkbox = static_cast<QCheckBox *>(widget);
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
     }
@@ -543,10 +542,11 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvStatisticalOptions::refresh);
 
-    foreach (QComboBox *combo,
-             QList<QComboBox *>() << randomMethodCombo
-                                  << itsDefinitionCombo)
+    auto combo_list = QWidgetList() << randomMethodCombo
+                                    << itsDefinitionCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -557,7 +557,6 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
 
 AdvStatisticalOptions::~AdvStatisticalOptions()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvStatisticalOptions::createTabWidget()
@@ -599,14 +598,14 @@ void AdvStatisticalOptions::createTabWidget()
     spikeGraphLabel = new QLabel;
     spikeGraphLabel->setPixmap(QPixmap(QStringLiteral(":/icons/spike")));
 
-    auto plausibilityLabel = WidgetUtils::createBlueLabel(this, tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO).arg(Defs::PLUSMINUS).arg(Defs::SIGMA));
+    auto plausibilityLabel = WidgetUtils::createBlueLabel(this, tr("Plausibility ranges (<tt>%1%2n%3</tt>, where you set <tt>n</tt>)").arg(Defs::MICRO, Defs::PLUSMINUS, Defs::SIGMA));
     plausibilityLabel->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
 
     despLabel_2 = new ClickLabel(tr("All other variables : "));
     despLabel_2->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_2 = new QDoubleSpinBox;
     despSpin_2->setDecimals(1);
-    despSpin_2->setRange(1.0, 12.0);
+    despSpin_2->setRange(1.0, 20.0);
     despSpin_2->setSingleStep(0.1);
     despSpin_2->setAccelerated(true);
     despSpin_2->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -616,7 +615,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_3->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_3 = new QDoubleSpinBox;
     despSpin_3->setDecimals(1);
-    despSpin_3->setRange(1.0, 12.0);
+    despSpin_3->setRange(1.0, 20.0);
     despSpin_3->setSingleStep(0.1);
     despSpin_3->setAccelerated(true);
     despSpin_3->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -626,7 +625,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_4->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_4 = new QDoubleSpinBox;
     despSpin_4->setDecimals(1);
-    despSpin_4->setRange(1.0, 12.0);
+    despSpin_4->setRange(1.0, 20.0);
     despSpin_4->setSingleStep(0.1);
     despSpin_4->setAccelerated(true);
     despSpin_4->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -636,7 +635,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_5->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_5 = new QDoubleSpinBox;
     despSpin_5->setDecimals(1);
-    despSpin_5->setRange(1.0, 12.0);
+    despSpin_5->setRange(1.0, 20.0);
     despSpin_5->setSingleStep(0.1);
     despSpin_5->setAccelerated(true);
     despSpin_5->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -646,7 +645,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_6->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_6 = new QDoubleSpinBox;
     despSpin_6->setDecimals(1);
-    despSpin_6->setRange(1.0, 12.0);
+    despSpin_6->setRange(1.0, 20.0);
     despSpin_6->setSingleStep(0.1);
     despSpin_6->setAccelerated(true);
     despSpin_6->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -656,7 +655,7 @@ void AdvStatisticalOptions::createTabWidget()
     despLabel_7->setToolTip(tr("<b>Plausibility range:</b> A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 <i>n</i> times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in <b><i>All other variables</i></b>.").arg(Defs::PLUSMINUS));
     despSpin_7 = new QDoubleSpinBox;
     despSpin_7->setDecimals(1);
-    despSpin_7->setRange(1.0, 12.0);
+    despSpin_7->setRange(1.0, 20.0);
     despSpin_7->setSingleStep(0.1);
     despSpin_7->setAccelerated(true);
     despSpin_7->setSuffix(tr("  [%1]", "Sigma").arg(Defs::SIGMA));
@@ -937,14 +936,14 @@ void AdvStatisticalOptions::createTabWidget()
 
     auto lockedIcon_1 = new QLabel;
     auto pixmap_1 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_1.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_1->setPixmap(pixmap_1);
 
     auto lockedIcon_2 = new QLabel;
     auto pixmap_2 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_2->setPixmap(pixmap_2);
@@ -2386,8 +2385,6 @@ void AdvStatisticalOptions::updateParamNsHfLim(double n)
 
 void AdvStatisticalOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -2431,8 +2428,6 @@ void AdvStatisticalOptions::reset()
 
 void AdvStatisticalOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -2588,8 +2583,6 @@ bool AdvStatisticalOptions::areAllCheckedTests()
 
 void AdvStatisticalOptions::selectAllTest(bool b)
 {
-    DEBUG_FUNC_NAME
-
     spikeRemCheckBox->setChecked(b);
     amplitudeResCheckBox->setChecked(b);
     dropoutsCheckBox->setChecked(b);
@@ -2603,8 +2596,6 @@ void AdvStatisticalOptions::selectAllTest(bool b)
 
 void AdvStatisticalOptions::updateSelectAllCheckbox()
 {
-    DEBUG_FUNC_NAME
-
     selectAllCheckBox->blockSignals(true);
 
     if (areAllCheckedTests())
@@ -2619,8 +2610,6 @@ void AdvStatisticalOptions::updateSelectAllCheckbox()
 
 void AdvStatisticalOptions::updateRestoreDefault()
 {
-    DEBUG_FUNC_NAME
-
     if (atLeastOneCheckedTest())
         defaultValuesButton->setEnabled(true);
     else
@@ -2639,11 +2628,7 @@ void AdvStatisticalOptions::updateAbsLimFilter(bool b)
 
 void AdvStatisticalOptions::resizeEvent(QResizeEvent *event)
 {
-    DEBUG_FUNC_NAME
-
     QSize widgetSize = event->size();
-    qDebug() << "widgetSize.width()" << widgetSize.width();
-    qDebug() << "widgetSize.height()" << widgetSize.height();
 
     if (widgetSize.width() <= 608 && widgetSize.height() <= 650)
     {
@@ -2679,11 +2664,8 @@ void AdvStatisticalOptions::hideGraphLabels(bool hidden)
 
 void AdvStatisticalOptions::showThumbnailGraphLabel(bool visible)
 {
-    DEBUG_FUNC_NAME
-
     for (int i = 0; i < testToolbox->count(); ++i)
     {
-        qDebug() << "i" << i;
         if (testToolbox->currentIndex() == i)
         {
             switch(i)

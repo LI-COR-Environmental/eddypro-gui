@@ -9,9 +9,8 @@
 #	undef BOOST_UBLAS_TYPE_CHECK
 #endif
 #define BOOST_UBLAS_TYPE_CHECK 0
-#ifndef _USE_MATH_DEFINES
-#	define _USE_MATH_DEFINES
-#endif
+
+#include <QtGlobal>
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
@@ -46,7 +45,7 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     nDegree++;
 
     size_t nCount =  oX.size();
-    matrix<T> oXMatrix( nCount, nDegree );
+    matrix<T> oXMatrix( nCount, static_cast<size_t>(nDegree));
     matrix<T> oYMatrix( nCount, 1 );
 
     // copy y matrix
@@ -58,10 +57,10 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     // create the X matrix
     for ( size_t nRow = 0; nRow < nCount; nRow++ )
     {
-        T nVal = 1.0f;
+        T nVal = 1.0;
         for ( int nCol = 0; nCol < nDegree; nCol++ )
         {
-            oXMatrix(nRow, nCol) = nVal;
+            oXMatrix(nRow, static_cast<size_t>(nCol)) = nVal;
             nVal *= oX[nRow];
         }
     }
@@ -76,8 +75,11 @@ std::vector<T> polyfit( const std::vector<T>& oX, const std::vector<T>& oY, int 
     // lu decomposition
     permutation_matrix<int> pert(oXtXMatrix.size1());
     const std::size_t singular = lu_factorize(oXtXMatrix, pert);
+
     // must be singular
-    BOOST_ASSERT( singular == 0 );
+    // with boost 1.64, clang 8.1.0 and qt 5.8.0 BOOST_ASSERT breaks
+    // with error: use of undeclared identifier 'BOOST_ASSERT'
+    Q_ASSERT(singular == 0);
 
     // backsubstitution
     lu_substitute(oXtXMatrix, pert, oXtYMatrix);

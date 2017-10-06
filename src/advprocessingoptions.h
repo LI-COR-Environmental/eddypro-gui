@@ -2,7 +2,7 @@
   advprocessingoptions.h
   -------------------
   Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   All rights reserved.
 
   This program is free software: you can redistribute it and/or modify
@@ -103,6 +103,7 @@ private slots:
     void onClickDetrendCombo(int detrendMethod);
     void onClickDetrendLabel();
     void onClickTimeConstantLabel();
+    void updateWBoost(bool b);
     void onClickAoaMethLabel();
     void onClickRotMethLabel();
     void onClickTimeLagMethLabel();
@@ -165,6 +166,7 @@ private:
     QDoubleSpinBox* uOffsetSpin;
     QDoubleSpinBox* vOffsetSpin;
     QDoubleSpinBox* wOffsetSpin;
+    RichTextCheckBox* wBoostCheckBox;
     RichTextCheckBox* aoaCheckBox;
     ClickLabel* aoaMethLabel;
     QComboBox* aoaMethCombo;

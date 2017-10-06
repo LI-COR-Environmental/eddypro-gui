@@ -1,7 +1,7 @@
 /***************************************************************************
   binarysettingsdialog.h
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -56,7 +56,6 @@ public:
 
 public slots:
     void close();
-    void initialize();
     void refresh();
 
 private slots:

@@ -1,7 +1,7 @@
 /***************************************************************************
   planarfitsettingsdialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -49,7 +49,6 @@
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
-#include "fileutils.h"
 #include "globalsettings.h"
 #include "widget_utils.h"
 
@@ -98,7 +97,7 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
 
     lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);
@@ -357,12 +356,10 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
 
 PlanarFitSettingsDialog::~PlanarFitSettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void PlanarFitSettingsDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (isVisible())
     {
         hide();
@@ -372,8 +369,6 @@ void PlanarFitSettingsDialog::close()
 
 void PlanarFitSettingsDialog::reset()
 {
-    DEBUG_FUNC_NAME
-
     updatePfMode(1);
 
     existingRadio->setChecked(false);
@@ -405,8 +400,6 @@ void PlanarFitSettingsDialog::reset()
 
 void PlanarFitSettingsDialog::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -450,8 +443,6 @@ void PlanarFitSettingsDialog::refresh()
 
 void PlanarFitSettingsDialog::partialRefresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -477,10 +468,8 @@ void PlanarFitSettingsDialog::partialRefresh()
     ecProject_->blockSignals(false);
 }
 
-void PlanarFitSettingsDialog::setDateRange(QPair<QDateTime, QDateTime> dates)
+void PlanarFitSettingsDialog::setDateRange(FileUtils::DateRange dates)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << dates.first.date();
     if (!ecProject_->planarFitSubset())
     {
         startDateEdit->setDate(dates.first.date());
@@ -502,7 +491,6 @@ void PlanarFitSettingsDialog::testSelectedFile(const QString& fp)
     test_dialog.refresh(canonicalParamFile);
 
     auto test_result = test_dialog.makeTest();
-    qDebug() << "test_result" << test_result;
 
     auto dialog_result = true;
 
@@ -611,7 +599,6 @@ void PlanarFitSettingsDialog::updateMinAvgU(double d)
 
 void PlanarFitSettingsDialog::onStartDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     startDateEdit->setFocus();
     WidgetUtils::showCalendarOf(startDateEdit);
 }
@@ -647,18 +634,12 @@ void PlanarFitSettingsDialog::updateEndTime(const QTime& t)
 // enforce (start date&time) <= (end date&time)
 void PlanarFitSettingsDialog::forceEndDatePolicy()
 {
-    DEBUG_FUNC_NAME
-
     endDateEdit->setMinimumDate(startDateEdit->date());
 }
 
 // enforce (start date&time) <= (end date&time)
 void PlanarFitSettingsDialog::forceEndTimePolicy()
 {
-    DEBUG_FUNC_NAME
-
-    qDebug() << "start - end, dates:" << startDateEdit->date() << endDateEdit->date();
-
     if (startDateEdit->date() == endDateEdit->date())
     {
         endTimeEdit->setMinimumTime(startTimeEdit->time());
@@ -708,7 +689,6 @@ void PlanarFitSettingsDialog::setupViews()
     anglesView_ = new AnglesView(this);
     anglesView_->setModel(angleTableModel_);
     anglesView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&deg; angle."));
-    qDebug() << "model_ rows" << angleTableModel_->rowCount();
 
     anglesView_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     anglesView_->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -739,7 +719,6 @@ void PlanarFitSettingsDialog::insertAngleAt(int row)
 {
     if (!angleTableModel_->insertRow(row))
     {
-        qDebug() << "insertion failed";
         return;
     }
     QModelIndex currIndex = angleTableModel_->index(row - 1, 0);
@@ -751,7 +730,6 @@ void PlanarFitSettingsDialog::removeAngleAt(int row)
 {
     if (!angleTableModel_->removeRow(row))
     {
-        qDebug() << "deletion failed";
         return;
     }
     if (row > 0)
@@ -764,13 +742,8 @@ void PlanarFitSettingsDialog::removeAngleAt(int row)
 
 void PlanarFitSettingsDialog::addAngle()
 {
-    DEBUG_FUNC_NAME
-
     int selectedRow = angleSelectionModel_->currentIndex().row();
     int lastRow = angleTableModel_->rowCount();
-
-    qDebug() << "selectedRow" << selectedRow;
-    qDebug() << "lastRow" << lastRow;
 
     if (selectedRow < 0)
     {
@@ -787,9 +760,6 @@ void PlanarFitSettingsDialog::removeAngle()
 {
     int selectedRow = angleSelectionModel_->currentIndex().row();
     int lastRow = angleTableModel_->rowCount();
-
-    qDebug() << "selectedRow" << selectedRow;
-    qDebug() << "lastRow" << lastRow;
 
     if (lastRow > 0)
     {
@@ -815,12 +785,8 @@ void PlanarFitSettingsDialog::resizeRows()
 
 void PlanarFitSettingsDialog::setEquallySpaced()
 {
-    DEBUG_FUNC_NAME
-
     int angleCount = angleTableModel_->rowCount();
     double angle = 360.0 / angleCount;
-    qDebug() << "angleCount" << angleCount;
-    qDebug() << "angle" << angle;
 
     angleTableModel_->setSkipPruning(true);
     for (int n = 0; n < angleCount; ++n)
@@ -860,8 +826,6 @@ void PlanarFitSettingsDialog::modelModified()
 
 void PlanarFitSettingsDialog::updateModel()
 {
-    DEBUG_FUNC_NAME
-
     angleTableModel_->flush();
     anglesView_->updateValidItems();
 }
@@ -870,14 +834,15 @@ void PlanarFitSettingsDialog::updateSubsetSelection(bool b)
 {
     ecProject_->setPlanarFitSubset(b);
 
-    foreach (QWidget *w,
-             QWidgetList() << startDateLabel
-                           << startDateEdit
-                           << startTimeEdit
-                           << lockedIcon
-                           << endDateLabel
-                           << endDateEdit
-                           << endTimeEdit)
+    auto widget_list = QWidgetList()
+                       << startDateLabel
+                       << startDateEdit
+                       << startTimeEdit
+                       << lockedIcon
+                       << endDateLabel
+                       << endDateEdit
+                       << endTimeEdit;
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }

@@ -1,7 +1,7 @@
 /***************************************************************************
   binarysettingsdialog.cpp
   -------------------
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -55,10 +55,8 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     binaryHLinesSpin->setAccelerated(true);
     binaryHLinesSpin->setToolTip(binaryHLinesLabel->toolTip());
 
-    qDebug() << "binaryHLinesSpin 1" << binaryHLinesSpin->focusPolicy();
-
     binaryEolLabel = new ClickLabel(tr("ASCII header end of line :"));
-    binaryEolLabel->setToolTip(tr("<b>ASCII header end of line:</b> If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses <i>CR+LF</i> (0x0D+0x0A), Linux OS and Mac OS X use <i>LF</i> (0x0A), while Mac OS up to version 9 and OS-9 use <i>CR</i> (0x0D)."));
+    binaryEolLabel->setToolTip(tr("<b>ASCII header end of line:</b> If an ASCII header is present in the files, specify the line terminator. Typically, Windows OS uses <i>CR+LF</i> (0x0D+0x0A), Linux OS and macOS use <i>LF</i> (0x0A), while Mac OS up to version 9<i>CR</i> (0x0D)."));
     binaryEolCombo = new QComboBox;
     binaryEolCombo->addItem(tr("CR+LF"));
     binaryEolCombo->addItem(tr("CR"));
@@ -135,7 +133,6 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
 
 BinarySettingsDialog::~BinarySettingsDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void BinarySettingsDialog::close()
@@ -143,23 +140,6 @@ void BinarySettingsDialog::close()
     if (isVisible())
         hide();
     emit saveRequest();
-}
-
-// NOTE: not used
-void BinarySettingsDialog::initialize()
-{
-    // save the modified flag to prevent side effects of setting widgets
-    bool oldmod = ecProject_->modified();
-    ecProject_->blockSignals(true);
-
-    binaryHLinesSpin->setValue(-1);
-    binaryEolCombo->setCurrentIndex(-1);
-    binaryNBytesSpin->setValue(-1);
-    binaryEndianessCombo->setCurrentIndex(-1);
-
-    // restore modified flag
-    ecProject_->setModified(oldmod);
-    ecProject_->blockSignals(false);
 }
 
 void BinarySettingsDialog::refresh()

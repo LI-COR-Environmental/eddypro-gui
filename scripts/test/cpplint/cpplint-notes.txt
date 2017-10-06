@@ -1,0 +1,4 @@
+to get the list of available filters:
+
+$ ./cpplint.py --filter=
+---

@@ -1,7 +1,7 @@
 /***************************************************************************
   detectdaterangedialog.cpp
   -------------------
-  Copyright (C) 2015, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -91,7 +91,6 @@ DetectDateRangeDialog::DetectDateRangeDialog(QWidget *parent, EcProject *ecProje
 
 DetectDateRangeDialog::~DetectDateRangeDialog()
 {
-    DEBUG_FUNC_NAME
 }
 
 // void DetectDateRangeDialog::setLabel(const QString &label)
@@ -146,7 +145,7 @@ void DetectDateRangeDialog::createDateSelectionWidget(DateRangeType type,
 
     auto lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);
@@ -470,7 +469,7 @@ void DetectDateRangeDialog::createCurrentRange()
 
     auto lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);
@@ -621,9 +620,6 @@ bool DetectDateRangeDialog::dateRangesOverlap(FileUtils::DateRange availableData
 
     auto dateSubset = qMakePair(dateStart, dateEnd);
 
-    qDebug() << dateStart;
-    qDebug() << dateEnd;
-
     return FileUtils::dateRangesOverlap(availableDataset, dateSubset);
 }
 
@@ -633,16 +629,6 @@ void DetectDateRangeDialog::updateOverlap(QLabel *label,
                                                const QDate& end_date,
                                                const QTime& end_time)
 {
-    qDebug() << start_date;
-    qDebug() << start_time;
-    qDebug() << end_date;
-    qDebug() << end_time;
-    qDebug() << availableDataRange_.first.date();
-    qDebug() << availableDataRange_.first.time();
-    qDebug() << availableDataRange_.second.date();
-    qDebug() << availableDataRange_.second.time();
-    qDebug() << "overlapLabel" << label->text();
-
     auto overlapStr = QString();
     if (!dateRangesOverlap(availableDataRange_,
                            start_date,
@@ -661,14 +647,12 @@ void DetectDateRangeDialog::updateOverlap(QLabel *label,
     update();
 }
 
-QPair<QDateTime, QDateTime> DetectDateRangeDialog::getBinnedCospectraDateRange()
+FileUtils::DateRange DetectDateRangeDialog::getBinnedCospectraDateRange()
 {
     FileUtils::DateRange dates = qMakePair(QDateTime(), QDateTime());
-    auto binnedCospectraDataList = QStringList();
-
     auto csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
     auto binnedCospectraDir = ecProject_->generalOutPath() + Defs::OUT_BINNED_COSPECTRA_DIR;
-    binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
+    auto binnedCospectraDataList = FileUtils::getFiles(binnedCospectraDir, csvFormat);
 
     if (!binnedCospectraDataList.isEmpty())
     {
@@ -787,8 +771,6 @@ void DetectDateRangeDialog::updateSpectraOverlap(QLabel *label,
 
 void DetectDateRangeDialog::setToAvailableDates()
 {
-    DEBUG_FUNC_NAME
-
     auto firstAvailableDate = availableDataRange_.first.date();
     auto firstAvailableTime = availableDataRange_.first.time();
     auto lastAvailableDate = availableDataRange_.second.date();

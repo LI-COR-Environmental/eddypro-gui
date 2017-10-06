@@ -4,7 +4,7 @@
   EddyPro is an evolution of the ECO2S Eddy Covariance programs suite
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 #endif
 
     // initialize resources at startup (qrc file loading)
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     Q_INIT_RESOURCE(eddypro_mac);
 #elif defined(Q_OS_WIN)
     Q_INIT_RESOURCE(eddypro_win);
@@ -116,14 +116,14 @@ int main(int argc, char *argv[])
 
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
 //    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #endif
 
-    QApplication::setColorSpec(QApplication::ManyColor);
+//    QApplication::setColorSpec(QApplication::ManyColor);
 //    QApplication::setDesktopSettingsAware(false);
 
     QApplication::setEffectEnabled(Qt::UI_AnimateMenu);
@@ -131,6 +131,17 @@ int main(int argc, char *argv[])
     QApplication::setEffectEnabled(Qt::UI_AnimateCombo);
     QApplication::setEffectEnabled(Qt::UI_AnimateTooltip);
     QApplication::setEffectEnabled(Qt::UI_FadeTooltip);
+
+    ///
+    /// A set of flags to workaroud issues in specific cases
+    ///
+    //  QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    //  QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    //  QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    //  QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
+    //  QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    //  QCoreApplication::setAttribute(Qt::AA_SetPalette);
+    //  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 
     QApplication app(argc, argv);
     app.setApplicationName(Defs::APP_NAME);
@@ -146,10 +157,10 @@ int main(int argc, char *argv[])
     QtHelper::prependApplicationPathToLibraryPaths(executable);
     qDebug() << "library paths" << QApplication::libraryPaths();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     // file to open at start
     auto fileToOpen = QString();
-    // install event filter to open clicked files in Mac OS X
+    // install event filter to open clicked files in macOS
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
     app.processEvents();
@@ -203,13 +214,13 @@ int main(int argc, char *argv[])
     qDebug() << "Default Style: " << app.style()->metaObject()->className();
 
     MyStyle myStyle(app.style()->objectName());
-    app.setStyle(&myStyle);
+    QApplication::setStyle(&myStyle);
 
 #if defined(Q_OS_WIN)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/winstyle"));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/macstyle"));
-#else
+#elif defined(Q_OS_LINUX)
     FileUtils::loadStyleSheetFile(QStringLiteral(":/css/linstyle"));
 #endif
 
@@ -235,7 +246,7 @@ int main(int argc, char *argv[])
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     if (!fileToOpen.isEmpty())
     {
         filename = fileToOpen;
@@ -270,24 +281,26 @@ int main(int argc, char *argv[])
 
     // create and show splash screen
     QPixmap pixmap(QStringLiteral(":/icons/splash-img"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     CustomSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
-
-    // center splash considering the high dpi res
-#if defined(Q_OS_MAC)
-    auto d = QApplication::desktop();
-    auto t = d->availableGeometry();
-    splash.move((t.width() - splash.width() / 2) / 2,
-                (t.height() - splash.height() / 2) / 2);
-#endif
-
     auto show_splash =
         GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_GENERAL,
                                                       Defs::CONF_GEN_SHOW_SPLASH,
                                                       true).toBool();
-    qDebug() << "show_splash:" <<show_splash;
+
+#if defined(Q_OS_DARWIN)
+    auto is_full_screen_set =
+        GlobalSettings::getFirstAppPersistentSettings(Defs::CONFGROUP_WINDOW,
+                                                      Defs::CONF_WIN_FULLSCREEN,
+                                                      true).toBool();
+    if (is_full_screen_set)
+    {
+        show_splash = false;
+    }
+#endif
+    qDebug() << "show_splash:" << show_splash;
 
     if (show_splash)
     {
@@ -314,7 +327,16 @@ int main(int argc, char *argv[])
     }
     qApp->processEvents();
 
-    MainWindow mainWin(filename, appEnvPath);
+//#if defined(Q_OS_DARWIN)
+//    MainWindow mainWin(filename, appEnvPath, &splash, 0,
+//                       Qt::WindowFlags()
+//                       Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint
+//                       Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint
+//                       );
+//#elif defined(Q_OS_WIN)
+    MainWindow mainWin(filename, appEnvPath, &splash);
+//#endif
+
     if (show_splash)
     {
         splash.setProgressValue(40);
@@ -337,7 +359,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "applicationDisplayName" << qApp->applicationDisplayName();
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     qDebug() << "____________________________________________________";
     auto docExtraction = extractDocs(installationDir);
     qDebug() << "docs.zip extraction:" << docExtraction;
@@ -594,8 +616,6 @@ void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, c
 // NOTE: not used
 //void doLog(const QString& appEnvPath)
 //{
-//    DEBUG_FUNC_NAME
-
 //// in debug mode
 ////#ifndef QT_NO_DEBUG_OUTPUT
 ////#ifdef QT_DEBUG
@@ -638,9 +658,6 @@ void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, c
 
 bool extractDocs(const QString& currentDir)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "___________________________________________";
-
     auto docDir = currentDir
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
@@ -648,7 +665,6 @@ bool extractDocs(const QString& currentDir)
     // skip if already extracted
     if (FileUtils::existsPath(docDir))
     {
-        qDebug() << "docs already extracted";
         return false;
     }
 
@@ -658,11 +674,9 @@ bool extractDocs(const QString& currentDir)
 
     if (!QFile::exists(docArchive))
     {
-        qDebug() << "no docs.zip";
         return false;
     }
 
     auto extractedFiles = JlCompress::extractDir(docArchive, currentDir);
-
     return (!extractedFiles.isEmpty());
 }

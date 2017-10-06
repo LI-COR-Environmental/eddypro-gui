@@ -2,7 +2,7 @@
   mainwidget.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2015, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -53,8 +53,6 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     faderWidget(0),
     fadingOn(true)
 {
-    DEBUG_FUNC_NAME
-
     // stacked widget # 0
     welcomePage_ = new WelcomePage(this, ecProject_, configState_);
     welcomePage_->setSizePolicy(QSizePolicy::Expanding,
@@ -128,7 +126,6 @@ MainWidget::~MainWidget()
 
 void MainWidget::setCurrentPage(Defs::CurrPage page)
 {
-    DEBUG_FUNC_NAME
     if (mainWidgetLayout->currentIndex() != static_cast<int>(page))
     {
         mainWidgetLayout->currentWidget()->setSizePolicy(QSizePolicy::Ignored,
@@ -155,8 +152,6 @@ bool MainWidget::smartFluxCloseRequest()
 
 void MainWidget::fadeInWidget(int index)
 {
-    DEBUG_FUNC_NAME
-
     if (fadingOn)
     {
         if (faderWidget)
@@ -172,8 +167,6 @@ void MainWidget::fadeInWidget(int index)
 // update smartflux bar visibility on all the subpages
 void MainWidget::updateSmartfluxBarStatus()
 {
-    DEBUG_FUNC_NAME
-
     welcomePage_->updateSmartfluxBar();
     welcomePage_->updateSmartfluxCheckBox();
 
