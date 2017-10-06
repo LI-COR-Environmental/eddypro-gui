@@ -4,7 +4,7 @@
   Custom splash screen
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -38,7 +38,7 @@ class CustomSplashScreen : public QSplashScreen
     Q_OBJECT
 
 public:
-    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::Widget);
+    explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::SplashScreen);
     ~CustomSplashScreen();
 
     void setProgressValue(int value);

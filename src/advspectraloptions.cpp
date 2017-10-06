@@ -1,7 +1,7 @@
 /***************************************************************************
   advspectraloptions.cpp
   -------------------
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -69,7 +69,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     binnedSpectraNonExistingRadio = new QRadioButton(tr("Binned (co)spectra files not available"));
     binnedSpectraNonExistingRadio->setToolTip(tr("<b>Binned (co)spectra files not available:</b> Select this option if you did not yet obtain <i>Binned spectra and cospectra files</i> for the current dataset in a previous run of EddyPro. Note that such binned (co)spectra files do not need to correspond exactly to the current dataset, rather they need to be representative of it. Binned (co)spectra files are used by certain spectral corrections procedures to quantify spectral attenuations, thus they must have been collected in conditions comparable to those of the current dataset (e.g., same EC system and similar canopy heights, measurement height, instrument spatial separations, etc.). At least one month of spectra files is needed for a robust spectral attenuation assessment. If you select this option, the option <i>All binned spectra and cospectra</i> in the Output Files page will be automatically selected."));
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     binnedSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton { margin-left: 5px; }"));
 #elif defined(Q_OS_WIN)
     binnedSpectraNonExistingRadio->setStyleSheet(QStringLiteral("QRadioButton { margin-left: 1px; }"));
@@ -95,7 +95,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
 
     lockedIcon = new QLabel;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap_2x);
@@ -920,16 +920,18 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvSpectralOptions::refresh);
 
-    foreach (auto combo, QList<QComboBox *>() << hfMethCombo
-                                              << horstCombo)
+    auto combo_list = QWidgetList() << hfMethCombo
+                                    << horstCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
 
     // fix layout alignment
     auto max_spin_width = spin33->width();
-    foreach (auto w, QWidgetList() << spin34
+    auto spin_list = QWidgetList() << spin34
                                    << spin24
                                    << qcMinUnstableCo2Spin
                                    << qcMinUnstableCh4Spin
@@ -939,7 +941,9 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
                                    << qcMinStableGas4Spin
                                    << qcMaxCo2Spin
                                    << qcMaxCh4Spin
-                                   << qcMaxGas4Spin)
+                                   << qcMaxGas4Spin;
+
+    for (auto w : spin_list)
     {
         w->setMaximumWidth(max_spin_width);
     }
@@ -949,7 +953,6 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
 
 AdvSpectralOptions::~AdvSpectralOptions()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvSpectralOptions::setSmartfluxUI()
@@ -993,8 +996,6 @@ void AdvSpectralOptions::setSmartfluxUI()
 
 void AdvSpectralOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1128,8 +1129,6 @@ void AdvSpectralOptions::reset()
 
 void AdvSpectralOptions::partialRefresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1157,8 +1156,6 @@ void AdvSpectralOptions::partialRefresh()
 
 void AdvSpectralOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -1344,7 +1341,6 @@ void AdvSpectralOptions::updateSpectraFile(const QString &fp)
 
 void AdvSpectralOptions::updateBinnedSpectraFile(const QString &fp)
 {
-    DEBUG_FUNC_NAME
     ecProject_->setSpectraBinSpectra(QDir::cleanPath(fp));
 }
 
@@ -1386,8 +1382,6 @@ void AdvSpectralOptions::testSelectedSpectraFile(const QString& fp)
 
 void AdvSpectralOptions::binnedSpectraDirSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     binnedSpectraDirBrowse->setPath(dir_path);
 
     QDir dataDir(dir_path);
@@ -1398,8 +1392,6 @@ void AdvSpectralOptions::binnedSpectraDirSelected(const QString& dir_path)
 
 void AdvSpectralOptions::fullSpectraDirSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     fullSpectraDirBrowse->setPath(dir_path);
 
     QDir dataDir(dir_path);
@@ -1494,14 +1486,12 @@ void AdvSpectralOptions::fullSpectraRadioClicked(int radioButton)
 
 void AdvSpectralOptions::onStartDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     startDateEdit->setFocus();
     WidgetUtils::showCalendarOf(startDateEdit);
 }
 
 void AdvSpectralOptions::onEndDateLabelClicked()
 {
-    DEBUG_FUNC_NAME
     endDateEdit->setFocus();
     WidgetUtils::showCalendarOf(endDateEdit);
 }
@@ -1538,8 +1528,6 @@ void AdvSpectralOptions::onClickHfMethLabel()
 
 void AdvSpectralOptions::setHfMethod(int hfMethComboIndex)
 {
-    DEBUG_FUNC_NAME
-
     switch (hfMethComboIndex)
     {
     case 0: // moncrieff
@@ -1737,7 +1725,6 @@ void AdvSpectralOptions::onClickHorstLabel()
 
 void AdvSpectralOptions::updateHorst_1(bool b)
 {
-    DEBUG_FUNC_NAME
     if (b)
     {
         ecProject_->setSpectraHorst(horstCombo->currentIndex() + 1);
@@ -1900,8 +1887,6 @@ void AdvSpectralOptions::updateHfnGas4(double d)
 // enforce (start date&time) <= (end date&time)
 void AdvSpectralOptions::forceEndDatePolicy()
 {
-    DEBUG_FUNC_NAME
-
     endDateEdit->setMinimumDate(startDateEdit->date());
 }
 
@@ -1986,13 +1971,14 @@ void AdvSpectralOptions::updateTooltip(int i)
 
 void AdvSpectralOptions::onSubsetCheckboxToggled(bool b)
 {
-    foreach (auto w, QWidgetList() << startDateLabel
-                                   << startDateEdit
-                                   << startTimeEdit
-                                   << lockedIcon
-                                   << endDateLabel
-                                   << endDateEdit
-                                   << endTimeEdit)
+    auto widget_list = QWidgetList() << startDateLabel
+                                     << startDateEdit
+                                     << startTimeEdit
+                                     << lockedIcon
+                                     << endDateLabel
+                                     << endDateEdit
+                                     << endTimeEdit;
+    for (auto w : widget_list)
     {
         w->setEnabled(b);
     }

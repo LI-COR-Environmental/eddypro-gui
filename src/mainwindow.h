@@ -2,7 +2,7 @@
   mainwindow.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -262,7 +262,7 @@ private:
     QAction *runAdvancedAction;
     QAction *runRetrieverAction;
     QAction *stopAction;
-//#if !defined(Q_OS_MAC)
+//#if !defined(Q_OS_DARWIN)
     QAction *toggleFullScreenAction;
 //#endif
     QAction *toggleStatusbarAct;

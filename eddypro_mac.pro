@@ -5,7 +5,7 @@ TEMPLATE = app
 # EddyPro version
 VER_MAJ = 6
 VER_MIN = 2
-VER_PAT = 0
+VER_PAT = 1
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -47,7 +47,7 @@ CONFIG(debug, debug|release) {
 
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.3/quazip"
 
     win32 {
         # mingw warnings
@@ -55,7 +55,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_64_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
@@ -103,6 +103,7 @@ DEFINES += QT_NO_CAST_FROM_BYTEARRAY
 DEFINES += QT_NO_CAST_TO_ASCII
 DEFINES += QT_NO_URL_CAST_FROM_STRING
 DEFINES += QT_USE_QSTRINGBUILDER
+DEFINES += QT_DEPRECATED_WARNINGS
 
 #message(Qt version: $$QT_VERSION)
 #message(Qt is installed in $$QT_INSTALL_PREFIX)
@@ -123,4 +124,4 @@ DEFINES += QT_USE_QSTRINGBUILDER
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 
 # workaround for QTBUG-34424
-TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0/*
+TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_64_0/*

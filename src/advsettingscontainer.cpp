@@ -1,7 +1,7 @@
 /***************************************************************************
   advsettingscontainer.cpp
   -------------------
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -66,7 +66,6 @@ AdvSettingsContainer::AdvSettingsContainer(QWidget *parent,
 
 AdvSettingsContainer::~AdvSettingsContainer()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvSettingsContainer::setCurrentPage(int page)

@@ -1,7 +1,7 @@
 /***************************************************************************
   createpackagedialog.cpp
   -------------------
-  Copyright (C) 2013-2016, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -82,7 +82,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     filenameEdit->setMaximumWidth(400);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     filenameEdit->setMaximumWidth(395);
 #endif
 
@@ -97,7 +97,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     outpathBrowse->setMaximumWidth(400);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     outpathBrowse->setMaximumWidth(395);
 #endif
 
@@ -137,7 +137,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 //#if defined(Q_OS_WIN)
     mainLayout->setContentsMargins(15, 15, 15, 15);
-//#elif defined(Q_OS_MAC)
+//#elif defined(Q_OS_DARWIN)
 //    mainLayout->setContentsMargins(30, 30, 30, 30);
 //#endif
     setLayout(mainLayout);
@@ -185,7 +185,6 @@ void CreatePackageDialog::refresh()
 
 void CreatePackageDialog::showResult(bool ok, const QString& pkgname)
 {
-    DEBUG_FUNC_NAME
     if (ok)
     {
         WidgetUtils::information(this,
@@ -216,13 +215,10 @@ void CreatePackageDialog::refreshButtonStatus()
 
 void CreatePackageDialog::close()
 {
-    DEBUG_FUNC_NAME
-
     if (isVisible())
     {
         hide();
     }
-    qDebug() << "isVisible()" << isVisible();
 }
 
 void CreatePackageDialog::onFilenameLabelClicked()
@@ -262,8 +258,6 @@ void CreatePackageDialog::clearOutpathBrowse()
 
 void CreatePackageDialog::updateOutpath(const QString& fp)
 {
-    DEBUG_FUNC_NAME
-
     if (fp.isEmpty()) { return; }
 
     GlobalSettings::setAppPersistentSettings(Defs::CONFGROUP_PROJECT,
@@ -274,8 +268,6 @@ void CreatePackageDialog::updateOutpath(const QString& fp)
 
 void CreatePackageDialog::outpathBrowseSelected(const QString& dir_path)
 {
-    DEBUG_FUNC_NAME
-
     outpathBrowse->setPath(dir_path);
 
     QDir outDir(dir_path);

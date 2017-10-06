@@ -2,7 +2,7 @@
   irga_view.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -61,7 +61,6 @@ IrgaView::IrgaView(QWidget *parent) :
 
 IrgaView::~IrgaView()
 {
-    DEBUG_FUNC_NAME
 }
 
 // Create and show context menu
@@ -79,8 +78,6 @@ void IrgaView::contextMenuEvent(QContextMenuEvent *event)
 // no selection
 void IrgaView::addIrga()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = irgaCount();
 
@@ -102,8 +99,6 @@ void IrgaView::addIrga()
 // Remove the selected irga or the last if there is no selection
 void IrgaView::removeIrga()
 {
-    DEBUG_FUNC_NAME
-
     int currCol = currentIndex().column();
     int lastCol = irgaCount() - 1;
 

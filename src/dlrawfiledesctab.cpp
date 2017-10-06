@@ -2,7 +2,7 @@
   dlrawfiledesctab.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -44,8 +44,6 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget* parent, DlProject* dlProject) :
     rawSettingsDialog(nullptr),
     fieldSepTOB1Flag_(false)
 {
-    DEBUG_FUNC_NAME
-
     variableView_ = new VariableView(this);
     variableModel_ = new VariableModel(variableView_, dlProject_->variables());
     variableDelegate_ = new VariableDelegate(variableView_);
@@ -149,14 +147,11 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget* parent, DlProject* dlProject) :
 
 DlRawfileDescTab::~DlRawfileDescTab()
 {
-    DEBUG_FUNC_NAME
     delete rawSettingsDialog;
 }
 
 void DlRawfileDescTab::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
@@ -171,8 +166,6 @@ void DlRawfileDescTab::reset()
 
 void DlRawfileDescTab::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = dlProject_->modified();
     dlProject_->blockSignals(true);
@@ -191,14 +184,12 @@ void DlRawfileDescTab::modelModified()
 
 void DlRawfileDescTab::updateModels()
 {
-    DEBUG_FUNC_NAME
-
     AnemDescList *adl = dlProject_->anems();
     IrgaDescList *idl = dlProject_->irgas();
 
     QStringList models;
     int k = 0;
-    foreach (const AnemDesc& anem, *adl)
+    for (const auto &anem : *adl)
     {
         ++k;
         const QString aModel = anem.model();
@@ -209,7 +200,7 @@ void DlRawfileDescTab::updateModels()
     }
 
     k = 0;
-    foreach (const IrgaDesc& irga, *idl)
+    for (const auto &irga : *idl)
     {
         ++k;
         const QString iModel = irga.model();
@@ -227,8 +218,6 @@ void DlRawfileDescTab::updateModels()
 
 void DlRawfileDescTab::showRawSettingsDialog()
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "dlProject_->fieldSep()" << dlProject_->fieldSep();
     if (!rawSettingsDialog)
     {
         rawSettingsDialog = new RawFileSettingsDialog(this, dlProject_);
@@ -241,8 +230,6 @@ void DlRawfileDescTab::showRawSettingsDialog()
 
 void DlRawfileDescTab::clearInstrModels()
 {
-    DEBUG_FUNC_NAME
-
     QStringList modelList;
     modelList << tr("Other");
     variableModel_->setInstrModels(modelList);

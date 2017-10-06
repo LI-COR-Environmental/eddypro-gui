@@ -2,7 +2,7 @@
   dlproject.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -298,6 +298,7 @@ private:
     static const QString IRGA_MODEL_STRING_11;
     static const QString IRGA_MODEL_STRING_12;
     static const QString IRGA_MODEL_STRING_13;
+    static const QString IRGA_MODEL_STRING_14;
 
     static const QString IRGA_SW_VERSION_STRING_0;
     static const QString IRGA_SW_VERSION_STRING_1;

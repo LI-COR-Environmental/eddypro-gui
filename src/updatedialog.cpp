@@ -2,7 +2,7 @@
   updatedialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -112,7 +112,6 @@ void UpdateDialog::initialize()
 
 void UpdateDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (updateManager)
     {
         updateManager->abort();
@@ -170,11 +169,8 @@ void UpdateDialog::downloadError()
 
 void UpdateDialog::checkUpdate()
 {
-    DEBUG_FUNC_NAME
     if (!updateManager)
     {
-        qDebug() << "!updateManager";
-
         updateManager = new DownloadManager(this);
 
         connect(updateManager, SIGNAL(downloadComplete()),
@@ -183,7 +179,6 @@ void UpdateDialog::checkUpdate()
     QTimer::singleShot(0, updateManager, SLOT(execute()));
 
     downloadTimer_->start();
-    qDebug() << "downloadTimer_->start()";
 }
 
 bool UpdateDialog::hasNewVersion()
@@ -199,36 +194,29 @@ void UpdateDialog::showDownloadPage()
 
 void UpdateDialog::downloadTimeout()
 {
-    DEBUG_FUNC_NAME
-
     noConnection();
 }
 
 void UpdateDialog::useDownloadResults()
 {
     QByteArray versionNr = updateManager->getVersionNr();
-    qDebug() << "versionNr" << versionNr.trimmed().constData();
-
     QString newVersion(QLatin1String(versionNr.trimmed().constData()));
 
     if (!newVersion.isEmpty())
     {
         if (StringUtils::isNewVersion(newVersion, Defs::APP_VERSION_STR))
         {
-            qDebug() << "NEW VERSION";
             isNewVersionAvailable_ = true;
             getNewVersion(newVersion);
         }
         else
         {
-            qDebug() << "NO NEW VERSION";
             isNewVersionAvailable_ = false;
             noNewVersion();
         }
     }
     else
     {
-        qDebug() << "EMPTY VERSION";
         isNewVersionAvailable_ = false;
         downloadError();
     }

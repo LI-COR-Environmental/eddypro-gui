@@ -58,9 +58,8 @@ quazip-0.7.1
 dist
 karchive*
 docs/help
-libs/others
+libs/*
 scripts/deploy
-scripts/old
 scripts/qtcreator
 scripts/utils
 smartflux_defaults
@@ -68,12 +67,12 @@ smartflux_defaults
 # dotfiles
 .*
 
-# backup files
+# backup and other secondary files
 *~
 *.bak
 *.BAK
 *.autosave
-*.old
+*old*
 *.orig
 *.del
 *.rej

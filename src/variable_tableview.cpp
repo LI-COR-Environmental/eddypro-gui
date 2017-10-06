@@ -2,7 +2,7 @@
   variable_tableview.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,8 +34,6 @@
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)
 {
-    DEBUG_FUNC_NAME
-
     auto hHeaderView = horizontalHeader();
     hHeaderView->show();
     connect(hHeaderView, &QHeaderView::sectionClicked,
@@ -113,8 +111,6 @@ void VariableTableView::mousePressEvent(QMouseEvent *event)
 // http://stackoverflow.com/questions/12380107/in-qtableview-what-signal-triggers-the-editing-mode
 void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndEditHint hint)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "hint:" << hint;
     if (hint == QAbstractItemDelegate::NoHint)
     {
         QAbstractItemView::closeEditor(editor,
@@ -155,15 +151,6 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 // NOTE: to finish
 void VariableTableView::hHeaderClicked(int section)
 {
-    DEBUG_FUNC_NAME
-    qDebug() << "section" << section;
-
-//    if (selectionModel()->isColumnSelected(section, QModelIndex()))
-//    {
-//        reset();
-////        clearSelection();
-//    }
-
     clearSelection();
 }
 
@@ -176,6 +163,7 @@ void VariableTableView::hHeaderClicked(int section)
 // Returns the first editable index at the left of `originalIndex` or None.
 void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
 {
+    Q_UNUSED(originalIndex)
 //    auto h = horizontalHeader();
 //    auto myCol = originalIndex.column();
 //    columnIndexes = [h.logicalIndex(i) for i in range(h.count())];
@@ -191,5 +179,5 @@ void VariableTableView::previousEditableIndex(const QModelIndex& originalIndex)
 
 void VariableTableView::nextEditableIndex(const QModelIndex& originalIndex)
 {
-
+    Q_UNUSED(originalIndex)
 }

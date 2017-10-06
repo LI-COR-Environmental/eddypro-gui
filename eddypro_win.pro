@@ -5,7 +5,7 @@ TEMPLATE = app
 # EddyPro version
 VER_MAJ = 6
 VER_MIN = 2
-VER_PAT = 0
+VER_PAT = 1
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -103,6 +103,7 @@ DEFINES += QT_NO_CAST_FROM_BYTEARRAY
 DEFINES += QT_NO_CAST_TO_ASCII
 DEFINES += QT_NO_URL_CAST_FROM_STRING
 DEFINES += QT_USE_QSTRINGBUILDER
+DEFINES += QT_DEPRECATED_WARNINGS
 
 #message(Qt version: $$QT_VERSION)
 #message(Qt is installed in $$QT_INSTALL_PREFIX)

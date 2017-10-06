@@ -2,7 +2,7 @@
   advstatisticaloptions.cpp
   -------------------
   Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -48,8 +48,6 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     QWidget(parent),
     ecProject_(ecProject)
 {
-    DEBUG_FUNC_NAME
-
     selectAllCheckBox = new QCheckBox(tr("&Select all tests"));
     defaultValuesButton = new QPushButton(tr("Restore Default Values"));
     defaultValuesButton->setProperty("mdButton", true);
@@ -238,16 +236,18 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(nonSteadyCheckBox, &QCheckBox::toggled,
             this, &AdvStatisticalOptions::on_nonSteadyCheckBox_clicked);
 
-    foreach (auto checkbox, QList<QCheckBox *>() << spikeRemCheckBox
-                                                 << amplitudeResCheckBox
-                                                 << dropoutsCheckBox
-                                                 << absLimCheckBox
-                                                 << skewnessCheckBox
-                                                 << discontCheckBox
-                                                 << timeLagCheckBox
-                                                 << attackAngleCheckBox
-                                                 << nonSteadyCheckBox)
+    auto checkbox_list = QWidgetList() << spikeRemCheckBox
+                                       << amplitudeResCheckBox
+                                       << dropoutsCheckBox
+                                       << absLimCheckBox
+                                       << skewnessCheckBox
+                                       << discontCheckBox
+                                       << timeLagCheckBox
+                                       << attackAngleCheckBox
+                                       << nonSteadyCheckBox;
+    for (auto widget : checkbox_list)
     {
+        auto checkbox = static_cast<QCheckBox *>(widget);
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
     }
@@ -542,9 +542,11 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &AdvStatisticalOptions::refresh);
 
-    foreach (auto combo, QList<QComboBox *>() << randomMethodCombo
-                                              << itsDefinitionCombo)
+    auto combo_list = QWidgetList() << randomMethodCombo
+                                    << itsDefinitionCombo;
+    for (auto widget : combo_list)
     {
+        auto combo = static_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -555,7 +557,6 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
 
 AdvStatisticalOptions::~AdvStatisticalOptions()
 {
-    DEBUG_FUNC_NAME
 }
 
 void AdvStatisticalOptions::createTabWidget()
@@ -935,14 +936,14 @@ void AdvStatisticalOptions::createTabWidget()
 
     auto lockedIcon_1 = new QLabel;
     auto pixmap_1 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_1.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_1->setPixmap(pixmap_1);
 
     auto lockedIcon_2 = new QLabel;
     auto pixmap_2 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_2->setPixmap(pixmap_2);
@@ -2384,8 +2385,6 @@ void AdvStatisticalOptions::updateParamNsHfLim(double n)
 
 void AdvStatisticalOptions::reset()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -2429,8 +2428,6 @@ void AdvStatisticalOptions::reset()
 
 void AdvStatisticalOptions::refresh()
 {
-    DEBUG_FUNC_NAME
-
     // save the modified flag to prevent side effects of setting widgets
     bool oldmod = ecProject_->modified();
     ecProject_->blockSignals(true);
@@ -2586,8 +2583,6 @@ bool AdvStatisticalOptions::areAllCheckedTests()
 
 void AdvStatisticalOptions::selectAllTest(bool b)
 {
-    DEBUG_FUNC_NAME
-
     spikeRemCheckBox->setChecked(b);
     amplitudeResCheckBox->setChecked(b);
     dropoutsCheckBox->setChecked(b);
@@ -2601,8 +2596,6 @@ void AdvStatisticalOptions::selectAllTest(bool b)
 
 void AdvStatisticalOptions::updateSelectAllCheckbox()
 {
-    DEBUG_FUNC_NAME
-
     selectAllCheckBox->blockSignals(true);
 
     if (areAllCheckedTests())
@@ -2617,8 +2610,6 @@ void AdvStatisticalOptions::updateSelectAllCheckbox()
 
 void AdvStatisticalOptions::updateRestoreDefault()
 {
-    DEBUG_FUNC_NAME
-
     if (atLeastOneCheckedTest())
         defaultValuesButton->setEnabled(true);
     else
@@ -2637,8 +2628,6 @@ void AdvStatisticalOptions::updateAbsLimFilter(bool b)
 
 void AdvStatisticalOptions::resizeEvent(QResizeEvent *event)
 {
-    DEBUG_FUNC_NAME
-
     QSize widgetSize = event->size();
 
     if (widgetSize.width() <= 608 && widgetSize.height() <= 650)
@@ -2675,8 +2664,6 @@ void AdvStatisticalOptions::hideGraphLabels(bool hidden)
 
 void AdvStatisticalOptions::showThumbnailGraphLabel(bool visible)
 {
-    DEBUG_FUNC_NAME
-
     for (int i = 0; i < testToolbox->count(); ++i)
     {
         if (testToolbox->currentIndex() == i)

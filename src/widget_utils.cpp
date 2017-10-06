@@ -2,7 +2,7 @@
 /***************************************************************************
   widget_utils.cpp
   -------------------
-  Copyright (C) 2014-2016, LI-COR Biosciences
+  Copyright (C) 2014-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -108,7 +108,7 @@ void updateStyle(QWidget* widget)
 void WidgetUtils::updatePropertyListAndStyle(QWidget* widget,
                                              QList<PropertyList> propertyList)
 {
-    foreach(const PropertyList& prop, propertyList)
+    for (const auto &prop : propertyList)
     {
         // set property
         widget->setProperty(prop.first, prop.second);
@@ -192,7 +192,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_left;
     auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
-//#if defined(Q_OS_MAC)
+//#if defined(Q_OS_DARWIN)
 //    left_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_left.addPixmap(left_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -202,7 +202,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_right;
     auto right_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-right-arrow"));
-//#if defined(Q_OS_MAC)
+//#if defined(Q_OS_DARWIN)
 //    right_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_right.addPixmap(right_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -276,13 +276,13 @@ QMessageBox::ButtonRole WidgetUtils::requestToSave(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -312,7 +312,7 @@ bool WidgetUtils::information(QWidget* parent,
 //    QScopedPointer<QMessageBox> messageBox(new QMessageBox(parent));
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -324,7 +324,7 @@ bool WidgetUtils::information(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-info"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -346,7 +346,7 @@ void WidgetUtils::warning(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -358,7 +358,7 @@ void WidgetUtils::warning(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-warning"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -377,7 +377,7 @@ void WidgetUtils::critical(QWidget* parent,
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -389,7 +389,7 @@ void WidgetUtils::critical(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-critical"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -412,7 +412,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
     auto messageBox = std::make_unique<QMessageBox>(parent);
     messageBox.get()->setObjectName(objectName);
 
-    // Mac OS X compatibility (to look like a sheet)
+    // macOS compatibility (to look like a sheet)
     if (parent)
     {
         messageBox->setWindowModality(Qt::WindowModal);
@@ -424,7 +424,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -442,7 +442,6 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
 
 void WidgetUtils::showHelp(const QUrl& url)
 {
-    qDebug() << "showHelp";
     // read state
     auto autoChooseHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
@@ -450,9 +449,6 @@ void WidgetUtils::showHelp(const QUrl& url)
     auto offlineHelp = GlobalSettings::getAppPersistentSettings(
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
-
-    qDebug() << "autoChooseHelp" << autoChooseHelp;
-    qDebug() << "offlineHelp" << offlineHelp;
 
     if (autoChooseHelp)
     {
@@ -485,36 +481,24 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else
             {
-                qDebug() << "url" << url;
                 localUrlString = url.toString(QUrl::RemoveAuthority
                     | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
-                qDebug() << "localUrlString" << localUrlString;
-
                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
             auto localUrl = QUrl();
 
-            qDebug() << "htmlHelpPath" << htmlHelpPath;
             if (htmlHelpPath.contains(QStringLiteral("#")))
             {
-                qDebug() << "localUrl with hash" << localUrl;
                 auto localUrlHost = htmlHelpPath.section(QLatin1Char('#'), 0, 0);
                 auto localUrlFragment = htmlHelpPath.section(QLatin1Char('#'), 1, 1);
-
-                qDebug() << "localUrlFragment" << localUrlFragment;
-
                 localUrl = QUrl::fromLocalFile(localUrlHost);
-                qDebug() << "localUrl" << localUrl;
                 localUrl.setFragment(localUrlFragment);
-                qDebug() << "localUrl.setFragment" << localUrl;
             }
             else
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
-                qDebug() << "localUrl with no hash" << localUrl;
             }
-            qDebug() << "localUrl" << localUrl << QDesktopServices::openUrl(localUrl);
         }
     }
     else

@@ -1,7 +1,7 @@
 /***************************************************************************
   smartfluxbar.cpp
   -------------------
-  Copyright (C) 2013-2016, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -54,7 +54,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 {
     auto smartfluxLogo = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-white"));
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     smartfluxLogo->setPixmap(pixmap);
@@ -78,7 +78,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
     closeButton->setToolTip(tr("Click to exit SMARTFlux configuration mode. "
                                "You can enter SMARTFlux configuration mode "
                                "under the File menu or with ")
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
                                + Defs::MAC_COMMAND_KEY + tr("+F."));
 #else
                                + tr("Ctrl+F."));
@@ -101,7 +101,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 
     setToolTip(tr("EddyPro is in SMARTFlux "
                   "configuration mode (")
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_DARWIN)
                                + Defs::MAC_COMMAND_KEY + tr("+F to exit)."));
 #else
                                + tr("Ctrl+F to exit)."));
@@ -112,13 +112,10 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 
 SmartFluxBar::~SmartFluxBar()
 {
-    DEBUG_FUNC_NAME
-
     // NOTE: qobject with parent, so it should not require deletion
     if (cpDialog_)
     {
         delete cpDialog_;
-        qDebug() << "delete cpDialog";
     }
 }
 
@@ -161,11 +158,9 @@ void SmartFluxBar::closeRequest()
 
 void SmartFluxBar::createPackage()
 {
-    DEBUG_FUNC_NAME
     // set run_fcc value
     ecProject_->setGeneralRunFcc(ecProject_->isEngineStep2Needed());
 
-    qDebug() << "project file name" << ecProject_->generalFileName();
     if (ecProject_->generalFileName()
         == Defs::DEFAULT_SMARTFLUX_PROJECT_FILENAME)
     {
@@ -213,7 +208,6 @@ void SmartFluxBar::createPackage()
     auto smfIniDir = smfDir
                      + QLatin1Char('/')
                      + Defs::INI_FILE_DIR;
-    qDebug() << "smf ini dir" << smfIniDir;
 
     // create dir smf/ini
     FileUtils::createDir(Defs::INI_FILE_DIR, smfDir);
@@ -233,11 +227,10 @@ void SmartFluxBar::createPackage()
     mdDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
 
     QStringList mdFileList = mdDir.entryList();
-    qDebug() << "mdFileList" << mdFileList;
 
     if (!mdFileList.isEmpty())
     {
-        foreach (const QString& str, mdFileList)
+        for (const auto &str : mdFileList)
         {
             FileUtils::chmod_644(smfDir + QLatin1Char('/') + str);
             if (!QFile::copy(smfDir + QLatin1Char('/') + str,
@@ -253,20 +246,17 @@ void SmartFluxBar::createPackage()
 
     // copy ancillary files in smf/ini
     QString saFile = ecProject_->spectraFile();
-    qDebug() << "saFile" << ecProject_->spectraFile();
+
     if (!QFile::copy(ecProject_->spectraFile(),
                      smfIniDir
                      + QLatin1Char('/')
                      + saFile.mid(saFile.lastIndexOf(QLatin1Char('/')))))
     {
-        qDebug() << smfIniDir
-                    + QLatin1Char('/')
-                    + saFile.mid(saFile.lastIndexOf(QLatin1Char('/')));
         qDebug() << "Unable to copy spectral assessment file in smf/ini folder";
     }
 
     QString pfFile = ecProject_->planarFitFile();
-    qDebug() << "pfFile" << ecProject_->planarFitFile();
+
     if (!QFile::copy(ecProject_->planarFitFile(),
                      smfIniDir
                      + QLatin1Char('/')
@@ -276,7 +266,7 @@ void SmartFluxBar::createPackage()
     }
 
     QString tlFile = ecProject_->timelagOptFile();
-    qDebug() << "tlFile" << ecProject_->timelagOptFile();
+
     if (!QFile::copy(ecProject_->timelagOptFile(),
                      smfIniDir
                      + QLatin1Char('/')
@@ -315,14 +305,13 @@ void SmartFluxBar::createPackage()
 #endif
     }
 
-    qDebug() << "cpDialog_->close()";
     // on mac nested dialogs don't work well,
     // because cpDialog->close() does not hide the dialog as expected,
     // so it's preferable to delete it
     // TODO: use a std::unique_ptr
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->close();
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     if (cpDialog_)
     {
         delete cpDialog_;
@@ -336,8 +325,6 @@ void SmartFluxBar::createPackage()
 
 void SmartFluxBar::makeCreatePackageDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (!cpDialog_)
     {
         cpDialog_ = new CreatePackageDialog(ecProject_, configState_, this);
@@ -348,8 +335,6 @@ void SmartFluxBar::makeCreatePackageDialog()
 
 void SmartFluxBar::showCreatePackageDialog()
 {
-    DEBUG_FUNC_NAME
-
     if (ecProject_->screenDataPath().isEmpty())
     {
         WidgetUtils::information(this,
@@ -362,7 +347,7 @@ void SmartFluxBar::showCreatePackageDialog()
 
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->refresh();
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     makeCreatePackageDialog();
 #endif
 
