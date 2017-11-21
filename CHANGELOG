@@ -119,16 +119,6 @@
     - Refine: allow project file opening with double-click on Mac.
     - Fix: spectral file assessment load button not working properly.
     - Fix: essential file path not properly preserved during a run on Windows.
-
-6.1.0 (2015-09-30)
-
-    Engine
-    - Fix: detection of EndIndex in the list of binned spectra files when a
-      subperiod is selected, which coincides with the period covered by
-      available spectra files. The bug caused EddyPro not to create ensemble
-      averaged spectra/cospectra, nor to perform the spectral assessment.
-
-    GUI
     - Refinement: Update QuaZIP to version 0.7.1 (2015-01-07).
 
 6.0.0 (2015-08-05)
