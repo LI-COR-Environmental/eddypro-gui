@@ -455,7 +455,7 @@ void WidgetUtils::showHelp(const QUrl& url)
         if (!offlineHelp)
         {
             // browse online help version
-            qDebug() << "url" << url << QDesktopServices::openUrl(url);
+            qDebug() << "online" << url << QDesktopServices::openUrl(url);
         }
         else
         {
@@ -499,6 +499,7 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
             }
+            QDesktopServices::openUrl(localUrl);
         }
     }
     else

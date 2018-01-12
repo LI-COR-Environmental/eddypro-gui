@@ -6290,12 +6290,12 @@ Output</translation>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="551"/>
+        <location filename="../src/widget_utils.cpp" line="552"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="552"/>
+        <location filename="../src/widget_utils.cpp" line="553"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>
