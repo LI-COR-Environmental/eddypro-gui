@@ -1,3 +1,9 @@
+6.2.2 (2018-01-12)
+
+    GUI
+    - Fix: Raw File Settings persistency.
+    - Fix: local help not showing.
+
 6.2.1 (2017-10-09)
 
     Engine
@@ -5,7 +11,7 @@
 
     GUI
     - Add: support for new LI-7500DS instruments.
-    - Fix magnetic declination retrieval from NOAA.
+    - Fix: magnetic declination retrieval from NOAA.
 
 6.2.0 (2016-08-23)
 
