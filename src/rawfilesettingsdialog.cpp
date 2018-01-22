@@ -142,7 +142,7 @@ void RawFileSettingsDialog::refresh()
 
     QString currFielSep = dlProject_->fieldSep();
 
-    fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep));
+    fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep, Qt::MatchFixedString));
 
     headerRowsSpin->setValue(dlProject_->headerRows());
 
