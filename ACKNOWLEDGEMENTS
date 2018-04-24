@@ -62,12 +62,12 @@ this free software.
 - University of Chicago: m_levenberg_marquardt from the MINPACK package
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
-- Boost
+- Boost C++ Libraries
 - Trenton Schulz (former Trolltech AS): Fader widget
 - Morgan Leborgne: QProgressIndicator widget
 - Witold Wysota: Debug helper class
 - Sergey A. Tachenov: QuaZIP
-- Mark Summerfield: classes from the book 'Advanced Qt Programming'
+- Mark Summerfield: helper classes from the book 'Advanced Qt Programming'
 
 ## Tools
 
@@ -75,4 +75,3 @@ this free software.
 - MinGW compiler and GDB debugger
 - Clang compiler
 - The Qt Company: Qt Creator IDE
-- Code::Blocks IDE
