@@ -52,6 +52,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     connect(appLogoLabel, &ClickLabel::clicked,
             this, &WidgetUtils::openAppWebsite);
 
+    toviLabel = new ClickLabel;
+    toviLabel->setProperty("toviLabel", true);
+    connect(toviLabel, &ClickLabel::clicked,
+            this, &WelcomePage::openToviHomepage);
+
     feedbackLabel = new ClickLabel;
     feedbackLabel->setProperty("feedbackLabel", true);
     connect(feedbackLabel, &ClickLabel::clicked,
@@ -274,13 +279,15 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     mainLayout_ = new QGridLayout(this);
     mainLayout_->addWidget(smartfluxBar_, 0, 0, 1, -1);
     mainLayout_->addWidget(smartfluxBarPlaceholder_, 0, 0, 1, -1, Qt::AlignHCenter);
-    mainLayout_->addWidget(appLogoLabel, 1, 0, 1, -1, Qt::AlignHCenter);
-    mainLayout_->addWidget(feedbackLabel, 2, 0, 1, 1, Qt::AlignHCenter);
-    mainLayout_->addWidget(welcomeTab, 3, 0, 1, -1, Qt::AlignHCenter);
+    mainLayout_->addWidget(appLogoLabel, 1, 0, 1, -1, Qt::AlignHCenter | Qt::AlignVCenter);
+    mainLayout_->addWidget(toviLabel, 2, 0, 1, 1, Qt::AlignHCenter);
+    mainLayout_->addWidget(feedbackLabel, 3, 0, 1, 1, Qt::AlignHCenter);
+    mainLayout_->addWidget(welcomeTab, 4, 0, 1, -1, Qt::AlignHCenter);
     mainLayout_->setRowStretch(0, 0);
     mainLayout_->setRowStretch(1, 1);
     mainLayout_->setRowStretch(2, 1);
-    mainLayout_->setRowStretch(3, 5);
+    mainLayout_->setRowStretch(3, 1);
+    mainLayout_->setRowStretch(4, 5);
     mainLayout_->setContentsMargins(0, 0, 0, 0);
     mainLayout_->setRowMinimumHeight(0, 35);
 
@@ -406,6 +413,11 @@ void WelcomePage::updateWelcomePage(bool small)
     }
 
     WidgetUtils::updatePropertyListAndStyle(appLogoLabel, appLogoProp);
+}
+
+void WelcomePage::openToviHomepage()
+{
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
 }
 
 void WelcomePage::openForumFeedback()

@@ -870,6 +870,38 @@ QLabel[applogoSmallLabel="true"]:hover {
     min-height: 70px;
 }
 
+QLabel[toviLabel="true"] {
+    image: url(:/icons/tovi-ads);
+    min-width: 644px;
+    min-height: 158px;
+    /* margin: 10px auto; */
+}
+
+QLabel[toviLabel="true"]:hover {
+    image: url(:/icons/tovi-ads-hover);
+    min-width: 644px;
+    min-height: 158px;
+}
+
+QPushButton#toviLogoImg {
+    background-color: transparent;
+    border: none;
+    image: url(:/icons/tovi-logo);
+    min-width: 35px;
+    max-width: 35px;
+    min-height: 30px;
+    max-height: 30px;
+    margin-left: 5px;
+}
+
+QPushButton#toviLogoImg:hover {
+    image: url(:/icons/tovi-logo-hover);
+}
+
+QPushButton#toviLogoImg:pressed {
+    image: url(:/icons/tovi-logo-pressed);
+}
+
 QLabel[feedbackLabel="true"] {
     image: url(:/icons/feedback-button);
     min-width: 168px;

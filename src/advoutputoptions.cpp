@@ -33,6 +33,7 @@
 #include <QScrollArea>
 #include <QTimer>
 #include <QUrl>
+#include <QDesktopServices>
 
 #include "clicklabel.h"
 #include "configstate.h"
@@ -488,6 +489,22 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     qBox_9->addWidget(questionMark_9);
     qBox_9->addStretch();
 
+//
+    auto toviLogo = new QPushButton;
+    toviLogo->setObjectName(QStringLiteral("toviLogoImg"));
+    connect(toviLogo, &QPushButton::clicked,
+            this, &AdvOutputOptions::openToviHomepage);
+
+    auto toviAdsText = new QLabel(tr("Also formatted for "
+                                     "<a href=\"https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads\">Tovi</a>"));
+    toviAdsText->setProperty("toviAds", true);
+    toviAdsText->setOpenExternalLinks(true);
+
+    auto toviBox = new QHBoxLayout;
+    toviBox->addWidget(toviLogo);
+    toviBox->addWidget(toviAdsText);
+    toviBox->addStretch();
+
     auto outputLayout = new QGridLayout;
     outputLayout->addLayout(minSelectionLayout, 0, 0, 1, -1);
     outputLayout->addLayout(typicalSelectionLayout, 1, 0, 1, -1);
@@ -496,6 +513,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_1, 4, 0);
     outputLayout->addWidget(outFullCheckBox, 5, 0, 1, 4);
     outputLayout->addLayout(qBox_2, 5, 2, Qt::AlignRight);
+    outputLayout->addLayout(toviBox, 6, 0, 1, 4);
     outputLayout->addWidget(variableVarsOutputRadio, 5, 3, 1, 2, Qt::AlignLeft);
     outputLayout->addWidget(fixedVarsOutputRadio, 6, 3, 1, 2, Qt::AlignLeft);
     outputLayout->addWidget(vrLabel_1, 5, 5, 8, 1);
@@ -1524,4 +1542,9 @@ void AdvOutputOptions::setOutputBiomet()
     // restore modified flag
     ecProject_->setModified(oldmod);
     ecProject_->blockSignals(false);
+}
+
+void AdvOutputOptions::openToviHomepage()
+{
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
 }

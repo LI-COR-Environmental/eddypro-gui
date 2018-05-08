@@ -133,6 +133,13 @@
         <file alias="broken-vlink">img/links/broken-vlink.png</file>
         <file alias="vlink">img/links/vlink.png</file>
         <file alias="vlink-hover">img/links/vlink-hover.png</file>
+
+        <file alias="tovi-ads">img/tovi/tovi-ads@2x.png</file>
+        <file alias="tovi-ads-hover">img/tovi/tovi-ads-hover@2x.png</file>
+        <file alias="tovi-logo">img/tovi/tovi-logo@2x.png</file>
+        <file alias="tovi-logo-hover">img/tovi/tovi-logo-hover@2x.png</file>
+        <!-- <file alias="tovi-logo-pressed">img/tovi/tovi-logo-pressed@2x.png</file> -->
+
         <file alias="feedback-button">img/feedback/feedback-button.png</file>
         <file alias="feedback-button-hover">img/feedback/feedback-button-hover.png</file>
         <file alias="app-logo">img/logo/app-logo.png</file>

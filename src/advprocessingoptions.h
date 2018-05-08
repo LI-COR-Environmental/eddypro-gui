@@ -141,6 +141,8 @@ private slots:
     void parseCalibrationInfo(const QByteArray &data);
     void parseCalibrationFile();
 
+    void openToviHomepage();
+
 private:
     enum class DetrendMethod {
         BlockAverage,
