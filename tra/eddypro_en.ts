@@ -414,7 +414,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="498"/>
         <source>Also formatted for &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Also formatted for &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="614"/>
@@ -773,7 +773,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="401"/>
         <source>For more advanced footprint tools and visualization, try &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>For more advanced footprint tools and visualization, try &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="792"/>
@@ -7466,7 +7466,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="176"/>
         <source>New Trace Gas Analyzers – high performance in an entirely new, portable design</source>
-        <translation type="unfinished"></translation>
+        <translation>New Trace Gas Analyzers – high performance in an entirely new, portable design</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="210"/>
@@ -7491,17 +7491,17 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="172"/>
         <source>Introducing Tovi</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducing Tovi</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="173"/>
         <source> – Powerful software for processing EddyPro outputs</source>
-        <translation type="unfinished"></translation>
+        <translation> – Powerful software for processing EddyPro outputs</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="179"/>
         <source>Simplified Biomet data collection with the LI-COR-designed Data Acquisition System</source>
-        <translation type="unfinished"></translation>
+        <translation>Simplified Biomet data collection with the LI-COR-designed Data Acquisition System</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="185"/>
