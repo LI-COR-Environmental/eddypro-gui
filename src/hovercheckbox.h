@@ -32,7 +32,7 @@ class HoverCheckBox : public QCheckBox
     Q_OBJECT
 
 public:
-    explicit HoverCheckBox(QWidget *parent = 0);
+    explicit HoverCheckBox(QWidget *parent = nullptr);
 
 private:
     bool isHover;

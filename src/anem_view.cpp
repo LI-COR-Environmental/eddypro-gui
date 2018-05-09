@@ -33,9 +33,9 @@
 // Constructor
 AnemView::AnemView(QWidget *parent) :
     AnemTableView(parent),
-    addAction_(0),
-    removeAction_(0),
-    clearAction_(0)
+    addAction_(nullptr),
+    removeAction_(nullptr),
+    clearAction_(nullptr)
 {
     // create context menu actions
     addAction_ = new QAction(tr("&Add Anemometer"), this);

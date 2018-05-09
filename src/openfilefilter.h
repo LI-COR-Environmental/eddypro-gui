@@ -30,7 +30,7 @@ class OpenFileFilter : public QObject
     Q_OBJECT
 
 public:
-    explicit OpenFileFilter(QObject *parent = 0);
+    explicit OpenFileFilter(QObject *parent = nullptr);
     const QString& fileRequested() const;
 
 protected:

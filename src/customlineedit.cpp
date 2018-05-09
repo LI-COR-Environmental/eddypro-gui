@@ -73,7 +73,7 @@ void CustomLineEdit::setRegExp(const QString &s)
     // remove the current validator
     if (s.isEmpty())
     {
-        setValidator(0);
+        setValidator(nullptr);
         return;
     }
 

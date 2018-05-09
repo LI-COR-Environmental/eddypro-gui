@@ -34,7 +34,7 @@ class LineEditAndBrowseWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LineEditAndBrowseWidget(QWidget *parent = 0);
+    explicit LineEditAndBrowseWidget(QWidget *parent = nullptr);
 
     QString toolTip() const;
     void setToolTip(const QString &text);

@@ -37,7 +37,7 @@ class RichTextCheckBox : public QWidget
 {
     Q_OBJECT
 public:
-    explicit RichTextCheckBox(QWidget *parent = 0);
+    explicit RichTextCheckBox(QWidget *parent = nullptr);
     ~RichTextCheckBox();
 
     HoverCheckBox* getCheckBox() { return checkBox; }

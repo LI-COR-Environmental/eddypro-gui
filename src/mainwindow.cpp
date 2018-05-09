@@ -454,7 +454,7 @@ void MainWindow::fileOpen(const QString &fileName)
                         tr("Select an %1 Project File").arg(Defs::APP_NAME),
                         WidgetUtils::getSearchPathHint(),
                         tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
-                        0
+                        nullptr
                         // , QFileDialog::DontUseNativeDialog
                         );
         if (fileStr.isEmpty()) { return; }
@@ -692,7 +692,7 @@ bool MainWindow::fileSaveAs(const QString& fileName)
                 tr("Save the Project File Name As..."),
                 filenameHint,
                 tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
-                0
+                nullptr
                 // see after
                                                  ,
                 QFileDialog::DontConfirmOverwrite

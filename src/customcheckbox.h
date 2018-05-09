@@ -32,7 +32,7 @@ class CustomCheckBox : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CustomCheckBox(QWidget *parent = 0);
+    explicit CustomCheckBox(QWidget *parent = nullptr);
     ~CustomCheckBox();
 
     void setLabel(const QString& text);

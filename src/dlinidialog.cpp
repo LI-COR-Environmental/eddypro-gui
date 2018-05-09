@@ -287,7 +287,7 @@ void DlIniDialog::fileSaveAs()
                                          tr("Save the Metadata File As..."),
                                          filenameHint,
                                          tr("%1 Metadata Files (*.metadata);;All files (*)").arg(Defs::APP_NAME),
-                                         0,
+                                         nullptr,
                                          QFileDialog::DontConfirmOverwrite);
 
     // we got a filename

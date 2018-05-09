@@ -273,7 +273,7 @@ DlProject::DlProject(QObject* parent, const ProjConfigState &project_config) :
 { ; }
 
 DlProject::DlProject(const DlProject& project)
-    : QObject(0),
+   : QObject(nullptr),
       modified_(project.modified_),
       project_state_(project.project_state_),
       project_config_state_(project.project_config_state_),

@@ -44,7 +44,7 @@ EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
 }
 
 EcProject::EcProject(const EcProject& project) :
-    QObject(0),
+    QObject(nullptr),
     defaultSettings(EcProjectState()),
     modified_(project.modified_),
     ec_project_state_(project.ec_project_state_),

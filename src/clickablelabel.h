@@ -32,7 +32,7 @@ class ClickableLabel : public QLabel
     Q_OBJECT
 
 public:
-    explicit ClickableLabel(QWidget *parent = 0);
+    explicit ClickableLabel(QWidget *parent = nullptr);
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

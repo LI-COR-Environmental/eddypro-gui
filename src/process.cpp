@@ -38,12 +38,12 @@
 
 Process::Process(QWidget* parent, const QString &fullPath) :
     QObject(parent),
-    process_(0),
+    process_(nullptr),
     fullPath_(fullPath),
     processExit_(ExitStatus::Success),
     processPid_(0),
     winPid_(QString()),
-    freezerUtility_(0),
+    freezerUtility_(nullptr),
     rxBuffer_(QByteArray())
 {
     process_ = new QProcess(this);

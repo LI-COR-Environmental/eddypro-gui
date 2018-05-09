@@ -33,7 +33,7 @@ class CustomResetLineEdit : public CustomLineEdit
     Q_OBJECT
 
 public:
-    explicit CustomResetLineEdit(QWidget *parent = 0);
+    explicit CustomResetLineEdit(QWidget *parent = nullptr);
 
     void setDefaultText(const QString &text);
     QString defaultText() const;

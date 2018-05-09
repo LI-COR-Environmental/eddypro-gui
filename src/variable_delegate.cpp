@@ -63,7 +63,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
     QString currentInputUnit = index.model()->data(index.model()->index(VariableModel::INPUTUNIT, column)).toString();
 
     // can only edit name on blank column
-    if (column >= index.model()->columnCount()) return 0;
+    if (column >= index.model()->columnCount()) return nullptr;
 
     // different kind of editor for each row
     switch (index.row())
