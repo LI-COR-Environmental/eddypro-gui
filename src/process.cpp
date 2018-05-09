@@ -225,7 +225,7 @@ void Process::processPause(Defs::CurrRunStatus mode)
     connect(freezerUtility_, &QProcess::readyReadStandardOutput,
              this, &Process::bufferFreezerOutput);
 
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     // on mac anc linux we use the standard kill
     // calling, 'kill -STOP processPid_'
 
@@ -256,7 +256,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
     args << winPid_;
     args << QStringLiteral("/r");
 
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     // on mac anc linux we use the standard kill
     // calling, 'kill -CONT processPid_'
 

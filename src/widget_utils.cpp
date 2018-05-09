@@ -192,7 +192,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_left;
     auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
 //    left_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_left.addPixmap(left_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -202,7 +202,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 
     QIcon icon_right;
     auto right_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-right-arrow"));
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
 //    right_arrow_pixmap.setDevicePixelRatio(2.0);
 //#endif
     icon_right.addPixmap(right_arrow_pixmap, QIcon::Normal, QIcon::On);
@@ -282,7 +282,7 @@ QMessageBox::ButtonRole WidgetUtils::requestToSave(QWidget* parent,
         messageBox->setWindowModality(Qt::WindowModal);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -324,7 +324,7 @@ bool WidgetUtils::information(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-info"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -358,7 +358,7 @@ void WidgetUtils::warning(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-warning"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -389,7 +389,7 @@ void WidgetUtils::critical(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-critical"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);
@@ -424,7 +424,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
         messageBox->setInformativeText(infoText);
     }
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/msg-question"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     messageBox->setIconPixmap(pixmap_2x);

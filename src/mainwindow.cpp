@@ -136,7 +136,7 @@ MainWindow::MainWindow(const QString& filename,
 #if defined(Q_OS_WIN)
     // NOTE: inserted fake (inexistent) icon to prevent icon in the menu bar
     setWindowIcon(QIcon(QStringLiteral(":/win_files/app_ico.png")));
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     setWindowIcon(QIcon(QStringLiteral(":/mac_files/app.icns")));
 #elif defined(Q_OS_LINUX)
     setWindowIcon(QIcon(QStringLiteral(":/lin_files/app.png")));
@@ -992,7 +992,7 @@ void MainWindow::createActions()
     viewWelcomeAction->setText(tr("Welcome"));
 
 //    auto welcome_pixmap_2x = QPixmap(QStringLiteral(":/icons/welcome"));
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
 //    welcome_pixmap_2x.setDevicePixelRatio(2.0);
 //#endif
 //    viewWelcomeAction->setIcon(welcome_pixmap_2x);
@@ -1082,7 +1082,7 @@ void MainWindow::createActions()
     stopAction->setToolTip(tr("Stop processing. (%1)")
                            .arg((stopAction->shortcut().toString())));
 
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
@@ -1178,7 +1178,7 @@ void MainWindow::connectActions()
     connect(stopAction, &QAction::triggered,
             this, &MainWindow::stopEngine);
 
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     connect(toggleFullScreenAction, &QAction::toggled,
             this, &MainWindow::setFullScreen);
 //#endif
@@ -1258,7 +1258,7 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleInfoOutputAct);
     viewMenu->addAction(toggleTooltipOutputAct);
     viewMenu->addAction(toggleStatusbarAct);
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     viewMenu->addAction(toggleFullScreenAction);
 //#endif
 
@@ -1298,7 +1298,7 @@ void MainWindow::createToolBars()
 
     sep1 = new ClickLabel;
     auto sep_pixmap = QPixmap(QStringLiteral(":/icons/sep"));
-#if defined(Q_OS_MACX)
+#if defined(Q_OS_MACOS)
     sep_pixmap.setDevicePixelRatio(2.0);
 #endif
     sep1->setPixmap(sep_pixmap);
@@ -1560,7 +1560,7 @@ void MainWindow::restorePreviousStatus()
 {
     // must be before restoreGeometry(), which restore the possible full screen
     // state, because otherwise setFullScreen() reset restoreGeometry()
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     toggleFullScreenAction->setChecked(configState_.window.fullScreen);
 //#endif
 
@@ -2838,7 +2838,7 @@ void MainWindow::changeViewToolbarSeparators(Defs::CurrPage page)
     auto sep_normal_2x = QPixmap(QStringLiteral(":/icons/sep"));
     auto sep_right_selected_2x = QPixmap(QStringLiteral(":/icons/seprightsel"));
 
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     sep_left_selected_2x.setDevicePixelRatio(2.0);
     sep_normal_2x.setDevicePixelRatio(2.0);
     sep_right_selected_2x.setDevicePixelRatio(2.0);
@@ -3741,7 +3741,7 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
     auto openOutDirButton = new QPushButton(tr("Open the output folder"));
     auto questionMark_1 = new QPushButton;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     questionMark_1->setIcon(pixmap_2x);
@@ -3868,7 +3868,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
     auto questionMark_1 = new QPushButton;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     questionMark_1->setIcon(pixmap_2x);

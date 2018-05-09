@@ -262,7 +262,7 @@ private:
     QAction *runAdvancedAction;
     QAction *runRetrieverAction;
     QAction *stopAction;
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     QAction *toggleFullScreenAction;
 //#endif
     QAction *toggleStatusbarAct;

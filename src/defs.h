@@ -129,7 +129,7 @@ namespace Defs
 #if defined(Q_OS_WIN)
     const auto EXEC_FILE_EXT = QStringLiteral(".exe");
     const auto HOST_OS = QStringLiteral("win");
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     const auto EXEC_FILE_EXT = QString();
     const auto HOST_OS = QStringLiteral("mac");
 #elif defined(Q_OS_LINUX)
@@ -219,7 +219,7 @@ namespace Defs
 
 #if defined(Q_OS_WIN)
     const auto LICOR_ENV_DIR        = QStringLiteral(".licor");
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     const auto LICOR_ENV_DIR        = QStringLiteral("licor");
 #elif defined(Q_OS_LINUX)
     const auto LICOR_ENV_DIR        = ORG_NAME;
@@ -251,7 +251,7 @@ namespace Defs
     const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
 #if defined(Q_OS_WIN)
     const auto FREEZER_BIN           = QStringLiteral("pausep%1").arg(EXEC_FILE_EXT);
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     const auto FREEZER_BIN           = QStringLiteral("kill");
 #endif
 

@@ -34,7 +34,7 @@ DirBrowseWidget::DirBrowseWidget()
 {
     button()->setText(tr("Browse..."));
 
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
     lineEdit()->setPlaceholderText(tr("drag and drop here"));
 //#endif
 

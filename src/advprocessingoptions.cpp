@@ -90,7 +90,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     uOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     uOffsetSpin->setMinimumWidth(uOffsetSpin->sizeHint().width() * 1.3);
-#elif defined (Q_OS_DARWIN)
+#elif defined (Q_OS_MACOS)
     uOffsetSpin->setMinimumWidth(102);
 #endif
     uOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -106,7 +106,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     vOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     vOffsetSpin->setMinimumWidth(vOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     vOffsetSpin->setMinimumWidth(102);
 #endif
     vOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -122,7 +122,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     wOffsetSpin->setMinimumWidth(wOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     wOffsetSpin->setMinimumWidth(102);
 #endif
     wOffsetSpin->setToolTip(windOffsetLabel->toolTip());
