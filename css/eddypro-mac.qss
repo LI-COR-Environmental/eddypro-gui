@@ -900,17 +900,22 @@ QLabel[applogoSmallLabel="true"]:hover {
     min-height: 70px;
 }
 
-QLabel[toviLabel="true"] {
+ClickLabel[toviLabel="true"] {
     image: url(:/icons/tovi-ads);
-    min-width: 644px;
-    min-height: 158px;
-    /* margin: 10px auto; */
+    min-width: 578px;
+    min-height: 165px;
 }
 
-QLabel[toviLabel="true"]:hover {
+ClickLabel[toviLabel="true"]:hover {
     image: url(:/icons/tovi-ads-hover);
-    min-width: 644px;
-    min-height: 158px;
+    min-width: 578px;
+    min-height: 165px;
+}
+
+ClickLabel[toviLabel="true"]:pressed {
+    image: url(:/icons/tovi-ads-pressed);
+    min-width: 578px;
+    min-height: 165px;
 }
 
 QPushButton#toviLogoImg {
