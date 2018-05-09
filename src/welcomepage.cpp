@@ -57,11 +57,6 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     connect(toviLabel, &ClickLabel::clicked,
             this, &WelcomePage::openToviHomepage);
 
-    feedbackLabel = new ClickLabel;
-    feedbackLabel->setProperty("feedbackLabel", true);
-    connect(feedbackLabel, &ClickLabel::clicked,
-            this, &WelcomePage::openForumFeedback);
-
     newButton = new QToolButton;
     newButton->setText(tr("New Project"));
     newButton->setObjectName(QStringLiteral("newButton"));
@@ -267,10 +262,30 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpWidget->setLayout(helpLayout);
     helpWidget->setMinimumWidth(600);
 
+//
+    auto forumWidget = new QWidget;
+
+    auto forumTitle = new QLabel(tr("Forum"));
+    forumTitle->setProperty("groupTitle3", true);
+
+    feedbackLabel = new ClickLabel;
+    feedbackLabel->setProperty("feedbackLabel", true);
+    connect(feedbackLabel, &ClickLabel::clicked,
+            this, &WelcomePage::openForumFeedback);
+
+    auto forumLayout = new QGridLayout;
+    forumLayout->addWidget(forumTitle, 0, 0);
+    forumLayout->addWidget(feedbackLabel, 1, 0);
+    forumLayout->setRowStretch(2, 1);
+
+    forumWidget->setLayout(forumLayout);
+
+//
     auto welcomeTab = new QTabWidget;
     welcomeTab->addTab(projectsWidget, tr("Manage Projects"));
     welcomeTab->addTab(newsWidget, tr("News"));
     welcomeTab->addTab(helpWidget, tr("Help and Support"));
+    welcomeTab->addTab(forumWidget, tr("Forum"));
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
 
@@ -286,13 +301,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     mainLayout_->addWidget(smartfluxBarPlaceholder_, 0, 0, 1, -1, Qt::AlignHCenter);
     mainLayout_->addWidget(appLogoLabel, 1, 0, 1, -1, Qt::AlignHCenter | Qt::AlignVCenter);
     mainLayout_->addWidget(toviLabel, 2, 0, 1, 1, Qt::AlignHCenter);
-    mainLayout_->addWidget(feedbackLabel, 3, 0, 1, 1, Qt::AlignHCenter);
-    mainLayout_->addWidget(welcomeTab, 4, 0, 1, -1, Qt::AlignHCenter);
+    mainLayout_->addWidget(welcomeTab, 3, 0, 1, -1, Qt::AlignHCenter);
     mainLayout_->setRowStretch(0, 0);
     mainLayout_->setRowStretch(1, 1);
     mainLayout_->setRowStretch(2, 1);
-    mainLayout_->setRowStretch(3, 1);
-    mainLayout_->setRowStretch(4, 5);
+    mainLayout_->setRowStretch(3, 5);
     mainLayout_->setContentsMargins(0, 0, 0, 0);
     mainLayout_->setRowMinimumHeight(0, 35);
 
