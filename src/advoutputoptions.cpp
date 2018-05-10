@@ -492,6 +492,8 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 //
     auto toviLogo = new QPushButton;
     toviLogo->setObjectName(QStringLiteral("toviLogoImg"));
+    toviLogo->setStyleSheet(QStringLiteral("QPushButton {margin-left: 0px; }"));
+
     connect(toviLogo, &QPushButton::clicked,
             this, &AdvOutputOptions::openToviHomepage);
 

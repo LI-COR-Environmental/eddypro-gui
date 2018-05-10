@@ -154,12 +154,18 @@
         <file alias="vlink">img/links/vlink@2x.png</file>
         <file alias="vlink-hover">img/links/vlink-hover@2x.png</file>
 
-        <file alias="tovi-ads">img/tovi/tovi-ads-normal@2x.png</file>
-        <file alias="tovi-ads-hover">img/tovi/tovi-ads-hover@2x.png</file>
-        <file alias="tovi-ads-pressed">img/tovi/tovi-ads-pressed@2x.png</file>
-        <file alias="tovi-logo">img/tovi/tovi-logo-normal@2x.png</file>
-        <file alias="tovi-logo-hover">img/tovi/tovi-logo-hover@2x.png</file>
-        <file alias="tovi-logo-pressed">img/tovi/tovi-logo-pressed@2x.png</file>
+        <file alias="tovi-ad-normal">img/tovi/ad-normal@2x.png</file>
+        <file alias="tovi-ad-hover">img/tovi/ad-hover@2x.png</file>
+        <file alias="tovi-ad-pressed">img/tovi/ad-pressed@2x.png</file>
+        <file alias="tovi-wide-ad-normal">img/tovi/wide-ad-normal@2x.png</file>
+        <file alias="tovi-wide-ad-hover">img/tovi/wide-ad-hover@2x.png</file>
+        <file alias="tovi-wide-ad-pressed">img/tovi/wide-ad-pressed@2x.png</file>
+        <file alias="tovi-thin-ad-normal">img/tovi/thin-ad-normal@2x.png</file>
+        <file alias="tovi-thin-ad-hover">img/tovi/thin-ad-hover@2x.png</file>
+        <file alias="tovi-thin-ad-pressed">img/tovi/thin-ad-pressed@2x.png</file>
+        <file alias="tovi-icon-normal">img/tovi/icon-normal@2x.png</file>
+        <file alias="tovi-icon-hover">img/tovi/icon-hover@2x.png</file>
+        <file alias="tovi-icon-pressed">img/tovi/icon-pressed@2x.png</file>
 
         <file alias="feedback-button">img/feedback/feedback-button@2x.png</file>
         <file alias="feedback-button-hover">img/feedback/feedback-button-hover@2x.png</file>

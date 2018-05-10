@@ -113,13 +113,14 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     open_output_dir->setText(tr("Open output directory"));
     open_output_dir->setProperty("commonButton2", true);
     open_output_dir->setMaximumWidth(200);
+    open_output_dir->setStyleSheet(QStringLiteral("QPushButton {margin-left: 0px; }"));
 
     auto clearErrorEditButton = new QPushButton(tr("Clear"));
     clearErrorEditButton->setProperty("mdButton", true);
     clearErrorEditButton->setMaximumWidth(clearErrorEditButton->sizeHint().width());
 
     toviLabel = new ClickLabel;
-    toviLabel->setProperty("toviLabel", true);
+    toviLabel->setProperty("toviThinLabel", true);
     connect(toviLabel, &ClickLabel::clicked,
             this, &RunPage::openToviHomepage);
 
@@ -138,7 +139,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     progressLayout->addWidget(pauseResumeLabel_, 9, 1);
     progressLayout->addWidget(clearErrorEditButton, 9, 2, Qt::AlignRight);
     progressLayout->addWidget(open_output_dir, 10, 1);
-    progressLayout->addWidget(toviLabel, 11, 1);
+    progressLayout->addWidget(toviLabel, 11, 1, Qt::AlignLeft);
     progressLayout->setColumnStretch(2, 2);
     progressLayout->setRowStretch(8, 2);
     progressLayout->setRowStretch(12, 2);

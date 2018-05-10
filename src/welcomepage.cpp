@@ -54,6 +54,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     toviLabel = new ClickLabel;
     toviLabel->setProperty("toviLabel", true);
+    toviLabel->setProperty("toviWideLabel", false);
     connect(toviLabel, &ClickLabel::clicked,
             this, &WelcomePage::openToviHomepage);
 
@@ -398,19 +399,25 @@ void WelcomePage::updateRecentList()
 void WelcomePage::updateWelcomePage(bool small)
 {
     QList<WidgetUtils::PropertyList> appLogoProp;
+    QList<WidgetUtils::PropertyList> toviAdProp;
 
     if (small)
     {
         appLogoProp << WidgetUtils::PropertyList("applogoLabel", false)
                     << WidgetUtils::PropertyList("applogoSmallLabel", true);
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", false)
+                   << WidgetUtils::PropertyList("toviWideLabel", true);
     }
     else
     {
         appLogoProp << WidgetUtils::PropertyList("applogoLabel", true)
                     << WidgetUtils::PropertyList("applogoSmallLabel", false);
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", true)
+                   << WidgetUtils::PropertyList("toviWideLabel", false);
     }
 
     WidgetUtils::updatePropertyListAndStyle(appLogoLabel, appLogoProp);
+    WidgetUtils::updatePropertyListAndStyle(toviLabel, toviAdProp);
 }
 
 void WelcomePage::openToviHomepage()
