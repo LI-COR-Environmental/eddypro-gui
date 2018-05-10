@@ -54,7 +54,7 @@
 #pragma clang diagnostic ignored "-Wconversion"
 #endif
 
-#include <boost/math/common_factor.hpp>
+#include <boost/integer/common_factor.hpp>
 
 #if defined(Q_OS_MACOS)
 #pragma clang diagnostic pop
