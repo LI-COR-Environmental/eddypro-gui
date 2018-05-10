@@ -261,31 +261,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     helpWidget->setLayout(helpLayout);
     helpWidget->setMinimumWidth(600);
-
-//
-    auto forumWidget = new QWidget;
-
-    auto forumTitle = new QLabel(tr("Forum"));
-    forumTitle->setProperty("groupTitle3", true);
-
-    feedbackLabel = new ClickLabel;
-    feedbackLabel->setProperty("feedbackLabel", true);
-    connect(feedbackLabel, &ClickLabel::clicked,
-            this, &WelcomePage::openForumFeedback);
-
-    auto forumLayout = new QGridLayout;
-    forumLayout->addWidget(forumTitle, 0, 0);
-    forumLayout->addWidget(feedbackLabel, 1, 0);
-    forumLayout->setRowStretch(2, 1);
-
-    forumWidget->setLayout(forumLayout);
-
 //
     auto welcomeTab = new QTabWidget;
     welcomeTab->addTab(projectsWidget, tr("Manage Projects"));
     welcomeTab->addTab(newsWidget, tr("News"));
     welcomeTab->addTab(helpWidget, tr("Help and Support"));
-    welcomeTab->addTab(forumWidget, tr("Forum"));
 
     smartfluxBar_ = new SmartFluxBar(ecProject_, configState_);
 
@@ -436,11 +416,6 @@ void WelcomePage::updateWelcomePage(bool small)
 void WelcomePage::openToviHomepage()
 {
     QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
-}
-
-void WelcomePage::openForumFeedback()
-{
-    QDesktopServices::openUrl(QUrl(QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro")));
 }
 
 void WelcomePage::updateSmartfluxBar()

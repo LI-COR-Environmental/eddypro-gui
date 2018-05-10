@@ -1128,8 +1128,11 @@ void MainWindow::createActions()
     toggleOfflineHelpAct->setText(tr("Use Offline Help"));
     toggleOfflineHelpAct->setCheckable(true);
 
-    swWebpageAction = new QAction(this);
-    swWebpageAction->setText(tr("EddyPro Web Page"));
+    appWebpageAction = new QAction(this);
+    appWebpageAction->setText(tr("EddyPro Web Page"));
+
+    forumWebpageAction = new QAction(this);
+    forumWebpageAction->setText(tr("EddyPro Forum"));
 
     checkUpdateAction = new QAction(this);
     checkUpdateAction->setText(tr("Check for Updates..."));
@@ -1216,8 +1219,10 @@ void MainWindow::connectActions()
             this, &MainWindow::showStarterPdfHelp);
     connect(toggleOfflineHelpAct, &QAction::triggered,
             this, &MainWindow::setOfflineHelp);
-    connect(swWebpageAction, &QAction::triggered,
+    connect(appWebpageAction, &QAction::triggered,
             this, &WidgetUtils::openAppWebsite);
+    connect(forumWebpageAction, &QAction::triggered,
+            this, &WidgetUtils::openForumWebsite);
     connect(checkUpdateAction, &QAction::triggered,
             this, &MainWindow::showUpdateDialog);
     connect(aboutAction, &QAction::triggered,
@@ -1277,7 +1282,8 @@ void MainWindow::createMenus()
     helpMenu->addAction(starterPdfHelpAction);
     helpMenu->addAction(toggleOfflineHelpAct);
     helpMenu->addSeparator();
-    helpMenu->addAction(swWebpageAction);
+    helpMenu->addAction(appWebpageAction);
+    helpMenu->addAction(forumWebpageAction);
     helpMenu->addAction(checkUpdateAction);
     helpMenu->addSeparator();
     helpMenu->addAction(aboutAction);
@@ -4086,7 +4092,6 @@ void MainWindow::minimizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     mainWidget_->welcomePage()->updateWelcomePage(true);
-//    mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
 
     configState_.general.recentnum = 2;
 }
@@ -4098,7 +4103,6 @@ void MainWindow::maximizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     mainWidget_->welcomePage()->updateWelcomePage(false);
-//   mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
 
     updateMenuActionStatus(currentPage());
 

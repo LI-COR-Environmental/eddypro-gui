@@ -102,7 +102,6 @@ private slots:
     void supportItemRequested(QListWidgetItem* item);
     void updateRecentList();
     void openToviHomepage();
-    void openForumFeedback();
     void onlineHelpTrigger_1();
 
 signals:
