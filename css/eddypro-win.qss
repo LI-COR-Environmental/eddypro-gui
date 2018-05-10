@@ -1077,6 +1077,11 @@ QLabel[groupLabel="true"] {
     margin-bottom: 5px;
 }
 
+QLabel[toviAds="true"] {
+    font-size: 12px;
+    font-style: italic;
+}
+
 /*QLabel[groupLabel="true"] {
     color: #007FBD;
     font-size: 12px;
