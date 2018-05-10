@@ -143,9 +143,7 @@ namespace Defs
     const auto APP_NAME_UCASE = QStringLiteral("EDDYPRO");
     const auto ORG_DOMAIN     = QStringLiteral("licor.com");
     const auto ORG_NAME       = QStringLiteral("LI-COR");
-    const auto APP_URL
-        = QStringLiteral("http://www.licor.com/env/products/"
-                         "eddy_covariance/eddypro.html");
+    const auto APP_URL        = QStringLiteral("http://www.licor.com/eddypro/");
     const auto CALIBRATION_API_URL
         = QStringLiteral("http://envprod.licor.com:8080/api/2012-04/instruments/");
 
