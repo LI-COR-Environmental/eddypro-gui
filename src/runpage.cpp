@@ -122,6 +122,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     toviLabel = new ClickLabel;
     toviLabel->setProperty("toviLabel", true);
     toviLabel->setProperty("toviThinLabel", false);
+    toviLabel->setStyleSheet(QStringLiteral("ClickLabel {margin-left: -15px; }"));
     connect(toviLabel, &ClickLabel::clicked,
             this, &RunPage::openToviHomepage);
 

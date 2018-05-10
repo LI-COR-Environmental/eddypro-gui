@@ -940,7 +940,7 @@ ClickLabel[toviThinLabel="true"] {
     image: url(:/icons/tovi-thin-ad-normal);
     min-width: 305px;
     min-height: 108px;
-    margin-left: -10px;
+    margin-left: -15px;
     padding-left: 0px;
 }
 

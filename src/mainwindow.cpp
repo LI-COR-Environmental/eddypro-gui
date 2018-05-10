@@ -179,7 +179,7 @@ MainWindow::MainWindow(const QString& filename,
     setCentralWidget(mainWidget_);
 
     //
-    setMinimumSize(800, 600);
+    setMinimumSize(800, 666);
 
     connectActions();
 
@@ -4066,7 +4066,10 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QSize widgetSize = event->size();
     QSize widgetOldSize = event->oldSize();
 
-    if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
+    qDebug() << "size" << widgetSize;
+    qDebug() << "old size" << widgetOldSize;
+
+    if (widgetSize.width() <= 1200 || widgetSize.height() <= 900)
     {
         minimizeGui();
     }
