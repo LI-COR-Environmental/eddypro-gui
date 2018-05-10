@@ -52,14 +52,14 @@ class QStringLiteral;
 namespace Defs
 {
     const auto APP_VERSION = 0x060100;
-    const auto APP_VERSION_STR = QStringLiteral("6.2.3");
-    const auto APP_STAGE_STR = QStringLiteral("-rc1"); // -rc6
+    const auto APP_VERSION_STR = QStringLiteral("6.2.2");
+    const auto APP_STAGE_STR = QStringLiteral(""); // -rc1
 
     const auto PROJECT_FILE_VERSION = 0x040402;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.3");
 
     const auto METADATA_FILE_VERSION = 0x030201;
-    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
+    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.2");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 5.3.0 x86_32 on Windows<sup>&reg;</sup> 10");
     const auto MAC_COMPILER = QStringLiteral("Apple LLVM 9.1.0 (clang-902.0.39.1) x86_64 on macOS<sup>&reg;</sup> 10.13.4");
