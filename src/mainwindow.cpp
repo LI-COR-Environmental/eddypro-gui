@@ -4092,6 +4092,7 @@ void MainWindow::minimizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     mainWidget_->welcomePage()->updateWelcomePage(true);
+    mainWidget_->runPage()->updateRunPage(true);
 
     configState_.general.recentnum = 2;
 }
@@ -4103,6 +4104,7 @@ void MainWindow::maximizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     mainWidget_->welcomePage()->updateWelcomePage(false);
+    mainWidget_->runPage()->updateRunPage(false);
 
     updateMenuActionStatus(currentPage());
 

@@ -120,7 +120,8 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     clearErrorEditButton->setMaximumWidth(clearErrorEditButton->sizeHint().width());
 
     toviLabel = new ClickLabel;
-    toviLabel->setProperty("toviThinLabel", true);
+    toviLabel->setProperty("toviLabel", true);
+    toviLabel->setProperty("toviThinLabel", false);
     connect(toviLabel, &ClickLabel::clicked,
             this, &RunPage::openToviHomepage);
 
@@ -1595,4 +1596,22 @@ void RunPage::openOutputDir()
 void RunPage::openToviHomepage()
 {
     QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
+}
+
+void RunPage::updateRunPage(bool small)
+{
+    QList<WidgetUtils::PropertyList> toviAdProp;
+
+    if (small)
+    {
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", false)
+                   << WidgetUtils::PropertyList("toviThinLabel", true);
+    }
+    else
+    {
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", true)
+                   << WidgetUtils::PropertyList("toviThinLabel", false);
+    }
+
+    WidgetUtils::updatePropertyListAndStyle(toviLabel, toviAdProp);
 }

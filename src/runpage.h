@@ -53,6 +53,7 @@ public:
     bool resumeRun(Defs::CurrRunStatus mode);
     void stopRun();
     void updateSmartfluxBar();
+    void updateRunPage(bool small);
 
 public slots:
     void resetBuffer();
