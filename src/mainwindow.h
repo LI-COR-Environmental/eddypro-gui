@@ -262,7 +262,7 @@ private:
     QAction *runAdvancedAction;
     QAction *runRetrieverAction;
     QAction *stopAction;
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     QAction *toggleFullScreenAction;
 //#endif
     QAction *toggleStatusbarAct;
@@ -275,7 +275,8 @@ private:
     QAction *starterPdfHelpAction;
     QAction *toggleOfflineHelpAct;
     QAction *whatsHelpAction;
-    QAction* swWebpageAction;
+    QAction* appWebpageAction;
+    QAction* forumWebpageAction;
     QAction* checkUpdateAction;
     QAction *aboutAction;
     QAction *aboutQtAction;

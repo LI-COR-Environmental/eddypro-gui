@@ -86,7 +86,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
 
     lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);

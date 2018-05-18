@@ -34,7 +34,7 @@ class CalibrationAPI : public QObject
     Q_OBJECT
 
 public:
-    explicit CalibrationAPI(QObject *parent = 0);
+    explicit CalibrationAPI(QObject *parent = nullptr);
 
     void getCalibrationInfo(const QString &serialNumber);
     void getCalibrationFile(const QString &fileUrl);

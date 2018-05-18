@@ -888,7 +888,12 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_10()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_11()))
                                 || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_12()))
-                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_13()));
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_13()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_14()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_15()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_16()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_17()))
+                                || (instrument.contains(AnemDesc::getANEM_MODEL_STRING_18()));
         }
     }
 

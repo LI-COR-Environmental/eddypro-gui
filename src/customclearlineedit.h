@@ -33,7 +33,7 @@ class CustomClearLineEdit : public CustomLineEdit
     Q_OBJECT
 
 public:
-    explicit CustomClearLineEdit(QWidget *parent = 0);
+    explicit CustomClearLineEdit(QWidget *parent = nullptr);
 
     void setDisconnectedAction() const;
 

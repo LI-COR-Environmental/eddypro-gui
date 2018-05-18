@@ -10,6 +10,7 @@ macx {
     # 10.10 = yosemite
     # 10.11 = el capitan
     # 10.12 = sierra
+    # 10.13 = high sierra
 #    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
 #    QMAKE_MAC_SDK = macosx
 #    QMAKE_MAC_SDK.macosx.version = 10.12

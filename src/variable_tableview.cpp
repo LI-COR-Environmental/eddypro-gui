@@ -151,6 +151,7 @@ void VariableTableView::closeEditor(QWidget *editor, QAbstractItemDelegate::EndE
 // NOTE: to finish
 void VariableTableView::hHeaderClicked(int section)
 {
+    Q_UNUSED(section)
     clearSelection();
 }
 

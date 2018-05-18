@@ -33,7 +33,7 @@ class CustomLineEdit : public QLineEdit
     Q_OBJECT
 
 public:
-    explicit CustomLineEdit(QWidget *parent = 0);
+    explicit CustomLineEdit(QWidget *parent = nullptr);
 
     QIcon icon() const;
     void setIcon(const QIcon &icon);

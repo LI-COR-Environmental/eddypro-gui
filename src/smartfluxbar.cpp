@@ -54,7 +54,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 {
     auto smartfluxLogo = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-white"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     smartfluxLogo->setPixmap(pixmap);
@@ -78,7 +78,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
     closeButton->setToolTip(tr("Click to exit SMARTFlux configuration mode. "
                                "You can enter SMARTFlux configuration mode "
                                "under the File menu or with ")
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
                                + Defs::MAC_COMMAND_KEY + tr("+F."));
 #else
                                + tr("Ctrl+F."));
@@ -101,7 +101,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 
     setToolTip(tr("EddyPro is in SMARTFlux "
                   "configuration mode (")
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
                                + Defs::MAC_COMMAND_KEY + tr("+F to exit)."));
 #else
                                + tr("Ctrl+F to exit)."));
@@ -311,7 +311,7 @@ void SmartFluxBar::createPackage()
     // TODO: use a std::unique_ptr
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->close();
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     if (cpDialog_)
     {
         delete cpDialog_;
@@ -347,7 +347,7 @@ void SmartFluxBar::showCreatePackageDialog()
 
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     cpDialog_->refresh();
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     makeCreatePackageDialog();
 #endif
 

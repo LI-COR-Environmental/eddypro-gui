@@ -113,10 +113,18 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     open_output_dir->setText(tr("Open output directory"));
     open_output_dir->setProperty("commonButton2", true);
     open_output_dir->setMaximumWidth(200);
+    open_output_dir->setStyleSheet(QStringLiteral("QPushButton {margin-left: 0px; }"));
 
     auto clearErrorEditButton = new QPushButton(tr("Clear"));
     clearErrorEditButton->setProperty("mdButton", true);
     clearErrorEditButton->setMaximumWidth(clearErrorEditButton->sizeHint().width());
+
+    toviLabel = new ClickLabel;
+    toviLabel->setProperty("toviLabel", true);
+    toviLabel->setProperty("toviThinLabel", false);
+    toviLabel->setStyleSheet(QStringLiteral("ClickLabel {margin-left: -15px; }"));
+    connect(toviLabel, &ClickLabel::clicked,
+            this, &RunPage::openToviHomepage);
 
     auto progressLayout = new QGridLayout;
     progressLayout->addWidget(runModeIcon_, 0, 0, 1, 1);
@@ -131,11 +139,12 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     progressLayout->addWidget(fileProgressLabel_, 7, 1, Qt::AlignTop);
     progressLayout->addWidget(errorEdit_, 8, 1, 1, 2);
     progressLayout->addWidget(pauseResumeLabel_, 9, 1);
-    progressLayout->addWidget(open_output_dir, 10, 1);
     progressLayout->addWidget(clearErrorEditButton, 9, 2, Qt::AlignRight);
+    progressLayout->addWidget(open_output_dir, 10, 1);
+    progressLayout->addWidget(toviLabel, 11, 1, Qt::AlignLeft);
     progressLayout->setColumnStretch(2, 2);
     progressLayout->setRowStretch(8, 2);
-    progressLayout->setRowStretch(11, 2);
+    progressLayout->setRowStretch(12, 2);
     progressLayout->setRowMinimumHeight(0, 42);   // = runModeIcon_.width()
     progressLayout->setColumnMinimumWidth(0, 42); // > runModeIcon_.height()
     progressLayout->setHorizontalSpacing(6);
@@ -1583,4 +1592,27 @@ int RunPage::updateETC(int* mean_processing_time,
 void RunPage::openOutputDir()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(ecProject_->generalOutPath()));
+}
+
+void RunPage::openToviHomepage()
+{
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
+}
+
+void RunPage::updateRunPage(bool small)
+{
+    QList<WidgetUtils::PropertyList> toviAdProp;
+
+    if (small)
+    {
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", false)
+                   << WidgetUtils::PropertyList("toviThinLabel", true);
+    }
+    else
+    {
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", true)
+                   << WidgetUtils::PropertyList("toviThinLabel", false);
+    }
+
+    WidgetUtils::updatePropertyListAndStyle(toviLabel, toviAdProp);
 }

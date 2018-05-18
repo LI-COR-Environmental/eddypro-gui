@@ -57,8 +57,8 @@ class ClickLabel : public QLabel
     Q_ENUMS(HeaderData)
 
 public:
-    explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
-    explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
+    explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = nullptr);
+    explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = nullptr);
     explicit ClickLabel(const ClickLabel& clabel);
     ClickLabel& operator=(const ClickLabel& clabel);
     ~ClickLabel();

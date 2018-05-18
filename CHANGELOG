@@ -1,6 +1,11 @@
-6.2.2 (2018-01-12)
+6.2.2 (2018-05-11)
+
+    Engine
+    - Add: support for Young 81000V, 81000RE, 81000VRE sonic anemometers.
 
     GUI
+    - Add: support for Young 81000V, 81000RE, 81000VRE sonic anemometers.
+    - Add: references to the Tovi platform.
     - Fix: Raw File Settings persistency.
     - Fix: local help not showing.
 

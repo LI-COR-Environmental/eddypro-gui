@@ -16,7 +16,7 @@ echo "[pwd: $PWD]"
 
 echo "[FRAMEWORKS_DIR: $FRAMEWORKS_DIR]"
 
-QUAZIP_BUILD_DIR="build-quazip-0.7.3-qt-5.10.0-clang-9.0.0-x86_64"
+QUAZIP_BUILD_DIR="build-quazip-0.7.3-qt-5.10.1-clang-9.1.0-x86_64"
 echo "[QUAZIP_BUILD_DIR: $QUAZIP_BUILD_DIR]"
 
 echo "Create framework dir in the app bundle..."

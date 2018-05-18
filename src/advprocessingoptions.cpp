@@ -36,6 +36,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QVBoxLayout>
+#include <QDesktopServices>
 
 #include <fstream>
 #include <iostream>
@@ -89,7 +90,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     uOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     uOffsetSpin->setMinimumWidth(uOffsetSpin->sizeHint().width() * 1.3);
-#elif defined (Q_OS_DARWIN)
+#elif defined (Q_OS_MACOS)
     uOffsetSpin->setMinimumWidth(102);
 #endif
     uOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -105,7 +106,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     vOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     vOffsetSpin->setMinimumWidth(vOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     vOffsetSpin->setMinimumWidth(102);
 #endif
     vOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -121,7 +122,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     wOffsetSpin->setMinimumWidth(wOffsetSpin->sizeHint().width() * 1.3);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     wOffsetSpin->setMinimumWidth(102);
 #endif
     wOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -391,6 +392,23 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qBox_2->addWidget(questionMark_4);
     qBox_2->addStretch();
 
+//
+    auto toviLogo = new QPushButton;
+    toviLogo->setObjectName(QStringLiteral("toviLogoImg"));
+    connect(toviLogo, &QPushButton::clicked,
+            this, &AdvProcessingOptions::openToviHomepage);
+
+    auto toviAdsText = new QLabel(tr("For more advanced footprint tools and visualization, "
+                                     "try <a href=\"https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads\">Tovi</a>"));
+    toviAdsText->setProperty("toviAds", true);
+    toviAdsText->setOpenExternalLinks(true);
+
+    auto toviBox = new QHBoxLayout;
+    toviBox->addWidget(toviLogo);
+    toviBox->addWidget(toviAdsText);
+    toviBox->addStretch();
+
+//
     auto settingsLayout = new QGridLayout;
     settingsLayout->addWidget(rawProcessingTitle, 0, 0);
     settingsLayout->addLayout(qBox_1, 1, 0, 1, 2);
@@ -442,7 +460,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(fpCheckBox, 24, 0);
     settingsLayout->addWidget(fpLabel, 24, 1, Qt::AlignRight);
     settingsLayout->addWidget(fpMethodCombo, 24, 2);
-    settingsLayout->setRowStretch(25, 1);
+    settingsLayout->addLayout(toviBox, 25, 0, 1, -1);
+    settingsLayout->setRowStretch(26, 1);
     settingsLayout->setColumnStretch(4, 1);
 
 //    auto overallFrame = new QWidget;
@@ -1760,4 +1779,9 @@ void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
     cal.h2o_4_inv = h2o_inv_coeffs.at(4);
     cal.h2o_5_inv = h2o_inv_coeffs.at(5);
     cal.h2o_6_inv = h2o_inv_coeffs.at(6);
+}
+
+void AdvProcessingOptions::openToviHomepage()
+{
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
 }

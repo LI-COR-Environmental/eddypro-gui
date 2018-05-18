@@ -58,7 +58,7 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
     QString currentModel = index.model()->data(index.model()->index(AnemModel::MODEL, index.column())).toString();
 
     // can only edit name on blank column
-    if (index.column() >= index.model()->columnCount()) return 0;
+    if (index.column() >= index.model()->columnCount()) return nullptr;
 
     // different kind of editor for each row
     switch (index.row())
@@ -233,7 +233,7 @@ QWidget *AnemDelegate::createEditor(QWidget* parent,
           return dspin;
         }
         default:
-          return 0;
+          return nullptr;
     }
 }
 
