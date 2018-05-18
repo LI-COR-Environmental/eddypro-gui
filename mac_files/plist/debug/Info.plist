@@ -32,7 +32,9 @@
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.education</string>
     <key>LSMinimumSystemVersion</key>
-    <string>10.7</string>
+    <string>10.9</string>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
 
     <key>CFBundleDocumentTypes</key>
     <array>

@@ -661,6 +661,7 @@ bool extractDocs(const QString& currentDir)
     auto docDir = currentDir
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
+    qDebug() << "docDir" << docDir;
 
     // skip if already extracted
     if (FileUtils::existsPath(docDir))
@@ -671,6 +672,7 @@ bool extractDocs(const QString& currentDir)
     auto docArchive = docDir
                       + QStringLiteral(".")
                       + Defs::ZIP_NATIVE_DATA_FILE_EXT;
+    qDebug() << "docArchive" << docArchive;
 
     if (!QFile::exists(docArchive))
     {
