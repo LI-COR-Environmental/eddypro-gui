@@ -35,7 +35,6 @@ HEADERS += \
     src/ecinidefs.h \
     src/ecproject.h \
     src/ecprojectstate.h \
-    src/faderwidget.h \
     src/fileutils.h \
     src/infomessage.h \
     src/irga_delegate.h \
@@ -139,7 +138,6 @@ SOURCES +=  \
     src/dlsitetab.cpp \
     src/docchooser.cpp \
     src/ecproject.cpp \
-    src/faderwidget.cpp \
     src/fileutils.cpp \
     src/infomessage.cpp \
     src/irga_delegate.cpp \

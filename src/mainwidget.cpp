@@ -49,9 +49,7 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     projectPage_(nullptr),
     basicSettingsPage_(nullptr),
     advancedSettingsPage_(nullptr),
-    runPage_(nullptr),
-    faderWidget(nullptr),
-    fadingOn(true)
+    runPage_(nullptr)
 {
     // stacked widget # 0
     welcomePage_ = new WelcomePage(this, ecProject_, configState_);
@@ -86,9 +84,6 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     mainWidgetLayout->addWidget(runPage_);
 
     setLayout(mainWidgetLayout);
-
-    connect(mainWidgetLayout, &QStackedLayout::currentChanged,
-            this, &MainWidget::fadeInWidget);
 
     // from MainWindow
     connect(static_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
@@ -148,20 +143,6 @@ Defs::CurrPage MainWidget::currentPage()
 bool MainWidget::smartFluxCloseRequest()
 {
     return WidgetUtils::okToCloseSmartFlux(this);
-}
-
-void MainWidget::fadeInWidget(int index)
-{
-    if (fadingOn)
-    {
-        if (faderWidget)
-        {
-            faderWidget->close();
-        }
-        faderWidget = new FaderWidget(mainWidgetLayout->widget(index));
-        faderWidget->setFadeDuration(200);
-        faderWidget->start();
-    }
 }
 
 // update smartflux bar visibility on all the subpages

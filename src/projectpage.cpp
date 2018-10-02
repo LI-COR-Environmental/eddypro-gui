@@ -66,8 +66,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     configState_(config),
     helpGroup_(nullptr),
     dlIniDialog_(nullptr),
-    faderWidget_(nullptr),
-    fadingOn_(true),
     isMetadataEditorOn_(false),
     previousFileType_(0),
     currentFileType_(0),
@@ -354,7 +352,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     connect(fileTypeRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateUseMetadataFile_1(int)));
     connect(fileTypeRadioGroup, SIGNAL(buttonClicked(int)),
-            this, SLOT(fadeInWidget(int)));
+            this, SLOT(selectWidget(int)));
 
     connect(tobSettingsCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(tobSettingsUpdate(int)));
@@ -455,38 +453,27 @@ void ProjectPage::createMetadataEditor()
     metadataTab->setCurrentIndex(0);
 }
 
-void ProjectPage::fadeInWidget(int filetype)
+void ProjectPage::selectWidget(int filetype)
 {
     Defs::RawFileType type
             = static_cast<Defs::RawFileType>(filetype);
     Defs::RawFileType previousType
             = static_cast<Defs::RawFileType>(previousFileType_);
 
-    if (fadingOn_ && (filetype != previousFileType_))
+    if (filetype != previousFileType_)
     {
-        if (faderWidget_)
-            faderWidget_->close();
-
         if (type == Defs::RawFileType::GHG)
         {
             if (!isMetadataEditorOn_)
             {
-                if (!faderWidget_)
-                {
-                    faderWidget_ = new FaderWidget(helpGroup_);
-                    faderWidget_->setFadeDuration(200);
-                }
-                faderWidget_->start();
+                helpGroup_->show();
+                dlIniDialog_->hide();
             }
         }
         else if (previousType == Defs::RawFileType::GHG)
         {
-            if (!faderWidget_)
-            {
-                faderWidget_ = new FaderWidget(dlIniDialog_);
-                faderWidget_->setFadeDuration(200);
-            }
-            faderWidget_->start();
+            helpGroup_->hide();
+            dlIniDialog_->show();
         }
     }
 }
@@ -505,7 +492,6 @@ void ProjectPage::metadataFileSelected(const QString& file_path)
         altMetadataFileRadio->setChecked(true);
         isMetadataEditorOn_ = true;
         metadataTab->setCurrentIndex(1);
-        fadeInWidget(1);
     }
 }
 

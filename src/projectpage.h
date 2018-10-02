@@ -27,8 +27,6 @@
 #include <QPointer>
 #include <QWidget>
 
-#include "faderwidget.h"
-
 class QAction;
 class QButtonGroup;
 class QCheckBox;
@@ -124,8 +122,6 @@ private:
 
     MyTabWidget* metadataEditors;
 
-    QPointer<FaderWidget> faderWidget_;
-    bool fadingOn_;
     bool isMetadataEditorOn_;
     int previousFileType_;
     int currentFileType_;
@@ -143,7 +139,7 @@ private slots:
 
     void fileTypeRadioClicked_1(int fileType);
     void fileTypeRadioClicked_2(int fileType);
-    void fadeInWidget(int filetype);
+    void selectWidget(int filetype);
     void metadataFileSelected(const QString& file_path);
     void onTitleLabelClicked();
     void updateMetadataFileBrowse(const QString &filename);

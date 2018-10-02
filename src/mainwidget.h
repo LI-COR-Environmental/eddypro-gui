@@ -28,7 +28,6 @@
 #include <QWidget>
 
 #include "defs.h"
-#include "faderwidget.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \file src/mainwidget.h
@@ -110,12 +109,6 @@ private:
     BasicSettingsPage* basicSettingsPage_;
     AdvancedSettingsPage* advancedSettingsPage_;
     RunPage* runPage_;
-
-    QPointer<FaderWidget> faderWidget;
-    bool fadingOn;
-
-private slots:
-    void fadeInWidget(int);
 
 signals:
     void openProjectRequest(QString);
