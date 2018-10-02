@@ -47,7 +47,7 @@ CONFIG(debug, debug|release) {
 
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.3/quazip"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.6/quazip"
 
     win32 {
         # mingw warnings
@@ -55,7 +55,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_67_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
@@ -124,4 +124,4 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 
 # workaround for QTBUG-34424
-TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_67_0/*
+TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0/*
