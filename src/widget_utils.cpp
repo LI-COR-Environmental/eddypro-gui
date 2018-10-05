@@ -46,8 +46,6 @@
 
 #include <memory>
 
-#include "QScienceSpinBox.h"
-
 #include "configstate.h"
 #include "dbghelper.h"
 #include "defs.h"
@@ -575,14 +573,4 @@ QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
     label->setText(text);
     label->setProperty("blueLabel", true);
     return label;
-}
-
-QScienceSpinBox* WidgetUtils::createCalibrationSpinbox(QWidget *parent)
-{
-    auto spinbox = new QScienceSpinBox(parent);
-    spinbox->setRange(std::numeric_limits<double>::lowest(),
-                            std::numeric_limits<double>::max());
-    spinbox->setDecimals(7);
-    spinbox->setAccelerated(true);
-    return spinbox;
 }

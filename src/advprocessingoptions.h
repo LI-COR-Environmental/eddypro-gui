@@ -51,7 +51,6 @@ class QSpinBox;
 class QStackedWidget;
 class QTabWidget;
 
-class CalibrationDialog;
 class ClickLabel;
 struct ConfigState;
 class CustomResetLineEdit;
@@ -60,10 +59,6 @@ class EcProject;
 class PlanarFitSettingsDialog;
 class RichTextCheckBox;
 class TimeLagSettingsDialog;
-
-#include "calibration.h"
-#include "calibrationapi.h"
-#include "calibrationinfo.h"
 
 /// \class AdvlProcessingOptions
 /// \brief Class representing the 'Settings' tab in the 'RawProcess' page
@@ -80,7 +75,6 @@ public:
 
     PlanarFitSettingsDialog* getPlanarFitSettingsDialog() { return pfDialog_; }
     TimeLagSettingsDialog* getTimeLagSettingsDialog() { return tlDialog_; }
-    CalibrationDialog* getCalibrationDialog() { return calibDialog_; }
 
 public slots:
     void reset();
@@ -129,17 +123,12 @@ private slots:
 
     void showPfSettingsDialog();
     void showTlSettingsDialog();
-    void showCalibDialog();
 
     void updateTooltip(int i);
 
     void onlineHelpTrigger_1();
     void onlineHelpTrigger_4();
     void onlineHelpTrigger_11();
-
-    void fetchCalibration();
-    void parseCalibrationInfo(const QByteArray &data);
-    void parseCalibrationFile();
 
     void openToviHomepage();
 
@@ -153,13 +142,10 @@ private:
 
     void createPfSettingsDialog();
     void createTlSettingsDialog();
-    void createCalibDialog();
     void createBurbaParamItems();
     void createQuestionMark();
     bool requestBurbaSettingsReset();
     void setBurbaDefaultValues();
-
-    void computeInverseCoefficients(Calibration &cal);
 
     QLabel* windOffsetLabel;
     ClickLabel* uLabel;
@@ -245,14 +231,6 @@ private:
     CustomResetLineEdit* mNightSpar3;
     CustomResetLineEdit* mNightSpar4;
 
-    QRadioButton* noDriftCorrectionRadio;
-    QRadioButton* linearDriftCorrectionRadio;
-    QRadioButton* rssiDriftCorrectionRadio;
-    QButtonGroup* driftCorrectionRadioGroup;
-    QPushButton* retrieveCalibrationButton;
-    QPushButton* editCalibrationButton;
-    QLineEdit* serialNumberEdit;
-
     QPushButton* questionMark_1;
     QPushButton* questionMark_4;
     QPushButton* questionMark_11;
@@ -263,14 +241,8 @@ private:
 
     PlanarFitSettingsDialog* pfDialog_{};
     TimeLagSettingsDialog* tlDialog_{};
-    CalibrationDialog* calibDialog_{};
 
     DetrendMethod previousDetrendMethod_{DetrendMethod::BlockAverage};
-
-    CalibrationAPI* calibration_api_;
-    CalibrationInfo calibration_info_;
-    QString calibration_file_;
-    Calibration calibration_;
 };
 
 #endif // ADVPROCESSINGOPTIONS_H
