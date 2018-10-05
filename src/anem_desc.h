@@ -71,13 +71,13 @@ public:
 
     AnemDesc();
 
-    AnemDesc(const QString& manufacturer,
-             const QString& model,
-             const QString& swVersion,
-             const QString& id,
+    AnemDesc(QString manufacturer,
+             QString model,
+             QString swVersion,
+             QString id,
              qreal height,
-             const QString& windFormat,
-             const QString& northAlignment,
+             QString windFormat,
+             QString northAlignment,
              qreal northOffset,
              qreal nSeparation,
              qreal eSeparation,
@@ -93,8 +93,6 @@ public:
     AnemDesc& operator=(const AnemDesc& anem);
     bool operator==(const AnemDesc& anem) const;
     bool operator<(const AnemDesc& anem) const;
-
-    ~AnemDesc();
 
     // get/set manufacturer
     const QString& manufacturer() const;
@@ -179,7 +177,7 @@ public:
     // return a list of boolean strings
     static const QStringList yesNoStringList();
 
-    static bool isGoodAnemometer(AnemDesc anem);
+    static bool isGoodAnemometer(const AnemDesc& anem);
 
 private:
     QString manufacturer_;

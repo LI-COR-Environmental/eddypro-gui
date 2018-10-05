@@ -65,14 +65,14 @@ public:
     static const QString getDEC_STRING();
 
     SpecGroup();
-    SpecGroup(const QString &start, const QString &stop);
+    SpecGroup(QString start, QString stop);
     SpecGroup(const SpecGroup &sg);
 
     SpecGroup& operator=(const SpecGroup &sg);
     bool operator==(const SpecGroup &sg) const;
     bool operator<(const SpecGroup &sg) const;
 
-    ~SpecGroup();
+    ~SpecGroup() = default;
 
     // get/set start
     const QString &start() const;

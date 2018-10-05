@@ -40,8 +40,7 @@ ClickLabel::ClickLabel(const QString& text, QWidget* parent, Qt::WindowFlags fla
 }
 
 ClickLabel::ClickLabel(const ClickLabel& clabel)
-    : QLabel(),
-      headerData_(NoHeader)
+    : headerData_(NoHeader)
 {
     Q_UNUSED(clabel)
 }
@@ -55,9 +54,6 @@ ClickLabel &ClickLabel::operator=(const ClickLabel &clabel)
     return *this;
 }
 
-ClickLabel::~ClickLabel()
-{}
-
 void ClickLabel::mousePressEvent(QMouseEvent* event)
 {
     QWidget::mousePressEvent(event);
@@ -67,7 +63,7 @@ void ClickLabel::mousePressEvent(QMouseEvent* event)
 void ClickLabel::mouseReleaseEvent(QMouseEvent* event)
 {
     QWidget::mouseReleaseEvent(event);
-    if (time.elapsed() < qApp->doubleClickInterval())
+    if (time.elapsed() < QApplication::doubleClickInterval())
         emit clicked();
 }
 

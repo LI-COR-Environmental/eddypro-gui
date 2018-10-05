@@ -58,10 +58,6 @@ VariableView::VariableView(QWidget *parent) :
     addAction(clearAction_);
 }
 
-VariableView::~VariableView()
-{
-}
-
 // Create and show context menu
 void VariableView::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -87,7 +83,7 @@ void VariableView::addVar()
 
     // cast the model(), but it's not stricly necessary because
     // model() already returns the setModel() assigned to the view instance
-    VariableModel *concreteModel = static_cast<VariableModel *>(model());
+    auto concreteModel = dynamic_cast<VariableModel *>(model());
 
     concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
@@ -104,12 +100,12 @@ void VariableView::removeVar()
     if (currCol == -1)
         currCol = lastCol;
 
-    static_cast<VariableModel *>(model())->removeColumns(currCol, 1, QModelIndex());
+    dynamic_cast<VariableModel *>(model())->removeColumns(currCol, 1, QModelIndex());
     updateGeometries();
     clearSelection();
 }
 
 int VariableView::varCount()
 {
-    return static_cast<VariableModel *>(model())->columnCount(QModelIndex());
+    return dynamic_cast<VariableModel *>(model())->columnCount(QModelIndex());
 }

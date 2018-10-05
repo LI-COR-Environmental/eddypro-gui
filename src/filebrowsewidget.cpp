@@ -44,10 +44,6 @@ FileBrowseWidget::FileBrowseWidget() :
             this, &LineEditAndBrowseWidget::pathSelected);
 }
 
-FileBrowseWidget::~FileBrowseWidget()
-{
-}
-
 void FileBrowseWidget::onButtonClick()
 {
     QString filename = QFileDialog::getOpenFileName(this,

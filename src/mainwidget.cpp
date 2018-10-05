@@ -86,12 +86,12 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     setLayout(mainWidgetLayout);
 
     // from MainWindow
-    connect(static_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
+    connect(dynamic_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
             basicSettingsPage_, SLOT(updateMetadataRead()));
     connect(this, SIGNAL(showSetPrototypeRequest()),
             basicSettingsPage_, SLOT(showSetPrototype()));
 
-    connect(static_cast<QMainWindow*>(parent), SIGNAL(checkMetadataOutputRequest()),
+    connect(dynamic_cast<QMainWindow*>(parent), SIGNAL(checkMetadataOutputRequest()),
             advancedSettingsPage_->advancedSettingPages(), SIGNAL(checkMetadataOutputRequest()));
 
     connect(projectPage_, SIGNAL(updateMetadataReadRequest()),
@@ -113,10 +113,6 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
             this, &MainWidget::newProjectRequest);
     connect(welcomePage_, &WelcomePage::checkUpdatesRequest,
             this, &MainWidget::checkUpdatesRequest);
-}
-
-MainWidget::~MainWidget()
-{
 }
 
 void MainWidget::setCurrentPage(Defs::CurrPage page)

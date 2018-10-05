@@ -205,10 +205,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
 
 RunPage::~RunPage()
 {
-    if (pauseResumeDelayTimer_)
-    {
-        delete pauseResumeDelayTimer_;
-    }
+    delete pauseResumeDelayTimer_;
 }
 
 void RunPage::startRun(Defs::CurrRunStatus mode)
@@ -369,10 +366,7 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
         QTimer::singleShot(1000, this, SLOT(pauseLabel()));
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 bool RunPage::resumeRun(Defs::CurrRunStatus mode)
@@ -428,10 +422,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
         QTimer::singleShot(1000, this, SLOT(resumeLabel()));
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 void RunPage::stopRun()
@@ -527,9 +518,8 @@ void RunPage::bufferData(QByteArray &data)
     // newline found
     if (lineList.at(0) != rxBuffer_)
     {
-        for (int i = 0; i < lineList.size(); ++i)
+        for (const auto& tempData : lineList)
         {
-            QByteArray tempData(lineList.at(i));
             data = cleanupEngineOutput(tempData);
             if (!data.isEmpty())
             {
@@ -767,8 +757,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         QDateTime toDate(currentPlanarFitDate, currentPlanarFitTime);
         toStr = toDate.toString(Qt::ISODate);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -872,8 +861,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         toStr = toDate.toString(Qt::ISODate);
 
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -968,8 +956,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         toStr = QLatin1String(cleanLine.mid(7, 16).constData());
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -1012,8 +999,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         mini_progress_bar_->setValue(1);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
 
         fileProgressLabel_->setText(tr("Parsing file"));
 
@@ -1028,8 +1014,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         main_progress_bar->setValue(++progressValue_);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
 
 #ifdef QT_DEBUG
         out << "Skipping to next averaging period";
@@ -1557,7 +1542,7 @@ void RunPage::updateMiniProgress()
         if (avrgPeriod == 0) ++avrgPeriod;
 
         // factor to scale speed of progression in respect of the standard 30 minutes
-        int progressFactor = static_cast<int>(lround(7.0 * 30.0 / avrgPeriod));
+        auto progressFactor = static_cast<int>(lround(7.0 * 30.0 / avrgPeriod));
 
         WidgetUtils::setProgressValue(mini_progress_bar_,
                                       mini_progress_bar_->value() + progressFactor);
@@ -1567,9 +1552,9 @@ void RunPage::updateMiniProgress()
 // Return ETC (Estimated Time to Completion) in msec and update the running average
 // of the processing time using a Simple Moving Average
 int RunPage::updateETC(int* mean_processing_time,
-                       const int current_processing_time,
-                       const int index,
-                       const int num_steps)
+                       int current_processing_time,
+                       int index,
+                       int num_steps)
 {
     Q_ASSERT(index != 0);
 

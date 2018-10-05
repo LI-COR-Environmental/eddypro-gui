@@ -41,7 +41,6 @@ class DlSiteTab : public QWidget {
 
 public:
     DlSiteTab(QWidget *parent, DlProject *dlProject);
-    virtual ~DlSiteTab();
 
     void reset();
     void refresh();
@@ -108,9 +107,9 @@ private:
     QLineEdit *longitudeEdit;
     bool decimalDegrees_;
 
-    QPushButton *questionMark_1;
-    QPushButton *questionMark_2;
-    QPushButton *questionMark_3;
+    QPushButton *questionMark_1 = nullptr;
+    QPushButton *questionMark_2 = nullptr;
+    QPushButton *questionMark_3 = nullptr;
 
     void createQuestionMark();
 

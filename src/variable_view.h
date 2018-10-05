@@ -33,8 +33,6 @@ class VariableView : public VariableTableView {
     Q_OBJECT
 public:
     explicit VariableView(QWidget *parent);
-    ~VariableView();
-
     int varCount();
 
 public slots:
@@ -42,7 +40,7 @@ public slots:
     void removeVar();
 
 private:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     QAction *addAction_;

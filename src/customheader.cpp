@@ -68,7 +68,7 @@ void CustomHeader::addSection(const QString &txt,
 
 void CustomHeader::onlineHelpTrigger()
 {
-    ClickLabel* cLabel = qobject_cast<ClickLabel *>(sender());
+    auto cLabel = qobject_cast<ClickLabel *>(sender());
 
     ClickLabel::HeaderData data = cLabel->headerData();
 

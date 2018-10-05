@@ -577,19 +577,19 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     spectraQaQcLabel->addStretch();
     auto settingsGroup1Label = new QHBoxLayout;
     settingsGroup1Label->addWidget(settingsGroupTitle_1);
-    settingsGroup1Label->addWidget(questionMark_11, 0, Qt::AlignRight | Qt::AlignVCenter);
+    settingsGroup1Label->addWidget(questionMark_2, 0, Qt::AlignRight | Qt::AlignVCenter);
     settingsGroup1Label->addStretch();
     auto lowFreqLabel = new QHBoxLayout;
     lowFreqLabel->addWidget(lowFreqTitle);
-    lowFreqLabel->addWidget(questionMark_22, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    lowFreqLabel->addWidget(questionMark_3, 0, Qt::AlignLeft | Qt::AlignVCenter);
     lowFreqLabel->addStretch();
     auto highFreqLabel = new QHBoxLayout;
     highFreqLabel->addWidget(highFreqTitle);
-    highFreqLabel->addWidget(questionMark_33, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    highFreqLabel->addWidget(questionMark_4, 0, Qt::AlignLeft | Qt::AlignVCenter);
     highFreqLabel->addStretch();
     auto assessmentHighFreqLabel= new QHBoxLayout;
     assessmentHighFreqLabel->addWidget(freqAttenuationTitle);
-    assessmentHighFreqLabel->addWidget(questionMark_44, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    assessmentHighFreqLabel->addWidget(questionMark_5, 0, Qt::AlignLeft | Qt::AlignVCenter);
     assessmentHighFreqLabel->addStretch();
 
     auto settingsLayout = new QGridLayout;
@@ -924,7 +924,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
                                     << horstCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -949,10 +949,6 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     }
 
     QTimer::singleShot(0, this, SLOT(reset()));
-}
-
-AdvSpectralOptions::~AdvSpectralOptions()
-{
 }
 
 void AdvSpectralOptions::setSmartfluxUI()
@@ -1907,28 +1903,28 @@ void AdvSpectralOptions::createQuestionMarks()
 {
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_11 = new QPushButton;
-    questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_22 = new QPushButton;
-    questionMark_22->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_33 = new QPushButton;
-    questionMark_33->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_44 = new QPushButton;
-    questionMark_44->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_55 = new QPushButton;
-    questionMark_55->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_2 = new QPushButton;
+    questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_4 = new QPushButton;
+    questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_5 = new QPushButton;
+    questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_6 = new QPushButton;
+    questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_11);
-    connect(questionMark_11, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_1);
-    connect(questionMark_22, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_2);
-    connect(questionMark_33, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_3);
-    connect(questionMark_44, &QPushButton::clicked,
+    connect(questionMark_5, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_4);
-    connect(questionMark_55, &QPushButton::clicked,
+    connect(questionMark_6, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_5);
 }
 
@@ -1964,7 +1960,7 @@ void AdvSpectralOptions::onlineHelpTrigger_5()
 
 void AdvSpectralOptions::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }

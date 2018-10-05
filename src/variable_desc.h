@@ -111,16 +111,16 @@ public:
     VariableDesc();
 
     VariableDesc(
-                 const QString& ignore,
-                 const QString& numeric,
-                 const QString& variable,
-                 const QString& instrument,
-                 const QString& measureType,
-                 const QString& inputUnit,
+                 QString  ignore,
+                 QString  numeric,
+                 QString  variable,
+                 QString  instrument,
+                 QString  measureType,
+                 QString  inputUnit,
                  qreal minValue,
                  qreal maxValue,
-                 const QString& conversionType,
-                 const QString& outputUnit,
+                 QString  conversionType,
+                 QString  outputUnit,
                  qreal aValue,
                  qreal bValue,
                  qreal nomTimelag,
@@ -134,7 +134,7 @@ public:
     bool operator==(const VariableDesc& fileDesc) const;
     bool operator<(const VariableDesc& fileDesc) const;
 
-    ~VariableDesc();
+    ~VariableDesc() = default;
 
     // get/set ignore
     const QString& ignore() const;

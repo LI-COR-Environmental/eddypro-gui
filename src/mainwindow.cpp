@@ -75,8 +75,8 @@
 #include "wheeleventfilter.h"
 #include "widget_utils.h"
 
-MainWindow::MainWindow(const QString& filename,
-                       const QString& appEnvPath,
+MainWindow::MainWindow(QString filename,
+                       QString appEnvPath,
                        CustomSplashScreen* splashscreen,
                        QWidget* parent,
                        Qt::WindowFlags flags) :
@@ -87,8 +87,8 @@ MainWindow::MainWindow(const QString& filename,
     configState_(ConfigState()),
     dlProject_(nullptr),
     ecProject_(nullptr),
-    currEcProjectFilename_(filename),
-    appEnvPath_(appEnvPath),
+    currEcProjectFilename_(std::move(filename)),
+    appEnvPath_(std::move(appEnvPath)),
     notificationTimer_(nullptr),
     newFlag_(true),
     modifiedFlag_(false),
@@ -267,25 +267,14 @@ MainWindow::MainWindow(const QString& filename,
 
 MainWindow::~MainWindow()
 {
-    if (notificationTimer_)
-    {
-        delete notificationTimer_;
-    }
-
-    if (aboutDialog)
-    {
-        delete aboutDialog;
-    }
+    delete notificationTimer_;
+    delete aboutDialog;
 
     if (engineProcess_->isRunning())
     {
         engineProcess_->processStop();
     }
-
-    if (engineProcess_)
-    {
-        delete engineProcess_;
-    }
+    delete engineProcess_;
 }
 
 void MainWindow::initialize()
@@ -532,31 +521,22 @@ bool MainWindow::openFile(const QString& filename)
                         }
                         return true;
                     }
-                    else
-                    {
-                        // load was unsuccessful
-                        WidgetUtils::warning(this,
-                                             tr("Load Project Error"),
-                                             tr("Unable to load the project."));
+                    // load was unsuccessful
+                    WidgetUtils::warning(this,
+                                         tr("Load Project Error"),
+                                         tr("Unable to load the project."));
 
-                        // close the current open project to prevent partial loading
-                        // of ec project settings (currently there is no roll-back
-                        // of the loadEcProject() function)
-                        fileClose();
-                        return false;
-                    }
-                }
-                // file not in native format
-                else
-                {
+                    // close the current open project to prevent partial loading
+                    // of ec project settings (currently there is no roll-back
+                    // of the loadEcProject() function)
+                    fileClose();
                     return false;
                 }
-            }
-            // file does not exist
-            else
-            {
+                // file not in native format
                 return false;
             }
+            // file does not exist
+            return false;
         }
     }
     else
@@ -574,7 +554,7 @@ bool MainWindow::openFile(const QString& filename)
 
 void MainWindow::fileRecent()
 {
-    QAction *action = qobject_cast<QAction *>(sender());
+    auto action = qobject_cast<QAction *>(sender());
     if (!action) { return; }
 
     QString fname = action->text();
@@ -614,7 +594,7 @@ void MainWindow::fileRecent()
 
 // Return true if it saved successfully, false if the operation was canceled
 // or if an error occurred.
-bool MainWindow::fileSave(const bool quiet)
+bool MainWindow::fileSave(bool quiet)
 {
     closeOpenDialogs();
 
@@ -622,37 +602,30 @@ bool MainWindow::fileSave(const bool quiet)
     {
         return fileSaveAs();
     }
-    else
+    if (!quiet)
     {
-        if (!quiet)
+        if (alertChangesWhileRunning())
         {
-            if (alertChangesWhileRunning())
-            {
-                showStatusTip(tr("Canceled..."));
-                return false;
-            }
-        }
-        if (saveFile(currentProjectFile()))
-        {
-            // successful in saving file
-            newFlag_ = false;
-            saveAction->setEnabled(false);
-            setCurrentProjectFile(currentProjectFile());
-            showStatusTip(tr("Project saved"));
-            return true;
-        }
-        else
-        {
-            // error in saving
-            WidgetUtils::warning(this,
-                                 tr("Save Project Error"),
-                                 tr("%1 was unable to save to %2")
-                                 .arg(Defs::APP_NAME)
-                                 .arg(currentProjectFile()));
-            showStatusTip(tr("Error in saving project"));
+            showStatusTip(tr("Canceled..."));
             return false;
         }
     }
+    if (saveFile(currentProjectFile()))
+    {
+        // successful in saving file
+        newFlag_ = false;
+        saveAction->setEnabled(false);
+        setCurrentProjectFile(currentProjectFile());
+        showStatusTip(tr("Project saved"));
+        return true;
+    }
+    // error in saving
+    WidgetUtils::warning(this,
+                         tr("Save Project Error"),
+                         tr("%1 was unable to save to %2")
+                         .arg(Defs::APP_NAME, currentProjectFile()));
+    showStatusTip(tr("Error in saving project"));
+    return false;
 }
 
 // Return true if it saved successfully, false if the operation was canceled
@@ -736,23 +709,18 @@ bool MainWindow::fileSaveAs(const QString& fileName)
             showStatusTip(tr("Project saved"));
             return true;
         }
-        else
-        {
-            // error in saving
-            WidgetUtils::warning(QApplication::activeWindow(),
-                                 tr("Save Project Error"),
-                                 tr("%1 was unable to save to %2")
-                                     .arg(Defs::APP_NAME)
-                                     .arg(QFileInfo(fileToSave).fileName()),
-                                 tr("Make sure the file is not in use "
-                                    "by another application."
-                                    "If the problem persists, contact "
-                                    "envsupport@licor.com ."));
-            showStatusTip(tr("Error in saving project"));
-            return false;
-        }
+        // error in saving
+        WidgetUtils::warning(QApplication::activeWindow(),
+                             tr("Save Project Error"),
+                             tr("%1 was unable to save to %2")
+                                 .arg(Defs::APP_NAME, QFileInfo(fileToSave).fileName()),
+                             tr("Make sure the file is not in use "
+                                "by another application."
+                                "If the problem persists, contact "
+                                "envsupport@licor.com ."));
+        showStatusTip(tr("Error in saving project"));
+        return false;
     }
-
     // fileToSave.isEmpty(), i.e. no file chosen
     showStatusTip(tr("Saving aborted"));
     return false;
@@ -2507,18 +2475,18 @@ void MainWindow::showGuidedModeMessages_2()
     }
 
     AnemDescList *adl = dlProject_->anems();
-    if (adl->size() > 0)
+    if (!adl->isEmpty())
     {
         QString anemModel = ecProject_->generalColMasterSonic();
         if (!anemModel.isEmpty())
         {
-            int anemIndex = anemModel.mid(anemModel.lastIndexOf(QLatin1Char('_')) + 1).toInt();
+            int anemIndex = anemModel.midRef(anemModel.lastIndexOf(QLatin1Char('_')) + 1).toInt();
 
             // check if valid index position in the list (i.e., 0 <= i < size())
             int i = anemIndex - 1;
             if (i >= 0 && i < adl->size())
             {
-                AnemDesc anem = adl->at(i);
+                const AnemDesc& anem = adl->at(i);
                 if (!anem.hasGoodTemp()
                     && dlProject_->hasOneFastTemperature()
                     && ecProject_->generalColTs() == 0)
@@ -2928,7 +2896,7 @@ void MainWindow::changeViewToolbarSeparators(Defs::CurrPage page)
     }
 }
 
-void MainWindow::fileOpenRequest(QString file)
+void MainWindow::fileOpenRequest(const QString& file)
 {
     if (configState_.project.smartfluxMode
             && !file.isEmpty())
@@ -3086,10 +3054,7 @@ int MainWindow::testBeforeRunningPassed(int step)
     {
         return QMessageBox::Cancel;
     }
-    else
-    {
-        return returnValue;
-    }
+    return returnValue;
 }
 
 void MainWindow::closeOpenDialogs()
@@ -3104,7 +3069,6 @@ void MainWindow::closeOpenDialogs()
             dialog->accept();
         }
     }
-//    DEBUG_FUNC_MSG(QString())
 }
 
 FileUtils::DateRange MainWindow::getCurrentDateRange()
@@ -3278,7 +3242,7 @@ void MainWindow::runExpress()
         if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Express);
@@ -3370,7 +3334,7 @@ void MainWindow::runAdvancedStep_1()
         if (ret == QMessageBox::Yes)
         {
             changePage(Defs::CurrPage::Run);
-            QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+            QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
             QString engine1FilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
             ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
@@ -3422,7 +3386,7 @@ void MainWindow::runAdvancedStep_2()
         if (testBeforeRunningPassed(1) == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_FCC);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
@@ -3505,7 +3469,7 @@ void MainWindow::runRetriever()
         if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Retriever);
@@ -3844,14 +3808,8 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
     {
         QDesktopServices::openUrl(QUrl::fromLocalFile(ecProject_->generalOutPath()));
     }
-    if (openOutDirButton)
-    {
-        delete openOutDirButton;
-    }
-    if (questionMark_1)
-    {
-        delete questionMark_1;
-    }
+    delete openOutDirButton;
+    delete questionMark_1;
 
     expressClicked_ = false;
     advancedClicked_ = false;
@@ -3967,10 +3925,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
         updateMenuActionStatus(currentPage());
         msgBox.exec();
     }
-    if (questionMark_1)
-    {
-        delete questionMark_1;
-    }
+    delete questionMark_1;
 
     expressClicked_ = false;
     advancedClicked_ = false;
@@ -4270,10 +4225,7 @@ bool MainWindow::testForPreviousData()
                 updateSpectraPathFromPreviousData(exFilePath);
                 break;
             }
-            else
-            {
-                qDebug() << "fuzzyCompare: FAIL";
-            }
+            qDebug() << "fuzzyCompare: FAIL";
         }
         else
         {

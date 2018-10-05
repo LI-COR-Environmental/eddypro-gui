@@ -65,7 +65,7 @@ public slots:
     void refresh();
 
 private slots:
-    void accept() Q_DECL_OVERRIDE;
+    void accept() override;
     void updateFormatEdit(int id);
     void updateFileList(const QString& file);
 

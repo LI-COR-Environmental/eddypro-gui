@@ -38,7 +38,6 @@ class RichTextCheckBox : public QWidget
     Q_OBJECT
 public:
     explicit RichTextCheckBox(QWidget *parent = nullptr);
-    ~RichTextCheckBox();
 
     HoverCheckBox* getCheckBox() { return checkBox; }
 
@@ -63,8 +62,8 @@ public slots:
     void setCheckState(Qt::CheckState state);
 
 protected:
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
 private slots:
     void triggerOnlineHelp();

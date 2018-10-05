@@ -71,7 +71,7 @@ public:
                          DlProject* dlProject,
                          EcProject* ecProject,
                          ConfigState* config);
-    ~AdvProcessingOptions();
+    ~AdvProcessingOptions() override;
 
     PlanarFitSettingsDialog* getPlanarFitSettingsDialog() { return pfDialog_; }
     TimeLagSettingsDialog* getTimeLagSettingsDialog() { return tlDialog_; }
@@ -232,8 +232,8 @@ private:
     CustomResetLineEdit* mNightSpar4;
 
     QPushButton* questionMark_1;
-    QPushButton* questionMark_4;
-    QPushButton* questionMark_11;
+    QPushButton* questionMark_2;
+    QPushButton* questionMark_3;
 
     DlProject* dlProject_;
     EcProject* ecProject_;

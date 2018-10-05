@@ -48,7 +48,7 @@ class CustomComboModel : public QStandardItemModel
 {
 public:
     explicit CustomComboModel(QObject* parent = nullptr);
-    Qt::ItemFlags flags(const QModelIndex& index) const;
+    Qt::ItemFlags flags(const QModelIndex& index) const override;
 };
 
 #endif // CUSTOMCOMBOMODEL_H

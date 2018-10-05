@@ -33,13 +33,12 @@ class DirBrowseWidget : public LineEditAndBrowseWidget
 
 public:
     DirBrowseWidget();
-    ~DirBrowseWidget();
 
     bool isReadOnly() const;
     void setReadOnly(bool on);
 
 private slots:
-    void onButtonClick();
+    void onButtonClick() override;
 };
 
 #endif  // DIRBROWSEWIDGET_H

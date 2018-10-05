@@ -198,7 +198,8 @@ SOURCES +=  \
     src/downloadmanager.cpp \
     src/openfilefilter.cpp \
     src/qmlwidget.cpp \
-    src/spinner.cpp
+    src/spinner.cpp \
+    src/mystyle.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

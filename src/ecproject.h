@@ -51,10 +51,8 @@ class EcProject : public QObject
     Q_OBJECT
 
 public:
-    EcProject(QObject *parent, const ProjConfigState& project_config);
+    EcProject(QObject *parent, ProjConfigState  project_config);
     EcProject(const EcProject &project);
-
-    virtual ~EcProject();
 
     EcProject& operator=(const EcProject &project);
 

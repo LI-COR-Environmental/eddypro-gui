@@ -72,12 +72,11 @@ bool StringUtils::isISODateTimeString(const QString& s)
     QRegularExpressionValidator validator(dateTimeExp);
 
     const auto dateTimeLenght = 17;
+    auto str = QString(s);
     auto pos = 0;
 
-    // Function validate() does not accept a const argument, but does not attempt to
-    // modify the content of the passed parameter. So, we do const_cast.
     return (s.length() == dateTimeLenght
-            && validator.validate(const_cast<QString&>(s), pos) == QValidator::Acceptable
+            && validator.validate(str, pos) == QValidator::Acceptable
             && pos != s.length());
 }
 

@@ -31,11 +31,11 @@ class AngleTableView : public QTableView
 
 public:
     explicit AngleTableView(QWidget* parent = nullptr);
-    QSize sizeHint() const Q_DECL_OVERRIDE;
-    int sizeHintForRow(int row) const Q_DECL_OVERRIDE;
+    QSize sizeHint() const override;
+    int sizeHintForRow(int row) const override;
 
 protected:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // ANGLE_TABLEVIEW_H

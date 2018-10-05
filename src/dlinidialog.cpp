@@ -103,10 +103,6 @@ DlIniDialog::DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* con
     dlProject_->newProject(configState_->project);
 }
 
-DlIniDialog::~DlIniDialog()
-{
-}
-
 // flush/reset the entire view
 void DlIniDialog::refresh()
 {
@@ -200,33 +196,24 @@ bool DlIniDialog::openFile(const QString &fileName, bool embedded)
                     }
                     return true;
                 }
-                else
-                {
-                    // load was unsuccessful
-                    WidgetUtils::warning(this,
-                        tr("Load Metadata Error"),
-                        tr("Unable to load the project <p>%1</p>")
-                        .arg(QFileInfo(filename_).fileName()));
+                // load was unsuccessful
+                WidgetUtils::warning(this,
+                    tr("Load Metadata Error"),
+                    tr("Unable to load the project <p>%1</p>")
+                    .arg(QFileInfo(filename_).fileName()));
 
-                    // close the current open project to prevent partial loading
-                    // of ec project settings (currently there is no roll-back
-                    // of the loadProject() function)
-                    defaults_2();
+                // close the current open project to prevent partial loading
+                // of ec project settings (currently there is no roll-back
+                // of the loadProject() function)
+                defaults_2();
 
-                    return false;
-                }
-            }
-            // file not in native format
-            else
-            {
                 return false;
             }
+            // file not in native format
+            return false;
         }
         // file does not exist
-        else
-        {
-            filename_.clear();
-        }
+        filename_.clear();
     }
     // empty file name
     return false;

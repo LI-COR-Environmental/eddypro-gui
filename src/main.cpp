@@ -114,13 +114,13 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(eddypro_lin);
 #endif
 
-    qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 #if defined(Q_OS_MACOS)
-    qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
+    QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
-//    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
+//    QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #endif
 
 //    QApplication::setColorSpec(QApplication::ManyColor);
@@ -144,10 +144,10 @@ int main(int argc, char *argv[])
     //  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 
     QApplication app(argc, argv);
-    app.setApplicationName(Defs::APP_NAME);
-    app.setApplicationDisplayName(Defs::APP_NAME);
-    app.setOrganizationName(Defs::ORG_NAME);
-    app.setOrganizationDomain(Defs::ORG_DOMAIN);
+    QApplication::setApplicationName(Defs::APP_NAME);
+    QApplication::setApplicationDisplayName(Defs::APP_NAME);
+    QApplication::setOrganizationName(Defs::ORG_NAME);
+    QApplication::setOrganizationDomain(Defs::ORG_DOMAIN);
 
     qDebug() << "currentUnicodeVersion" << QChar::currentUnicodeVersion();
 
@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
     // install event filter to open clicked files in macOS
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
-    app.processEvents();
+    QApplication::processEvents();
     auto requestedFile = openFileFilter.fileRequested();
     if (requestedFile.endsWith(QStringLiteral(".eddypro")))
     {
@@ -192,14 +192,14 @@ int main(int argc, char *argv[])
     QTranslator appTranslator;
     bool ok = appTranslator.load(QStringLiteral(":/tra/en"));
     qDebug() << "loading translation:" << ok;
-    app.installTranslator(&appTranslator);
+    QApplication::installTranslator(&appTranslator);
 
     // working dir
     QDir dir = QDir::current();
     qDebug() << "current dir" << dir.absolutePath();
 
     QString currentWorkingDir = QDir::currentPath();
-    QString installationDir = qApp->applicationDirPath();
+    QString installationDir = QApplication::applicationDirPath();
     qDebug() << "currentWorkingDir" << currentWorkingDir;
     qDebug() << "installationDir" << installationDir;
     if (currentWorkingDir != installationDir)
@@ -207,13 +207,13 @@ int main(int argc, char *argv[])
         QDir::setCurrent(installationDir);
     }
     qDebug() << "currentWorkingDir" << QDir::currentPath();
-    qDebug() << "currentWorkingDir" << QCoreApplication::applicationDirPath();
+    qDebug() << "currentWorkingDir" << QApplication::applicationDirPath();
 
     // styles
     qDebug() << "------------------------------------------------------------";
-    qDebug() << "Default Style: " << app.style()->metaObject()->className();
+    qDebug() << "Default Style: " << QApplication::style()->metaObject()->className();
 
-    MyStyle myStyle(app.style()->objectName());
+    MyStyle myStyle(QApplication::style()->objectName());
     QApplication::setStyle(&myStyle);
 
 #if defined(Q_OS_WIN)
@@ -242,7 +242,7 @@ int main(int argc, char *argv[])
 //#else
     bool getLogFile = false;
 //#endif
-    QString filename = doArgs(app.arguments(), stream, &getLogFile);
+    QString filename = doArgs(QApplication::arguments(), stream, &getLogFile);
     qDebug() << "filename:" << filename;
     qDebug() << "getLogFile:" << getLogFile;
 
@@ -314,7 +314,7 @@ int main(int argc, char *argv[])
         splash.show();
         splash.showStatusMessage(QObject::tr("Initializing..."));
     }
-    qApp->processEvents();
+    QApplication::processEvents();
 
     QLocale::setDefault(QLocale::C);
 
@@ -325,7 +325,7 @@ int main(int argc, char *argv[])
         splash.setProgressValue(30);
         splash.repaint();
     }
-    qApp->processEvents();
+    QApplication::processEvents();
 
 //#if defined(Q_OS_MACOS)
 //    MainWindow mainWin(filename, appEnvPath, &splash, 0,
@@ -355,9 +355,8 @@ int main(int argc, char *argv[])
         splash.setProgressValue(100);
         splash.repaint();
     }
-//    qApp->processEvents();
 
-    qDebug() << "applicationDisplayName" << qApp->applicationDisplayName();
+    qDebug() << "applicationDisplayName" << QApplication::applicationDisplayName();
 
 #if defined(Q_OS_MACOS)
     qDebug() << "____________________________________________________";
@@ -367,7 +366,7 @@ int main(int argc, char *argv[])
 #endif
     qDebug() << "++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
-    const int returnVal = app.exec();
+    const int returnVal = QApplication::exec();
 
     // cleanup
 //    if (logFile)
@@ -376,11 +375,7 @@ int main(int argc, char *argv[])
 //        delete logFile;
 //    }
 
-    if (outputStream)
-    {
-        delete outputStream;
-    }
-
+    delete outputStream;
     return returnVal;
 }
 ///////////////////////////////////////////////////////////////////////////////

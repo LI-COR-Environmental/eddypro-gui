@@ -446,40 +446,38 @@ VariableDesc::VariableDesc() :
     maxTimelag_(0.0)
 { ; }
 
-VariableDesc::VariableDesc(const QString& ignore,
-                           const QString& notNumeric,
-                           const QString& variable,
-                           const QString& instrument,
-                           const QString& measureType,
-                           const QString& inputUnit,
+VariableDesc::VariableDesc(QString ignore,
+                           QString notNumeric,
+                           QString variable,
+                           QString instrument,
+                           QString measureType,
+                           QString inputUnit,
                            qreal minValue,
                            qreal maxValue,
-                           const QString& conversionType,
-                           const QString& outputUnit,
+                           QString conversionType,
+                           QString outputUnit,
                            qreal aValue,
                            qreal bValue,
                            qreal nomTimelag,
                            qreal minTimelag,
                            qreal maxTimelag
                            ) :
-    ignore_(ignore),
-    numeric_(notNumeric),
-    variable_(variable),
-    instrument_(instrument),
-    measureType_(measureType),
-    inputUnit_(inputUnit),
+    ignore_(std::move(ignore)),
+    numeric_(std::move(notNumeric)),
+    variable_(std::move(variable)),
+    instrument_(std::move(instrument)),
+    measureType_(std::move(measureType)),
+    inputUnit_(std::move(inputUnit)),
     minValue_(minValue),
     maxValue_(maxValue),
-    conversionType_(conversionType),
-    outputUnit_(outputUnit),
+    conversionType_(std::move(conversionType)),
+    outputUnit_(std::move(outputUnit)),
     aValue_(aValue),
     bValue_(bValue),
     nomTimelag_(nomTimelag),
     minTimelag_(minTimelag),
     maxTimelag_(maxTimelag)
 { ; }
-
-VariableDesc::~VariableDesc() { ; }
 
 VariableDesc::VariableDesc(const VariableDesc& fileDesc) :
     ignore_(fileDesc.ignore_),
@@ -670,11 +668,11 @@ const QStringList VariableDesc::yesNoStringList()
 
 bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -774,12 +772,12 @@ bool isGoodGasUnit(const QString& unit, const QString& type)
 
 bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString measureType = var.measureType();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& measureType = var.measureType();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -854,11 +852,11 @@ bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
 
 bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -969,11 +967,11 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
 
 bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -1082,11 +1080,11 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
 
 bool VariableDesc::isGoodPressure(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -1373,7 +1371,7 @@ const QStringList VariableDesc::flowRateOutputUnitStringList()
 
 bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
 {
-    const QString conversionType = var.conversionType();
+    const QString& conversionType = var.conversionType();
     qreal aValue = var.aValue();
     qreal bValue = var.bValue();
 
@@ -1383,12 +1381,9 @@ bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
         return !qFuzzyCompare(aValue, bValue);
     }
     // gain-offset
-    else if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_1())
+    if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_1())
     {
         return (aValue != 0.0);
     }
-    else
-    {
-        return true;
-    }
+    return true;
 }

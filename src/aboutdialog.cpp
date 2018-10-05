@@ -50,23 +50,21 @@ AboutDialog::AboutDialog(QWidget* parent)
     setWindowTitle(titleText);
     WidgetUtils::removeContextHelpButton(this);
 
+    auto compiler =
+#if defined(Q_OS_WIN)
+            Defs::WIN_COMPILER;
+#elif defined(Q_OS_MACOS)
+            Defs::MAC_COMPILER;
+#elif defined(Q_OS_LINUX)
+            Defs::LIN_COMPILER;
+#endif
+
     auto introduction = new QLabel;
     introduction->setText(
         tr("<h2>%1<sup>&reg;</sup> v%2%3</h2>"
            "<h6>Built on %4 at %5<br />With %6<br /></h6>"
-           ).arg(Defs::APP_NAME,
-            Defs::APP_VERSION_STR,
-            Defs::APP_STAGE_STR,
-            QStringLiteral(__DATE__),
-            QStringLiteral(__TIME__))
-        #if defined(Q_OS_WIN)
-            .arg(Defs::WIN_COMPILER)
-        #elif defined(Q_OS_MACOS)
-            .arg(Defs::MAC_COMPILER)
-        #elif defined(Q_OS_LINUX)
-            .arg(Defs::LIN_COMPILER)
-        #endif
-        );
+           ).arg(Defs::APP_NAME, Defs::APP_VERSION_STR, Defs::APP_STAGE_STR,
+                 QStringLiteral(__DATE__), QStringLiteral(__TIME__), compiler));
     auto icon = new QLabel;
     auto app_logo_2x = QPixmap(QStringLiteral(":/icons/app-logo-about"));
 #if defined(Q_OS_MACOS)
@@ -272,8 +270,4 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     connect(okButton, &QPushButton::clicked,
             [=](){ if (this->isVisible()) hide(); });
-}
-
-AboutDialog::~AboutDialog()
-{
 }

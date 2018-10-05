@@ -56,7 +56,6 @@ class RawFileSettingsDialog : public QDialog
 
 public:
     explicit RawFileSettingsDialog(QWidget* parent, DlProject *dlProject);
-    ~RawFileSettingsDialog();
 
 public slots:
     void refresh();

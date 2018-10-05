@@ -247,7 +247,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
                                        << nonSteadyCheckBox;
     for (auto widget : checkbox_list)
     {
-        auto checkbox = static_cast<QCheckBox *>(widget);
+        auto checkbox = dynamic_cast<QCheckBox *>(widget);
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
     }
@@ -546,17 +546,13 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
                                     << itsDefinitionCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
 
     // init
     QTimer::singleShot(0, this, SLOT(reset()));
-}
-
-AdvStatisticalOptions::~AdvStatisticalOptions()
-{
 }
 
 void AdvStatisticalOptions::createTabWidget()
@@ -1478,10 +1474,10 @@ int AdvStatisticalOptions::findClosestEnabledTest(int indexDisabled)
         }
     }
 
-    if (found)
+    if (found) {
         return i;
-    else
-        return 0;
+    }
+    return 0;
 }
 
 void AdvStatisticalOptions::on_spikeRemCheckBox_clicked(bool checked)
@@ -3179,7 +3175,7 @@ void AdvStatisticalOptions::onClickNonSteadyLabel_1()
 
 void AdvStatisticalOptions::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }

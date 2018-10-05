@@ -33,12 +33,12 @@ class IrgaTableView : public QTableView
     Q_OBJECT
 public:
     explicit IrgaTableView(QWidget* parent = nullptr);
-    ~IrgaTableView();
+    ~IrgaTableView() override;
 
 protected:
-    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent* event) override;
+    void showEvent(QShowEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
 
 private:
     CustomHeader* m_header;

@@ -90,7 +90,7 @@ public:
     };
 
     BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
-    virtual ~BasicSettingsPage();
+    ~BasicSettingsPage() override;
 
     Q_DECLARE_FLAGS(EmbeddedFileFlags, EmbeddedFileFlag)
 
@@ -123,7 +123,6 @@ private:
     QPushButton* questionMark_2;
     QPushButton* questionMark_3;
     QPushButton* questionMark_4;
-    QPushButton* questionMark_5;
 
     ClickLabel *datapathLabel;
     DirBrowseWidget *datapathBrowse;
@@ -151,7 +150,6 @@ private:
 
     QCheckBox *subsetCheckBox;
     QPushButton* dateRangeDetectButton;
-    QWidget* moreSubsetContainer;
     ClickLabel *startDateLabel;
     ClickLabel *endDateLabel;
     QDateEdit *startDateEdit;

@@ -225,13 +225,13 @@ AnemDesc::AnemDesc() :
     hasGoodTemp_(false)
 { ; }
 
-AnemDesc::AnemDesc (const QString& manufacturer,
-                    const QString& model,
-                    const QString& swVersion,
-                    const QString& id,
+AnemDesc::AnemDesc (QString manufacturer,
+                    QString model,
+                    QString swVersion,
+                    QString id,
                     qreal height,
-                    const QString& windFormat,
-                    const QString& northAlignment,
+                    QString windFormat,
+                    QString northAlignment,
                     qreal northOffset,
                     qreal nSeparation,
                     qreal eSeparation,
@@ -241,13 +241,13 @@ AnemDesc::AnemDesc (const QString& manufacturer,
                     qreal tau,
                     bool hasGoodWindComponents,
                     bool hasGoodTemp) :
-    manufacturer_(manufacturer),
-    model_(model),
-    swVersion_(swVersion),
-    id_(id),
+    manufacturer_(std::move(manufacturer)),
+    model_(std::move(model)),
+    swVersion_(std::move(swVersion)),
+    id_(std::move(id)),
     height_(height),
-    windFormat_(windFormat),
-    northAlignment_(northAlignment),
+    windFormat_(std::move(windFormat)),
+    northAlignment_(std::move(northAlignment)),
     northOffset_(northOffset),
     nSeparation_(nSeparation),
     eSeparation_(eSeparation),
@@ -258,8 +258,6 @@ AnemDesc::AnemDesc (const QString& manufacturer,
     hasGoodWindComponents_(hasGoodWindComponents),
     hasGoodTemp_(hasGoodTemp)
 { ; }
-
-AnemDesc::~AnemDesc() { ; }
 
 AnemDesc::AnemDesc(const AnemDesc& anem) :
     manufacturer_(anem.manufacturer_),
@@ -469,13 +467,13 @@ const QStringList AnemDesc::yesNoStringList()
             << tr("no"));
 }
 
-bool AnemDesc::isGoodAnemometer(AnemDesc anem)
+bool AnemDesc::isGoodAnemometer(const AnemDesc& anem)
 {
-    const QString manufacturer = anem.manufacturer();
-    const QString model = anem.model();
+    const auto& manufacturer = anem.manufacturer();
+    const auto& model = anem.model();
     qreal height = anem.height();
-    const QString windFormat = anem.windFormat();
-    const QString northAlignment = anem.northAlignment();
+    const auto& windFormat = anem.windFormat();
+    const auto& northAlignment = anem.northAlignment();
 
     // 1
     bool isGoodManufacturer = !manufacturer.isEmpty();

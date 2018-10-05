@@ -34,7 +34,6 @@ class DownloadManager : public QObject
 
 public:
     explicit DownloadManager(QObject* parent = nullptr);
-    ~DownloadManager();
 
     void abort();
 

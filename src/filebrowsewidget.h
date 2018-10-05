@@ -31,13 +31,12 @@ class FileBrowseWidget : public LineEditAndBrowseWidget
 
 public:
     FileBrowseWidget();
-    ~FileBrowseWidget();
 
     QString dialogFilter() const { return dialogFilter_; }
     void setDialogFilter(const QString &filter) { dialogFilter_ = filter; }
 
 private slots:
-    void onButtonClick();
+    void onButtonClick() override;
 
 private:
     QString dialogFilter_;

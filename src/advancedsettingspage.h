@@ -44,7 +44,6 @@ public:
                          DlProject* dlProject,
                          EcProject* ecProject,
                          ConfigState* config);
-    virtual ~AdvancedSettingsPage();
 
     AdvSettingsContainer* advancedSettingPages()
                             { return advancedSettingContainer; }

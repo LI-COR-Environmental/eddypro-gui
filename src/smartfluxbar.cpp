@@ -113,10 +113,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 SmartFluxBar::~SmartFluxBar()
 {
     // NOTE: qobject with parent, so it should not require deletion
-    if (cpDialog_)
-    {
-        delete cpDialog_;
-    }
+    delete cpDialog_;
 }
 
 // NOTE: necessary to accept styling with css files
@@ -296,7 +293,7 @@ void SmartFluxBar::createPackage()
         cpDialog_->showResult(JlCompress::compressDir(smartfluxFile, smfDir, true),
                           smartfluxFilename);
 #if 0
-        Process zipper(this, qApp->applicationDirPath());
+        Process zipper(this, QApplication::applicationDirPath());
         cpDialog_->showResult(zipper.zipProcessAddStart(smartfluxFile,
                                                         Defs::INI_FILE_DIR
                                                         + QLatin1Char('/'),

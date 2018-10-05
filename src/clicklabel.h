@@ -61,7 +61,6 @@ public:
     explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = nullptr);
     explicit ClickLabel(const ClickLabel& clabel);
     ClickLabel& operator=(const ClickLabel& clabel);
-    ~ClickLabel();
 
     enum HeaderData {
         NoHeader = 0,
@@ -92,8 +91,8 @@ signals:
     void clicked();
 
 protected:
-    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
     QTime time;

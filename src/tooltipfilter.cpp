@@ -44,8 +44,8 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::ToolTip)
     {
-        QWidget *w = static_cast<QWidget *>(obj);
-        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        auto w = dynamic_cast<QWidget *>(obj);
+        auto helpEvent = dynamic_cast<QHelpEvent *>(event);
         QPoint pos = helpEvent->globalPos();
         QString itemTooltip = w->toolTip();
         QRect rect = w->rect();
@@ -53,7 +53,7 @@ bool TooltipFilter::eventFilter(QObject *obj, QEvent *event)
         // case of instrument tables inside a scrollarea viewport
         if (w->objectName() == QLatin1String("qt_scrollarea_viewport"))
         {
-            QAbstractItemView* view = qobject_cast<QAbstractItemView*>(obj->parent());
+            auto view = qobject_cast<QAbstractItemView*>(obj->parent());
             if (!view)
             {
                 return false;

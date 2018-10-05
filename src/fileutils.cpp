@@ -48,11 +48,7 @@ bool FileUtils::isFileEmpty(const QString& fileName)
 
     f.close();
 
-    if (contents.isEmpty())
-    {
-        return true;
-    }
-    return false;
+    return contents.isEmpty();
 }
 
 bool FileUtils::projectFileForcedCopy(const QString& fileName,
@@ -192,10 +188,7 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
                 illegalFile = true;
                 break;
             }
-            else
-            {
-                illegalFile = false;
-            }
+            illegalFile = false;
         }
 
         if (illegalFile)
@@ -309,31 +302,31 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
         {
             if (i.key() == yyStr)
             {
-                yy = filename.mid(i.value(), yyStr.length()).toInt();
+                yy = filename.midRef(i.value(), yyStr.length()).toInt();
             }
             else if (i.key() == yyyyStr)
             {
-                yyyy = filename.mid(i.value(), yyyyStr.length()).toInt();
+                yyyy = filename.midRef(i.value(), yyyyStr.length()).toInt();
             }
             else if (i.key() == mmStr)
             {
-                mm = filename.mid(i.value(), mmStr.length()).toInt();
+                mm = filename.midRef(i.value(), mmStr.length()).toInt();
             }
             else if (i.key() == ddStr)
             {
-                dd = filename.mid(i.value(), ddStr.length()).toInt();
+                dd = filename.midRef(i.value(), ddStr.length()).toInt();
             }
             else if (i.key() == dddStr)
             {
-                ddd = filename.mid(i.value(), dddStr.length()).toInt();
+                ddd = filename.midRef(i.value(), dddStr.length()).toInt();
             }
             else if (i.key() == HHStr)
             {
-                HH = filename.mid(i.value(), HHStr.length()).toInt();
+                HH = filename.midRef(i.value(), HHStr.length()).toInt();
             }
             else if (i.key() == MMStr)
             {
-                MM = filename.mid(i.value(), MMStr.length()).toInt();
+                MM = filename.midRef(i.value(), MMStr.length()).toInt();
             }
         }
     }
@@ -387,10 +380,7 @@ FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& file
 
         return DateRange(dateStart, dateEnd);
     }
-    else
-    {
-        return DateRange();
-    }
+    return DateRange();
 }
 
 // extract everything from the first underscore to the end
@@ -435,7 +425,7 @@ void FileUtils::loadStyleSheetFile(const QString &sheetPath)
     }
     else
     {
-        qDebug("\tCSS read error");
+        qDebug("\t CSS read error");
     }
 }
 
@@ -522,8 +512,7 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
         WidgetUtils::warning(nullptr,
                              QObject::tr("Write Error"),
                              QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }
@@ -550,8 +539,7 @@ bool FileUtils::appendToFile(const QString &str, const QString &filename)
         WidgetUtils::warning(nullptr,
                              QObject::tr("Write Error"),
                              QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }

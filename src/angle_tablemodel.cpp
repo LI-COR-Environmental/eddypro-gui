@@ -35,7 +35,7 @@ const double MinDegrees = 0.0;
 const double MaxDegrees = 360.0;
 const double InitialAngle = 30.0;
 
-static int colorHueDecStep_ = 1;
+int colorHueDecStep_ = 1;
 } // namespace unnamed
 
 
@@ -255,7 +255,7 @@ bool AngleTableModel::setData(const QModelIndex &index,
         {
             case DEGREES:
             {
-                Qt::CheckState included = static_cast<Qt::CheckState>(value.toUInt());
+                auto included = static_cast<Qt::CheckState>(value.toUInt());
                 item.included_ = included;
                 break;
             }
@@ -273,6 +273,11 @@ bool AngleTableModel::setData(const QModelIndex &index,
     emit dataChanged(index, index);
 
     return true;
+}
+
+bool AngleTableModel::setHeaderData(int, Qt::Orientation, const QVariant &, int)
+{
+    return false;
 }
 
 bool AngleTableModel::insertRows(int row, int count, const QModelIndex&)

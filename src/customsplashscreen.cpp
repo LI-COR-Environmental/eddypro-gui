@@ -34,8 +34,8 @@
 #include "defs.h"
 #include "globalsettings.h"
 
-CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f) :
-    QSplashScreen(pixmap, f)
+CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f)
+    : QSplashScreen(pixmap, f)
 {
     progressBar_ = new QProgressBar;
     progressBar_->setRange(0, 100);
@@ -66,10 +66,6 @@ CustomSplashScreen::CustomSplashScreen(const QPixmap & pixmap, Qt::WindowFlags f
             this, &CustomSplashScreen::updateShowSplash);
     connect(okButton, &QPushButton::clicked,
             this, &QSplashScreen::close);
-}
-
-CustomSplashScreen::~CustomSplashScreen()
-{
 }
 
 void CustomSplashScreen::drawContents(QPainter *painter)

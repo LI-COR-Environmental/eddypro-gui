@@ -32,10 +32,6 @@ FileFormatWidget::FileFormatWidget()
     button()->setText(tr("Set..."));
 }
 
-FileFormatWidget::~FileFormatWidget()
-{
-}
-
 void FileFormatWidget::onButtonClick()
 {
 }

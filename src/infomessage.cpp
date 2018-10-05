@@ -194,7 +194,7 @@ void InfoMessage::setTitle(const QString &title)
 
 void InfoMessage::setIcon(const QPixmap &icon)
 {
-    auto pixmap = const_cast<QPixmap&>(icon);
+    QPixmap pixmap(icon);
 #if defined(Q_OS_MACOS)
     pixmap.setDevicePixelRatio(2.0);
 #endif

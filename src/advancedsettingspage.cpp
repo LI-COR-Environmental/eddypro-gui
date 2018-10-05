@@ -116,9 +116,6 @@ AdvancedSettingsPage::AdvancedSettingsPage(QWidget* parent,
 //            parent, &SmartFluxBar::saveRequest);
 }
 
-AdvancedSettingsPage::~AdvancedSettingsPage()
-{ ; }
-
 void AdvancedSettingsPage::createMenu()
 {
     menuWidget = new QListWidget;

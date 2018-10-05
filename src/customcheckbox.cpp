@@ -54,10 +54,6 @@ CustomCheckBox::CustomCheckBox(QWidget *parent) : QWidget(parent)
     connect(label, SIGNAL(released()), this, SIGNAL(clicked()));
 }
 
-CustomCheckBox::~CustomCheckBox()
-{
-}
-
 // NOTE: never used
 void CustomCheckBox::setLabel(const QString &text)
 {

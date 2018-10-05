@@ -38,7 +38,7 @@ SplitterHandle::SplitterHandle(Qt::Orientation orientation, QSplitter *parent)
 // set the height of the handle to 3 px
 QSize SplitterHandle::sizeHint() const
 {
-    return QSize(this->width(), 5);
+    return {this->width(), 5};
 }
 
 void SplitterHandle::paintEvent(QPaintEvent *event)
@@ -50,9 +50,9 @@ void SplitterHandle::paintEvent(QPaintEvent *event)
     QRadialGradient gradient(QPointF(rect().width() / 2.0, rect().height() / 2.0),
                              rect().width() * 3.0 / 4.0,
                              QPointF(rect().width() / 2.0, rect().height() / 2.0));
-    gradient.setColorAt(0, QColor("#007FBD"));
-    gradient.setColorAt(0.5, QColor(255,255,255,0));
-    gradient.setColorAt(1, QColor(255,255,255,0));
+    gradient.setColorAt(0, QColor(0, 127, 189)); // #007FBD
+    gradient.setColorAt(0.5, QColor(255, 255, 255, 0));
+    gradient.setColorAt(1, QColor(255, 255, 255, 0));
 
     painter.fillRect(int(rect().width() / 2.0) - 10, 0, int(rect().width() / 2.0) + 10, 1, QBrush(gradient));
     painter.fillRect(int(rect().width() / 2.0) + 10, 0, rect().width(), 1, Qt::white);

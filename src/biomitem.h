@@ -23,13 +23,13 @@
 #ifndef BIOMITEM_H
 #define BIOMITEM_H
 
-class QString;
+#include <QString>
 
 struct BiomItem
 {
     explicit BiomItem(QString type, QString id, int col)
-        : type_(type),
-          id_(id),
+        : type_(std::move(type)),
+          id_(std::move(id)),
           col_(col)
     {
     }

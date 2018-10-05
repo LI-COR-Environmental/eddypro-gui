@@ -86,7 +86,7 @@ void CustomComboBox::paint(QPainter* painter,
 
 void CustomComboBox::addParentItem(const QString& text)
 {
-    QStandardItem* item = new QStandardItem(text);
+    auto item = new QStandardItem(text);
     item->setFlags(item->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable));
     item->setData(QStringLiteral("parent"), Qt::AccessibleDescriptionRole);
 
@@ -99,18 +99,17 @@ void CustomComboBox::addParentItem(const QString& text)
     b.setColor(QColor(QStringLiteral("#2986f5")));
     item->setForeground(b);
 
-    QStandardItemModel* itemModel = static_cast<QStandardItemModel*>(model());
+    auto itemModel = dynamic_cast<QStandardItemModel*>(model());
     itemModel->appendRow(item);
 }
 
 void CustomComboBox::addChildItem(const QString& text, const QVariant& userData)
 {
-//    QStandardItem* item = new QStandardItem(text + QString(4, QLatin1Char(' ')));
-    QStandardItem* item = new QStandardItem(text);
+    auto item = new QStandardItem(text);
     item->setData(userData, Qt::UserRole);
     item->setData(QStringLiteral("child"), Qt::AccessibleDescriptionRole);
 
-    QStandardItemModel* itemModel = static_cast<QStandardItemModel*>(model());
+    auto itemModel = dynamic_cast<QStandardItemModel*>(model());
     itemModel->appendRow(item);
 }
 

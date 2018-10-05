@@ -37,10 +37,6 @@ AnemModel::AnemModel(QObject *parent, AnemDescList *list) :
 {
 }
 
-AnemModel::~AnemModel()
-{
-}
-
 // Reset the model
 void AnemModel::flush()
 {
@@ -78,11 +74,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -91,11 +84,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_2())
                 {
@@ -104,11 +94,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_3())
                 {
@@ -117,11 +104,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_4())
                 {
@@ -129,11 +113,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else
                 {
@@ -154,11 +135,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_0())
                 {
@@ -166,11 +144,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -178,11 +153,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else
                 {
@@ -198,11 +170,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.northAlignment());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -211,11 +180,8 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.northAlignment());
                     }
-                    else
-                    {
-                        const_cast<AnemModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<AnemModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else
                 {
@@ -283,10 +249,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -295,10 +258,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_2())
                 {
@@ -307,10 +267,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_3())
                 {
@@ -319,10 +276,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_4())
                 {
@@ -330,10 +284,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.model());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else
                 {
@@ -354,10 +305,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_0())
                 {
@@ -365,10 +313,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -376,10 +321,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.windFormat());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else
                 {
@@ -395,10 +337,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.northAlignment());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else if (anemDesc.manufacturer() == AnemDesc::getANEM_MANUFACTURER_STRING_1())
                 {
@@ -407,10 +346,7 @@ QVariant AnemModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(anemDesc.northAlignment());
                     }
-                    else
-                    {
-                        return nullStrValue;
-                    }
+                    return nullStrValue;
                 }
                 else
                 {
@@ -722,7 +658,7 @@ bool AnemModel::removeColumns(int column, int count, const QModelIndex& parent)
     if (count != 1) return false; // only remove one column at a time
     if ((column < 0) || (column >= list_->count())) return false;
 
-    if (!WidgetUtils::okToRemoveColumn(qApp->activeWindow()))
+    if (!WidgetUtils::okToRemoveColumn(QApplication::activeWindow()))
     {
         return false;
     }

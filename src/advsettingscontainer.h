@@ -45,7 +45,6 @@ public:
                                   DlProject* dlProject,
                                   EcProject* ecProject,
                                   ConfigState* config);
-    ~AdvSettingsContainer();
 
     AdvProcessingOptions *processingOptions() { return processingOptions_; }
     AdvSpectralOptions *spectralOptions() { return spectralOptions_; }

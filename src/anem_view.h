@@ -34,7 +34,6 @@ class AnemView : public AnemTableView {
 
 public:
     explicit AnemView(QWidget *parent);
-    ~AnemView();
 
     int anemCount();
 
@@ -43,7 +42,7 @@ public slots:
     void removeAnem();
 
 private:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     QAction *addAction_;

@@ -40,10 +40,6 @@ AnemDelegate::AnemDelegate(QObject *parent) : QStyledItemDelegate(parent)
     installEventFilter(this);
 }
 
-AnemDelegate::~AnemDelegate()
-{
-}
-
 QWidget *AnemDelegate::createEditor(QWidget* parent,
                                      const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
@@ -254,23 +250,23 @@ void AnemDelegate::setEditorData(QWidget* editor,
         case AnemModel::MODEL:
         case AnemModel::WINDFORMAT:
         case AnemModel::NORTHALIGNMENT:
-            combo = static_cast<QComboBox*>(editor);
+            combo = dynamic_cast<QComboBox*>(editor);
             if (!combo) { return; }
             combo->setCurrentIndex(combo->findText(value.toString()));
             break;
         case AnemModel::SWVERSION:
-              ledit = static_cast<QLineEdit*>(editor);
+              ledit = dynamic_cast<QLineEdit*>(editor);
               if (!ledit) { return; }
               ledit->setText(value.toString());
               break;
         case AnemModel::ID:
-            ledit = static_cast<QLineEdit*>(editor);
+            ledit = dynamic_cast<QLineEdit*>(editor);
             if (!ledit) { return; }
             ledit->setText(value.toString());
             break;
         case AnemModel::HEIGHT:
         case AnemModel::NORTHOFFSET:
-            dspin = static_cast<QDoubleSpinBox*>(editor);
+            dspin = dynamic_cast<QDoubleSpinBox*>(editor);
             if (!dspin) { return; }
             dspin->setValue(value.toReal());
             break;
@@ -279,12 +275,12 @@ void AnemDelegate::setEditorData(QWidget* editor,
         case AnemModel::TAU:
             if (currentModel != AnemDesc::getANEM_MODEL_STRING_12())
             {
-                label = static_cast<QLabel*>(editor);
+                label = dynamic_cast<QLabel*>(editor);
                 if (!label) { return; }
             }
             else
             {
-                dspin = static_cast<QDoubleSpinBox*>(editor);
+                dspin = dynamic_cast<QDoubleSpinBox*>(editor);
                 if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
@@ -294,12 +290,12 @@ void AnemDelegate::setEditorData(QWidget* editor,
         case AnemModel::NSEPARATION:
             if (index.column() == 0)
             {
-                label = static_cast<QLabel*>(editor);
+                label = dynamic_cast<QLabel*>(editor);
                 if (!label) { return; }
             }
             else
             {
-                dspin = static_cast<QDoubleSpinBox*>(editor);
+                dspin = dynamic_cast<QDoubleSpinBox*>(editor);
                 if (!dspin) { return; }
                 dspin->setValue(value.toReal());
             }
@@ -325,26 +321,26 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::MODEL:
         case AnemModel::WINDFORMAT:
         case AnemModel::NORTHALIGNMENT:
-            combo = static_cast<QComboBox*>(editor);
+            combo = dynamic_cast<QComboBox*>(editor);
             if (!combo) { return; }
             value = combo->currentText();
             model->setData(index, value);
             break;
         case AnemModel::SWVERSION:
-            ledit = static_cast<QLineEdit*>(editor);
+            ledit = dynamic_cast<QLineEdit*>(editor);
             if (!ledit) { return; }
             value = ledit->text();
             model->setData(index, value);
             break;
         case AnemModel::ID:
-            ledit = static_cast<QLineEdit*>(editor);
+            ledit = dynamic_cast<QLineEdit*>(editor);
             if (!ledit) { return; }
             value = ledit->text();
             model->setData(index, value);
             break;
         case AnemModel::HEIGHT:
         case AnemModel::NORTHOFFSET:
-            dspin = static_cast<QDoubleSpinBox*>(editor);
+            dspin = dynamic_cast<QDoubleSpinBox*>(editor);
             if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
@@ -352,7 +348,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::VPATHLENGTH:
         case AnemModel::HPATHLENGTH:
         case AnemModel::TAU:
-            dspin = static_cast<QDoubleSpinBox*>(editor);
+            dspin = dynamic_cast<QDoubleSpinBox*>(editor);
             if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
@@ -360,7 +356,7 @@ void AnemDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
         case AnemModel::NSEPARATION:
         case AnemModel::ESEPARATION:
         case AnemModel::VSEPARATION:
-            dspin = static_cast<QDoubleSpinBox*>(editor);
+            dspin = dynamic_cast<QDoubleSpinBox*>(editor);
             if (!dspin) { return; }
             value = dspin->value();
             model->setData(index, value);
@@ -395,9 +391,11 @@ void AnemDelegate::commitAndCloseEditor(QObject* editor)
 
 bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
 {
-    QComboBox* combo = qobject_cast<QComboBox *>(editor);
+    auto combo = qobject_cast<QComboBox *>(editor);
     QEvent::Type eventType = event->type();
-    int eventKey = static_cast<const QKeyEvent*>(event)->key();
+
+    // NOTE: do not use dynamic_cast<> here, otherwise the app will crash
+    auto eventKey = static_cast<const QKeyEvent*>(event)->key();
     if (combo
          && (eventType == QEvent::MouseButtonRelease
              || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
@@ -410,14 +408,11 @@ bool AnemDelegate::eventFilter(QObject* editor, QEvent* event)
         }
         return true;
     }
-    else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
+    if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
         commitAndCloseEditor(editor);
         return true;
     }
-    else
-    {
-        return QObject::eventFilter(editor, event);
-    }
+    return QObject::eventFilter(editor, event);
 }

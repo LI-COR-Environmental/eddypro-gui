@@ -34,12 +34,12 @@ class AnemTableView : public QTableView
 
 public:
     explicit AnemTableView(QWidget* parent = nullptr);
-    ~AnemTableView() Q_DECL_OVERRIDE;
+    ~AnemTableView() override;
 
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) override;
+    void showEvent(QShowEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     CustomHeader *m_header;

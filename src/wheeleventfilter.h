@@ -32,7 +32,7 @@ public:
     explicit WheelEventFilter(QObject* parent = nullptr);
 
 protected:
-    bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *o, QEvent *e) override;
 };
 
 #endif // WHEELEVENTFILTER_H

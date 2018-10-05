@@ -117,12 +117,10 @@ SpecGroup::SpecGroup() :
     stop_(tr("PLEASE SPECIFY A END"))
 { ; }
 
-SpecGroup::SpecGroup(const QString &start, const QString &stop) :
-    start_(start),
-    stop_(stop)
+SpecGroup::SpecGroup(QString start, QString stop) :
+    start_(std::move(start)),
+    stop_(std::move(stop))
 { ; }
-
-SpecGroup::~SpecGroup() { ; }
 
 SpecGroup::SpecGroup(const SpecGroup &sg) :
     start_(sg.start_),
@@ -205,52 +203,49 @@ int SpecGroup::toSpecGroupCode(const QString& s)
     {
         return 0;
     }
-    else if (s == SpecGroup::getFEB_STRING())
+    if (s == SpecGroup::getFEB_STRING())
     {
         return 1;
     }
-    else if (s == SpecGroup::getMAR_STRING())
+    if (s == SpecGroup::getMAR_STRING())
     {
         return 2;
     }
-    else if (s == SpecGroup::getAPR_STRING())
+    if (s == SpecGroup::getAPR_STRING())
     {
         return 3;
     }
-    else if (s == SpecGroup::getMAY_STRING())
+    if (s == SpecGroup::getMAY_STRING())
     {
         return 4;
     }
-    else if (s == SpecGroup::getJUN_STRING())
+    if (s == SpecGroup::getJUN_STRING())
     {
         return 5;
     }
-    else if (s == SpecGroup::getJUL_STRING())
+    if (s == SpecGroup::getJUL_STRING())
     {
         return 6;
     }
-    else if (s == SpecGroup::getAUG_STRING())
+    if (s == SpecGroup::getAUG_STRING())
     {
         return 7;
     }
-    else if (s == SpecGroup::getSEP_STRING())
+    if (s == SpecGroup::getSEP_STRING())
     {
         return 8;
     }
-    else if (s == SpecGroup::getOCT_STRING())
+    if (s == SpecGroup::getOCT_STRING())
     {
         return 9;
     }
-    else if (s == SpecGroup::getNOV_STRING())
+    if (s == SpecGroup::getNOV_STRING())
     {
         return 10;
     }
-    else if (s == SpecGroup::getDEC_STRING())
+    if (s == SpecGroup::getDEC_STRING())
     {
         return 11;
     }
-    else
-    {
-        return -1;
-    }
+    return -1;
 }

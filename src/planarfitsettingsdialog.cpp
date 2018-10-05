@@ -354,10 +354,6 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     forceEndTimePolicy();
 }
 
-PlanarFitSettingsDialog::~PlanarFitSettingsDialog()
-{
-}
-
 void PlanarFitSettingsDialog::close()
 {
     if (isVisible())

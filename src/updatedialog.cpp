@@ -97,10 +97,6 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
             this, &UpdateDialog::downloadTimeout);
 }
 
-UpdateDialog::~UpdateDialog()
-{
-}
-
 void UpdateDialog::initialize()
 {
     msgLabel->clear();

@@ -59,7 +59,7 @@ class ProjectPage : public QWidget
 
 public:
     ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config);
-    ~ProjectPage();
+    ~ProjectPage() override;
 
     inline DlIniDialog* dlIniDialog() { return dlIniDialog_; }
     BinarySettingsDialog* getBinarySettingsDialog() { return binDialog_; }
@@ -102,13 +102,13 @@ private:
     QComboBox* biomExtDirCombo;
     QButtonGroup *biomRadioGroup;
 
+    QPushButton *questionMark_1;
     QPushButton *questionMark_2;
     QPushButton *questionMark_3;
     QPushButton *questionMark_4;
     QPushButton *questionMark_5;
     QPushButton *questionMark_6;
     QPushButton *questionMark_7;
-    QPushButton *questionMark_8;
 
     DlProject *dlProject_;
     EcProject *ecProject_;

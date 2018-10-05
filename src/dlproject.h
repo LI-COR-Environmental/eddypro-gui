@@ -43,10 +43,9 @@ class DlProject : public QObject
 
 public:
     explicit DlProject(QObject* parent);
-    DlProject(QObject* parent, const ProjConfigState& project_config);
+    DlProject(QObject* parent, ProjConfigState  project_config);
     DlProject(const DlProject& project);
     DlProject& operator=(const DlProject& project);
-    virtual ~DlProject();
 
     bool hasOneGoodAnemometer();
     bool hasGoodWindComponentsAndTemperature();
@@ -143,13 +142,13 @@ public:
     void setPcTimeSettings(const QString& t);
 
     const QString& fieldSep() const;
-    void setFieldSep(const QString& t);
+    void setFieldSep(const QString& s);
     int headerRows() const;
     void setHeaderRows(int n);
     bool notNumeric() const;
     void setNotNumeric(bool p);
     const QString& dataLabel() const;
-    void setDataLabel(const QString& t);
+    void setDataLabel(const QString& s);
 
     void addAnemometer(const AnemDesc& am);
     void addIrga(const IrgaDesc& irga);

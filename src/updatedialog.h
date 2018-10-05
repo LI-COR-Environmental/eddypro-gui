@@ -50,7 +50,6 @@ class UpdateDialog : public QDialog
     Q_OBJECT
 public:
     explicit UpdateDialog(QWidget* parent = nullptr);
-    ~UpdateDialog();
 
     void checkUpdate();
     bool hasNewVersion();

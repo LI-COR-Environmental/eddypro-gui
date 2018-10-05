@@ -63,13 +63,12 @@ class AdvStatisticalOptions : public QWidget
 
 public:
     explicit AdvStatisticalOptions(QWidget* parent, EcProject* project);
-    ~AdvStatisticalOptions();
 
 public slots:
     void reset();
 
 protected:
-    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent* event) override;
 
 private slots:
     void refresh();
@@ -418,8 +417,6 @@ private:
     ClickLabel* attackAngleLabel_2;
     ClickLabel* attackAngleLabel_3;
     ClickLabel* nonSteadyLabel_1;
-
-    QGroupBox* acquisitionGroup;
 
     QPushButton* questionMark_1;
     QPushButton* questionMark_2;

@@ -33,8 +33,6 @@ class IrgaView : public IrgaTableView {
     Q_OBJECT
 public:
     explicit IrgaView(QWidget *parent);
-    ~IrgaView();
-
     int irgaCount();
 
 public slots:
@@ -42,7 +40,7 @@ public slots:
     void removeIrga();
 
 private:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     QAction *addAction_;

@@ -46,11 +46,8 @@ bool WheelEventFilter::eventFilter(QObject *o, QEvent *e)
                 e->ignore();
                 return true;
             }
-            else
-            {
-                e->accept();
-                return false;
-            }
+            e->accept();
+            return false;
         }
         if (qobject_cast<QComboBox*>(o))
         {
@@ -59,11 +56,8 @@ bool WheelEventFilter::eventFilter(QObject *o, QEvent *e)
                 e->ignore();
                 return true;
             }
-            else
-            {
-                e->accept();
-                return false;
-            }
+            e->accept();
+            return false;
         }
     }
     return QObject::eventFilter(o, e);

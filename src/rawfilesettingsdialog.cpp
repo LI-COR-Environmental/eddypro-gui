@@ -130,10 +130,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
             [=](){ if (this->isVisible()) hide(); });
 }
 
-RawFileSettingsDialog::~RawFileSettingsDialog()
-{
-}
-
 void RawFileSettingsDialog::refresh()
 {
     // save the modified flag to prevent side effects of setting widgets

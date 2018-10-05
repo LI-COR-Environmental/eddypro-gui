@@ -33,7 +33,6 @@ class CustomCheckBox : public QWidget
     Q_OBJECT
 public:
     explicit CustomCheckBox(QWidget *parent = nullptr);
-    ~CustomCheckBox();
 
     void setLabel(const QString& text);
 
@@ -44,8 +43,8 @@ public slots:
     void setChecked(bool checked);
 
 protected:
-    void enterEvent(QEvent* event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent* event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent* event) override;
+    void leaveEvent(QEvent* event) override;
 
 private:
     HoverCheckBox* checkbox;

@@ -58,10 +58,10 @@ void AnglesView::dataChanged(const QModelIndex &topLeft,
     QAbstractItemView::dataChanged(topLeft, bottomRight);
 
     validItems = 0;
-    for (int row = 0; row < model()->rowCount(rootIndex()); ++row)
+    for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
     {
-        QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-        double value = model()->data(index, Qt::EditRole).toDouble();
+        auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+        auto value = model()->data(index, Qt::EditRole).toDouble();
 
         if (value > 0.0)
         {
@@ -82,29 +82,29 @@ bool AnglesView::edit(const QModelIndex &/*index*/, EditTrigger /*trigger*/, QEv
 QModelIndex AnglesView::indexAt(const QPoint &point) const
 {
     if (validItems == 0)
-        return QModelIndex();
+        return QModelIndex{};
 
     // Transform the view coordinates into contents widget coordinates.
-    int wx = point.x() + horizontalScrollBar()->value();
-    int wy = point.y() + verticalScrollBar()->value();
+    auto wx = point.x() + horizontalScrollBar()->value();
+    auto wy = point.y() + verticalScrollBar()->value();
 
     if (wx < totalSize)
     {
-        double cx = wx - totalSize/2;
-        double cy = totalSize/2 - wy; // positive cy for items above the center
+        auto cx = wx - totalSize / 2;
+        auto cy = totalSize / 2 - wy; // positive cy for items above the center
 
         // Determine the distance from the center point of the pie chart.
-        double d = pow(pow(cx, 2) + pow(cy, 2), 0.5);
+        auto d = pow(pow(cx, 2) + pow(cy, 2), 0.5);
 
-        if (qFuzzyCompare(d + 1, 0.0 + 1) || (d > pieSize/2))
+        if (qFuzzyCompare(d + 1, 0.0 + 1) || (d > pieSize / 2.0))
         {
-            return QModelIndex();
+            return QModelIndex{};
         }
 
-        double offset = static_cast<AngleTableModel *>(model())->offset();
+        auto offset = dynamic_cast<AngleTableModel *>(model())->offset();
 
         // determine the angle of the point in degrees starting from north
-        double angle = (180.0 / M_PI) * asin(cx/d);
+        auto angle = (180.0 / M_PI) * asin(cx/d);
 
         if (cx > 0.0 && cy < 0.0)
             angle = 180.0 - angle;
@@ -122,16 +122,16 @@ QModelIndex AnglesView::indexAt(const QPoint &point) const
 
         // Find the relevant slice of the pie.
         // starting from north, clockwise
-        double startAngle = 0.0;
+        auto startAngle = 0.0;
 
-        for (int row = 0; row < model()->rowCount(rootIndex()); ++row)
+        for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
         {
-            QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-            double value = model()->data(index, Qt::EditRole).toDouble();
+            auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+            auto value = model()->data(index, Qt::EditRole).toDouble();
 
             if (value > 0.0)
             {
-                double sliceAngle = value;
+                auto sliceAngle = value;
 
                 if (angle >= startAngle && angle <= (startAngle + sliceAngle))
                 {
@@ -144,17 +144,17 @@ QModelIndex AnglesView::indexAt(const QPoint &point) const
     }
     else
     {
-        double itemHeight = QFontMetrics(viewOptions().font).height();
+        auto itemHeight = QFontMetrics(viewOptions().font).height();
 
         double listItemDouble;
-        modf((wy - margin) / itemHeight, &listItemDouble);
-        int listItem = static_cast<int>(listItemDouble);
+        modf((wy - margin) / (itemHeight + 0.0), &listItemDouble);
+        auto listItem = static_cast<int>(listItemDouble);
 
-        int validRow = 0;
+        auto validRow = 0;
 
-        for (int row = 0; row < model()->rowCount(rootIndex()); ++row)
+        for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
         {
-            QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+            auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
             if (model()->data(index, Qt::EditRole).toDouble() > 0.0)
             {
                 if (listItem == validRow)
@@ -169,7 +169,7 @@ QModelIndex AnglesView::indexAt(const QPoint &point) const
         }
     }
 
-    return QModelIndex();
+    return QModelIndex{};
 }
 
 bool AnglesView::isIndexHidden(const QModelIndex & /*index*/) const
@@ -184,7 +184,7 @@ bool AnglesView::isIndexHidden(const QModelIndex & /*index*/) const
 QRect AnglesView::itemRect(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return QRect();
+        return QRect{};
 
     // Check whether the index's row is in the list of rows represented
     // by slices.
@@ -196,8 +196,8 @@ QRect AnglesView::itemRect(const QModelIndex &index) const
 
     if (model()->data(valueIndex, Qt::EditRole).toDouble() > 0.0)
     {
-        int listItem = 0;
-        for (int row = index.row() - 1; row >= 0; --row)
+        auto listItem = 0;
+        for (auto row = index.row() - 1; row >= 0; --row)
         {
             if (model()->data(model()->index(row, AngleTableModel::DEGREES, rootIndex()), Qt::EditRole).toDouble() > 0.0)
                 listItem++;
@@ -209,7 +209,7 @@ QRect AnglesView::itemRect(const QModelIndex &index) const
                 return viewport()->rect();
         }
     }
-    return QRect();
+    return QRect{};
 }
 
 QRegion AnglesView::itemRegion(const QModelIndex &index) const
@@ -223,19 +223,19 @@ QRegion AnglesView::itemRegion(const QModelIndex &index) const
     if (model()->data(index, Qt::EditRole).toDouble() < 0.0)
         return QRegion();
 
-    double offset = static_cast<AngleTableModel *>(model())->offset();
+    auto offset = dynamic_cast<AngleTableModel *>(model())->offset();
 
     // starting from north, clockwise
-    double startAngle = 90.0 - offset;
+    auto startAngle = 90.0 - offset;
 
-    for (int row = 0; row < model()->rowCount(rootIndex()); ++row)
+    for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
     {
-        QModelIndex sliceIndex = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-        double value = model()->data(sliceIndex, Qt::EditRole).toDouble();
+        auto sliceIndex = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+        auto value = model()->data(sliceIndex, Qt::EditRole).toDouble();
 
         if (value > 0.0)
         {
-            double spanAngle = value;
+            auto spanAngle = value;
 
             if (sliceIndex == index)
             {
@@ -269,7 +269,7 @@ int AnglesView::horizontalOffset() const
 
 void AnglesView::mousePressEvent(QMouseEvent *event)
 {
-    QModelIndex item = indexAt(event->pos());
+    auto item = indexAt(event->pos());
     if (!item.isValid())
         clearSelection();
 
@@ -278,7 +278,7 @@ void AnglesView::mousePressEvent(QMouseEvent *event)
 
 void AnglesView::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    QModelIndex item = indexAt(event->pos());
+    auto item = indexAt(event->pos());
     if (!item.isValid())
     {
         emit fillPieRequest();
@@ -301,9 +301,9 @@ void AnglesView::mouseReleaseEvent(QMouseEvent *event)
 QModelIndex AnglesView::moveCursor(QAbstractItemView::CursorAction cursorAction,
                                 Qt::KeyboardModifiers /*modifiers*/)
 {
-    QModelIndex current = currentIndex();
-    int row = current.row();
-    int column = current.column();
+    auto current = currentIndex();
+    auto row = current.row();
+    auto column = current.column();
 
     switch (cursorAction)
     {
@@ -345,10 +345,10 @@ QModelIndex AnglesView::moveCursor(QAbstractItemView::CursorAction cursorAction,
 
 void AnglesView::paintEvent(QPaintEvent *event)
 {
-    QItemSelectionModel *selections = selectionModel();
-    QStyleOptionViewItem option = viewOptions();
+    auto selections = selectionModel();
+    auto option = viewOptions();
 
-    QBrush background = option.palette.base();
+    auto background = option.palette.base();
     QPen foreground(Qt::gray);
     foreground.setWidthF(0.3);
 
@@ -358,15 +358,15 @@ void AnglesView::paintEvent(QPaintEvent *event)
     painter.setPen(foreground);
 
     // Viewport rectangles
-    QRect pieRect = QRect(margin, margin, pieSize, pieSize);
+    auto pieRect = QRect(margin, margin, pieSize, pieSize);
 
-    double offset = static_cast<AngleTableModel *>(model())->offset();
+    auto offset = dynamic_cast<AngleTableModel *>(model())->offset();
 
     painter.save();
 
     QLinearGradient fade(0, 0, 0, height());
-    fade.setColorAt(0, QColor("#d4f3ff"));
-    fade.setColorAt(1, QColor("#aae6ff"));
+    fade.setColorAt(0, QColor(212, 243, 255)); // #d4f3ff"
+    fade.setColorAt(1, QColor(170, 230, 255)); // #aae6ff
     // NOTE: to verify
     QFont myFont(QStringLiteral("Open Sans"), 14, QFont::Bold);
     QPainterPath myPath;
@@ -395,19 +395,17 @@ void AnglesView::paintEvent(QPaintEvent *event)
 
         // starting from north, clockwise
         double startAngle = 90.0 - offset;
-        int row;
-
-        for (row = 0; row < model()->rowCount(rootIndex()); ++row)
+        for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
         {
-            QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-            double value = model()->data(index, Qt::EditRole).toDouble();
+            auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+            auto value = model()->data(index, Qt::EditRole).toDouble();
 
             if (value > 0.0)
             {
-                double spanAngle = value;
+                auto spanAngle = value;
 
-                QModelIndex colorIndex = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-                QColor color = QColor(model()->data(colorIndex,
+                auto colorIndex = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+                auto color = QColor(model()->data(colorIndex,
                                 Qt::DecorationRole).toString());
 
                 // pie rect without margins
@@ -425,7 +423,7 @@ void AnglesView::paintEvent(QPaintEvent *event)
 
                 QBrush selectionPattern(satColor);
 
-                int checked = model()->data(colorIndex, Qt::CheckStateRole).toInt();
+                auto checked = model()->data(colorIndex, Qt::CheckStateRole).toInt();
 
                 if (currentIndex() == index && selections->hasSelection())
                 {
@@ -459,10 +457,10 @@ void AnglesView::paintEvent(QPaintEvent *event)
                 double int_part;
 
                 modf(startAngle * 16.0, &int_part);
-                int stAngle = static_cast<int>(int_part);
+                auto stAngle = static_cast<int>(int_part);
 
                 modf(-spanAngle * 16.0, &int_part);
-                int spAngle = static_cast<int>(int_part);
+                auto spAngle = static_cast<int>(int_part);
 
                 painter.drawPie(0, 0, pieSize, pieSize, stAngle, spAngle);
                 startAngle -= spanAngle;
@@ -474,7 +472,7 @@ void AnglesView::paintEvent(QPaintEvent *event)
 
 QSize AnglesView::sizeHint() const
 {
-    return QSize(200, 200);
+    return QSize{200, 200};
 }
 
 void AnglesView::resizeEvent(QResizeEvent *event)
@@ -490,10 +488,10 @@ int AnglesView::rows(const QModelIndex &index) const
 
 void AnglesView::rowsInserted(const QModelIndex &parent, int start, int end)
 {
-    for (int row = start; row <= end; ++row)
+    for (auto row = start; row <= end; ++row)
     {
-        QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-        double value = model()->data(index, Qt::EditRole).toDouble();
+        auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+        auto value = model()->data(index, Qt::EditRole).toDouble();
 
         if (value > 0.0)
         {
@@ -506,10 +504,10 @@ void AnglesView::rowsInserted(const QModelIndex &parent, int start, int end)
 
 void AnglesView::rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end)
 {
-    for (int row = start; row <= end; ++row)
+    for (auto row = start; row <= end; ++row)
     {
-        QModelIndex index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
-        double value = model()->data(index, Qt::EditRole).toDouble();
+        auto index = model()->index(row, AngleTableModel::DEGREES, rootIndex());
+        auto value = model()->data(index, Qt::EditRole).toDouble();
         if (value > 0.0)
         {
             validItems--;
@@ -526,8 +524,8 @@ void AnglesView::scrollContentsBy(int dx, int dy)
 
 void AnglesView::scrollTo(const QModelIndex &index, ScrollHint)
 {
-    QRect area = viewport()->rect();
-    QRect rect = visualRect(index);
+    auto area = viewport()->rect();
+    auto rect = visualRect(index);
 
     if (rect.left() < area.left())
         horizontalScrollBar()->setValue(
@@ -555,20 +553,20 @@ void AnglesView::setSelection(const QRect &rect, QItemSelectionModel::SelectionF
 {
     // Use content widget coordinates because we will use the itemRegion()
     // function to check for intersections.
-    QRect contentsRect = rect.translated(
+    auto contentsRect = rect.translated(
                             horizontalScrollBar()->value(),
                             verticalScrollBar()->value()).normalized();
 
-    int rows = model()->rowCount(rootIndex());
-    int columns = model()->columnCount(rootIndex());
+    auto rows = model()->rowCount(rootIndex());
+    auto columns = model()->columnCount(rootIndex());
     QModelIndexList indexes;
 
-    for (int row = 0; row < rows; ++row)
+    for (auto row = 0; row < rows; ++row)
     {
-        for (int column = 0; column < columns; ++column)
+        for (auto column = 0; column < columns; ++column)
         {
-            QModelIndex index = model()->index(row, column, rootIndex());
-            QRegion region = itemRegion(index);
+            auto index = model()->index(row, column, rootIndex());
+            auto region = itemRegion(index);
 
             if (!region.intersected(contentsRect).isEmpty())
             {
@@ -581,14 +579,14 @@ void AnglesView::setSelection(const QRect &rect, QItemSelectionModel::SelectionF
         }
     }
 
-    if (indexes.size() > 0)
+    if (!indexes.isEmpty())
     {
-        int firstRow = indexes[0].row();
-        int lastRow = indexes[0].row();
-        int firstColumn = indexes[0].column();
-        int lastColumn = indexes[0].column();
+        auto firstRow = indexes[0].row();
+        auto lastRow = indexes[0].row();
+        auto firstColumn = indexes[0].column();
+        auto lastColumn = indexes[0].column();
 
-        for (int i = 1; i < indexes.size(); ++i)
+        for (auto i = 1; i < indexes.size(); ++i)
         {
             firstRow = qMin(firstRow, indexes[i].row());
             lastRow = qMax(lastRow, indexes[i].row());
@@ -629,13 +627,12 @@ int AnglesView::verticalOffset() const
 */
 QRect AnglesView::visualRect(const QModelIndex &index) const
 {
-    QRect rect = itemRect(index);
+    auto rect = itemRect(index);
     if (rect.isValid())
-        return QRect(rect.left() - horizontalScrollBar()->value(),
+        return QRect{rect.left() - horizontalScrollBar()->value(),
                      rect.top() - verticalScrollBar()->value(),
-                     rect.width(), rect.height());
-    else
-        return rect;
+                     rect.width(), rect.height()};
+    return rect;
 }
 
 /*
@@ -643,18 +640,18 @@ QRect AnglesView::visualRect(const QModelIndex &index) const
 */
 QRegion AnglesView::visualRegionForSelection(const QItemSelection &selection) const
 {
-    int ranges = selection.count();
+    auto ranges = selection.count();
 
     if (ranges == 0)
         return QRect();
 
     QRegion region;
-    for (int i = 0; i < ranges; ++i)
+    for (auto i = 0; i < ranges; ++i)
     {
-        QItemSelectionRange range = selection.at(i);
-        for (int row = range.top(); row <= range.bottom(); ++row)
+        const auto& range = selection.at(i);
+        for (auto row = range.top(); row <= range.bottom(); ++row)
         {
-            for (int col = range.left(); col <= range.right(); ++col)
+            for (auto col = range.left(); col <= range.right(); ++col)
             {
                 QModelIndex index = model()->index(row, col, rootIndex());
                 region += visualRect(index);
@@ -673,7 +670,7 @@ bool AnglesView::viewportEvent(QEvent *event)
 {
    if (event->type() == QEvent::ToolTip)
    {
-       QHelpEvent *helpEvent = static_cast<QHelpEvent*>(event);
+       auto helpEvent = dynamic_cast<QHelpEvent*>(event);
 //       QModelIndex index = indexAt(he->pos());
 //       QRect vr = visualRect(index);
 //       QRect shr = itemDelegate(index)->sizeHint(viewOptions(), index);

@@ -24,6 +24,7 @@
 
 #include <limits>
 
+#include <QApplication>
 #include <QCalendarWidget>
 #include <QComboBox>
 #include <QCoreApplication>
@@ -66,7 +67,7 @@
 
 const QColor WidgetUtils::getColor(int step)
 {
-    QColor c("#aae6ff");
+    QColor c(170, 230, 255); // #aae6ff
     auto h = c.hue();
     auto s = c.saturation();
     auto v = c.value();
@@ -185,7 +186,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 {
     cal->setVerticalHeaderFormat(QCalendarWidget::ISOWeekNumbers);
 
-    QToolButton *btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_prevmonth"));
+    auto btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_prevmonth"));
 
     QIcon icon_left;
     auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
@@ -346,7 +347,7 @@ void WidgetUtils::warning(QWidget* parent,
                           const QString& objectName)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
-    messageBox.get()->setObjectName(objectName);
+    messageBox->setObjectName(objectName);
 
     // macOS compatibility (to look like a sheet)
     if (parent)
@@ -412,7 +413,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
                            const QString& noText)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
-    messageBox.get()->setObjectName(objectName);
+    messageBox->setObjectName(objectName);
 
     // macOS compatibility (to look like a sheet)
     if (parent)
@@ -462,7 +463,7 @@ void WidgetUtils::showHelp(const QUrl& url)
         else
         {
             // open local help
-            auto htmlHelpPath = qApp->applicationDirPath();
+            auto htmlHelpPath = QApplication::applicationDirPath();
             auto localUrlString = QString();
 
             if (url.toString().contains(QStringLiteral("EddyPro_Home")))
@@ -555,7 +556,6 @@ bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
                          QObject::tr("Do you want to leave the SmartFlux Configuration?"));
 }
 
-
 QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& text)
 {
     auto button = new QPushButton(parent);
@@ -565,7 +565,6 @@ QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& tex
     button->setProperty("commonButton", true);
     return button;
 }
-
 
 QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
 {

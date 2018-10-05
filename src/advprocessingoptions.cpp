@@ -231,13 +231,13 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     qcLabel = new ClickLabel(tr("Flagging policy :"));
     qcMethodCombo = new QComboBox;
-    qcMethodCombo->setToolTip(tr("<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. \"0\" means high quality fluxes, \"1\" means fluxes are ok for budget analysis, \"2\" fluxes should be discarded from the result dataset."));
+    qcMethodCombo->setToolTip(tr(R"(<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. "0" means high quality fluxes, "1" means fluxes are ok for budget analysis, "2" fluxes should be discarded from the result dataset.)"));
     qcMethodCombo->addItem(tr("Mauder and Foken (2004) (0-1-2 system)"));
     qcMethodCombo->addItem(tr("Foken (2003) (1 to 9 system)"));
     qcMethodCombo->addItem(tr("Goeckede et al. (2004) (1 to 5 system)"));
-    qcMethodCombo->setItemData(0, tr("<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. \"0\" means high quality fluxes, \"1\" means fluxes are ok for budget analysis, \"2\" fluxes should be discarded from the result dataset."), Qt::ToolTipRole);
-    qcMethodCombo->setItemData(1, tr("<b>Foken 2003:</b> A system based on 9 quality grades. \"1\" is best, \"9\" is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system."), Qt::ToolTipRole);
-    qcMethodCombo->setItemData(2, tr("<b>Goeckede et al., 2004:</b> A system based on 5 quality grades. \"1\" is best, \"5\" is worst."), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(0, tr(R"(<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. "0" means high quality fluxes, "1" means fluxes are ok for budget analysis, "2" fluxes should be discarded from the result dataset.)"), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(1, tr(R"(<b>Foken 2003:</b> A system based on 9 quality grades. "1" is best, "9" is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system.)"), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(2, tr(R"(<b>Goeckede et al., 2004:</b> A system based on 5 quality grades. "1" is best, "5" is worst.)"), Qt::ToolTipRole);
 
     fpCheckBox = new RichTextCheckBox;
     fpCheckBox->setToolTip(tr("<b>Footprint estimation:</b> Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given."));
@@ -330,7 +330,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     auto qBox_2 = new QHBoxLayout;
     qBox_2->addWidget(detrendLabel);
-    qBox_2->addWidget(questionMark_4);
+    qBox_2->addWidget(questionMark_2);
     qBox_2->addStretch();
 
 //
@@ -412,7 +412,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     auto qBox_11 = new QHBoxLayout;
     qBox_11->addWidget(settingsGroupTitle, 0, Qt::AlignRight | Qt::AlignBottom);
-    qBox_11->addWidget(questionMark_11);
+    qBox_11->addWidget(questionMark_3);
     qBox_11->addStretch();
 
     auto mainLayout = new QVBoxLayout(this);
@@ -541,7 +541,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
                                     << fpMethodCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -553,11 +553,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
 AdvProcessingOptions::~AdvProcessingOptions()
 {
-    if (pfDialog_)
-        delete pfDialog_;
-
-    if (tlDialog_)
-        delete tlDialog_;
+    delete pfDialog_;
+    delete tlDialog_;
 }
 
 void AdvProcessingOptions::updateUOffset(double d)
@@ -681,7 +678,7 @@ void AdvProcessingOptions::updateTlagMeth_2(int n)
 
 void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
 {
-    DetrendMethod currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
+    auto currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
 
     if (previousDetrendMethod_ == DetrendMethod::LinearDetrending)
     {
@@ -1478,16 +1475,16 @@ void AdvProcessingOptions::createQuestionMark()
 {
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_4 = new QPushButton;
-    questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_11 = new QPushButton;
-    questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_2 = new QPushButton;
+    questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_1);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_4);
-    connect(questionMark_11, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_11);
 }
 

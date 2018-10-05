@@ -36,10 +36,10 @@
 
 #include "dbghelper.h"
 
-Process::Process(QWidget* parent, const QString &fullPath) :
+Process::Process(QWidget* parent, QString fullPath) :
     QObject(parent),
     process_(nullptr),
-    fullPath_(fullPath),
+    fullPath_(std::move(fullPath)),
     processExit_(ExitStatus::Success),
     processPid_(0),
     winPid_(QString()),
@@ -53,10 +53,6 @@ Process::Process(QWidget* parent, const QString &fullPath) :
              this, &Process::readyReadStdErr);
 
     freezerUtility_ = new QProcess(this);
-}
-
-Process::~Process()
-{
 }
 
 bool Process::engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList)
@@ -140,10 +136,7 @@ bool Process::zipProcessAddStart(const QString &fileName,
 
     process_->start(fp, args, QProcess::Unbuffered | QProcess::ReadWrite);
 
-    if (!process_->waitForFinished(2000))
-        return false;
-
-    return true;
+    return process_->waitForFinished(2000);
 }
 
 // extract int the outDir all the metadata files in the fileName archive
@@ -190,7 +183,7 @@ bool Process::zipContainsFiletype(const QString& fileName, const QString& filePa
         args << QStringLiteral("*");
 
     // file path of the 7z utility
-    QString fp(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::COMPRESSOR_BIN);
+    QString fp(QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::COMPRESSOR_BIN);
 
     connect(process_, SIGNAL(finished(int, QProcess::ExitStatus)),
              this, SLOT(processFinished(int, QProcess::ExitStatus)));
@@ -221,7 +214,7 @@ void Process::processPause(Defs::CurrRunStatus mode)
     // Pausing the engine requires two runs of it,
     // one for detecting the pid with no args and one for tha actual pausing.
 
-    fp = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
+    fp = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
     connect(freezerUtility_, &QProcess::readyReadStandardOutput,
              this, &Process::bufferFreezerOutput);
 
@@ -235,7 +228,7 @@ void Process::processPause(Defs::CurrRunStatus mode)
     args << QString::number(processPid_);
 #endif
 
-    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
+    freezerUtility_->setWorkingDirectory(QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
@@ -251,7 +244,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
 
 #if defined(Q_OS_WIN)
     // file path of the utility to resume the engine
-    fp = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
+    fp = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN;
 
     args << winPid_;
     args << QStringLiteral("/r");
@@ -266,7 +259,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
     args << QString::number(processPid_);
 #endif
 
-    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
+    freezerUtility_->setWorkingDirectory(QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 }
 
@@ -417,12 +410,12 @@ void Process::processPause_2()
 {
 #if defined(Q_OS_WIN)
     // file path of the program
-    QString fp(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN);
+    QString fp(QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR + QLatin1Char('/') + Defs::FREEZER_BIN);
 
     QStringList args;
     args << winPid_;
 
-    freezerUtility_->setWorkingDirectory(qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
+    freezerUtility_->setWorkingDirectory(QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR);
     freezerUtility_->start(fp, args);
 #endif
 }

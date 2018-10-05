@@ -329,10 +329,6 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
             parent, SIGNAL(saveRequest()));
 }
 
-WelcomePage::~WelcomePage()
-{
-}
-
 void WelcomePage::openProjectRequested()
 {
     emit openProjectRequest(QString());

@@ -59,10 +59,6 @@ IrgaView::IrgaView(QWidget *parent) :
     addAction(clearAction_);
 }
 
-IrgaView::~IrgaView()
-{
-}
-
 // Create and show context menu
 void IrgaView::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -88,7 +84,7 @@ void IrgaView::addIrga()
 
     // cast the model(), but it's not stricly necessary because
     // model() already returns the setModel() assigned to the view instance
-    IrgaModel *concreteModel = static_cast<IrgaModel *>(model());
+    auto concreteModel = dynamic_cast<IrgaModel *>(model());
 
     concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
@@ -105,12 +101,12 @@ void IrgaView::removeIrga()
     if (currCol == -1)
         currCol = lastCol;
 
-    static_cast<IrgaModel *>(model())->removeColumns(currCol, 1, QModelIndex());
+    dynamic_cast<IrgaModel *>(model())->removeColumns(currCol, 1, QModelIndex());
     updateGeometries();
     clearSelection();
 }
 
 int IrgaView::irgaCount()
 {
-    return static_cast<IrgaModel *>(model())->columnCount(QModelIndex());
+    return dynamic_cast<IrgaModel *>(model())->columnCount(QModelIndex());
 }

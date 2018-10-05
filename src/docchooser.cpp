@@ -37,9 +37,9 @@
 #include "globalsettings.h"
 #include "widget_utils.h"
 
-DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
+DocChooserDialog::DocChooserDialog(QUrl url, QWidget *parent) :
     QDialog(parent),
-    url_(url)
+    url_(std::move(url))
 {
     resize(390, 250);
     setMinimumSize(390, 250);
@@ -83,10 +83,6 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     onlineHelpRadio->setChecked(true);
     restoreAutoChooserState();
     restoreOfflineState();
-}
-
-DocChooserDialog::~DocChooserDialog()
-{
 }
 
 void DocChooserDialog::setAutoChooser(bool automatic)
@@ -148,7 +144,7 @@ void DocChooserDialog::close()
     else
     {
         // open local help
-        QString htmlHelpPath = qApp->applicationDirPath()
+        auto htmlHelpPath = QApplication::applicationDirPath()
                 + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
     }
 

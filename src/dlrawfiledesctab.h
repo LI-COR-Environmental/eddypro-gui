@@ -38,7 +38,7 @@ class DlRawfileDescTab : public QWidget {
     Q_OBJECT
 public:
     DlRawfileDescTab(QWidget* parent, DlProject* dlProject);
-    virtual ~DlRawfileDescTab();
+    ~DlRawfileDescTab() override;
 
     void reset();
     void refresh();

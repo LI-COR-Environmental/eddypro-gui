@@ -32,12 +32,8 @@ class Splitter : public QSplitter
 public:
     explicit Splitter(Qt::Orientation orientation, QWidget* parent = nullptr);
 
-signals:
-
-public slots:
-
 protected:
-    QSplitterHandle* createHandle() Q_DECL_OVERRIDE;
+    QSplitterHandle* createHandle() override;
 };
 
 #endif // SPLITTER_H

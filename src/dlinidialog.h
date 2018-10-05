@@ -45,8 +45,6 @@ class DlIniDialog : public QDialog
 public:
     DlIniDialog(QWidget *parent, DlProject *dlProject, ConfigState* config);
 
-    ~DlIniDialog();
-
     inline QString iniFilename() { return filename_; }
     inline DlRawfileDescTab* rawFileDescTab() { return rawfile_tab; }
     inline DlProject *dlProject() { return dlProject_; }
@@ -66,7 +64,7 @@ public slots:
     void saveAvailable();
 
 private slots:
-    void accept();
+    void accept() override;
     void disableResetButton(bool ok);
     void saveAsButtonClicked();
 

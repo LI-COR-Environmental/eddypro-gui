@@ -38,7 +38,7 @@ public:
     void setDisconnectedAction() const;
 
 private slots:
-    void updateAction(const QString &text);
+    void updateAction(const QString &text) override;
 };
 
 #endif // CUSTOMCLEARLINEEDIT_H

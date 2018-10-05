@@ -80,10 +80,6 @@ RichTextCheckBox::RichTextCheckBox(QWidget *parent) :
             this, &RichTextCheckBox::triggerOnlineHelp);
 }
 
-RichTextCheckBox::~RichTextCheckBox()
-{
-}
-
 bool RichTextCheckBox::isChecked() const
 {
     return checkBox->isChecked();

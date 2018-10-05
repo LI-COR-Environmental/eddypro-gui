@@ -59,10 +59,6 @@ AnemView::AnemView(QWidget *parent) :
     addAction(clearAction_);
 }
 
-AnemView::~AnemView()
-{
-}
-
 // Create and show context menu
 void AnemView::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -88,7 +84,7 @@ void AnemView::addAnem()
 
     // cast the model(), but it's not stricly necessary because
     // model() already returns the setModel() assigned to the view instance
-    AnemModel *concreteModel = static_cast<AnemModel *>(model());
+    auto concreteModel = dynamic_cast<AnemModel *>(model());
 
     concreteModel->insertColumns(currCol, 1, QModelIndex());
     updateGeometries();
@@ -105,12 +101,12 @@ void AnemView::removeAnem()
     if (currCol == -1)
         currCol = lastCol;
 
-    static_cast<AnemModel *>(model())->removeColumns(currCol, 1);
+    dynamic_cast<AnemModel *>(model())->removeColumns(currCol, 1);
     updateGeometries();
     clearSelection();
 }
 
 int AnemView::anemCount()
 {
-    return static_cast<AnemModel *>(model())->columnCount(QModelIndex());
+    return dynamic_cast<AnemModel *>(model())->columnCount(QModelIndex());
 }

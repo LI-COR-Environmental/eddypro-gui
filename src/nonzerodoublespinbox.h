@@ -32,7 +32,7 @@ public:
     explicit NonZeroDoubleSpinBox(QWidget* parent = nullptr);
 
 protected:
-    double valueFromText(const QString& text) const Q_DECL_OVERRIDE;
+    double valueFromText(const QString& text) const override;
 };
 
 #endif // NONZERODOUBLESPINBOX_H

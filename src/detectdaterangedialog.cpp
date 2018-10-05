@@ -89,10 +89,6 @@ DetectDateRangeDialog::DetectDateRangeDialog(QWidget *parent, EcProject *ecProje
 //    QTimer::singleShot(0, this, SLOT(initialize()));
 }
 
-DetectDateRangeDialog::~DetectDateRangeDialog()
-{
-}
-
 // void DetectDateRangeDialog::setLabel(const QString &label)
 // {
 //     msgLabel->setText(label);
@@ -123,9 +119,9 @@ void DetectDateRangeDialog::createDateSelectionWidget(DateRangeType type,
 
     DEBUG_FUNC_MSG(tr("Type Subset: %1\n"
                       "Start: %2\n"
-                      "End: %3\n\n").arg(typeStr)
-                                    .arg(subrange.first.toString(Qt::ISODate))
-                                    .arg(subrange.second.toString(Qt::ISODate)));
+                      "End: %3\n\n").arg(typeStr,
+                                         subrange.first.toString(Qt::ISODate),
+                                         subrange.second.toString(Qt::ISODate)));
 #endif
 
     auto rangeTypeLabel = new QLabel;
@@ -600,7 +596,7 @@ void DetectDateRangeDialog::showDateRange(DateRangeType type)
 
 void DetectDateRangeDialog::setCurrentRange(FileUtils::DateRange currentRange)
 {
-    availableDataRange_ = currentRange;
+    availableDataRange_ = std::move(currentRange);
     createCurrentRange();
 }
 
@@ -620,7 +616,7 @@ bool DetectDateRangeDialog::dateRangesOverlap(FileUtils::DateRange availableData
 
     auto dateSubset = qMakePair(dateStart, dateEnd);
 
-    return FileUtils::dateRangesOverlap(availableDataset, dateSubset);
+    return FileUtils::dateRangesOverlap(std::move(availableDataset), dateSubset);
 }
 
 void DetectDateRangeDialog::updateOverlap(QLabel *label,

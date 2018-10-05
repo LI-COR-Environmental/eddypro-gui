@@ -42,7 +42,6 @@ class DlInstrTab : public QWidget {
 
 public:
     DlInstrTab(QWidget *parent, DlProject *dlProject);
-    virtual ~DlInstrTab();
 
     void reset();
     void refresh();

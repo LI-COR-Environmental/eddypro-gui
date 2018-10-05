@@ -33,7 +33,7 @@ class VariableTableView : public QTableView
     Q_OBJECT
 public:
     explicit VariableTableView(QWidget* parent = nullptr);
-    ~VariableTableView();
+    ~VariableTableView() override;
 
 signals:
 
@@ -41,10 +41,10 @@ public slots:
     void hHeaderClicked(int section);
 
 protected:
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-    void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void closeEditor(QWidget * editor, QAbstractItemDelegate::EndEditHint hint) Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent *event) override;
+    void showEvent(QShowEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void closeEditor(QWidget * editor, QAbstractItemDelegate::EndEditHint hint) override;
 
 private:
     CustomHeader *m_header;

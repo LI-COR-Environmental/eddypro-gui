@@ -34,8 +34,7 @@ class DocChooserDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit DocChooserDialog(const QUrl& url, QWidget* parent = nullptr);
-    ~DocChooserDialog();
+    explicit DocChooserDialog(QUrl  url, QWidget* parent = nullptr);
 
 signals:
 
@@ -47,7 +46,6 @@ private slots:
     void setOfflineHelp(bool automatic);
 
 private:
-    QCheckBox* autoChoiceCheckBox;
     QRadioButton* onlineHelpRadio;
     QRadioButton* offlineHelpRadio;
 

@@ -63,7 +63,6 @@ class TimeLagSettingsDialog : public QDialog
     Q_OBJECT
 public:
     explicit TimeLagSettingsDialog(QWidget *parent, EcProject *ecProject, ConfigState* config);
-    ~TimeLagSettingsDialog();
 
     void setSmartfluxUI();
 signals:

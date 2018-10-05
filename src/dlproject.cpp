@@ -264,11 +264,11 @@ DlProject::DlProject(QObject* parent) :
     isFastTempAvailable_(false)
 { ; }
 
-DlProject::DlProject(QObject* parent, const ProjConfigState &project_config) :
+DlProject::DlProject(QObject* parent, ProjConfigState project_config) :
     QObject(parent),
     modified_(false),
     project_state_(ProjectState()),
-    project_config_state_(project_config),
+    project_config_state_(std::move(project_config)),
     isFastTempAvailable_(false)
 { ; }
 
@@ -291,9 +291,6 @@ DlProject& DlProject::operator=(const DlProject& project)
     }
     return *this;
 }
-
-DlProject::~DlProject()
-{ ; }
 
 // Clears project (new document)
 void DlProject::newProject(const ProjConfigState& project_config)
@@ -418,7 +415,7 @@ void DlProject::newProject(const ProjConfigState& project_config)
 // Load a project. Assumes file has been checked with nativeFormat()
 bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *modified, bool firstReading)
 {
-    auto parent = static_cast<MainWindow*>(this->parent());
+    auto parent = dynamic_cast<MainWindow*>(this->parent());
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
@@ -433,8 +430,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
         WidgetUtils::warning(nullptr,
                              tr("Load Metadata Error"),
                              tr("Cannot read file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         return false;
     }
 
@@ -958,8 +954,7 @@ bool DlProject::tagProject(const QString& filename)
         WidgetUtils::warning(nullptr,
                              tr("Write Metadata Error"),
                              tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }
@@ -1295,26 +1290,23 @@ QString DlProject::toIniAnemManufacturer(const QString& s)
     {
         return DlProject::ANEM_MANUFACTURER_STRING_0;
     }
-    else if (s == AnemDesc::getANEM_MANUFACTURER_STRING_1())
+    if (s == AnemDesc::getANEM_MANUFACTURER_STRING_1())
     {
         return DlProject::ANEM_MANUFACTURER_STRING_1;
     }
-    else if (s == AnemDesc::getANEM_MANUFACTURER_STRING_2())
+    if (s == AnemDesc::getANEM_MANUFACTURER_STRING_2())
     {
         return DlProject::ANEM_MANUFACTURER_STRING_2;
     }
-    else if (s == AnemDesc::getANEM_MANUFACTURER_STRING_3())
+    if (s == AnemDesc::getANEM_MANUFACTURER_STRING_3())
     {
         return DlProject::ANEM_MANUFACTURER_STRING_3;
     }
-    else if (s == AnemDesc::getANEM_MANUFACTURER_STRING_4())
+    if (s == AnemDesc::getANEM_MANUFACTURER_STRING_4())
     {
         return DlProject::ANEM_MANUFACTURER_STRING_4;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 const QString DlProject::toIniAnemModel(const QString& s)
@@ -1323,82 +1315,79 @@ const QString DlProject::toIniAnemModel(const QString& s)
     {
         return DlProject::getANEM_MODEL_STRING_0();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_1())
+    if (s == AnemDesc::getANEM_MODEL_STRING_1())
     {
         return DlProject::getANEM_MODEL_STRING_1();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_2())
+    if (s == AnemDesc::getANEM_MODEL_STRING_2())
     {
         return DlProject::getANEM_MODEL_STRING_2();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_3())
+    if (s == AnemDesc::getANEM_MODEL_STRING_3())
     {
         return DlProject::getANEM_MODEL_STRING_3();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_4())
+    if (s == AnemDesc::getANEM_MODEL_STRING_4())
     {
         return DlProject::getANEM_MODEL_STRING_4();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_5())
+    if (s == AnemDesc::getANEM_MODEL_STRING_5())
     {
         return DlProject::getANEM_MODEL_STRING_5();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_6())
+    if (s == AnemDesc::getANEM_MODEL_STRING_6())
     {
         return DlProject::getANEM_MODEL_STRING_6();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_7())
+    if (s == AnemDesc::getANEM_MODEL_STRING_7())
     {
         return DlProject::getANEM_MODEL_STRING_7();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_8())
+    if (s == AnemDesc::getANEM_MODEL_STRING_8())
     {
         return DlProject::getANEM_MODEL_STRING_8();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_9())
+    if (s == AnemDesc::getANEM_MODEL_STRING_9())
     {
         return DlProject::getANEM_MODEL_STRING_9();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_10())
+    if (s == AnemDesc::getANEM_MODEL_STRING_10())
     {
         return DlProject::getANEM_MODEL_STRING_10();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_11())
+    if (s == AnemDesc::getANEM_MODEL_STRING_11())
     {
         return DlProject::getANEM_MODEL_STRING_11();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_12())
+    if (s == AnemDesc::getANEM_MODEL_STRING_12())
     {
         return DlProject::getANEM_MODEL_STRING_12();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_13())
+    if (s == AnemDesc::getANEM_MODEL_STRING_13())
     {
         return DlProject::getANEM_MODEL_STRING_13();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_14())
+    if (s == AnemDesc::getANEM_MODEL_STRING_14())
     {
         return DlProject::getANEM_MODEL_STRING_14();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_15())
+    if (s == AnemDesc::getANEM_MODEL_STRING_15())
     {
         return DlProject::getANEM_MODEL_STRING_15();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_16())
+    if (s == AnemDesc::getANEM_MODEL_STRING_16())
     {
         return DlProject::getANEM_MODEL_STRING_16();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_17())
+    if (s == AnemDesc::getANEM_MODEL_STRING_17())
     {
         return DlProject::getANEM_MODEL_STRING_17();
     }
-    else if (s == AnemDesc::getANEM_MODEL_STRING_18())
+    if (s == AnemDesc::getANEM_MODEL_STRING_18())
     {
         return DlProject::getANEM_MODEL_STRING_18();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniAnemWindFormat(const QString& s)
@@ -1407,18 +1396,15 @@ QString DlProject::toIniAnemWindFormat(const QString& s)
     {
         return DlProject::ANEM_WIND_FORMAT_STRING_0;
     }
-    else if (s == AnemDesc::getANEM_WIND_FORMAT_STRING_1())
+    if (s == AnemDesc::getANEM_WIND_FORMAT_STRING_1())
     {
         return DlProject::ANEM_WIND_FORMAT_STRING_1;
     }
-    else if (s == AnemDesc::getANEM_WIND_FORMAT_STRING_2())
+    if (s == AnemDesc::getANEM_WIND_FORMAT_STRING_2())
     {
         return DlProject::ANEM_WIND_FORMAT_STRING_2;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniAnemNorthAlign(const QString& s)
@@ -1427,18 +1413,15 @@ QString DlProject::toIniAnemNorthAlign(const QString& s)
     {
         return DlProject::ANEM_NORTH_ALIGN_STRING_0;
     }
-    else if (s == AnemDesc::getANEM_NORTH_ALIGN_STRING_1())
+    if (s == AnemDesc::getANEM_NORTH_ALIGN_STRING_1())
     {
         return DlProject::ANEM_NORTH_ALIGN_STRING_1;
     }
-    else if (s == AnemDesc::getANEM_NORTH_ALIGN_STRING_2())
+    if (s == AnemDesc::getANEM_NORTH_ALIGN_STRING_2())
     {
         return DlProject::ANEM_NORTH_ALIGN_STRING_2;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniVariableVar(const QString& s)
@@ -1447,130 +1430,127 @@ QString DlProject::toIniVariableVar(const QString& s)
     {
         return DlProject::VARIABLE_VAR_STRING_0;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_1())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_1())
     {
         return DlProject::VARIABLE_VAR_STRING_1;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_2())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_2())
     {
         return DlProject::VARIABLE_VAR_STRING_2;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_3())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_3())
     {
         return DlProject::VARIABLE_VAR_STRING_3;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_4())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_4())
     {
         return DlProject::VARIABLE_VAR_STRING_4;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_5())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_5())
     {
         return DlProject::VARIABLE_VAR_STRING_5;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_6())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_6())
     {
         return DlProject::VARIABLE_VAR_STRING_6;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_7())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_7())
     {
         return DlProject::VARIABLE_VAR_STRING_7;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_8())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_8())
     {
         return DlProject::VARIABLE_VAR_STRING_8;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_9())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_9())
     {
         return DlProject::VARIABLE_VAR_STRING_9;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_10())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_10())
     {
         return DlProject::VARIABLE_VAR_STRING_10;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_11())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_11())
     {
         return DlProject::VARIABLE_VAR_STRING_11;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_12())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_12())
     {
         return DlProject::VARIABLE_VAR_STRING_12;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_13())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_13())
     {
         return DlProject::VARIABLE_VAR_STRING_13;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_14())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_14())
     {
         return DlProject::VARIABLE_VAR_STRING_14;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_15())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_15())
     {
         return DlProject::VARIABLE_VAR_STRING_15;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_16())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_16())
     {
         return DlProject::VARIABLE_VAR_STRING_16;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_17())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_17())
     {
         return DlProject::VARIABLE_VAR_STRING_17;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_18())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_18())
     {
         return DlProject::VARIABLE_VAR_STRING_18;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_19())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_19())
     {
         return DlProject::VARIABLE_VAR_STRING_19;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_20())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_20())
     {
         return DlProject::VARIABLE_VAR_STRING_20;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_21())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_21())
     {
         return DlProject::VARIABLE_VAR_STRING_21;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_22())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_22())
     {
         return DlProject::VARIABLE_VAR_STRING_22;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_23())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_23())
     {
         return DlProject::VARIABLE_VAR_STRING_23;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_24())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_24())
     {
         return DlProject::VARIABLE_VAR_STRING_24;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_25())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_25())
     {
         return DlProject::VARIABLE_VAR_STRING_25;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_26())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_26())
     {
         return DlProject::VARIABLE_VAR_STRING_26;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_27())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_27())
     {
         return DlProject::VARIABLE_VAR_STRING_27;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_28())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_28())
     {
         return DlProject::VARIABLE_VAR_STRING_28;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_29())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_29())
     {
         return DlProject::VARIABLE_VAR_STRING_29;
     }
-    else if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
+    if (s == VariableDesc::getVARIABLE_VAR_STRING_30())
     {
         return DlProject::VARIABLE_VAR_STRING_30;
     }
-    else
-    {
-        return s;
-    }
+    return s;
 }
 
 const QString DlProject::toIniVariableMeasureType(const QString& s)
@@ -1579,22 +1559,19 @@ const QString DlProject::toIniVariableMeasureType(const QString& s)
     {
         return DlProject::VARIABLE_MEASURE_TYPE_STRING_0;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1())
+    if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1())
     {
         return DlProject::VARIABLE_MEASURE_TYPE_STRING_1;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
+    if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
     {
         return DlProject::VARIABLE_MEASURE_TYPE_STRING_2;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_3())
+    if (s == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_3())
     {
         return DlProject::VARIABLE_MEASURE_TYPE_STRING_3;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniVariableMeasureUnit(const QString& s)
@@ -1603,118 +1580,115 @@ QString DlProject::toIniVariableMeasureUnit(const QString& s)
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_0;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_1())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_1())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_1;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_2())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_2())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_2;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_3())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_3())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_3;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_4())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_4())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_4;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_5())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_5())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_5;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_6())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_6())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_6;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_7())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_7())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_7;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_8())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_8())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_8;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_9())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_9())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_9;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_10())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_10())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_10;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_11())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_11())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_11;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_12())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_12())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_12;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_13())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_13())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_13;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_14())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_14())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_14;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_15())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_15())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_15;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_16())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_16())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_16;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_17;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_18())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_18())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_18;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_19())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_19())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_19;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_20())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_20())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_20;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_21())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_21())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_21;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_22())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_22())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_22;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_23())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_23())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_23;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_24())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_24())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_24;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_25())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_25())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_25;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_26())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_26())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_26;
     }
-    else if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_27())
+    if (s == VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_27())
     {
         return DlProject::VARIABLE_MEASURE_UNIT_STRING_27;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniVariableConversionType(const QString& s)
@@ -1723,18 +1697,15 @@ QString DlProject::toIniVariableConversionType(const QString& s)
     {
         return DlProject::VARIABLE_CONVERSION_TYPE_STRING_0;
     }
-    else if (s == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1())
+    if (s == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1())
     {
         return DlProject::VARIABLE_CONVERSION_TYPE_STRING_1;
     }
-    else if (s == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_2())
+    if (s == VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_2())
     {
         return DlProject::VARIABLE_CONVERSION_TYPE_STRING_2;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniVariableInstrument(const QString& s)
@@ -1811,26 +1782,23 @@ QString DlProject::fromIniAnemManufacturer(const QString& s)
     {
         return AnemDesc::getANEM_MANUFACTURER_STRING_0();
     }
-    else if (s == DlProject::ANEM_MANUFACTURER_STRING_1)
+    if (s == DlProject::ANEM_MANUFACTURER_STRING_1)
     {
         return AnemDesc::getANEM_MANUFACTURER_STRING_1();
     }
-    else if (s == DlProject::ANEM_MANUFACTURER_STRING_2)
+    if (s == DlProject::ANEM_MANUFACTURER_STRING_2)
     {
         return AnemDesc::getANEM_MANUFACTURER_STRING_2();
     }
-    else if (s == DlProject::ANEM_MANUFACTURER_STRING_3)
+    if (s == DlProject::ANEM_MANUFACTURER_STRING_3)
     {
         return AnemDesc::getANEM_MANUFACTURER_STRING_3();
     }
-    else if (s == DlProject::ANEM_MANUFACTURER_STRING_4)
+    if (s == DlProject::ANEM_MANUFACTURER_STRING_4)
     {
         return AnemDesc::getANEM_MANUFACTURER_STRING_4();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 const QString DlProject::fromIniAnemModel(const QString& s)
@@ -1839,82 +1807,79 @@ const QString DlProject::fromIniAnemModel(const QString& s)
     {
         return AnemDesc::getANEM_MODEL_STRING_0();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_1())
+    if (s == DlProject::getANEM_MODEL_STRING_1())
     {
         return AnemDesc::getANEM_MODEL_STRING_1();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_2())
+    if (s == DlProject::getANEM_MODEL_STRING_2())
     {
         return AnemDesc::getANEM_MODEL_STRING_2();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_3())
+    if (s == DlProject::getANEM_MODEL_STRING_3())
     {
         return AnemDesc::getANEM_MODEL_STRING_3();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_4())
+    if (s == DlProject::getANEM_MODEL_STRING_4())
     {
         return AnemDesc::getANEM_MODEL_STRING_4();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_5())
+    if (s == DlProject::getANEM_MODEL_STRING_5())
     {
         return AnemDesc::getANEM_MODEL_STRING_5();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_6())
+    if (s == DlProject::getANEM_MODEL_STRING_6())
     {
         return AnemDesc::getANEM_MODEL_STRING_6();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_7())
+    if (s == DlProject::getANEM_MODEL_STRING_7())
     {
         return AnemDesc::getANEM_MODEL_STRING_7();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_8())
+    if (s == DlProject::getANEM_MODEL_STRING_8())
     {
         return AnemDesc::getANEM_MODEL_STRING_8();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_9())
+    if (s == DlProject::getANEM_MODEL_STRING_9())
     {
         return AnemDesc::getANEM_MODEL_STRING_9();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_10())
+    if (s == DlProject::getANEM_MODEL_STRING_10())
     {
         return AnemDesc::getANEM_MODEL_STRING_10();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_11())
+    if (s == DlProject::getANEM_MODEL_STRING_11())
     {
         return AnemDesc::getANEM_MODEL_STRING_11();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_12())
+    if (s == DlProject::getANEM_MODEL_STRING_12())
     {
         return AnemDesc::getANEM_MODEL_STRING_12();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_13())
+    if (s == DlProject::getANEM_MODEL_STRING_13())
     {
         return AnemDesc::getANEM_MODEL_STRING_13();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_14())
+    if (s == DlProject::getANEM_MODEL_STRING_14())
     {
         return AnemDesc::getANEM_MODEL_STRING_14();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_15())
+    if (s == DlProject::getANEM_MODEL_STRING_15())
     {
         return AnemDesc::getANEM_MODEL_STRING_15();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_16())
+    if (s == DlProject::getANEM_MODEL_STRING_16())
     {
         return AnemDesc::getANEM_MODEL_STRING_16();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_17())
+    if (s == DlProject::getANEM_MODEL_STRING_17())
     {
         return AnemDesc::getANEM_MODEL_STRING_17();
     }
-    else if (s == DlProject::getANEM_MODEL_STRING_18())
+    if (s == DlProject::getANEM_MODEL_STRING_18())
     {
         return AnemDesc::getANEM_MODEL_STRING_18();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniAnemWindFormat(const QString& s)
@@ -1923,18 +1888,15 @@ QString DlProject::fromIniAnemWindFormat(const QString& s)
     {
         return AnemDesc::getANEM_WIND_FORMAT_STRING_0();
     }
-    else if (s == DlProject::ANEM_WIND_FORMAT_STRING_1)
+    if (s == DlProject::ANEM_WIND_FORMAT_STRING_1)
     {
         return AnemDesc::getANEM_WIND_FORMAT_STRING_1();
     }
-    else if (s == DlProject::ANEM_WIND_FORMAT_STRING_2)
+    if (s == DlProject::ANEM_WIND_FORMAT_STRING_2)
     {
         return AnemDesc::getANEM_WIND_FORMAT_STRING_2();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniAnemNorthAlign(const QString &model, const QString &s)
@@ -1945,7 +1907,7 @@ QString DlProject::fromIniAnemNorthAlign(const QString &model, const QString &s)
         return AnemDesc::getANEM_NORTH_ALIGN_STRING_0();
     }
     // spar
-    else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_1)
+    if (s == DlProject::ANEM_NORTH_ALIGN_STRING_1)
     {
         // NOTE: hack for bogus 'spar' value with csat/metek/young
         if (model == DlProject::getANEM_MODEL_STRING_0()
@@ -1953,20 +1915,14 @@ QString DlProject::fromIniAnemNorthAlign(const QString &model, const QString &s)
         {
             return AnemDesc::getANEM_NORTH_ALIGN_STRING_2();
         }
-        else
-        {
-            return AnemDesc::getANEM_NORTH_ALIGN_STRING_1();
-        }
+        return AnemDesc::getANEM_NORTH_ALIGN_STRING_1();
     }
     // na
-    else if (s == DlProject::ANEM_NORTH_ALIGN_STRING_2)
+    if (s == DlProject::ANEM_NORTH_ALIGN_STRING_2)
     {
         return AnemDesc::getANEM_NORTH_ALIGN_STRING_2();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniVariableVar(const QString& s)
@@ -1975,130 +1931,127 @@ QString DlProject::fromIniVariableVar(const QString& s)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_0();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_1)
+    if (s == DlProject::VARIABLE_VAR_STRING_1)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_1();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_2)
+    if (s == DlProject::VARIABLE_VAR_STRING_2)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_2();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_3)
+    if (s == DlProject::VARIABLE_VAR_STRING_3)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_3();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_4)
+    if (s == DlProject::VARIABLE_VAR_STRING_4)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_4();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_5)
+    if (s == DlProject::VARIABLE_VAR_STRING_5)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_5();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_6)
+    if (s == DlProject::VARIABLE_VAR_STRING_6)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_6();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_7)
+    if (s == DlProject::VARIABLE_VAR_STRING_7)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_7();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_8)
+    if (s == DlProject::VARIABLE_VAR_STRING_8)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_8();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_9)
+    if (s == DlProject::VARIABLE_VAR_STRING_9)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_9();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_10)
+    if (s == DlProject::VARIABLE_VAR_STRING_10)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_10();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_11)
+    if (s == DlProject::VARIABLE_VAR_STRING_11)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_11();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_12)
+    if (s == DlProject::VARIABLE_VAR_STRING_12)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_12();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_13)
+    if (s == DlProject::VARIABLE_VAR_STRING_13)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_13();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_14)
+    if (s == DlProject::VARIABLE_VAR_STRING_14)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_14();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_15)
+    if (s == DlProject::VARIABLE_VAR_STRING_15)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_15();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_16)
+    if (s == DlProject::VARIABLE_VAR_STRING_16)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_16();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_17)
+    if (s == DlProject::VARIABLE_VAR_STRING_17)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_17();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_18)
+    if (s == DlProject::VARIABLE_VAR_STRING_18)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_18();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_19)
+    if (s == DlProject::VARIABLE_VAR_STRING_19)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_19();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_20)
+    if (s == DlProject::VARIABLE_VAR_STRING_20)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_20();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_21)
+    if (s == DlProject::VARIABLE_VAR_STRING_21)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_21();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_22)
+    if (s == DlProject::VARIABLE_VAR_STRING_22)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_22();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_23)
+    if (s == DlProject::VARIABLE_VAR_STRING_23)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_23();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_24)
+    if (s == DlProject::VARIABLE_VAR_STRING_24)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_24();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_25)
+    if (s == DlProject::VARIABLE_VAR_STRING_25)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_25();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_26)
+    if (s == DlProject::VARIABLE_VAR_STRING_26)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_26();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_27)
+    if (s == DlProject::VARIABLE_VAR_STRING_27)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_27();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_28)
+    if (s == DlProject::VARIABLE_VAR_STRING_28)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_28();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_29)
+    if (s == DlProject::VARIABLE_VAR_STRING_29)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_29();
     }
-    else if (s == DlProject::VARIABLE_VAR_STRING_30)
+    if (s == DlProject::VARIABLE_VAR_STRING_30)
     {
         return VariableDesc::getVARIABLE_VAR_STRING_30();
     }
-    else
-    {
-        return s;
-    }
+    return s;
 }
 
 const QString DlProject::fromIniVariableMeasureType(const QString& s)
@@ -2107,22 +2060,19 @@ const QString DlProject::fromIniVariableMeasureType(const QString& s)
     {
         return VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_0();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_1)
+    if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_1)
     {
         return VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_2)
+    if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_2)
     {
         return VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_3)
+    if (s == DlProject::VARIABLE_MEASURE_TYPE_STRING_3)
     {
         return VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_3();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniVariableMeasureUnit(const QString& s)
@@ -2131,118 +2081,115 @@ QString DlProject::fromIniVariableMeasureUnit(const QString& s)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_0();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_1)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_1)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_1();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_2)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_2)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_2();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_3)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_3)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_3();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_4)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_4)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_4();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_5)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_5)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_5();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_6)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_6)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_6();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_7)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_7)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_7();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_8)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_8)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_8();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_9)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_9)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_9();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_10)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_10)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_10();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_11)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_11)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_11();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_12)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_12)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_12();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_13)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_13)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_13();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_14)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_14)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_14();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_15)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_15)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_15();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_16)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_16)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_16();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_17)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_17)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_17();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_18)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_18)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_18();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_19)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_19)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_19();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_20)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_20)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_20();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_21)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_21)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_21();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_22)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_22)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_22();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_23)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_23)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_23();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_24)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_24)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_24();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_25)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_25)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_25();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_26)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_26)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_26();
     }
-    else if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_27)
+    if (s == DlProject::VARIABLE_MEASURE_UNIT_STRING_27)
     {
         return VariableDesc::getVARIABLE_MEASURE_UNIT_STRING_27();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniVariableConversionType(const QString& s)
@@ -2251,23 +2198,20 @@ QString DlProject::fromIniVariableConversionType(const QString& s)
     {
         return VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_0();
     }
-    else if (s == DlProject::VARIABLE_CONVERSION_TYPE_STRING_1)
+    if (s == DlProject::VARIABLE_CONVERSION_TYPE_STRING_1)
     {
         return VariableDesc::getVARIABLE_CONVERSION_TYPE_STRING_1();
     }
-    else if (s == DlProject::VARIABLE_CONVERSION_TYPE_STRING_2)
+    if (s == DlProject::VARIABLE_CONVERSION_TYPE_STRING_2)
     {
         return QString();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 int DlProject::countInstruments(const QStringList& list)
 {
-    int i = 0;
+    auto i = 0;
     for (const auto &s : list)
     {
         if (s.contains(DlIni::INI_ANEM_1))
@@ -2284,7 +2228,7 @@ DlProject::InstrumentType DlProject::getInstrumentType(const QSettings& iniGroup
     {
         return InstrumentType::ANEM;
     }
-    else if (iniGroup.contains(prefix + DlIni::INI_IRGA_5))
+    if (iniGroup.contains(prefix + DlIni::INI_IRGA_5))
     {
         return InstrumentType::IRGA;
     }
@@ -2309,14 +2253,11 @@ QString DlProject::fromIniIrgaManufacturer(const QString& s)
     {
         return IrgaDesc::getIRGA_MANUFACTURER_STRING_0();
     }
-    else if (s == DlProject::IRGA_MANUFACTURER_STRING_1)
+    if (s == DlProject::IRGA_MANUFACTURER_STRING_1)
     {
         return IrgaDesc::getIRGA_MANUFACTURER_STRING_1();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::fromIniIrgaModel(const QString& s)
@@ -2325,66 +2266,63 @@ QString DlProject::fromIniIrgaModel(const QString& s)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_0();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_1)
+    if (s == DlProject::IRGA_MODEL_STRING_1)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_1();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_2)
+    if (s == DlProject::IRGA_MODEL_STRING_2)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_2();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_3)
+    if (s == DlProject::IRGA_MODEL_STRING_3)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_3();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_4)
+    if (s == DlProject::IRGA_MODEL_STRING_4)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_4();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_5)
+    if (s == DlProject::IRGA_MODEL_STRING_5)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_5();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_6)
+    if (s == DlProject::IRGA_MODEL_STRING_6)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_6();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_7)
+    if (s == DlProject::IRGA_MODEL_STRING_7)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_7();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_8)
+    if (s == DlProject::IRGA_MODEL_STRING_8)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_8();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_9)
+    if (s == DlProject::IRGA_MODEL_STRING_9)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_9();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_10)
+    if (s == DlProject::IRGA_MODEL_STRING_10)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_10();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_11)
+    if (s == DlProject::IRGA_MODEL_STRING_11)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_11();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_12)
+    if (s == DlProject::IRGA_MODEL_STRING_12)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_12();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_13)
+    if (s == DlProject::IRGA_MODEL_STRING_13)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_13();
     }
-    else if (s == DlProject::IRGA_MODEL_STRING_14)
+    if (s == DlProject::IRGA_MODEL_STRING_14)
     {
         return IrgaDesc::getIRGA_MODEL_STRING_14();
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniIrgaManufacturer(const QString& s)
@@ -2393,14 +2331,11 @@ QString DlProject::toIniIrgaManufacturer(const QString& s)
     {
         return DlProject::IRGA_MANUFACTURER_STRING_0;
     }
-    else if (s == IrgaDesc::getIRGA_MANUFACTURER_STRING_1())
+    if (s == IrgaDesc::getIRGA_MANUFACTURER_STRING_1())
     {
         return DlProject::IRGA_MANUFACTURER_STRING_1;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 QString DlProject::toIniIrgaModel(const QString& s)
@@ -2409,66 +2344,63 @@ QString DlProject::toIniIrgaModel(const QString& s)
     {
         return DlProject::IRGA_MODEL_STRING_0;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_1())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_1())
     {
         return DlProject::IRGA_MODEL_STRING_1;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_2())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_2())
     {
         return DlProject::IRGA_MODEL_STRING_2;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_3())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_3())
     {
         return DlProject::IRGA_MODEL_STRING_3;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_4())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_4())
     {
         return DlProject::IRGA_MODEL_STRING_4;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_5())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_5())
     {
         return DlProject::IRGA_MODEL_STRING_5;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_6())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_6())
     {
         return DlProject::IRGA_MODEL_STRING_6;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_7())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_7())
     {
         return DlProject::IRGA_MODEL_STRING_7;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_8())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_8())
     {
         return DlProject::IRGA_MODEL_STRING_8;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_9())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_9())
     {
         return DlProject::IRGA_MODEL_STRING_9;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_10())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_10())
     {
         return DlProject::IRGA_MODEL_STRING_10;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_11())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_11())
     {
         return DlProject::IRGA_MODEL_STRING_11;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_12())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_12())
     {
         return DlProject::IRGA_MODEL_STRING_12;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_13())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_13())
     {
         return DlProject::IRGA_MODEL_STRING_13;
     }
-    else if (s == IrgaDesc::getIRGA_MODEL_STRING_14())
+    if (s == IrgaDesc::getIRGA_MODEL_STRING_14())
     {
         return DlProject::IRGA_MODEL_STRING_14;
     }
-    else
-    {
-        return QString();
-    }
+    return QString();
 }
 
 bool DlProject::hasOneFastTemperature()
@@ -2730,10 +2662,6 @@ bool DlProject::masterAnemContainsGillWindmaster()
 {
     const QString masterAnemModel = project_state_.anemometerList.first().model();
 
-    if (masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7()
-        || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_8())
-    {
-        return true;
-    }
-    return false;
+    return masterAnemModel == AnemDesc::getANEM_MODEL_STRING_7()
+           || masterAnemModel == AnemDesc::getANEM_MODEL_STRING_8();
 }

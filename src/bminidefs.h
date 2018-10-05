@@ -23,7 +23,7 @@
 #ifndef BMINIDEFS_H
 #define BMINIDEFS_H
 
-class QString;
+#include <QString>
 
 namespace BmIni
 {

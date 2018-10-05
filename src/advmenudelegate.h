@@ -29,7 +29,6 @@ class AdvMenuDelegate : public QStyledItemDelegate
 {
 public:
     explicit AdvMenuDelegate(QObject* parent = nullptr);
-    virtual ~AdvMenuDelegate();
 
     enum datarole {
         TextRole = Qt::UserRole + 100,
@@ -38,10 +37,10 @@ public:
 
     void paint(QPainter* painter,
                const QStyleOptionViewItem& option,
-               const QModelIndex& index) const;
+               const QModelIndex& index) const override;
 
     QSize sizeHint(const QStyleOptionViewItem& option,
-                   const QModelIndex& index) const;
+                   const QModelIndex& index) const override;
 };
 
 #endif  // ADVMENUDELEGATE_H

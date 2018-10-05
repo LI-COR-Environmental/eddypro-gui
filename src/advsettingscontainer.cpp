@@ -64,10 +64,6 @@ AdvSettingsContainer::AdvSettingsContainer(QWidget *parent,
             outputOptions_, &AdvOutputOptions::checkMetadataOutput);
 }
 
-AdvSettingsContainer::~AdvSettingsContainer()
-{
-}
-
 void AdvSettingsContainer::setCurrentPage(int page)
 {
     mainLayout_->setCurrentIndex(page);

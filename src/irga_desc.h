@@ -57,10 +57,10 @@ public:
 
     IrgaDesc();
 
-    IrgaDesc(const QString& manufacture,
-             const QString& model,
-             const QString& swVersion,
-             const QString& id,
+    IrgaDesc(QString  manufacture,
+             QString  model,
+             QString  swVersion,
+             QString  id,
 //             qreal height,
              qreal tubeLength,
              qreal tubeDiameter,
@@ -79,8 +79,6 @@ public:
     IrgaDesc& operator=(const IrgaDesc& irga);
     bool operator==(const IrgaDesc& irga) const;
     bool operator<(const IrgaDesc& irga) const;
-
-    ~IrgaDesc();
 
     // get/set manufacturer
     const QString& manufacturer() const;

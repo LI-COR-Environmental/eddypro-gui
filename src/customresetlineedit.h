@@ -39,7 +39,7 @@ public:
     QString defaultText() const;
 
 private slots:
-    void updateAction(const QString &text);
+    void updateAction(const QString &text) override;
 
 private:
     QString stdText_;

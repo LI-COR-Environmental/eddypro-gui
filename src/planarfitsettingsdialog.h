@@ -71,8 +71,6 @@ class PlanarFitSettingsDialog : public QDialog
     Q_OBJECT
 public:
     explicit PlanarFitSettingsDialog(QWidget* parent, EcProject *ecProject, ConfigState* config);
-    ~PlanarFitSettingsDialog();
-
     void setSmartfluxUI();
 
 signals:

@@ -33,18 +33,17 @@ class VariableDelegate : public QStyledItemDelegate
     Q_OBJECT
 public:
     explicit VariableDelegate(QObject* parent = nullptr);
-    ~VariableDelegate();
 
     QWidget *createEditor(QWidget* parent, const QStyleOptionViewItem& option,
-                          const QModelIndex& index) const Q_DECL_OVERRIDE;
-    void setEditorData(QWidget* editor, const QModelIndex& index) const Q_DECL_OVERRIDE;
+                          const QModelIndex& index) const override;
+    void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
     void setModelData(QWidget* editor, QAbstractItemModel* model,
-                      const QModelIndex& index) const Q_DECL_OVERRIDE;
+                      const QModelIndex& index) const override;
 
     void updateEditorGeometry(QWidget* editor,
                               const QStyleOptionViewItem& option,
-                              const QModelIndex& index) const Q_DECL_OVERRIDE;
+                              const QModelIndex& index) const override;
 
     void clearCustomVariableBuffer();
 
@@ -53,7 +52,7 @@ private slots:
     void commitAndCloseEditor(QObject* editor);
 
 protected:
-    bool eventFilter(QObject* editor, QEvent* event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject* editor, QEvent* event) override;
 
 private:
     QScopedPointer<QStringList> varsBuffer_;

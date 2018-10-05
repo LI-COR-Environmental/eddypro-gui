@@ -72,7 +72,6 @@ private:
     ClickLabel *outpathLabel;
     DirBrowseWidget* outpathBrowse;
     QPushButton *createButton;
-    QPushButton *okButton;
     QPushButton *cancelButton;
 
     void refreshButtonStatus();

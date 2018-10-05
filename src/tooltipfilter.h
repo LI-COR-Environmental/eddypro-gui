@@ -41,7 +41,7 @@ public:
     void setTooltipAvailable(bool available);
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject* obj, QEvent* event) override;
 
 signals:
     void updateTooltipRequest(const QString&);

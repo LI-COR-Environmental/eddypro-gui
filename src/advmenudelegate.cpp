@@ -30,16 +30,12 @@ AdvMenuDelegate::AdvMenuDelegate(QObject *parent) :
 {
 }
 
-AdvMenuDelegate::~AdvMenuDelegate()
-{
-}
-
 QSize AdvMenuDelegate::sizeHint(const QStyleOptionViewItem& option,
                           const QModelIndex& index) const
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
-    return QSize(195, 68);
+    return QSize{195, 68};
 }
 void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                        const QModelIndex &index) const

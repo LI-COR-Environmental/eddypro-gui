@@ -39,7 +39,7 @@ private:
     bool isPressed;
 
 protected:
-    void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *e) override;
 
 public slots:
     void setHover();

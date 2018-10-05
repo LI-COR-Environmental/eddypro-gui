@@ -131,10 +131,6 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
             this, &BinarySettingsDialog::close);
 }
 
-BinarySettingsDialog::~BinarySettingsDialog()
-{
-}
-
 void BinarySettingsDialog::close()
 {
     if (isVisible())

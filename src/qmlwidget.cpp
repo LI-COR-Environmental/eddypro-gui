@@ -3,6 +3,6 @@
 QmlWidget::QmlWidget(QUrl source, QWidget* parent) :
     QQuickWidget(parent)
 {
-    setSource(QUrl(source));
+    setSource(QUrl(std::move(source)));
     setResizeMode(QQuickWidget::SizeRootObjectToView);
 }

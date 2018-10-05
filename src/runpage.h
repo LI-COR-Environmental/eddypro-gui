@@ -46,7 +46,7 @@ class RunPage : public QWidget
 
 public:
     explicit RunPage(QWidget *parent, EcProject *ecProject, ConfigState *config);
-    ~RunPage();
+    ~RunPage() override;
 
     void startRun(Defs::CurrRunStatus mode);
     bool pauseRun(Defs::CurrRunStatus mode);
@@ -84,9 +84,9 @@ private:
     void resetFileLabels();
     void resetTimeEstimateLabels();
     int updateETC(int *mean_processing_time,
-                  const int current_processing_time,
-                  const int index,
-                  const int num_steps);
+                  int current_processing_time,
+                  int index,
+                  int num_steps);
 
     Defs::CurrRunStatus runMode_;
     Spinner* progressWidget_;

@@ -285,7 +285,7 @@ void RawFilenameDialog::populateDialog()
 
 void RawFilenameDialog::removeFileExtensionFromList(const QString& ext)
 {
-    for (auto type : fileList_)
+    for (const auto& type : fileList_)
     {
         if (QFileInfo(type).suffix().contains(ext))
         {

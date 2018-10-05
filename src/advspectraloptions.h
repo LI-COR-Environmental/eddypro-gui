@@ -56,7 +56,6 @@ public:
                                 DlProject* dlProject,
                                 EcProject* ecProject,
                                 ConfigState* config);
-    ~AdvSpectralOptions();
 
     void setSmartfluxUI();
 
@@ -248,11 +247,11 @@ private:
     QLabel* freqAttenuationTitle;
 
     QPushButton* questionMark_1;
-    QPushButton* questionMark_11;
-    QPushButton* questionMark_22;
-    QPushButton* questionMark_33;
-    QPushButton* questionMark_44;
-    QPushButton* questionMark_55;
+    QPushButton* questionMark_2;
+    QPushButton* questionMark_3;
+    QPushButton* questionMark_4;
+    QPushButton* questionMark_5;
+    QPushButton* questionMark_6;
 
     DlProject* dlProject_;
     EcProject* ecProject_;

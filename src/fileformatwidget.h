@@ -33,13 +33,12 @@ class FileFormatWidget : public LineEditAndBrowseWidget
 
 public:
     FileFormatWidget();
-    ~FileFormatWidget();
 
     bool isReadOnly() const;
     void setReadOnly(bool on);
 
 private slots:
-    void onButtonClick();
+    void onButtonClick() override;
 };
 
 #endif  // FILEFORMATWIDGET_H

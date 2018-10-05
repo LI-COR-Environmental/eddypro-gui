@@ -441,10 +441,6 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     forceEndTimePolicy();
 }
 
-TimeLagSettingsDialog::~TimeLagSettingsDialog()
-{
-}
-
 void TimeLagSettingsDialog::close()
 {
     if (isVisible())

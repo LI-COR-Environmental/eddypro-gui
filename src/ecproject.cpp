@@ -33,12 +33,12 @@
 #include "stringutils.h"
 #include "widget_utils.h"
 
-EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
+EcProject::EcProject(QObject *parent, ProjConfigState project_config) :
     QObject(parent),
     defaultSettings(EcProjectState()),
     modified_(false),
     ec_project_state_(EcProjectState()),
-    project_config_state_(project_config)
+    project_config_state_(std::move(project_config))
 {
     Defs::qt_registerCustomTypes();
 }
@@ -64,23 +64,13 @@ EcProject& EcProject::operator=(const EcProject &project)
     return *this;
 }
 
-// destructor
-EcProject::~EcProject()
-{ ; }
-
 bool EcProject::previousSettingsCompare(bool current, bool previous)
 {
     if (previous)
     {
         return true;
     }
-    else
-    {
-        if (current)
-            return false;
-        else
-            return true;
-    }
+    return !current;
 }
 
 bool EcProject::previousFourthGasCompare(int currentGas, double currGasMw, double currGasDiff,
@@ -88,14 +78,7 @@ bool EcProject::previousFourthGasCompare(int currentGas, double currGasMw, doubl
 {
     if (currentGas >= 0 && currentGas == previousGas)
     {
-        if (qFuzzyCompare(currGasMw, previousGasMw) && qFuzzyCompare(currGasDiff, previousGasDiff))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return qFuzzyCompare(currGasMw, previousGasMw) && qFuzzyCompare(currGasDiff, previousGasDiff);
     }
     return false;
 }
@@ -1105,8 +1088,7 @@ bool EcProject::saveEcProject(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Write Project Error"),
                              tr("Cannot write file %1:\n%2")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }
@@ -1594,7 +1576,7 @@ bool EcProject::saveEcProject(const QString &filename)
 // Load a project. Assumes file has been checked with nativeFormat()
 bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *modified)
 {
-    auto parent = static_cast<MainWindow*>(this->parent());
+    auto parent = dynamic_cast<MainWindow*>(this->parent());
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
@@ -2713,7 +2695,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
 
             int exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
             int include = exclude ? 0 : (exclude + 2);
-            Qt::CheckState included = static_cast<Qt::CheckState>(include);
+            auto included = static_cast<Qt::CheckState>(include);
 
             AngleItem item;
             item.angle_ = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_9).toDouble();

@@ -44,10 +44,6 @@ DirBrowseWidget::DirBrowseWidget()
             this, &LineEditAndBrowseWidget::pathSelected);
 }
 
-DirBrowseWidget::~DirBrowseWidget()
-{
-}
-
 bool DirBrowseWidget::isReadOnly() const
 {
     return lineEdit()->isReadOnly();

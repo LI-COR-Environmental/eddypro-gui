@@ -65,7 +65,6 @@ class WelcomePage : public QWidget
 
 public:
     WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* configState);
-    ~WelcomePage();
 
     void updateWelcomePage(bool small);
     void updateSmartfluxBar();
@@ -79,7 +78,6 @@ private:
 
     ClickLabel *appLogoLabel;
     ClickLabel *toviLabel;
-    ClickLabel *feedbackLabel;
     QToolButton *newButton;
     QToolButton *openButton;
     QListWidget *recentListWidget;

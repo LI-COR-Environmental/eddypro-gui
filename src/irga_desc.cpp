@@ -152,10 +152,10 @@ IrgaDesc::IrgaDesc() :
     kOxygen_(0.0085)
 { ; }
 
-IrgaDesc::IrgaDesc(const QString& manufacture,
-                   const QString& model,
-                   const QString& swVersion,
-                   const QString& id,
+IrgaDesc::IrgaDesc(QString manufacture,
+                   QString model,
+                   QString swVersion,
+                   QString id,
                    qreal tubeLength,
                    qreal tubeDiameter,
                    qreal tubeFlowRate,
@@ -167,10 +167,10 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
                    qreal tau,
                    qreal kWater,
                    qreal kOxygen) :
-    manufacturer_(manufacture),
-    model_(model),
-    swVersion_(swVersion),
-    id_(id),
+    manufacturer_(std::move(manufacture)),
+    model_(std::move(model)),
+    swVersion_(std::move(swVersion)),
+    id_(std::move(id)),
     tubeLength_(tubeLength),
     tubeDiameter_(tubeDiameter),
     tubeFlowRate_(tubeFlowRate),
@@ -183,8 +183,6 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
     kWater_(kWater),
     kOxygen_(kOxygen)
 { ; }
-
-IrgaDesc::~IrgaDesc() { ; }
 
 IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     manufacturer_(irga.manufacturer_),
@@ -317,8 +315,8 @@ bool IrgaDesc::isALicorModel(const QString& model)
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
-    const QString manufacturer = irga.manufacturer();
+    const auto& model = irga.model();
+    const QString& manufacturer = irga.manufacturer();
 
     auto isGoodManufacturer = !manufacturer.isEmpty();
     auto isLicorModel = isALicorModel(model);
@@ -354,7 +352,7 @@ bool IrgaDesc::hasGoodSeparations(const IrgaDesc& irga)
 
 bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
+    const auto& model = irga.model();
 
     auto isGoodTubeLength = irga.tubeLength() > 0.0;
     auto isGoodTubeDiameter = irga.tubeDiameter() > 0.0;
@@ -381,7 +379,7 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 
 bool IrgaDesc::hasGoodFlowRate(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
+    const auto& model = irga.model();
 
     auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
 
@@ -423,7 +421,7 @@ bool IrgaDesc::hasGoodPathLength(const IrgaDesc& irga)
 
 bool IrgaDesc::isGoodIrga(const IrgaDesc &irga)
 {
-    const QString model = irga.model();
+    const QString& model = irga.model();
 
     // 1
     auto isGoodManufacturer = !irga.manufacturer().isEmpty();

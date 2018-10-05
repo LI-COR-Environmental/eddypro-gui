@@ -148,7 +148,6 @@ private:
     RichTextCheckBox* outFullCospectraCheckBoxCh4;
     RichTextCheckBox* outFullCospectraCheckBoxN2o;
 
-    QCheckBox* outFullCospectraAll;
     QCheckBox* outGhgEuCheckBox;
     QCheckBox* outAmFluxCheckBox;
     QCheckBox* outDetailsCheckBox;
@@ -201,9 +200,6 @@ private:
     QPushButton* questionMark_4;
     QPushButton* questionMark_5;
     QPushButton* questionMark_6;
-    QPushButton* questionMark_7;
-    QPushButton* questionMark_8;
-    QPushButton* questionMark_9;
 
     QLabel* hrLabel_1;
 

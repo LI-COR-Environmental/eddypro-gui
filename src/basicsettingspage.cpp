@@ -290,9 +290,9 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     declinationLabel = new ClickLabel(tr("Magnetic declination :"));
     declinationEdit = new QLineEdit;
     declinationEdit->setText(tr("000%1 00' E").arg(Defs::DEGREE));
-    QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
-            dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
-            dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
+    QString dec_pattern = tr(R"(?:(0\d\d)%1\s([0-5]\d)'\s(E|W))|").arg(Defs::DEGREE);
+            dec_pattern += tr(R"(?:(1[0-7]\d)%1\s([0-5]\d)'\s(E|W))|").arg(Defs::DEGREE);
+            dec_pattern += tr(R"(?:(180)%1\s(00)'\s(E|W))").arg(Defs::DEGREE);
     QRegularExpression decRx(dec_pattern);
     auto decValidator = new QRegularExpressionValidator(decRx, declinationEdit);
     declinationEdit->setValidator(decValidator);
@@ -343,14 +343,14 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addLayout(endDateContainer, 5, 2, 1, 2);
 
     filesInfoLayout->addWidget(filePrototypeLabel, 6, 0, Qt::AlignRight);
-    filesInfoLayout->addWidget(questionMark_4, 6, 1);
+    filesInfoLayout->addWidget(questionMark_3, 6, 1);
     filesInfoLayout->addWidget(filePrototypeEdit, 6, 2, 1, 3);
     filesInfoLayout->addWidget(outpathLabel, 7, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(outpathBrowse, 7, 2, 1, 3);
     filesInfoLayout->addWidget(idLabel, 8, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(idEdit, 8, 2, 1, 2);
     filesInfoLayout->addWidget(previousDatapathLabel, 9, 0, Qt::AlignRight);
-    filesInfoLayout->addWidget(questionMark_2, 9, 1, Qt::AlignLeft);
+    filesInfoLayout->addWidget(questionMark_1, 9, 1, Qt::AlignLeft);
     filesInfoLayout->addWidget(previousDatapathBrowse, 9, 2, 1, 3);
 
     filesInfoLayout->addWidget(maxLackLabel, 1, 5, Qt::AlignRight);
@@ -365,7 +365,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addWidget(declinationEdit, 6, 7);
     filesInfoLayout->addWidget(declinationDateLabel, 6, 8, Qt::AlignRight);
     filesInfoLayout->addWidget(declinationDateEdit, 6, 9);
-    filesInfoLayout->addWidget(questionMark_5, 6, 10, Qt::AlignLeft);
+    filesInfoLayout->addWidget(questionMark_4, 6, 10, Qt::AlignLeft);
     filesInfoLayout->addWidget(decChangingLabel, 7, 7, 1, -1);
     filesInfoLayout->addWidget(magneticDeclinationFetchProgress, 8, 7);
     filesInfoLayout->setRowStretch(10, 1);
@@ -814,7 +814,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     policyLabel->setProperty("groupLabel", true);
 
     auto descLayout = new QHBoxLayout;
-    descLayout->addWidget(questionMark_3, 0);
+    descLayout->addWidget(questionMark_2, 0);
     descLayout->addWidget(descLabel, 1);
 
     auto flagLayout = new QGridLayout;
@@ -1231,7 +1231,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
                                     << flag10VarCombo;
     for (auto widget :combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateFlagUnit(int)));
     }
@@ -1248,7 +1248,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
                                     << flag10Label;
     for (auto widget : label_list)
     {
-        auto label = static_cast<ClickLabel *>(widget);
+        auto label = dynamic_cast<ClickLabel *>(widget);
         connect(label, &ClickLabel::clicked,
                 this, &BasicSettingsPage::onClickFlagLabel);
     }
@@ -1268,14 +1268,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
 BasicSettingsPage::~BasicSettingsPage()
 {
-    if (httpReply_)
-    {
-        delete httpReply_;
-    }
-    if (httpManager_)
-    {
-        delete httpManager_;
-    }
+    delete httpReply_;
+    delete httpManager_;
 }
 
 void BasicSettingsPage::datapathSelected(const QString& dir_path)
@@ -1342,12 +1336,9 @@ void BasicSettingsPage::setPrototype(bool showDialog)
             return;
         }
         // case 2: at least 2 different suffixes or no files found
-        else
-        {
-            askRawFilenamePrototype();
-            updateFilesFound(ecProject_->screenRecurse());
-            return;
-        }
+        askRawFilenamePrototype();
+        updateFilesFound(ecProject_->screenRecurse());
+        return;
     }
 
     // non GHG cases
@@ -1383,8 +1374,7 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
     QString ghgFormat = QStringLiteral("*.") + Defs::GHG_NATIVE_DATA_FILE_EXT;
     QString mdFormat = QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
     QString biometMdFormat = QStringLiteral("*%1.%2")
-                            .arg(Defs::DEFAULT_BIOMET_SUFFIX)
-                            .arg(Defs::METADATA_FILE_EXT);
+            .arg(Defs::DEFAULT_BIOMET_SUFFIX, Defs::METADATA_FILE_EXT);
 
     findFileProgress->start();
     currentRawDataList_ = FileUtils::getFiles(datapathBrowse->path(), ghgFormat, ecProject_->screenRecurse());
@@ -1466,44 +1456,35 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
                 clearFilesFound();
                 return;
             }
-            else
-            {
-                // NOTE: discard silently
-                return;
-            }
+            // NOTE: else, discard silently
+            return;
         }
-        else
+        FileUtils::zipExtract(mdFile, smfDir);
+
+        QStringList mdFilters;
+        mdFilters << QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
+        mdDir.setNameFilters(mdFilters);
+        mdDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+        mdDir.setSorting(QDir::Name | QDir::DirsLast);
+
+        QStringList mdFileList = mdDir.entryList();
+
+        if (!mdFileList.isEmpty())
         {
-            FileUtils::zipExtract(mdFile, smfDir);
-
-            QStringList mdFilters;
-            mdFilters << QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
-            mdDir.setNameFilters(mdFilters);
-            mdDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
-            mdDir.setSorting(QDir::Name | QDir::DirsLast);
-
-            QStringList mdFileList = mdDir.entryList();
-
-            if (!mdFileList.isEmpty())
+            for (const auto &str : mdFileList)
             {
-                for (const auto &str : mdFileList)
+                // raw embedded metadata
+                if (!str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
                 {
-                    // raw embedded metadata
-                    if (!str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
+                    if (type & rawEmbeddedFile)
                     {
-                        if (type & rawEmbeddedFile)
-                        {
-                            mdFile = smfDir + QLatin1Char('/') + str;
-                            readEmbeddedMetadata(mdFile);
-                        }
+                        mdFile = smfDir + QLatin1Char('/') + str;
+                        readEmbeddedMetadata(mdFile);
                     }
                 }
             }
-            else
-            {
-                // NOTE: discard silently
-            }
         }
+        // NOTE: discard silently
     }
 
     if (type & biometEmbeddedFile)
@@ -1522,45 +1503,36 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
                 // clearFilesFound();
                 return;
             }
-            else
-            {
-                // NOTE: discard silently
-                return;
-            }
+            // NOTE: else, discard silently
+            return;
         }
-        else
+        FileUtils::zipExtract(biometMdFile, smfDir);
+
+        QStringList mdFilters;
+        mdFilters << QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
+        mdDir.setNameFilters(mdFilters);
+        mdDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+        mdDir.setSorting(QDir::Name | QDir::DirsLast);
+        QStringList mdFileList = mdDir.entryList();
+
+        if (!mdFileList.isEmpty())
         {
-            FileUtils::zipExtract(biometMdFile, smfDir);
-
-            QStringList mdFilters;
-            mdFilters << QStringLiteral("*.") + Defs::METADATA_FILE_EXT;
-            mdDir.setNameFilters(mdFilters);
-            mdDir.setFilter(QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
-            mdDir.setSorting(QDir::Name | QDir::DirsLast);
-            QStringList mdFileList = mdDir.entryList();
-
-            if (!mdFileList.isEmpty())
+            for (const auto &str : mdFileList)
             {
-                for (const auto &str : mdFileList)
+                if (str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
                 {
-                    if (str.contains(Defs::DEFAULT_BIOMET_SUFFIX))
+                    if (type & biometEmbeddedFile)
                     {
-                        if (type & biometEmbeddedFile)
+                        if (!mdFileList.filter(Defs::DEFAULT_BIOMET_SUFFIX).isEmpty())
                         {
-                            if (!mdFileList.filter(Defs::DEFAULT_BIOMET_SUFFIX).isEmpty())
-                            {
-                                biometMdFile = smfDir + QLatin1Char('/') + str;
-                                readBiomEmbMetadata(biometMdFile);
-                            }
+                            biometMdFile = smfDir + QLatin1Char('/') + str;
+                            readBiomEmbMetadata(biometMdFile);
                         }
                     }
                 }
             }
-            else
-            {
-                // NOTE: discard silently
-            }
         }
+        // NOTE: else, discard silently
     }
 }
 
@@ -1639,25 +1611,13 @@ bool BasicSettingsPage::readBiomAltMetadata(const QString& mdFile)
             parseBiomMetadata();
             return true;
         }
-        else
-        {
-            // NOTE: notice to put somewhere else or to silently ignore
-//            WidgetUtils::warning(QApplication::activeWindow(),
-//                                 tr("Metadata Error"),
-//                                 tr("No biomet "
-//                                    "information!"));
-//            emit updateMetadataReadResult(false);
-            return false;
-        }
-    }
-    else
-    {
-        WidgetUtils::warning(QApplication::activeWindow(),
-                             tr("Metadata Error"),
-                             tr("Error reading biomet "
-                                "information!"));
         return false;
     }
+    WidgetUtils::warning(QApplication::activeWindow(),
+                         tr("Metadata Error"),
+                         tr("Error reading biomet "
+                            "information!"));
+        return false;
 }
 
 void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
@@ -1676,7 +1636,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
     for (const auto & anem : *adl)
     {
         ++k;
-        const QString anemUiModel = anem.model();
+        const QString& anemUiModel = anem.model();
         const QString anemDataModel = DlProject::toIniAnemModel(anemUiModel);
         const QString fullUiAnemModel = anemUiModel + tr(" [Anemometer ") + QString::number(k) + QStringLiteral("]");
         const QString fullDataAnemModel = anemDataModel + QStringLiteral("_") + QString::number(k);
@@ -1727,12 +1687,12 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
     for (const auto &var : *vdl)
     {
         ++k;
-        const QString varName = var.variable();
-        const QString instrType = var.instrument();
+        const QString& varName = var.variable();
+        const QString& instrType = var.instrument();
         QString measureType = var.measureType();
 
-        const QString ignoreFlag = var.ignore();
-        const QString numericFlag = var.numeric();
+        const QString& ignoreFlag = var.ignore();
+        const QString& numericFlag = var.numeric();
 
         // 1.3 condition
         bool isCustomLabel = (varName != VariableDesc::getVARIABLE_VAR_STRING_0())
@@ -1788,8 +1748,8 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
                 {
                     QStringList instrList = instrType.split(QLatin1Char(':'));
                     QString instrModel = instrList.at(1).trimmed();
-                    QString instrStrNumber = instrList.at(0);
-                    int instrNumber = instrStrNumber.mid(5).toInt();
+                    const QString& instrStrNumber = instrList.at(0);
+                    int instrNumber = instrStrNumber.midRef(5).toInt();
 
                     QString instrTypeStr;
                     if (instrList.at(0).split(QLatin1Char(' ')).at(0) == tr("Sonic"))
@@ -2016,7 +1976,7 @@ void BasicSettingsPage::parseMetadataProject(bool isEmbedded)
 
                 for (auto w : flag_vars_list)
                 {
-                    auto combo = static_cast<QComboBox *>(w);
+                    auto combo = dynamic_cast<QComboBox *>(w);
                     combo->setEnabled(true);
                     combo->addItem(varString, k);
                 }
@@ -2166,7 +2126,7 @@ void BasicSettingsPage::addNoneStr_1()
 
     for (auto w : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(w);
+        auto combo = dynamic_cast<QComboBox *>(w);
         if (combo->findData(0) < 0)
         {
             combo->addItem(tr("None"), 0);
@@ -2190,7 +2150,7 @@ void BasicSettingsPage::addNoneStr_2()
 
     for (auto w : combo_list)
     {
-        QComboBox *combo = static_cast<QComboBox*>(w);
+        auto combo = dynamic_cast<QComboBox*>(w);
         if (combo->findData(0) < 0)
         {
             combo->addItem(tr("None"), 0);
@@ -2208,7 +2168,7 @@ void BasicSettingsPage::clearBiometCombo()
 
     for (auto w : combo_list)
     {
-        QComboBox *combo = static_cast<QComboBox*>(w);
+        auto combo = dynamic_cast<QComboBox*>(w);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2268,7 +2228,7 @@ void BasicSettingsPage::clearVarsCombo()
                          << tsRefLabel;
     for (auto widget : label_list)
     {
-        auto label = static_cast<QLabel *>(widget);
+        auto label = dynamic_cast<QLabel *>(widget);
         label->setEnabled(false);
     }
 
@@ -2295,7 +2255,7 @@ void BasicSettingsPage::clearVarsCombo()
                         << tsRefCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2336,7 +2296,7 @@ void BasicSettingsPage::clearFlagVars()
             << flag10VarCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         combo->clear();
         combo->setEnabled(false);
     }
@@ -2357,7 +2317,7 @@ void BasicSettingsPage::clearFlagUnits()
                          << flag10UnitLabel;
     for (auto w : widget_list)
     {
-        auto label = static_cast<QLabel *>(w);
+        auto label = dynamic_cast<QLabel *>(w);
         label->clear();
     }
 }
@@ -2378,7 +2338,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 
     for (auto widget : spin_list)
     {
-        auto spin = static_cast<QDoubleSpinBox *>(widget);
+        auto spin = dynamic_cast<QDoubleSpinBox *>(widget);
         spin->setEnabled(false);
         spin->setValue(-9999.0);
     }
@@ -2396,7 +2356,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
                          << flag10UnitLabel;
     for (auto widget: label_list)
     {
-        auto label = static_cast<QLabel *>(widget);
+        auto label = dynamic_cast<QLabel *>(widget);
         label->setEnabled(false);
     }
 
@@ -2414,7 +2374,7 @@ void BasicSettingsPage::clearFlagThresholdsAndPolicies()
 
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox*>(widget);
+        auto combo = dynamic_cast<QComboBox*>(widget);
         combo->setEnabled(false);
         combo->setCurrentIndex(1);
     }
@@ -2665,7 +2625,7 @@ void BasicSettingsPage::preselectDensityVariables(QComboBox* combo)
             combo->setCurrentIndex(i);
             break;
         }
-        else if (combo->itemText(i).contains(densityStr))
+        if (combo->itemText(i).contains(densityStr))
         {
             combo->setCurrentIndex(i);
         }
@@ -2688,10 +2648,7 @@ void BasicSettingsPage::preselect7700Variables(QComboBox* combo)
             combo->setCurrentIndex(i);
             break;
         }
-        else
-        {
-            combo->setCurrentIndex(0);
-        }
+        combo->setCurrentIndex(0);
     }
 }
 
@@ -3297,13 +3254,13 @@ void BasicSettingsPage::updateTsRefCombo(int i)
 
 void BasicSettingsPage::updateFlagUnit(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     QString comboName = senderCombo->objectName();
     QString flagName = comboName.left(comboName.indexOf(QLatin1String("Combo")));
     QString flagUnitLabelName = flagName + QStringLiteral("UnitLabel");
 
-    QLabel *unitLabel = this->findChild<QLabel *>(flagUnitLabelName);
+    auto unitLabel = this->findChild<QLabel *>(flagUnitLabelName);
 
     if (senderCombo->currentText() == tr("None")
         || senderCombo->currentText().isEmpty())
@@ -3324,11 +3281,11 @@ void BasicSettingsPage::updateFlagUnit(int i)
 
 QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
 {
-    QString var = varStr.variable();
-    QString measureType = varStr.measureType();
-    QString conversionType = varStr.conversionType();
-    QString inputUnitType = varStr.inputUnit();
-    QString outputUnitType = varStr.outputUnit();
+    const QString& var = varStr.variable();
+    const QString& measureType = varStr.measureType();
+    const QString& conversionType = varStr.conversionType();
+    const QString& inputUnitType = varStr.inputUnit();
+    const QString& outputUnitType = varStr.outputUnit();
 
     if (var == VariableDesc::getVARIABLE_VAR_STRING_0()
         || var == VariableDesc::getVARIABLE_VAR_STRING_1()
@@ -3337,7 +3294,7 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     {
         return QStringLiteral("[m/s]");
     }
-    else if (var == VariableDesc::getVARIABLE_VAR_STRING_3()
+    if (var == VariableDesc::getVARIABLE_VAR_STRING_3()
         || var == VariableDesc::getVARIABLE_VAR_STRING_9()
         || var == VariableDesc::getVARIABLE_VAR_STRING_10()
         || var == VariableDesc::getVARIABLE_VAR_STRING_12()
@@ -3346,12 +3303,12 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
     {
         return QStringLiteral("[K]");
     }
-    else if (var == VariableDesc::getVARIABLE_VAR_STRING_11()
+    if (var == VariableDesc::getVARIABLE_VAR_STRING_11()
         || var == VariableDesc::getVARIABLE_VAR_STRING_13())
     {
         return QStringLiteral("[Pa]");
     }
-    else if (var == VariableDesc::getVARIABLE_VAR_STRING_5()
+    if (var == VariableDesc::getVARIABLE_VAR_STRING_5()
              || var == VariableDesc::getVARIABLE_VAR_STRING_7()
              || var == VariableDesc::getVARIABLE_VAR_STRING_8()
              || var == VariableDesc::getVARIABLE_VAR_STRING_19()
@@ -3365,8 +3322,8 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
         {
             return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
-        else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
-                 || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
+        if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
+           || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
             return QStringLiteral("[%1]").arg(Defs::UMOL_MOL_STRING);
         }
@@ -3377,7 +3334,7 @@ QString BasicSettingsPage::getFlagUnit(const VariableDesc& varStr)
         {
             return QStringLiteral("[%1]").arg(Defs::MMOL_M3_STRING);
         }
-        else if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
+        if (measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_1()
                  || measureType == VariableDesc::getVARIABLE_MEASURE_TYPE_STRING_2())
         {
             return QStringLiteral("[%1]").arg(Defs::MMOL_MOL_STRING);
@@ -3583,27 +3540,27 @@ void BasicSettingsPage::onClickPpfdLabel()
 
 void BasicSettingsPage::createQuestionMark()
 {
+    questionMark_1 = new QPushButton;
     questionMark_2 = new QPushButton;
     questionMark_3 = new QPushButton;
     questionMark_4 = new QPushButton;
-    questionMark_5 = new QPushButton;
 
-    auto btn_list = QWidgetList() << questionMark_2
+    auto btn_list = QWidgetList() << questionMark_1
+                                  << questionMark_2
                                   << questionMark_3
-                                  << questionMark_4
-                                  << questionMark_5;
+                                  << questionMark_4;
     for (auto btn : btn_list)
     {
         btn->setObjectName(QStringLiteral("questionMarkImg"));
     }
 
-    connect(questionMark_2, &QPushButton::clicked,
+    connect(questionMark_1, &QPushButton::clicked,
             this, &BasicSettingsPage::onlineHelpTrigger_2);
-    connect(questionMark_3, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &BasicSettingsPage::onlineHelpTrigger_3);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &BasicSettingsPage::onlineHelpTrigger_4);
-    connect(questionMark_5, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &BasicSettingsPage::onlineHelpTrigger_5);
 }
 
@@ -3723,10 +3680,6 @@ void BasicSettingsPage::updateMetadataRead(bool firstReading)
                 {
                     reloadSelectedItems_2();
                     break;
-                }
-                else
-                {
-                    continue;
                 }
             }
             break;
@@ -4368,13 +4321,13 @@ void BasicSettingsPage::updateFlag10Policy(int n)
 
 void BasicSettingsPage::onClickFlagLabel()
 {
-    QLabel* labelSender = qobject_cast<QLabel *>(sender());
+    auto labelSender = qobject_cast<QLabel *>(sender());
 
     QString labelName = labelSender->objectName();
     QString flagName = labelName.left(labelName.indexOf(QLatin1String("Label")));
     QString flagComboObjectName = flagName + QStringLiteral("Combo");
 
-    QComboBox *flagCombo = this->findChild<QComboBox *>(flagComboObjectName);
+    auto flagCombo = this->findChild<QComboBox *>(flagComboObjectName);
 
     flagCombo->setFocus();
     flagCombo->showPopup();
@@ -4653,19 +4606,16 @@ void BasicSettingsPage::bufferHttpReply()
         // newlines found
         if (lineList.at(0) != httpBuffer_)
         {
-            for (int i = 0; i < lineList.size(); ++i)
+            for (const auto & i : lineList)
             {
-                if (parseHttpReply(lineList.at(i)))
+                if (parseHttpReply(i))
                 {
                    continue;
                 }
-                else
-                {
-                    // manage NOAA server errors
-                    noNoaaDownloadMsg();
-                    magneticDeclinationFetchProgress->stop();
-                    return;
-                }
+                // manage NOAA server errors
+                noNoaaDownloadMsg();
+                magneticDeclinationFetchProgress->stop();
+                return;
             }
 
             if (lineList.last().endsWith('\n'))
@@ -4755,9 +4705,9 @@ double BasicSettingsPage::numDeclination(const QString &text)
 {
     double dec = 0.0;
 
-    QString dec_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
-            dec_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s(E|W))|").arg(Defs::DEGREE);
-            dec_pattern += tr("(?:(180)%1\\s(00)'\\s(E|W))").arg(Defs::DEGREE);
+    QString dec_pattern = tr(R"(?:(0\d\d)%1\s([0-5]\d)'\s(E|W))|").arg(Defs::DEGREE);
+            dec_pattern += tr(R"(?:(1[0-7]\d)%1\s([0-5]\d)'\s(E|W))|").arg(Defs::DEGREE);
+            dec_pattern += tr(R"(?:(180)%1\s(00)'\s(E|W))").arg(Defs::DEGREE);
     QRegularExpression decRx(dec_pattern);
     auto match = decRx.match(text);
     if (match.hasMatch())
@@ -4812,7 +4762,7 @@ QString BasicSettingsPage::strDeclination(double dec)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     QString degrees_str;
     QTextStream d(&degrees_str);
@@ -4854,7 +4804,7 @@ QString BasicSettingsPage::strVariation(double dec)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     QString degrees_str;
     QTextStream d(&degrees_str);

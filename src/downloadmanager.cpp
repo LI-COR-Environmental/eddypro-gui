@@ -38,10 +38,6 @@ DownloadManager::DownloadManager(QObject *parent) :
 {
 }
 
-DownloadManager::~DownloadManager()
-{
-}
-
 void DownloadManager::abort()
 {
     if (reply)
@@ -76,18 +72,10 @@ void DownloadManager::get(const QUrl &url)
 
     reply = manager.get(request);
 
-    // TODO(emiola): remove test when bump Qt version on Windows
-#if (QT_VERSION > 0x050302) && (__GNUC__ >= 4) && (__GNUC_MINOR__ > 8)
     connect(reply, &QNetworkReply::downloadProgress,
             this, &DownloadManager::downloadProgress);
     connect(reply, &QNetworkReply::finished,
             this, &DownloadManager::downloadFinished);
-#else
-    connect(reply, SIGNAL(downloadProgress(qint64, qint64)),
-            this, SLOT(downloadProgress(qint64, qint64)));
-    connect(reply, SIGNAL(finished()),
-            this, SLOT(downloadFinished()));
-#endif
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(downloadError(QNetworkReply::NetworkError)));
 }

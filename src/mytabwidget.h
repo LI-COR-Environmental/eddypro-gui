@@ -33,7 +33,7 @@ class MyTabWidget : public QTabWidget
 {
     Q_OBJECT
 public:
-    explicit MyTabWidget() { }
+    explicit MyTabWidget() = default;
     inline QTabBar* getTabBarAsPublic() { return tabBar(); }
 };
 

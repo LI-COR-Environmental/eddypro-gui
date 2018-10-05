@@ -54,33 +54,33 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(const QString& filename = QString(),
-               const QString& appEnvPath = QString(),
+    MainWindow(QString  filename = QString(),
+               QString  appEnvPath = QString(),
                CustomSplashScreen* splashscreen = nullptr,
                QWidget* parent = nullptr,
                Qt::WindowFlags flags = Qt::WindowFlags());
-    ~MainWindow();
+    ~MainWindow() override;
 
     bool queryEcProjectImport(const QString &filename);
     bool queryDlProjectImport();
 
 protected:
-    void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
-    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject* o, QEvent* e) Q_DECL_OVERRIDE;
-    void wheelEvent(QWheelEvent* event) Q_DECL_OVERRIDE;
-    void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
+    void closeEvent(QCloseEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
+    bool eventFilter(QObject* o, QEvent* e) override;
+    void wheelEvent(QWheelEvent* event) override;
+    void changeEvent(QEvent* event) override;
 
 private slots:
     void initialize();
     void fileNew();
     void fileOpen(const QString& fileName = QString());
     void fileRecent();
-    bool fileSave(const bool quiet = false);
+    bool fileSave(bool quiet = false);
     bool fileSaveAs(const QString& fileName = QString());
     void fileClose();
 
-    void fileOpenRequest(QString file);
+    void fileOpenRequest(const QString& file);
     void fileNewRequest();
 
     bool fileSaveSilently();
@@ -274,7 +274,6 @@ private:
     QAction *pdfHelpAction;
     QAction *starterPdfHelpAction;
     QAction *toggleOfflineHelpAct;
-    QAction *whatsHelpAction;
     QAction* appWebpageAction;
     QAction* forumWebpageAction;
     QAction* checkUpdateAction;
@@ -300,9 +299,6 @@ private:
     QString currEcProjectFilename_;
     QString appEnvPath_;
     QLabel *currentProjectLabel;
-
-    int versionLabelWidth_;
-    int currentProjectLabelWidth_;
 
     QTimer* notificationTimer_;
 
@@ -337,7 +333,6 @@ private:
     void showStatusTip(const QString &text) const;
 
     Process* engineProcess_;
-    int engineExit_;
 
     UpdateDialog* updateDialog;
     void updateInfoDock(bool yes);

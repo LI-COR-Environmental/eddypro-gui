@@ -148,8 +148,8 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     latitudeEdit = new QLineEdit;
     latitudeEdit->setToolTip(latitudeLabel->toolTip());
     latitudeEdit->setText(tr("00%1 00' 00.000'' N").arg(Defs::DEGREE));
-    QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-            lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+    QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+            lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
     QRegularExpression latRx(lat_pattern);
     auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
     latitudeEdit->setValidator(latValidator);
@@ -164,9 +164,9 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     longitudeEdit = new QLineEdit;
     longitudeEdit->setToolTip(longitudeLabel->toolTip());
     longitudeEdit->setText(tr("000%1 00' 00.000'' E").arg(Defs::DEGREE));
-    QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-            lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-            lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+    QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+            lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+            lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
     QRegularExpression lonRx(lon_pattern);
     auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
     longitudeEdit->setValidator(lonValidator);
@@ -296,10 +296,6 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
             this, SLOT(updateFileDuration(int)));
 }
 
-DlSiteTab::~DlSiteTab()
-{
-}
-
 // get latitude in signed decimal degrees from ddmmss.sss string
 double DlSiteTab::numLatitude(const QString &text)
 {
@@ -307,8 +303,8 @@ double DlSiteTab::numLatitude(const QString &text)
 
     if (!decimalDegrees_)
     {
-        QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-                lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+        QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+                lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
         QRegularExpression latRx(lat_pattern);
         auto match = latRx.match(text);
         if (match.hasMatch())
@@ -366,7 +362,7 @@ QString DlSiteTab::strLatitude(double lat)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     rest = min_rest - minutes;
     double seconds = rest * 60.0;
@@ -413,9 +409,9 @@ double DlSiteTab::numLongitude(const QString &text)
 
     if (!decimalDegrees_)
     {
-        QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+        QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
         QRegularExpression lonRx(lon_pattern);
         auto match = lonRx.match(text);
         if (match.hasMatch())
@@ -454,7 +450,7 @@ double DlSiteTab::numLongitude(const QString &text)
     else
     {
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
-                lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
+                lon_pattern += QLatin1String(R"((?:(?:\+|-)(?:1[0-7]\d)\.(?:\d+))|)");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
         QRegularExpression lonRx(lon_pattern);
         auto match = lonRx.match(text);
@@ -481,7 +477,7 @@ QString DlSiteTab::strLongitude(double lon)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     rest = min_rest - minutes;
     double seconds = rest * 60.0;
@@ -591,16 +587,16 @@ void DlSiteTab::sexDegRadioToogled(bool checked)
         latitudeEdit->blockSignals(true);
         longitudeEdit->blockSignals(true);
 
-        QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-                lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+        QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+                lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
         QRegularExpression latRx(lat_pattern);
         auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
         latitudeEdit->setValidator(latValidator);
         latitudeEdit->setInputMask(tr("00%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
 
-        QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+        QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
         QRegularExpression lonRx(lon_pattern);
         auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
         longitudeEdit->setValidator(lonValidator);
@@ -632,7 +628,7 @@ void DlSiteTab::decDegRadioToogled(bool checked)
         latitudeEdit->setInputMask(QStringLiteral("#00.000000"));
 
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
-                lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
+                lon_pattern += QLatin1String(R"((?:(?:\+|-)(?:1[0-7]\d)\.(?:\d+))|)");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
         QRegularExpression lonRx(lon_pattern);
         auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);

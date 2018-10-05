@@ -38,7 +38,7 @@ public:
     explicit SmartFluxBar(EcProject* ecProject,
                           ConfigState* config,
                           QWidget* parent = nullptr);
-    ~SmartFluxBar();
+    ~SmartFluxBar() override;
 
 signals:
     void showSmartfluxBarRequest(bool on);
@@ -46,7 +46,7 @@ signals:
     void saveSilentlyRequest();
 
 protected:
-    void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent* event) override;
 
     static void paintLayout(QPainter* painter, QLayoutItem* item);
 

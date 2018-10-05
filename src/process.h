@@ -61,8 +61,7 @@ public:
         Stopped
     };
 
-    Process(QWidget* parent = nullptr, const QString& fullPath = QString());
-    ~Process();
+    Process(QWidget* parent = nullptr, QString  fullPath = QString());
 
     bool engineProcessStart(const QString& fullPath, const QString& workingDir, const QStringList& argList);
 

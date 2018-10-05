@@ -453,12 +453,12 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
     auto qBox_4 = new QHBoxLayout;
     qBox_4->addWidget(createDatasetCheckBox);
-    qBox_4->addWidget(questionMark_4);
+    qBox_4->addWidget(questionMark_3);
     qBox_4->addStretch();
 
     auto qBox_10 = new QHBoxLayout;
     qBox_10->addWidget(title_6);
-    qBox_10->addWidget(questionMark_5);
+    qBox_10->addWidget(questionMark_4);
     qBox_10->addStretch();
 
     auto qBox_5 = new QHBoxLayout;
@@ -481,12 +481,12 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
     auto qBox_8 = new QHBoxLayout;
     qBox_8->addWidget(statLabel);
-    qBox_8->addWidget(questionMark_8);
+    qBox_8->addWidget(questionMark_5);
     qBox_8->addStretch();
 
     auto qBox_9 = new QHBoxLayout;
     qBox_9->addWidget(timeSeriesLabel);
-    qBox_9->addWidget(questionMark_9);
+    qBox_9->addWidget(questionMark_6);
     qBox_9->addStretch();
 
 //
@@ -1444,26 +1444,26 @@ void AdvOutputOptions::createQuestionMark()
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_2 = new QPushButton;
     questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_4 = new QPushButton;
     questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_5 = new QPushButton;
     questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_8 = new QPushButton;
-    questionMark_8->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_9 = new QPushButton;
-    questionMark_9->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_6 = new QPushButton;
+    questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_1);
     connect(questionMark_2, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_2);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_4);
-    connect(questionMark_5, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_5);
-    connect(questionMark_8, &QPushButton::clicked,
+    connect(questionMark_5, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_8);
-    connect(questionMark_9, &QPushButton::clicked,
+    connect(questionMark_6, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_9);
 }
 

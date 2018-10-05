@@ -40,7 +40,7 @@ void AngleTableView::mousePressEvent(QMouseEvent *event)
 
 QSize AngleTableView::sizeHint() const
 {
-    return QSize(200, 200);
+    return QSize{200, 200};
 }
 
 int AngleTableView::sizeHintForRow(int row) const

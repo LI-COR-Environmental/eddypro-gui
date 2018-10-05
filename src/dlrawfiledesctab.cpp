@@ -141,8 +141,8 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget* parent, DlProject* dlProject) :
     // to trigger table editing with single click without altering the
     // editTriggers property, because that way the column selection
     // clicking on the header trigger the first cell editor
-    connect(variableView_, SIGNAL(clicked(const QModelIndex &)),
-            variableView_, SLOT(edit(const QModelIndex &)));
+    connect(variableView_, SIGNAL(clicked(QModelIndex)),
+            variableView_, SLOT(edit(QModelIndex)));
 }
 
 DlRawfileDescTab::~DlRawfileDescTab()
@@ -192,7 +192,7 @@ void DlRawfileDescTab::updateModels()
     for (const auto &anem : *adl)
     {
         ++k;
-        const QString aModel = anem.model();
+        const QString& aModel = anem.model();
         if (AnemDesc::isGoodAnemometer(anem))
         {
             models << tr("Sonic ") + QString::number(k) + QStringLiteral(": ") + aModel;
@@ -203,7 +203,7 @@ void DlRawfileDescTab::updateModels()
     for (const auto &irga : *idl)
     {
         ++k;
-        const QString iModel = irga.model();
+        const QString& iModel = irga.model();
         if (IrgaDesc::isGoodIrga(irga))
         {
             models << tr("Irga ") + QString::number(k) + QStringLiteral(": ") + iModel;

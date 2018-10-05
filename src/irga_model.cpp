@@ -38,9 +38,6 @@ IrgaModel::IrgaModel(QObject *parent, IrgaDescList *list) :
     list_(list)
 {;}
 
-IrgaModel::~IrgaModel(){
-}
-
 // Reset the model
 void IrgaModel::flush()
 {
@@ -77,11 +74,8 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(irgaDesc.model());
                     }
-                    else
-                    {
-                        const_cast<IrgaModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<IrgaModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
                 else
                 {
@@ -89,11 +83,8 @@ QVariant IrgaModel::data(const QModelIndex& index, int role) const
                     {
                         return QVariant(irgaDesc.model());
                     }
-                    else
-                    {
-                        const_cast<IrgaModel *>(this)->setData(index, nullStrValue);
-                        return nullStrValue;
-                    }
+                    const_cast<IrgaModel *>(this)->setData(index, nullStrValue);
+                    return nullStrValue;
                 }
             case SWVERSION:
                 return QVariant(irgaDesc.swVersion());
@@ -554,7 +545,7 @@ bool IrgaModel::removeColumns(int column, int count, const QModelIndex& parent)
     if (count != 1) return false; // only remove one column at a time
     if ((column < 0) || (column >= list_->count())) return false;
 
-    if (!WidgetUtils::okToRemoveColumn(qApp->activeWindow()))
+    if (!WidgetUtils::okToRemoveColumn(QApplication::activeWindow()))
     {
         return false;
     }

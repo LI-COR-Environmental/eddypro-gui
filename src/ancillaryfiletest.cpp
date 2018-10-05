@@ -991,7 +991,7 @@ bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
     }
 
     // if there are RH classes
-    if (h2oTimelagValues.size())
+    if (!h2oTimelagValues.isEmpty())
     {
         // test c.2
         test << true;
@@ -1074,9 +1074,8 @@ void AncillaryFileTest::saveResults()
         QTextStream out(&file);
 
         // add header
-        out << tr("%1 check of assessment file %2 against %3").arg(Defs::APP_NAME)
-               .arg(name_)
-               .arg(testFileMap_.value(type_).filepath);
+        out << tr("%1 check of assessment file %2 against %3")
+               .arg(Defs::APP_NAME, name_, testFileMap_.value(type_).filepath);
         out << "\n\n";
 
         // get text

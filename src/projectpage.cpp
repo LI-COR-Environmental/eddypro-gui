@@ -237,7 +237,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
     auto altMetadataFileRadioBox = new QHBoxLayout;
     altMetadataFileRadioBox->addWidget(altMetadataFileRadio);
-    altMetadataFileRadioBox->addWidget(questionMark_4);
+    altMetadataFileRadioBox->addWidget(questionMark_3);
     altMetadataFileRadioBox->addStretch();
 //    altMetadataFileRadioBox->setSpacing(0);
 //    altMetadataFileRadioBox->setContentsMargins(0, 0, 0, 0);
@@ -247,13 +247,13 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     gridLeft->addWidget(titleEdit, 0, 1, 1, 3);
     gridLeft->addWidget(fileTypeLabel, 1, 0, Qt::AlignRight);
     gridLeft->addWidget(ghgFileTyperRadio, 1, 1, Qt::AlignLeft);
-    gridLeft->addWidget(questionMark_2, 1, 2, Qt::AlignLeft);
+    gridLeft->addWidget(questionMark_1, 1, 2, Qt::AlignLeft);
     gridLeft->addWidget(asciiFileTypeRadio, 2, 1, Qt::AlignLeft);
     gridLeft->addWidget(binaryFileTypeRadio, 3, 1, Qt::AlignLeft);
-    gridLeft->addWidget(questionMark_6, 3, 2, 1, 1, Qt::AlignLeft);
+    gridLeft->addWidget(questionMark_5, 3, 2, 1, 1, Qt::AlignLeft);
     gridLeft->addWidget(binSettingsButton, 3, 3);
     gridLeft->addWidget(tobFileTypeRadio, 4, 1, Qt::AlignLeft);
-    gridLeft->addWidget(questionMark_5, 4, 2, 1, 1, Qt::AlignLeft);
+    gridLeft->addWidget(questionMark_4, 4, 2, 1, 1, Qt::AlignLeft);
     gridLeft->addWidget(tobSettingsCombo, 4, 3);
     gridLeft->addWidget(sltEddysoftFileTypeRadio, 5, 1, Qt::AlignLeft);
     gridLeft->addWidget(sltEdisolFileTypeRadio, 6, 1, Qt::AlignLeft);
@@ -274,15 +274,15 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     gridRight->addWidget(metadataFileBrowse, 3, 1, 1, 3);
     gridRight->addWidget(dynamicMdCheckBox, 5, 0, Qt::AlignRight);
     gridRight->addWidget(dynamicMdFileBrowse, 5, 1, 1, 3);
-    gridRight->addWidget(questionMark_3, 5, 4);
+    gridRight->addWidget(questionMark_2, 5, 4);
     gridRight->addWidget(biomDataCheckBox, 7, 0, Qt::AlignRight);
     gridRight->addWidget(biomEmbFileRadio, 7, 1, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(biomExtFileRadio, 8, 1, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(biometExtFileBrowse, 8, 2, 1, 2);
-    gridRight->addWidget(questionMark_7, 8, 4);
+    gridRight->addWidget(questionMark_6, 8, 4);
     gridRight->addWidget(biomExtDirRadio, 9, 1, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(biometExtDirBrowse, 9, 2, 1, 2);
-    gridRight->addWidget(questionMark_8, 9, 4);
+    gridRight->addWidget(questionMark_7, 9, 4);
     gridRight->addWidget(biomExtDirRecCheckBox, 10, 1, Qt::AlignRight);
     gridRight->addWidget(biomExtDirSuffixLabel, 10, 2, Qt::AlignRight);
     gridRight->addWidget(biomExtDirCombo, 10, 3);
@@ -424,8 +424,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
 
 ProjectPage::~ProjectPage()
 {
-    if (binDialog_)
-        delete binDialog_;
+    delete binDialog_;
 }
 
 // modeless dialog
@@ -455,10 +454,8 @@ void ProjectPage::createMetadataEditor()
 
 void ProjectPage::selectWidget(int filetype)
 {
-    Defs::RawFileType type
-            = static_cast<Defs::RawFileType>(filetype);
-    Defs::RawFileType previousType
-            = static_cast<Defs::RawFileType>(previousFileType_);
+    auto type = static_cast<Defs::RawFileType>(filetype);
+    auto previousType = static_cast<Defs::RawFileType>(previousFileType_);
 
     if (filetype != previousFileType_)
     {
@@ -525,7 +522,7 @@ void ProjectPage::updateFileType(int filetype)
 
 void ProjectPage::updateUseMetadataFile_1(int filetype)
 {
-    Defs::RawFileType type = static_cast<Defs::RawFileType>(filetype);
+    auto type = static_cast<Defs::RawFileType>(filetype);
 
     if (type == Defs::RawFileType::GHG)
     {
@@ -744,7 +741,7 @@ void ProjectPage::updateMetadataLoading()
 
 void ProjectPage::fileTypeRadioClicked_1(int fileType)
 {
-    Defs::RawFileType type = static_cast<Defs::RawFileType>(fileType);
+    auto type = static_cast<Defs::RawFileType>(fileType);
     if (type == Defs::RawFileType::GHG)
     {
         if (ecProject_->generalMdFilepath().isEmpty())
@@ -770,7 +767,7 @@ void ProjectPage::fileTypeRadioClicked_1(int fileType)
 
 void ProjectPage::fileTypeRadioClicked_2(int fileType)
 {
-    Defs::RawFileType type = static_cast<Defs::RawFileType>(fileType);
+    auto type = static_cast<Defs::RawFileType>(fileType);
 
     // if licor
     if (type == Defs::RawFileType::GHG)
@@ -830,6 +827,8 @@ void ProjectPage::metadataRadioClicked(int b)
 
 void ProjectPage::createQuestionMark()
 {
+    questionMark_1 = new QPushButton;
+    questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_2 = new QPushButton;
     questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_3 = new QPushButton;
@@ -842,22 +841,20 @@ void ProjectPage::createQuestionMark()
     questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_7 = new QPushButton;
     questionMark_7->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_8 = new QPushButton;
-    questionMark_8->setObjectName(QStringLiteral("questionMarkImg"));
 
-    connect(questionMark_2, &QPushButton::clicked,
+    connect(questionMark_1, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_2);
-    connect(questionMark_3, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_3);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_4);
-    connect(questionMark_5, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_5);
-    connect(questionMark_6, &QPushButton::clicked,
+    connect(questionMark_5, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_6);
-    connect(questionMark_7, &QPushButton::clicked,
+    connect(questionMark_6, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_7);
-    connect(questionMark_8, &QPushButton::clicked,
+    connect(questionMark_7, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_8);
 }
 
@@ -983,7 +980,7 @@ void ProjectPage::mdEditorReset()
 
 void ProjectPage::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }

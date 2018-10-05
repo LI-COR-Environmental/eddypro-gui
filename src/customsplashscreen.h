@@ -39,14 +39,13 @@ class CustomSplashScreen : public QSplashScreen
 
 public:
     explicit CustomSplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::SplashScreen);
-    ~CustomSplashScreen();
 
     void setProgressValue(int value);
     void showStatusMessage(const QString &message, const QColor &color = Qt::black);
     void setMessageRect(QRect rect, int alignment = Qt::AlignLeft);
 
 protected:
-    void drawContents(QPainter *painter) Q_DECL_OVERRIDE;
+    void drawContents(QPainter *painter) override;
 
 signals:
 
@@ -55,7 +54,7 @@ private slots:
 
 private:
     QString message_;
-    int alignement_;
+    int alignement_ = 0;
     QColor color_;
     QRect rect_;
     QProgressBar* progressBar_;

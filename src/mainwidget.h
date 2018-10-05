@@ -69,7 +69,6 @@ class MainWidget : public QWidget
 
 public:
     MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* configState);
-    ~MainWidget();
 
     inline WelcomePage* welcomePage() { return welcomePage_; }
     inline ProjectPage* projectPage() { return projectPage_; }

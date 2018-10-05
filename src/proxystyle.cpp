@@ -25,7 +25,7 @@
 #include <QStyleFactory>
 
 ProxyStyle::ProxyStyle(const QString& style)
-    : QStyle(), style_(QStyleFactory::create(style))
+    : style_(QStyleFactory::create(style))
 {
 }
 
