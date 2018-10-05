@@ -34,7 +34,7 @@ class AnemTableView : public QTableView
 
 public:
     explicit AnemTableView(QWidget* parent = nullptr);
-    ~AnemTableView();
+    ~AnemTableView() Q_DECL_OVERRIDE;
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;

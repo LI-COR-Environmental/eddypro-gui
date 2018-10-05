@@ -104,15 +104,6 @@ HEADERS += \
     src/detectdaterangedialog.h \
     src/downloadmanager.h \
     src/openfilefilter.h \
-    src/lisp_parser/xnode.hpp \
-    src/lisp_parser/xtree.hpp \
-    src/calibrationapi.h \
-    src/calibrationinfo.h \
-    src/calibrationdialog.h \
-    src/calibration.h \
-    src/polyfit.hpp \
-    src/vector_utils.h \
-    src/QScienceSpinBox.h \
     src/qmlwidget.h \
     src/spinner.h
 
@@ -206,13 +197,6 @@ SOURCES +=  \
     src/detectdaterangedialog.cpp \
     src/downloadmanager.cpp \
     src/openfilefilter.cpp \
-    src/lisp_parser/xnode.cpp \
-    src/lisp_parser/xtree.cpp \
-    src/calibrationapi.cpp \
-    src/calibrationinfo.cpp \
-    src/calibrationdialog.cpp \
-    src/QScienceSpinBox.cpp \
-    src/vector_utils.cpp \
     src/qmlwidget.cpp \
     src/spinner.cpp
 

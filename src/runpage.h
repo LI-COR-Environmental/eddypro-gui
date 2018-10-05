@@ -31,7 +31,6 @@
 
 class QLabel;
 class QProgressBar;
-class Spinner;
 class QPushButton;
 class QTextEdit;
 class QTimer;
@@ -39,6 +38,7 @@ class QTimer;
 class ClickLabel;
 class EcProject;
 class SmartFluxBar;
+class Spinner;
 
 class RunPage : public QWidget
 {

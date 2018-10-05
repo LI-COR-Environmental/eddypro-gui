@@ -24,7 +24,7 @@
 #ifndef ECINIDEFS_H
 #define ECINIDEFS_H
 
-class QString;
+#include <QString>
 
 namespace EcIni
 {
@@ -418,55 +418,6 @@ namespace EcIni
     const auto INI_BIOMET_7    = QStringLiteral("biom_rg");
     const auto INI_BIOMET_8    = QStringLiteral("biom_lwin");
     const auto INI_BIOMET_9    = QStringLiteral("biom_ppfd");
-
-    const auto INIGROUP_DRIFT = QStringLiteral("RawProcess_DriftCorrection");
-    const auto INI_DRIFT_0    = QStringLiteral("drift_serial_number");
-    const auto INI_DRIFT_1    = QStringLiteral("drift_calib_date");
-    const auto INI_DRIFT_2    = QStringLiteral("drift_co2_0_dir");
-    const auto INI_DRIFT_3    = QStringLiteral("drift_co2_1_dir");
-    const auto INI_DRIFT_4    = QStringLiteral("drift_co2_2_dir");
-    const auto INI_DRIFT_5    = QStringLiteral("drift_co2_3_dir");
-    const auto INI_DRIFT_6    = QStringLiteral("drift_co2_4_dir");
-    const auto INI_DRIFT_7    = QStringLiteral("drift_co2_5_dir");
-    const auto INI_DRIFT_8    = QStringLiteral("drift_co2_6_dir");
-    const auto INI_DRIFT_9    = QStringLiteral("drift_co2_0_inv");
-    const auto INI_DRIFT_10   = QStringLiteral("drift_co2_1_inv");
-    const auto INI_DRIFT_11   = QStringLiteral("drift_co2_2_inv");
-    const auto INI_DRIFT_12   = QStringLiteral("drift_co2_3_inv");
-    const auto INI_DRIFT_13   = QStringLiteral("drift_co2_4_inv");
-    const auto INI_DRIFT_14   = QStringLiteral("drift_co2_5_inv");
-    const auto INI_DRIFT_15   = QStringLiteral("drift_co2_6_inv");
-    const auto INI_DRIFT_16   = QStringLiteral("drift_co2_zero");
-    const auto INI_DRIFT_17   = QStringLiteral("drift_co2_zero_date");
-    const auto INI_DRIFT_18   = QStringLiteral("drift_co2_span");
-    const auto INI_DRIFT_19   = QStringLiteral("drift_co2_span_date");
-    const auto INI_DRIFT_20   = QStringLiteral("drift_co2_span_2");
-    const auto INI_DRIFT_21   = QStringLiteral("drift_co2_span_2_date");
-    const auto INI_DRIFT_22   = QStringLiteral("drift_co2_cx");
-    const auto INI_DRIFT_23   = QStringLiteral("drift_co2_cx_date");
-    const auto INI_DRIFT_24   = QStringLiteral("drift_h2o_0_dir");
-    const auto INI_DRIFT_25   = QStringLiteral("drift_h2o_1_dir");
-    const auto INI_DRIFT_26   = QStringLiteral("drift_h2o_2_dir");
-    const auto INI_DRIFT_27   = QStringLiteral("drift_h2o_3_dir");
-    const auto INI_DRIFT_28   = QStringLiteral("drift_h2o_4_dir");
-    const auto INI_DRIFT_29   = QStringLiteral("drift_h2o_5_dir");
-    const auto INI_DRIFT_30   = QStringLiteral("drift_h2o_6_dir");
-    const auto INI_DRIFT_31   = QStringLiteral("drift_h2o_0_inv");
-    const auto INI_DRIFT_32   = QStringLiteral("drift_h2o_1_inv");
-    const auto INI_DRIFT_33   = QStringLiteral("drift_h2o_2_inv");
-    const auto INI_DRIFT_34   = QStringLiteral("drift_h2o_3_inv");
-    const auto INI_DRIFT_35   = QStringLiteral("drift_h2o_4_inv");
-    const auto INI_DRIFT_36   = QStringLiteral("drift_h2o_5_inv");
-    const auto INI_DRIFT_37   = QStringLiteral("drift_h2o_6_inv");
-    const auto INI_DRIFT_38   = QStringLiteral("drift_h2o_zero");
-    const auto INI_DRIFT_39   = QStringLiteral("drift_h2o_zero_date");
-    const auto INI_DRIFT_40   = QStringLiteral("drift_h2o_span");
-    const auto INI_DRIFT_41   = QStringLiteral("drift_h2o_span_date");
-    const auto INI_DRIFT_42   = QStringLiteral("drift_h2o_span_2");
-    const auto INI_DRIFT_43   = QStringLiteral("drift_h2o_span_2_date");
-    const auto INI_DRIFT_44   = QStringLiteral("drift_h2o_wx");
-    const auto INI_DRIFT_45   = QStringLiteral("drift_h2o_wx_date");
-
 } // namespace EcIni
 
 #endif // ECINIDEFS_H

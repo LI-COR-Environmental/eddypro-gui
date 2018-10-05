@@ -145,8 +145,6 @@ namespace Defs
     const auto ORG_NAME       = QStringLiteral("LI-COR");
     const auto APP_URL        = QStringLiteral("http://www.licor.com/eddypro/");
     const auto APP_FORUM_URL  = QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro");
-    const auto CALIBRATION_API_URL
-        = QStringLiteral("http://envprod.licor.com:8080/api/2012-04/instruments/");
 
     // UTF-16 hex codes
     const auto DEGREE      = QChar(0x00B0);
