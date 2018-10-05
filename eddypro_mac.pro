@@ -13,11 +13,14 @@ QT_VER = $$[QT_VERSION]
 QT_PATH = $$[QT_INSTALL_PREFIX]
 
 # Qt config
-QT += core gui widgets network concurrent
+QT += core gui widgets network concurrent quickwidgets
+#QT += qml quick quickcontrols2 quickwidgets
+
 CONFIG += warn_on
 CONFIG += debug_and_release
 CONFIG += c++14
 
+QML_IMPORT_PATH += qml
 # Build tree with shadow building approach
 include(build_tree.pri)
 

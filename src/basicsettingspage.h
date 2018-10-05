@@ -58,7 +58,6 @@ class QTimeEdit;
 class QNetworkAccessManager;
 class QNetworkReply;
 class QPushButton;
-class QProgressIndicator;
 class QRadioButton;
 class QSpinBox;
 
@@ -75,6 +74,7 @@ class IrgaDesc;
 class RawFilenameDialog;
 class SmartFluxBar;
 class VariableDesc;
+class Spinner;
 
 /// \class BasicSettingsPage
 /// \brief Class representing the 'General Options' tab in the 'RawProcess' page
@@ -129,8 +129,7 @@ private:
     DirBrowseWidget *datapathBrowse;
     QCheckBox *recursionCheckBox;
     QLabel* filesFound;
-    QProgressIndicator* findFileProgressWidget;
-    QProgressIndicator* progressWidget_2;
+    Spinner* findFileProgress;
 
     ClickLabel *idLabel;
     CustomClearLineEdit *idEdit;
@@ -282,7 +281,7 @@ private:
     QNetworkReply *httpReply_;
     QByteArray httpBuffer_;
     QString declination_;
-    QProgressIndicator* progressWidget_3;
+    Spinner* magneticDeclinationFetchProgress;
 
     QStringList currentRawDataList_;
     QStringList currentFilteredRawDataList_;

@@ -202,6 +202,9 @@
     <qresource prefix="/win_files">
         <file>win_files/app.ico</file>
     </qresource>
+    <qresource>
+        <file alias="spinner">qml/BusyIndicator.qml</file>
+    </qresource>
     <qresource prefix="/tra">
         <file alias="en">tra/eddypro_en.qm</file>
     </qresource>

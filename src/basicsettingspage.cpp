@@ -60,8 +60,6 @@
 #pragma clang diagnostic pop
 #endif
 
-#include "QProgressIndicator.h"
-
 #include "advancedsettingspage.h"
 #include "advprocessingoptions.h"
 #include "advsettingscontainer.h"
@@ -82,6 +80,7 @@
 #include "smartfluxbar.h"
 #include "splitter.h"
 #include "widget_utils.h"
+#include "spinner.h"
 
 // for the qobject_cast in handleCrossWindAndAngleOfAttackUpdate()
 #include "mainwidget.h"
@@ -91,8 +90,6 @@ const QString BasicSettingsPage::FLAG_POLICY_STRING_1 = QObject::tr("Below thres
 
 BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
     QWidget(parent),
-    findFileProgressWidget(nullptr),
-    progressWidget_2(nullptr),
     dlProject_(dlProject),
     ecProject_(ecProject),
     configState_(config),
@@ -100,28 +97,19 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     suffixList_(QStringList()),
     httpManager_(nullptr),
     httpReply_(nullptr),
-    progressWidget_3(nullptr),
     currentRawDataList_(QStringList()),
     currentFilteredRawDataList_(QStringList()),
     biomList_(QList<BiomItem>())
 {
-    findFileProgressWidget = new QProgressIndicator;
-    findFileProgressWidget->setAnimationDelay(40);
-    findFileProgressWidget->setDisplayedWhenStopped(false);
-    findFileProgressWidget->setFixedSize(21, 21);
-    findFileProgressWidget->setColor(QColor(46, 98, 152));
+    findFileProgress = new Spinner;
+    findFileProgress->setFixedSize(30, 30);
+    findFileProgress->stop();
+//    findFileProgressWidget->setColor(QColor(46, 98, 152));
 
-    progressWidget_2 = new QProgressIndicator;
-    progressWidget_2->setAnimationDelay(40);
-    progressWidget_2->setDisplayedWhenStopped(false);
-    progressWidget_2->setFixedSize(21, 21);
-    progressWidget_2->setColor(QColor(46, 98, 152));
-
-    progressWidget_3 = new QProgressIndicator;
-    progressWidget_3->setAnimationDelay(40);
-    progressWidget_3->setDisplayedWhenStopped(false);
-    progressWidget_3->setFixedSize(21, 21);
-    progressWidget_3->setColor(QColor(46, 98, 152));
+    magneticDeclinationFetchProgress = new Spinner;
+    magneticDeclinationFetchProgress->setFixedSize(30, 30);
+    magneticDeclinationFetchProgress->stop();
+//    magneticDeclinationFetchProgress->setColor(QColor(46, 98, 152));
 
     datapathLabel = new ClickLabel(tr("Raw data directory :"), this);
     datapathLabel->setToolTip(tr("<b>Raw data directory:</b> Use the <i>Browse...</i> button to specify the folder that contains the raw data. If data are also contained in subfolders, select the <i>Search in subfolders</i> box."));
@@ -344,11 +332,10 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addWidget(datapathLabel, 1, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(datapathBrowse, 1, 2, 1, 3);
     filesInfoLayout->addWidget(filesFound, 2, 4, 1, 1, Qt::AlignRight);
-    filesInfoLayout->addWidget(findFileProgressWidget, 2, 4, 1, 1, Qt::AlignCenter);
+    filesInfoLayout->addWidget(findFileProgress, 2, 3, 1, 1, Qt::AlignCenter);
     filesInfoLayout->addWidget(recursionCheckBox, 2, 2, 1, 2);
     filesInfoLayout->addWidget(subsetCheckBox, 3, 3, 1, 2, Qt::AlignLeft);
     filesInfoLayout->addWidget(dateRangeDetectButton, 3, 2, 1, 1, Qt::AlignLeft);
-    filesInfoLayout->addWidget(progressWidget_2, 3, 4, 1, 1, Qt::AlignLeft);
     filesInfoLayout->addWidget(startDateLabel, 4, 0, Qt::AlignRight);
     filesInfoLayout->addLayout(startDateContainer, 4, 2, 1, 2);
     filesInfoLayout->addWidget(lockedIcon, 4, 1, 2, 1, Qt::AlignCenter);
@@ -380,7 +367,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addWidget(declinationDateEdit, 6, 9);
     filesInfoLayout->addWidget(questionMark_5, 6, 10, Qt::AlignLeft);
     filesInfoLayout->addWidget(decChangingLabel, 7, 7, 1, -1);
-    filesInfoLayout->addWidget(progressWidget_3, 8, 7);
+    filesInfoLayout->addWidget(magneticDeclinationFetchProgress, 8, 7);
     filesInfoLayout->setRowStretch(10, 1);
     filesInfoLayout->setRowMinimumHeight(1, 21);
     filesInfoLayout->setRowMinimumHeight(2, 21);
@@ -1370,13 +1357,11 @@ void BasicSettingsPage::setPrototype(bool showDialog)
 
 QStringList BasicSettingsPage::getAvailableGhgSuffixes()
 {
-    // progressWidget_4->startAnimation();
     QFuture<QStringList> future = QtConcurrent::run(&FileUtils::getGhgFileSuffixList, currentRawDataList_);
     while (!future.isFinished())
     {
         QCoreApplication::processEvents();
     }
-    // progressWidget_4->stopAnimation();
     return future.result();
 }
 
@@ -1401,9 +1386,9 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
                             .arg(Defs::DEFAULT_BIOMET_SUFFIX)
                             .arg(Defs::METADATA_FILE_EXT);
 
-    findFileProgressWidget->startAnimation();
+    findFileProgress->start();
     currentRawDataList_ = FileUtils::getFiles(datapathBrowse->path(), ghgFormat, ecProject_->screenRecurse());
-    findFileProgressWidget->stopAnimation();
+    findFileProgress->stop();
 
     auto filesCount = currentRawDataList_.count();
     updateFilesFoundLabel(filesCount);
@@ -4535,7 +4520,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
 
     auto fileCount = 0;
 
-    findFileProgressWidget->startAnimation();
+    findFileProgress->start();
 
     // first pass, filter by extension on the file system
     if (filePrototypeEdit->text().isEmpty())
@@ -4563,7 +4548,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
         currentFilteredRawDataList_ = filterRawDataWithPrototype(filePrototypeEdit->text());
     }
 
-    findFileProgressWidget->stopAnimation();
+    findFileProgress->stop();
 
     fileCount = currentFilteredRawDataList_.count();
 
@@ -4602,7 +4587,7 @@ void BasicSettingsPage::askRawFilenamePrototype()
 
 void BasicSettingsPage::fetchMagneticDeclination()
 {
-    progressWidget_3->startAnimation();
+    magneticDeclinationFetchProgress->start();
     httpManager_ = new QNetworkAccessManager(this);
 
     auto noaaServiceUrl = QUrl(QStringLiteral("https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
@@ -4641,7 +4626,7 @@ void BasicSettingsPage::fetchMagneticDeclination()
 void BasicSettingsPage::replyFinished(QNetworkReply* reply)
 {
     // if no error
-    progressWidget_3->stopAnimation();
+    magneticDeclinationFetchProgress->stop();
     if (!reply->error()) { return; }
 
     // handle the error
@@ -4678,7 +4663,7 @@ void BasicSettingsPage::bufferHttpReply()
                 {
                     // manage NOAA server errors
                     noNoaaDownloadMsg();
-                    progressWidget_3->stopAnimation();
+                    magneticDeclinationFetchProgress->stop();
                     return;
                 }
             }
@@ -4727,7 +4712,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
 
         decChangingLabel->setText(variationStr);
 
-        progressWidget_3->stopAnimation();
+        magneticDeclinationFetchProgress->stop();
     }
     return true;
 }
@@ -5038,7 +5023,7 @@ void BasicSettingsPage::dateRangeDetect()
 {
     if (!currentRawDataList_.isEmpty())
     {
-        progressWidget_2->startAnimation();
+        findFileProgress->start();
 
         FileUtils::DateRange dates;
 
@@ -5049,7 +5034,7 @@ void BasicSettingsPage::dateRangeDetect()
         }
         dates = future.result();
 
-        progressWidget_2->stopAnimation();
+        findFileProgress->stop();
 
         startDateEdit->setDate(dates.first.date());
         startTimeEdit->setTime(dates.first.time());

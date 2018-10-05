@@ -35,13 +35,12 @@
 
 #include <cmath>
 
-#include "QProgressIndicator.h"
-
 #include "clicklabel.h"
 #include "dbghelper.h"
 #include "ecproject.h"
 #include "smartfluxbar.h"
 #include "widget_utils.h"
+#include "spinner.h"
 
 RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     : QWidget(parent),
@@ -53,11 +52,10 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
       pauseResumeDelayTimer_(nullptr),
       total_elapsed_update_timer_(nullptr)
 {
-    progressWidget_ = new QProgressIndicator;
-    progressWidget_->setAnimationDelay(40);
-    progressWidget_->setDisplayedWhenStopped(false);
-    progressWidget_->setFixedSize(30, 30);
-    progressWidget_->setColor(QColor(46, 98, 152));
+    progressWidget_ = new Spinner;
+    progressWidget_->setFixedSize(31, 31);
+    progressWidget_->stop();
+//    progressWidget_->setColor(QColor(46, 98, 152));
 
     runModeIcon_ = new ClickLabel;
 
@@ -196,6 +194,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     connect(clearErrorEditButton, &QPushButton::clicked,
             errorEdit_, &QTextEdit::clear);
 
+    // other init
     QList<WidgetUtils::PropertyList> progressBarProp;
     progressBarProp << WidgetUtils::PropertyList("expRun", false)
                     << WidgetUtils::PropertyList("advRun", false)
@@ -314,7 +313,7 @@ void RunPage::startRun(Defs::CurrRunStatus mode)
 
     runModeIcon_->setVisible(true);
     progressLabel_->setText(progressText);
-    progressWidget_->startAnimation();
+    progressWidget_->start();
 }
 
 bool RunPage::pauseRun(Defs::CurrRunStatus mode)
@@ -364,8 +363,7 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Pausing computations..."));
-        progressWidget_->setDisplayedWhenStopped(true);
-        progressWidget_->stopAnimation();
+        progressWidget_->stop();
         total_elapsed_update_timer_->stop();
         main_progress_timer_.invalidate();
         QTimer::singleShot(1000, this, SLOT(pauseLabel()));
@@ -424,8 +422,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Resuming computations..."));
-        progressWidget_->setDisplayedWhenStopped(true);
-        progressWidget_->startAnimation();
+        progressWidget_->start();
         total_elapsed_update_timer_->start();
         main_progress_timer_.restart();
         QTimer::singleShot(1000, this, SLOT(resumeLabel()));
@@ -439,8 +436,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
 
 void RunPage::stopRun()
 {
-    progressWidget_->setDisplayedWhenStopped(false);
-    progressWidget_->stopAnimation();
+    progressWidget_->stop();
     resetBuffer();
     resetProgressHard();
     total_elapsed_update_timer_->stop();
@@ -1448,7 +1444,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     if (cleanLine.contains(QByteArrayLiteral("gracefully")))
     {
         main_progress_bar->setValue(main_progress_bar->maximum());
-        progressWidget_->stopAnimation();
+        progressWidget_->stop();
         averagingPeriodIndex = 0;
         total_elapsed_update_timer_->stop();
         main_progress_timer_.invalidate();

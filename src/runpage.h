@@ -31,7 +31,7 @@
 
 class QLabel;
 class QProgressBar;
-class QProgressIndicator;
+class Spinner;
 class QPushButton;
 class QTextEdit;
 class QTimer;
@@ -89,7 +89,7 @@ private:
                   const int num_steps);
 
     Defs::CurrRunStatus runMode_;
-    QProgressIndicator* progressWidget_;
+    Spinner* progressWidget_;
     QProgressBar* main_progress_bar;
     QProgressBar* mini_progress_bar_;
     ClickLabel* runModeIcon_;

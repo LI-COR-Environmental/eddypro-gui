@@ -63,7 +63,6 @@ this free software.
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
 - Boost C++ Libraries
-- Morgan Leborgne: QProgressIndicator widget
 - Witold Wysota: Debug helper class
 - Sergey A. Tachenov: QuaZIP
 - Mark Summerfield: helper classes from the book 'Advanced Qt Programming'

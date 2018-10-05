@@ -180,7 +180,6 @@ AboutDialog::AboutDialog(QWidget* parent)
            "<li>netlib.org: FFT routines from the SLATEC Common Mathematical Library</li>"
            "<li>The Qt Company: Qt framework</li>"
            "<li>Boost::math</li>"
-           "<li>Morgan Leborgne: QProgressIndicator widget</li>"
            "<li>Witold Wysota: Debug helper class</li>"
            "<li>Sergey A. Tachenov: QuaZIP</li>"
            "<li>Mark Summerfield: classes from the book 'Advanced Qt Programming'</li>"

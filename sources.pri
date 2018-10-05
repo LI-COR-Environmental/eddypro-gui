@@ -50,7 +50,6 @@ HEADERS += \
     src/planarfitsettingsdialog.h \
     src/process.h \
     src/proxystyle.h \
-    src/QProgressIndicator.h \
     src/rawfilenamedialog.h \
     src/rawfilesettingsdialog.h \
     src/runpage.h \
@@ -113,7 +112,9 @@ HEADERS += \
     src/calibration.h \
     src/polyfit.hpp \
     src/vector_utils.h \
-    src/QScienceSpinBox.h
+    src/QScienceSpinBox.h \
+    src/qmlwidget.h \
+    src/spinner.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -152,7 +153,6 @@ SOURCES +=  \
     src/basicsettingspage.cpp \
     src/process.cpp \
     src/proxystyle.cpp \
-    src/QProgressIndicator.cpp \
     src/rawfilenamedialog.cpp \
     src/rawfilesettingsdialog.cpp \
     src/runpage.cpp \
@@ -212,7 +212,9 @@ SOURCES +=  \
     src/calibrationinfo.cpp \
     src/calibrationdialog.cpp \
     src/QScienceSpinBox.cpp \
-    src/vector_utils.cpp
+    src/vector_utils.cpp \
+    src/qmlwidget.cpp \
+    src/spinner.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 
