@@ -37,7 +37,6 @@ CalibrationInfo::CalibrationInfo() :
     cal_date_(0),
     cal_link_(QString()),
     cal_recal_(false)
-
 { ; }
 
 CalibrationInfo::CalibrationInfo(double responseCode,

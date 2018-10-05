@@ -27,7 +27,7 @@
 
 namespace ContainerHelper {
 
-// wrapper around std::equal to compare two containers on the same range
+// simple wrapper around std::equal to compare two containers on the same range
 // with a cleaner call
 template<typename T>
 bool rangeEqual(const T& s1, const T& s2, int first, int last)

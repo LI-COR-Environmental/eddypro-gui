@@ -24,7 +24,7 @@
 #ifndef ECINIDEFS_H
 #define ECINIDEFS_H
 
-class QString;
+#include <QString>
 
 namespace EcIni
 {

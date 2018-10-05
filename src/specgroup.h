@@ -42,7 +42,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 class QString;
-class QStringList;
 
 /// \class SpecGroup
 /// \brief Class representing the spectral month groups
