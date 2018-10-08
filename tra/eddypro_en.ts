@@ -2704,227 +2704,217 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="149"/>
-        <source>Previous results directory :</source>
-        <translation>Previous results directory :</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="150"/>
-        <source>&lt;b&gt;Previous results directory:&lt;/b&gt; Path of the directory containing results from previous run(s). EddyPro will attempt to speed up the flux computation by checking for any partial results obtained from previous run(s). If settings used in the previous runs match the current settings, EddyPro will use the results as an intermediate starting point in the current data processing session.</source>
-        <translation>&lt;b&gt;Previous results directory:&lt;/b&gt; Path of the directory containing results from previous run(s). EddyPro will attempt to speed up the flux computation by checking for any partial results obtained from previous run(s). If settings used in the previous runs match the current settings, EddyPro will use the results as an intermediate starting point in the current data processing session.</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="158"/>
         <source>Output ID :</source>
         <translation>Output ID :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="159"/>
+        <location filename="../src/basicsettingspage.cpp" line="150"/>
         <source>&lt;b&gt;Output ID:&lt;/b&gt; Enter the ID. This string will be appended to each output file name so a short ID is recommended. Note that characters that result in file names that are unacceptable to the commonest operating systems (this includes | \ / : ; ? * &apos; &quot; &lt; &gt; CR LF TAB SPACE and other non readable characters) are not permitted.</source>
         <translation>&lt;b&gt;Output ID:&lt;/b&gt; Enter the ID. This string will be appended to each output file name so a short ID is recommended. Note that characters that result in file names that are unacceptable to the commonest operating systems (this includes | \ / : ; ? * &apos; &quot; &lt; &gt; CR LF TAB SPACE and other non readable characters) are not permitted.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="175"/>
+        <location filename="../src/basicsettingspage.cpp" line="166"/>
         <source>Flux averaging interval :</source>
         <translation>Flux averaging interval :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="176"/>
+        <location filename="../src/basicsettingspage.cpp" line="167"/>
         <source>&lt;b&gt;Flux averaging interval:&lt;/b&gt; This is the time span over which fluxes will be averaged. The flux averaging interval can be shorter than, equal to, or longer than the raw file duration. Set &lt;i&gt;0&lt;/i&gt; to use the input file duration as the flux averaging interval, in which case &lt;i&gt;File as is&lt;/i&gt; appears in the field.</source>
         <translation>&lt;b&gt;Flux averaging interval:&lt;/b&gt; This is the time span over which fluxes will be averaged. The flux averaging interval can be shorter than, equal to, or longer than the raw file duration. Set &lt;i&gt;0&lt;/i&gt; to use the input file duration as the flux averaging interval, in which case &lt;i&gt;File as is&lt;/i&gt; appears in the field.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="183"/>
+        <location filename="../src/basicsettingspage.cpp" line="174"/>
         <source>File as is</source>
         <translation>File as is</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="188"/>
+        <location filename="../src/basicsettingspage.cpp" line="179"/>
         <source>Missing samples allowance :</source>
         <translation>Missing samples allowance :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="204"/>
+        <location filename="../src/basicsettingspage.cpp" line="195"/>
         <source>  [%]</source>
         <comment>Percentage</comment>
         <translation>  [%]</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="217"/>
+        <location filename="../src/basicsettingspage.cpp" line="208"/>
         <source>Start :</source>
         <translation>Start :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="218"/>
+        <location filename="../src/basicsettingspage.cpp" line="209"/>
         <source>&lt;b&gt;Start:&lt;/b&gt; Starting date of the dataset to process. This may or may not coincide with the date of the first raw file. It is used to select a subset of available raw data for processing.</source>
         <translation>&lt;b&gt;Start:&lt;/b&gt; Starting date of the dataset to process. This may or may not coincide with the date of the first raw file. It is used to select a subset of available raw data for processing.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="240"/>
+        <location filename="../src/basicsettingspage.cpp" line="231"/>
         <source>End :</source>
         <translation>End :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="241"/>
+        <location filename="../src/basicsettingspage.cpp" line="232"/>
         <source>&lt;b&gt;End:&lt;/b&gt; Ending date of the dataset to process. This may or may not coincide with the date of the last raw file. It is used to select a subset of available raw data for processing.</source>
         <translation>&lt;b&gt;End:&lt;/b&gt; Ending date of the dataset to process. This may or may not coincide with the date of the last raw file. It is used to select a subset of available raw data for processing.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="267"/>
+        <location filename="../src/basicsettingspage.cpp" line="258"/>
         <source>Detect Dataset Dates</source>
         <translation>Detect Dataset Dates</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="273"/>
+        <location filename="../src/basicsettingspage.cpp" line="264"/>
         <source>Cross wind correction of sonic temperature applied by the anemometer firmware</source>
         <translation>Cross wind correction of sonic temperature applied by the anemometer firmware</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="274"/>
+        <location filename="../src/basicsettingspage.cpp" line="265"/>
         <source>&lt;b&gt;Cross-wind correction for sonic temperature:&lt;/b&gt; Check this box if the crosswind correction is applied internally by the anemometer firmware before outputting sonic temperature. Be aware that some anemometers do apply the correction internally, others not, and others provide it as an option.&lt;br /&gt;Users of Gill WindMaster and WindMaster Pro: the crosswind correction is not applied internally in anemometer units of type 1352, while it is available in the firmware of later types 1561 and 1590.</source>
         <translation>&lt;b&gt;Cross-wind correction for sonic temperature:&lt;/b&gt; Check this box if the crosswind correction is applied internally by the anemometer firmware before outputting sonic temperature. Be aware that some anemometers do apply the correction internally, others not, and others provide it as an option.&lt;br /&gt;Users of Gill WindMaster and WindMaster Pro: the crosswind correction is not applied internally in anemometer units of type 1352, while it is available in the firmware of later types 1561 and 1590.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="278"/>
+        <location filename="../src/basicsettingspage.cpp" line="269"/>
         <source>North reference :</source>
         <translation>North reference :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="279"/>
+        <location filename="../src/basicsettingspage.cpp" line="270"/>
         <source>&lt;b&gt;North reference:&lt;/b&gt; Indicate whether you want the outputs to be referenced to magnetic or geographic north. If you choose geographic north, EddyPro can retrieve the Magnetic Declination at your site from NOAA (U.S. National Oceanic and Atmospheric Administration) online resources (http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination). You can also enter the magnetic declination manually. EddyPro assumes that north is assessed at the site using the compass, so that everything you provide to the software is with respect to local geographic north. If, instead, your measurements are taken with respect to due north, than just select &lt;i&gt;Use magnetic North&lt;/i&gt; or enter a declination of zero degrees.</source>
         <translation>&lt;b&gt;North reference:&lt;/b&gt; Indicate whether you want the outputs to be referenced to magnetic or geographic north. If you choose geographic north, EddyPro can retrieve the Magnetic Declination at your site from NOAA (U.S. National Oceanic and Atmospheric Administration) online resources (http://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination). You can also enter the magnetic declination manually. EddyPro assumes that north is assessed at the site using the compass, so that everything you provide to the software is with respect to local geographic north. If, instead, your measurements are taken with respect to due north, than just select &lt;i&gt;Use magnetic North&lt;/i&gt; or enter a declination of zero degrees.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="282"/>
+        <location filename="../src/basicsettingspage.cpp" line="273"/>
         <source>Use magnetic North</source>
         <translation>Use magnetic north</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="284"/>
+        <location filename="../src/basicsettingspage.cpp" line="275"/>
         <source>Use geographic North</source>
         <translation>Use geographic north</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="290"/>
+        <location filename="../src/basicsettingspage.cpp" line="281"/>
         <source>Magnetic declination :</source>
         <translation>Magnetic declination :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="292"/>
+        <location filename="../src/basicsettingspage.cpp" line="283"/>
         <source>000%1 00&apos; E</source>
         <translation>000%1 00&apos; E</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="299"/>
+        <location filename="../src/basicsettingspage.cpp" line="290"/>
         <source>000%1 00&apos; &gt;A;x</source>
         <translation>000%1 00&apos; &gt;A;x</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="305"/>
+        <location filename="../src/basicsettingspage.cpp" line="296"/>
         <source>On :</source>
         <translation>On :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="306"/>
+        <location filename="../src/basicsettingspage.cpp" line="297"/>
         <source>&lt;b&gt; Date :&lt;/b&gt; Date used to retrieve the magnetic declination from the NOAA website.</source>
         <translation>&lt;b&gt; Date :&lt;/b&gt; Date used to retrieve the magnetic declination from the NOAA website.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="321"/>
+        <location filename="../src/basicsettingspage.cpp" line="312"/>
         <source>Fetch from NOAA</source>
         <translation>Fetch from NOAA</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="328"/>
+        <location filename="../src/basicsettingspage.cpp" line="319"/>
         <source>Files Info</source>
         <translation>Files Info</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="397"/>
+        <location filename="../src/basicsettingspage.cpp" line="385"/>
         <source>Master Anemometer :</source>
         <translation>Master Anemometer :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="398"/>
+        <location filename="../src/basicsettingspage.cpp" line="386"/>
         <source>&lt;b&gt;Master anemometer:&lt;/b&gt; Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes.</source>
         <translation>&lt;b&gt;Master anemometer:&lt;/b&gt; Select the sonic anemometer from which wind and sonic temperature data should be used for calculating fluxes.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="402"/>
+        <location filename="../src/basicsettingspage.cpp" line="390"/>
         <source>Anemometer Diagnostics :</source>
         <translation>Anemometer Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="403"/>
+        <location filename="../src/basicsettingspage.cpp" line="391"/>
         <source>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured.</source>
         <translation>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="407"/>
+        <location filename="../src/basicsettingspage.cpp" line="395"/>
         <source>Fast temperature reading (alternative to sonic temp) :</source>
         <translation>Fast temperature reading (alternative to sonic temp) :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="408"/>
+        <location filename="../src/basicsettingspage.cpp" line="396"/>
         <source>&lt;b&gt;Fast temperature reading:&lt;/b&gt; If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied.</source>
         <translation>&lt;b&gt;Fast temperature reading:&lt;/b&gt; If raw files contain valid readings of air temperature collected at high frequency (e.g. by a thermocouple), you can use any of them in place of sonic temperature. In this case, corrections specific to sonic temperature (cross-wind correction, humidity correction), will not be applied.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="412"/>
-        <location filename="../src/basicsettingspage.cpp" line="417"/>
-        <location filename="../src/basicsettingspage.cpp" line="422"/>
+        <location filename="../src/basicsettingspage.cpp" line="400"/>
+        <location filename="../src/basicsettingspage.cpp" line="405"/>
+        <location filename="../src/basicsettingspage.cpp" line="410"/>
         <source>%1 :</source>
         <translation>%1 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="413"/>
-        <location filename="../src/basicsettingspage.cpp" line="418"/>
-        <location filename="../src/basicsettingspage.cpp" line="423"/>
-        <location filename="../src/basicsettingspage.cpp" line="428"/>
-        <location filename="../src/basicsettingspage.cpp" line="467"/>
-        <location filename="../src/basicsettingspage.cpp" line="472"/>
-        <location filename="../src/basicsettingspage.cpp" line="477"/>
-        <location filename="../src/basicsettingspage.cpp" line="482"/>
-        <location filename="../src/basicsettingspage.cpp" line="487"/>
-        <location filename="../src/basicsettingspage.cpp" line="492"/>
-        <location filename="../src/basicsettingspage.cpp" line="497"/>
-        <location filename="../src/basicsettingspage.cpp" line="502"/>
-        <location filename="../src/basicsettingspage.cpp" line="507"/>
-        <location filename="../src/basicsettingspage.cpp" line="512"/>
+        <location filename="../src/basicsettingspage.cpp" line="401"/>
+        <location filename="../src/basicsettingspage.cpp" line="406"/>
+        <location filename="../src/basicsettingspage.cpp" line="411"/>
+        <location filename="../src/basicsettingspage.cpp" line="416"/>
+        <location filename="../src/basicsettingspage.cpp" line="455"/>
+        <location filename="../src/basicsettingspage.cpp" line="460"/>
+        <location filename="../src/basicsettingspage.cpp" line="465"/>
+        <location filename="../src/basicsettingspage.cpp" line="470"/>
+        <location filename="../src/basicsettingspage.cpp" line="475"/>
+        <location filename="../src/basicsettingspage.cpp" line="480"/>
+        <location filename="../src/basicsettingspage.cpp" line="485"/>
+        <location filename="../src/basicsettingspage.cpp" line="490"/>
+        <location filename="../src/basicsettingspage.cpp" line="495"/>
+        <location filename="../src/basicsettingspage.cpp" line="500"/>
         <source>Select the variables to be used for calculating fluxes, among those available.</source>
         <translation>Select the variables to be used for calculating fluxes, among those available.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="506"/>
+        <location filename="../src/basicsettingspage.cpp" line="494"/>
         <source>Longwave Incoming Radiation :</source>
         <translation>Longwave Incoming Radiation :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="511"/>
+        <location filename="../src/basicsettingspage.cpp" line="499"/>
         <source>Photosynthetically Active Radiation (PAR, PPFD) :</source>
         <translation>Photosynthetically Active Radiation (PAR, PPFD) :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="521"/>
+        <location filename="../src/basicsettingspage.cpp" line="509"/>
         <source>LI-7200/RS Diagnostics :</source>
         <translation>LI-7200/RS Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="789"/>
+        <location filename="../src/basicsettingspage.cpp" line="777"/>
         <source>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</source>
         <translation>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1454"/>
+        <location filename="../src/basicsettingspage.cpp" line="1425"/>
         <source>The selected directory doesn&apos;t contain any valid LI-COR GHG data.</source>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1499"/>
+        <location filename="../src/basicsettingspage.cpp" line="1470"/>
         <source>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</source>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4904"/>
+        <location filename="../src/basicsettingspage.cpp" line="4859"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
@@ -2933,234 +2923,234 @@ Missing flux averaging period are filled with error codes)</translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5065"/>
+        <location filename="../src/basicsettingspage.cpp" line="5017"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5066"/>
+        <location filename="../src/basicsettingspage.cpp" line="5018"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5080"/>
+        <location filename="../src/basicsettingspage.cpp" line="5032"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5082"/>
+        <location filename="../src/basicsettingspage.cpp" line="5034"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="427"/>
+        <location filename="../src/basicsettingspage.cpp" line="415"/>
         <source>%1 trace gas (passive scalar) :</source>
         <translation>%1 trace gas (passive scalar) :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="189"/>
+        <location filename="../src/basicsettingspage.cpp" line="180"/>
         <source>&lt;b&gt;Missing sample allowance:&lt;/b&gt; Enter the maximum percentage of missing data allowed for each variable, for each averaging interval. If the percentage of missing values exceeds this threshold for a given variable, all results that need that variable will not be computed. Data can be &apos;missing&apos; either because absent in the raw data files, or because eliminated during one of the raw data screening procedures, e.g. de-spiking.</source>
         <translation>&lt;b&gt;Missing sample allowance:&lt;/b&gt; Enter the maximum percentage of missing data allowed for each variable, for each averaging interval. If the percentage of missing values exceeds this threshold for a given variable, all results that need that variable will not be computed. Data can be &apos;missing&apos; either because absent in the raw data files, or because eliminated during one of the raw data screening procedures, e.g. de-spiking.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="263"/>
+        <location filename="../src/basicsettingspage.cpp" line="254"/>
         <source>Select a different period</source>
         <translation>Select a different period</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="264"/>
+        <location filename="../src/basicsettingspage.cpp" line="255"/>
         <source>&lt;b&gt;Select a different period:&lt;/b&gt; Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all available raw data.</source>
         <translation>&lt;b&gt;Select a different period:&lt;/b&gt; Select this option if you only want to process a subset of data in the raw data directory. Leave it blank to process all available raw data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="271"/>
+        <location filename="../src/basicsettingspage.cpp" line="262"/>
         <source>&lt;b&gt;Detect Dataset Dates:&lt;/b&gt; Click this button to ask EddyPro to retrieve the starting and ending date of the raw dataset contained in the &lt;i&gt;Raw data directory&lt;/i&gt;. You can override this automatic setting by using the &lt;i&gt;Select a different period&lt;/i&gt; option.</source>
         <translation>&lt;b&gt;Detect Dataset Dates:&lt;/b&gt; Click this button to ask EddyPro to retrieve the starting and ending date of the raw dataset contained in the &lt;i&gt;Raw data directory&lt;/i&gt;. You can override this automatic setting by using the &lt;i&gt;Select a different period&lt;/i&gt; option.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="432"/>
+        <location filename="../src/basicsettingspage.cpp" line="420"/>
         <source>Molecular weight :</source>
         <translation>Molecular weight :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="441"/>
+        <location filename="../src/basicsettingspage.cpp" line="429"/>
         <source>Molecular diffusivity in air :</source>
         <translation>Molecular diffusivity in air :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="466"/>
+        <location filename="../src/basicsettingspage.cpp" line="454"/>
         <source>Average Cell Temperature :</source>
         <translation>Average Cell Temperature :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="471"/>
+        <location filename="../src/basicsettingspage.cpp" line="459"/>
         <source>Cell Temperature In :</source>
         <translation>Cell Temperature In :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="476"/>
+        <location filename="../src/basicsettingspage.cpp" line="464"/>
         <source>Cell Temperature Out :</source>
         <translation>Cell Temperature Out :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="481"/>
+        <location filename="../src/basicsettingspage.cpp" line="469"/>
         <source>Cell Pressure :</source>
         <translation>Cell Pressure :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="486"/>
+        <location filename="../src/basicsettingspage.cpp" line="474"/>
         <source>Ambient Temperature :</source>
         <translation>Ambient Temperature :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="491"/>
+        <location filename="../src/basicsettingspage.cpp" line="479"/>
         <source>Ambient Pressure :</source>
         <translation>Ambient Pressure :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="496"/>
+        <location filename="../src/basicsettingspage.cpp" line="484"/>
         <source>Ambient Relative Humidity :</source>
         <translation>Ambient Relative Humidity :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="501"/>
+        <location filename="../src/basicsettingspage.cpp" line="489"/>
         <source>Global Radiation :</source>
         <translation>Global Radiation :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="516"/>
+        <location filename="../src/basicsettingspage.cpp" line="504"/>
         <source>LI-7500/A/RS/DS Diagnostics :</source>
         <translation>LI-7500/A/RS/DS Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="517"/>
-        <location filename="../src/basicsettingspage.cpp" line="522"/>
-        <location filename="../src/basicsettingspage.cpp" line="527"/>
+        <location filename="../src/basicsettingspage.cpp" line="505"/>
+        <location filename="../src/basicsettingspage.cpp" line="510"/>
+        <location filename="../src/basicsettingspage.cpp" line="515"/>
         <source>Select the variables to be used for diagnostics of this gas analyzer.</source>
         <translation>Select the variables to be used for diagnostics of this gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="526"/>
+        <location filename="../src/basicsettingspage.cpp" line="514"/>
         <source>LI-7700 Diagnostics :</source>
         <translation>LI-7700 Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="531"/>
+        <location filename="../src/basicsettingspage.cpp" line="519"/>
         <source>Flag 1 :</source>
         <translation>Flag 1 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="533"/>
-        <location filename="../src/basicsettingspage.cpp" line="553"/>
-        <location filename="../src/basicsettingspage.cpp" line="573"/>
-        <location filename="../src/basicsettingspage.cpp" line="593"/>
-        <location filename="../src/basicsettingspage.cpp" line="613"/>
-        <location filename="../src/basicsettingspage.cpp" line="633"/>
-        <location filename="../src/basicsettingspage.cpp" line="653"/>
-        <location filename="../src/basicsettingspage.cpp" line="673"/>
-        <location filename="../src/basicsettingspage.cpp" line="693"/>
-        <location filename="../src/basicsettingspage.cpp" line="714"/>
+        <location filename="../src/basicsettingspage.cpp" line="521"/>
+        <location filename="../src/basicsettingspage.cpp" line="541"/>
+        <location filename="../src/basicsettingspage.cpp" line="561"/>
+        <location filename="../src/basicsettingspage.cpp" line="581"/>
+        <location filename="../src/basicsettingspage.cpp" line="601"/>
+        <location filename="../src/basicsettingspage.cpp" line="621"/>
+        <location filename="../src/basicsettingspage.cpp" line="641"/>
+        <location filename="../src/basicsettingspage.cpp" line="661"/>
+        <location filename="../src/basicsettingspage.cpp" line="681"/>
+        <location filename="../src/basicsettingspage.cpp" line="702"/>
         <source>&lt;b&gt;Flags:&lt;/b&gt; Each column of the raw data file that was not tagged as &lt;i&gt;to be ignored&lt;/i&gt; can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion.</source>
         <translation>&lt;b&gt;Flags:&lt;/b&gt; Each column of the raw data file that was not tagged as &lt;i&gt;to be ignored&lt;/i&gt; can be used as a mask to filter out individual high frequency records. Up to ten flags can be specified. Note that an entire record (that is, all variables measured at a certain time instant, one line of raw data) is eliminated any time a flag variable does not comply with its quality criterion.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="551"/>
+        <location filename="../src/basicsettingspage.cpp" line="539"/>
         <source>Flag 2 :</source>
         <translation>Flag 2 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="571"/>
+        <location filename="../src/basicsettingspage.cpp" line="559"/>
         <source>Flag 3 :</source>
         <translation>Flag 3 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="591"/>
+        <location filename="../src/basicsettingspage.cpp" line="579"/>
         <source>Flag 4 :</source>
         <translation>Flag 4 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="611"/>
+        <location filename="../src/basicsettingspage.cpp" line="599"/>
         <source>Flag 5 :</source>
         <translation>Flag 5 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="631"/>
+        <location filename="../src/basicsettingspage.cpp" line="619"/>
         <source>Flag 6 :</source>
         <translation>Flag 6 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="651"/>
+        <location filename="../src/basicsettingspage.cpp" line="639"/>
         <source>Flag 7 :</source>
         <translation>Flag 7 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="671"/>
+        <location filename="../src/basicsettingspage.cpp" line="659"/>
         <source>Flag 8 :</source>
         <translation>Flag 8 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="691"/>
+        <location filename="../src/basicsettingspage.cpp" line="679"/>
         <source>Flag 9 :</source>
         <translation>Flag 9 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="712"/>
+        <location filename="../src/basicsettingspage.cpp" line="700"/>
         <source>Flag 10 :</source>
         <translation>Flag 10 :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="733"/>
+        <location filename="../src/basicsettingspage.cpp" line="721"/>
         <source>Gas measurements (eddy data, used for covariances and fluxes)</source>
         <translation>Gas measurements (eddy data, used for covariances and fluxes)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="735"/>
+        <location filename="../src/basicsettingspage.cpp" line="723"/>
         <source>Cell measurements (closed-path eddy data, used for covariances and fluxes)</source>
         <translation>Cell measurements (closed-path eddy data, used for covariances and fluxes)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="737"/>
+        <location filename="../src/basicsettingspage.cpp" line="725"/>
         <source>Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)</source>
         <translation>Ambient measurements (eddy or biomet data, used for flux correction and calculation of other parameters)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="739"/>
+        <location filename="../src/basicsettingspage.cpp" line="727"/>
         <source>Diagnostic measurements (eddy data, for quality screening and assurance)</source>
         <translation>Diagnostic measurements (eddy data, for quality screening and assurance)</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="807"/>
-        <location filename="../src/basicsettingspage.cpp" line="899"/>
+        <location filename="../src/basicsettingspage.cpp" line="795"/>
+        <location filename="../src/basicsettingspage.cpp" line="887"/>
         <source>Flags</source>
         <translation>Flags</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="809"/>
+        <location filename="../src/basicsettingspage.cpp" line="797"/>
         <source>Unit</source>
         <translation>Unit</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="811"/>
+        <location filename="../src/basicsettingspage.cpp" line="799"/>
         <source>Threshold</source>
         <translation>Threshold</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="813"/>
+        <location filename="../src/basicsettingspage.cpp" line="801"/>
         <source>Policy: Discard if</source>
         <translation>Policy: Discard if</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="898"/>
+        <location filename="../src/basicsettingspage.cpp" line="886"/>
         <source>Variables</source>
         <translation>Variables</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="901"/>
+        <location filename="../src/basicsettingspage.cpp" line="889"/>
         <source>Select Items for Flux Computation</source>
         <translation>Select Items for Flux Computation</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="929"/>
+        <location filename="../src/basicsettingspage.cpp" line="917"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
@@ -3170,142 +3160,137 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the Raw Data Directory</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="155"/>
-        <source>Select the Previous Results Directory</source>
-        <translation>Select the Previous Results Directory</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="1453"/>
+        <location filename="../src/basicsettingspage.cpp" line="1424"/>
         <source>Raw Data Missing</source>
         <translation>Raw Data Missing</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1498"/>
+        <location filename="../src/basicsettingspage.cpp" line="1469"/>
         <source>Biomet Data Missing</source>
         <translation>Biomet Data Missing</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1549"/>
-        <location filename="../src/basicsettingspage.cpp" line="1566"/>
-        <location filename="../src/basicsettingspage.cpp" line="1590"/>
-        <location filename="../src/basicsettingspage.cpp" line="1617"/>
+        <location filename="../src/basicsettingspage.cpp" line="1520"/>
+        <location filename="../src/basicsettingspage.cpp" line="1537"/>
+        <location filename="../src/basicsettingspage.cpp" line="1561"/>
+        <location filename="../src/basicsettingspage.cpp" line="1588"/>
         <source>Metadata Error</source>
         <translation>Metadata Error</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1550"/>
-        <location filename="../src/basicsettingspage.cpp" line="1567"/>
+        <location filename="../src/basicsettingspage.cpp" line="1521"/>
+        <location filename="../src/basicsettingspage.cpp" line="1538"/>
         <source>Error reading raw data metadata information!</source>
         <translation>Error reading raw data metadata information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1591"/>
+        <location filename="../src/basicsettingspage.cpp" line="1562"/>
         <source>Error reading biomet metadata information!</source>
         <translation>Error reading biomet metadata information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1618"/>
+        <location filename="../src/basicsettingspage.cpp" line="1589"/>
         <source>Error reading biomet information!</source>
         <translation>Error reading biomet information!</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1641"/>
+        <location filename="../src/basicsettingspage.cpp" line="1612"/>
         <source> [Anemometer </source>
         <translation> [Anemometer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1747"/>
-        <location filename="../src/basicsettingspage.cpp" line="1946"/>
-        <location filename="../src/basicsettingspage.cpp" line="1954"/>
+        <location filename="../src/basicsettingspage.cpp" line="1718"/>
+        <location filename="../src/basicsettingspage.cpp" line="1917"/>
+        <location filename="../src/basicsettingspage.cpp" line="1925"/>
         <source>Other</source>
         <translation>Other</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1755"/>
+        <location filename="../src/basicsettingspage.cpp" line="1726"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1757"/>
+        <location filename="../src/basicsettingspage.cpp" line="1728"/>
         <source>Anemometer </source>
         <translation>Anemometer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1759"/>
+        <location filename="../src/basicsettingspage.cpp" line="1730"/>
         <source>Irga</source>
         <translation>Irga</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1761"/>
+        <location filename="../src/basicsettingspage.cpp" line="1732"/>
         <source>Gas analyzer </source>
         <translation>Gas analyzer </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1771"/>
+        <location filename="../src/basicsettingspage.cpp" line="1742"/>
         <source>from </source>
         <translation>from </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1783"/>
+        <location filename="../src/basicsettingspage.cpp" line="1754"/>
         <source>from other instruments</source>
         <translation>from other instruments</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="1790"/>
+        <location filename="../src/basicsettingspage.cpp" line="1761"/>
         <source> from raw data files: Column # </source>
         <translation> from raw data files: Column # </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2046"/>
+        <location filename="../src/basicsettingspage.cpp" line="2017"/>
         <source>&apos; from biomet files: </source>
         <translation>&apos; from biomet files: </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2047"/>
+        <location filename="../src/basicsettingspage.cpp" line="2018"/>
         <source>Column # </source>
         <translation>Column # </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2052"/>
+        <location filename="../src/basicsettingspage.cpp" line="2023"/>
         <source>Ambient Temperature &apos;</source>
         <translation>Ambient Temperature &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2059"/>
+        <location filename="../src/basicsettingspage.cpp" line="2030"/>
         <source>Ambient Pressure &apos;</source>
         <translation>Ambient Pressure &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2066"/>
+        <location filename="../src/basicsettingspage.cpp" line="2037"/>
         <source>Ambient Relative Humidity &apos;</source>
         <translation>Ambient Relative Humidity &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2073"/>
+        <location filename="../src/basicsettingspage.cpp" line="2044"/>
         <source>Global Radiation &apos;</source>
         <translation>Global Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2080"/>
+        <location filename="../src/basicsettingspage.cpp" line="2051"/>
         <source>Longwave Incoming Radiation &apos;</source>
         <translation>Longwave Incoming Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2087"/>
+        <location filename="../src/basicsettingspage.cpp" line="2058"/>
         <source>Photosynthetically Active Radiation &apos;</source>
         <translation>Photosynthetically Active Radiation &apos;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2132"/>
-        <location filename="../src/basicsettingspage.cpp" line="2156"/>
-        <location filename="../src/basicsettingspage.cpp" line="2177"/>
-        <location filename="../src/basicsettingspage.cpp" line="2400"/>
-        <location filename="../src/basicsettingspage.cpp" line="3265"/>
+        <location filename="../src/basicsettingspage.cpp" line="2103"/>
+        <location filename="../src/basicsettingspage.cpp" line="2127"/>
+        <location filename="../src/basicsettingspage.cpp" line="2148"/>
+        <location filename="../src/basicsettingspage.cpp" line="2371"/>
+        <location filename="../src/basicsettingspage.cpp" line="3220"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2401"/>
+        <location filename="../src/basicsettingspage.cpp" line="2372"/>
         <source>Generic</source>
         <translation>Generic</translation>
     </message>
@@ -3315,35 +3300,35 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Select the Output Directory</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="2857"/>
-        <location filename="../src/basicsettingspage.cpp" line="2949"/>
-        <location filename="../src/basicsettingspage.cpp" line="4673"/>
+        <location filename="../src/basicsettingspage.cpp" line="2812"/>
+        <location filename="../src/basicsettingspage.cpp" line="2904"/>
+        <location filename="../src/basicsettingspage.cpp" line="4628"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4398"/>
+        <location filename="../src/basicsettingspage.cpp" line="4353"/>
         <source>1 file found</source>
         <translation>1 file found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4402"/>
+        <location filename="../src/basicsettingspage.cpp" line="4357"/>
         <source>%1 files found</source>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4661"/>
+        <location filename="../src/basicsettingspage.cpp" line="4616"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4776"/>
-        <location filename="../src/basicsettingspage.cpp" line="4818"/>
+        <location filename="../src/basicsettingspage.cpp" line="4731"/>
+        <location filename="../src/basicsettingspage.cpp" line="4773"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4900"/>
+        <location filename="../src/basicsettingspage.cpp" line="4855"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
@@ -4106,52 +4091,52 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>EcProject</name>
     <message>
-        <location filename="../src/ecproject.cpp" line="1090"/>
+        <location filename="../src/ecproject.cpp" line="476"/>
         <source>Cannot write file %1:
 %2</source>
         <translation>Cannot write file %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1568"/>
+        <location filename="../src/ecproject.cpp" line="954"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2870"/>
+        <location filename="../src/ecproject.cpp" line="2256"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1593"/>
+        <location filename="../src/ecproject.cpp" line="979"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1089"/>
-        <location filename="../src/ecproject.cpp" line="1567"/>
+        <location filename="../src/ecproject.cpp" line="475"/>
+        <location filename="../src/ecproject.cpp" line="953"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="1592"/>
-        <location filename="../src/ecproject.cpp" line="2837"/>
-        <location filename="../src/ecproject.cpp" line="2858"/>
+        <location filename="../src/ecproject.cpp" line="978"/>
+        <location filename="../src/ecproject.cpp" line="2223"/>
+        <location filename="../src/ecproject.cpp" line="2244"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2838"/>
+        <location filename="../src/ecproject.cpp" line="2224"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2859"/>
-        <location filename="../src/ecproject.cpp" line="2871"/>
+        <location filename="../src/ecproject.cpp" line="2245"/>
+        <location filename="../src/ecproject.cpp" line="2257"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
@@ -4461,10 +4446,6 @@ Change this setting under the Help menu.</translation>
         <location filename="../src/mainwindow.cpp" line="698"/>
         <location filename="../src/mainwindow.cpp" line="824"/>
         <location filename="../src/mainwindow.cpp" line="840"/>
-        <location filename="../src/mainwindow.cpp" line="2975"/>
-        <location filename="../src/mainwindow.cpp" line="2994"/>
-        <location filename="../src/mainwindow.cpp" line="3022"/>
-        <location filename="../src/mainwindow.cpp" line="3041"/>
         <source>Canceled...</source>
         <translation>Canceled...</translation>
     </message>
@@ -4480,7 +4461,7 @@ Change this setting under the Help menu.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="815"/>
-        <location filename="../src/mainwindow.cpp" line="3975"/>
+        <location filename="../src/mainwindow.cpp" line="3882"/>
         <source>EddyPro is processing (running or in pause).</source>
         <translation>EddyPro is processing (running or in pause).</translation>
     </message>
@@ -4940,64 +4921,64 @@ Retriever</translation>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3728"/>
+        <location filename="../src/mainwindow.cpp" line="3635"/>
         <source>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3735"/>
+        <location filename="../src/mainwindow.cpp" line="3642"/>
         <source>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3741"/>
-        <location filename="../src/mainwindow.cpp" line="3751"/>
-        <location filename="../src/mainwindow.cpp" line="3868"/>
+        <location filename="../src/mainwindow.cpp" line="3648"/>
+        <location filename="../src/mainwindow.cpp" line="3658"/>
+        <location filename="../src/mainwindow.cpp" line="3775"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3852"/>
+        <location filename="../src/mainwindow.cpp" line="3759"/>
         <source>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3858"/>
+        <location filename="../src/mainwindow.cpp" line="3765"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3976"/>
+        <location filename="../src/mainwindow.cpp" line="3883"/>
         <source>Do you really want to stop the computations?</source>
         <translation>Do you really want to stop the computations?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4335"/>
+        <location filename="../src/mainwindow.cpp" line="4140"/>
         <source>Import Project</source>
         <translation>Import Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4336"/>
+        <location filename="../src/mainwindow.cpp" line="4141"/>
         <source>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4346"/>
+        <location filename="../src/mainwindow.cpp" line="4151"/>
         <source>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4354"/>
+        <location filename="../src/mainwindow.cpp" line="4159"/>
         <source>Import Metadata</source>
         <translation>Import Metadata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4355"/>
+        <location filename="../src/mainwindow.cpp" line="4160"/>
         <source>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4357"/>
+        <location filename="../src/mainwindow.cpp" line="4162"/>
         <source>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</translation>
     </message>
@@ -5057,29 +5038,6 @@ Retriever</translation>
         <location filename="../src/mainwindow.cpp" line="2681"/>
         <source>Additional settings</source>
         <translation>Additional settings</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2967"/>
-        <location filename="../src/mainwindow.cpp" line="3005"/>
-        <source>Previous Results Available</source>
-        <translation>Previous Results Available</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="3006"/>
-        <source>Previous results available!
-
-Do you want to proceed using results from a previous run? (Recommended)
-</source>
-        <translation>Previous results available!
-
-Do you want to proceed using results from a previous run? (Recommended)
-</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2983"/>
-        <location filename="../src/mainwindow.cpp" line="3030"/>
-        <source>No Previous Results Available</source>
-        <translation>No Previous Results Available</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="517"/>
@@ -5143,26 +5101,6 @@ Do you want to proceed using results from a previous run? (Recommended)
         <location filename="../src/mainwindow.cpp" line="1114"/>
         <source>About Qt...</source>
         <translation>About Qt...</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2968"/>
-        <source>Previous results available!</source>
-        <translation>Previous results available!</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2969"/>
-        <source>Most likely results of this run will be identical to results of a previous run available in the &quot;Previous Output Directory&quot;, so you wouldn&apos;t need to proceed.
-
-Do you prefer to proceed anyway?</source>
-        <translation>Most likely results of this run will be identical to results of a previous run available in the &quot;Previous Output Directory&quot;, so you wouldn&apos;t need to proceed.
-
-Do you prefer to proceed anyway?</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="2984"/>
-        <location filename="../src/mainwindow.cpp" line="3031"/>
-        <source>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</source>
-        <translation>It is not possible to use results from any previous run. EddyPro will start the processing from the raw files.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="717"/>
@@ -5332,90 +5270,90 @@ Output</translation>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Choose a valid path, where &apos;Binned (co)spectra&apos; files are stored.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3211"/>
-        <location filename="../src/mainwindow.cpp" line="3301"/>
-        <location filename="../src/mainwindow.cpp" line="3444"/>
+        <location filename="../src/mainwindow.cpp" line="3118"/>
+        <location filename="../src/mainwindow.cpp" line="3208"/>
+        <location filename="../src/mainwindow.cpp" line="3351"/>
         <source>Running</source>
         <translation>Running</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3214"/>
+        <location filename="../src/mainwindow.cpp" line="3121"/>
         <source>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</source>
         <translation>Note that running in Express Mode means EddyPro will ignore all your entries in the Advanced Settings pages. &lt;br /&gt;Your settings will not be overridden and you will be able to retrieve them at any time, but they will not be used for this run.&lt;br /&gt;Do you really want to run in Express mode?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3304"/>
+        <location filename="../src/mainwindow.cpp" line="3211"/>
         <source>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</source>
         <translation>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3447"/>
+        <location filename="../src/mainwindow.cpp" line="3354"/>
         <source>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</source>
         <translation>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3709"/>
-        <location filename="../src/mainwindow.cpp" line="3831"/>
+        <location filename="../src/mainwindow.cpp" line="3616"/>
+        <location filename="../src/mainwindow.cpp" line="3738"/>
         <source>EddyPro Results</source>
         <translation>EddyPro Results</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3711"/>
+        <location filename="../src/mainwindow.cpp" line="3618"/>
         <source>Open the output folder</source>
         <translation>Open the output folder</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3742"/>
-        <location filename="../src/mainwindow.cpp" line="3781"/>
-        <location filename="../src/mainwindow.cpp" line="3859"/>
-        <location filename="../src/mainwindow.cpp" line="3898"/>
+        <location filename="../src/mainwindow.cpp" line="3649"/>
+        <location filename="../src/mainwindow.cpp" line="3688"/>
+        <location filename="../src/mainwindow.cpp" line="3766"/>
+        <location filename="../src/mainwindow.cpp" line="3805"/>
         <source>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3756"/>
-        <location filename="../src/mainwindow.cpp" line="3873"/>
+        <location filename="../src/mainwindow.cpp" line="3663"/>
+        <location filename="../src/mainwindow.cpp" line="3780"/>
         <source>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3766"/>
-        <location filename="../src/mainwindow.cpp" line="3883"/>
+        <location filename="../src/mainwindow.cpp" line="3673"/>
+        <location filename="../src/mainwindow.cpp" line="3790"/>
         <source>&lt;p&gt;Computations crashed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations crashed.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3769"/>
-        <location filename="../src/mainwindow.cpp" line="3886"/>
+        <location filename="../src/mainwindow.cpp" line="3676"/>
+        <location filename="../src/mainwindow.cpp" line="3793"/>
         <source>&lt;p&gt;Computations timed out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations timed out.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3772"/>
-        <location filename="../src/mainwindow.cpp" line="3889"/>
+        <location filename="../src/mainwindow.cpp" line="3679"/>
+        <location filename="../src/mainwindow.cpp" line="3796"/>
         <source>&lt;p&gt;Computations write error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations write error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3775"/>
-        <location filename="../src/mainwindow.cpp" line="3892"/>
+        <location filename="../src/mainwindow.cpp" line="3682"/>
+        <location filename="../src/mainwindow.cpp" line="3799"/>
         <source>&lt;p&gt;Computations read error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations read error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3778"/>
-        <location filename="../src/mainwindow.cpp" line="3895"/>
+        <location filename="../src/mainwindow.cpp" line="3685"/>
+        <location filename="../src/mainwindow.cpp" line="3802"/>
         <source>&lt;p&gt;Computations unknown error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations unknown error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3791"/>
-        <location filename="../src/mainwindow.cpp" line="3908"/>
+        <location filename="../src/mainwindow.cpp" line="3698"/>
+        <location filename="../src/mainwindow.cpp" line="3815"/>
         <source>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3974"/>
+        <location filename="../src/mainwindow.cpp" line="3881"/>
         <source>Stop Data Processing</source>
         <translation>Stop Data Processing</translation>
     </message>
@@ -5649,313 +5587,313 @@ Output</translation>
 <context>
     <name>ProjectPage</name>
     <message>
-        <location filename="../src/projectpage.cpp" line="76"/>
+        <location filename="../src/projectpage.cpp" line="75"/>
         <source>Project name :</source>
         <translation>Project name :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="78"/>
+        <location filename="../src/projectpage.cpp" line="77"/>
         <source>&lt;b&gt;Project name:&lt;/b&gt; Enter a name for the flux computation project. This will be the default file name for this project, but you can edit it while saving the project. This field is optional.</source>
         <translation>&lt;b&gt;Project name:&lt;/b&gt; Enter a name for the flux computation project. This will be the default file name for this project, but you can edit it while saving the project. This field is optional.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="85"/>
+        <location filename="../src/projectpage.cpp" line="84"/>
         <source>Raw file format :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="86"/>
+        <location filename="../src/projectpage.cpp" line="85"/>
         <source>&lt;b&gt;Raw file format:&lt;/b&gt; Select the format of your raw files.&lt;br /&gt;&lt;b&gt;&lt;i&gt;LI-COR GHG&lt;/i&gt;&lt;/b&gt; is the format of files created by LI-COR data logging software.&lt;br /&gt;&lt;b&gt;&lt;i&gt;ASCII plain text&lt;/i&gt;&lt;/b&gt; includes virtually any text file organized in data columns. &lt;br /&gt;&lt;b&gt;&lt;i&gt;Generic Binary&lt;/i&gt;&lt;/b&gt; is any fixed-length words binary format used to store single precision variables. Use the &lt;b&gt;&lt;i&gt;Settings...&lt;/i&gt;&lt;/b&gt; dialogue to further specify the format. &lt;br /&gt;&lt;b&gt;&lt;i&gt;TOB1&lt;/i&gt;&lt;/b&gt; is a proprietary format by Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific, used to collect raw files on its data loggers. &lt;br /&gt;The two &lt;b&gt;&lt;i&gt;SLT are binary&lt;/i&gt;&lt;/b&gt; formats of raw files created by the EddySoft and EdiSol data collection tools.</source>
         <translation>&lt;b&gt;Raw file format:&lt;/b&gt; Select the format of your raw files.&lt;br /&gt;&lt;b&gt;&lt;i&gt;LI-COR GHG&lt;/i&gt;&lt;/b&gt; is the format of files created by LI-COR data logging software.&lt;br /&gt;&lt;b&gt;&lt;i&gt;ASCII plain text&lt;/i&gt;&lt;/b&gt; includes virtually any text file organized in data columns. &lt;br /&gt;&lt;b&gt;&lt;i&gt;Generic Binary&lt;/i&gt;&lt;/b&gt; is any fixed-length words binary format used to store single precision variables. Use the &lt;b&gt;&lt;i&gt;Settings...&lt;/i&gt;&lt;/b&gt; dialogue to further specify the format. &lt;br /&gt;&lt;b&gt;&lt;i&gt;TOB1&lt;/i&gt;&lt;/b&gt; is a proprietary format by Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific, used to collect raw files on its data loggers. &lt;br /&gt;The two &lt;b&gt;&lt;i&gt;SLT are binary&lt;/i&gt;&lt;/b&gt; formats of raw files created by the EddySoft and EdiSol data collection tools.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="93"/>
+        <location filename="../src/projectpage.cpp" line="92"/>
         <source>LI-COR GHG</source>
         <translation>LI-COR GHG</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="95"/>
+        <location filename="../src/projectpage.cpp" line="94"/>
         <source>&lt;b&gt;LI-COR GHG:&lt;/b&gt; A custom LI-COR raw file format. Each GHG file is an archive containing a data and a metadata file, both in readable text format. GHG files have extension &quot;.ghg&quot;</source>
         <translation>&lt;b&gt;LI-COR GHG:&lt;/b&gt; A custom LI-COR raw file format. Each GHG file is an archive containing a data and a metadata file, both in readable text format. GHG files have extension &quot;.ghg&quot;</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="96"/>
+        <location filename="../src/projectpage.cpp" line="95"/>
         <source>ASCII plain text</source>
         <translation>ASCII plain text</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="97"/>
+        <location filename="../src/projectpage.cpp" line="96"/>
         <source>&lt;b&gt;ASCII plain text:&lt;/b&gt; Any text file organized in data columns, with or without a header. All typical field separators (tab, space, comma, and semicolon) are supported. Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific TOA5 format is an example of a supported ASCII data file.</source>
         <translation>&lt;b&gt;ASCII plain text:&lt;/b&gt; Any text file organized in data columns, with or without a header. All typical field separators (tab, space, comma, and semicolon) are supported. Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific TOA5 format is an example of a supported ASCII data file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="98"/>
+        <location filename="../src/projectpage.cpp" line="97"/>
         <source>TOB1</source>
         <translation>TOB1</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="99"/>
+        <location filename="../src/projectpage.cpp" line="98"/>
         <source>&lt;b&gt;TOB1:&lt;/b&gt; Raw files in the Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific binary format. Support of TOB1 format is limited to files containing only ULONG and IEEE4 fields, or ULONG and FP2 fields. In the second case, FP2 fields must follow any ULONG field, while for ULONG and IEEE4 there is no such limitation. Note also that ULONG fields are not interpreted by EddyPro, thus they can only be defined as &lt;i&gt;Ignore&lt;/i&gt; variables.</source>
         <translation>&lt;b&gt;TOB1:&lt;/b&gt; Raw files in the Campbell&lt;sup&gt;&amp;reg;&lt;/sup&gt; Scientific binary format. Support of TOB1 format is limited to files containing only ULONG and IEEE4 fields, or ULONG and FP2 fields. In the second case, FP2 fields must follow any ULONG field, while for ULONG and IEEE4 there is no such limitation. Note also that ULONG fields are not interpreted by EddyPro, thus they can only be defined as &lt;i&gt;Ignore&lt;/i&gt; variables.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="100"/>
+        <location filename="../src/projectpage.cpp" line="99"/>
         <source>SLT (EddySoft)</source>
         <translation>SLT (EddySoft)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="101"/>
+        <location filename="../src/projectpage.cpp" line="100"/>
         <source>&lt;b&gt;SLT (EddySoft):&lt;/b&gt; Format of binary files created by EddyMeas, the data acquisition tool of the EddySoft suite, by O. Kolle and C. Rebmann (Max Planck Institute, Jena, Germany). This is a fixed-length binary format. It includes a binary header in each file that needs to be interpreted to correctly retrieve data. EddyPro interprets such header automatically, but you still need to describe the file content in the Raw File Description tab of the Metadata File Editor.</source>
         <translation>&lt;b&gt;SLT (EddySoft):&lt;/b&gt; Format of binary files created by EddyMeas, the data acquisition tool of the EddySoft suite, by O. Kolle and C. Rebmann (Max Planck Institute, Jena, Germany). This is a fixed-length binary format. It includes a binary header in each file that needs to be interpreted to correctly retrieve data. EddyPro interprets such header automatically, but you still need to describe the file content in the Raw File Description tab of the Metadata File Editor.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="102"/>
+        <location filename="../src/projectpage.cpp" line="101"/>
         <source>SLT (EdiSol)</source>
         <translation>SLT (EdiSol)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="103"/>
+        <location filename="../src/projectpage.cpp" line="102"/>
         <source>&lt;b&gt;SLT (EdiSol):&lt;/b&gt; Format of binary files created by EdiSol, the data acquisition tool developed by Univ. of Edinburg, UK. This is a fixed-length binary format. It includes a binary header in each file that needs to be interpreted to correctly retrieve data. EddyPro interprets such header automatically, but you still need to describe the file content in the Raw File Description tab of the Metadata File Editor.</source>
         <translation>&lt;b&gt;SLT (EdiSol):&lt;/b&gt; Format of binary files created by EdiSol, the data acquisition tool developed by Univ. of Edinburg, UK. This is a fixed-length binary format. It includes a binary header in each file that needs to be interpreted to correctly retrieve data. EddyPro interprets such header automatically, but you still need to describe the file content in the Raw File Description tab of the Metadata File Editor.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="104"/>
+        <location filename="../src/projectpage.cpp" line="103"/>
         <source>Generic binary</source>
         <translation>Generic binary</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="105"/>
+        <location filename="../src/projectpage.cpp" line="104"/>
         <source>&lt;b&gt;Generic binary:&lt;/b&gt; Generic binary (unformatted) raw data files. Limited to fixed-length binary words that contain data stored as single precision (real) numbers.</source>
         <translation>&lt;b&gt;Generic binary:&lt;/b&gt; Generic binary (unformatted) raw data files. Limited to fixed-length binary words that contain data stored as single precision (real) numbers.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="116"/>
+        <location filename="../src/projectpage.cpp" line="115"/>
         <source>Detect automatically</source>
         <translation>Detect automatically</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="117"/>
+        <location filename="../src/projectpage.cpp" line="116"/>
         <source>Only ULONG and IEEE4 fields</source>
         <translation>Only ULONG and IEEE4 fields</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="118"/>
+        <location filename="../src/projectpage.cpp" line="117"/>
         <source>Only ULONG and FP2 fields</source>
         <translation>Only ULONG and FP2 fields</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="119"/>
+        <location filename="../src/projectpage.cpp" line="118"/>
         <source>&lt;b&gt;Detect automatically:&lt;/b&gt; Let EddyPro figure out whether TOB1 files contain (ULONG and) IEEE4 fields or (ULONG and) FP2 fields.</source>
         <translation>&lt;b&gt;Detect automatically:&lt;/b&gt; Let EddyPro figure out whether TOB1 files contain (ULONG and) IEEE4 fields or (ULONG and) FP2 fields.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="120"/>
+        <location filename="../src/projectpage.cpp" line="119"/>
         <source>&lt;b&gt;Only ULONG and IEEE4 fields:&lt;/b&gt; Choose this option to specify that your TOB1 files contain only IEEE4 fields and possibly ULONG fields. Note that EddyPro does not interpret ULONG fields. This means that any variable stored in ULONG format must be marked with the &lt;i&gt;Ignore&lt;/i&gt; option in the &lt;b&gt;&lt;i&gt;Raw File Description&lt;/i&gt;&lt;/b&gt; table. Typically ULONG format is used for timestamp information.</source>
         <translation>&lt;b&gt;Only ULONG and IEEE4 fields:&lt;/b&gt; Choose this option to specify that your TOB1 files contain only IEEE4 fields and possibly ULONG fields. Note that EddyPro does not interpret ULONG fields. This means that any variable stored in ULONG format must be marked with the &lt;i&gt;Ignore&lt;/i&gt; option in the &lt;b&gt;&lt;i&gt;Raw File Description&lt;/i&gt;&lt;/b&gt; table. Typically ULONG format is used for timestamp information.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="121"/>
+        <location filename="../src/projectpage.cpp" line="120"/>
         <source>&lt;b&gt;Only ULONG and FP2 fields:&lt;/b&gt; Choose this option to specify that your TOB1 files contain only FP2 fields and possibly ULONG fields. Note that ULONG fields, if present, must come first in the sequence of fields. Note also that EddyPro does not interpret ULONG fields. This means that any variable stored in ULONG format must be marked with the &lt;i&gt;Ignore&lt;/i&gt; option in the &lt;b&gt;&lt;i&gt;Raw File Description&lt;/i&gt;&lt;/b&gt; table. Typically ULONG format is used for timestamp information.</source>
         <translation>&lt;b&gt;Only ULONG and FP2 fields:&lt;/b&gt; Choose this option to specify that your TOB1 files contain only FP2 fields and possibly ULONG fields. Note that ULONG fields, if present, must come first in the sequence of fields. Note also that EddyPro does not interpret ULONG fields. This means that any variable stored in ULONG format must be marked with the &lt;i&gt;Ignore&lt;/i&gt; option in the &lt;b&gt;&lt;i&gt;Raw File Description&lt;/i&gt;&lt;/b&gt; table. Typically ULONG format is used for timestamp information.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="124"/>
+        <location filename="../src/projectpage.cpp" line="123"/>
         <source>Settings...</source>
         <translation>Settings...</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="127"/>
+        <location filename="../src/projectpage.cpp" line="126"/>
         <source>&lt;b&gt;Generic Binary Settings:&lt;/b&gt; Use the &lt;b&gt;&lt;i&gt;Settings...&lt;/i&gt;&lt;/b&gt; button to provide specifications of the binary format, to help EddyPro to correctly read the files.</source>
         <translation>&lt;b&gt;Generic Binary Settings:&lt;/b&gt; Use the &lt;b&gt;&lt;i&gt;Settings...&lt;/i&gt;&lt;/b&gt; button to provide specifications of the binary format, to help EddyPro to correctly read the files.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="138"/>
+        <location filename="../src/projectpage.cpp" line="137"/>
         <source>Metadata file :</source>
         <translation>Metadata file :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="139"/>
+        <location filename="../src/projectpage.cpp" line="138"/>
         <source>&lt;b&gt;Metadata:&lt;/b&gt; Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format.</source>
         <translation>&lt;b&gt;Metadata:&lt;/b&gt; Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="140"/>
+        <location filename="../src/projectpage.cpp" line="139"/>
         <source>Use embedded file</source>
         <translation>Use embedded file</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="141"/>
+        <location filename="../src/projectpage.cpp" line="140"/>
         <source>&lt;b&gt;Use embedded metadata file:&lt;/b&gt; Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive.</source>
         <translation>&lt;b&gt;Use embedded metadata file:&lt;/b&gt; Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="142"/>
+        <location filename="../src/projectpage.cpp" line="141"/>
         <source> QRadioButton { padding-left: 2px; } </source>
         <translation> QRadioButton { padding-left: 2px; } </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="144"/>
+        <location filename="../src/projectpage.cpp" line="143"/>
         <source>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</source>
         <translation>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="145"/>
+        <location filename="../src/projectpage.cpp" line="144"/>
         <source> QRadioButton { padding-left: 0px; } </source>
         <translation> QRadioButton { padding-left: 0px; } </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="153"/>
+        <location filename="../src/projectpage.cpp" line="152"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing metadata file to edit it in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you use the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; to create and save a new metadata file from scratch, its path will appear here.</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing metadata file to edit it in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you use the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; to create and save a new metadata file from scratch, its path will appear here.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="161"/>
+        <location filename="../src/projectpage.cpp" line="160"/>
         <source>Use dynamic metadata file :</source>
         <translation>Use dynamic metadata file :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="176"/>
+        <location filename="../src/projectpage.cpp" line="175"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing dynamic metadata file.</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing dynamic metadata file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="182"/>
+        <location filename="../src/projectpage.cpp" line="181"/>
         <source>Biomet data :</source>
         <translation>Biomet data :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="186"/>
+        <location filename="../src/projectpage.cpp" line="185"/>
         <source>Use embedded files </source>
         <translation>Use embedded files </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="188"/>
+        <location filename="../src/projectpage.cpp" line="187"/>
         <source>&lt;b&gt;Use embedded files:&lt;/b&gt; Choose this option to use data from biomet files embedded in the LI-COR GHG files. This option is only available for GHG files collected with the LI-7550 embedded software version 6.0.0 or newer, provided a biomet system was used during data collection. EddyPro will automatically read biomet files from the GHG bundles, interpret them and extract relevant variables.</source>
         <translation>&lt;b&gt;Use embedded files:&lt;/b&gt; Choose this option to use data from biomet files embedded in the LI-COR GHG files. This option is only available for GHG files collected with the LI-7550 embedded software version 6.0.0 or newer, provided a biomet system was used during data collection. EddyPro will automatically read biomet files from the GHG bundles, interpret them and extract relevant variables.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="190"/>
+        <location filename="../src/projectpage.cpp" line="189"/>
         <source>Use external file:</source>
         <translation>Use external file:</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="191"/>
+        <location filename="../src/projectpage.cpp" line="190"/>
         <source>&lt;b&gt;Use external file:&lt;/b&gt; Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button to access the guidelines on EddyPro Help.</source>
         <translation>&lt;b&gt;Use external file:&lt;/b&gt; Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button to access the guidelines on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="203"/>
+        <location filename="../src/projectpage.cpp" line="202"/>
         <source>Use external directory:</source>
         <translation>Use external directory:</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="207"/>
+        <location filename="../src/projectpage.cpp" line="206"/>
         <source>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</source>
         <translation>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="216"/>
+        <location filename="../src/projectpage.cpp" line="215"/>
         <source>Search in subfolders</source>
         <translation>Search in subfolders</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="219"/>
+        <location filename="../src/projectpage.cpp" line="218"/>
         <source>Files extension :</source>
         <translation>Files extension :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="220"/>
+        <location filename="../src/projectpage.cpp" line="219"/>
         <source>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</source>
         <translation>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="311"/>
+        <location filename="../src/projectpage.cpp" line="310"/>
         <source>Project Info</source>
         <translation>Project Info</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="319"/>
+        <location filename="../src/projectpage.cpp" line="318"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="434"/>
+        <location filename="../src/projectpage.cpp" line="433"/>
         <source>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="154"/>
+        <location filename="../src/projectpage.cpp" line="153"/>
         <source>Select the Metadata File</source>
         <translation>Select the Metadata File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="156"/>
+        <location filename="../src/projectpage.cpp" line="155"/>
         <source>%1 Metadata Files (*.metadata);;All Files (*.*)</source>
         <translation>%1 Metadata Files (*.metadata);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="195"/>
+        <location filename="../src/projectpage.cpp" line="194"/>
         <source>Select the Biomet File</source>
         <translation>Select the Biomet File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="200"/>
+        <location filename="../src/projectpage.cpp" line="199"/>
         <source>%1 Biomet Files (*.csv);;All Files (*.*)</source>
         <translation>%1 Biomet Files (*.csv);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="177"/>
+        <location filename="../src/projectpage.cpp" line="176"/>
         <source>Select the Dynamic Metadata File</source>
         <translation>Select the Dynamic Metadata File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="143"/>
+        <location filename="../src/projectpage.cpp" line="142"/>
         <source>Use alternative file: </source>
         <translation>Use alternative file: </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="162"/>
+        <location filename="../src/projectpage.cpp" line="161"/>
         <source>&lt;b&gt;Use dynamic metadata file:&lt;/b&gt; Check this option and provide the corresponding path to instruct EddyPro to use an externally-created file that contains time changing metadata, such as canopy height, instrument separations and more.Click on the question mark at the right side of the &lt;b&gt;Load&lt;/b&gt; button to learn more about dynamic metadata on the EddyPro Help.</source>
         <translation>&lt;b&gt;Use dynamic metadata file:&lt;/b&gt; Check this option and provide the corresponding path to instruct EddyPro to use an externally-created file that contains time changing metadata, such as canopy height, instrument separations and more.Click on the question mark at the right side of the &lt;b&gt;Load&lt;/b&gt; button to learn more about dynamic metadata on the EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="179"/>
-        <location filename="../src/projectpage.cpp" line="198"/>
+        <location filename="../src/projectpage.cpp" line="178"/>
+        <location filename="../src/projectpage.cpp" line="197"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="184"/>
+        <location filename="../src/projectpage.cpp" line="183"/>
         <source>&lt;b&gt;Biomet data:&lt;/b&gt; Select this option and choose the source of biomet data. Biomet data are slow (&lt; 1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file.</source>
         <translation>&lt;b&gt;Biomet data:&lt;/b&gt; Select this option and choose the source of biomet data. Biomet data are slow (&lt; 1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="194"/>
+        <location filename="../src/projectpage.cpp" line="193"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing biomet external file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing biomet external file</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="204"/>
+        <location filename="../src/projectpage.cpp" line="203"/>
         <source>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</source>
         <translation>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="212"/>
+        <location filename="../src/projectpage.cpp" line="211"/>
         <source>Select the Biomet Files Directory</source>
         <translation>Select the Biomet Files Directory</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="217"/>
+        <location filename="../src/projectpage.cpp" line="216"/>
         <source>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</source>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1080"/>
+        <location filename="../src/projectpage.cpp" line="1079"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1081"/>
+        <location filename="../src/projectpage.cpp" line="1080"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>
