@@ -101,6 +101,12 @@ struct ProjectGeneralState
     int hf_correct_ghg_ba = 1;
     int hf_correct_ghg_zoh = 1;
     int sonic_output_rate = -1;
+
+    // random error
+    int ru_method = 0;
+    int its_method = 1;
+    qreal its_tlag_max = 10.0;
+    qreal its_sec_factor = 20.0;
 };
 
 /// \struct SpectraSettingsState

@@ -812,10 +812,10 @@ public:
     double timelagOptGas4MaxLag() const { return ec_project_state_.timelagOpt.gas4_max_lag; }
     int timelagOptSubset() const { return ec_project_state_.timelagOpt.subset; }
 
-    int randErrorMethod() const { return ec_project_state_.randomError.method; }
-    int randErrorItsMehod() const { return ec_project_state_.randomError.its_method; }
-    double randErrorTlagMax() const { return ec_project_state_.randomError.its_tlag_max; }
-    double randErrorSecFactor() const { return ec_project_state_.randomError.its_sec_factor; }
+    int randErrorMethod() const { return ec_project_state_.projectGeneral.ru_method; }
+    int randErrorItsMehod() const { return ec_project_state_.projectGeneral.its_method; }
+    double randErrorTlagMax() const { return ec_project_state_.projectGeneral.its_tlag_max; }
+    double randErrorSecFactor() const { return ec_project_state_.projectGeneral.its_sec_factor; }
 
     int biomParamColAirT() const { return ec_project_state_.biomParam.col_ta; }
     int biomParamColAirP() const { return ec_project_state_.biomParam.col_pa; }

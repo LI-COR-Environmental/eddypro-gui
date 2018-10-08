@@ -440,10 +440,10 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.timelagOpt.gas4_max_lag = defaultEcProjectState.timelagOpt.gas4_max_lag;
     ec_project_state_.timelagOpt.subset  = defaultEcProjectState.timelagOpt.subset;
 
-    ec_project_state_.randomError.method = defaultEcProjectState.randomError.method;
-    ec_project_state_.randomError.its_method = defaultEcProjectState.randomError.its_method;
-    ec_project_state_.randomError.its_tlag_max = defaultEcProjectState.randomError.its_tlag_max;
-    ec_project_state_.randomError.its_sec_factor = defaultEcProjectState.randomError.its_sec_factor;
+    ec_project_state_.projectGeneral.ru_method = defaultEcProjectState.projectGeneral.ru_method;
+    ec_project_state_.projectGeneral.its_method = defaultEcProjectState.projectGeneral.its_method;
+    ec_project_state_.projectGeneral.its_tlag_max = defaultEcProjectState.projectGeneral.its_tlag_max;
+    ec_project_state_.projectGeneral.its_sec_factor = defaultEcProjectState.projectGeneral.its_sec_factor;
 
     ec_project_state_.biomParam.native_header = defaultEcProjectState.biomParam.native_header;
     ec_project_state_.biomParam.hlines = defaultEcProjectState.biomParam.hlines;
@@ -574,6 +574,17 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
         project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
         project_ini.setValue(EcIni::INI_PROJECT_68, ec_project_state_.projectGeneral.sonic_output_rate);
+
+        // random uncertainty
+        project_ini.setValue(EcIni::INI_RAND_ERROR_0,
+                             ec_project_state_.projectGeneral.ru_method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_1,
+                             ec_project_state_.projectGeneral.its_method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_2,
+                             QString::number(ec_project_state_.projectGeneral.its_tlag_max, 'f', 1));
+        // NOTE: temporarly disabled
+        //project_ini.setValue(EcIni::INI_RAND_ERROR_3,
+        //                     QString::number(ec_project_state_.projectGeneral.its_sec_factor, 'f', 1));
     project_ini.endGroup();
 
     // spec settings section
@@ -912,20 +923,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_18, ec_project_state_.timelagOpt.subset);
     project_ini.endGroup();
 
-    // random error section
-    project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_0,
-                             ec_project_state_.randomError.method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_1,
-                             ec_project_state_.randomError.its_method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_2,
-                             QString::number(ec_project_state_.randomError.its_tlag_max, 'f', 1));
-
-        // NOTE: temporarly disabled
-//        project_ini.setValue(EcIni::INI_RAND_ERROR_3,
-//                             QString::number(ec_project_state_.randomError.its_sec_factor, 'f', 1));
-    project_ini.endGroup();
-
     // biomet section
     project_ini.beginGroup(EcIni::INIGROUP_BIOMET);
         project_ini.setValue(EcIni::INI_BIOMET_0, ec_project_state_.biomParam.native_header);
@@ -1027,11 +1024,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
 
                 project_ini.remove(EcIni::INI_PROJECT_33_OLD);
                 isVersionCompatible = false;
-            }
-            else
-            {
-                // abort the file loading to skip it during previous data comparison
-                return false;
             }
         }
         else
@@ -1149,11 +1141,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 ec_project_state_.projectGeneral.out_rich = 1;
                 isVersionCompatible = false;
             }
-            else
-            {
-                // abort the file loading to skip it during previous data comparison
-                return false;
-            }
         }
         else
         {
@@ -1254,6 +1241,15 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.sonic_output_rate
                 = project_ini.value(EcIni::INI_PROJECT_68,
                                     defaultEcProjectState.projectGeneral.sonic_output_rate).toInt();
+        ec_project_state_.projectGeneral.ru_method
+                = project_ini.value(EcIni::INI_RAND_ERROR_0,
+                                    defaultEcProjectState.projectGeneral.ru_method).toInt();
+        ec_project_state_.projectGeneral.its_method
+                = project_ini.value(EcIni::INI_RAND_ERROR_1,
+                                    defaultEcProjectState.projectGeneral.its_method).toInt();
+        ec_project_state_.projectGeneral.its_tlag_max
+                = project_ini.value(EcIni::INI_RAND_ERROR_2,
+                                    defaultEcProjectState.projectGeneral.its_tlag_max).toDouble();
     project_ini.endGroup();
 
     // spec settings section
@@ -2160,11 +2156,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.randomError.its_tlag_max
                 = project_ini.value(EcIni::INI_RAND_ERROR_2,
                                     defaultEcProjectState.randomError.its_tlag_max).toDouble();
-
-        // NOTE: temporarly disabled
-//        ec_project_state_.randomError.its_sec_factor
-//                = project_ini.value(EcIni::INI_RAND_ERROR_3,
-//                                    defaultEcProjectState.randomError.its_sec_factor).toDouble();
     project_ini.endGroup();
 
     // biomet section
@@ -4393,25 +4384,25 @@ void EcProject::setTimelagOptGas4MaxLag(double d)
 
 void EcProject::setRandomErrorMethod(int n)
 {
-    ec_project_state_.randomError.method = n;
+    ec_project_state_.projectGeneral.ru_method = n;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsMethod(int n)
 {
-    ec_project_state_.randomError.its_method = n;
+    ec_project_state_.projectGeneral.its_method = n;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsTlagMax(double d)
 {
-    ec_project_state_.randomError.its_tlag_max = d;
+    ec_project_state_.projectGeneral.its_tlag_max = d;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsSecFactor(double d)
 {
-    ec_project_state_.randomError.its_sec_factor = d;
+    ec_project_state_.projectGeneral.its_sec_factor = d;
     setModified(true);
 }
 

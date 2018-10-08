@@ -2412,10 +2412,10 @@ void AdvStatisticalOptions::reset()
 
     // NOTE: hack to prevent side effect setting from calling
     // WidgetUtils::resetComboToItem(randomMethodCombo, 0)
-    ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.randomError.method);
+    ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.projectGeneral.ru_method);
 
-    timelagMaxSpin->setValue(ecProject_->defaultSettings.randomError.its_tlag_max);
-    securityCoeffSpin->setValue(ecProject_->defaultSettings.randomError.its_sec_factor);
+    timelagMaxSpin->setValue(ecProject_->defaultSettings.projectGeneral.its_tlag_max);
+    securityCoeffSpin->setValue(ecProject_->defaultSettings.projectGeneral.its_sec_factor);
 
     // restore modified flag
     ecProject_->setModified(oldmod);
