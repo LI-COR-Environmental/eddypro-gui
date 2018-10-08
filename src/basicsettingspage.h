@@ -100,7 +100,6 @@ public slots:
     void refresh();
     void datapathSelected(const QString &dir_path);
     void outpathBrowseSelected(const QString& dir_path);
-    void previousDatapathSelected(const QString &dir_path);
     void askRawFilenamePrototype();
     void partialRefresh();
     void updateMetadataRead(bool firstReading = false);
@@ -135,9 +134,6 @@ private:
 
     ClickLabel *outpathLabel;
     DirBrowseWidget *outpathBrowse;
-
-    ClickLabel *previousDatapathLabel;
-    DirBrowseWidget *previousDatapathBrowse;
 
     ClickLabel *avgIntervalLabel;
     QSpinBox *avgIntervalSpin;
@@ -337,7 +333,6 @@ private slots:
     void updateDataPath(const QString& dp);
     void updateRecursion(bool b);
     void updateOutPath(const QString& dp);
-    void updatePreviousDataPath(const QString& dp);
     void updateAvrgLen(int n);
     void updateMaxLack(int n);
     void updateFilePrototype(const QString& pattern);

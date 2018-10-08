@@ -146,15 +146,6 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     outpathBrowse->setDialogTitle(tr("Select the Output Directory"));
     outpathBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
 
-    previousDatapathLabel = new ClickLabel(tr("Previous results directory :"), this);
-    previousDatapathLabel->setToolTip(tr("<b>Previous results directory:</b> Path of the directory containing results from previous run(s). EddyPro will attempt to speed up the flux computation by checking for any partial results obtained from previous run(s). If settings used in the previous runs match the current settings, EddyPro will use the results as an intermediate starting point in the current data processing session."));
-    previousDatapathLabel->setProperty("optionalField", true);
-
-    previousDatapathBrowse = new DirBrowseWidget;
-    previousDatapathBrowse->setToolTip(previousDatapathLabel->toolTip());
-    previousDatapathBrowse->setDialogTitle(tr("Select the Previous Results Directory"));
-    previousDatapathBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
-
     idLabel = new ClickLabel(tr("Output ID :"));
     idLabel->setToolTip(tr("<b>Output ID:</b> Enter the ID. This string will be appended to each output file name so a short ID is recommended. Note that characters that result in file names that are unacceptable to the commonest operating systems (this includes | \\ / : ; ? * ' \" < > CR LF TAB SPACE and other non readable characters) are not permitted."));
 
@@ -349,9 +340,6 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addWidget(outpathBrowse, 7, 2, 1, 3);
     filesInfoLayout->addWidget(idLabel, 8, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(idEdit, 8, 2, 1, 2);
-    filesInfoLayout->addWidget(previousDatapathLabel, 9, 0, Qt::AlignRight);
-    filesInfoLayout->addWidget(questionMark_1, 9, 1, Qt::AlignLeft);
-    filesInfoLayout->addWidget(previousDatapathBrowse, 9, 2, 1, 3);
 
     filesInfoLayout->addWidget(maxLackLabel, 1, 5, Qt::AlignRight);
     filesInfoLayout->addWidget(maxLackSpin, 1, 7, 1, 1);
@@ -971,13 +959,6 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     connect(outpathBrowse, &DirBrowseWidget::pathChanged,
             this, &BasicSettingsPage::updateOutPath);
 
-    connect(previousDatapathLabel, &ClickLabel::clicked,
-            this, [=](){ previousDatapathBrowse->focusAndSelect(); });
-    connect(previousDatapathBrowse, &DirBrowseWidget::pathChanged,
-            this, &BasicSettingsPage::updatePreviousDataPath);
-    connect(previousDatapathBrowse, &DirBrowseWidget::pathSelected,
-            this, &BasicSettingsPage::previousDatapathSelected);
-
     connect(idLabel, &ClickLabel::clicked,
             this, &BasicSettingsPage::onIdLabelClicked);
     connect(idEdit, &CustomClearLineEdit::textChanged, [=](const QString &s)
@@ -1354,16 +1335,6 @@ QStringList BasicSettingsPage::getAvailableGhgSuffixes()
         QCoreApplication::processEvents();
     }
     return future.result();
-}
-
-void BasicSettingsPage::previousDatapathSelected(const QString& dir_path)
-{
-    previousDatapathBrowse->setPath(dir_path);
-
-    QDir dataDir(dir_path);
-    auto canonicalDataDir = dataDir.canonicalPath();
-    configState_->window.last_data_path = canonicalDataDir;
-    GlobalSettings::updateLastDatapath(canonicalDataDir);
 }
 
 // search and open at least one zip file, extract and read the metadata files
@@ -2672,11 +2643,6 @@ void BasicSettingsPage::updateOutPath(const QString& dp)
     ecProject_->setGeneralOutPath(QDir::cleanPath(dp));
 }
 
-void BasicSettingsPage::updatePreviousDataPath(const QString& dp)
-{
-    ecProject_->setSpectraExDir(QDir::cleanPath(dp));
-}
-
 void BasicSettingsPage::onAvgLenLabelClicked()
 {
     avgIntervalSpin->setFocus();
@@ -2731,7 +2697,6 @@ void BasicSettingsPage::reset()
     filePrototypeEdit->clear();
     outpathBrowse->clear();
     idEdit->clear();
-    previousDatapathBrowse->clear();
 
     maxLackSpin->setValue(ecProject_->defaultSettings.screenSetting.max_lack);
     avgIntervalSpin->setValue(ecProject_->defaultSettings.screenSetting.avrg_len);
@@ -2819,16 +2784,6 @@ void BasicSettingsPage::refresh()
     if (idEdit->text() != ecProject_->generalId())
     {
         idEdit->setText(ecProject_->generalId());
-    }
-
-    if (FileUtils::existsPath(ecProject_->spectraExDir()))
-    {
-        previousDatapathBrowse->setPath(ecProject_->spectraExDir());
-    }
-    else
-    {
-        previousDatapathBrowse->clear();
-        updatePreviousDataPath(QString());
     }
 
     maxLackSpin->setValue(ecProject_->screenMaxLack());
@@ -5017,12 +4972,10 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
     QWidgetList widgets;
     widgets << avgIntervalLabel
          << avgIntervalSpin
-         << previousDatapathLabel
          << outpathLabel
          << outpathBrowse
          << idLabel
          << idEdit
-         << previousDatapathBrowse
          << anemRefLabel
          << anemRefCombo
          << anemFlagLabel
@@ -5050,7 +5003,6 @@ void BasicSettingsPage::setSmartfluxUI(bool on)
         subsetCheckBox->setChecked(false);
 
         outpathBrowse->clear();
-        previousDatapathBrowse->clear();
 
         // set the output id to a fixed string
         idEdit->setText(QStringLiteral("adv"));

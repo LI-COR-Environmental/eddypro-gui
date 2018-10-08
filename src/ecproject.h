@@ -69,9 +69,6 @@ public:
     // is the file in native format?
     bool nativeFormat(const QString &filename);
 
-    // field comparison for previous data assessment
-    bool fuzzyCompare(const EcProject& previousProject);
-
     // set project
     void setGeneralRunMode(Defs::CurrRunMode mode);
     void setGeneralRunFcc(bool yes);
@@ -862,15 +859,6 @@ private:
 
     // insert tag for native format files
     bool tagProject(const QString &filename);
-
-    bool previousFileNameCompare(const QString &currentPath, const QString &previousPath);
-    bool previousSettingsCompare(bool current, bool previous);
-    bool previousFourthGasCompare(int currentGas, double currGasMw, double currGasDiff,
-                                  int previousGas, double previousGasMw, double previousGasDiff);
-    bool compareDates(const QString& currStartDate, const QString& prevStartDate,
-                      const QString& currStartTime, const QString& prevStartTime,
-                      const QString& currEndDate, const QString& prevEndDate,
-                      const QString& currEndTime, const QString& prevEndTime);
 
     int countPlanarFitAngles(const QStringList& list);
 };

@@ -2948,106 +2948,13 @@ void MainWindow::setMetadataRead(bool b)
     metadataReadFlag_ = b;
 }
 
-int MainWindow::testBeforeRunningPassed(int step)
+int MainWindow::testBeforeRunningPassed()
 {
     int returnValue = QMessageBox::Yes;
 
     if (!metadataReadFlag_)
     {
         changePage(Defs::CurrPage::BasicSettings);
-    }
-
-    if (step == 0 && !ecProject_->spectraExDir().isEmpty())
-    {
-        if (expressClicked_)
-        {
-            if (testForPreviousData())
-            {
-                if (!WidgetUtils::yesNoQuestion(QApplication::activeWindow(),
-                    tr("Previous Results Available"),
-                    tr("Previous results available!"),
-                    tr("Most likely results of this run will be identical "
-                       "to results of a previous run available in the \"Previous "
-                       "Output Directory\", so you wouldn't need to proceed.\n\n"
-                       "Do you prefer to proceed anyway?")))
-                {
-                    expressClicked_ = false;
-                    showStatusTip(tr("Canceled..."));
-                    fileSaveSilently();
-                    return QMessageBox::Cancel;
-                }
-            }
-            else
-            {
-                int ret = QMessageBox::warning(QApplication::activeWindow(),
-                              tr("No Previous Results Available"),
-                              tr("It is not possible to use results from any previous run. "
-                                 "EddyPro will start the processing from the raw files."),
-                              QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok);
-
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                        break;
-                    case QMessageBox::Cancel:
-                        expressClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-        }
-        else if (advancedClicked_)
-        {
-            if (testForPreviousData())
-            {
-                int ret = QMessageBox::question(QApplication::activeWindow(),
-                                     tr("Previous Results Available"),
-                                     tr("Previous results available!\n\n"
-                                        "Do you want to proceed using results "
-                                        "from a previous run? (Recommended)\n"),
-                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
-                                     QMessageBox::Yes);
-                switch (ret)
-                {
-                    case QMessageBox::Yes:
-                        returnValue = QMessageBox::No;
-                        break;
-                    case QMessageBox::No:
-                        advancedClicked_ = false;
-                        returnValue = QMessageBox::Yes;
-                        break;
-                    case QMessageBox::Cancel:
-                        advancedClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-            else
-            {
-                int ret = QMessageBox::warning(QApplication::activeWindow(),
-                              tr("No Previous Results Available"),
-                              tr("It is not possible to use results from any previous run. "
-                                 "EddyPro will start the processing from the raw files."),
-                              QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok);
-
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                        break;
-                    case QMessageBox::Cancel:
-                        advancedClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-        }
-        else if (retrieverClicked_)
-        {
-            // nothing to do
-        }
     }
 
     if (!fileSaveSilently())
@@ -3239,7 +3146,7 @@ void MainWindow::runExpress()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
         QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
@@ -3327,7 +3234,7 @@ void MainWindow::runAdvancedStep_1()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        int ret = testBeforeRunningPassed(0);
+        int ret = testBeforeRunningPassed();
         if (ret == QMessageBox::Cancel) { return; }
 
         // start from step 1
@@ -3383,7 +3290,7 @@ void MainWindow::runAdvancedStep_2()
     {
         updateSpectraPaths();
 
-        if (testBeforeRunningPassed(1) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
         QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
@@ -3466,7 +3373,7 @@ void MainWindow::runRetriever()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
         QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
@@ -4097,29 +4004,6 @@ void MainWindow::updateSpectraPaths()
     }
 }
 
-void MainWindow::updateSpectraPathFromPreviousData(const QString& exFilePath)
-{
-    ecProject_->setSpectraExFile(exFilePath);
-
-    if (ecProject_->generalHfMethod() == 2
-        || ecProject_->generalHfMethod() == 3
-        || ecProject_->generalHfMethod() == 4)
-    {
-        if (ecProject_->generalBinSpectraAvail())
-        {
-            ecProject_->setSpectraBinSpectra(ecProject_->spectraBinSpectra());
-        }
-
-        if (ecProject_->generalHfMethod() == 4)
-        {
-            if (ecProject_->generalFullSpectraAvail())
-            {
-                ecProject_->setSpectraFullSpectra(ecProject_->spectraFullSpectra());
-            }
-        }
-    }
-}
-
 void MainWindow::showUpdateDialog()
 {
     if (!updateDialog)
@@ -4157,85 +4041,6 @@ void MainWindow::showAutoUpdateResults()
     {
         qDebug() << "no NEW VERSION";
     }
-}
-
-bool MainWindow::testForPreviousData()
-{
-    bool test = false;
-
-    // first preliminary test
-    if ((ecProject_->generalHfMethod() == 2 || ecProject_->generalHfMethod() == 3)
-        && (ecProject_->spectraMode() == 1 && ecProject_->generalBinSpectraAvail() == 0))
-    {
-        return test;
-    }
-
-    // second preliminary test
-    if (ecProject_->generalHfMethod() == 4
-        && ((ecProject_->spectraMode() == 1 && ecProject_->generalBinSpectraAvail() == 0)
-        || ecProject_->generalFullSpectraAvail() == 0))
-    {
-        return test;
-    }
-
-    QString epFormat = QStringLiteral("*.") + Defs::APP_NAME_LCASE;
-    QString csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
-
-    auto recurse = true;
-    QStringList previousRunList(FileUtils::getFiles(ecProject_->spectraExDir(),
-                                         epFormat,
-                                         recurse));
-    QStringList previousEssentialList(FileUtils::getFiles(ecProject_->spectraExDir(),
-                                         csvFormat,
-                                         recurse));
-    previousEssentialList = previousEssentialList.filter(QStringLiteral("essentials"));
-
-    // prunes the previousRunList if there are no corresponding essential files
-    for (const auto & processingFile : previousRunList)
-    {
-        QFileInfo info(processingFile);
-        QString filenameDate = info.fileName().mid(11, 17);
-
-        if (!StringUtils::isISODateTimeString(filenameDate)
-            || previousEssentialList.filter(filenameDate).isEmpty())
-        {
-            previousRunList.removeOne(processingFile);
-        }
-    }
-
-    // load and compare each old project found with the current project
-    ConfigState currConfigState;
-
-    QScopedPointer<EcProject> currEcProject(new EcProject(this, currConfigState.project));
-    QScopedPointer<EcProject> prevEcProject(new EcProject(this, currConfigState.project));
-    int i = 0;
-    for (const auto &processingFile : previousRunList)
-    {
-        bool modified; // not necessary in this case
-
-        if (currEcProject->loadEcProject(ecProject_->generalFileName(), false, &modified)
-            && prevEcProject->loadEcProject(processingFile, false, &modified)
-            && prevEcProject->generalRunMode() == Defs::CurrRunMode::Advanced)
-        {
-            if (currEcProject->fuzzyCompare(*prevEcProject))
-            {
-                test = true;
-                QFileInfo info(processingFile);
-                QString exFilePath = previousEssentialList.filter(info.fileName().mid(11, 17)).first();
-                updateSpectraPathFromPreviousData(exFilePath);
-                break;
-            }
-            qDebug() << "fuzzyCompare: FAIL";
-        }
-        else
-        {
-            // NOTE: for testing only
-            qDebug() << "loading FAIL";
-        }
-        ++i;
-    }
-
-    return test;
 }
 
 void MainWindow::openLicorSite() const

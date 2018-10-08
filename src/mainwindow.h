@@ -135,7 +135,6 @@ private slots:
     void stopEngineProcess();
 
     void updateSpectraPaths();
-    void updateSpectraPathFromPreviousData(const QString& exFilePath);
 
     void resetRunIcons();
     void setRunExpIcon2Resume();
@@ -215,8 +214,7 @@ private:
     void displayExitMsg(Process::ExitStatus exitReason);
     void displayExitMsg2(Process::ExitStatus exitReason);
     bool okToStopRun();
-    int testBeforeRunningPassed(int step);
-    bool testForPreviousData();
+    int testBeforeRunningPassed();
     bool alertChangesWhileRunning();
     void togglePageButton(Defs::CurrPage page);
     void changeViewToolbarSeparators(Defs::CurrPage page);
