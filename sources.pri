@@ -54,7 +54,6 @@ HEADERS += \
     src/rawfilesettingsdialog.h \
     src/runpage.h \
     src/slowmeasuretab.h \
-    src/specgroup.h \
     src/splitter.h \
     src/splitterhandle.h \
     src/stringutils.h \
@@ -148,7 +147,6 @@ SOURCES +=  \
     src/rawfilesettingsdialog.cpp \
     src/runpage.cpp \
     src/slowmeasuretab.cpp \
-    src/specgroup.cpp \
     src/splitter.cpp \
     src/splitterhandle.cpp \
     src/stringutils.cpp \

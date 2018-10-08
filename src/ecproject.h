@@ -839,9 +839,6 @@ public:
     QList<AngleItem>* planarFitAngles();
     bool hasPlanarFitFullAngle();
 
-//    SpecGroupList *specGroups();
-//    void addSpecGroup(const SpecGroup &sg);
-
     bool isEngineStep2Needed();
     bool isGoodRawFilePrototype(const QString& s);
 
