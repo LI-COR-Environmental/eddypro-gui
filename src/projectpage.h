@@ -50,7 +50,6 @@ class DlProject;
 class EcProject;
 class FileBrowseWidget;
 class MyTabWidget;
-//class SlowMeasureTab;
 class SmartFluxBar;
 
 class ProjectPage : public QWidget

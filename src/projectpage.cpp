@@ -50,7 +50,6 @@
 #include "fileutils.h"
 #include "globalsettings.h"
 #include "mytabwidget.h"
-//#include "slowmeasuretab.h"
 #include "smartfluxbar.h"
 #include "splitter.h"
 #include "widget_utils.h"
