@@ -112,8 +112,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
     ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
     ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
-    ec_project_state_.projectGeneral.out_ghg_eu = defaultEcProjectState.projectGeneral.out_ghg_eu;
-    ec_project_state_.projectGeneral.out_amflux = defaultEcProjectState.projectGeneral.out_amflux;
     ec_project_state_.projectGeneral.out_rich = defaultEcProjectState.projectGeneral.out_rich;
     ec_project_state_.projectGeneral.out_md = defaultEcProjectState.projectGeneral.out_md;
     ec_project_state_.projectGeneral.out_biomet = defaultEcProjectState.projectGeneral.out_biomet;
@@ -545,8 +543,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_31, QString::number(ec_project_state_.projectGeneral.gas_mw, 'f', 4));
         project_ini.setValue(EcIni::INI_PROJECT_32, QString::number(ec_project_state_.projectGeneral.gas_diff, 'f', 5));
         project_ini.setValue(EcIni::INI_PROJECT_36, ec_project_state_.projectGeneral.col_ts);
-        project_ini.setValue(EcIni::INI_PROJECT_37, ec_project_state_.projectGeneral.out_ghg_eu);
-        project_ini.setValue(EcIni::INI_PROJECT_38, ec_project_state_.projectGeneral.out_amflux);
         project_ini.setValue(EcIni::INI_PROJECT_39, ec_project_state_.projectGeneral.out_rich);
         project_ini.setValue(EcIni::INI_PROJECT_56, ec_project_state_.projectGeneral.out_md);
         project_ini.setValue(EcIni::INI_PROJECT_41, QVariant(ec_project_state_.projectGeneral.make_dataset).toInt());
@@ -1139,12 +1135,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.gas_diff
                 = project_ini.value(EcIni::INI_PROJECT_32,
                                     defaultEcProjectState.projectGeneral.gas_diff).toReal();
-        ec_project_state_.projectGeneral.out_ghg_eu
-                = project_ini.value(EcIni::INI_PROJECT_37,
-                                    defaultEcProjectState.projectGeneral.out_ghg_eu).toInt();
-        ec_project_state_.projectGeneral.out_amflux
-                = project_ini.value(EcIni::INI_PROJECT_38,
-                                    defaultEcProjectState.projectGeneral.out_amflux).toInt();
 
         // NOTE: backward compatibility change for 'out_rich' key
         if (project_ini.value(EcIni::INI_PROJECT_5,
@@ -3153,18 +3143,6 @@ void EcProject::setGeneralFpMeth(int n)
 void EcProject::setGeneralTob1Format(int n)
 {
     ec_project_state_.projectGeneral.tob1_format = n;
-    setModified(true);
-}
-
-void EcProject::setGeneralOutGhgEu(int n)
-{
-    ec_project_state_.projectGeneral.out_ghg_eu = n;
-    setModified(true);
-}
-
-void EcProject::setGeneralOutAmFluxOut(int n)
-{
-    ec_project_state_.projectGeneral.out_amflux = n;
     setModified(true);
 }
 

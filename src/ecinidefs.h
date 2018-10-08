@@ -68,8 +68,6 @@ namespace EcIni
     const auto INI_PROJECT_34   = QStringLiteral("use_biom");
     const auto INI_PROJECT_35   = QStringLiteral("biom_file");
     const auto INI_PROJECT_36   = QStringLiteral("col_ts");
-    const auto INI_PROJECT_37   = QStringLiteral("out_ghg_eu");
-    const auto INI_PROJECT_38   = QStringLiteral("out_amflux");
     const auto INI_PROJECT_39   = QStringLiteral("out_rich");
     const auto INI_PROJECT_40   = QStringLiteral("run_fcc");
     const auto INI_PROJECT_41   = QStringLiteral("make_dataset");

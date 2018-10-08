@@ -148,8 +148,6 @@ private:
     RichTextCheckBox* outFullCospectraCheckBoxCh4;
     RichTextCheckBox* outFullCospectraCheckBoxN2o;
 
-    QCheckBox* outGhgEuCheckBox;
-    QCheckBox* outAmFluxCheckBox;
     QCheckBox* outDetailsCheckBox;
     QCheckBox* outMdCheckBox;
     QCheckBox* outBiometCheckBox;

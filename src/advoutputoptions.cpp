@@ -234,24 +234,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outFullCospectraCheckBoxN2o = new RichTextCheckBox;
     outFullCospectraCheckBoxN2o->setText(tr("W/%1 Gas").arg(Defs::GAS4_STRING));
 
-    outGhgEuCheckBox = new QCheckBox;
-    outGhgEuCheckBox->setText(tr("GHG-Europe results (fluxes and more, "
-                                 "formatted for GHG-Europe database)"));
-    tooltipStr =
-        tr("<b>GHG-Europe results:</b> A selection of main results formatted "
-           "so as to be easily completed with missing variables and submitted "
-           "to the GHG-Europe database.");
-    outGhgEuCheckBox->setToolTip(tooltipStr);
-
-    outAmFluxCheckBox = new QCheckBox;
-    outAmFluxCheckBox->setText(tr("AmeriFlux results (fluxes and more, "
-                                  "formatted for AmeriFlux database)"));
-    tooltipStr =
-        tr("<b>AmeriFlux results:</b> A selection of main results formatted "
-           "so as to be easily completed with missing variables and submitted "
-           "to the AmeriFlux database.");
-    outAmFluxCheckBox->setToolTip(tooltipStr);
-
     outFullCheckBox = new QCheckBox;
     outFullCheckBox->setText(tr("Full output (fluxes, quality flags, "
                                 "turbulence, statistics...)"));
@@ -522,8 +504,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
-    outputLayout->addWidget(outAmFluxCheckBox, 8, 0, 1, 4);
-    outputLayout->addWidget(outGhgEuCheckBox, 9, 0, 1, 4);
     outputLayout->addWidget(outBiometCheckBox, 10, 0, 1, 4);
     outputLayout->addWidget(outDetailsCheckBox, 11, 0, 1, 4);
     outputLayout->addWidget(outMdCheckBox, 12, 0, 1, 4);
@@ -634,8 +614,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             { ecProject_->setGeneralOutMeanCosp(checked); });
     connect(outMeanCospCheckBox, &QCheckBox::toggled,
             this, &AdvOutputOptions::updateBinSpectra);
-    connect(outGhgEuCheckBox, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setGeneralOutGhgEu(checked); });
     connect(outDetailsCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenlOutDetails(checked); });
     connect(outMdCheckBox, &QCheckBox::toggled, [=](bool checked)
@@ -644,8 +622,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             { ecProject_->setGeneralOutBiomet(checked); });
     connect(createDatasetCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralMakeDataset(checked); });
-    connect(outAmFluxCheckBox, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setGeneralOutAmFluxOut(checked); });
     connect(outFullCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralOutRich(checked); });
 
@@ -777,8 +753,6 @@ void AdvOutputOptions::setSmartfluxUI()
                       << createDatasetCheckBox
                       << outMeanSpectraCheckBox
                       << outMeanCospCheckBox
-                      << outAmFluxCheckBox
-                      << outGhgEuCheckBox
                       << outBiometCheckBox
                       << outMdCheckBox
                       << outFullSpectraCheckBoxU
@@ -884,29 +858,27 @@ void AdvOutputOptions::setSmartfluxUI()
     }
 
     QList<QCheckBox *> uncheckableCheckbox;
-    uncheckableCheckbox << outAmFluxCheckBox
-                       << outGhgEuCheckBox
-                       << createDatasetCheckBox
-                       << outMeanSpectraCheckBox
-                       << outMeanCospCheckBox
-                       << outDetailsCheckBox
-                       << outMdCheckBox
-                       << outBinOgivesCheckBox
-                       << outSt1CheckBox
-                       << outSt2CheckBox
-                       << outSt3CheckBox
-                       << outSt4CheckBox
-                       << outSt5CheckBox
-                       << outSt6CheckBox
-                       << outSt7CheckBox
-                       << outRaw1CheckBox
-                       << outRaw2CheckBox
-                       << outRaw3CheckBox
-                       << outRaw4CheckBox
-                       << outRaw5CheckBox
-                       << outRaw6CheckBox
-                       << outRaw7CheckBox
-                       << outVarsAllCheckBox;
+    uncheckableCheckbox << createDatasetCheckBox
+                        << outMeanSpectraCheckBox
+                        << outMeanCospCheckBox
+                        << outDetailsCheckBox
+                        << outMdCheckBox
+                        << outBinOgivesCheckBox
+                        << outSt1CheckBox
+                        << outSt2CheckBox
+                        << outSt3CheckBox
+                        << outSt4CheckBox
+                        << outSt5CheckBox
+                        << outSt6CheckBox
+                        << outSt7CheckBox
+                        << outRaw1CheckBox
+                        << outRaw2CheckBox
+                        << outRaw3CheckBox
+                        << outRaw4CheckBox
+                        << outRaw5CheckBox
+                        << outRaw6CheckBox
+                        << outRaw7CheckBox
+                        << outVarsAllCheckBox;
     for (auto w : uncheckableCheckbox)
     {
         if (on)
@@ -1014,8 +986,6 @@ void AdvOutputOptions::refresh()
     outFullCospectraCheckBoxCh4->setChecked(ecProject_->screenOutFullCospectraCh4());
     outFullCospectraCheckBoxN2o->setChecked(ecProject_->screenOutFullCospectraN2o());
 
-    outGhgEuCheckBox->setChecked(ecProject_->generalOutGhgEu());
-    outAmFluxCheckBox->setChecked(ecProject_->generalOutAmFlux());
     outFullCheckBox->setChecked(ecProject_->generalOutRich());
     outDetailsCheckBox->setChecked(ecProject_->screenOutDetails());
     outMdCheckBox->setChecked(ecProject_->generalOutMd());
@@ -1263,8 +1233,6 @@ void AdvOutputOptions::checkVarsAll(bool b)
 void AdvOutputOptions::selectMin()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(false);
-    outGhgEuCheckBox->setChecked(false);
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(false);
@@ -1285,8 +1253,6 @@ void AdvOutputOptions::selectMin()
 void AdvOutputOptions::selectTypical()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(false);
-    outGhgEuCheckBox->setChecked(false);
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(true);
@@ -1306,8 +1272,6 @@ void AdvOutputOptions::selectTypical()
 void AdvOutputOptions::selectFull()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(true);
-    outGhgEuCheckBox->setChecked(true);
     outDetailsCheckBox->setChecked(true);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(true);

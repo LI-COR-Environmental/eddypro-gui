@@ -113,8 +113,6 @@ public:
     void setGeneralLfMethod(int n);
     void setGeneralWplMeth( int n);
     void setGeneralFpMeth(int n);
-    void setGeneralOutGhgEu(int n);
-    void setGeneralOutAmFluxOut(int n);
     void setGeneralOutRich(int n);
     void setGeneralOutMd(int n);
     void setGeneralOutBiomet(int n);
@@ -485,8 +483,6 @@ public:
     int generalColTs() const { return ec_project_state_.projectGeneral.col_ts; }
     qreal generalGasMw() const { return ec_project_state_.projectGeneral.gas_mw; }
     qreal generalGasDiff() const { return ec_project_state_.projectGeneral.gas_diff; }
-    int generalOutGhgEu() const { return ec_project_state_.projectGeneral.out_ghg_eu; }
-    int generalOutAmFlux() const { return ec_project_state_.projectGeneral.out_amflux; }
     int generalOutRich() const { return ec_project_state_.projectGeneral.out_rich; }
     int generalOutMd() const { return ec_project_state_.projectGeneral.out_md; }
     int generalOutBiomet() const { return ec_project_state_.projectGeneral.out_biomet; }

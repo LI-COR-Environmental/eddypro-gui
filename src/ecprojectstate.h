@@ -70,8 +70,6 @@ struct ProjectGeneralState
     int col_ts = -1;
     qreal gas_mw = -1.0;
     qreal gas_diff = -1.0;
-    int out_ghg_eu = 0;
-    int out_amflux = 0;
     int out_rich = 1;
     bool make_dataset = false;
     int subset = 0;
