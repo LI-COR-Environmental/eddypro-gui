@@ -228,13 +228,13 @@ const QString DlProject::getANEM_MODEL_STRING_13()
 
 const QString DlProject::getANEM_MODEL_STRING_14()
 {
-    static const QString s(QStringLiteral("u3amp"));
+    static const QString s(QStringLiteral("usoni3_classa_mp"));
     return s;
 }
 
 const QString DlProject::getANEM_MODEL_STRING_15()
 {
-    static const QString s(QStringLiteral("u3cagemp"));
+    static const QString s(QStringLiteral("usoni3_cage_mp"));
     return s;
 }
 
