@@ -2162,7 +2162,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
             project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
                 ec_project_state_.projectGeneral.ru_method
                         = project_ini.value(EcIni::INI_RAND_ERROR_0,
-                                            defaultEcProjectState.randomError.method).toInt();
+                                            defaultEcProjectState.randomError.ru_method).toInt();
                 ec_project_state_.projectGeneral.its_method
                         = project_ini.value(EcIni::INI_RAND_ERROR_1,
                                             defaultEcProjectState.randomError.its_method).toInt();
