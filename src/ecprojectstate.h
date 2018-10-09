@@ -448,7 +448,7 @@ struct TimelagOptState
 
 struct RandomErrorState
 {
-    int method = 0;
+    int ru_method = 0;
     int its_method = 1;
     qreal its_tlag_max = 10.0;
     qreal its_sec_factor = 20.0;

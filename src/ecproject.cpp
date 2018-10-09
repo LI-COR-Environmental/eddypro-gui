@@ -1241,6 +1241,8 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.sonic_output_rate
                 = project_ini.value(EcIni::INI_PROJECT_68,
                                     defaultEcProjectState.projectGeneral.sonic_output_rate).toInt();
+
+        // random error
         ec_project_state_.projectGeneral.ru_method
                 = project_ini.value(EcIni::INI_RAND_ERROR_0,
                                     defaultEcProjectState.projectGeneral.ru_method).toInt();
@@ -1250,6 +1252,7 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.its_tlag_max
                 = project_ini.value(EcIni::INI_RAND_ERROR_2,
                                     defaultEcProjectState.projectGeneral.its_tlag_max).toDouble();
+
     project_ini.endGroup();
 
     // spec settings section
@@ -2146,17 +2149,30 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     project_ini.endGroup();
 
     // random error section
-    project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        ec_project_state_.randomError.method
-                = project_ini.value(EcIni::INI_RAND_ERROR_0,
-                                    defaultEcProjectState.randomError.method).toInt();
-        ec_project_state_.randomError.its_method
-                = project_ini.value(EcIni::INI_RAND_ERROR_1,
-                                    defaultEcProjectState.randomError.its_method).toInt();
-        ec_project_state_.randomError.its_tlag_max
-                = project_ini.value(EcIni::INI_RAND_ERROR_2,
-                                    defaultEcProjectState.randomError.its_tlag_max).toDouble();
-    project_ini.endGroup();
+    auto ini_version_loading =
+        StringUtils::getHexVersionFromString(ec_project_state_.projectGeneral.ini_version);
+    if (ini_version_loading <= QT_VERSION_CHECK(4, 3, 3))
+    {
+        if (checkVersion)
+        {
+            if (!parent->queryEcProjectImport(filename))
+            {
+                return false;
+            }
+            project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
+                ec_project_state_.projectGeneral.ru_method
+                        = project_ini.value(EcIni::INI_RAND_ERROR_0,
+                                            defaultEcProjectState.randomError.method).toInt();
+                ec_project_state_.projectGeneral.its_method
+                        = project_ini.value(EcIni::INI_RAND_ERROR_1,
+                                            defaultEcProjectState.randomError.its_method).toInt();
+                ec_project_state_.projectGeneral.its_tlag_max
+                        = project_ini.value(EcIni::INI_RAND_ERROR_2,
+                                            defaultEcProjectState.randomError.its_tlag_max).toDouble();
+            project_ini.endGroup();
+            isVersionCompatible = false;
+        }
+    }
 
     // biomet section
     project_ini.beginGroup(EcIni::INIGROUP_BIOMET);
