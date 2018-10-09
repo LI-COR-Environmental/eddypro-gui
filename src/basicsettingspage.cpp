@@ -870,6 +870,12 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flagLayout->setColumnStretch(4, 1);
     flagLayout->setColumnStretch(5, 1);
 
+    auto windFilterLabel = new QLabel(tr("Wind Direction Filter"));
+    windFilterLabel->setProperty("groupLabel", true);
+
+    auto windFilterLayout = new QGridLayout;
+    windFilterLayout->addWidget(windFilterLabel, 0, 0, Qt::AlignCenter);
+
     auto varList = new QGroupBox;
     varList->setObjectName(QStringLiteral("simpleGroupBox2"));
     varList->setFlat(true);
@@ -880,9 +886,15 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flagList->setFlat(true);
     flagList->setLayout(flagLayout);
 
+    auto windFilterBox = new QGroupBox;
+    windFilterBox->setObjectName(QStringLiteral("simpleGroupBox2"));
+    windFilterBox->setFlat(true);
+    windFilterBox->setLayout(windFilterLayout);
+
     auto varTab = new QTabWidget;
     varTab->addTab(varList, tr("Variables"));
     varTab->addTab(flagList, tr("Flags"));
+    varTab->addTab(windFilterBox, tr("Wind Filter"));
 
     auto referenceGroupTitle = new QLabel(tr("Select Items for Flux Computation"));
     referenceGroupTitle->setProperty("groupTitle", true);

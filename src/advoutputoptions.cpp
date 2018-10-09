@@ -641,13 +641,13 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralFluxnetErrLabel(checked); });
     connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
-        { if (checked) {
-                errorFormatCombo->setCurrentIndex(0);
-                errorFormatCombo->setDisabled(true);
-            } else {
-                errorFormatCombo->setDisabled(false);
-            }
-        });
+            {   if (checked) {
+                    errorFormatCombo->setCurrentIndex(0);
+                    errorFormatCombo->setDisabled(true);
+                } else {
+                    errorFormatCombo->setDisabled(false);
+                }
+            });
 
     // buttonClicked() is and overloaded signal...
     connect(outputFormatRadioGroup, SIGNAL(buttonClicked(int)),
