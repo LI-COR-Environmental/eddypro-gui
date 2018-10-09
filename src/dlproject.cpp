@@ -572,9 +572,9 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
                 irga.setManufacturer(fromIniIrgaManufacturer(project_ini.value(prefix + DlIni::INI_IRGA_0, QString()).toString()));
                 irga.setModel(fromIniIrgaModel(irgaModel));
 
-                // sw version
+                // irga sw version
                 auto sw_version_loading = project_ini.value(prefix + DlIni::INI_IRGA_16, QString()).toString();
-                auto ini_sw_version = StringUtils::getVersionFromString(project_state_.general.ini_version);
+                auto ini_sw_version = StringUtils::getHexVersionFromString(project_state_.general.ini_version);
                 if (ini_sw_version <= QT_VERSION_CHECK(3, 1, 0))
                 {
                     if (checkVersion && firstReading && !alreadyChecked)

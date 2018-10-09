@@ -42,7 +42,7 @@ namespace StringUtils
 
     bool stringBelongsToList(const QString &str, const QStringList &list);
 
-    int getVersionFromString(const QString& versionStr);
+    int getHexVersionFromString(const QString& versionStr);
 
     bool isNewVersion(const QString &remoteVersion, const QString &localVersion);
 

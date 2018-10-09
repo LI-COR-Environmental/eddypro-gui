@@ -3928,8 +3928,8 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QSize widgetSize = event->size();
     QSize widgetOldSize = event->oldSize();
 
-    qDebug() << "size" << widgetSize;
-    qDebug() << "old size" << widgetOldSize;
+    // qDebug() << "size" << widgetSize;
+    // qDebug() << "old size" << widgetOldSize;
 
     if (widgetSize.width() <= 1200 || widgetSize.height() <= 900)
     {

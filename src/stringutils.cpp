@@ -97,7 +97,7 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
 // assume the input is in classic "MM.NN.PP" form (MM = major, NN = minor, PP = patch)
 // and return 0xMMNNPP
 // if patch number is missing, it will be zeroed
-int StringUtils::getVersionFromString(const QString& versionStr)
+int StringUtils::getHexVersionFromString(const QString& versionStr)
 {
     auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
     auto minor = versionStr.section(QLatin1Char('.'), 1, 1).toInt();
@@ -115,7 +115,7 @@ int StringUtils::getVersionFromString(const QString& versionStr)
 
 bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& localVersion)
 {
-    return getVersionFromString(remoteVersion) > getVersionFromString((localVersion));
+    return getHexVersionFromString(remoteVersion) > getHexVersionFromString((localVersion));
 }
 
 const QStringList StringUtils::subStringList(const QStringList& list, int begin, int end)

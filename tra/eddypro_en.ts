@@ -4078,17 +4078,17 @@ Change this setting under the Help menu.</translation>
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="950"/>
+        <location filename="../src/ecproject.cpp" line="947"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2246"/>
+        <location filename="../src/ecproject.cpp" line="2253"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="975"/>
+        <location filename="../src/ecproject.cpp" line="972"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
@@ -4096,27 +4096,27 @@ Change this setting under the Help menu.</translation>
     </message>
     <message>
         <location filename="../src/ecproject.cpp" line="473"/>
-        <location filename="../src/ecproject.cpp" line="949"/>
+        <location filename="../src/ecproject.cpp" line="946"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="974"/>
-        <location filename="../src/ecproject.cpp" line="2213"/>
-        <location filename="../src/ecproject.cpp" line="2234"/>
+        <location filename="../src/ecproject.cpp" line="971"/>
+        <location filename="../src/ecproject.cpp" line="2220"/>
+        <location filename="../src/ecproject.cpp" line="2241"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2214"/>
+        <location filename="../src/ecproject.cpp" line="2221"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2235"/>
-        <location filename="../src/ecproject.cpp" line="2247"/>
+        <location filename="../src/ecproject.cpp" line="2242"/>
+        <location filename="../src/ecproject.cpp" line="2254"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
