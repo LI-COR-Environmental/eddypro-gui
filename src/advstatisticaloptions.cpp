@@ -147,8 +147,10 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     randomMethodCombo = new QComboBox;
     randomMethodCombo->addItem(tr("Finkelstein and Sims (2001)"));
     randomMethodCombo->addItem(tr("Mann and Lenschow (1994)"));
+    randomMethodCombo->addItem(tr("Mahrt (1998)"));
     randomMethodCombo->setItemData(0, tr("<b>Finkelstein and Sims (2001):</b> Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(1, tr("<b>Mann and Lenschow (1994):</b> Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001)."), Qt::ToolTipRole);
+    randomMethodCombo->setItemData(2, tr("<b>Mahrt (1998):</b> ..."), Qt::ToolTipRole);
 
     auto itsLabel = WidgetUtils::createBlueLabel(this, tr("Integral turbulence scale (ITS)"));
     itsLabel->setToolTip(tr(""));
