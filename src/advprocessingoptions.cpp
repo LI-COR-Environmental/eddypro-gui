@@ -58,11 +58,10 @@
 AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
                                            DlProject *dlProject,
                                            EcProject *ecProject,
-                                           ConfigState *config) :
-    QWidget(parent),
-    dlProject_(dlProject),
-    ecProject_(ecProject),
-    configState_(config)
+                                           ConfigState *config) : QWidget(parent),
+                                                                  dlProject_(dlProject),
+                                                                  ecProject_(ecProject),
+                                                                  configState_(config)
 {
     createQuestionMark();
 
@@ -84,7 +83,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     uOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     uOffsetSpin->setMinimumWidth(uOffsetSpin->sizeHint().width() * 1.3);
-#elif defined (Q_OS_MACOS)
+#elif defined(Q_OS_MACOS)
     uOffsetSpin->setMinimumWidth(102);
 #endif
     uOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -311,7 +310,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     burbaParamWidget->addWidget(burbaSimpleTab);
     burbaParamWidget->addWidget(burbaMultiTab);
     burbaParamWidget->setCurrentIndex(0);
-//
+    //
     auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
     wplTitle->setProperty("groupLabel", true);
 
@@ -333,7 +332,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qBox_2->addWidget(questionMark_2);
     qBox_2->addStretch();
 
-//
+    //
     auto toviLogo = new QPushButton;
     toviLogo->setObjectName(QStringLiteral("toviLogoImg"));
     connect(toviLogo, &QPushButton::clicked,
@@ -349,7 +348,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     toviBox->addWidget(toviAdsText);
     toviBox->addStretch();
 
-//
+    //
     auto settingsLayout = new QGridLayout;
     settingsLayout->addWidget(rawProcessingTitle, 0, 0);
     settingsLayout->addLayout(qBox_1, 1, 0, 1, 2);
@@ -393,16 +392,16 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->setRowStretch(26, 1);
     settingsLayout->setColumnStretch(4, 1);
 
-//    auto overallFrame = new QWidget;
-//    overallFrame->setProperty("scrollContainerWidget", true);
-//    overallFrame->setLayout(settingsLayout);
+    //    auto overallFrame = new QWidget;
+    //    overallFrame->setProperty("scrollContainerWidget", true);
+    //    overallFrame->setLayout(settingsLayout);
 
-//    auto scrollArea = new QScrollArea;
-//    scrollArea->setWidget(overallFrame);
-//    scrollArea->setWidgetResizable(true);
+    //    auto scrollArea = new QScrollArea;
+    //    scrollArea->setWidget(overallFrame);
+    //    scrollArea->setWidgetResizable(true);
 
-//    auto settingsGroupLayout = new QHBoxLayout;
-//    settingsGroupLayout->addWidget(scrollArea);
+    //    auto settingsGroupLayout = new QHBoxLayout;
+    //    settingsGroupLayout->addWidget(scrollArea);
 
     auto settingsGroupLayout = new QHBoxLayout;
     settingsGroupLayout->addWidget(WidgetUtils::getContainerScrollArea(this, settingsLayout));
@@ -518,9 +517,8 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(wplCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateBurbaGroup);
     connect(wplCheckBox, &RichTextCheckBox::toggled,
-            [=](bool b){ burbaCorrCheckBox->setEnabled(b); });
-    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled, [=](bool checked)
-            { ecProject_->setScreenBuCorr(checked); });
+            [=](bool b) { burbaCorrCheckBox->setEnabled(b); });
+    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled, [=](bool checked) { ecProject_->setScreenBuCorr(checked); });
     connect(burbaCorrCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::enableBurbaCorrectionArea);
     connect(burbaRadioGroup, SIGNAL(buttonClicked(int)),
@@ -898,8 +896,7 @@ void AdvProcessingOptions::refresh()
         rotMethCombo->setCurrentIndex(0);
     }
 
-    pfSettingsButton->setEnabled((ecProject_->screenRotMethod() == 3)
-                                 || (ecProject_->screenRotMethod() == 4));
+    pfSettingsButton->setEnabled((ecProject_->screenRotMethod() == 3) || (ecProject_->screenRotMethod() == 4));
 
     timeConstantSpin->setValue(ecProject_->screenTimeConst());
     detrendCombo->setCurrentIndex(ecProject_->screenDetrendMeth());
@@ -1039,7 +1036,6 @@ void AdvProcessingOptions::updateQcMeth_1(bool b)
     if (b)
     {
         ecProject_->setGeneralQcMeth(qcMethodCombo->currentIndex() + 1);
-
     }
     else
     {
@@ -1065,7 +1061,6 @@ void AdvProcessingOptions::updateFpMeth_1(bool b)
     if (b)
     {
         ecProject_->setGeneralFpMeth(fpMethodCombo->currentIndex() + 1);
-
     }
     else
     {
@@ -1310,85 +1305,49 @@ void AdvProcessingOptions::createBurbaParamItems()
     burbaMultiDay->setLayout(multiDayGrid);
     burbaMultiNight->setLayout(multiNightGrid);
 
-    connect(lDayBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayBotGain(s.toDouble()); });
-    connect(lDayBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayBotOffset(s.toDouble()); });
-    connect(lDayTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayTopGain(s.toDouble()); });
-    connect(lDayTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayTopOffset(s.toDouble()); });
-    connect(lDaySparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDaySparGain(s.toDouble()); });
-    connect(lDaySparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDaySparOffset(s.toDouble()); });
+    connect(lDayBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayBotGain(s.toDouble()); });
+    connect(lDayBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayBotOffset(s.toDouble()); });
+    connect(lDayTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayTopGain(s.toDouble()); });
+    connect(lDayTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayTopOffset(s.toDouble()); });
+    connect(lDaySparGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDaySparGain(s.toDouble()); });
+    connect(lDaySparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDaySparOffset(s.toDouble()); });
 
-    connect(lNightBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightBotGain(s.toDouble()); });
-    connect(lNightBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightBotOffset(s.toDouble()); });
-    connect(lNightTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightTopGain(s.toDouble()); });
-    connect(lNightTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightTopOffset(s.toDouble()); });
-    connect(lNightSparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightSparGain(s.toDouble()); });
-    connect(lNightSparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightSparOffset(s.toDouble()); });
+    connect(lNightBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightBotGain(s.toDouble()); });
+    connect(lNightBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightBotOffset(s.toDouble()); });
+    connect(lNightTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightTopGain(s.toDouble()); });
+    connect(lNightTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightTopOffset(s.toDouble()); });
+    connect(lNightSparGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightSparGain(s.toDouble()); });
+    connect(lNightSparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightSparOffset(s.toDouble()); });
 
-    connect(mDayBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot1(s.toDouble()); });
-    connect(mDayBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot2(s.toDouble()); });
-    connect(mDayBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot3(s.toDouble()); });
-    connect(mDayBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot4(s.toDouble()); });
+    connect(mDayBot1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot1(s.toDouble()); });
+    connect(mDayBot2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot2(s.toDouble()); });
+    connect(mDayBot3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot3(s.toDouble()); });
+    connect(mDayBot4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot4(s.toDouble()); });
 
-    connect(mDayTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop1(s.toDouble()); });
-    connect(mDayTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop2(s.toDouble()); });
-    connect(mDayTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop3(s.toDouble()); });
-    connect(mDayTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop4(s.toDouble()); });
+    connect(mDayTop1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop1(s.toDouble()); });
+    connect(mDayTop2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop2(s.toDouble()); });
+    connect(mDayTop3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop3(s.toDouble()); });
+    connect(mDayTop4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop4(s.toDouble()); });
 
-    connect(mDaySpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar1(s.toDouble()); });
-    connect(mDaySpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar2(s.toDouble()); });
-    connect(mDaySpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar3(s.toDouble()); });
-    connect(mDaySpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar4(s.toDouble()); });
+    connect(mDaySpar1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar1(s.toDouble()); });
+    connect(mDaySpar2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar2(s.toDouble()); });
+    connect(mDaySpar3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar3(s.toDouble()); });
+    connect(mDaySpar4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar4(s.toDouble()); });
 
-    connect(mNightBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot1(s.toDouble()); });
-    connect(mNightBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot2(s.toDouble()); });
-    connect(mNightBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot3(s.toDouble()); });
-    connect(mNightBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot4(s.toDouble()); });
+    connect(mNightBot1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot1(s.toDouble()); });
+    connect(mNightBot2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot2(s.toDouble()); });
+    connect(mNightBot3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot3(s.toDouble()); });
+    connect(mNightBot4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot4(s.toDouble()); });
 
-    connect(mNightTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop1(s.toDouble()); });
-    connect(mNightTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop2(s.toDouble()); });
-    connect(mNightTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop3(s.toDouble()); });
-    connect(mNightTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop4(s.toDouble()); });
+    connect(mNightTop1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop1(s.toDouble()); });
+    connect(mNightTop2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop2(s.toDouble()); });
+    connect(mNightTop3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop3(s.toDouble()); });
+    connect(mNightTop4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop4(s.toDouble()); });
 
-    connect(mNightSpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar1(s.toDouble()); });
-    connect(mNightSpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar2(s.toDouble()); });
-    connect(mNightSpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar3(s.toDouble()); });
-    connect(mNightSpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar4(s.toDouble()); });
+    connect(mNightSpar1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar1(s.toDouble()); });
+    connect(mNightSpar2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar2(s.toDouble()); });
+    connect(mNightSpar3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar3(s.toDouble()); });
+    connect(mNightSpar4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar4(s.toDouble()); });
 }
 
 void AdvProcessingOptions::setBurbaDefaultValues()
@@ -1512,10 +1471,10 @@ void AdvProcessingOptions::updateTooltip(int i)
 bool AdvProcessingOptions::requestBurbaSettingsReset()
 {
     return WidgetUtils::yesNoQuestion(this,
-                tr("Reset Surface Heating Correction"),
-                tr("<p>Do you want to reset the surface heating correction "
-                   "to the default values of Burba et al. (2008)?</p>"),
-                tr("<p>You cannot undo this action.</p>"));
+                                      tr("Reset Surface Heating Correction"),
+                                      tr("<p>Do you want to reset the surface heating correction "
+                                         "to the default values of Burba et al. (2008)?</p>"),
+                                      tr("<p>You cannot undo this action.</p>"));
 }
 
 void AdvProcessingOptions::openToviHomepage()

@@ -32,16 +32,16 @@ class AnemTableView : public QTableView
 {
     Q_OBJECT
 
-public:
-    explicit AnemTableView(QWidget* parent = nullptr);
+  public:
+    explicit AnemTableView(QWidget *parent = nullptr);
     ~AnemTableView() override;
 
-protected:
+  protected:
     void resizeEvent(QResizeEvent *event) override;
     void showEvent(QShowEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 
-private:
+  private:
     CustomHeader *m_header;
 };
 
