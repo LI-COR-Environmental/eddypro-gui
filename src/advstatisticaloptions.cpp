@@ -2412,8 +2412,6 @@ void AdvStatisticalOptions::reset()
     WidgetUtils::resetComboToItem(randomMethodCombo, 0);
     WidgetUtils::resetComboToItem(itsDefinitionCombo, 0);
 
-    // NOTE: hack to prevent side effect setting from calling
-    // WidgetUtils::resetComboToItem(randomMethodCombo, 0)
     ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.projectGeneral.ru_method);
 
     timelagMaxSpin->setValue(ecProject_->defaultSettings.projectGeneral.its_tlag_max);

@@ -1705,528 +1705,538 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="150"/>
+        <source>Mahrt (1998)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advstatisticaloptions.cpp" line="151"/>
         <source>&lt;b&gt;Finkelstein and Sims (2001):&lt;/b&gt; Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper.</source>
         <translation>&lt;b&gt;Finkelstein and Sims (2001):&lt;/b&gt; Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="151"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="152"/>
         <source>&lt;b&gt;Mann and Lenschow (1994):&lt;/b&gt; Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001).</source>
         <translation>&lt;b&gt;Mann and Lenschow (1994):&lt;/b&gt; Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001).</translation>
     </message>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="153"/>
+        <source>&lt;b&gt;Mahrt (1998):&lt;/b&gt; ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advstatisticaloptions.cpp" line="155"/>
         <source>Integral turbulence scale (ITS)</source>
         <translation>Integral turbulence scale (ITS)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="156"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="158"/>
         <source>Definition of the ITS :</source>
         <translation>Definition of the ITS :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="157"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="159"/>
         <source>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</source>
         <translation>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="159"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="161"/>
         <source>Cross-correlation first crossing 1/e</source>
         <translation>Cross-correlation first crossing 1/e</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="160"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
         <source>Cross-correlation first crossing zero</source>
         <translation>Cross-correlation first crossing zero</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="161"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
         <source>Integrate over the whole correlation period</source>
         <translation>Integrate over the whole correlation period</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
         <source>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="165"/>
         <source>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="166"/>
         <source>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="166"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="168"/>
         <source>Maximum correlation period :</source>
         <translation>Maximum correlation period :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="167"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="169"/>
         <source>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</source>
         <translation>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="173"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="175"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="177"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="179"/>
         <source>Security coefficient :</source>
         <translation>Security coefficient :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="178"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="180"/>
         <source>&lt;b&gt;Security coefficient :&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Security coefficient :&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="212"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="214"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="564"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="566"/>
         <source>Vickers and Mahrt, 1997</source>
         <translation>Vickers and Mahrt, 1997</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="566"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="568"/>
         <source>Mauder et al., 2013</source>
         <translation>Mauder et al., 2013</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="572"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="574"/>
         <source>Maximum number of consecutive outliers : </source>
         <translation>Maximum number of consecutive outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="573"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="575"/>
         <source>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</source>
         <translation>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="580"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="582"/>
         <source>Accepted spikes : </source>
         <translation>Accepted spikes : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="581"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="583"/>
         <source>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</source>
         <translation>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="587"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="720"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="762"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="772"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1268"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1278"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1378"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="589"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="722"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="764"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="774"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1270"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1280"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1380"/>
         <source>  [%]</source>
         <comment>Percentage</comment>
         <translation>  [%]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="591"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="593"/>
         <source>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</source>
         <translation>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="592"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="594"/>
         <source>Replace spikes with linear interpolation</source>
         <translation>Replace spikes with linear interpolation</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="597"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="599"/>
         <source>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="598"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="601"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="611"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="621"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="631"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="641"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="651"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="600"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="603"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="613"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="623"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="633"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="643"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="653"/>
         <source>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="600"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="602"/>
         <source>All other variables : </source>
         <translation>All other variables : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="607"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="617"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="627"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="637"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="647"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="657"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="703"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="609"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="619"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="629"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="639"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="649"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="659"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="705"/>
         <source>  [%1]</source>
         <comment>Sigma</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="610"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="814"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1104"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="612"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="816"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1106"/>
         <source>W : </source>
         <translation>W : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="620"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="630"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="640"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="823"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="840"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="857"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="874"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1112"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1120"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1128"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1136"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="622"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="632"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="642"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="825"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="842"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="859"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="876"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1114"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1122"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1130"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1138"/>
         <source>%1 : </source>
         <translation>%1 : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="650"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="891"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1144"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="652"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="893"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1146"/>
         <source>%1 Gas : </source>
         <translation>%1 Gas : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="696"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="698"/>
         <source>Range of variation : </source>
         <translation>Range of variation : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="697"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="699"/>
         <source>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</source>
         <translation>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="706"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="708"/>
         <source>Number of bins : </source>
         <translation>Number of bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="707"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="709"/>
         <source>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</source>
         <translation>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="714"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="716"/>
         <source>Accepted empty bins : </source>
         <translation>Accepted empty bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="715"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="717"/>
         <source>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</source>
         <translation>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="747"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="749"/>
         <source>Percentile defining extreme bins : </source>
         <translation>Percentile defining extreme bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="748"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="750"/>
         <source>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</source>
         <translation>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="755"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="757"/>
         <source>Accepted central drop-outs : </source>
         <translation>Accepted central drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="756"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="758"/>
         <source>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="765"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="767"/>
         <source>Accepted extreme drop-outs : </source>
         <translation>Accepted extreme drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="766"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="768"/>
         <source>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="799"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="801"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="800"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="802"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="802"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="804"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="803"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="805"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="805"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1096"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="807"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1098"/>
         <source>U : </source>
         <translation>U : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="811"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="820"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="915"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="923"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="813"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="822"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="917"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="925"/>
         <source>  [m/s]</source>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="829"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="837"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="846"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="854"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="863"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="871"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="880"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="888"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="897"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="906"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="831"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="839"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="848"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="856"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="865"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="873"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="882"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="890"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="899"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="908"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="927"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="929"/>
         <source>Filter outranged values</source>
         <translation>Filter outranged values</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="928"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="930"/>
         <source>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</source>
         <translation>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="993"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1090"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="995"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1092"/>
         <source>Hard-flag threshold</source>
         <translation>Hard-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="994"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="996"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="996"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1093"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="998"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1095"/>
         <source>Soft-flag threshold</source>
         <translation>Soft-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="997"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="999"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="999"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1001"/>
         <source>Skewness lower limit : </source>
         <translation>Skewness lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1007"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1009"/>
         <source>Skewness upper limit : </source>
         <translation>Skewness upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1029"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1031"/>
         <source>Kurtosis lower limit : </source>
         <translation>Kurtosis lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1037"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1039"/>
         <source>Kurtosis upper limit : </source>
         <translation>Kurtosis upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1091"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1093"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1094"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1096"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1152"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1154"/>
         <source>Variances : </source>
         <translation>Variances : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1261"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1263"/>
         <source>Accepted covariance difference (hard-flag) : </source>
         <translation>Accepted covariance difference (hard-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1262"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1264"/>
         <source>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1271"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1273"/>
         <source>Accepted covariance difference (soft-flag) : </source>
         <translation>Accepted covariance difference (soft-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1272"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1274"/>
         <source>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1281"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1291"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1301"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1283"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1293"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1303"/>
         <source>Nominal %1 time lag : </source>
         <translation>Nominal %1 time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1282"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1284"/>
         <source>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1288"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1298"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1308"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1318"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1290"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1300"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1310"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1320"/>
         <source>  [s]</source>
         <comment>Seconds</comment>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1292"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1294"/>
         <source>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</source>
         <translation>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1302"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1304"/>
         <source>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1311"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1313"/>
         <source>Nominal %1 Gas time lag : </source>
         <translation>Nominal %1 Gas time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1312"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1314"/>
         <source>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1351"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1353"/>
         <source>Minimum angle of attack : </source>
         <translation>Minimum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1352"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1354"/>
         <source>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1358"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1368"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1360"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1370"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1361"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1363"/>
         <source>Maximum angle of attack : </source>
         <translation>Maximum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1362"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1364"/>
         <source>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1371"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1373"/>
         <source>Accepted amount of outliers : </source>
         <translation>Accepted amount of outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1372"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1374"/>
         <source>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</source>
         <translation>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1405"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1407"/>
         <source>Accepted wind relative instationarity : </source>
         <translation>Accepted wind relative instationarity : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1406"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1408"/>
         <source>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</source>
         <translation>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1432"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1434"/>
         <source>&amp;Spike count/removal</source>
         <translation>&amp;Spike count/removal</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1433"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1435"/>
         <source>&amp;Amplitude resolution</source>
         <translation>&amp;Amplitude resolution</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1434"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1436"/>
         <source>D&amp;rop-outs</source>
         <translation>D&amp;rop-outs</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1435"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1437"/>
         <source>A&amp;bsolute limits</source>
         <translation>A&amp;bsolute limits</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1436"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1438"/>
         <source>S&amp;kewness &amp;&amp; kurtosis</source>
         <translation>S&amp;kewness &amp;&amp; kurtosis</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1437"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1439"/>
         <source>D&amp;iscontinuities</source>
         <translation>D&amp;iscontinuities</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1438"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1440"/>
         <source>&amp;Time lags</source>
         <translation>&amp;Time lags</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1439"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1441"/>
         <source>Angle of atta&amp;ck</source>
         <translation>Angle of atta&amp;ck</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1440"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1442"/>
         <source>S&amp;teadiness of horizontal wind</source>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
