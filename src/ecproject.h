@@ -127,6 +127,8 @@ public:
     void setGeneralBiomDir(const QString &p);
     void setGeneralBiomRecurse(int n);
     void setGeneralBiomExt(const QString &p);
+    void setGeneralFluxnetStandardize(int n);
+    void setGeneralFluxnetErrLabel(int n);
 
     void setMetGeneralFileType(int n);
     void setMetGeneralDataPath(const QString &s);
@@ -514,6 +516,8 @@ public:
     int generalHfCorrectGhgBa() const { return ec_project_state_.projectGeneral.hf_correct_ghg_ba; }
     int generalHfCorrectGhgZoh() const { return ec_project_state_.projectGeneral.hf_correct_ghg_zoh; }
     int generalSonicOutputRate() const { return ec_project_state_.projectGeneral.sonic_output_rate; }
+    int generalFluxnetStandardize() const { return ec_project_state_.projectGeneral.fluxnet_standardize_biomet; }
+    int generalFluxnetErrLabel() const { return ec_project_state_.projectGeneral.fluxnet_err_label; }
 
     const QString& screenDataPath() const { return ec_project_state_.screenGeneral.data_path; }
     int screenRecurse() const { return ec_project_state_.screenGeneral.recurse; }

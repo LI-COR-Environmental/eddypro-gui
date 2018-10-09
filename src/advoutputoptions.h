@@ -159,6 +159,9 @@ private:
     QButtonGroup* outputFormatRadioGroup;
     ClickLabel* errorFormatLabel;
     QComboBox* errorFormatCombo;
+    QCheckBox* fluxnetStdBiometCheckBox;
+    QCheckBox* fluxnetErrLabelCheckBox;
+
     ClickLabel* level1Label;
     ClickLabel* level2Label;
     ClickLabel* level3Label;

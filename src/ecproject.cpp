@@ -143,6 +143,8 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.hf_correct_ghg_ba = defaultEcProjectState.projectGeneral.hf_correct_ghg_ba;
     ec_project_state_.projectGeneral.hf_correct_ghg_zoh = defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh;
     ec_project_state_.projectGeneral.sonic_output_rate = defaultEcProjectState.projectGeneral.sonic_output_rate;
+    ec_project_state_.projectGeneral.fluxnet_standardize_biomet = defaultEcProjectState.projectGeneral.fluxnet_standardize_biomet;
+    ec_project_state_.projectGeneral.fluxnet_err_label = defaultEcProjectState.projectGeneral.fluxnet_err_label;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -574,6 +576,8 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
         project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
         project_ini.setValue(EcIni::INI_PROJECT_68, ec_project_state_.projectGeneral.sonic_output_rate);
+        project_ini.setValue(EcIni::INI_PROJECT_70, ec_project_state_.projectGeneral.fluxnet_standardize_biomet);
+        project_ini.setValue(EcIni::INI_PROJECT_71, ec_project_state_.projectGeneral.fluxnet_err_label);
 
         // random uncertainty
         project_ini.setValue(EcIni::INI_RAND_ERROR_0,
@@ -1253,6 +1257,12 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 = project_ini.value(EcIni::INI_RAND_ERROR_2,
                                     defaultEcProjectState.projectGeneral.its_tlag_max).toDouble();
 
+        ec_project_state_.projectGeneral.fluxnet_standardize_biomet
+                = project_ini.value(EcIni::INI_PROJECT_70,
+                                    defaultEcProjectState.projectGeneral.fluxnet_standardize_biomet).toInt();
+        ec_project_state_.projectGeneral.fluxnet_err_label
+                = project_ini.value(EcIni::INI_PROJECT_71,
+                                    defaultEcProjectState.projectGeneral.fluxnet_err_label).toInt();
     project_ini.endGroup();
 
     // spec settings section
@@ -4121,6 +4131,18 @@ void EcProject::setGeneralBiomRecurse(int n)
 void EcProject::setGeneralBiomExt(const QString &p)
 {
     ec_project_state_.projectGeneral.biom_ext = p;
+    setModified(true);
+}
+
+void EcProject::setGeneralFluxnetStandardize(int n)
+{
+    ec_project_state_.projectGeneral.fluxnet_standardize_biomet = n;
+    setModified(true);
+}
+
+void EcProject::setGeneralFluxnetErrLabel(int n)
+{
+    ec_project_state_.projectGeneral.fluxnet_err_label = n;
     setModified(true);
 }
 

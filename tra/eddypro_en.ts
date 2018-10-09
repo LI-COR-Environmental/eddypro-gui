@@ -76,337 +76,352 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
 <context>
     <name>AdvOutputOptions</name>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="97"/>
+        <location filename="../src/advoutputoptions.cpp" line="98"/>
         <source>Set Thorough</source>
         <translatorcomment>Set Thorough</translatorcomment>
         <translation>Set Thorough</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="100"/>
+        <location filename="../src/advoutputoptions.cpp" line="101"/>
         <source>&lt;b&gt;Set thorough:&lt;/b&gt; Click this button to pre-select a thorough set of output files. While program execution increases (even dramatically), you are provided with full results and diagnostic information. Note that you can customize this pre-selection by adding or removing items.</source>
         <translation>&lt;b&gt;Set thorough:&lt;/b&gt; Click this button to pre-select a thorough set of output files. While program execution increases (even dramatically), you are provided with full results and diagnostic information. Note that you can customize this pre-selection by adding or removing items.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="108"/>
+        <location filename="../src/advoutputoptions.cpp" line="109"/>
         <source>Complete results and diagnostic information</source>
         <translation>Complete results and diagnostic information</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="56"/>
+        <location filename="../src/advoutputoptions.cpp" line="57"/>
         <source>Set Minimal</source>
         <translation>Set Minimal</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="59"/>
+        <location filename="../src/advoutputoptions.cpp" line="60"/>
         <source>&lt;b&gt;Set minimal:&lt;/b&gt; Click this button to pre-select a minimal set of output files, providing you with the essential results while speeding up program execution. Suggested for processing long datasets without a need for an in-depth analysis and thorough validation of computations. Note that you can customize this pre-selection by adding or removing items.</source>
         <translation>&lt;b&gt;Set minimal:&lt;/b&gt; Click this button to pre-select a minimal set of output files, providing you with the essential results while speeding up program execution. Suggested for processing long datasets without a need for an in-depth analysis and thorough validation of computations. Note that you can customize this pre-selection by adding or removing items.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="68"/>
+        <location filename="../src/advoutputoptions.cpp" line="69"/>
         <source>Maximize computational speed</source>
         <translation>Maximize computational speed</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="77"/>
+        <location filename="../src/advoutputoptions.cpp" line="78"/>
         <source>Set Typical</source>
         <translation>Set Typical</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="80"/>
+        <location filename="../src/advoutputoptions.cpp" line="81"/>
         <source>&lt;b&gt;Set typical:&lt;/b&gt; Click this button to pre-select a balanced set of output files, providing you with the essential results as well as diagnostic information. The computation time increases with respect to the minimal output configuration. Note that you can customize this pre-selection by adding or removing items.</source>
         <translation>&lt;b&gt;Set typical:&lt;/b&gt; Click this button to pre-select a balanced set of output files, providing you with the essential results as well as diagnostic information. The computation time increases with respect to the minimal output configuration. Note that you can customize this pre-selection by adding or removing items.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="88"/>
+        <location filename="../src/advoutputoptions.cpp" line="89"/>
         <source>Typical output selection</source>
         <translation>Typical output selection</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="137"/>
+        <location filename="../src/advoutputoptions.cpp" line="138"/>
         <source>All binned spectra and cospectra</source>
         <translation>All binned spectra and cospectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="139"/>
+        <location filename="../src/advoutputoptions.cpp" line="140"/>
         <source>&lt;b&gt;All binned spectra and cospectra:&lt;/b&gt; Binned spectra and cospectra are derived from &quot;full&quot; ones, by aggregating frequencies into clusters (bins) of exponentially increasing spectral width. All frequency components falling in each bin are averaged together to provide a much shorter file in which only the main spectral slopes are evidenced. Select this option to output binned spectra and cospectra for all available variables for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_binned_cospectra&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;All binned spectra and cospectra:&lt;/b&gt; Binned spectra and cospectra are derived from &quot;full&quot; ones, by aggregating frequencies into clusters (bins) of exponentially increasing spectral width. All frequency components falling in each bin are averaged together to provide a much shorter file in which only the main spectral slopes are evidenced. Select this option to output binned spectra and cospectra for all available variables for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_binned_cospectra&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="152"/>
+        <location filename="../src/advoutputoptions.cpp" line="153"/>
         <source>All binned ogives</source>
         <translation>All binned ogives</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="154"/>
+        <location filename="../src/advoutputoptions.cpp" line="155"/>
         <source>&lt;b&gt;All binned ogives:&lt;/b&gt; Binned ogives are calculated by binning &quot;full&quot; ogives. Full ogives are calculated by partial integration of cospectra: the ogive at a given frequency is the integration of the corresponding (co)spectrum from the highest frequency to the given one. Ogives are normalized to attain the value of 1 at the lower frequency. Select this option to output binned ogives for all available variables, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_binned_ogives&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;All binned ogives:&lt;/b&gt; Binned ogives are calculated by binning &quot;full&quot; ogives. Full ogives are calculated by partial integration of cospectra: the ogive at a given frequency is the integration of the corresponding (co)spectrum from the highest frequency to the given one. Ogives are normalized to attain the value of 1 at the lower frequency. Select this option to output binned ogives for all available variables, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_binned_ogives&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="167"/>
+        <location filename="../src/advoutputoptions.cpp" line="168"/>
         <source>Ensemble averaged spectra</source>
         <translation>Ensemble averaged spectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="181"/>
+        <location filename="../src/advoutputoptions.cpp" line="182"/>
         <source>Ensemble averaged cospectra and models</source>
         <translation>Ensemble averaged cospectra and models</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="169"/>
+        <location filename="../src/advoutputoptions.cpp" line="170"/>
         <source>&lt;b&gt;Ensemble averaged spectra:&lt;/b&gt; Check this box to instruct EddyPro to calculate ensemble-averaged spectra. EddyPro will present ensemble gas spectra with and without noise elimination (if this option is selected in the Spectral Analysis page) along with ensemble temperature spectra for reference. Use ensemble spectra to analyze the turbulence structure and the instruments performance at your site. Note that a fair amount of spectral data are needed (e.g., more than 2-3 weeks) to obtain a robust assessment.</source>
         <translation>&lt;b&gt;Ensemble averaged spectra:&lt;/b&gt; Check this box to instruct EddyPro to calculate ensemble-averaged spectra. EddyPro will present ensemble gas spectra with and without noise elimination (if this option is selected in the Spectral Analysis page) along with ensemble temperature spectra for reference. Use ensemble spectra to analyze the turbulence structure and the instruments performance at your site. Note that a fair amount of spectral data are needed (e.g., more than 2-3 weeks) to obtain a robust assessment.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="183"/>
+        <location filename="../src/advoutputoptions.cpp" line="184"/>
         <source>&lt;b&gt;Ensemble averaged cospectra and models:&lt;/b&gt; Check this box to instruct EddyPro to calculate ensemble-averaged cospectra, fit model cospectra and present &quot;ideal&quot; cospectra along with the former, to analyzer the turbulence structure at your site. Note that a fair amount of cospectral data are needed (e.g., more than 2-3 weeks) to obtain a robust assessment.</source>
         <translation>&lt;b&gt;Ensemble averaged cospectra and models:&lt;/b&gt; Check this box to instruct EddyPro to calculate ensemble-averaged cospectra, fit model cospectra and present &quot;ideal&quot; cospectra along with the former, to analyzer the turbulence structure at your site. Note that a fair amount of cospectral data are needed (e.g., more than 2-3 weeks) to obtain a robust assessment.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="192"/>
+        <location filename="../src/advoutputoptions.cpp" line="193"/>
         <source>Obtaining full spectra and cospectra will significantly increase processing time and disk usage.&lt;br /&gt;For long datasets, we recommend limiting the number of these outputs to no more than two.</source>
         <translation>Obtaining full spectra and cospectra will significantly increase processing time and disk usage.&lt;br /&gt;For long datasets, we recommend limiting the number of these outputs to no more than two.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="201"/>
+        <location filename="../src/advoutputoptions.cpp" line="202"/>
         <source>U (longitudinal wind component)</source>
         <translation>U (longitudinal wind component)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="203"/>
+        <location filename="../src/advoutputoptions.cpp" line="204"/>
         <source>V (transversal wind component)</source>
         <translation>V (transversal wind component)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="205"/>
+        <location filename="../src/advoutputoptions.cpp" line="206"/>
         <source>W (vertical wind component)</source>
         <translation>W (vertical wind component)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="207"/>
+        <location filename="../src/advoutputoptions.cpp" line="208"/>
         <source>%1 (sonic or fast ambient temperature)</source>
         <translation>%1 (sonic or fast ambient temperature)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="210"/>
-        <location filename="../src/advoutputoptions.cpp" line="213"/>
-        <location filename="../src/advoutputoptions.cpp" line="216"/>
+        <location filename="../src/advoutputoptions.cpp" line="211"/>
+        <location filename="../src/advoutputoptions.cpp" line="214"/>
+        <location filename="../src/advoutputoptions.cpp" line="217"/>
         <source>%1 (concentration or density)</source>
         <translation>%1 (concentration or density)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="219"/>
+        <location filename="../src/advoutputoptions.cpp" line="220"/>
         <source>%1 Gas (concentration or density)</source>
         <translation>%1 Gas (concentration or density)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="235"/>
+        <location filename="../src/advoutputoptions.cpp" line="236"/>
         <source>W/%1 Gas</source>
         <translation>W/%1 Gas</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="238"/>
+        <location filename="../src/advoutputoptions.cpp" line="239"/>
         <source>Full output (fluxes, quality flags, turbulence, statistics...)</source>
         <translation>Full output (fluxes, quality flags, turbulence, statistics...)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="241"/>
+        <location filename="../src/advoutputoptions.cpp" line="242"/>
         <source>&lt;b&gt;Full Output:&lt;/b&gt; This is the main EddyPro results file. It contains fluxes, quality flags, micrometeorological variables, gas concentrations and densities, footprint estimations and diagnostic information along with ancillary variables such as uncorrected fluxes, main statistics, etc.</source>
         <translation>&lt;b&gt;Full Output:&lt;/b&gt; This is the main EddyPro results file. It contains fluxes, quality flags, micrometeorological variables, gas concentrations and densities, footprint estimations and diagnostic information along with ancillary variables such as uncorrected fluxes, main statistics, etc.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="249"/>
+        <location filename="../src/advoutputoptions.cpp" line="250"/>
         <source>Details of steady state and developed turbulence tests (Foken et al. 2004)</source>
         <translation>Details of steady state and developed turbulence tests (Foken et al. 2004)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="252"/>
+        <location filename="../src/advoutputoptions.cpp" line="253"/>
         <source>&lt;b&gt;Details of steady state and developed turbulence tests:&lt;/b&gt; Partial results obtained from the steady state and the developed turbulence tests. It reports the percentage of deviation from expectations, as well as individual test flags.</source>
         <translation>&lt;b&gt;Details of steady state and developed turbulence tests:&lt;/b&gt; Partial results obtained from the steady state and the developed turbulence tests. It reports the percentage of deviation from expectations, as well as individual test flags.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="259"/>
+        <location filename="../src/advoutputoptions.cpp" line="260"/>
         <source>Metadata</source>
         <translation>Metadata</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="261"/>
+        <location filename="../src/advoutputoptions.cpp" line="262"/>
         <source>&lt;b&gt;Metadata:&lt;/b&gt; Summarizes metadata used for the processed datasets. If an &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; is used, without any &lt;b&gt;&lt;i&gt;Dynamic metadata file&lt;/i&gt;&lt;/b&gt;, the content of this result file will be identical for all lines and can be avoided. If you are processing GHG files and/or are using a &lt;b&gt;&lt;i&gt;Dynamic metadata file&lt;/i&gt;&lt;/b&gt;, this result file will tell you which metadata was actually used during processing.</source>
         <translation>&lt;b&gt;Metadata:&lt;/b&gt; Summarizes metadata used for the processed datasets. If an &lt;b&gt;&lt;i&gt;Alternative metadata file&lt;/i&gt;&lt;/b&gt; is used, without any &lt;b&gt;&lt;i&gt;Dynamic metadata file&lt;/i&gt;&lt;/b&gt;, the content of this result file will be identical for all lines and can be avoided. If you are processing GHG files and/or are using a &lt;b&gt;&lt;i&gt;Dynamic metadata file&lt;/i&gt;&lt;/b&gt;, this result file will tell you which metadata was actually used during processing.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="271"/>
+        <location filename="../src/advoutputoptions.cpp" line="272"/>
         <source>Biomet measurements (averaged over the flux averaging period)</source>
         <translation>Biomet measurements (averaged over the flux averaging period)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="274"/>
+        <location filename="../src/advoutputoptions.cpp" line="275"/>
         <source>&lt;b&gt;Biomet measurements:&lt;/b&gt; Average values of all available biomet measurements, calculated over the same time period selected for fluxes. Biomet measurements that are recognized by EddyPro (i.e., marked by recognized labels) are screened for physical plausibility before calculating the average value and they are converted to units that coincide with other EddyPro results. All other variables are solely averaged and provided on output.</source>
         <translation>&lt;b&gt;Biomet measurements:&lt;/b&gt; Average values of all available biomet measurements, calculated over the same time period selected for fluxes. Biomet measurements that are recognized by EddyPro (i.e., marked by recognized labels) are screened for physical plausibility before calculating the average value and they are converted to units that coincide with other EddyPro results. All other variables are solely averaged and provided on output.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="285"/>
+        <location filename="../src/advoutputoptions.cpp" line="286"/>
         <source>Build continuous dataset (This is not gap-filling!
 Missing flux averaging period are filled with error codes)</source>
         <translation>Build continuous dataset (This is not gap-filling!
 Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="291"/>
+        <location filename="../src/advoutputoptions.cpp" line="292"/>
         <source>Output format :</source>
         <translation>Output format :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="294"/>
+        <location filename="../src/advoutputoptions.cpp" line="295"/>
         <source>Output only available results</source>
         <translation>Output only available results</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="297"/>
+        <location filename="../src/advoutputoptions.cpp" line="298"/>
         <source>Use standard output format</source>
         <translation>Use standard output format</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="304"/>
+        <location filename="../src/advoutputoptions.cpp" line="305"/>
         <source>Error label :</source>
         <translation>Error label :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="317"/>
+        <location filename="../src/advoutputoptions.cpp" line="319"/>
+        <source>Fluxnet output settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advoutputoptions.cpp" line="320"/>
+        <source>Use Fluxnet standard for biomet labels and units</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advoutputoptions.cpp" line="321"/>
+        <source>Set error label in Fluxnet mode (-9999)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advoutputoptions.cpp" line="328"/>
         <source>Statistics</source>
         <translation>Statistics</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="319"/>
+        <location filename="../src/advoutputoptions.cpp" line="330"/>
         <source>&lt;b&gt;Statistics:&lt;/b&gt; Main statistics (mean values, standard deviations, variances and covariances, skewness and kurtosis) for all variables contained in the raw files. Result files concerning variables selected for flux computation are stored in a separate sub-folder &quot;\eddypro_stats&quot; inside the selected output folder. Result files concerning variables not selected for flux computation but available in the raw files are stored in a separate sub-folder &quot;\eddypro_user_stats&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Statistics:&lt;/b&gt; Main statistics (mean values, standard deviations, variances and covariances, skewness and kurtosis) for all variables contained in the raw files. Result files concerning variables selected for flux computation are stored in a separate sub-folder &quot;\eddypro_stats&quot; inside the selected output folder. Result files concerning variables not selected for flux computation but available in the raw files are stored in a separate sub-folder &quot;\eddypro_user_stats&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="330"/>
+        <location filename="../src/advoutputoptions.cpp" line="341"/>
         <source>Time series</source>
         <translation>Time series</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="332"/>
+        <location filename="../src/advoutputoptions.cpp" line="343"/>
         <source>&lt;b&gt;Time series:&lt;/b&gt; Actual time series for each variable selected in the list on the right. Result files are stored in a separate sub-folder &quot;\eddypro_raw_datasets&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Time series:&lt;/b&gt; Actual time series for each variable selected in the list on the right. Result files are stored in a separate sub-folder &quot;\eddypro_raw_datasets&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="338"/>
+        <location filename="../src/advoutputoptions.cpp" line="349"/>
         <source>Variables</source>
         <translation>Variables</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="340"/>
+        <location filename="../src/advoutputoptions.cpp" line="351"/>
         <source>Level 1 (unprocessed) :</source>
         <translation>Level 1 (unprocessed) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="341"/>
+        <location filename="../src/advoutputoptions.cpp" line="352"/>
         <source>Level 2 (after despiking) :</source>
         <translation>Level 2 (after despiking) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="342"/>
+        <location filename="../src/advoutputoptions.cpp" line="353"/>
         <source>Level 3 (after cross-wind correction) :</source>
         <translation>Level 3 (after cross-wind correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="343"/>
+        <location filename="../src/advoutputoptions.cpp" line="354"/>
         <source>Level 4 (after angle-of-attack correction) :</source>
         <translation>Level 4 (after angle-of-attack correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="344"/>
+        <location filename="../src/advoutputoptions.cpp" line="355"/>
         <source>Level 5 (after tilt correction) :</source>
         <translation>Level 5 (after tilt correction) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="345"/>
+        <location filename="../src/advoutputoptions.cpp" line="356"/>
         <source>Level 6 (after time lag compensation) :</source>
         <translation>Level 6 (after time lag compensation) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="346"/>
+        <location filename="../src/advoutputoptions.cpp" line="357"/>
         <source>Level 7 (after detrending) :</source>
         <translation>Level 7 (after detrending) :</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="379"/>
+        <location filename="../src/advoutputoptions.cpp" line="390"/>
         <source>%1 trace gas</source>
         <translation>%1 trace gas</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="381"/>
+        <location filename="../src/advoutputoptions.cpp" line="392"/>
         <source>T&lt;sub&gt;air&lt;/sub&gt;</source>
         <translation>T&lt;sub&gt;air&lt;/sub&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="383"/>
+        <location filename="../src/advoutputoptions.cpp" line="394"/>
         <source>P&lt;sub&gt;air&lt;/sub&gt;</source>
         <translation>P&lt;sub&gt;air&lt;/sub&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="386"/>
+        <location filename="../src/advoutputoptions.cpp" line="397"/>
         <source>Select all variables</source>
         <translation>Select all variables</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="390"/>
+        <location filename="../src/advoutputoptions.cpp" line="401"/>
         <source>Results files</source>
         <translation>Results files</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="394"/>
+        <location filename="../src/advoutputoptions.cpp" line="405"/>
         <source>Spectra and cospectra outputs</source>
         <translation>Spectra and cospectra output</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="397"/>
+        <location filename="../src/advoutputoptions.cpp" line="408"/>
         <source>Reduced spectra and ogives</source>
         <translation>Reduced spectra and ogives</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="399"/>
+        <location filename="../src/advoutputoptions.cpp" line="410"/>
         <source>Full length spectra</source>
         <translation>Full length spectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="401"/>
+        <location filename="../src/advoutputoptions.cpp" line="412"/>
         <source>&lt;b&gt;Full length spectra:&lt;/b&gt; Spectra calculated for each variable, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Full length spectra:&lt;/b&gt; Spectra calculated for each variable, for each flux averaging interval. Results files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="407"/>
+        <location filename="../src/advoutputoptions.cpp" line="418"/>
         <source>Full length cospectra</source>
         <translation>Full length cospectra</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="409"/>
+        <location filename="../src/advoutputoptions.cpp" line="420"/>
         <source>&lt;b&gt;Full length cospectra:&lt;/b&gt; Cospectra with the vertical wind component, calculated for each variable, for each flux averaging interval. Result files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</source>
         <translation>&lt;b&gt;Full length cospectra:&lt;/b&gt; Cospectra with the vertical wind component, calculated for each variable, for each flux averaging interval. Result files are stored in a separate sub-folder &quot;\eddypro_full_cospectra&quot; inside the selected output folder.</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="416"/>
+        <location filename="../src/advoutputoptions.cpp" line="427"/>
         <source>Processed raw data</source>
         <translation>Processed raw data</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="482"/>
+        <location filename="../src/advoutputoptions.cpp" line="493"/>
         <source>Also formatted for &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</source>
         <translation>Also formatted for &lt;a href=&quot;https://tovi.io/?utm_source=EddyPro%20Software&amp;utm_medium=Tovi%20Ads&amp;utm_campaign=EP_Tovi_ads&quot;&gt;Tovi&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="596"/>
+        <location filename="../src/advoutputoptions.cpp" line="608"/>
         <source>Output File Options</source>
         <translation>Output File Options</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1395"/>
+        <location filename="../src/advoutputoptions.cpp" line="1428"/>
         <source>Error Label</source>
         <translation>Error Label</translation>
     </message>
     <message>
-        <location filename="../src/advoutputoptions.cpp" line="1396"/>
+        <location filename="../src/advoutputoptions.cpp" line="1429"/>
         <source>Enter a label other than &quot;none&quot; (case insensitive).</source>
         <translation>Enter a label other than &quot;none&quot; (case insensitive).</translation>
     </message>
@@ -4081,52 +4096,52 @@ Change this setting under the Help menu.</translation>
 <context>
     <name>EcProject</name>
     <message>
-        <location filename="../src/ecproject.cpp" line="474"/>
+        <location filename="../src/ecproject.cpp" line="476"/>
         <source>Cannot write file %1:
 %2</source>
         <translation>Cannot write file %1:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="947"/>
+        <location filename="../src/ecproject.cpp" line="951"/>
         <source>Unable to tag project file!</source>
         <translation>Unable to tag project file!</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2253"/>
+        <location filename="../src/ecproject.cpp" line="2263"/>
         <source>Load Error</source>
         <translation>Load Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="972"/>
+        <location filename="../src/ecproject.cpp" line="976"/>
         <source>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file&lt;br /&gt;&lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="473"/>
-        <location filename="../src/ecproject.cpp" line="946"/>
+        <location filename="../src/ecproject.cpp" line="475"/>
+        <location filename="../src/ecproject.cpp" line="950"/>
         <source>Write Project Error</source>
         <translation>Write Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="971"/>
-        <location filename="../src/ecproject.cpp" line="2220"/>
-        <location filename="../src/ecproject.cpp" line="2241"/>
+        <location filename="../src/ecproject.cpp" line="975"/>
+        <location filename="../src/ecproject.cpp" line="2230"/>
+        <location filename="../src/ecproject.cpp" line="2251"/>
         <source>Load Project Error</source>
         <translation>Load Project Error</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2221"/>
+        <location filename="../src/ecproject.cpp" line="2231"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/ecproject.cpp" line="2242"/>
-        <location filename="../src/ecproject.cpp" line="2254"/>
+        <location filename="../src/ecproject.cpp" line="2252"/>
+        <location filename="../src/ecproject.cpp" line="2264"/>
         <source>Cannot read file &lt;p&gt;%1:&lt;/p&gt;
 &lt;b&gt;not in %2 native format.&lt;/b&gt;</source>
         <translation>Cannot read file &lt;p&gt;%1:&lt;/p&gt;

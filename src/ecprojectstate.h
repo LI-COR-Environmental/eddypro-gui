@@ -101,6 +101,8 @@ struct ProjectGeneralState
     int hf_correct_ghg_ba = 1;
     int hf_correct_ghg_zoh = 1;
     int sonic_output_rate = -1;
+    int fluxnet_standardize_biomet = 0;
+    int fluxnet_err_label = 0;
 
     // random error
     int ru_method = 0;

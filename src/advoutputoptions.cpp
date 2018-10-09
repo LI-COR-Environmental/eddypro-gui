@@ -34,6 +34,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QGroupBox>
 
 #include "clicklabel.h"
 #include "configstate.h"
@@ -314,6 +315,16 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     QLineEdit* errorLinedit = errorFormatCombo->lineEdit();
     errorLinedit->setMaxLength(32);
 
+    // Fluxnet box
+    auto fluxnetBox = new QGroupBox(tr("Fluxnet output settings"));
+    fluxnetStdBiometCheckBox = new QCheckBox(tr("Use Fluxnet standard for biomet labels and units"));
+    fluxnetErrLabelCheckBox = new QCheckBox(tr("Set error label in Fluxnet mode (-9999)"));
+    auto vbox = new QVBoxLayout;
+    vbox->addWidget(fluxnetStdBiometCheckBox);
+    vbox->addWidget(fluxnetErrLabelCheckBox);
+    vbox->addStretch(1);
+    fluxnetBox->setLayout(vbox);
+
     auto statLabel = WidgetUtils::createBlueLabel(this, tr("Statistics"));
     tooltipStr =
         tr("<b>Statistics:</b> Main statistics (mean values, standard "
@@ -504,6 +515,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
+    outputLayout->addWidget(fluxnetBox, 7, 0, 2, 2);
     outputLayout->addWidget(outBiometCheckBox, 10, 0, 1, 4);
     outputLayout->addWidget(outDetailsCheckBox, 11, 0, 1, 4);
     outputLayout->addWidget(outMdCheckBox, 12, 0, 1, 4);
@@ -624,6 +636,18 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             { ecProject_->setGeneralMakeDataset(checked); });
     connect(outFullCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralOutRich(checked); });
+    connect(fluxnetStdBiometCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralFluxnetStandardize(checked); });
+    connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralFluxnetErrLabel(checked); });
+    connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
+        { if (checked) {
+                errorFormatCombo->setCurrentIndex(0);
+                errorFormatCombo->setDisabled(true);
+            } else {
+                errorFormatCombo->setDisabled(false);
+            }
+        });
 
     // buttonClicked() is and overloaded signal...
     connect(outputFormatRadioGroup, SIGNAL(buttonClicked(int)),
@@ -746,6 +770,8 @@ void AdvOutputOptions::setSmartfluxUI()
     QWidgetList enableableWidgets;
     enableableWidgets << outFullCheckBox
                       << fullOutformatLabel
+                      << fluxnetStdBiometCheckBox
+                      << fluxnetErrLabelCheckBox
                       << fixedVarsOutputRadio
                       << variableVarsOutputRadio
                       << errorFormatLabel
@@ -843,6 +869,8 @@ void AdvOutputOptions::setSmartfluxUI()
     QList<QAbstractButton *> checkableWidgets;
     checkableWidgets << outFullCheckBox
                      << outBiometCheckBox
+                     << fluxnetStdBiometCheckBox
+                     << fluxnetErrLabelCheckBox
                      << fixedVarsOutputRadio;
     for (auto w : checkableWidgets)
     {
@@ -948,6 +976,9 @@ void AdvOutputOptions::reset()
     variableVarsOutputRadio->setChecked(true);
     errorFormatCombo->setCurrentIndex(0);
 
+    fluxnetStdBiometCheckBox->setChecked(ecProject_->generalFluxnetStandardize());
+    fluxnetErrLabelCheckBox->setChecked(ecProject_->generalFluxnetErrLabel());
+
     if (ecProject_->generalUseBiomet())
     {
         outBiometCheckBox->setChecked(true);
@@ -991,6 +1022,8 @@ void AdvOutputOptions::refresh()
     outMdCheckBox->setChecked(ecProject_->generalOutMd());
     outBiometCheckBox->setChecked(ecProject_->generalOutBiomet());
     createDatasetCheckBox->setChecked(ecProject_->generalMakeDataset());
+    fluxnetStdBiometCheckBox->setChecked(ecProject_->generalFluxnetStandardize());
+    fluxnetErrLabelCheckBox->setChecked(ecProject_->generalFluxnetErrLabel());
 
     outputFormatRadioGroup->buttons().at(ecProject_->generalFixedOutFormat())->setChecked(true);
 
