@@ -46,6 +46,8 @@
 #include <QTimer>
 #include <QUrl>
 #include <QUrlQuery>
+#include <QToolButton>
+#include <QHeaderView>
 
 #include <cmath>
 
@@ -79,6 +81,9 @@
 #include "splitter.h"
 #include "widget_utils.h"
 #include "spinner.h"
+#include "windfilter_tablemodel.h"
+#include "windfilter_tableview.h"
+#include "windfilter_view.h"
 
 // for the qobject_cast in handleCrossWindAndAngleOfAttackUpdate()
 #include "mainwidget.h"
@@ -870,11 +875,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     flagLayout->setColumnStretch(4, 1);
     flagLayout->setColumnStretch(5, 1);
 
-    auto windFilterLabel = new QLabel(tr("Wind Direction Filter"));
-    windFilterLabel->setProperty("groupLabel", true);
-
-    auto windFilterLayout = new QGridLayout;
-    windFilterLayout->addWidget(windFilterLabel, 0, 0, Qt::AlignCenter);
+    createWindFilterArea();
 
     auto varList = new QGroupBox;
     varList->setObjectName(QStringLiteral("simpleGroupBox2"));
@@ -940,6 +941,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
             this, &BasicSettingsPage::reset);
     connect(ecProject_, &EcProject::ecProjectChanged,
             this, &BasicSettingsPage::refresh);
+    connect(ecProject_, &EcProject::ecProjectModified,
+            this, &BasicSettingsPage::updateWindFilterModel);
 
     connect(datapathLabel, &ClickLabel::clicked,
             this, [=](){ datapathBrowse->focusAndSelect(); });
@@ -986,8 +989,6 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     connect(subsetCheckBox, &QCheckBox::toggled,
             this, &BasicSettingsPage::updateSubsetSelection);
-//    connect(subsetCheckBox, SIGNAL(toggled(bool)),
-//            dateRangeDetectButton, SLOT(setDisabled(bool)));
 
     connect(dateRangeDetectButton, &QPushButton::clicked,
             this, &BasicSettingsPage::dateRangeDetect);
@@ -2750,6 +2751,9 @@ void BasicSettingsPage::reset()
     clearFlagUnits();
     clearFlagThresholdsAndPolicies();
 
+    windFilterApplyCheckbox->setChecked(false);
+    windFilterTableModel_->clear();
+
     // restore modified flag
     ecProject_->setModified(oldmod);
     ecProject_->blockSignals(false);
@@ -2881,6 +2885,10 @@ void BasicSettingsPage::refresh()
     updateFourthGasSettings(fourthGasRefCombo->currentText());
     gasMw->setValue(ecProject_->generalGasMw());
     gasDiff->setValue(ecProject_->generalGasDiff());
+
+    windFilterApplyCheckbox->setChecked(ecProject_->windFilterApply());
+    updateWindFilterModel();
+    resizeWindFilterRows();
 
     // restore modified flag
     ecProject_->setModified(oldmod);
@@ -5046,4 +5054,178 @@ void BasicSettingsPage::noNoaaDownloadMsg()
                              "declination.</p>"));
     noaaDialog.refresh();
     noaaDialog.exec();
+}
+
+void BasicSettingsPage::createWindFilterArea()
+{
+    auto windFilterTitle = new QLabel(tr("Wind Direction Filter"));
+    windFilterTitle->setProperty("groupLabel", true);
+
+    windFilterApplyCheckbox = new QCheckBox(tr("Aplpy Wind Direction Filter"));
+
+    setupWindFilterModel();
+    setupWindFilterViews();
+
+    auto buttonsLayout = new QVBoxLayout;
+    buttonsLayout->addWidget(addButton);
+    buttonsLayout->addSpacing(10);
+    buttonsLayout->addWidget(removeButton);
+    buttonsLayout->addStretch();
+    buttonsLayout->setContentsMargins(0, 0, 0, 0);
+
+    auto windFilterConfigLayout = new QGridLayout;
+    windFilterConfigLayout->addWidget(windFilterTableView_, 0, 0, Qt::AlignCenter);
+    windFilterConfigLayout->addLayout(buttonsLayout, 0, 1, Qt::AlignCenter);
+//    windFilterConfigLayout->addWidget(windFilterView_, 0, 2);
+    windFilterConfigLayout->setVerticalSpacing(5);
+    windFilterConfigLayout->setContentsMargins(11, 0, 0, 0);
+
+    windFilterConfigFrame = new QWidget;
+    windFilterConfigFrame->setLayout(windFilterConfigLayout);
+
+    windFilterLayout = new QGridLayout;
+    windFilterLayout->addWidget(windFilterTitle, 0, 0, Qt::AlignCenter);
+    windFilterLayout->addWidget(windFilterApplyCheckbox, 1, 0, Qt::AlignCenter);
+    windFilterLayout->addWidget(windFilterConfigFrame, 2, 0, Qt::AlignCenter);
+    windFilterLayout->setRowStretch(3, 1);
+
+    connect(windFilterApplyCheckbox, &QCheckBox::toggled, [=](bool checked) {
+        ecProject_->setWindFilterApply(checked);
+    });
+}
+
+void BasicSettingsPage::setupWindFilterModel()
+{
+    windFilterTableModel_ = new WindFilterTableModel(this, ecProject_->windFilterSectors());
+
+    connect(windFilterTableModel_, &WindFilterTableModel::modified,
+            this, &BasicSettingsPage::windFilterModelModified);
+    connect(windFilterTableModel_, &WindFilterTableModel::modelReset,
+            ecProject_, &EcProject::updateInfo);
+}
+
+void BasicSettingsPage::windFilterModelModified() {
+    ecProject_->setModified(true);
+//    windFilterView_->updateValidItems();
+}
+
+void BasicSettingsPage::updateWindFilterModel()
+{
+    windFilterTableModel_->flush();
+//    windFilterView_->updateValidItems();
+}
+
+void BasicSettingsPage::setupWindFilterViews()
+{
+    addButton = new QToolButton;
+    addButton->setObjectName(QStringLiteral("plusButton"));
+    addButton->setToolTip(tr("<b>+</b> Add an angle."));
+
+    removeButton = new QToolButton;
+    removeButton->setObjectName(QStringLiteral("minusButton"));
+    removeButton->setToolTip(tr("<b>-</b> Remove an angle."));
+
+    connect(addButton, &QToolButton::clicked,
+            this, &BasicSettingsPage::addWindFilterSector);
+    connect(removeButton, &QToolButton::clicked,
+            this, &BasicSettingsPage::removeWindFilterSector);
+
+    windFilterTableView_ = new WindFilterTableView;
+    windFilterTableView_->setModel(windFilterTableModel_);
+    windFilterTableView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    windFilterTableView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
+
+//    windFilterView_ = new WindFilterView;
+//    windFilterView_->setModel(windFilterTableModel_);
+//    windFilterView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
+
+//    windFilterView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    windFilterSelectionModel_ = new QItemSelectionModel(windFilterTableModel_);
+
+    windFilterTableView_->setSelectionModel(windFilterSelectionModel_);
+    windFilterTableView_->setSelectionMode(QAbstractItemView::SingleSelection);
+
+//    windFilterView_->setSelectionModel(windFilterSelectionModel_);
+//    windFilterView_->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    auto headerView = windFilterTableView_->horizontalHeader();
+    headerView->setModel(windFilterTableModel_);
+    headerView->setStretchLastSection(true);
+    headerView->setHighlightSections(false);
+    headerView->setProperty("pieTableH", true);
+
+    auto vHeaderView = windFilterTableView_->verticalHeader();
+    vHeaderView->setProperty("pieTableV", true);
+
+//    connect(windFilterView_, SIGNAL(clicked(QModelIndex)),
+//            windFilterTableView_, SLOT(edit(QModelIndex)));
+}
+
+void BasicSettingsPage::insertAngleAt(int row)
+{
+    if (!windFilterTableModel_->insertRow(row))
+    {
+        return;
+    }
+    QModelIndex currIndex = windFilterTableModel_->index(row - 1, 0);
+//    windFilterView_->setCurrentIndex(currIndex);
+    windFilterTableModel_->flush();
+}
+
+void BasicSettingsPage::removeAngleAt(int row)
+{
+    if (!windFilterTableModel_->removeRow(row))
+    {
+        return;
+    }
+    if (row > 0)
+    {
+        QModelIndex currIndex = windFilterTableModel_->index(row - 1, 0);
+//        windFilterView_->setCurrentIndex(currIndex);
+    }
+    windFilterTableModel_->flush();
+}
+
+void BasicSettingsPage::addWindFilterSector()
+{
+    int selectedRow = windFilterSelectionModel_->currentIndex().row();
+    int lastRow = windFilterTableModel_->rowCount();
+
+    if (selectedRow < 0)
+    {
+        insertAngleAt(lastRow);
+    }
+    else
+    {
+        insertAngleAt(selectedRow + 1);
+    }
+    resizeWindFilterRows();
+}
+
+void BasicSettingsPage::removeWindFilterSector()
+{
+    int selectedRow = windFilterSelectionModel_->currentIndex().row();
+    int lastRow = windFilterTableModel_->rowCount();
+
+    if (lastRow > 0)
+    {
+        if (selectedRow < 0)
+        {
+            removeAngleAt(lastRow - 1);
+        }
+        else
+        {
+            removeAngleAt(selectedRow);
+        }
+    }
+    resizeWindFilterRows();
+}
+
+void BasicSettingsPage::resizeWindFilterRows()
+{
+    for (auto i = 0; i < windFilterTableModel_->rowCount(); i++)
+    {
+        windFilterTableView_->resizeRowToContents(i);
+    }
 }

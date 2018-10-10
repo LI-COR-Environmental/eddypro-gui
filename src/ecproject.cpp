@@ -145,6 +145,10 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.sonic_output_rate = defaultEcProjectState.projectGeneral.sonic_output_rate;
     ec_project_state_.projectGeneral.fluxnet_standardize_biomet = defaultEcProjectState.projectGeneral.fluxnet_standardize_biomet;
     ec_project_state_.projectGeneral.fluxnet_err_label = defaultEcProjectState.projectGeneral.fluxnet_err_label;
+    ec_project_state_.projectGeneral.ru_method = defaultEcProjectState.projectGeneral.ru_method;
+    ec_project_state_.projectGeneral.its_method = defaultEcProjectState.projectGeneral.its_method;
+    ec_project_state_.projectGeneral.its_tlag_max = defaultEcProjectState.projectGeneral.its_tlag_max;
+    ec_project_state_.projectGeneral.its_sec_factor = defaultEcProjectState.projectGeneral.its_sec_factor;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -442,11 +446,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.timelagOpt.gas4_max_lag = defaultEcProjectState.timelagOpt.gas4_max_lag;
     ec_project_state_.timelagOpt.subset  = defaultEcProjectState.timelagOpt.subset;
 
-    ec_project_state_.projectGeneral.ru_method = defaultEcProjectState.projectGeneral.ru_method;
-    ec_project_state_.projectGeneral.its_method = defaultEcProjectState.projectGeneral.its_method;
-    ec_project_state_.projectGeneral.its_tlag_max = defaultEcProjectState.projectGeneral.its_tlag_max;
-    ec_project_state_.projectGeneral.its_sec_factor = defaultEcProjectState.projectGeneral.its_sec_factor;
-
     ec_project_state_.biomParam.native_header = defaultEcProjectState.biomParam.native_header;
     ec_project_state_.biomParam.hlines = defaultEcProjectState.biomParam.hlines;
     ec_project_state_.biomParam.separator = defaultEcProjectState.biomParam.separator;
@@ -457,6 +456,9 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.biomParam.col_ppfd = defaultEcProjectState.biomParam.col_ppfd;
     ec_project_state_.biomParam.col_rg = defaultEcProjectState.biomParam.col_rg;
     ec_project_state_.biomParam.col_lwin = defaultEcProjectState.biomParam.col_lwin;
+
+    ec_project_state_.windFilter.apply = defaultEcProjectState.windFilter.apply;
+    ec_project_state_.windFilter.sectors.clear();
 
     setModified(false); // new documents are not in a modified state
     emit ecProjectNew();
@@ -895,7 +897,7 @@ bool EcProject::saveEcProject(const QString &filename)
 
             int excluded = angle.included_ ? 0 : 1;
 
-            project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_9, angle.angle_);
+            project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_9, QString::number(angle.angle_, 'f', 1));
             project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_10, excluded);
 
             ++k;
@@ -939,6 +941,22 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_BIOMET_7, ec_project_state_.biomParam.col_rg);
         project_ini.setValue(EcIni::INI_BIOMET_8, ec_project_state_.biomParam.col_lwin);
         project_ini.setValue(EcIni::INI_BIOMET_9, ec_project_state_.biomParam.col_ppfd);
+    project_ini.endGroup();
+
+    // wind filter section
+    project_ini.beginGroup(EcIni::INIGROUP_WIND_FILTER);
+        project_ini.setValue(EcIni::INI_WIND_FILTER_APPLY, ec_project_state_.windFilter.apply);
+
+        // sectors
+        auto n = 0;
+        for (const auto &sector : ec_project_state_.windFilter.sectors)
+        {
+            QString index = QStringLiteral("_") + QString::number(n + 1);
+            QString prefix = StringUtils::insertIndex(EcIni::INI_WIND_FILTER_PREFIX, 8, index);
+            project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX, QString::number(sector.startAngle_, 'f', 1));
+            project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_END_SUFFIX, QString::number(sector.endAngle_, 'f', 1));
+            ++n;
+        }
     project_ini.endGroup();
 
     project_ini.sync();
@@ -2071,15 +2089,14 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 = project_ini.value(EcIni::INI_SCREEN_TILT_11,
                                     defaultEcProjectState.screenTilt.subset).toInt();
 
-        ec_project_state_.screenTilt.angles.clear();
-        int numAngles = countPlanarFitAngles(project_ini.allKeys());
         // iterate through angle list
-        for (int k = 0; k < numAngles; ++k)
+        ec_project_state_.screenTilt.angles.clear();
+        auto numAngles = countPlanarFitAngles(project_ini.allKeys());
+        for (auto k = 0; k < numAngles; ++k)
         {
-            QString prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k + 1) + QStringLiteral("_");
-
-            int exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
-            int include = exclude ? 0 : (exclude + 2);
+            auto prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k + 1) + QStringLiteral("_");
+            auto exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
+            auto include = exclude ? 0 : (exclude + 2);
             auto included = static_cast<Qt::CheckState>(include);
 
             AngleItem item;
@@ -2204,6 +2221,26 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.biomParam.col_ppfd
                 = project_ini.value(EcIni::INI_BIOMET_9,
                                     defaultEcProjectState.biomParam.col_ppfd).toInt();
+    project_ini.endGroup();
+
+    // wind filter section
+    project_ini.beginGroup(EcIni::INIGROUP_WIND_FILTER);
+        ec_project_state_.windFilter.apply
+                = project_ini.value(EcIni::INI_WIND_FILTER_APPLY,
+                                    defaultEcProjectState.windFilter.apply).toInt();
+        // iterate through sector list
+        ec_project_state_.windFilter.sectors.clear();
+        auto numSectors = countWindFilterSectors(project_ini.allKeys());
+        for (auto k = 0; k < numSectors; ++k)
+        {
+            auto prefix = EcIni::INI_WIND_FILTER_PREFIX + QString::number(k + 1) + QStringLiteral("_");
+
+            SectorItem item;
+            item.startAngle_ = project_ini.value(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX).toDouble();
+            item.endAngle_ = project_ini.value(prefix + EcIni::INI_WIND_FILTER_END_SUFFIX).toDouble();
+            item.color_ = WidgetUtils::getColor(k);
+            addWindFilterSector(item);
+        }
     project_ini.endGroup();
 
     datafile.close();
@@ -4462,9 +4499,25 @@ bool EcProject::hasPlanarFitFullAngle()
     return (angleSum == 360.0);
 }
 
+QList<SectorItem> *EcProject::windFilterSectors()
+{
+    return &ec_project_state_.windFilter.sectors;
+}
+
+void EcProject::setWindFilterApply(int n)
+{
+    ec_project_state_.windFilter.apply = n;
+    setModified(true);
+}
+
 void EcProject::addPlanarFitAngle(const AngleItem& angle)
 {
     ec_project_state_.screenTilt.angles.append(angle);
+}
+
+void EcProject::addWindFilterSector(const SectorItem &sector)
+{
+    ec_project_state_.windFilter.sectors.append(sector);
 }
 
 int EcProject::countPlanarFitAngles(const QStringList& list)
@@ -4478,6 +4531,19 @@ int EcProject::countPlanarFitAngles(const QStringList& list)
         }
     }
     return i;
+}
+
+int EcProject::countWindFilterSectors(const QStringList& list)
+{
+    auto i = 0;
+    for (const auto &s : list)
+    {
+        if (s.contains(QStringLiteral("wdf_sect")))
+        {
+            ++i;
+        }
+    }
+    return i / 2;
 }
 
 void EcProject::setBiomParamColAirT(int n)

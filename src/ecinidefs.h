@@ -418,6 +418,12 @@ namespace EcIni
     const auto INI_BIOMET_7    = QStringLiteral("biom_rg");
     const auto INI_BIOMET_8    = QStringLiteral("biom_lwin");
     const auto INI_BIOMET_9    = QStringLiteral("biom_ppfd");
+
+    const auto INIGROUP_WIND_FILTER         = QStringLiteral("RawProcess_WindDirectionFilter");
+    const auto INI_WIND_FILTER_APPLY        = QStringLiteral("wdf_apply");
+    const auto INI_WIND_FILTER_PREFIX       = QStringLiteral("wdf_sect_");
+    const auto INI_WIND_FILTER_START_SUFFIX = QStringLiteral("start");
+    const auto INI_WIND_FILTER_END_SUFFIX   = QStringLiteral("end");
 } // namespace EcIni
 
 #endif // ECINIDEFS_H

@@ -60,6 +60,9 @@ class QNetworkReply;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
+class QGridLayout;
+class QToolButton;
+class QItemSelectionModel;
 
 class AnemDesc;
 struct BiomItem;
@@ -75,6 +78,9 @@ class RawFilenameDialog;
 class SmartFluxBar;
 class VariableDesc;
 class Spinner;
+class WindFilterView;
+class WindFilterTableModel;
+class WindFilterTableView;
 
 /// \class BasicSettingsPage
 /// \brief Class representing the 'General Options' tab in the 'RawProcess' page
@@ -329,6 +335,22 @@ private:
 
     QString prototypeToRegExp(const QString &p);
 
+    QGridLayout* windFilterLayout;
+    QWidget *windFilterConfigFrame;
+    QCheckBox* windFilterApplyCheckbox;
+    QToolButton *addButton;
+    QToolButton *removeButton;
+    WindFilterTableModel *windFilterTableModel_;
+    WindFilterTableView *windFilterTableView_;
+//    WindFilterView *windFilterView_;
+    QItemSelectionModel *windFilterSelectionModel_;
+    void createWindFilterArea();
+    void setupWindFilterModel();
+    void setupWindFilterViews();
+    void insertAngleAt(int row);
+    void removeAngleAt(int row);
+    void resizeWindFilterRows();
+
 private slots:
     void updateDataPath(const QString& dp);
     void updateRecursion(bool b);
@@ -461,6 +483,11 @@ private slots:
     int acceptVariableReset();
     void dateRangeDetect();
     void clearFilePrototype();
+
+    void addWindFilterSector();
+    void removeWindFilterSector();
+    void windFilterModelModified();
+    void updateWindFilterModel();
 
 signals:
     void updateMetadataReadResult(bool b);

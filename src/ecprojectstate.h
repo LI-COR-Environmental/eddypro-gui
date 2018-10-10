@@ -25,6 +25,7 @@
 #define ECPROJECTSTATE_H
 
 #include "angle_item.h"
+#include "sector_item.h"
 #include "defs.h"
 
 /// \struct GeneralProjectState
@@ -101,8 +102,8 @@ struct ProjectGeneralState
     int hf_correct_ghg_ba = 1;
     int hf_correct_ghg_zoh = 1;
     int sonic_output_rate = -1;
-    int fluxnet_standardize_biomet = 0;
-    int fluxnet_err_label = 0;
+    int fluxnet_standardize_biomet = 1;
+    int fluxnet_err_label = 1;
 
     // random error
     int ru_method = 0;
@@ -470,6 +471,12 @@ struct BiometState
     int col_ppfd = -1;
 };
 
+struct WindFilterState
+{
+    int apply = 0;
+    QList<SectorItem> sectors = QList<SectorItem>();
+};
+
 /// \struct EcProjectState
 /// \brief Container structure representing information for the INI
 /// processing file
@@ -485,6 +492,7 @@ struct EcProjectState
     TimelagOptState timelagOpt;
     RandomErrorState randomError;
     BiometState biomParam;
+    WindFilterState windFilter;
 };
 
 #endif // ECPROJECTSTATE_H

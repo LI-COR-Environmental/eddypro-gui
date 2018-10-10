@@ -37,6 +37,7 @@ const QString StringUtils::fromBool2YesNoString(bool b)
     return ((b) ? QObject::tr("yes") : QObject::tr("no"));
 }
 
+// simple wrapper around QString::insert()
 const QString StringUtils::insertIndex(const QString& srcStr, int pos, const QString& str)
 {
     QString strData = srcStr;

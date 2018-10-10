@@ -1,10 +1,6 @@
 # source code files
 
-# precompiled headers (PCH)
-#PRECOMPILED_HEADER = src/stable.h
-
 HEADERS += \
-#    src/stable.h \
     src/globalsettings.h \
     src/widget_utils.h \
     src/aboutdialog.h \
@@ -103,7 +99,11 @@ HEADERS += \
     src/downloadmanager.h \
     src/openfilefilter.h \
     src/qmlwidget.h \
-    src/spinner.h
+    src/spinner.h \
+    src/windfilter_view.h \
+    src/windfilter_tableview.h \
+    src/windfilter_tablemodel.h \
+    src/sector_item.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -195,7 +195,10 @@ SOURCES +=  \
     src/openfilefilter.cpp \
     src/qmlwidget.cpp \
     src/spinner.cpp \
-    src/mystyle.cpp
+    src/mystyle.cpp \
+    src/windfilter_view.cpp \
+    src/windfilter_tableview.cpp \
+    src/windfilter_tablemodel.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

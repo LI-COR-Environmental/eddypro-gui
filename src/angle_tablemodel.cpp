@@ -31,9 +31,9 @@
 namespace {
 // private constants
 const int MaxColumns = 1;
-const double MinDegrees = 0.0;
-const double MaxDegrees = 360.0;
-const double InitialAngle = 30.0;
+const double MinDegree = 0.0;
+const double MaxDegree = 360.0;
+const double DefaultSectorWidth = 30.0;
 
 int colorHueDecStep_ = 1;
 } // namespace unnamed
@@ -189,16 +189,16 @@ bool AngleTableModel::setData(const QModelIndex &index,
                 double currAngleSum = angleSum();
                 double followingAngle = nextItem.angle_;
 
-                if (angle > MaxDegrees)
-                    angle = MaxDegrees;
+                if (angle > MaxDegree)
+                    angle = MaxDegree;
 
                 if (numAngles > 1)
                 {
-                    if (!ok || angle < MinDegrees)
+                    if (!ok || angle < MinDegree)
                         return false;
 
                     // equal to 360 degrees
-                    if (qFuzzyCompare(currAngleSum, MaxDegrees))
+                    if (qFuzzyCompare(currAngleSum, MaxDegree))
                     {
                         // eat following
                         if (angle <= (currAngle + followingAngle))
@@ -219,12 +219,12 @@ bool AngleTableModel::setData(const QModelIndex &index,
                         }
                     }
                     // lesser than 360 degrees
-                    else if (currAngleSum < MaxDegrees)
+                    else if (currAngleSum < MaxDegree)
                     {
                         // fill up to 360
-                        if (angle > (MaxDegrees - (currAngleSum - currAngle)))
+                        if (angle > (MaxDegree - (currAngleSum - currAngle)))
                         {
-                            angle = MaxDegrees - (currAngleSum - currAngle);
+                            angle = MaxDegree - (currAngleSum - currAngle);
                         }
                         else
                         {
@@ -286,7 +286,7 @@ bool AngleTableModel::insertRows(int row, int count, const QModelIndex&)
     if ((row < 0) || (row >= angles_->count()))
         row = angles_->count();
 
-    if (angleSum() < MaxDegrees)
+    if (angleSum() < MaxDegree)
     {
         beginInsertRows(QModelIndex(), row, row + count - 1);
         for (int i = 0; i < count; ++i)
@@ -370,11 +370,11 @@ double AngleTableModel::angleSum()
 
 double AngleTableModel::angleToBeInserted()
 {
-    double angleAvailable = MaxDegrees - angleSum();
+    double angleAvailable = MaxDegree - angleSum();
     double angleToBeInserted = angleAvailable;
 
-    if (angleAvailable >= InitialAngle)
-        angleToBeInserted = InitialAngle;
+    if (angleAvailable >= DefaultSectorWidth)
+        angleToBeInserted = DefaultSectorWidth;
 
     return angleToBeInserted;
 }

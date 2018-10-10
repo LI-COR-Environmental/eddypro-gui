@@ -451,6 +451,8 @@ public:
     void setBiomParamColLwin(int n);
     void setBiomParamColPpfd(int n);
 
+    void setWindFilterApply(int n);
+
     // get project
     Defs::CurrRunMode generalRunMode() const { return ec_project_state_.projectGeneral.run_mode; }
     bool generalRunFcc() const { return ec_project_state_.projectGeneral.run_fcc; }
@@ -830,11 +832,16 @@ public:
 
     void addPlanarFitAngle(const AngleItem& angle);
 
+    void addWindFilterSector(const SectorItem& sector);
+
     // is the project modified?
     bool modified() const;
 
     QList<AngleItem>* planarFitAngles();
     bool hasPlanarFitFullAngle();
+
+    QList<SectorItem>* windFilterSectors();
+    int windFilterApply() const { return ec_project_state_.windFilter.apply; }
 
     bool isEngineStep2Needed();
     bool isGoodRawFilePrototype(const QString& s);
@@ -861,6 +868,7 @@ private:
     bool tagProject(const QString &filename);
 
     int countPlanarFitAngles(const QStringList& list);
+    int countWindFilterSectors(const QStringList& list);
 };
 
 #endif // ECPROJECT_H
