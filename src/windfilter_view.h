@@ -78,6 +78,7 @@ private:
     int margin;
     int totalSize;
     int pieSize;
+    int fontSize;
     int validItems;
     QPoint origin;
 };

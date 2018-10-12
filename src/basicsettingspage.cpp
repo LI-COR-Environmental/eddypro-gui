@@ -5075,7 +5075,7 @@ void BasicSettingsPage::createWindFilterArea()
     auto windFilterConfigLayout = new QGridLayout;
     windFilterConfigLayout->addWidget(windFilterTableView_, 0, 0, Qt::AlignCenter);
     windFilterConfigLayout->addLayout(buttonsLayout, 0, 1, Qt::AlignCenter);
-//    windFilterConfigLayout->addWidget(windFilterView_, 0, 2);
+    windFilterConfigLayout->addWidget(windFilterView_, 0, 2, Qt::AlignTop);
     windFilterConfigLayout->setVerticalSpacing(5);
     windFilterConfigLayout->setContentsMargins(11, 0, 0, 0);
 
@@ -5105,13 +5105,13 @@ void BasicSettingsPage::setupWindFilterModel()
 
 void BasicSettingsPage::windFilterModelModified() {
     ecProject_->setModified(true);
-//    windFilterView_->updateValidItems();
+    windFilterView_->updateValidItems();
 }
 
 void BasicSettingsPage::updateWindFilterModel()
 {
     windFilterTableModel_->flush();
-//    windFilterView_->updateValidItems();
+    windFilterView_->updateValidItems();
 }
 
 void BasicSettingsPage::setupWindFilterViews()
@@ -5134,19 +5134,19 @@ void BasicSettingsPage::setupWindFilterViews()
     windFilterTableView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     windFilterTableView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
 
-//    windFilterView_ = new WindFilterView;
-//    windFilterView_->setModel(windFilterTableModel_);
-//    windFilterView_->setToolTip(tr("<b>Planar fit:</b> Visualization of the described wind sectors. Add or remove wind sector using the <b>+</b> and <b>-</b> buttons on the left."));
-
-//    windFilterView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    windFilterView_ = new WindFilterView;
+    windFilterView_->setModel(windFilterTableModel_);
+    windFilterView_->setToolTip(tr("<b>Wind Direction Filter:</b> ..."));
+    windFilterView_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    windFilterView_->setContentsMargins(0, 0, 0, 0);
 
     windFilterSelectionModel_ = new QItemSelectionModel(windFilterTableModel_);
 
     windFilterTableView_->setSelectionModel(windFilterSelectionModel_);
     windFilterTableView_->setSelectionMode(QAbstractItemView::SingleSelection);
 
-//    windFilterView_->setSelectionModel(windFilterSelectionModel_);
-//    windFilterView_->setSelectionMode(QAbstractItemView::SingleSelection);
+    windFilterView_->setSelectionModel(windFilterSelectionModel_);
+    windFilterView_->setSelectionMode(QAbstractItemView::SingleSelection);
 
     auto headerView = windFilterTableView_->horizontalHeader();
     headerView->setModel(windFilterTableModel_);
@@ -5157,8 +5157,8 @@ void BasicSettingsPage::setupWindFilterViews()
     auto vHeaderView = windFilterTableView_->verticalHeader();
     vHeaderView->setProperty("pieTableV", true);
 
-//    connect(windFilterView_, SIGNAL(clicked(QModelIndex)),
-//            windFilterTableView_, SLOT(edit(QModelIndex)));
+    connect(windFilterView_, SIGNAL(clicked(QModelIndex)),
+            windFilterTableView_, SLOT(edit(QModelIndex)));
 }
 
 void BasicSettingsPage::insertAngleAt(int row)
@@ -5168,7 +5168,7 @@ void BasicSettingsPage::insertAngleAt(int row)
         return;
     }
     QModelIndex currIndex = windFilterTableModel_->index(row - 1, 0);
-//    windFilterView_->setCurrentIndex(currIndex);
+    windFilterView_->setCurrentIndex(currIndex);
     windFilterTableModel_->flush();
 }
 
@@ -5181,7 +5181,7 @@ void BasicSettingsPage::removeAngleAt(int row)
     if (row > 0)
     {
         QModelIndex currIndex = windFilterTableModel_->index(row - 1, 0);
-//        windFilterView_->setCurrentIndex(currIndex);
+        windFilterView_->setCurrentIndex(currIndex);
     }
     windFilterTableModel_->flush();
 }

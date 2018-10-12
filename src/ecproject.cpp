@@ -888,10 +888,10 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_TILT_11, ec_project_state_.screenTilt.subset);
 
         // iterate through angle list
-        int k = 0;
+        int k = 1;
         for (const auto &angle : ec_project_state_.screenTilt.angles)
         {
-            QString index = QStringLiteral("_") + QString::number(k + 1);
+            QString index = QStringLiteral("_") + QString::number(k);
             QString prefix = StringUtils::insertIndex(EcIni::INI_SCREEN_TILT_PREFIX, 7, index);
 
             int excluded = angle.included_ ? 0 : 1;
@@ -947,10 +947,10 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_WIND_FILTER_APPLY, ec_project_state_.windFilter.apply);
 
         // sectors
-        auto n = 0;
+        auto n = 1;
         for (const auto &sector : ec_project_state_.windFilter.sectors)
         {
-            QString index = QStringLiteral("_") + QString::number(n + 1);
+            QString index = QStringLiteral("_") + QString::number(n);
             QString prefix = StringUtils::insertIndex(EcIni::INI_WIND_FILTER_PREFIX, 8, index);
             project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX, QString::number(sector.startAngle_, 'f', 1));
             project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_END_SUFFIX, QString::number(sector.endAngle_, 'f', 1));
@@ -2091,9 +2091,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         // iterate through angle list
         ec_project_state_.screenTilt.angles.clear();
         auto numAngles = countPlanarFitAngles(project_ini.allKeys());
-        for (auto k = 0; k < numAngles; ++k)
+        for (auto k = 1; k <= numAngles; ++k)
         {
-            auto prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k + 1) + QStringLiteral("_");
+            QString prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k) + QStringLiteral("_");
             auto exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
             auto include = exclude ? 0 : (exclude + 2);
             auto included = static_cast<Qt::CheckState>(include);
@@ -2230,9 +2230,9 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         // iterate through sector list
         ec_project_state_.windFilter.sectors.clear();
         auto numSectors = countWindFilterSectors(project_ini.allKeys());
-        for (auto k = 0; k < numSectors; ++k)
+        for (auto k = 1; k <= numSectors; ++k)
         {
-            auto prefix = EcIni::INI_WIND_FILTER_PREFIX + QString::number(k + 1) + QStringLiteral("_");
+            QString prefix = EcIni::INI_WIND_FILTER_PREFIX + QString::number(k) + QStringLiteral("_");
 
             SectorItem item;
             item.startAngle_ = project_ini.value(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX).toDouble();

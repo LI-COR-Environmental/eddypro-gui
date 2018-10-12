@@ -610,10 +610,10 @@ void AnglesView::setSelection(const QRect &rect, QItemSelectionModel::SelectionF
 
 void AnglesView::updateGeometries()
 {
-    horizontalScrollBar()->setPageStep(viewport()->width());
-    horizontalScrollBar()->setRange(0, qMax(0, 2*totalSize - viewport()->width()));
-    verticalScrollBar()->setPageStep(viewport()->height());
-    verticalScrollBar()->setRange(0, qMax(0, totalSize - viewport()->height()));
+//    horizontalScrollBar()->setPageStep(viewport()->width());
+//    horizontalScrollBar()->setRange(0, qMax(0, 2*totalSize - viewport()->width()));
+//    verticalScrollBar()->setPageStep(viewport()->height());
+//    verticalScrollBar()->setRange(0, qMax(0, totalSize - viewport()->height()));
 }
 
 int AnglesView::verticalOffset() const

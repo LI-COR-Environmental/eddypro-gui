@@ -39,12 +39,16 @@
 
 WindFilterView::WindFilterView(QWidget *parent) : QAbstractItemView(parent)
 {
+    setAutoScroll(false);
+    setAutoScrollMargin(false);
+    setDragEnabled(false);
     horizontalScrollBar()->setRange(0, 0);
     verticalScrollBar()->setRange(0, 0);
 
-    margin = 26;
-    totalSize = 200;
+    margin = 28;
+    totalSize = 470; // side of the square
     pieSize = totalSize - 2 * margin;
+    fontSize = 14;
     validItems = 0;
 }
 
@@ -59,9 +63,13 @@ void WindFilterView::dataChanged(const QModelIndex &topLeft,
     validItems = 0;
     for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
     {
-        auto index = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
-        auto value = model()->data(index, Qt::EditRole).toDouble();
+        auto startAngleIndex = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
+        auto startAngleValue = model()->data(startAngleIndex, Qt::EditRole).toDouble();
 
+        auto endAngleIndex = model()->index(row, WindFilterTableModel::END_ANGLE, rootIndex());
+        auto endAngleValue = model()->data(endAngleIndex, Qt::EditRole).toDouble();
+
+        auto value = endAngleValue - startAngleValue;
         if (value > 0.0)
         {
             validItems++;
@@ -123,9 +131,13 @@ QModelIndex WindFilterView::indexAt(const QPoint &point) const
 
         for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
         {
-            auto index = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
-            auto value = model()->data(index, Qt::EditRole).toDouble();
+            auto startAngleIndex = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
+            auto startAngleValue = model()->data(startAngleIndex, Qt::EditRole).toDouble();
 
+            auto endAngleIndex = model()->index(row, WindFilterTableModel::END_ANGLE, rootIndex());
+            auto endAngleValue = model()->data(endAngleIndex, Qt::EditRole).toDouble();
+
+            auto value = endAngleValue - startAngleValue;
             if (value > 0.0)
             {
                 auto sliceAngle = value;
@@ -343,18 +355,18 @@ void WindFilterView::paintEvent(QPaintEvent *event)
     // Viewport rectangles
     auto pieRect = QRect(margin, margin, pieSize, pieSize);
 
+    // draw cardinal points
     painter.save();
-
     QLinearGradient fade(0, 0, 0, height());
     fade.setColorAt(0, QColor(212, 243, 255)); // #d4f3ff"
     fade.setColorAt(1, QColor(170, 230, 255)); // #aae6ff
     // NOTE: to verify
-    QFont myFont(QStringLiteral("Open Sans"), 14, QFont::Bold);
+    QFont myFont(QStringLiteral("Open Sans"), fontSize, QFont::Bold);
     QPainterPath myPath;
-    myPath.addText(QPointF(94, 20), myFont, tr("N"));
-    myPath.addText(QPointF(178, 105), myFont, tr("E"));
-    myPath.addText(QPointF(94, 192), myFont, tr("S"));
-    myPath.addText(QPointF(4, 105), myFont, tr("W"));
+    myPath.addText(QPointF(totalSize / 2 - fontSize / 2, fontSize + fontSize / 2), myFont, tr("N"));
+    myPath.addText(QPointF(totalSize - fontSize - fontSize / 4, totalSize / 2 + fontSize / 2), myFont, tr("E"));
+    myPath.addText(QPointF(totalSize / 2 - fontSize / 4, totalSize - fontSize + fontSize / 2), myFont, tr("S"));
+    myPath.addText(QPointF(fontSize / 2, totalSize / 2 + fontSize / 2), myFont, tr("W"));
     myPath.closeSubpath();
     painter.setBrush(fade);
     painter.setPen(QPen(Qt::darkCyan));
@@ -363,26 +375,35 @@ void WindFilterView::paintEvent(QPaintEvent *event)
     // for debugging
 //    QPen textPen(option.palette.color(QPalette::Text));
 //    painter.setPen(textPen);
-//    painter.drawText(QPointF(20, 20), QStringLiteral("valid items: ") + QString::number(validItems));
+//    painter.drawText(QPointF(110, 20), QStringLiteral("valid items: ") + QString::number(validItems));
 
     painter.restore();
 
+    // draw sectors
     if (validItems >= 0)
     {
+        // draw external circle
         painter.save();
         painter.translate(pieRect.x() - horizontalScrollBar()->value(),
                           pieRect.y() - verticalScrollBar()->value());
         painter.drawEllipse(0, 0, pieSize, pieSize);
 
         // starting from north, clockwise
-        double startAngle = 90.0;
+        double northOffset = 90.0;
+
         for (auto row = 0; row < model()->rowCount(rootIndex()); ++row)
         {
-            auto index = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
-            auto value = model()->data(index, Qt::EditRole).toDouble();
+            auto startAngleIndex = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
+            auto startAngleValue = model()->data(startAngleIndex, Qt::EditRole).toDouble();
+
+            auto endAngleIndex = model()->index(row, WindFilterTableModel::END_ANGLE, rootIndex());
+            auto endAngleValue = model()->data(endAngleIndex, Qt::EditRole).toDouble();
+
+            auto value = endAngleValue - startAngleValue;
 
             if (value > 0.0)
             {
+                auto startAngle = startAngleValue;
                 auto spanAngle = value;
 
                 auto colorIndex = model()->index(row, WindFilterTableModel::START_ANGLE, rootIndex());
@@ -404,47 +425,36 @@ void WindFilterView::paintEvent(QPaintEvent *event)
 
                 QBrush selectionPattern(satColor);
 
-                auto checked = model()->data(colorIndex, Qt::CheckStateRole).toInt();
-
-                if (currentIndex() == index && selections->hasSelection())
+                qDebug() << "currentIndex()" << currentIndex();
+                qDebug() << "selections->hasSelection()" << selections->hasSelection();
+                if ((currentIndex() == startAngleIndex || currentIndex() == endAngleIndex) && selections->hasSelection())
                 {
-                    if (checked)
-                    {
-                        painter.setBrush(selectionPattern);
-                    }
-                    else
-                    {
-                        painter.setBrush(QBrush(Qt::darkGray));
-                    }
+                    qDebug() << "if 1";
+                    painter.setBrush(selectionPattern);
                 }
-                else if (selections->isSelected(index))
+                else if (selections->isSelected(startAngleIndex) || selections->isSelected(endAngleIndex))
                 {
+                    qDebug() << "if 2";
+                    qDebug() << "selections->isSelected(startAngleIndex)" << selections->isSelected(startAngleIndex);
                     // NOTE: hack for bad setSelection() results
                     selections->setCurrentIndex(currentIndex(), QItemSelectionModel::ClearAndSelect);
                 }
                 else
                 {
-                    if (checked)
-                    {
-                        painter.setBrush(rg);
-                    }
-                    else
-                    {
-                        painter.setBrush(QBrush(Qt::lightGray));
-                    }
+                   qDebug() << "else";
+                   painter.setBrush(rg);
                 }
 
-                // clockwise
-                double int_part;
+                double integral_part;
 
-                modf(startAngle * 16.0, &int_part);
-                auto stAngle = static_cast<int>(int_part);
+                modf((northOffset - startAngle) * 16.0, &integral_part);
+                auto stAngle = static_cast<int>(integral_part);
 
-                modf(-spanAngle * 16.0, &int_part);
-                auto spAngle = static_cast<int>(int_part);
+                // negative span => clockwise
+                modf(-spanAngle * 16.0, &integral_part);
+                auto spAngle = static_cast<int>(integral_part);
 
                 painter.drawPie(0, 0, pieSize, pieSize, stAngle, spAngle);
-                startAngle -= spanAngle;
             }
         }
         painter.restore();
@@ -453,7 +463,7 @@ void WindFilterView::paintEvent(QPaintEvent *event)
 
 QSize WindFilterView::sizeHint() const
 {
-    return QSize{200, 200};
+    return QSize{totalSize, totalSize};
 }
 
 void WindFilterView::resizeEvent(QResizeEvent *event)
@@ -592,10 +602,6 @@ void WindFilterView::setSelection(const QRect &rect, QItemSelectionModel::Select
 
 void WindFilterView::updateGeometries()
 {
-    horizontalScrollBar()->setPageStep(viewport()->width());
-    horizontalScrollBar()->setRange(0, qMax(0, 2*totalSize - viewport()->width()));
-    verticalScrollBar()->setPageStep(viewport()->height());
-    verticalScrollBar()->setRange(0, qMax(0, totalSize - viewport()->height()));
 }
 
 int WindFilterView::verticalOffset() const

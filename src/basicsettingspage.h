@@ -342,7 +342,7 @@ private:
     QToolButton *removeButton;
     WindFilterTableModel *windFilterTableModel_;
     WindFilterTableView *windFilterTableView_;
-//    WindFilterView *windFilterView_;
+    WindFilterView *windFilterView_;
     QItemSelectionModel *windFilterSelectionModel_;
     void createWindFilterArea();
     void setupWindFilterModel();
