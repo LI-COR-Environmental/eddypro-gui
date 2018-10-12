@@ -276,6 +276,7 @@ int WindFilterView::horizontalOffset() const
 
 void WindFilterView::mousePressEvent(QMouseEvent *event)
 {
+    qDebug() << 'mousePressEvent';
     auto item = indexAt(event->pos());
     if (!item.isValid())
         clearSelection();
@@ -542,6 +543,7 @@ void WindFilterView::scrollTo(const QModelIndex &index, ScrollHint)
 */
 void WindFilterView::setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags command)
 {
+    qDebug() << 'setSelection';
     // Use content widget coordinates because we will use the itemRegion()
     // function to check for intersections.
     auto contentsRect = rect.translated(
