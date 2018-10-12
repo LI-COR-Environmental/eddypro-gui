@@ -33,7 +33,6 @@
 #include "anem_delegate.h"
 #include "anem_model.h"
 #include "anem_view.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "irga_delegate.h"
 #include "irga_model.h"

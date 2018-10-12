@@ -35,7 +35,6 @@
 #define M_PI 3.1415927
 #endif
 
-#include "dbghelper.h"
 #include "windfilter_tablemodel.h"
 
 WindFilterView::WindFilterView(QWidget *parent) : QAbstractItemView(parent)

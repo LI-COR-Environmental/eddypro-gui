@@ -26,7 +26,6 @@
 #include <QApplication>
 #include <QDebug>
 
-#include "dbghelper.h"
 #include "stringutils.h"
 #include "widget_utils.h"
 

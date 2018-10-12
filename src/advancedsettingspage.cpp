@@ -29,7 +29,6 @@
 #include <QListWidget>
 #include <QPushButton>
 
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "advmenudelegate.h"

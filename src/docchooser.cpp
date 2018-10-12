@@ -32,7 +32,6 @@
 #include <QSettings>
 #include <QVBoxLayout>
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "globalsettings.h"
 #include "widget_utils.h"

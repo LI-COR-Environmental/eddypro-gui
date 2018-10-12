@@ -27,7 +27,6 @@
 #include <QContextMenuEvent>
 #include <QMenu>
 
-#include "dbghelper.h"
 #include "irga_model.h"
 
 // Constructor

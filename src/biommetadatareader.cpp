@@ -27,7 +27,6 @@
 #include <QSettings>
 
 #include "bminidefs.h"
-#include "dbghelper.h"
 
 const QString BiomMetadataReader::getVAR_TA()
 {

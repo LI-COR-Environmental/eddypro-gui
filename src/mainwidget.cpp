@@ -31,7 +31,6 @@
 #include "advspectraloptions.h"
 #include "basicsettingspage.h"
 #include "configstate.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "projectpage.h"

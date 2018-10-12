@@ -26,8 +26,6 @@
 #include <QDebug>
 #include <QIcon>
 
-#include "dbghelper.h"
-
 CustomClearLineEdit::CustomClearLineEdit(QWidget *parent) :
     CustomLineEdit(parent)
 {

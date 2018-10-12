@@ -36,7 +36,6 @@
 
 #include "clicklabel.h"
 #include "createpackagedialog.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "ecproject.h"
 #include "fileutils.h"

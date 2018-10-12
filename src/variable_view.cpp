@@ -27,7 +27,6 @@
 #include <QContextMenuEvent>
 #include <QMenu>
 
-#include "dbghelper.h"
 #include "variable_model.h"
 
 VariableView::VariableView(QWidget *parent) :

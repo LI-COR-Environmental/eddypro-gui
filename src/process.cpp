@@ -34,8 +34,6 @@
 #include <psapi.h>
 #endif
 
-#include "dbghelper.h"
-
 Process::Process(QWidget* parent, QString fullPath) :
     QObject(parent),
     process_(nullptr),

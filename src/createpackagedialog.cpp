@@ -33,7 +33,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "dirbrowsewidget.h"
 #include "fileutils.h"

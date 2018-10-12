@@ -33,7 +33,6 @@
 #include "anem_desc.h"
 #include "anem_model.h"
 #include "defs.h"
-#include "dbghelper.h"
 
 AnemDelegate::AnemDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {

@@ -18,7 +18,6 @@ HEADERS += \
     src/customcombomodel.h \
     src/customheader.h \
     src/customsplashscreen.h \
-    src/dbghelper.h \
     src/defs.h \
     src/dlinidefs.h \
     src/dlinidialog.h \
@@ -120,7 +119,6 @@ SOURCES +=  \
     src/customcombomodel.cpp \
     src/customheader.cpp \
     src/customsplashscreen.cpp \
-    src/dbghelper.cpp \
     src/dlinidialog.cpp \
     src/dlinstrtab.cpp \
     src/dlproject.cpp \

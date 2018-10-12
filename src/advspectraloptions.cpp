@@ -42,7 +42,6 @@
 #include "clicklabel.h"
 #include "customcombomodel.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "dirbrowsewidget.h"
 #include "dlproject.h"
 #include "ecproject.h"

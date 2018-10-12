@@ -35,7 +35,6 @@
 #include <QTranslator>
 
 #include "customsplashscreen.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "fileutils.h"
 #include "globalsettings.h"

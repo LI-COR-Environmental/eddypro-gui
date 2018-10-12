@@ -31,7 +31,6 @@
 #include <QLabel>
 
 #include "customcombobox.h"
-#include "dbghelper.h"
 #include "globalsettings.h"
 #include "nonzerodoublespinbox.h"
 #include "variable_model.h"

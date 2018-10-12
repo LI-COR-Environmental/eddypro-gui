@@ -48,7 +48,6 @@
 #include <memory>
 
 #include "configstate.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "docchooser.h"
 #include "fileutils.h"

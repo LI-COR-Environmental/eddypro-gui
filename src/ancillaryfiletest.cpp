@@ -34,7 +34,6 @@
 
 #include <algorithm>
 
-#include "dbghelper.h"
 #include "stringutils.h"
 #include "container_helpers.h"
 #include "widget_utils.h"

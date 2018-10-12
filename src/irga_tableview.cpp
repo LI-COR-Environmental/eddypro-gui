@@ -29,7 +29,6 @@
 
 #include "clicklabel.h"
 #include "customheader.h"
-#include "dbghelper.h"
 #include "defs.h"
 
 IrgaTableView::IrgaTableView(QWidget *parent) :

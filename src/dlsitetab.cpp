@@ -39,7 +39,6 @@
 #include <cmath>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "widget_utils.h"
 

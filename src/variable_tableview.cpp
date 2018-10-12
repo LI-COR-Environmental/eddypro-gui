@@ -29,7 +29,6 @@
 #include <QScrollBar>
 
 #include "customheader.h"
-#include "dbghelper.h"
 
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)

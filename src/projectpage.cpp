@@ -40,7 +40,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "dirbrowsewidget.h"
 #include "dlinidialog.h"
 #include "dlproject.h"

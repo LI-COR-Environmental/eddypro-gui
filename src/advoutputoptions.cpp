@@ -39,7 +39,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customcheckbox.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "richtextcheckbox.h"
 #include "widget_utils.h"

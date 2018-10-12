@@ -27,7 +27,6 @@
 #include <QStringList>
 
 #include "anem_desc.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "irga_desc.h"
 

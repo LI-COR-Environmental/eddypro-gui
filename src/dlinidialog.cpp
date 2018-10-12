@@ -30,7 +30,6 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-#include "dbghelper.h"
 #include "dlinstrtab.h"
 #include "dlproject.h"
 #include "dlrawfiledesctab.h"

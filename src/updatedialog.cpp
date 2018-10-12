@@ -31,7 +31,6 @@
 #include <QTimer>
 #include <QUrl>
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "downloadmanager.h"
 #include "stringutils.h"

@@ -26,7 +26,6 @@
 #include <QDebug>
 #include <QSettings>
 
-#include "dbghelper.h"
 #include "ecinidefs.h"
 #include "fileutils.h"
 #include "mainwindow.h"

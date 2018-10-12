@@ -28,7 +28,6 @@
 #include <QMenu>
 
 #include "anem_model.h"
-#include "dbghelper.h"
 
 // Constructor
 AnemView::AnemView(QWidget *parent) :

@@ -34,7 +34,6 @@
 #include <QUrl>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "ecproject.h"
 #include "smartfluxbar.h"

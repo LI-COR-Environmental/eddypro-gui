@@ -25,7 +25,6 @@
 #include <QDebug>
 #include <QStackedLayout>
 
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "advoutputoptions.h"

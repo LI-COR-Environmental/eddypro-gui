@@ -57,7 +57,6 @@
 #include "clicklabel.h"
 #include "customsplashscreen.h"
 #include "detectdaterangedialog.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "globalsettings.h"

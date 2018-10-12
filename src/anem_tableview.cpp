@@ -29,7 +29,6 @@
 
 #include "clicklabel.h"
 #include "customheader.h"
-#include "dbghelper.h"
 
 AnemTableView::AnemTableView(QWidget *parent) :
     QTableView(parent)

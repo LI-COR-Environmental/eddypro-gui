@@ -31,7 +31,6 @@
 #include <QScrollArea>
 #include <QToolButton>
 
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "rawfilesettingsdialog.h"
 #include "variable_delegate.h"

@@ -32,7 +32,6 @@
 
 #include "clicklabel.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "widget_utils.h"
 

@@ -32,7 +32,6 @@
 
 #include "JlCompress.h"
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "widget_utils.h"
 

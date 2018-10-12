@@ -30,8 +30,6 @@
 #include <QString>
 #include <QStringList>
 
-#include "dbghelper.h"
-
 const QString StringUtils::fromBool2YesNoString(bool b)
 {
     return ((b) ? QObject::tr("yes") : QObject::tr("no"));

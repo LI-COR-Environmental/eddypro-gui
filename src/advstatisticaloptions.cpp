@@ -38,7 +38,6 @@
 #include <QUrl>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "splitter.h"
 #include "widget_utils.h"

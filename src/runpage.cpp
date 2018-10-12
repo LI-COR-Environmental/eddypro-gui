@@ -36,7 +36,6 @@
 #include <cmath>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "smartfluxbar.h"
 #include "widget_utils.h"

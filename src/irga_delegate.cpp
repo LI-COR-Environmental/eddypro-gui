@@ -31,7 +31,6 @@
 #include <QLabel>
 #include <QLineEdit>
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "irga_desc.h"
 #include "irga_model.h"

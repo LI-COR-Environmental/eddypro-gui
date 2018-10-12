@@ -35,7 +35,6 @@
 #define M_PI 3.1415927
 #endif
 
-#include "dbghelper.h"
 #include "angle_tablemodel.h"
 
 AnglesView::AnglesView(QWidget *parent) : QAbstractItemView(parent)

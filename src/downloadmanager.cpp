@@ -28,7 +28,6 @@
 
 #include <QThread>
 
-#include "dbghelper.h"
 #include "defs.h"
 
 DownloadManager::DownloadManager(QObject *parent) :

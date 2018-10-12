@@ -67,7 +67,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "dirbrowsewidget.h"
 #include "dlproject.h"

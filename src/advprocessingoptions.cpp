@@ -44,7 +44,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customresetlineedit.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "fileutils.h"

@@ -34,7 +34,6 @@
 #include <QRadioButton>
 #include <QScrollArea>
 
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "widget_utils.h"
 

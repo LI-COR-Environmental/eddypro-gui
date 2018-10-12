@@ -27,7 +27,6 @@
 #include <QRegularExpression>
 #include <QSettings>
 
-#include "dbghelper.h"
 #include "dlinidefs.h"
 #include "fileutils.h"
 #include "mainwindow.h"

@@ -46,7 +46,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
 #include "globalsettings.h"
