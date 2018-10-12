@@ -34,7 +34,7 @@
 #include <psapi.h>
 #endif
 
-Process::Process(QWidget* parent, QString fullPath) :
+Process::Process(QObject* parent, QString fullPath) :
     QObject(parent),
     process_(nullptr),
     fullPath_(std::move(fullPath)),
