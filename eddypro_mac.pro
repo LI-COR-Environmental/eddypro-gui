@@ -3,9 +3,9 @@
 TEMPLATE = app
 
 # EddyPro version
-VER_MAJ = 6
-VER_MIN = 2
-VER_PAT = 2
+VER_MAJ = 7
+VER_MIN = 0
+VER_PAT = 0
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -21,6 +21,7 @@ CONFIG += debug_and_release
 CONFIG += c++14
 
 QML_IMPORT_PATH += qml
+
 # Build tree with shadow building approach
 include(build_tree.pri)
 
