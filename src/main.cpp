@@ -652,7 +652,7 @@ void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, c
 
 bool extractDocs(const QString& currentDir)
 {
-    auto docDir = currentDir
+    QString docDir = currentDir
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
     qDebug() << "docDir" << docDir;
@@ -663,7 +663,7 @@ bool extractDocs(const QString& currentDir)
         return false;
     }
 
-    auto docArchive = docDir
+    QString docArchive = docDir
                       + QStringLiteral(".")
                       + Defs::ZIP_NATIVE_DATA_FILE_EXT;
     qDebug() << "docArchive" << docArchive;
