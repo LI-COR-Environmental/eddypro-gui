@@ -62,10 +62,8 @@ this free software.
 - University of Chicago: m_levenberg_marquardt from the MINPACK package
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
-- Boost C++ Libraries
-- Witold Wysota: Debug helper class
 - Sergey A. Tachenov: QuaZIP
-- Mark Summerfield: helper classes from the book 'Advanced Qt Programming'
+- Boost C++ Libraries
 
 ## Tools
 
@@ -73,3 +71,5 @@ this free software.
 - MinGW compiler and GDB debugger
 - Clang compiler
 - The Qt Company: Qt Creator IDE
+- Daniel Turini: pausep
+- Igor Pavlov: 7za
