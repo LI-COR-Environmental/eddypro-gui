@@ -87,8 +87,8 @@ const QString DlProject::VARIABLE_VAR_STRING_12 = QStringLiteral("air_t");
 const QString DlProject::VARIABLE_VAR_STRING_13 = QStringLiteral("air_p");
 const QString DlProject::VARIABLE_VAR_STRING_14 = QStringLiteral("ignore");
 const QString DlProject::VARIABLE_VAR_STRING_15 = QStringLiteral("cell_t");
-const QString DlProject::VARIABLE_VAR_STRING_16 = QStringLiteral("v");
-const QString DlProject::VARIABLE_VAR_STRING_17 = QStringLiteral("u");
+const QString DlProject::VARIABLE_VAR_STRING_16 = QStringLiteral("v"); // rho
+const QString DlProject::VARIABLE_VAR_STRING_17 = QStringLiteral("u"); // theta
 const QString DlProject::VARIABLE_VAR_STRING_18 = QStringLiteral("not_numeric");
 const QString DlProject::VARIABLE_VAR_STRING_19 = QStringLiteral("co");
 const QString DlProject::VARIABLE_VAR_STRING_20 = QStringLiteral("so2");
@@ -881,7 +881,7 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     datafile.close();
 
-    hasGoodWindComponentsAndTemperature();
+//    hasGoodWindComponentsAndTemperature();
 
     // just loaded projects are not modified
     if (!isVersionCompatible && checkVersion && !firstReading)
@@ -1243,7 +1243,7 @@ bool DlProject::saveProject(const QString& filename)
                              tr("Unable to tag project file!"));
     }
 
-    hasGoodWindComponentsAndTemperature();
+//    hasGoodWindComponentsAndTemperature();
 
     // project is saved, so set flags accordingly
     setModified(false);
@@ -2653,6 +2653,15 @@ bool DlProject::checkAnemVars(const AnemComponents &hash, bool isFastTempAvailab
     bool res = (test_u && test_v && test_w && (test_Ts || test_Sos || isFastTempAvailable))
                 ||
                (test_rho && test_theta && test_w && (test_Ts || test_Sos || isFastTempAvailable));
+
+    qDebug() << "checkAnemVars res" << res;
+    qDebug() << "checkAnemVars test_u" << test_u;
+    qDebug() << "checkAnemVars test_v" << test_v;
+    qDebug() << "checkAnemVars test_w" << test_w;
+    qDebug() << "checkAnemVars test_Ts" << test_Ts;
+    qDebug() << "checkAnemVars test_Sos" << test_Sos;
+    qDebug() << "checkAnemVars test_rho" << test_rho;
+    qDebug() << "checkAnemVars test_theta" << test_theta;
 
     return res;
 }

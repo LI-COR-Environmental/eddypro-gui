@@ -665,6 +665,7 @@ const QStringList VariableDesc::yesNoStringList()
             << tr("no"));
 }
 
+// test on u (rho), v (theta), w
 bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 {
     const QString& name = var.variable();
@@ -677,6 +678,7 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
     bool isGoodName = false;
     if (!name.isEmpty())
     {
+        // u, v, w, rho, theta
         isGoodName = (name == getVARIABLE_VAR_STRING_0())
                       || (name == getVARIABLE_VAR_STRING_1())
                       || (name == getVARIABLE_VAR_STRING_2())
@@ -693,15 +695,17 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 
     // 3
     bool isGoodInputUnit = false;
+    // empty or no scaling
     if (conversionType.isEmpty()
         || conversionType == getVARIABLE_CONVERSION_TYPE_STRING_2())
     {
         if (!inputUnit.isEmpty())
         {
+            // good if m/s, cm/s, mm/s or degrees
             isGoodInputUnit = (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_2())
                            || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_3())
                            || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_4())
-                           || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_18());
+                           || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_27());
         }
     }
     else
@@ -710,15 +714,18 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
     }
 
     bool isGoodOutputUnit = false;
+    // empty and different from none
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
     {
+        // good if m/s, cm/s, mm/s or degrees
         isGoodOutputUnit = (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_2())
                         || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_3())
-                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4());
-
+                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4())
+                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_27());
     }
 
     bool isGoodUnit = false;
+    // empty or no scaling
     if (conversionType.isEmpty()
         || conversionType == getVARIABLE_CONVERSION_TYPE_STRING_2())
     {
@@ -731,6 +738,16 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
+
+    qDebug() << "var name" << name;
+    if (!isGoodName)
+        qDebug() << "isGoodName" << isGoodName;
+    if (!isGoodInstrument)
+        qDebug() << "isGoodInstrument" << isGoodInstrument;
+    if (!isGoodUnit)
+        qDebug() << "isGoodUnit" << isGoodUnit;
+    if (!isGoodABValue)
+        qDebug() << "isGoodABValue" << isGoodABValue;
 
     // all
     return (isGoodName
@@ -971,6 +988,9 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     const QString& inputUnit = var.inputUnit();
     const QString& conversionType = var.conversionType();
     const QString& outputUnit = var.outputUnit();
+
+    qDebug() << "name" << name;
+    qDebug() << "type" << (type == AnalogType::SLOW ? 'SLOW' : 'FAST');
 
     // 1
     bool isGoodName = false;

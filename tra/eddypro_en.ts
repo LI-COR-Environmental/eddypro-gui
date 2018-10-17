@@ -6461,12 +6461,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>no</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="691"/>
+        <location filename="../src/variable_desc.cpp" line="693"/>
         <source>Sonic</source>
         <translation>Sonic</translation>
     </message>
     <message>
-        <location filename="../src/variable_desc.cpp" line="802"/>
+        <location filename="../src/variable_desc.cpp" line="819"/>
         <source>Irga</source>
         <translation>Irga</translation>
     </message>
