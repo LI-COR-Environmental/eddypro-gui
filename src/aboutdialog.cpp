@@ -116,83 +116,11 @@ AboutDialog::AboutDialog(QWidget* parent)
     thanksLabel->setWordWrap(true);
 
     auto thanksEdit = new QTextEdit;
-    thanksEdit->setText(
-        tr("<h4>Original Authors</h4>"
-           "<ul type=\"square\">"
-           "<li>Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer</li>"
-           "<li>Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer</li>"
-           "<li>Dario Papale (darpap@unitus.it): project manager and coordinator</li>"
-           "</ul>"
-
-           "<h4>Others contributors</h4>"
-           "<ul type=\"square\">"
-           "<li>Carlo Trotta: code harmonization and documentation</li>"
-           "<li>Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)</li>"
-           "<li>Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)</li>"
-           "<li>Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)</li>"
-           "<li>Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.</li>"
-           "</ul>"
-
-           "<h4>Software validation (intercomparison)</h4>"
-           "<ul type=\"square\">"
-           "<li>Juha-Pekka Tuovinen</li>"
-           "<li>Andreas Ibrom</li>"
-           "<li>Ivan Mammarella</li>"
-           "<li>Robert Clement</li>"
-           "<li>Meelis Molder</li>"
-           "<li>Olaf Kolle</li>"
-           "<li>Corinna Rebmann</li>"
-           "<li>Matthias Mauder</li>"
-           "<li>Jan Elbers</li>"
-           "</ul>"
-
-           "<h4>User testing and bug notifications</h4>"
-           "<ul type=\"square\">"
-           "<li>Tarek El-Madany</li>"
-           "<li>Sergiy Medinets</li>"
-           "<li>Beniamino Gioli</li>"
-           "<li>Nicola Arriga</li>"
-           "<li>Luca Belelli</li>"
-           "<li>Michal Heliasz</li>"
-           "<li>Bernard Heinesch</li>"
-           "<li>Arnaud Carrara</li>"
-           "<li>Patrik Vestin</li>"
-           "<li>Matthias Barthel</li>"
-           "<li>Karoline Wischnewski</li>"
-           "<li>Matthew Wilkinson</li>"
-           "<li>Simone Sabbatini</li>"
-           "</ul>"
-
-           "<h4>Software discussions</h4>"
-           "<ul type=\"square\">"
-           "<li>Ian Elbers</li>"
-           "<li>George Burba</li>"
-           "<li>Christian Wille</li>"
-           "</ul>"
-
-           "<h4>Libraries</h4>"
-           "<ul type=\"square\">"
-           "<li>Arjan van Dijk: libdate module</li>"
-           "<li>Michael Baudin, Arjen Markus: m_logging module</li>"
-           "<li>University of Chicago: m_levenberg_marquardt from the MINPACK package</li>"
-           "<li>netlib.org: FFT routines from the SLATEC Common Mathematical Library</li>"
-           "<li>The Qt Company: Qt framework</li>"
-           "<li>Boost::math</li>"
-           "<li>Witold Wysota: Debug helper class</li>"
-           "<li>Sergey A. Tachenov: QuaZIP</li>"
-           "<li>Mark Summerfield: classes from the book 'Advanced Qt Programming'</li>"
-           "</ul>"
-
-           "<h4>Tools</h4>"
-           "<ul type=\"square\">"
-           "<li>GFortran compiler</li>"
-           "<li>MinGW compiler and GDB debugger</li>"
-           "<li>Clang compiler</li>"
-           "<li>The Qt Company: Qt Creator IDE</li>"
-           "<li>Code::Blocks IDE</li>"
-           "<li>\n</li>"
-           "</ul>"));
+    QFile thanksFile(QStringLiteral(":/docs/thanks"));
+    thanksFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    thanksEdit->setText(QLatin1String(thanksFile.readAll()));
     thanksEdit->setReadOnly(true);
+    thanksFile.close();
 
     auto thanksLayout = new QVBoxLayout;
     thanksLayout->addWidget(thanksLabel);

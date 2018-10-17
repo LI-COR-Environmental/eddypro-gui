@@ -24,13 +24,7 @@
         <translation>&lt;br /&gt;%1 is an open source software application that is developed, maintained, supported by LI-COR Biosciences. It originates from ECO2S, the Eddy COvariance COmmunity Software project, which was developed as part of the IMECC-EU research project.&lt;/p&gt;&lt;p&gt;We gratefully acknowledge the IMECC consortium, the ECO2S development team, the University of Tuscia (Italy) and scientists around the world who assisted with development and testing of the original version of this software.&lt;p&gt;Copyright &amp;copy; 2011-%2 LI-COR Inc.&lt;/p&gt;&lt;div&gt;Contact LI-COR Inc.:&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;4647 Superior Street&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;P.O. Box 4000&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Lincoln, Nebraska, 68504, USA&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Phone: 1-402-467-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Toll Free: 800-447-3576&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Fax: 1-402-467-2819&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Email: &lt;a href=&quot;mailto:envsupport@licor.com?subject=EddyPro %3&quot;&gt;envsupport@licor.com&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;text-indent: 20px;&quot;&gt;Website: &lt;a href=&quot;http://www.licor.com&quot;&gt;http://www.licor.com&lt;/a&gt;&lt;/div&gt;</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="120"/>
-        <source>&lt;h4&gt;Original Authors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer&lt;/li&gt;&lt;li&gt;Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer&lt;/li&gt;&lt;li&gt;Dario Papale (darpap@unitus.it): project manager and coordinator&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Others contributors&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Carlo Trotta: code harmonization and documentation&lt;/li&gt;&lt;li&gt;Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)&lt;/li&gt;&lt;li&gt;Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)&lt;/li&gt;&lt;li&gt;Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)&lt;/li&gt;&lt;li&gt;Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software validation (intercomparison)&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Juha-Pekka Tuovinen&lt;/li&gt;&lt;li&gt;Andreas Ibrom&lt;/li&gt;&lt;li&gt;Ivan Mammarella&lt;/li&gt;&lt;li&gt;Robert Clement&lt;/li&gt;&lt;li&gt;Meelis Molder&lt;/li&gt;&lt;li&gt;Olaf Kolle&lt;/li&gt;&lt;li&gt;Corinna Rebmann&lt;/li&gt;&lt;li&gt;Matthias Mauder&lt;/li&gt;&lt;li&gt;Jan Elbers&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;User testing and bug notifications&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Tarek El-Madany&lt;/li&gt;&lt;li&gt;Sergiy Medinets&lt;/li&gt;&lt;li&gt;Beniamino Gioli&lt;/li&gt;&lt;li&gt;Nicola Arriga&lt;/li&gt;&lt;li&gt;Luca Belelli&lt;/li&gt;&lt;li&gt;Michal Heliasz&lt;/li&gt;&lt;li&gt;Bernard Heinesch&lt;/li&gt;&lt;li&gt;Arnaud Carrara&lt;/li&gt;&lt;li&gt;Patrik Vestin&lt;/li&gt;&lt;li&gt;Matthias Barthel&lt;/li&gt;&lt;li&gt;Karoline Wischnewski&lt;/li&gt;&lt;li&gt;Matthew Wilkinson&lt;/li&gt;&lt;li&gt;Simone Sabbatini&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Software discussions&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Ian Elbers&lt;/li&gt;&lt;li&gt;George Burba&lt;/li&gt;&lt;li&gt;Christian Wille&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Libraries&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;Arjan van Dijk: libdate module&lt;/li&gt;&lt;li&gt;Michael Baudin, Arjen Markus: m_logging module&lt;/li&gt;&lt;li&gt;University of Chicago: m_levenberg_marquardt from the MINPACK package&lt;/li&gt;&lt;li&gt;netlib.org: FFT routines from the SLATEC Common Mathematical Library&lt;/li&gt;&lt;li&gt;The Qt Company: Qt framework&lt;/li&gt;&lt;li&gt;Boost::math&lt;/li&gt;&lt;li&gt;Witold Wysota: Debug helper class&lt;/li&gt;&lt;li&gt;Sergey A. Tachenov: QuaZIP&lt;/li&gt;&lt;li&gt;Mark Summerfield: classes from the book &apos;Advanced Qt Programming&apos;&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Tools&lt;/h4&gt;&lt;ul type=&quot;square&quot;&gt;&lt;li&gt;GFortran compiler&lt;/li&gt;&lt;li&gt;MinGW compiler and GDB debugger&lt;/li&gt;&lt;li&gt;Clang compiler&lt;/li&gt;&lt;li&gt;The Qt Company: Qt Creator IDE&lt;/li&gt;&lt;li&gt;Code::Blocks IDE&lt;/li&gt;&lt;li&gt;
-&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/aboutdialog.cpp" line="206"/>
+        <location filename="../src/aboutdialog.cpp" line="134"/>
         <source>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
 
 You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
@@ -39,7 +33,7 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
 You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="236"/>
+        <location filename="../src/aboutdialog.cpp" line="164"/>
         <source>&lt;br /&gt;Software updates include bug fixes, usability improvements
 
  and feature enhancements. These are summarized in the change log below.</source>
@@ -48,27 +42,27 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
  and feature enhancements. These are summarized in the change log below.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="256"/>
+        <location filename="../src/aboutdialog.cpp" line="184"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="257"/>
+        <location filename="../src/aboutdialog.cpp" line="185"/>
         <source>Acknowledgments</source>
         <translation>Acknowledgments</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="258"/>
+        <location filename="../src/aboutdialog.cpp" line="186"/>
         <source>License</source>
         <translation>License</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="259"/>
+        <location filename="../src/aboutdialog.cpp" line="187"/>
         <source>Changes</source>
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="261"/>
+        <location filename="../src/aboutdialog.cpp" line="189"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>

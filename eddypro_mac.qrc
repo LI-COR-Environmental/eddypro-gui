@@ -193,6 +193,7 @@
         <file alias="winstyle">css/eddypro-win.qss</file>
     </qresource>
     <qresource prefix="/docs">
+        <file alias="thanks">ACKNOWLEDGEMENTS</file>
         <file alias="changelog">CHANGELOG</file>
         <file alias="license">LICENSE</file>
     </qresource>
