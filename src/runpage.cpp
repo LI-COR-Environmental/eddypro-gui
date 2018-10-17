@@ -53,7 +53,6 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
 {
     progressWidget_ = new Spinner;
     progressWidget_->setFixedSize(31, 31);
-    progressWidget_->stop();
 //    progressWidget_->setColor(QColor(46, 98, 152));
 
     runModeIcon_ = new ClickLabel;
@@ -200,6 +199,10 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
                     << WidgetUtils::PropertyList("retRun", false);
     WidgetUtils::updatePropertyListAndStyle(main_progress_bar, progressBarProp);
     WidgetUtils::updatePropertyListAndStyle(mini_progress_bar_, progressBarProp);
+
+    QTimer::singleShot(0, this, SLOT([=]() {
+        progressWidget_->stop();
+    }));
 }
 
 RunPage::~RunPage()

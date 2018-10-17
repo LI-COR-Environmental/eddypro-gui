@@ -5,7 +5,7 @@
 Spinner::Spinner(QWidget *parent) :
     QmlWidget (QUrl(), parent)
 {
-    this->setSource(QUrl(QStringLiteral("qrc:/spinner")));
+    this->setSource(QUrl(QStringLiteral(":/quick_widgets/spinner")));
 }
 
 void Spinner::start()

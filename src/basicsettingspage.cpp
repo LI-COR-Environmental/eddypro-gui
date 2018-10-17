@@ -105,12 +105,10 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 {
     findFileProgress = new Spinner;
     findFileProgress->setFixedSize(30, 30);
-    findFileProgress->stop();
 //    findFileProgressWidget->setColor(QColor(46, 98, 152));
 
     magneticDeclinationFetchProgress = new Spinner;
     magneticDeclinationFetchProgress->setFixedSize(30, 30);
-    magneticDeclinationFetchProgress->stop();
 //    magneticDeclinationFetchProgress->setColor(QColor(46, 98, 152));
 
     datapathLabel = new ClickLabel(tr("Raw data directory :"), this);
@@ -1255,6 +1253,10 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     // other inits
     QTimer::singleShot(0, this, SLOT(reset()));
+    QTimer::singleShot(0, this, SLOT([=]() {
+        findFileProgress->stop();
+        magneticDeclinationFetchProgress->stop();
+    }));
 }
 
 BasicSettingsPage::~BasicSettingsPage()

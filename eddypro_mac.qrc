@@ -203,7 +203,7 @@
     <qresource prefix="/win_files">
         <file>win_files/app.ico</file>
     </qresource>
-    <qresource>
+    <qresource prefix="/quick_widgets">
         <file alias="spinner">qml/BusyIndicator.qml</file>
     </qresource>
     <qresource prefix="/tra">
