@@ -45,8 +45,8 @@ public:
         ANGLE_OF_ATTACK_SELECTION
     };
 
-    explicit InfoMessage(QDialogButtonBox::StandardButtons buttons,
-                         QWidget* parent = nullptr);
+    InfoMessage(QDialogButtonBox::StandardButtons buttons,
+                QWidget* parent = nullptr);
 
     void setTitle(const QString& title);
     void setIcon(const QPixmap &icon);

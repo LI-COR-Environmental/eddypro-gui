@@ -62,7 +62,7 @@ class AdvStatisticalOptions : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdvStatisticalOptions(QWidget* parent, EcProject* project);
+    AdvStatisticalOptions(QWidget* parent, EcProject* project);
 
 public slots:
     void reset();

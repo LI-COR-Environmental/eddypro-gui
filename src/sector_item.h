@@ -5,9 +5,9 @@
 
 struct SectorItem
 {
-    explicit SectorItem(double startAngle = 0.0,
-                        double endAngle = 10.0,
-                        QColor color = QColor(170, 230, 255)) // #aae6ff
+    SectorItem(double startAngle = 0.0,
+               double endAngle = 10.0,
+               QColor color = QColor(170, 230, 255)) // #aae6ff
         : startAngle_(startAngle),
           endAngle_(endAngle),
           color_(std::move(color))

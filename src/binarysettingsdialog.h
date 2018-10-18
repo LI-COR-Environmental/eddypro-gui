@@ -51,7 +51,7 @@ class BinarySettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit BinarySettingsDialog(QWidget* parent, EcProject *ecProject);
+    BinarySettingsDialog(QWidget* parent, EcProject *ecProject);
 
 public slots:
     void close();

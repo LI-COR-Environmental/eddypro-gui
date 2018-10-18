@@ -37,7 +37,7 @@ class TooltipFilter : public QObject
     TooltipType tooltipType_;
 
 public:
-    explicit TooltipFilter(bool tooltipOn, QObject* parent = nullptr);
+    TooltipFilter(bool tooltipOn, QObject* parent = nullptr);
     void setTooltipAvailable(bool available);
 
 protected:

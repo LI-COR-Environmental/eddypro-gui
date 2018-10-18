@@ -35,9 +35,9 @@ class SmartFluxBar : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SmartFluxBar(EcProject* ecProject,
-                          ConfigState* config,
-                          QWidget* parent = nullptr);
+    SmartFluxBar(EcProject* ecProject,
+                 ConfigState* config,
+                 QWidget* parent = nullptr);
     ~SmartFluxBar() override;
 
 signals:

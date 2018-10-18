@@ -52,10 +52,10 @@ class AdvSpectralOptions : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AdvSpectralOptions(QWidget* parent,
-                                DlProject* dlProject,
-                                EcProject* ecProject,
-                                ConfigState* config);
+    AdvSpectralOptions(QWidget* parent,
+                       DlProject* dlProject,
+                       EcProject* ecProject,
+                       ConfigState* config);
 
     void setSmartfluxUI();
 

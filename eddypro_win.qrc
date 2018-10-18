@@ -193,6 +193,7 @@
         <file alias="winstyle">css/eddypro-win.qss</file>
     </qresource>
     <qresource prefix="/docs">
+        <file alias="thanks">ACKNOWLEDGEMENTS</file>
         <file alias="changelog">CHANGELOG</file>
         <file alias="license">LICENSE</file>
     </qresource>
@@ -201,6 +202,9 @@
     </qresource>
     <qresource prefix="/win_files">
         <file>win_files/app.ico</file>
+    </qresource>
+    <qresource prefix="/quick_widgets">
+        <file alias="spinner">qml/BusyIndicator.qml</file>
     </qresource>
     <qresource prefix="/tra">
         <file alias="en">tra/eddypro_en.qm</file>

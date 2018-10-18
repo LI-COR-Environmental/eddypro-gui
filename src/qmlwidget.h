@@ -8,7 +8,7 @@ class QmlWidget : public QQuickWidget
     Q_OBJECT
 
 public:
-    explicit QmlWidget(QUrl source, QWidget *parent = nullptr);
+    QmlWidget(QUrl source, QWidget *parent = nullptr);
 };
 
 #endif // QMLWIDGET_H

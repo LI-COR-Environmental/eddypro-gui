@@ -30,7 +30,7 @@ class Splitter : public QSplitter
     Q_OBJECT
 
 public:
-    explicit Splitter(Qt::Orientation orientation, QWidget* parent = nullptr);
+    Splitter(Qt::Orientation orientation, QWidget* parent = nullptr);
 
 protected:
     QSplitterHandle* createHandle() override;

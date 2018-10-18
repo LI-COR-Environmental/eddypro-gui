@@ -52,10 +52,10 @@ class RawFilenameDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RawFilenameDialog(QWidget *parent,
-                               EcProject *ecProject,
-                               QStringList *suffixList,
-                               QStringList *rawFileList);
+    RawFilenameDialog(QWidget *parent,
+                      EcProject *ecProject,
+                      QStringList *suffixList,
+                      QStringList *rawFileList);
 
 signals:
     void updateFileFormatRequest(QString);

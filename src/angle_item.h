@@ -27,9 +27,9 @@
 
 struct AngleItem
 {
-    explicit AngleItem(double angle = 30.0,
-                       Qt::CheckState included = Qt::Checked,
-                       QColor color = QColor(170, 230, 255)) // #aae6ff
+    AngleItem(double angle = 30.0,
+              Qt::CheckState included = Qt::Checked,
+              QColor color = QColor(170, 230, 255)) // #aae6ff
         : angle_(angle),
           included_(included),
           color_(std::move(color))

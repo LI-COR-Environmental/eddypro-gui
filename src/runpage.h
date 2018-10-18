@@ -45,7 +45,7 @@ class RunPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit RunPage(QWidget *parent, EcProject *ecProject, ConfigState *config);
+    RunPage(QWidget *parent, EcProject *ecProject, ConfigState *config);
     ~RunPage() override;
 
     void startRun(Defs::CurrRunStatus mode);

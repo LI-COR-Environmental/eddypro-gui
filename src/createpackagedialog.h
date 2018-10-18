@@ -41,7 +41,7 @@ class CreatePackageDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CreatePackageDialog(EcProject* ecProject,
+    CreatePackageDialog(EcProject* ecProject,
                                  ConfigState* config,
                                  QWidget* parent = nullptr);
     void refresh();

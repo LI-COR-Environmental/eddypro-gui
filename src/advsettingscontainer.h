@@ -41,10 +41,10 @@ class AdvSettingsContainer : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdvSettingsContainer(QWidget* parent,
-                                  DlProject* dlProject,
-                                  EcProject* ecProject,
-                                  ConfigState* config);
+    AdvSettingsContainer(QWidget* parent,
+                         DlProject* dlProject,
+                         EcProject* ecProject,
+                         ConfigState* config);
 
     AdvProcessingOptions *processingOptions() { return processingOptions_; }
     AdvSpectralOptions *spectralOptions() { return spectralOptions_; }

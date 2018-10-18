@@ -34,7 +34,7 @@ class AngleTableModel : public QAbstractTableModel
 public:
     enum Column { DEGREES };
 
-    explicit AngleTableModel(QObject *parent, QList<AngleItem> *angles);
+    AngleTableModel(QObject *parent, QList<AngleItem> *angles);
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index,

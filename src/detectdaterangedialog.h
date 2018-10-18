@@ -37,7 +37,7 @@ class DetectDateRangeDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit DetectDateRangeDialog(QWidget* parent, EcProject *ecProject, DlProject *dlProject);
+    DetectDateRangeDialog(QWidget* parent, EcProject *ecProject, DlProject *dlProject);
 
     enum class DateRangeType { RawData, Spectra, PlanarFit, TimeLag };
     enum class DateRangeOverlapping { Overlap, NoOverlap };

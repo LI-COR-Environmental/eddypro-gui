@@ -34,7 +34,7 @@ class WindFilterTableModel : public QAbstractTableModel
 public:
     enum Column { START_ANGLE, END_ANGLE };
 
-    explicit WindFilterTableModel(QObject *parent, QList<SectorItem> *sectors);
+    WindFilterTableModel(QObject *parent, QList<SectorItem> *sectors);
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant data(const QModelIndex &index,

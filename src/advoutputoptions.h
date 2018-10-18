@@ -44,9 +44,9 @@ class AdvOutputOptions : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdvOutputOptions(QWidget* parent,
-                              EcProject* ecProject,
-                              ConfigState* config);
+    AdvOutputOptions(QWidget* parent,
+                     EcProject* ecProject,
+                     ConfigState* config);
 
     void setSmartfluxUI();
 

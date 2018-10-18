@@ -30,8 +30,8 @@ class SplitterHandle : public QSplitterHandle
     Q_OBJECT
 
 public:
-    explicit SplitterHandle(Qt::Orientation orientation,
-                            QSplitter* parent = nullptr);
+    SplitterHandle(Qt::Orientation orientation,
+                   QSplitter* parent = nullptr);
 
     QSize sizeHint() const override;
 

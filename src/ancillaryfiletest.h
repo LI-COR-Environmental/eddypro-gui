@@ -38,7 +38,7 @@ class AncillaryFileTest : public QDialog
 public:
     enum class FileType { Spectra, PlanarFit, TimeLag };
 
-    explicit AncillaryFileTest(FileType type, QWidget* parent = nullptr);
+    AncillaryFileTest(FileType type, QWidget* parent = nullptr);
 
     bool makeTest();
     void refresh(const QString &file);

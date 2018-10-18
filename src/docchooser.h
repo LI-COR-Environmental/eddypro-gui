@@ -34,7 +34,7 @@ class DocChooserDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit DocChooserDialog(QUrl  url, QWidget* parent = nullptr);
+    DocChooserDialog(QUrl  url, QWidget* parent = nullptr);
 
 signals:
 

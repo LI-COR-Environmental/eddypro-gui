@@ -27,7 +27,7 @@
 
 struct BiomItem
 {
-    explicit BiomItem(QString type, QString id, int col)
+    BiomItem(QString type, QString id, int col)
         : type_(std::move(type)),
           id_(std::move(id)),
           col_(col)
