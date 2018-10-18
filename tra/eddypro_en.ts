@@ -267,17 +267,17 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="318"/>
         <source>Fluxnet output settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Fluxnet output settings</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="319"/>
         <source>Use Fluxnet standard for biomet labels and units</source>
-        <translation type="unfinished"></translation>
+        <translation>Use Fluxnet standard for biomet labels and units</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="320"/>
         <source>Set error label in Fluxnet mode (-9999)</source>
-        <translation type="unfinished"></translation>
+        <translation>Set error label in Fluxnet mode (-9999)</translation>
     </message>
     <message>
         <location filename="../src/advoutputoptions.cpp" line="327"/>
@@ -1715,7 +1715,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="149"/>
         <source>Mahrt (1998)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahrt (1998)</translation>
     </message>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="150"/>
@@ -1730,7 +1730,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="152"/>
         <source>&lt;b&gt;Mahrt (1998):&lt;/b&gt; ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Mahrt (1998):&lt;/b&gt; ...</translation>
     </message>
     <message>
         <location filename="../src/advstatisticaloptions.cpp" line="154"/>
@@ -2905,37 +2905,37 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5062"/>
         <source>Wind Direction Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Wind Direction Filter</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5065"/>
         <source>Aplpy Wind Direction Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplpy Wind Direction Filter</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5123"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
-        <translation type="unfinished">&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
+        <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5127"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
-        <translation type="unfinished">&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
+        <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5137"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
-        <translation type="unfinished">&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
+        <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5141"/>
         <source>&lt;b&gt;Wind Direction Filter:&lt;/b&gt; ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Wind Direction Filter:&lt;/b&gt; ...</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="895"/>
         <source>Wind Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Wind Filter</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="1437"/>
@@ -3570,6 +3570,7 @@ End: %3
         <translation>Type Subset: %1
 Start: %2
 End: %3
+
 </translation>
     </message>
     <message>
@@ -7345,12 +7346,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/windfilter_tablemodel.cpp" line="132"/>
         <source>Start Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Start Angle</translation>
     </message>
     <message>
         <location filename="../src/windfilter_tablemodel.cpp" line="134"/>
         <source>End Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>End Angle</translation>
     </message>
 </context>
 <context>
@@ -7358,22 +7359,22 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/windfilter_view.cpp" line="367"/>
         <source>N</source>
-        <translation type="unfinished">N</translation>
+        <translation>N</translation>
     </message>
     <message>
         <location filename="../src/windfilter_view.cpp" line="368"/>
         <source>E</source>
-        <translation type="unfinished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
         <location filename="../src/windfilter_view.cpp" line="369"/>
         <source>S</source>
-        <translation type="unfinished">S</translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="../src/windfilter_view.cpp" line="370"/>
         <source>W</source>
-        <translation type="unfinished">W</translation>
+        <translation>W</translation>
     </message>
 </context>
 </TS>
