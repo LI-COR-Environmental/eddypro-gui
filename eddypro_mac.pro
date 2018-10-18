@@ -59,11 +59,9 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
-        QMAKE_CXXFLAGS += --system-header-prefix=boost/
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Headers"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Versions/5/Headers"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtGui.framework/Headers"
@@ -126,6 +124,3 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #build_pass:message(QMAKE_CFLAGS: $$QMAKE_CFLAGS)
 #build_pass:message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
-
-# workaround for QTBUG-34424
-TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0/*
