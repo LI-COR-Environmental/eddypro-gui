@@ -3,9 +3,9 @@
 TEMPLATE = app
 
 # EddyPro version
-VER_MAJ = 6
-VER_MIN = 2
-VER_PAT = 2
+VER_MAJ = 7
+VER_MIN = 0
+VER_PAT = 0
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -14,9 +14,13 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 
 # Qt config
 QT += core gui widgets network concurrent
+QT += qml quick quickcontrols2 quickwidgets
+
 CONFIG += warn_on
 CONFIG += debug_and_release
 CONFIG += c++14
+
+QML_IMPORT_PATH += qml
 
 # Build tree with shadow building approach
 include(build_tree.pri)
@@ -47,7 +51,7 @@ CONFIG(debug, debug|release) {
 
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.6/quazip"
 
     win32 {
         # mingw warnings
