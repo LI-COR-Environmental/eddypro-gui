@@ -1254,8 +1254,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     // other inits
     QTimer::singleShot(0, this, SLOT(reset()));
     QTimer::singleShot(0, this, SLOT([=]() {
-        findFileProgress->stop();
-        magneticDeclinationFetchProgress->stop();
+//        findFileProgress->stop();
+//        magneticDeclinationFetchProgress->stop();
     }));
 }
 
@@ -1359,9 +1359,9 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
     QString biometMdFormat = QStringLiteral("*%1.%2")
             .arg(Defs::DEFAULT_BIOMET_SUFFIX, Defs::METADATA_FILE_EXT);
 
-    findFileProgress->start();
+//    findFileProgress->start();
     currentRawDataList_ = FileUtils::getFiles(datapathBrowse->path(), ghgFormat, ecProject_->screenRecurse());
-    findFileProgress->stop();
+//    findFileProgress->stop();
 
     auto filesCount = currentRawDataList_.count();
     updateFilesFoundLabel(filesCount);
@@ -4447,7 +4447,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
 
     auto fileCount = 0;
 
-    findFileProgress->start();
+//    findFileProgress->start();
 
     // first pass, filter by extension on the file system
     if (filePrototypeEdit->text().isEmpty())
@@ -4475,7 +4475,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
         currentFilteredRawDataList_ = filterRawDataWithPrototype(filePrototypeEdit->text());
     }
 
-    findFileProgress->stop();
+//    findFileProgress->stop();
 
     fileCount = currentFilteredRawDataList_.count();
 
@@ -4514,7 +4514,7 @@ void BasicSettingsPage::askRawFilenamePrototype()
 
 void BasicSettingsPage::fetchMagneticDeclination()
 {
-    magneticDeclinationFetchProgress->start();
+//    magneticDeclinationFetchProgress->start();
     httpManager_ = new QNetworkAccessManager(this);
 
     auto noaaServiceUrl = QUrl(QStringLiteral("https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
@@ -4553,7 +4553,7 @@ void BasicSettingsPage::fetchMagneticDeclination()
 void BasicSettingsPage::replyFinished(QNetworkReply* reply)
 {
     // if no error
-    magneticDeclinationFetchProgress->stop();
+//    magneticDeclinationFetchProgress->stop();
     if (!reply->error()) { return; }
 
     // handle the error
@@ -4588,7 +4588,7 @@ void BasicSettingsPage::bufferHttpReply()
                 }
                 // manage NOAA server errors
                 noNoaaDownloadMsg();
-                magneticDeclinationFetchProgress->stop();
+//                magneticDeclinationFetchProgress->stop();
                 return;
             }
 
@@ -4636,7 +4636,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
 
         decChangingLabel->setText(variationStr);
 
-        magneticDeclinationFetchProgress->stop();
+//        magneticDeclinationFetchProgress->stop();
     }
     return true;
 }
@@ -4947,7 +4947,7 @@ void BasicSettingsPage::dateRangeDetect()
 {
     if (!currentRawDataList_.isEmpty())
     {
-        findFileProgress->start();
+//        findFileProgress->start();
 
         FileUtils::DateRange dates;
 
@@ -4958,7 +4958,7 @@ void BasicSettingsPage::dateRangeDetect()
         }
         dates = future.result();
 
-        findFileProgress->stop();
+//        findFileProgress->stop();
 
         startDateEdit->setDate(dates.first.date());
         startTimeEdit->setTime(dates.first.time());

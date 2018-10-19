@@ -201,7 +201,7 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     WidgetUtils::updatePropertyListAndStyle(mini_progress_bar_, progressBarProp);
 
     QTimer::singleShot(0, this, SLOT([=]() {
-        progressWidget_->stop();
+//        progressWidget_->stop();
     }));
 }
 
@@ -312,7 +312,7 @@ void RunPage::startRun(Defs::CurrRunStatus mode)
 
     runModeIcon_->setVisible(true);
     progressLabel_->setText(progressText);
-    progressWidget_->start();
+//    progressWidget_->start();
 }
 
 bool RunPage::pauseRun(Defs::CurrRunStatus mode)
@@ -362,7 +362,7 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Pausing computations..."));
-        progressWidget_->stop();
+//        progressWidget_->stop();
         total_elapsed_update_timer_->stop();
         main_progress_timer_.invalidate();
         QTimer::singleShot(1000, this, SLOT(pauseLabel()));
@@ -418,7 +418,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Resuming computations..."));
-        progressWidget_->start();
+//        progressWidget_->start();
         total_elapsed_update_timer_->start();
         main_progress_timer_.restart();
         QTimer::singleShot(1000, this, SLOT(resumeLabel()));
@@ -429,7 +429,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
 
 void RunPage::stopRun()
 {
-    progressWidget_->stop();
+//    progressWidget_->stop();
     resetBuffer();
     resetProgressHard();
     total_elapsed_update_timer_->stop();
@@ -1431,7 +1431,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     if (cleanLine.contains(QByteArrayLiteral("gracefully")))
     {
         main_progress_bar->setValue(main_progress_bar->maximum());
-        progressWidget_->stop();
+//        progressWidget_->stop();
         averagingPeriodIndex = 0;
         total_elapsed_update_timer_->stop();
         main_progress_timer_.invalidate();
