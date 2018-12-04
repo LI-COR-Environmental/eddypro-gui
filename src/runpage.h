@@ -35,10 +35,11 @@ class QPushButton;
 class QTextEdit;
 class QTimer;
 
+class QProgressIndicator;
+
 class ClickLabel;
 class EcProject;
 class SmartFluxBar;
-class Spinner;
 
 class RunPage : public QWidget
 {
@@ -89,7 +90,7 @@ private:
                   int num_steps);
 
     Defs::CurrRunStatus runMode_;
-    Spinner* progressWidget_;
+    QProgressIndicator* progressWidget_;
     QProgressBar* main_progress_bar;
     QProgressBar* mini_progress_bar_;
     ClickLabel* runModeIcon_;
