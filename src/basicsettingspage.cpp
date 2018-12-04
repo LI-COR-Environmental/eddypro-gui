@@ -60,6 +60,8 @@
 #pragma clang diagnostic pop
 #endif
 
+#include "QProgressIndicator.h"
+
 #include "advancedsettingspage.h"
 #include "advprocessingoptions.h"
 #include "advsettingscontainer.h"
@@ -79,7 +81,6 @@
 #include "smartfluxbar.h"
 #include "splitter.h"
 #include "widget_utils.h"
-#include "spinner.h"
 #include "windfilter_tablemodel.h"
 #include "windfilter_tableview.h"
 #include "windfilter_view.h"
@@ -92,6 +93,7 @@ const QString BasicSettingsPage::FLAG_POLICY_STRING_1 = QObject::tr("Below thres
 
 BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcProject *ecProject, ConfigState* config) :
     QWidget(parent),
+    findFileProgressWidget(nullptr),
     dlProject_(dlProject),
     ecProject_(ecProject),
     configState_(config),
@@ -99,17 +101,22 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     suffixList_(QStringList()),
     httpManager_(nullptr),
     httpReply_(nullptr),
+    magneticDeclinationFetchProgress(nullptr),
     currentRawDataList_(QStringList()),
     currentFilteredRawDataList_(QStringList()),
     biomList_(QList<BiomItem>())
 {
-    findFileProgress = new Spinner;
-    findFileProgress->setFixedSize(30, 30);
-//    findFileProgressWidget->setColor(QColor(46, 98, 152));
+    findFileProgressWidget = new QProgressIndicator;
+    findFileProgressWidget->setAnimationDelay(40);
+    findFileProgressWidget->setDisplayedWhenStopped(false);
+    findFileProgressWidget->setFixedSize(21, 21);
+    findFileProgressWidget->setColor(QColor(46, 98, 152));
 
-    magneticDeclinationFetchProgress = new Spinner;
-    magneticDeclinationFetchProgress->setFixedSize(30, 30);
-//    magneticDeclinationFetchProgress->setColor(QColor(46, 98, 152));
+    magneticDeclinationFetchProgress = new QProgressIndicator;
+    magneticDeclinationFetchProgress->setAnimationDelay(40);
+    magneticDeclinationFetchProgress->setDisplayedWhenStopped(false);
+    magneticDeclinationFetchProgress->setFixedSize(21, 21);
+    magneticDeclinationFetchProgress->setColor(QColor(46, 98, 152));
 
     datapathLabel = new ClickLabel(tr("Raw data directory :"), this);
     datapathLabel->setToolTip(tr("<b>Raw data directory:</b> Use the <i>Browse...</i> button to specify the folder that contains the raw data. If data are also contained in subfolders, select the <i>Search in subfolders</i> box."));
@@ -323,7 +330,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     filesInfoLayout->addWidget(datapathLabel, 1, 0, Qt::AlignRight);
     filesInfoLayout->addWidget(datapathBrowse, 1, 2, 1, 3);
     filesInfoLayout->addWidget(filesFound, 2, 4, 1, 1, Qt::AlignRight);
-    filesInfoLayout->addWidget(findFileProgress, 2, 3, 1, 1, Qt::AlignCenter);
+    filesInfoLayout->addWidget(findFileProgressWidget, 2, 4, 1, 1, Qt::AlignCenter);
     filesInfoLayout->addWidget(recursionCheckBox, 2, 2, 1, 2);
     filesInfoLayout->addWidget(subsetCheckBox, 3, 3, 1, 2, Qt::AlignLeft);
     filesInfoLayout->addWidget(dateRangeDetectButton, 3, 2, 1, 1, Qt::AlignLeft);
@@ -1254,8 +1261,8 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     // other inits
     QTimer::singleShot(0, this, SLOT(reset()));
     QTimer::singleShot(0, this, SLOT([=]() {
-//        findFileProgress->stop();
-//        magneticDeclinationFetchProgress->stop();
+        findFileProgressWidget->stopAnimation();
+        magneticDeclinationFetchProgress->stopAnimation();
     }));
 }
 
@@ -1359,9 +1366,9 @@ void BasicSettingsPage::captureEmbeddedMetadata(EmbeddedFileFlags type)
     QString biometMdFormat = QStringLiteral("*%1.%2")
             .arg(Defs::DEFAULT_BIOMET_SUFFIX, Defs::METADATA_FILE_EXT);
 
-//    findFileProgress->start();
+    findFileProgressWidget->startAnimation();
     currentRawDataList_ = FileUtils::getFiles(datapathBrowse->path(), ghgFormat, ecProject_->screenRecurse());
-//    findFileProgress->stop();
+    findFileProgressWidget->stopAnimation();
 
     auto filesCount = currentRawDataList_.count();
     updateFilesFoundLabel(filesCount);
@@ -4447,7 +4454,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
 
     auto fileCount = 0;
 
-//    findFileProgress->start();
+    findFileProgressWidget->startAnimation();
 
     // first pass, filter by extension on the file system
     if (filePrototypeEdit->text().isEmpty())
@@ -4475,7 +4482,7 @@ void BasicSettingsPage::updateFilesFound(bool recursionToggled)
         currentFilteredRawDataList_ = filterRawDataWithPrototype(filePrototypeEdit->text());
     }
 
-//    findFileProgress->stop();
+    findFileProgressWidget->stopAnimation();
 
     fileCount = currentFilteredRawDataList_.count();
 
@@ -4514,7 +4521,7 @@ void BasicSettingsPage::askRawFilenamePrototype()
 
 void BasicSettingsPage::fetchMagneticDeclination()
 {
-//    magneticDeclinationFetchProgress->start();
+    magneticDeclinationFetchProgress->startAnimation();
     httpManager_ = new QNetworkAccessManager(this);
 
     auto noaaServiceUrl = QUrl(QStringLiteral("https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
@@ -4551,7 +4558,7 @@ void BasicSettingsPage::fetchMagneticDeclination()
 void BasicSettingsPage::replyFinished(QNetworkReply* reply)
 {
     // if no error
-//    magneticDeclinationFetchProgress->stop();
+    magneticDeclinationFetchProgress->stopAnimation();
     if (!reply->error()) { return; }
 
     // handle the error
@@ -4586,7 +4593,7 @@ void BasicSettingsPage::bufferHttpReply()
                 }
                 // manage NOAA server errors
                 noNoaaDownloadMsg();
-//                magneticDeclinationFetchProgress->stop();
+                magneticDeclinationFetchProgress->stopAnimation();
                 return;
             }
 
@@ -4634,7 +4641,7 @@ bool BasicSettingsPage::parseHttpReply(const QByteArray& data)
 
         decChangingLabel->setText(variationStr);
 
-//        magneticDeclinationFetchProgress->stop();
+        magneticDeclinationFetchProgress->stopAnimation();
     }
     return true;
 }
@@ -4945,7 +4952,7 @@ void BasicSettingsPage::dateRangeDetect()
 {
     if (!currentRawDataList_.isEmpty())
     {
-//        findFileProgress->start();
+        findFileProgressWidget->startAnimation();
 
         FileUtils::DateRange dates;
 
@@ -4956,7 +4963,7 @@ void BasicSettingsPage::dateRangeDetect()
         }
         dates = future.result();
 
-//        findFileProgress->stop();
+        findFileProgressWidget->stopAnimation();
 
         startDateEdit->setDate(dates.first.date());
         startTimeEdit->setTime(dates.first.time());

@@ -45,6 +45,7 @@ HEADERS += \
     src/planarfitsettingsdialog.h \
     src/process.h \
     src/proxystyle.h \
+    src/QProgressIndicator.h \
     src/rawfilenamedialog.h \
     src/rawfilesettingsdialog.h \
     src/runpage.h \
@@ -97,8 +98,6 @@ HEADERS += \
     src/detectdaterangedialog.h \
     src/downloadmanager.h \
     src/openfilefilter.h \
-    src/qmlwidget.h \
-    src/spinner.h \
     src/windfilter_view.h \
     src/windfilter_tableview.h \
     src/windfilter_tablemodel.h \
@@ -140,6 +139,7 @@ SOURCES +=  \
     src/basicsettingspage.cpp \
     src/process.cpp \
     src/proxystyle.cpp \
+    src/QProgressIndicator.cpp \
     src/rawfilenamedialog.cpp \
     src/rawfilesettingsdialog.cpp \
     src/runpage.cpp \
@@ -191,8 +191,6 @@ SOURCES +=  \
     src/detectdaterangedialog.cpp \
     src/downloadmanager.cpp \
     src/openfilefilter.cpp \
-    src/qmlwidget.cpp \
-    src/spinner.cpp \
     src/mystyle.cpp \
     src/windfilter_view.cpp \
     src/windfilter_tableview.cpp \

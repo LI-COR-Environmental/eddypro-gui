@@ -64,6 +64,8 @@ class QGridLayout;
 class QToolButton;
 class QItemSelectionModel;
 
+class QProgressIndicator;
+
 class AnemDesc;
 struct BiomItem;
 class ClickLabel;
@@ -77,7 +79,6 @@ class IrgaDesc;
 class RawFilenameDialog;
 class SmartFluxBar;
 class VariableDesc;
-class Spinner;
 class WindFilterView;
 class WindFilterTableModel;
 class WindFilterTableView;
@@ -133,7 +134,7 @@ private:
     DirBrowseWidget *datapathBrowse;
     QCheckBox *recursionCheckBox;
     QLabel* filesFound;
-    Spinner* findFileProgress;
+    QProgressIndicator* findFileProgressWidget;
 
     ClickLabel *idLabel;
     CustomClearLineEdit *idEdit;
@@ -281,7 +282,7 @@ private:
     QNetworkReply *httpReply_;
     QByteArray httpBuffer_;
     QString declination_;
-    Spinner* magneticDeclinationFetchProgress;
+    QProgressIndicator* magneticDeclinationFetchProgress;
 
     QStringList currentRawDataList_;
     QStringList currentFilteredRawDataList_;

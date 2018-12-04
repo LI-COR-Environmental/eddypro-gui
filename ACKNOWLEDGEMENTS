@@ -63,6 +63,7 @@ this free software.
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
 - Sergey Tachenov: QuaZIP
+- Morgan Leborgne: QProgressIndicator widget
 
 ## Tools
 
