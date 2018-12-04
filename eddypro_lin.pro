@@ -3,9 +3,9 @@
 TEMPLATE = app
 
 # EddyPro version
-VER_MAJ = 6
-VER_MIN = 2
-VER_PAT = 2
+VER_MAJ = 7
+VER_MIN = 0
+VER_PAT = 0
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -14,9 +14,10 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 
 # Qt config
 QT += core gui widgets network concurrent
+
 CONFIG += warn_on
 CONFIG += debug_and_release
-CONFIG += c++11
+CONFIG += c++14
 
 # Build tree with shadow building approach
 include(build_tree.pri)
