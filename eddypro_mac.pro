@@ -19,8 +19,6 @@ CONFIG += warn_on
 CONFIG += debug_and_release
 CONFIG += c++14
 
-QML_IMPORT_PATH += qml
-
 # Build tree with shadow building approach
 include(build_tree.pri)
 
