@@ -4519,17 +4519,7 @@ void BasicSettingsPage::fetchMagneticDeclination()
 
     auto noaaServiceUrl = QUrl(QStringLiteral("https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"));
 
-    QNetworkRequest postRequest;
-    postRequest.setUrl(noaaServiceUrl);
-    postRequest.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
-    postRequest.setHeader(QNetworkRequest::ContentTypeHeader,
-                          QStringLiteral("application/x-www-form-urlencoded; charset=utf-8"));
-
     auto decLat = dlProject_->siteLatitude();
-//    QString minLatStr = QString::number(qAbs(decLat), 'd', 6);
-//    QString minLatHemisphere = QStringLiteral("N");
-//    if (decLat < 0)
-//        minLatHemisphere = QStringLiteral("S");
     auto decLon = dlProject_->siteLongitude();
 
     QUrlQuery q;
@@ -4541,7 +4531,15 @@ void BasicSettingsPage::fetchMagneticDeclination()
     q.addQueryItem(QStringLiteral("startDay"), QString::number(declinationDateEdit->date().day()));
     q.addQueryItem(QStringLiteral("resultFormat"), QStringLiteral("csv"));
 
-    httpReply_ = httpManager_->post(postRequest, q.query(QUrl::FullyEncoded).toUtf8());
+    noaaServiceUrl.setQuery(q);
+
+    qDebug() << "URL" << noaaServiceUrl.toString();
+
+    QNetworkRequest getRequest;
+    getRequest.setUrl(noaaServiceUrl);
+    getRequest.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
+
+    httpReply_ = httpManager_->get(getRequest);
 
     connect(httpManager_, &QNetworkAccessManager::finished,
             this, &BasicSettingsPage::replyFinished);
