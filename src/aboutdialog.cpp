@@ -41,8 +41,8 @@ AboutDialog::AboutDialog(QWidget* parent)
     resize(530, 620);
     setMinimumSize(530, 620);
 #elif defined(Q_OS_MACOS)
-    resize(660, 690);
-    setMinimumSize(660, 690);
+    resize(660, 670);
+    setMinimumSize(660, 670);
 #endif
 
     setWindowModality(Qt::WindowModal);

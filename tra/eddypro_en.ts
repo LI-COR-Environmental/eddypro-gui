@@ -33,7 +33,17 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
 You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="164"/>
+        <location filename="../src/aboutdialog.cpp" line="165"/>
+        <source>EULA Non Commercial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutdialog.cpp" line="166"/>
+        <source>EULA Commercial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/aboutdialog.cpp" line="179"/>
         <source>&lt;br /&gt;Software updates include bug fixes, usability improvements
 
  and feature enhancements. These are summarized in the change log below.</source>
@@ -42,27 +52,27 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
  and feature enhancements. These are summarized in the change log below.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="184"/>
+        <location filename="../src/aboutdialog.cpp" line="199"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="185"/>
+        <location filename="../src/aboutdialog.cpp" line="200"/>
         <source>Acknowledgments</source>
         <translation>Acknowledgments</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="186"/>
-        <source>License</source>
-        <translation>License</translation>
+        <location filename="../src/aboutdialog.cpp" line="201"/>
+        <source>Licenses</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="187"/>
+        <location filename="../src/aboutdialog.cpp" line="202"/>
         <source>Changes</source>
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="189"/>
+        <location filename="../src/aboutdialog.cpp" line="204"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -2903,32 +2913,32 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Optionally, each variable in raw data files can be used as a mask, to filter out individual raw records that do not conform quality criteria. Select the variable to be used as a flag, and define the quality criterion by entering a threshold value for that variable and whether to discard records if they are above or below the thresholds.&lt;br&gt;Note: If you describe more than one flag, EddyPro will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5074"/>
+        <location filename="../src/basicsettingspage.cpp" line="5067"/>
         <source>Wind Direction Filter</source>
         <translation>Wind Direction Filter</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5077"/>
+        <location filename="../src/basicsettingspage.cpp" line="5070"/>
         <source>Aplpy Wind Direction Filter</source>
         <translation>Aplpy Wind Direction Filter</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5135"/>
+        <location filename="../src/basicsettingspage.cpp" line="5128"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5139"/>
+        <location filename="../src/basicsettingspage.cpp" line="5132"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5149"/>
+        <location filename="../src/basicsettingspage.cpp" line="5142"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5153"/>
+        <location filename="../src/basicsettingspage.cpp" line="5146"/>
         <source>&lt;b&gt;Wind Direction Filter:&lt;/b&gt; ...</source>
         <translation>&lt;b&gt;Wind Direction Filter:&lt;/b&gt; ...</translation>
     </message>
@@ -2948,7 +2958,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>The selected directory doesn&apos;t contain any valid LI-COR GHG biomet data.</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4890"/>
+        <location filename="../src/basicsettingspage.cpp" line="4883"/>
         <source>When changing the raw data directory, all current &apos;Variables&apos; will be replaced by new &apos;Variables&apos; from the new metadata inside the GHG files. In addition all &apos;Flags&apos; variables and their settings under &apos;Select Items for Flux Computation&apos; will be reset to defaults. 
 
 </source>
@@ -2957,22 +2967,22 @@ Missing flux averaging period are filled with error codes)</translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5048"/>
+        <location filename="../src/basicsettingspage.cpp" line="5041"/>
         <source>NOAA Connection Problem</source>
         <translation>NOAA Connection Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5049"/>
+        <location filename="../src/basicsettingspage.cpp" line="5042"/>
         <source>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;No connection available or connection error updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5063"/>
+        <location filename="../src/basicsettingspage.cpp" line="5056"/>
         <source>NOAA Download Problem</source>
         <translation>NOAA Download Problem</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="5065"/>
+        <location filename="../src/basicsettingspage.cpp" line="5058"/>
         <source>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Server not responding or service not available updating the magnetic declination.&lt;/p&gt;</translation>
     </message>
@@ -3336,7 +3346,7 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="2834"/>
         <location filename="../src/basicsettingspage.cpp" line="2930"/>
-        <location filename="../src/basicsettingspage.cpp" line="4659"/>
+        <location filename="../src/basicsettingspage.cpp" line="4652"/>
         <source>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</source>
         <translation>&lt;b&gt;Magnetic Declination:&lt;/b&gt; Based upon the latitude and longitudinal coordinates entered, EddyPro determines the magnetic declination from the U.S. NOAA (National Oceanic and Atmospheric Organization) internet resources (U.S. National Geophysical Data Center).</translation>
     </message>
@@ -3351,18 +3361,18 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>%1 files found</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4647"/>
+        <location filename="../src/basicsettingspage.cpp" line="4640"/>
         <source>Changing by %1 per year</source>
         <translation>Changing by %1 per year</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4762"/>
-        <location filename="../src/basicsettingspage.cpp" line="4804"/>
+        <location filename="../src/basicsettingspage.cpp" line="4755"/>
+        <location filename="../src/basicsettingspage.cpp" line="4797"/>
         <source>%1 </source>
         <translation>%1 </translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="4886"/>
+        <location filename="../src/basicsettingspage.cpp" line="4879"/>
         <source>Variable and Flag Reset</source>
         <translation>Variable and Flag Reset</translation>
     </message>
