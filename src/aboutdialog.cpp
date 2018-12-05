@@ -134,8 +134,7 @@ AboutDialog::AboutDialog(QWidget* parent)
         tr("<br />The %1 software application is Copyright &copy; 2011-%2 "
            "LI-COR Inc.\n\n"
            "You may use, distribute and copy the %1 programs suite under "
-           "the terms of the GNU General Public License version 3, "
-           "which is displayed below. If you would like to obtain "
+           "the terms of the EULA's displayed below. If you would like to obtain "
            "a copy of the source package please contact LI-COR "
            "Biosciences at "
            "<a href=\"mailto:envsupport@licor.com?subject=%1 %3&body="
@@ -145,16 +144,30 @@ AboutDialog::AboutDialog(QWidget* parent)
     licenseLabel->setWordWrap(true);
     licenseLabel->setOpenExternalLinks(true);
 
-    auto licenseEdit = new QTextEdit;
-    QFile licenseFile(QStringLiteral(":/docs/license"));
-    licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
-    licenseEdit->setText(QLatin1String(licenseFile.readAll()));
-    licenseEdit->setReadOnly(true);
-    licenseFile.close();
+    auto eulaNonCommercialEdit = new QTextEdit;
+    QFile eulaNonCommercialFile(QStringLiteral(":/docs/eula-non-commercial"));
+    eulaNonCommercialEdit->setAcceptRichText(true);
+    eulaNonCommercialFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    eulaNonCommercialEdit->setText(QLatin1String(eulaNonCommercialFile.readAll()));
+    eulaNonCommercialEdit->setReadOnly(true);
+    eulaNonCommercialFile.close();
+
+    auto eulaCommercialEdit = new QTextEdit;
+    QFile eulaCommercialFile(QStringLiteral(":/docs/eula-commercial"));
+    eulaCommercialEdit->setAcceptRichText(true);
+    eulaCommercialFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    eulaCommercialEdit->setText(QLatin1String(eulaCommercialFile.readAll()));
+    eulaCommercialEdit->setReadOnly(true);
+    eulaCommercialFile.close();
+
+    auto licenseTab = new QTabWidget;
+    licenseTab->addTab(eulaNonCommercialEdit, tr("EULA Non Commercial"));
+    licenseTab->addTab(eulaCommercialEdit, tr("EULA Commercial"));
+    licenseTab->setStyleSheet(QStringLiteral("QTabWidget::pane {margin-bottom: 0px}"));
 
     auto licenseLayout = new QVBoxLayout;
     licenseLayout->addWidget(licenseLabel);
-    licenseLayout->addWidget(licenseEdit);
+    licenseLayout->addWidget(licenseTab);
     licenseWidget->setLayout(licenseLayout);
 
     // Changelog
@@ -183,7 +196,7 @@ AboutDialog::AboutDialog(QWidget* parent)
     auto tab = new QTabWidget;
     tab->addTab(infoWidget, tr("About"));
     tab->addTab(thanksWidget, tr("Acknowledgments"));
-    tab->addTab(licenseWidget, tr("License"));
+    tab->addTab(licenseWidget, tr("Licenses"));
     tab->addTab(changelogWidget, tr("Changes"));
 
     auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
