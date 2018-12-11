@@ -62,7 +62,7 @@ namespace Defs
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.2");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 5.3.0 x86_32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 10.0.0 (clang-1000.10.44.2) x86_64 on macOS<sup>&reg;</sup> 10.13.6");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 10.0.0 (clang-1000.10.44.4) x86_64 on macOS<sup>&reg;</sup> 10.13.6");
     const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
     const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2018");
