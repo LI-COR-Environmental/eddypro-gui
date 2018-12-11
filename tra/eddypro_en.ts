@@ -27,23 +27,23 @@
         <location filename="../src/aboutdialog.cpp" line="134"/>
         <source>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
 
-You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
+You may use, distribute and copy the %1 programs suite under the terms of the EULA&apos;s displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</source>
         <translation>&lt;br /&gt;The %1 software application is Copyright &amp;copy; 2011-%2 LI-COR Inc.
 
-You may use, distribute and copy the %1 programs suite under the terms of the GNU General Public License version 3, which is displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
+You may use, distribute and copy the %1 programs suite under the terms of the EULA&apos;s displayed below. If you would like to obtain a copy of the source package please contact LI-COR Biosciences at &lt;a href=&quot;mailto:envsupport@licor.com?subject=%1 %3&amp;body=Please, send me a copy of the source package.&quot;&gt;envsupport@licor.com&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/aboutdialog.cpp" line="164"/>
+        <source>EULA Non Commercial</source>
+        <translation>EULA Non Commercial</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="165"/>
-        <source>EULA Non Commercial</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/aboutdialog.cpp" line="166"/>
         <source>EULA Commercial</source>
-        <translation type="unfinished"></translation>
+        <translation>EULA Commercial</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="179"/>
+        <location filename="../src/aboutdialog.cpp" line="177"/>
         <source>&lt;br /&gt;Software updates include bug fixes, usability improvements
 
  and feature enhancements. These are summarized in the change log below.</source>
@@ -52,27 +52,27 @@ You may use, distribute and copy the %1 programs suite under the terms of the GN
  and feature enhancements. These are summarized in the change log below.</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="199"/>
+        <location filename="../src/aboutdialog.cpp" line="197"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="200"/>
+        <location filename="../src/aboutdialog.cpp" line="198"/>
         <source>Acknowledgments</source>
         <translation>Acknowledgments</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="201"/>
+        <location filename="../src/aboutdialog.cpp" line="199"/>
         <source>Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>Licenses</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="202"/>
+        <location filename="../src/aboutdialog.cpp" line="200"/>
         <source>Changes</source>
         <translation>Changes</translation>
     </message>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="204"/>
+        <location filename="../src/aboutdialog.cpp" line="202"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
