@@ -51,6 +51,7 @@ diff*
 sha1
 TODO
 current-version
+*.zip
 
 # misc directories
 clang-checks
