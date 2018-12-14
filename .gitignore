@@ -58,7 +58,6 @@ clang-checks
 quazip-0.7.1
 dist
 karchive*
-docs/help
 libs/*
 scripts/deploy
 scripts/qtcreator
