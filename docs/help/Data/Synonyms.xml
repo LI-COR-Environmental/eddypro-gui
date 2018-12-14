@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MadCapSynonyms xml:lang="en-us">
+    <Groups>
+        <SynonymGroup>
+            <Word>firmware</Word>
+            <Word>software</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>eddy</Word>
+            <Word>pro</Word>
+            <Word>eddypro</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="user">user</Word>
+            <Word Stem="manual">manual</Word>
+            <Word Stem="instruct">instruction</Word>
+            <Word Stem="guid">guide</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="gapfil">gapfill</Word>
+            <Word Stem="gap">gap</Word>
+            <Word Stem="fill">fill</Word>
+        </SynonymGroup>
+    </Groups>
+    <Directional>
+        <DirectionalSynonym From="2200" To="2200c" />
+        <DirectionalSynonym From="3000" To="3000c" />
+        <DirectionalSynonym From="3100" To="3100c" />
+        <DirectionalSynonym From="250" To="250a" />
+        <DirectionalSynonym From="specs" To="specif" />
+        <DirectionalSynonym From="download" To="transfer" />
+        <DirectionalSynonym From="7500" To="7500a" />
+        <DirectionalSynonym From="8100" To="8100a" />
+        <DirectionalSynonym From="7200" To="7200rs" />
+    </Directional>
+</MadCapSynonyms>

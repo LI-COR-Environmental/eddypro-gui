@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_top_nav" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="How it Works|Calculations">
+    <head data-mc-conditions="Helps.Support_Exclude">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating Turbulent Fluxes Level 0 (Uncorrected Fluxes)</title>
+        <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BoldItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Italic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Light.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-LightItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Medium.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-MediumItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Regular.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Thin.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-ThinItalic.ttf" rel="font" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/local-help.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.6.2.3_custom.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+        <script src="../../Resources/Scripts/tabs.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-left" id="offCanvas" data-off-canvas="" data-position="left" data-mc-ignore="true">
+                    <ul class="off-canvas-accordion vertical menu off-canvas-list" data-accordion-menu="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" data-mc-ignore="true">
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <button class="menu-icon" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="http://www.licor.com/env" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="3" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                <div class="search-filter-wrapper">
+                                                    <div class="search-filter">
+                                                        <div class="search-filter-content">
+                                                            <ul>
+                                                                <li>All products</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <section class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <div class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="body-container" data-mc-content-body="True">
+                                <div class="top">
+                                    <div class="nocontent">
+                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrap">
+                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                    <section>
+                                        <div class="RowClass6">
+                                            <div>
+                                                <form class="search" action="#">
+                                                    <div class="search-bar search-bar-container needs-pie">
+                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                        <div class="search-filter-wrapper">
+                                                            <div class="search-filter">
+                                                                <div class="search-filter-content">
+                                                                    <ul>
+                                                                        <li>All products</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="search-submit-wrapper" dir="ltr">
+                                                            <div class="search-submit" title="Search">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <div class="RowClass11">
+                                            <div>
+                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                </ul>
+                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                </ul>
+                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h1 id="CalculatingTurbulentFluxesLevel0UncorrectedFluxes" data-magellan-target="CalculatingTurbulentFluxesLevel0UncorrectedFluxes">Calculating Turbulent Fluxes Level 0 (Uncorrected Fluxes)<a name="aanchor57"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p>Level 0 fluxes are uncorrected. They are computed according to the following equations:</p>
+                                                <h2 class="noTOC" id="AmbientsensibleheatfluxuncorrectedHWm2" data-magellan-target="AmbientsensibleheatfluxuncorrectedHWm2">Ambient sensible heat flux, uncorrected (<i>H, W m</i><sup style="font-style: italic;">-2</sup>)
+                </h2>
+                                                <p class="equation" data-mc-autonum="58"><span class="autonumber"><span class="right">58</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation88.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 class="noTOC" id="CO2fluxuncorrectedF0co2μmolm2s1" data-magellan-target="CO2fluxuncorrectedF0co2μmolm2s1">CO<sub>2</sub> flux, uncorrected (<i>F</i><sub style="font-style: italic;">0,co2</sub><i>, μmol m</i><sup style="font-style: italic;">-2</sup><i> s</i><sup style="font-style: italic;">-1</sup>)
+                </h2>
+                                                <p>If CO<sub>2</sub> is measured as molar density with an open path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="59"><span class="autonumber"><span class="right">59</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation89.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CO<sub>2</sub> is measured as molar density with a closed path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="60"><span class="autonumber"><span class="right">60</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation90.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CO<sub>2</sub> is measured as mixing ratio: </p>
+                                                <p class="equation" data-mc-autonum="61"><span class="autonumber"><span class="right">61</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation91.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CO<sub>2</sub> is measured as mole fraction: </p>
+                                                <p class="equation" data-mc-autonum="62"><span class="autonumber"><span class="right">62</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation92.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 class="noTOC" id="H2OfluxuncorrectedF0co2mmolm2s1" data-magellan-target="H2OfluxuncorrectedF0co2mmolm2s1">H<sub>2</sub>O flux, uncorrected (<i>F</i><sub style="font-style: italic;">0,co2</sub><i>, mmol m</i><sup style="font-style: italic;">-2</sup><i> s</i><sup style="font-style: italic;">-1</sup>)
+                </h2>
+                                                <p>If H<sub>2</sub>O is measured as molar density with an open path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="63"><span class="autonumber"><span class="right">63</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation93.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If H<sub>2</sub>O is measured as molar density with a closed path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="64"><span class="autonumber"><span class="right">64</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation94.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If H<sub>2</sub>O is measured as mixing ratio: </p>
+                                                <p class="equation" data-mc-autonum="65"><span class="autonumber"><span class="right">65</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation95.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If H<sub>2</sub>O is measured as mole fraction: </p>
+                                                <p class="equation" data-mc-autonum="66"><span class="autonumber"><span class="right">66</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation96.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 class="noTOC" id="CH4fluxuncorrectedF0ch4μmolm2s1" data-magellan-target="CH4fluxuncorrectedF0ch4μmolm2s1">CH<sub>4</sub> flux, uncorrected: (<i>F</i><sub style="font-style: italic;">0,ch4</sub><i>, μmol m</i><sup style="font-style: italic;">-2</sup><i> s</i><sup style="font-style: italic;">-1</sup>)
+                </h2>
+                                                <p>If CH<sub>4</sub> is measured as molar density with an open path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="67"><span class="autonumber"><span class="right">67</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation97.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CH<sub>4</sub> is measured as molar density with a closed path analyzer: </p>
+                                                <p class="equation" data-mc-autonum="68"><span class="autonumber"><span class="right">68</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation98.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CH<sub>4</sub> is measured as mixing ratio: </p>
+                                                <p class="equation" data-mc-autonum="69"><span class="autonumber"><span class="right">69</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation99.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>If CH<sub>4</sub> is measured as mole fraction: </p>
+                                                <p class="equation" data-mc-autonum="70"><span class="autonumber"><span class="right">70</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation100.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 class="noTOC" id="LatentheatfluxuncorrectedLE0Wm2" data-magellan-target="LatentheatfluxuncorrectedLE0Wm2">Latent heat flux, uncorrected (<i>LE</i><sub style="font-style: italic;">0</sub><i>, W m</i><sup style="font-style: italic;">-2</sup>)
+                </h2>
+                                                <p class="equation" data-mc-autonum="71"><span class="autonumber"><span class="right">71</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation101.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 id="EvapotranspirationfluxuncorrectedE0kgm2s1" data-magellan-target="EvapotranspirationfluxuncorrectedE0kgm2s1">Evapotranspiration flux, uncorrected: (<i>E</i><sub style="font-style: italic;">0</sub><i>, kg m</i><sup style="font-style: italic;">-2</sup><i> s</i><sup style="font-style: italic;">-1</sup>)
+                </h2>
+                                                <p class="equation" data-mc-autonum="72"><span class="autonumber"><span class="right">72</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation102.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 id="MomentumfluxuncorrectedT0kgm1s2" data-magellan-target="MomentumfluxuncorrectedT0kgm1s2">Momentum flux, uncorrected: (<i>T</i><sub style="font-style: italic;">0</sub><i>, kg m</i><sup style="font-style: italic;">-1</sup><i> s</i><sup style="font-style: italic;">-2</sup>)
+                </h2>
+                                                <p>Calculated after <a href="references.html#vanDijk">van Dijk et al. (2004)</a>, eq. 2.85</p>
+                                                <p class="equation" data-mc-autonum="73"><span class="autonumber"><span class="right">73</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation103.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 id="Frictionvelocityums1" data-magellan-target="Frictionvelocityums1">Friction velocity (<i>u<sub>*</sub>, ms</i><sup style="font-style: italic;">-1</sup>)
+                </h2>
+                                                <p>Calculated according to its definition as:</p>
+                                                <p class="equation" data-mc-autonum="74"><span class="autonumber"><span class="right">74</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation104.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <h2 id="PotentialtemperatureTpK" data-magellan-target="PotentialtemperatureTpK">Potential temperature (<i>T</i><sub style="font-style: italic;">p</sub><i>, K</i>)
+                </h2>
+                                                <p>Calculated according to: </p>
+                                                <p class="equation" data-mc-autonum="75"><span class="autonumber"><span class="right">75</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation105.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>where <i>P</i><sub style="font-style: italic;">0,a</sub><i>=10</i><sup style="font-style: italic;">5</sup><i>Pa</i>, and is the reference pressure.</p>
+                                                <h2 class="noTOC" id="MoninObukhovlengthLm" data-magellan-target="MoninObukhovlengthLm">Monin-Obukhov length (<i>L,m</i>)
+                </h2>
+                                                <p>Calculated according to its definition as: </p>
+                                                <p class="equation" data-mc-autonum="76"><span class="autonumber"><span class="right">76</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation106.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>where κ=~0.41, and is the von Kármán constant; g=~9.81 m s<sup>-1</sup>, and is the gravity.</p>
+                                                <h2 class="noTOC" id="MoninObukhovstabilityparameterζnondimensional" data-magellan-target="MoninObukhovstabilityparameterζnondimensional">Monin-Obukhov stability parameter (ζ, non-dimensional)
+                </h2>
+                                                <p>ζ is calculated as: </p>
+                                                <p class="equation" data-mc-autonum="77"><span class="autonumber"><span class="right">77</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation107.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                                <p>where <i>h</i><sub style="font-style: italic;">m</sub> is the measurement height above the ground, as measured in the center of the anemometer measurement volume, and <i>d</i> is the <a href="displacement-height.html">displacement height</a>.</p>
+                                                <h2 class="noTOC" id="DynamictemperatureTK" data-magellan-target="DynamictemperatureTK">Dynamic temperature (<i>T<b>.</b>, K</i>)
+                </h2>
+                                                <p>Calculated according to its definition (e.g., <a href="references.html#Foken">Foken and Wichura, 1996</a>):</p>
+                                                <p class="equation" data-mc-autonum="78"><span class="autonumber"><span class="right">78</span></span>
+                                                    <img src="../../GeneratedImages/Equations/Equation108.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <div class="in-page-sticky-mid">
+                                                    <p class="in-this-page">In this page:</p>
+                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                        <li><a href="#CalculatingTurbulentFluxesLevel0UncorrectedFluxes">Calculating Turbulent Fluxes Level 0 (Uncorrected Fluxes)</a>
+                                                        </li>
+                                                        <ul>
+                                                            <li><a href="#AmbientsensibleheatfluxuncorrectedHWm2">Ambient sensible heat flux, uncorrected (H, W m-2)
+                </a>
+                                                            </li>
+                                                            <li><a href="#CO2fluxuncorrectedF0co2μmolm2s1">CO2 flux, uncorrected (F0,co2, μmol m-2 s-1)
+                </a>
+                                                            </li>
+                                                            <li><a href="#H2OfluxuncorrectedF0co2mmolm2s1">H2O flux, uncorrected (F0,co2, mmol m-2 s-1)
+                </a>
+                                                            </li>
+                                                            <li><a href="#CH4fluxuncorrectedF0ch4μmolm2s1">CH4 flux, uncorrected: (F0,ch4, μmol m-2 s-1)
+                </a>
+                                                            </li>
+                                                            <li><a href="#LatentheatfluxuncorrectedLE0Wm2">Latent heat flux, uncorrected (LE0, W m-2)
+                </a>
+                                                            </li>
+                                                            <li><a href="#EvapotranspirationfluxuncorrectedE0kgm2s1">Evapotranspiration flux, uncorrected: (E0, kg m-2 s-1)
+                </a>
+                                                            </li>
+                                                            <li><a href="#MomentumfluxuncorrectedT0kgm1s2">Momentum flux, uncorrected: (T0, kg m-1 s-2)
+                </a>
+                                                            </li>
+                                                            <li><a href="#Frictionvelocityums1">Friction velocity (u*, ms-1)
+                </a>
+                                                            </li>
+                                                            <li><a href="#PotentialtemperatureTpK">Potential temperature (Tp, K)
+                </a>
+                                                            </li>
+                                                            <li><a href="#MoninObukhovlengthLm">Monin-Obukhov length (L,m)
+                </a>
+                                                            </li>
+                                                            <li><a href="#MoninObukhovstabilityparameterζnondimensional">Monin-Obukhov stability parameter (ζ, non-dimensional)
+                </a>
+                                                            </li>
+                                                            <li><a href="#DynamictemperatureTK">Dynamic temperature (T., K)
+                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+            <script>/* <![CDATA[ */$(document).foundation();/* ]]> */</script>
+        </div>
+    </body>
+</html>
