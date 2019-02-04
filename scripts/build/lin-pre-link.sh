@@ -3,7 +3,7 @@ echo "Copying dynamic libraries in the debug or release build folder... "
 
 DEBUG_OR_RELEASE=$1
 
-if [ "$DEBUG_OR_RELEASE" == "debug" ]; then
+if [ "$DEBUG_OR_RELEASE" = "debug" ]; then
   QUAZIP_LIB="libquazip_debug.so.1.0.0"
 else
   QUAZIP_LIB="libquazip.so.1.0.0"
