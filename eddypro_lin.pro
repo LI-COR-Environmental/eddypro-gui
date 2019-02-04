@@ -46,7 +46,6 @@ CONFIG(debug, debug|release) {
     DEFINES += QT_DEBUG
 
     # to suppress qt and 3rdparty library warnings
-    QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
     QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
 
     win32 {
