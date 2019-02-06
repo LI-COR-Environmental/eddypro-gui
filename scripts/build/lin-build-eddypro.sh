@@ -22,7 +22,7 @@ fi
 SRC_DIR="$PWD"
 
 # build libs
-$SRC_DIR/scripts/build/lin-build-quazip.sh $DEBUG_OR_RELEASE
+$SRC_DIR/scripts/build/lin-build-quazip.sh $DEBUG_OR_RELEASE auto
 
 # update ressource
 $SRC_DIR/scripts/build/lin-update-ressources.sh $DEBUG_OR_RELEASE
