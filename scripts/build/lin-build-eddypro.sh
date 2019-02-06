@@ -30,7 +30,7 @@ $SRC_DIR/scripts/build/lin-update-ressources.sh $DEBUG_OR_RELEASE
 # set build directory
 app_name="eddypro"
 qt_version="qt-`qmake -v | grep Qt | cut -d ' ' -f 4`"
-distrib=`{ lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null | grep PRETTY_NAME  cut -d = -f 2 ; } | sed 's/ /_/g;s/"//g;'`
+distrib=`{ lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null | grep PRETTY_NAME  cut -d = -f 2 ; } | sed 's/ /_/g;s/"//g;s/\//_/g;'`
 [ -z "$distrib" ] && distrib="linux"
 platform=`uname -m`
 build_dir="build-$app_name-$DEBUG_OR_RELEASE+$qt_version+$distrib+$platform"
