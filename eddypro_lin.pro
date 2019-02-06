@@ -48,6 +48,7 @@ CONFIG(debug, debug|release) {
     DEFINES += QT_DEBUG
 
     # to suppress qt and 3rdparty library warnings
+    QMAKE_CXXFLAGS += -isystem /usr/include/quazip
     QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
 
     win32 {
@@ -102,6 +103,7 @@ CONFIG(debug, debug|release) {
     DEFINES += QT_NO_DEBUG_OUTPUT
     DEFINES += QT_NO_WARNING_OUTPUT
 
+    QMAKE_CXXFLAGS += -isystem /usr/include/quazip
     macx {
         QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
 
