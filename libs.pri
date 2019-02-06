@@ -22,7 +22,7 @@ CONFIG(debug, debug|release) {
         LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-debug -lquazip_debug
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug $$_PRO_FILE_PWD_
     }
 } else {
     win32 {
@@ -46,6 +46,6 @@ CONFIG(debug, debug|release) {
         LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-release -lquazip
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release $$_PRO_FILE_PWD_
     }
 }
