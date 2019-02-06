@@ -91,6 +91,15 @@ directory where the source code is:
     1. $ cd eddypro-source-dir/source/scripts/build/
     2. $ ./mac-build-eddypro.sh [debug|release]
 
+##### On Linux
+In a terminal enter the following commands, where `eddypro-source-dir` is the
+directory where the source code is:
+
+    1. $ cd eddypro-source-dir scripts/build/
+    2. $ scripts/build/mac-lin-eddypro.sh [debug|release]
+
+Note : you will need zlib and boost-math library (binary and dev files) installed.
+
 #### Build the GUI using QtCreator (on Windows or Mac)
 
     1. Open 'source\eddypro.pro'
