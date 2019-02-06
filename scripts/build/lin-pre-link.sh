@@ -1,18 +1,23 @@
 #!/bin/sh
 echo "Copying dynamic libraries in the debug or release build folder... "
 
-DEBUG_OR_RELEASE=$1
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $0 debug|release [project-root-dir]\n" 1>&2
+    exit 1
+fi
+if [ "$1" = "debug" ] ; then
+    DEBUG_OR_RELEASE="debug"
+    QUAZIP_LIB="libquazip_debug.so.1.0.0"
+else
+    DEBUG_OR_RELEASE="release"
+    QUAZIP_LIB="libquazip.so.1.0.0"
+fi
 if [ -n "$2" ] ; then
     ROOT_DIR="$2"
 else
     ROOT_DIR="../eddypro-gui"
 fi
 
-if [ "$DEBUG_OR_RELEASE" = "debug" ]; then
-  QUAZIP_LIB="libquazip_debug.so.1.0.0"
-else
-  QUAZIP_LIB="libquazip.so.1.0.0"
-fi
 
 PWD=$(pwd)
 echo "[pwd: $PWD]"
@@ -21,11 +26,11 @@ BUILD_DIR="./$DEBUG_OR_RELEASE"
 echo "[BUILD_DIR: $BUILD_DIR]"
 
 # search for any shadow building, if any
-d=`ls -d $ROOT_DIR/libs/build-${QZ}*`
+d=`ls -d $ROOT_DIR/libs/build-quazip*-$DEBUG_OR_RELEASE`
 if [ -n "$d" ] ;then
     # found at least one dir
     if [ `echo "$d" | wc -l` -gt 1 ] ; then
-        echo "    > too many building directories : can't choose one !" ; exit 1 ;
+        echo "    > too many building directories : can't choose one !" >&2 ; exit 1 ;
     fi
     QUAZIP_BUILD_DIR="`basename $d`"
 else

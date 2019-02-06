@@ -41,13 +41,16 @@ qmake_project="$SRC_DIR/eddypro_lin.pro"
 # make shadow build
 #SHADOW_DIR="../build/$build_dir"
 SHADOW_DIR="../$build_dir"
-mkdir -p "$SHADOW_DIR"
-
-cd "$SHADOW_DIR"
+if [ ! -d "$SHADOW_DIR" ] ; then
+    echo "### Use shadow build $SHADOW_DIR"
+    mkdir -p "$SHADOW_DIR"
+fi
 echo "### Make shadow build in '$PWD'..."
-
-echo "### Run 'qmake'..."
-qmake -Wall $qmake_project
+cd "$SHADOW_DIR"
+if [ ! -f Makefile ] ; then
+    echo "### Run 'qmake'..."
+    qmake -Wall $qmake_project
+fi
 
 echo "### Run 'make'..."
 make $DEBUG_OR_RELEASE

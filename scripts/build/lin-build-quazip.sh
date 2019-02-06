@@ -37,9 +37,9 @@ SRC_DIR="$PWD"
 if [ -f ../../$QZ.patch ] ; then
     echo "  > Apply patch"
     if [ -n "`grep '\-lz' quazip.pro`" ] ; then # this test depends on patch content
-        # hard to know simply know whether patch has already benn applied !
+        # hard to know simply know whether patch has already been applied !
         # but applying it twice is no good
-        echo  "    seems that patch has already been apllied"
+        echo  "    seems that patch has already been applied"
     else
         patch -b < ../../$QZ.patch
     fi
