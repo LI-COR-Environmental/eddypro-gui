@@ -17,7 +17,9 @@ CONFIG(debug, debug|release) {
     }
     linux {
         # quazip
-        LIBS += -L$$OUT_PWD/../libs/build-quazip-0.7.1-qt-5.7.0-centos-gcc-4.8.5-x86_64/quazip -lquazip_debug
+        # set LIBS, although -Ldebug should be enough as
+        #  .so files are copied there by PRE_LINK script
+        LIBS += -L$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip -lquazip_debug
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug
@@ -39,7 +41,9 @@ CONFIG(debug, debug|release) {
     }
     linux {
         # quazip
-        LIBS += -L$$OUT_PWD/../libs/build-quazip-0.7.1-qt-5.7.0-centos-gcc-4.8.5-x86_64/quazip -lquazip
+        # set LIBS, although -Lrelease should be enough as
+        #  .so files are copied there by PRE_LINK script
+        LIBS += -L$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip -lquazip
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release
