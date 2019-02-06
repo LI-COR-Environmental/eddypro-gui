@@ -8,9 +8,11 @@ fi
 if [ "$1" = "debug" ] ; then
     DEBUG_OR_RELEASE="debug"
     QUAZIP_LIB="libquazip_debug.so.1.0.0"
+    BINFILE="eddypro_debug"
 else
     DEBUG_OR_RELEASE="release"
     QUAZIP_LIB="libquazip.so.1.0.0"
+    BINFILE="eddypro"
 fi
 if [ -n "$2" ] ; then
     ROOT_DIR="$2"
@@ -55,7 +57,7 @@ cat > "$BUILD_DIR/eddypro.sh" << EOF
 #!/bin/sh
 BINDIR="\`dirname \$0\`"
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:\$BINDIR"
-\$BINDIR/eddypro_${DEBUG_OR_RELEASE}
+\$BINDIR/${BINFILE}
 EOF
 chmod +x "$BUILD_DIR/eddypro.sh"
 
