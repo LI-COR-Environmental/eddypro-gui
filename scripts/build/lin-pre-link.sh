@@ -5,6 +5,13 @@ if [ "$#" -eq 0 ]; then
     echo "Usage: $0 debug|release [project-root-dir]\n" 1>&2
     exit 1
 fi
+
+if [ -n "`ldconfig -p | grep libquazip`" ] ; then
+    echo "Make use of system quazip lib rather than build it."
+    exit
+fi
+
+
 if [ "$1" = "debug" ] ; then
     DEBUG_OR_RELEASE="debug"
     QUAZIP_LIB="libquazip_debug.so.1.0.0"

@@ -11,6 +11,13 @@ if [ "$#" -eq 0 ]; then
     echo "Usage: $0 debug|release [dir-or-auto]\n\tMust be launched from project's root directory" 1>&2
     exit 1
 fi
+
+if [ -n "`ldconfig -p | grep libquazip`" ] ; then
+    echo "Make use of system quazip lib rather than building it."
+    exit
+fi
+
+
 if [ "$1" = "debug" ] ; then
     DEBUG_OR_RELEASE="debug"
 else
