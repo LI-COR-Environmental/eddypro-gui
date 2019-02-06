@@ -38,16 +38,19 @@ echo "[QUAZIP_BUILD_DIR: $QUAZIP_BUILD_DIR]"
 echo "Copy quazip in the app binary folder..."
 cp "$ROOT_DIR/libs/$QUAZIP_BUILD_DIR/$QUAZIP_LIB" "$BUILD_DIR"
 # link to .so file (for ld building)
+cd $BUILD_DIR
 qzlib=`basename $QUAZIP_LIB .1.0.0`
-ln -s "$ROOT_DIR/libs/$QUAZIP_BUILD_DIR/$QUAZIP_LIB" "$BUILD_DIR/$qzlib"
+ln -s "$QUAZIP_LIB" "$qzlib"
 # link to .so.1 file (for binary linking)
 qzlib=`basename $QUAZIP_LIB .1.0.0`
-ln -s "$ROOT_DIR/libs/$QUAZIP_BUILD_DIR/$QUAZIP_LIB" "$BUILD_DIR/$qzlib.1"
+ln -s "$QUAZIP_LIB" "$qzlib.1"
+cd -
 # add a launching wrapper, as a quick hack for installation lack
 cat > "$BUILD_DIR/eddypro.sh" << EOF
 #!/bin/sh
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:\`dirname \$0\` \$0"
-./eddypro_${DEBUG_OR_RELEASE}
+BINDIR="\`dirname \$0\`"
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:\$BINDIR"
+\$BINDIR/eddypro_${DEBUG_OR_RELEASE}
 EOF
 chmod +x "$BUILD_DIR/eddypro.sh"
 
