@@ -49,7 +49,11 @@ echo "### Make shadow build in '$PWD'..."
 cd "$SHADOW_DIR"
 if [ ! -f Makefile ] ; then
     echo "### Run 'qmake'..."
-    qmake -Wall $qmake_project
+    if [ "$$DEBUG_OR_RELEASE" = "debug" ] ; then
+        qmake -Wall $qmake_project -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
+    else
+        qmake -Wall $qmake_project -spec linux-g++
+    fi
 fi
 
 echo "### Run 'make'..."
