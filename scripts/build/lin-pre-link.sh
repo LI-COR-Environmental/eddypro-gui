@@ -53,7 +53,6 @@ if [ -n "`ldconfig -p | grep libquazip`" ] ; then
         # i.e for system, auto, "" or anything
         echo "Make use of system quazip lib rather than build it => nothing to do"
         exit
-    else
     fi
 elif [ "$2" = "system" ] ; then
     # no lib, but system required
