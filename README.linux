@@ -1,0 +1,19 @@
+
+Dependencies (besides building tools):
+    * libboost-math : library and headers
+        Debian-based packages : libboost-math*, libboost-math*-dev, libboost-dev
+    * lib quazip : library and headers
+        Debian-based packages : libquazip1, libquazip-headers, libquazip-dev
+                                or libquazip5-1, libquazip5-headers, libquazip5-dev
+    * zlib if quazip local compiled :  library and headers
+        Debian-based packages : zlib1g, zlib1g-dev
+
+Tested :
+    * Ubuntu 18.04 / gcc 7 / Qt version 5.9.5
+        - libboost-math 1.65, libquazip 0.7.3 (qt4/qt5 versions)
+        - zlib 1.2.11
+    * Debian 9 / gcc 6 / Qt version 5.7.1
+        - libboost-math 1.62, libquazip 0.7.2 (qt4/qt5 versions)
+        -  
+
+
