@@ -22,7 +22,7 @@ CONFIG(debug, debug|release) {
         LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-debug -lquazip_debug
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug auto $$_PRO_FILE_PWD_
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug local $$_PRO_FILE_PWD_
     }
 } else {
     win32 {
@@ -45,11 +45,13 @@ CONFIG(debug, debug|release) {
         #  .so files are copied there by PRE_LINK script
         CONFIG(quazip-local, quazip|quazip-qt5|quazip-local) {
             LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-release -l$$QUAZIP_NAME
+            # pre-linking actions
+            QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release local $$_PRO_FILE_PWD_
         } else {
             LIBS += -l$$QUAZIP_NAME
+            # pre-linking actions
+            QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release system $$_PRO_FILE_PWD_
         }
 
-        # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release auto $$_PRO_FILE_PWD_
     }
 }
