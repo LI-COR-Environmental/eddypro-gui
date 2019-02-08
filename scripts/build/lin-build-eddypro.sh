@@ -6,7 +6,7 @@
 
 echo "### Running '$ $0 $@' in '$PWD'..."
 
-if [ "$#" -ne 1 ]; then
+if [ $# -eq 0 ]; then
     cat 1>&2 << END
 Usage: $0 [debug|release] [quazip-library]
 
@@ -54,9 +54,23 @@ if [ ! -f eddypro_lin.pro ] ; then
   exit 1
 fi
 SRC_DIR="$PWD"
+case "$2" in
+    local) CFG="quazip-local" ;;
+    quazip|quazip-qt4) CFG="quazip" ;;
+    quazip-qt5) CFG="quazip-qt5" ;;
+    *)
+        if [ -n "`ldconfig -p | grep libquazip`" ] ; then
+            CFG="quazip"
+        else
+            CFG="quazip-local"
+        fi
+        ;;
+esac
 
 # build libs
-$SRC_DIR/scripts/build/lin-build-quazip.sh $DEBUG_OR_RELEASE auto
+if [ "$CFG" = "quazip-local" -o  $DEBUG_OR_RELEASE = "debug" ] ; then
+    $SRC_DIR/scripts/build/lin-build-quazip.sh $DEBUG_OR_RELEASE auto
+fi
 
 # update ressource
 $SRC_DIR/scripts/build/lin-update-ressources.sh $DEBUG_OR_RELEASE
@@ -83,18 +97,6 @@ echo "### Make shadow build in '$PWD'..."
 cd "$SHADOW_DIR"
 if [ ! -f Makefile ] ; then
     echo "### Run 'qmake'..."
-    case "$2" in
-        local) CFG="quazip-local" ;;
-        quazip|quazip-qt4) CFG="quazip" ;;
-        quazip-qt5) CFG="quazip-qt5" ;;
-        *)
-            if [ -n "`ldconfig -p | grep libquazip`" ] ; then
-                CFG="quazip"
-            else
-                CFG="quazip-local"
-            fi
-            ;;
-    esac
     if [ "$$DEBUG_OR_RELEASE" = "debug" ] ; then
         qmake -Wall $qmake_project -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug CONFIG+=$CFG
     else
