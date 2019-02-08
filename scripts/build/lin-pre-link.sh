@@ -29,7 +29,8 @@ and create bash launcher for appropriate use of library (if needed),
 as no proper lib install is automatically done.
 
 Note :
-Debug library may not be available with system's one.
+Debug version of quazip library may not be available on system.
+
 END
     exit 1
 fi

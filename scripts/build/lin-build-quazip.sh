@@ -1,5 +1,6 @@
 #!/bin/sh
 
+QZ="quazip-0.7.1"
 
 # shadow build in debug or release
 # usage
@@ -8,13 +9,33 @@
 echo "### Running '$ $0 $@' in '$PWD'..."
 
 if [ "$#" -eq 0 ]; then
-    echo "Usage: $0 debug|release [dir-or-auto]\n\tMust be launched from project's root directory" 1>&2
-    exit 1
-fi
+    cat 1>&2 << END
+Usage: $0 debug|release [dir-or-auto]
+    
+    debug or release : mandatory
+        build in debug or release profile
+    dir-or-auto : optional
+        specify shadow directory where build will be made.
+        If 'auto', automatic creation of shadow directory is done.
+        If not used, build will be made "in-place", i.e. in quazip
+        ($QZ) directory.
 
-if [ -n "`ldconfig -p | grep libquazip`" ] ; then
-    echo "Make use of system quazip lib rather than building it."
-    exit
+Quazip libray used is the one ($QZ) in libs directory.
+Patch is applied, shadow directory created (if needed),
+qmake applied (Makefile generation), then make.
+
+Note:
+If compilation directory is not 'auto' or 'in-place', i.e. custom
+defined, pre-link script won't find appropriate path, unless specified as option.
+In such a case, main building script can't be used.
+
+Note : 
+Must be launched from project's root directory (for paths finding).
+
+Dependencies :
+    quazip depends on zlib (library and headers)
+END
+    exit 1
 fi
 
 
@@ -29,7 +50,6 @@ if [ ! -d libs ] ; then
 fi
 
 
-QZ="quazip-0.7.1"
 # full path is (from root) :
 # libs/<QZ>/quazip
 cd libs
@@ -44,7 +64,7 @@ SRC_DIR="$PWD"
 if [ -f ../../$QZ.patch ] ; then
     echo "  > Apply patch"
     if [ -n "`grep '\-lz' quazip.pro`" ] ; then # this test depends on patch content
-        # hard to know simply know whether patch has already been applied !
+        # hard to simply know whether patch has already been applied !
         # but applying it twice is no good
         echo  "    seems that patch has already been applied"
     else
@@ -70,10 +90,15 @@ if [ -n "$2" ] ; then
 fi
 
 echo "### Make shadow build in '$PWD'..."
-
 if [ ! -f Makefile ] ; then
+    # if Makefile is already existing, guess that qmake was already launched before,
+    # hence don't do it again
     echo "  > Launch qmake (in-place building)"
-    qmake -Wall $qmake_project
+    if [ "$$DEBUG_OR_RELEASE" = "debug" ] ; then
+        qmake -Wall $qmake_project -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
+    else
+        qmake -Wall $qmake_project -spec linux-g++
+    fi
 fi
 
 echo "  > Launch make for $DEBUG_OR_RELEASE"
