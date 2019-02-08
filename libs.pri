@@ -43,7 +43,11 @@ CONFIG(debug, debug|release) {
         # quazip
         # set LIBS, although -Lrelease should be enough as
         #  .so files are copied there by PRE_LINK script
-        LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-release -lquazip
+        CONFIG(quazip-local, quazip|quazip-qt5|quazip-local) {
+            LIBS += -L$$_PRO_FILE_PWD_/libs/build-quazip-0.7.1-release -l$$QUAZIP_NAME
+        } else {
+            LIBS += -l$$QUAZIP_NAME
+        }
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh release auto $$_PRO_FILE_PWD_
