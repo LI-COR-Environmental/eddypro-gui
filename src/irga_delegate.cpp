@@ -463,7 +463,8 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
 {
     auto combo = qobject_cast<QComboBox *>(editor);
     QEvent::Type eventType = event->type();
-    int eventKey = dynamic_cast<const QKeyEvent*>(event)->key();
+    // NOTE: do not use dynamic_cast<> here, otherwise the app will crash
+    int eventKey = static_cast<QKeyEvent*>(event)->key();
     if (combo
         && (eventType == QEvent::MouseButtonRelease
             || (eventType == QEvent::KeyPress && (eventKey == Qt::Key_Space
