@@ -46,6 +46,7 @@ END
 fi
 if [ "$1" = "debug" ] ; then
     DEBUG_OR_RELEASE=$1
+    CFG="quazip-local"
 else
     DEBUG_OR_RELEASE="release"
 fi
@@ -54,18 +55,20 @@ if [ ! -f eddypro_lin.pro ] ; then
   exit 1
 fi
 SRC_DIR="$PWD"
-case "$2" in
-    local) CFG="quazip-local" ;;
-    quazip|quazip-qt4) CFG="quazip" ;;
-    quazip-qt5) CFG="quazip-qt5" ;;
-    *)
-        if [ -n "`ldconfig -p | grep libquazip`" ] ; then
-            CFG="quazip"
-        else
-            CFG="quazip-local"
-        fi
-        ;;
-esac
+if [ -z "$CFG" ] ; then
+    case "$2" in
+        local) CFG="quazip-local" ;;
+        quazip|quazip-qt4) CFG="quazip" ;;
+        quazip-qt5) CFG="quazip-qt5" ;;
+        *)
+            if [ -n "`ldconfig -p | grep libquazip`" ] ; then
+                CFG="quazip"
+            else
+                CFG="quazip-local"
+            fi
+            ;;
+    esac
+fi
 
 # build libs
 if [ "$CFG" = "quazip-local" -o  $DEBUG_OR_RELEASE = "debug" ] ; then
