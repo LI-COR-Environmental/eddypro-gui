@@ -1159,19 +1159,22 @@ void AdvProcessingOptions::createBurbaParamItems()
 
     multiDayGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 0, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 0, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 0, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 0, 9, 1, 1);
     multiDayGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 1, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 1, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 1, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 1, 9, 1, 1);
     multiDayGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 2, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 2, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 2, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 2, 9, 1, 1);
 
     mDayBot1 = new CustomResetLineEdit;
     mDayBot1->setMaxLength(10);
@@ -1230,19 +1233,22 @@ void AdvProcessingOptions::createBurbaParamItems()
 
     multiNightGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 0, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 0, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 0, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 0, 9, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 1, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 1, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 1, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 1, 9, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 2, 3, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 2, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 2, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 2, 9, 1, 1);
 
     mNightBot1 = new CustomResetLineEdit;
     mNightBot1->setMaxLength(10);
