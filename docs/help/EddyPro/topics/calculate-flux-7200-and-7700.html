@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating Turbulent Fluxes for a System Composed of an LI&#8209;7200 and LI&#8209;7700</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating turbulent fluxes for a system composed of an LI&#8209;7200/RS and LI&#8209;7700</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,55 +147,55 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="CalculatingTurbulentFluxesforaSystemComposedofanLI7200andLI7700" data-magellan-target="CalculatingTurbulentFluxesforaSystemComposedofanLI7200andLI7700">Calculating Turbulent Fluxes for a System Composed of an LI&#8209;7200 and LI&#8209;7700<a name="aanchor78"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="CalculatingturbulentfluxesforasystemcomposedofanLI7200RSandLI7700" data-magellan-target="CalculatingturbulentfluxesforasystemcomposedofanLI7200RSandLI7700">Calculating turbulent fluxes for a system composed of an LI&#8209;7200/RS and LI&#8209;7700<a name="aanchor82"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>In this situation, corrected fluxes are calculated from uncorrected (fluxes as F<sub>0</sub>) with the following procedure:</p>
-                                                <h2 class="noTOC" id="Level1FluxesApplicationofSpectralCorrections" data-magellan-target="Level1FluxesApplicationofSpectralCorrections">Level 1 Fluxes: Application of Spectral Corrections</h2>
+                                                <h2 class="noTOC" id="Level1fluxesapplicationofspectralcorrections" data-magellan-target="Level1fluxesapplicationofspectralcorrections">Level 1 fluxes: application of spectral corrections</h2>
                                                 <p>As a first step, uncorrected methane fluxes from the LI&#8209;7700 are corrected for spectral attenuation, as explained in <a href="calculate-flux-open-path-analyzers.html">Calculating Fluxes for Open Path Analyzers</a>:</p>
-                                                <p class="equation" data-mc-autonum="110"><span class="autonumber"><span class="right">110</span></span><i>F</i><sub style="font-style: italic;">1,ch4</sub> = <i>F</i><sub style="font-style: italic;">0,ch4</sub><i> · SCF</i><sub style="font-style: italic;">w,ch4</sub></p>
+                                                <p class="equation" data-mc-autonum="111"><span class="autonumber"><span class="right">111</span></span><i>F</i><sub style="font-style: italic;">1,ch4</sub> = <i>F</i><sub style="font-style: italic;">0,ch4</sub><i> · SCF</i><sub style="font-style: italic;">w,ch4</sub></p>
                                                 <p>Momentum flux and friction velocity are also spectrally corrected at Level 1, similarly:</p>
-                                                <p class="equation" data-mc-autonum="111"><span class="autonumber"><span class="right">111</span></span><i>T</i><sub style="font-style: italic;">1</sub> = <i>T</i><sub style="font-style: italic;">0</sub> ·   <i>SCF</i><sub style="font-style: italic;">u,w</sub></p>
-                                                <p class="equation" data-mc-autonum="112"><span class="autonumber"><span class="right">112</span></span><i>u</i><sub style="font-style: italic;">*1</sub> = <i>u</i><sub style="font-style: italic;">*0</sub> ·   <i>SCF</i><sub style="font-style: italic;">u,w</sub></p>
+                                                <p class="equation" data-mc-autonum="112"><span class="autonumber"><span class="right">112</span></span><i>T</i><sub style="font-style: italic;">1</sub> = <i>T</i><sub style="font-style: italic;">0</sub> ·   <i>SCF</i><sub style="font-style: italic;">u,w</sub></p>
+                                                <p class="equation" data-mc-autonum="113"><span class="autonumber"><span class="right">113</span></span><i>u</i><sub style="font-style: italic;">*1</sub> = <i>u</i><sub style="font-style: italic;">*0</sub> ·   <i>SCF</i><sub style="font-style: italic;">u,w</sub></p>
                                                 <p>Fluxes from the <span>LI&#8209;7200</span> are not spectrally corrected at this stage, because the application of correction for air density fluctuation effects to concentrations calculated with closed path systems requires using uncorrected fluxes.</p>
-                                                <h2 class="noTOC" id="Level2and3Fluxes" data-magellan-target="Level2and3Fluxes">Level 2 and 3 Fluxes</h2>
-                                                <p><a name="kanchor179"></a>Whenever possible, air density fluctuation effects in closed path systems are addressed by converting raw gas concentration measurements into mixing ratios (see <a href="converting-to-mixing-ratio.html">Converting to Mixing Ratios</a>). However, when this is not possible due to unavailability of necessary raw information, the correction is implemented following the WPL approach, as refined by <a href="references.html#Ibrom">Ibrom et al. (2007b)</a>. As a first step, evapotranspiration flux is corrected for the WPL term using the formulation proposed in <a href="references.html#Webb">Webb et al. (1980, eq. 42b)</a>, properly modified to account for the fact that the relevant sensible heat flux is measured inside the cell of the <span>LI&#8209;7200</span> (and not in ambient conditions):</p>
-                                                <p class="equation" data-mc-autonum="113"><span class="autonumber"><span class="right">113</span></span>
+                                                <h2 class="noTOC" id="Level2and3fluxes" data-magellan-target="Level2and3fluxes">Level 2 and 3 fluxes</h2>
+                                                <p><a name="kanchor173"></a>Whenever possible, air density fluctuation effects in closed path systems are addressed by converting raw gas concentration measurements into mixing ratios (see <a href="converting-to-mixing-ratio.html">Converting to Mixing Ratios</a>). However, when this is not possible due to unavailability of necessary raw information, the correction is implemented following the WPL approach, as refined by <a href="references.html#Ibrom">Ibrom et al. (2007b)</a>. As a first step, evapotranspiration flux is corrected for the WPL term using the formulation proposed in <a href="references.html#Webb">Webb et al. (1980, eq. 42b)</a>, properly modified to account for the fact that the relevant sensible heat flux is measured inside the cell of the <span>LI&#8209;7200</span> (and not in ambient conditions):</p>
+                                                <p class="equation" data-mc-autonum="114"><span class="autonumber"><span class="right">114</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation145.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <img src="../../GeneratedImages/Equations/Equation146.svg" alt="" class="_MCEquation_0 mcReset" /> and <img src="../../GeneratedImages/Equations/Equation147.svg" alt="" class="_MCEquation_0 mcReset" /> are covariances of <i>w</i> and cell temperature pressure respectively, evaluated after dislodging the cell temperature time series using the time lag of CO<sub style="vertical-align: sub;">2</sub>. If covariance <img src="../../GeneratedImages/Equations/Equation148.svg" alt="" class="_MCEquation_0 mcReset" /> or <img src="../../GeneratedImages/Equations/Equation149.svg" alt="" class="_MCEquation_0 mcReset" /> are not available, they are assumed negligible and <i>E</i><sub style="font-style: italic;">1</sub> is corrected only for the dilution term due to water vapor:</p>
-                                                <p class="equation" data-mc-autonum="114"><span class="autonumber"><span class="right">114</span></span><i>E</i><sub style="font-style: italic;">2</sub> = (<i>1</i> + <i>μσ</i>)<i>E</i><sub style="font-style: italic;">1</sub></p>
+                                                <p class="equation" data-mc-autonum="115"><span class="autonumber"><span class="right">115</span></span><i>E</i><sub style="font-style: italic;">2</sub> = (<i>1</i> + <i>μσ</i>)<i>E</i><sub style="font-style: italic;">1</sub></p>
                                                 <p>Fully corrected (level 3) evapotranspiration flux can now be calculated from E<sub>2</sub> by applying the proper spectral correction factor:</p>
-                                                <p class="equation" data-mc-autonum="115"><span class="autonumber"><span class="right">115</span></span><i>E</i><sub style="font-style: italic;">3</sub> = <i>E</i><sub style="font-style: italic;">2</sub> ·   <i>SCF</i><sub style="font-style: italic;">w,h2o</sub></p>
+                                                <p class="equation" data-mc-autonum="116"><span class="autonumber"><span class="right">116</span></span><i>E</i><sub style="font-style: italic;">3</sub> = <i>E</i><sub style="font-style: italic;">2</sub> ·   <i>SCF</i><sub style="font-style: italic;">w,h2o</sub></p>
                                                 <p>Fully corrected latent heat and water vapor flux can now be calculated:</p>
-                                                <p class="equation" data-mc-autonum="116"><span class="autonumber"><span class="right">116</span></span><i>F</i><sub style="font-style: italic;">3,h2o</sub> = <i>E</i><sub style="font-style: italic;">3</sub> · <i>10</i><sup style="font-style: italic;">-3</sup>·<i>M</i><sub style="font-style: italic;">h2o</sub></p>
-                                                <p class="equation" data-mc-autonum="117"><span class="autonumber"><span class="right">117</span></span><i>LE</i><sub style="font-style: italic;">3</sub> = <i>λ</i> ·   <i>E</i><sub style="font-style: italic;">3</sub></p>
+                                                <p class="equation" data-mc-autonum="117"><span class="autonumber"><span class="right">117</span></span><i>F</i><sub style="font-style: italic;">3,h2o</sub> = <i>E</i><sub style="font-style: italic;">3</sub> · <i>10</i><sup style="font-style: italic;">-3</sup>·<i>M</i><sub style="font-style: italic;">h2o</sub></p>
+                                                <p class="equation" data-mc-autonum="118"><span class="autonumber"><span class="right">118</span></span><i>LE</i><sub style="font-style: italic;">3</sub> = <i>λ</i> ·   <i>E</i><sub style="font-style: italic;">3</sub></p>
                                                 <p>Now, ambient sensible heat flux is corrected for humidity effects following <a href="references.html#vanDijk">van Dijk et al. (2004)</a>, revising <a href="references.html#Schot">Schotanus et al. (1983)</a> as explained in <a href="calculate-flux-level-123.html">Calculating Fluxes Level 1 2 and 3</a>.</p>
-                                                <p class="equation" data-mc-autonum="118"><span class="autonumber"><span class="right">118</span></span>
+                                                <p class="equation" data-mc-autonum="119"><span class="autonumber"><span class="right">119</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation150.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>Then it is spectrally corrected to get fully corrected sensible heat flux:</p>
                                                 <p><i>H</i><sub style="font-style: italic;">3</sub> = <i>H</i><sub style="font-style: italic;">2</sub> ·   <i>SCF</i><sub style="font-style: italic;">w,Ts</sub></p>
                                                 <p>Next, level 2 CO<sub>2</sub> flux is calculated by applying the correction for air density fluctuations. <span class="product_namesEddyPro">EddyPro</span> uses a formulation similar to <a href="references.html#Webb">Webb et al. (1980 eq. 24)</a>, where, however, sensible heat flux and latent heat flux are evaluated in the cell and using the time lag of CO<sub>2</sub>:</p>
-                                                <p class="equation0" data-mc-autonum="119"><span class="autonumber"><span class="right">119</span></span>
+                                                <p class="equation0" data-mc-autonum="120"><span class="autonumber"><span class="right">120</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation151.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <i>E</i><sub style="font-style: italic;">cell</sub> and <i>H<sub>cell</sub></i> are calculated as:</p>
-                                                <p class="equation" data-mc-autonum="120"><span class="autonumber"><span class="right">120</span></span>
+                                                <p class="equation" data-mc-autonum="121"><span class="autonumber"><span class="right">121</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation152.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <p class="equation" data-mc-autonum="121"><span class="autonumber"><span class="right">121</span></span>
+                                                <p class="equation" data-mc-autonum="122"><span class="autonumber"><span class="right">122</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation153.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p style="vertical-align: baseline;">and the subscript <i>τ_co</i><sub style="font-style: italic;">2</sub> indicates that covariances are evaluated at time lags of CO<sub>2</sub>. The factor v<sub>c</sub>/v<sub>a</sub> is needed to compute ambient quantities from cell quantities.</p>
                                                 <p>Methane fluxes are evaluated similarly to in a manner similar to <a href="calculate-flux-open-path-analyzers.html">fluxes for the <span>LI&#8209;7500</span> and <span><span class="product_namesLI-7700">LI-7700</span></span> analyzers</a>:</p>
-                                                <p class="equation0" data-mc-autonum="122"><span class="autonumber"><span class="right">122</span></span>
+                                                <p class="equation0" data-mc-autonum="123"><span class="autonumber"><span class="right">123</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation154.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where now, the spectrally corrected, not-WPL-corrected evapotranspiration flux is calculated as:</p>
-                                                <p class="equation" data-mc-autonum="123"><span class="autonumber"><span class="right">123</span></span>
+                                                <p class="equation" data-mc-autonum="124"><span class="autonumber"><span class="right">124</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation155.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>Finally, CO<sub>2</sub> fluxes are corrected for spectral attenuations:</p>
-                                                <p class="equation" data-mc-autonum="124"><span class="autonumber"><span class="right">124</span></span>
+                                                <p class="equation" data-mc-autonum="125"><span class="autonumber"><span class="right">125</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation156.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                             </div>
@@ -203,12 +203,12 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#CalculatingTurbulentFluxesforaSystemComposedofanLI7200andLI7700">Calculating Turbulent Fluxes for a System Composed of an LI&#8209;7200 and LI&#8209;7700</a>
+                                                        <li><a href="#CalculatingturbulentfluxesforasystemcomposedofanLI7200RSandLI7700">Calculating turbulent fluxes for a system composed of an LI&#8209;7200/RS and LI&#8209;7700</a>
                                                         </li>
                                                         <ul>
-                                                            <li><a href="#Level1FluxesApplicationofSpectralCorrections">Level 1 Fluxes: Application of Spectral Corrections</a>
+                                                            <li><a href="#Level1fluxesapplicationofspectralcorrections">Level 1 fluxes: application of spectral corrections</a>
                                                             </li>
-                                                            <li><a href="#Level2and3Fluxes">Level 2 and 3 Fluxes</a>
+                                                            <li><a href="#Level2and3fluxes">Level 2 and 3 fluxes</a>
                                                             </li>
                                                         </ul>
                                                     </ul>

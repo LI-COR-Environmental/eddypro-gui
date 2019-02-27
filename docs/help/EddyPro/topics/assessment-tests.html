@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Assessment Tests</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Assessment tests</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,7 +147,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="AssessmentTests" data-magellan-target="AssessmentTests">Assessment Tests<a name="aanchor97"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Assessmenttests" data-magellan-target="Assessmenttests">Assessment tests<a name="aanchor101"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>Assessment tests evaluate ancillary files to ensure that they meet certain requirements before processing. The purpose of assessment tests is to reduce processing errors when using <span class="product_namesEddyPro">EddyPro</span> for desktop processing, and to ensure the validity of ancillary files prior to uploading them to the <span class="product_namesSmartFlux">SmartFlux System</span>. The <span class="pop">Format Test</span> evaluates the file format by comparing it to a standard, and the <span class="pop">Scientific Test</span> evaluates data by comparing values in the file with known acceptable values.</p>
                                                 <p>If the test fails for any reason, you will be notified and provided with information that will help you solve the problem, either by choosing another file or correcting the file that you selected. If you click <span class="pop">Continue</span> after a test fails, <span class="product_namesEddyPro">EddyPro</span> will use the default method and will probably not use the file that failed. The default methods are as follows:</p>
                                                 <ul class="bullet">
@@ -155,11 +155,11 @@
                                                     <li value="2">Planar Fit (Rotation method) defaults to <span class="pop">Double Rotation</span></li>
                                                     <li value="3">Automatic time lag optimization (Time lag detection method) defaults to <span class="pop">Covariance maximization with default</span></li>
                                                 </ul>
-                                                <h2 id="SpectralAssessmentFile" data-magellan-target="SpectralAssessmentFile">Spectral Assessment File</h2>
-                                                <h3>Format Test</h3>
+                                                <h2 id="Spectralassessmentfile" data-magellan-target="Spectralassessmentfile">Spectral assessment file</h2>
+                                                <h3>Format test</h3>
                                                 <p>This file has a strictly fixed format: the number of lines and all textual (i.e., not numeric) content is strictly fixed, with the only exception of the first word at line 46 (‘none’ in the sample file), which can change if <span class="product_namesEddyPro">EddyPro</span> processed a 4th gas. Thus, any textual information can be used to make sure the file is ‘well formatted’. Note, too, that the RH classes (lines 8-16) are predefined, including their percentage indications (‘5 – 15%’, etc.).</p>
-                                                <h3 class="pgBrkBfr">Scientific Test</h3>
-                                                <h4>Water Vapor</h4>
+                                                <h3 class="pgBrkBfr">Scientific test</h3>
+                                                <h4>Water vapor</h4>
                                                 <ol>
                                                     <li value="1">Column ‘fc’ shall have at least 1 value in the range 0.001 – 10.</li>
                                                     <li value="2">Column ‘fc’ shall not have all values set to -9999.</li>
@@ -182,8 +182,8 @@
                                                 <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Test_Spectral_New.PNG"><img class="MCPopupThumbnail img imgwidth088pct" data-mc-width="835" data-mc-height="271" src="../images/Test_Spectral_New_thumb_560_0.png" tabindex="" /></a>
                                                 </p>
                                                 <p class="figure" data-mc-autonum="Figure 1"><span class="autonumber"><span>Figure 1</span></span>. If the Spectral Assessment file fails a test, you can  correct the file, choose a different file, or choose an alternate method. If you click <span class="pop">Continue</span>, the default method will be used, and EddyPro will probably not use the file.</p>
-                                                <h2 class="pgBrkBfr" id="PlanarFitFile" data-magellan-target="PlanarFitFile">Planar Fit File</h2>
-                                                <h3>Format Test</h3>
+                                                <h2 class="pgBrkBfr" id="Planarfitfile" data-magellan-target="Planarfitfile">Planar fit file</h2>
+                                                <h3>Format test</h3>
                                                 <p>This file does not have a strictly predefined structure. However, the number of lines can be calculated based on the value at line 2, ‘Number of wind sectors.’ Let this number be N in the following example:</p>
                                                 <ol>
                                                     <li value="1">Lines 1 thru 10 shall always contain the same textual information.</li>
@@ -199,7 +199,7 @@
                                                     </li>
                                                     <li value="5">The total number of lines of the file shall be 10 + N + 2 + 4*N = 5*N + 12 (N = 4 and total number of lines = 32 in the sample file).</li>
                                                 </ol>
-                                                <h3>Scientific Test</h3>
+                                                <h3>Scientific test</h3>
                                                 <ol>
                                                     <li value="1">At least one wind sector (lines 10 + 1 thru 10+N) should have all three coefficients (B0, B1, B2) ≠ -9999.</li>
                                                     <li value="2">For each wind sector having valid coefficients, the corresponding 4-lines group shall contain only numbers ≠ -9999 and at least one number ≠ 0.</li>
@@ -207,8 +207,8 @@
                                                 <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Test_Planar_Fit_New.PNG"><img class="MCPopupThumbnail img imgwidth088pct" data-mc-width="835" data-mc-height="275" src="../images/Test_Planar_Fit_New_thumb_560_0.png" tabindex="" /></a>
                                                 </p>
                                                 <p class="figure" data-mc-autonum="Figure 2"><span class="autonumber"><span>Figure 2</span></span>. If the planar fit file fails the test, you can  correct the file, choose a different file, or choose an alternate method. If you click <span class="pop">Continue</span>, the default method will be used, and EddyPro will probably not use the file.</p>
-                                                <h2 class="pgBrkBfr" id="TimelagOptimizationFile" data-magellan-target="TimelagOptimizationFile">Timelag Optimization File</h2>
-                                                <h3>Format Test</h3>
+                                                <h2 class="pgBrkBfr" id="Timelagoptimizationfile" data-magellan-target="Timelagoptimizationfile">Timelag optimization file</h2>
+                                                <h3>Format test</h3>
                                                 <p>This file does not have a strictly predefined structure and the number of lines to be expected cannot be unequivocal calculated. Some criteria that can be tested are:</p>
                                                 <ol>
                                                     <li value="1">The first 4 lines shall always have the same textual content.</li>
@@ -222,7 +222,7 @@
                                                         </ol>
                                                     </li>
                                                 </ol>
-                                                <h3>Scientific Test</h3>
+                                                <h3>Scientific test</h3>
                                                 <ol>
                                                     <li value="1">In the “small” groups, the “median” timelag shall always be &gt; maximum and &lt; minimum timelags.</li>
                                                     <li value="2">All timelags in the small groups shall not be larger than 60 seconds.</li>
@@ -243,14 +243,14 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#AssessmentTests">Assessment Tests</a>
+                                                        <li><a href="#Assessmenttests">Assessment tests</a>
                                                         </li>
                                                         <ul>
-                                                            <li><a href="#SpectralAssessmentFile">Spectral Assessment File</a>
+                                                            <li><a href="#Spectralassessmentfile">Spectral assessment file</a>
                                                             </li>
-                                                            <li><a href="#PlanarFitFile">Planar Fit File</a>
+                                                            <li><a href="#Planarfitfile">Planar fit file</a>
                                                             </li>
-                                                            <li><a href="#TimelagOptimizationFile">Timelag Optimization File</a>
+                                                            <li><a href="#Timelagoptimizationfile">Timelag optimization file</a>
                                                             </li>
                                                         </ul>
                                                     </ul>

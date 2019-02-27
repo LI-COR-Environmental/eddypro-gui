@@ -559,16 +559,16 @@ div.MCBreadcrumbsBox_0
 	height: auto;
 }
 
-.img.imgwidth100pct
-{
-	height: auto;
-	max-width: 458px;
-}
-
 .xref.xrefToCaption
 {
 	text-decoration: none;
 	color: #1175bc;
+}
+
+.img.imgwidth100pct
+{
+	height: auto;
+	max-width: 458px;
 }
 
 .xref.xrefConceptPageNumber
@@ -636,6 +636,15 @@ img._MCEquation_0
 	border: solid 1px black;
 }
 
+.dropDown.dropDownfaqs
+{
+	font-size: 18px;
+	text-indent: 0px;
+	background-color: #eff6fb;
+	margin: -1px 0px 15px 0px;
+	border: 1px solid #ddecf8;
+}
+
 .dropDownHotspot
 {
 	color: #0a9ccc;
@@ -652,74 +661,6 @@ img._MCEquation_0
 	text-decoration: none;
 }
 
-.MCDropDown_Open .MCDropDownHotSpot_.MCHotSpotImage.MCDropDownHotSpot_last
-{
-	background-position: left;
-	background-image: url('DropDownOpen.gif');
-	padding-left: 1px;
-	padding-right: 0;
-}
-
-.MCDropDown_Closed .MCDropDownHotSpot_.MCHotSpotImage.MCDropDownHotSpot_last
-{
-	background-position: left;
-	background-image: url('DropDownClosed.gif');
-	padding-left: 0px;
-	padding-right: 0;
-}
-
-.dropDownHead
-{
-	text-decoration: none;
-}
-
-.MCDropDown_Open .MCDropDownHotSpot_.MCHotSpotImage
-{
-	background-position: left;
-	background-image: url('DropDownOpen.gif');
-	padding-left: 1px;
-	padding-right: 0;
-}
-
-.MCDropDown_Closed .MCDropDownHotSpot_.MCHotSpotImage
-{
-	background-position: left;
-	background-image: url('DropDownClosed.gif');
-	padding-left: 0px;
-	padding-right: 0;
-}
-
-.MCDropDown_Open .MCDropDownHotSpot_.MCHotSpotImage.MCDropDownHotSpot_first
-{
-	background-position: left;
-	background-image: url('DropDownOpen.gif');
-	padding-left: 1px;
-	padding-right: 0;
-}
-
-.MCDropDown_Closed .MCDropDownHotSpot_.MCHotSpotImage.MCDropDownHotSpot_first
-{
-	background-position: left;
-	background-image: url('DropDownClosed.gif');
-	padding-left: 0px;
-	padding-right: 0;
-}
-
-.img.imgwidth075pct
-{
-	max-width: 400px;
-	height: auto;
-}
-
-.dropDown.dropDownfaqs
-{
-	font-size: 18px;
-	text-indent: 0px;
-	background-color: #eff6fb;
-	margin: -1px 0px 15px 0px;
-	border: 1px solid #ddecf8;
-}
-
 .MCDropDown_Open .MCDropDownHotSpot_.MCHotSpotImage.MCDropDownHotSpot_faqs
 {
 	background-position: left;
@@ -732,6 +673,11 @@ img._MCEquation_0
 	background-position: left;
 	background-image: none;
 	padding-left: 0;
+}
+
+.dropDownHead
+{
+	text-decoration: none;
 }
 
 .dropDownHead.dropDownHeadfaqs

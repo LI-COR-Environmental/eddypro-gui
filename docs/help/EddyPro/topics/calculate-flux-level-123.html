@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating Corrected Fluxes</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating corrected fluxes</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,49 +147,49 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="CalculatingCorrectedFluxes" data-magellan-target="CalculatingCorrectedFluxes">Calculating Corrected Fluxes<a name="aanchor63"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor136"></a>Calculating corrected fluxes in <span class="product_namesEddyPro">EddyPro</span> involves the application of the following corrections:</p>
-                                                <h2 id="HumidityCorrectionofSonicTemperature" data-magellan-target="HumidityCorrectionofSonicTemperature">Humidity Correction of Sonic Temperature</h2>
+                                                <h1 id="Calculatingcorrectedfluxes" data-magellan-target="Calculatingcorrectedfluxes">Calculating corrected fluxes<a name="aanchor63"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p><a name="kanchor130"></a>Calculating corrected fluxes in <span class="product_namesEddyPro">EddyPro</span> involves the application of the following corrections:</p>
+                                                <h2 id="Humiditycorrectionofsonictemperature" data-magellan-target="Humiditycorrectionofsonictemperature">Humidity correction of sonic temperature</h2>
                                                 <p>Correction of air temperature estimated via sonic temperature for the effects of humidity. This includes mean temperature values as well as any covariance (and related fluxes) that include sonic temperature.</p>
                                                 <p>This correction was firstl described in <a href="references.html#Schot" class="references">Schotanus et al. (1983)</a> and is applied in EddyPro according to the revision described in <a href="references.html#vanDijk" class="references">van Dijk et al. (2004, eq. 3.53)</a>.</p>
-                                                <p class="equation" data-mc-autonum="92"><span class="autonumber"><span class="right">92</span></span> <img src="../../GeneratedImages/Equations/Equation133.svg" alt="" class="_MCEquation_0 mcReset" /></p>
-                                                <p class="equation" data-mc-autonum="93"><span class="autonumber"><span class="right">93</span></span>
+                                                <p class="equation" data-mc-autonum="93"><span class="autonumber"><span class="right">93</span></span> <img src="../../GeneratedImages/Equations/Equation133.svg" alt="" class="_MCEquation_0 mcReset" /></p>
+                                                <p class="equation" data-mc-autonum="94"><span class="autonumber"><span class="right">94</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation134.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where α=0.51, Q is specific humidity and covariance (w'Q') ̅ (m s<sup>-1</sup>) is calculated from evapotranspiration flux (E, kg m<sup>-2</sup> s<sup>-1</sup>):</p>
-                                                <p class="equation" data-mc-autonum="94"><span class="autonumber"><span class="right">94</span></span>
+                                                <p class="equation" data-mc-autonum="95"><span class="autonumber"><span class="right">95</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation135.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <h2 id="CorrectionofGasFluxesforAirDensityFluctuationEffectsWPLterms" data-magellan-target="CorrectionofGasFluxesforAirDensityFluctuationEffectsWPLterms">Correction of Gas Fluxes for Air Density Fluctuation Effects (WPL terms)</h2>
-                                                <p>This “correction” was first described in Webb et al. (1980) for open-path analyzers and was revised by Ibrom et al. (2007) for closed-path analyzers. The way the correction is applied and the order with respect to other corrections depend on the analyzer type, the nature of the gas concentration measurements and the available raw data. EddyPro automatically selects the optimal calculation path based on available data and metadata. The way the correction is applied is described in <a href="raw-processing-options.html#Compensa" class="ToHeading MCXref xref xrefToHeading">Compensation for density fluctuations (WPL terms)</a>, while the way it is interwoven with other corrections is detailed in <a href="calculate-flux-open-path-analyzers.html" class="ToHeading MCXref xref xrefToHeading">Calculating Turbulent Fluxes for a System Composed of an LI&#8209;7500x and LI&#8209;7700</a> for open-path setups and <a href="calculate-flux-7200-and-7700.html" class="MCXref xref"></a> for closed-path setups. </p>
+                                                <h2 id="CorrectionofgasfluxesforairdensityfluctuationeffectsWPLterms" data-magellan-target="CorrectionofgasfluxesforairdensityfluctuationeffectsWPLterms">Correction of gas fluxes for air density fluctuation effects (WPL terms)</h2>
+                                                <p>This “correction” was first described in Webb et al. (1980) for open-path analyzers and was revised by Ibrom et al. (2007) for closed-path analyzers. The way the correction is applied and the order with respect to other corrections depend on the analyzer type, the nature of the gas concentration measurements and the available raw data. EddyPro automatically selects the optimal calculation path based on available data and metadata. The way the correction is applied is described in <a href="raw-processing-options.html#Compensa" class="ToHeading MCXref xref xrefToHeading">Compensation for density fluctuations (WPL terms)</a>, while the way it is interwoven with other corrections is detailed in <a href="calculate-flux-open-path-analyzers.html" class="ToHeading MCXref xref xrefToHeading">Calculating turbulent fluxes for a system composed of an LI&#8209;7500A/RS/DS and LI&#8209;7700</a> for open-path setups and <a href="calculate-flux-7200-and-7700.html" class="MCXref xref"></a> for closed-path setups. </p>
                                                 <p>In general terms:</p>
                                                 <ul class="bullet">
                                                     <li value="1">For closed-path systems, air density fluctuations are accounted for by converting raw concentration data into mixing ratios whenever possible. If that’s not possible, the formulation of <a href="references.html#Ibrom" class="references">Ibrom et al. (2007)</a> is used to account for all WPL terms, for which the necessary data is available. For closed-path systems, WPL terms are accounted for before applying the correction for spectral attenuations (see later).</li>
                                                     <li value="2">For open-path systems, air density fluctuations are accounted for by using the formulation of <a href="references.html#Webb" class="references">Webb et al. (1980)</a>. Where necessary, additional WPL terms are included, e.g. to account for the instrument-induced extra sensible heat flux (“off-season uptake correction”) for LI-7500(A) or to account for spectroscopic effects for the LI-7700 methane analyzer.</li>
                                                 </ul>
-                                                <h2 id="CorrectionforHighfrequencyandLowfrequencySpectralAttenuations" data-magellan-target="CorrectionforHighfrequencyandLowfrequencySpectralAttenuations">Correction for High-frequency and Low-frequency Spectral Attenuations</h2>
+                                                <h2 id="Correctionforhighfrequencyandlowfrequencyspectralattenuations" data-magellan-target="Correctionforhighfrequencyandlowfrequencyspectralattenuations">Correction for high-frequency and low-frequency spectral attenuations</h2>
                                                 <p>Calculation of correction factors is described in detail in <a href="calculate-spectral-correction-factors.html" class="MCXref xref"></a>.</p>
-                                                <h2 id="OffseasonUptakeCorrectionappliesonlytotheLI7500" data-magellan-target="OffseasonUptakeCorrectionappliesonlytotheLI7500">Off-season Uptake Correction (applies only to the LI&#8209;7500)</h2>
-                                                <p>Calculation of corrected sensible heat flux is described in detail in <a href="calculateoff-season-uptake-correction.html" class="ToHeading MCXref xref xrefToHeading">Calculating the Off-season Uptake Correction (LI&#8209;7500 only)</a>.</p>
-                                                <h2 id="SpectroscopicCorrectionappliesonlytoLI7700methaneanalyzer" data-magellan-target="SpectroscopicCorrectionappliesonlytoLI7700methaneanalyzer">Spectroscopic Correction (applies only to LI-7700 methane analyzer)</h2>
-                                                <p>Calculation of spectroscopic multipliers is described in detail in <a href="calculate-LI-7700-multipliers.html" class="ToHeading MCXref xref xrefToHeading">Calculating Multipliers for Spectroscopic Corrections (LI&#8209;7700)</a>.</p>
+                                                <h2 id="OffseasonuptakecorrectionLI7500only" data-magellan-target="OffseasonuptakecorrectionLI7500only">Off-season uptake correction (LI&#8209;7500 only)</h2>
+                                                <p>Calculation of corrected sensible heat flux is described in detail in <a href="calculateoff-season-uptake-correction.html" class="ToHeading MCXref xref xrefToHeading">Calculating the off-season uptake correction (LI&#8209;7500 only)</a>.</p>
+                                                <h2 id="SpectroscopiccorrectionLI7700only" data-magellan-target="SpectroscopiccorrectionLI7700only">Spectroscopic correction (LI-7700 only)</h2>
+                                                <p>Calculation of spectroscopic multipliers is described in detail in <a href="calculate-LI-7700-multipliers.html" class="ToHeading MCXref xref xrefToHeading">Calculating multipliers for spectroscopic corrections (LI&#8209;7700)</a>.</p>
                                             </div>
                                             <div>
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#CalculatingCorrectedFluxes">Calculating Corrected Fluxes</a>
+                                                        <li><a href="#Calculatingcorrectedfluxes">Calculating corrected fluxes</a>
                                                         </li>
                                                         <ul>
-                                                            <li><a href="#HumidityCorrectionofSonicTemperature">Humidity Correction of Sonic Temperature</a>
+                                                            <li><a href="#Humiditycorrectionofsonictemperature">Humidity correction of sonic temperature</a>
                                                             </li>
-                                                            <li><a href="#CorrectionofGasFluxesforAirDensityFluctuationEffectsWPLterms">Correction of Gas Fluxes for Air Density Fluctuation Effects (WPL terms)</a>
+                                                            <li><a href="#CorrectionofgasfluxesforairdensityfluctuationeffectsWPLterms">Correction of gas fluxes for air density fluctuation effects (WPL terms)</a>
                                                             </li>
-                                                            <li><a href="#CorrectionforHighfrequencyandLowfrequencySpectralAttenuations">Correction for High-frequency and Low-frequency Spectral Attenuations</a>
+                                                            <li><a href="#Correctionforhighfrequencyandlowfrequencyspectralattenuations">Correction for high-frequency and low-frequency spectral attenuations</a>
                                                             </li>
-                                                            <li><a href="#OffseasonUptakeCorrectionappliesonlytotheLI7500">Off-season Uptake Correction (applies only to the LI&#8209;7500)</a>
+                                                            <li><a href="#OffseasonuptakecorrectionLI7500only">Off-season uptake correction (LI&#8209;7500 only)</a>
                                                             </li>
-                                                            <li><a href="#SpectroscopicCorrectionappliesonlytoLI7700methaneanalyzer">Spectroscopic Correction (applies only to LI-7700 methane analyzer)</a>
+                                                            <li><a href="#SpectroscopiccorrectionLI7700only">Spectroscopic correction (LI-7700 only)</a>
                                                             </li>
                                                         </ul>
                                                     </ul>

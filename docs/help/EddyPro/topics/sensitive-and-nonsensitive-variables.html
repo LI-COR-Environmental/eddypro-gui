@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Sensitive and Non-sensitive Variables</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Sensitive and non-sensitive variables</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -148,9 +148,9 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 class="pgBrkBfr" id="SensitiveandNonsensitiveVariables" data-magellan-target="SensitiveandNonsensitiveVariables">Sensitive and Non-sensitive Variables<a name="aanchor85"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 class="pgBrkBfr" id="Sensitiveandnonsensitivevariables" data-magellan-target="Sensitiveandnonsensitivevariables">Sensitive and non-sensitive variables<a name="aanchor89"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>In the Metadata File Editor, you can choose to <span class="pop">Ignore</span> a variable, specify if it is <span class="pop">Numeric</span> or not, and specify the <span class="pop">Variable</span> type. Ignore simply tells <span class="product_namesEddyPro">EddyPro</span> to ignore the field in processing. Select "yes" for variables that are not needed. This will speed up processing. For numeric variables, select yes to instruct <span class="product_namesEddyPro">EddyPro</span> to treat it as a number. For Variable, choose the measurement type from the list.</p>
-                                                <p><a name="kanchor186"></a><i><b>Sensitive variables</b> are recognized by the software and used for flux computation.</i> These variables can be selected from the drop-down list under <span class="pop">Variables</span> in <span class="pop">Raw File Description</span> tab of the Metadata File Editor.</p>
+                                                <p><a name="kanchor180"></a><i><strong>Sensitive variables</strong> are recognized by the software and used for flux computation.</i> These variables can be selected from the drop-down list under <span class="pop">Variables</span> in <span class="pop">Raw File Description</span> tab of the Metadata File Editor.</p>
                                                 <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
                                                     <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. Sensitive variables recognized by <span class="product_namesEddyPro">EddyPro</span> and used in flux computations.</caption>
                                                     <col style="width: 150px;" class="TableStyle-basic-Column-Column1" />
@@ -308,7 +308,7 @@
                                                 </table>
                                                 <p class="note"><b>Note:</b> Along with CO<sub>2</sub>, H<sub>2</sub>O, and CH<sub>4</sub>, <span class="product_namesEddyPro">EddyPro</span> can process a 4th gas that can be selected from among those listed in the drop-down list, or be completely customized (see the section on processing a generic passive scalar variable).</p>
                                                 <p>Diagnostic flags output at high frequency from LI&#8209;COR instruments are integer values that represent the combination of several binary flags, each providing information about the status of specific instrument components (refer to the respective instruction manuals for more information on these flags). If raw files contain such a flag for one or more instruments, you can select them in the <b>Basic Settings</b> page. <span class="product_namesEddyPro">EddyPro</span> will decipher them and provide you with the sum of the flagged samples in each raw file, which can help you to detect instrument failures and filter results for quality. The only exception is the AGC value, for which <span class="product_namesEddyPro">EddyPro</span> provides you the period-wise mean value, rather than the sum.</p>
-                                                <p><i><b>Non-sensitive variables</b> are all those not used for flux computation.</i> <span class="product_namesEddyPro">EddyPro</span> preserves these variables for a dedicated processing routine, which includes despiking, tilt correction, detrending, time lag compensation and calculation of main statistics (mean values, variances, covariances, skewness and kurtosis). These variables include:</p>
+                                                <p><i><strong>Non-sensitive variables</strong> are all those not used for flux computation.</i> <span class="product_namesEddyPro">EddyPro</span> preserves these variables for a dedicated processing routine, which includes despiking, tilt correction, detrending, time lag compensation and calculation of main statistics (mean values, variances, covariances, skewness and kurtosis). These variables include:</p>
                                                 <ul class="bullet">
                                                     <li value="1">Variables with a name explicitly entered in the <span class="pop">Variables</span> text box;</li>
                                                     <li value="2">All sensitive variables that are not selected for flux computation in the current processing project. For example, in a raw file there can be more than only CO<sub>2</sub> concentration measurements, from the same or from different instruments. However, only one CO<sub>2</sub> measurement can be used at a time to calculate fluxes. The others are treated as non-sensitive variables.</li>
@@ -319,7 +319,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#SensitiveandNonsensitiveVariables">Sensitive and Non-sensitive Variables</a>
+                                                        <li><a href="#Sensitiveandnonsensitivevariables">Sensitive and non-sensitive variables</a>
                                                         </li>
                                                     </ul>
                                                 </div>

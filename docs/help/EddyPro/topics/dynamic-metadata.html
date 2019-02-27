@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Time-varying (Dynamic) Metadata</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Time-varying (dynamic) metadata</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -148,7 +148,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="TimevaryingDynamicMetadata" data-magellan-target="TimevaryingDynamicMetadata">Time-varying (Dynamic) Metadata<a name="aanchor39"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Timevaryingdynamicmetadata" data-magellan-target="Timevaryingdynamicmetadata">Time-varying (dynamic) metadata<a name="aanchor40"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>Data processing and flux calculation with <span class="product_namesEddyPro">EddyPro</span> is based not only on raw data, but also on the metadata describing the site characteristics, the eddy covariance station setup and the raw data files themselves.</p>
                                                 <p>Metadata may vary along the dataset. For example, think about the growing canopy of an agricultural field, which may also imply an adjustment of the measurement height of the instruments. Maintenance and movement of instruments may imply a different relative positioning and orientation of the instruments. Also, instruments can be added or changed during the data collection, or parameters such as the acquisition frequency and the duration of the raw file, can change. All these possible changes must be taken into account for proper data processing and flux computation and correction. The ideal way to do that is to collect raw data in LI&#8209;COR’s .ghg format. .ghg files embed the metadata inside each raw file so, if the data logging software is updated with the current meta-information during data acquisition (and that’s by far the most suitable moment for doing that!), all raw files will embed the correct metadata, and <span class="product_namesEddyPro">EddyPro</span> will be able to correctly process them without any further intervention from you.</p>
                                                 <p>However, if you collected raw files in a format other than .ghg, or if you didn’t update the data logging software with the proper meta-information during acquisition of your .ghg dataset, <span class="product_namesEddyPro">EddyPro</span> provides you with the possibility of taking time-varying metadata into account. This will require a little effort on your part, to create a dynamic metadata file prior to using EddyPro. The dynamic metadata file is a comma separated text file featuring a header with the names of the contained variables, and a sequence of records starting with a timestamp, followed by the actual values.</p>
@@ -165,10 +165,10 @@
                                                 <p>where the first line is the header containing standardized labels (see the following table). The second line indicates that, starting January 1<sup>st</sup>, 2011 at 1:00AM, the CO<sub style="vertical-align: sub;">2</sub> analyzer is placed 20 cm northward of the master anemometer, and 0 cm eastward. These settings will bypass any different information provided in the alternative, “master” (and static) metadata file.</p>
                                                 <p>The third line says that, starting February 15<sup>th</sup>, 2011 at 10:30AM, the CO<sub style="vertical-align: sub;">2</sub> analyzer was moved, and is now aligned with the master anemometer in the South-North direction, but displaced 30 cm eastward.</p>
                                                 <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;mc-table-style-original: url('../../Resources/TableStyles/Basic.css');">
-                                                    <col class="TableStyle-basic-Column-Column1" style="width: 35%;" />
-                                                    <col class="TableStyle-basic-Column-Column1" />
+                                                    <col class="TableStyle-basic-Column-Column1" style="width: 25%;" />
+                                                    <col class="TableStyle-basic-Column-Column1" style="width: 15%;" />
                                                     <col class="TableStyle-basic-Column-Column1" style="width: 10%;" />
-                                                    <col class="TableStyle-basic-Column-Column1" />
+                                                    <col class="TableStyle-basic-Column-Column1" style="width: 50%;" />
                                                     <thead>
                                                         <tr class="TableStyle-basic-Head-Header1">
                                                             <th class="TableStyle-basic-HeadE-Column1-Header1">Variable</th>
@@ -273,14 +273,20 @@
                                                         <tr class="TableStyle-basic-Body-Body1">
                                                             <td class="TableStyle-basic-BodyE-Column1-Body1">Northward separation of XXX analyzer from master anemometer</td>
                                                             <td class="TableStyle-basic-BodyE-Column1-Body1">xxx_irga_northward_separation</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">m</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Positive if gas analyzer is placed North of anemometer.</td>
+                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">cm</td>
+                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Positive if gas analyzer or sample inlet is placed North of anemometer.</td>
                                                         </tr>
                                                         <tr class="TableStyle-basic-Body-Body1">
                                                             <td class="TableStyle-basic-BodyE-Column1-Body1">Eastward separation of XXX analyzer from master anemometer</td>
                                                             <td class="TableStyle-basic-BodyE-Column1-Body1">xxx_irga_eastward_separation</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">m</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Positive if gas analyzer is placed East of the master anemometer.</td>
+                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">cm</td>
+                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Positive if gas analyzer or sample inlet is placed East of the master anemometer.</td>
+                                                        </tr>
+                                                        <tr class="TableStyle-basic-Body-Body1">
+                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Vertical separation of XXX analyzer from master anemometer</td>
+                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">xxx_irga_vertical_separation</td>
+                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">cm</td>
+                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Positive if gas analyzer or sample inlet is placed higher than anemometer</td>
                                                         </tr>
                                                         <tr class="TableStyle-basic-Body-Body1">
                                                             <td class="TableStyle-basic-BodyE-Column1-Body1">Length of the tube of the sampling line for XXX analyzer</td>
@@ -333,7 +339,7 @@
                                                     </tbody>
                                                 </table>
                                                 <p>†Supported Anemometer Manufacturers:</p>
-                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');">
+                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');width: 100%;">
                                                     <col style="width: 250px;" class="TableStyle-basic-Column-Column1" />
                                                     <col style="width: 100px;" class="TableStyle-basic-Column-Column1" />
                                                     <thead>
@@ -366,7 +372,7 @@
                                                     </tbody>
                                                 </table>
                                                 <p>‡Supported Anemometer Models:</p>
-                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');">
+                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');width: 100%;">
                                                     <col style="width: 250px;" class="TableStyle-basic-Column-Column1" />
                                                     <col style="width: 100px;" class="TableStyle-basic-Column-Column1" />
                                                     <thead>
@@ -447,7 +453,7 @@
                                                     </tbody>
                                                 </table>
                                                 <p>*Supported Gas Analyzer Manufacturers:</p>
-                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');">
+                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');width: 100%;">
                                                     <col style="width: 250px;" class="TableStyle-basic-Column-Column1" />
                                                     <col style="width: 100px;" class="TableStyle-basic-Column-Column1" />
                                                     <thead>
@@ -468,7 +474,7 @@
                                                     </tbody>
                                                 </table>
                                                 <p>*Supported Gas Analyzer Models:</p>
-                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');">
+                                                <table class="TableStyle-basic" cellspacing="0" style="border-spacing: 0px 0px;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/basic.css');mc-table-style-original: url('../../Resources/TableStyles/Basic.css');width: 100%;">
                                                     <col style="width: 250px;" class="TableStyle-basic-Column-Column1" />
                                                     <col style="width: 100px;" class="TableStyle-basic-Column-Column1" />
                                                     <thead>
@@ -552,7 +558,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#TimevaryingDynamicMetadata">Time-varying (Dynamic) Metadata</a>
+                                                        <li><a href="#Timevaryingdynamicmetadata">Time-varying (dynamic) metadata</a>
                                                         </li>
                                                     </ul>
                                                 </div>
