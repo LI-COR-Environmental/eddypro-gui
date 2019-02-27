@@ -740,6 +740,16 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>  [min]</translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="1165"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1171"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1177"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1239"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1245"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1251"/>
+        <source>* U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/advprocessingoptions.cpp" line="226"/>
         <source>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</source>
         <translation>&lt;b&gt;Quality check:&lt;/b&gt; Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy.</translation>
@@ -901,7 +911,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advprocessingoptions.cpp" line="1082"/>
         <location filename="../src/advprocessingoptions.cpp" line="1092"/>
         <location filename="../src/advprocessingoptions.cpp" line="1160"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1231"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1234"/>
         <source>Bottom :</source>
         <translation>Bottom :</translation>
     </message>
@@ -918,20 +928,20 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advprocessingoptions.cpp" line="1094"/>
         <location filename="../src/advprocessingoptions.cpp" line="1097"/>
         <location filename="../src/advprocessingoptions.cpp" line="1100"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1162"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1167"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1172"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1233"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1238"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1163"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1169"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1175"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1237"/>
         <location filename="../src/advprocessingoptions.cpp" line="1243"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1249"/>
         <source> * T&lt;sub&gt;a&lt;/sub&gt; + </source>
         <translation> * T&lt;sub&gt;a&lt;/sub&gt; + </translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="1085"/>
         <location filename="../src/advprocessingoptions.cpp" line="1095"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1165"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1236"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1166"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1240"/>
         <source>Top :</source>
         <translation>Top :</translation>
     </message>
@@ -944,8 +954,8 @@ Missing flux averaging period are filled with error codes)</translation>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="1088"/>
         <location filename="../src/advprocessingoptions.cpp" line="1098"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1170"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1241"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1172"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1246"/>
         <source>Spar :</source>
         <translation>Spar :</translation>
     </message>
@@ -957,58 +967,58 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="1161"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1232"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1235"/>
         <source>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;bot&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1163"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1162"/>
         <location filename="../src/advprocessingoptions.cpp" line="1168"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1173"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1174"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1236"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1242"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1247"/>
+        <source> + </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="1164"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1170"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1176"/>
         <source> * R&lt;sub&gt;g&lt;/sub&gt; + </source>
         <translation> * R&lt;sub&gt;g&lt;/sub&gt; + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1164"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1169"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1174"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1235"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1240"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1245"/>
-        <source> * U + </source>
-        <translation> * U + </translation>
-    </message>
-    <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1166"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1237"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1167"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1241"/>
         <source>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;top&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1171"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1242"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1173"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1248"/>
         <source>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </source>
         <translation>T&lt;sub&gt;spar&lt;/sub&gt; - T&lt;sub&gt;a&lt;/sub&gt; = </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1234"/>
-        <location filename="../src/advprocessingoptions.cpp" line="1239"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1238"/>
         <location filename="../src/advprocessingoptions.cpp" line="1244"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1250"/>
         <source> * LWin + </source>
         <translation> * LWin + </translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1473"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1479"/>
         <source>Reset Surface Heating Correction</source>
         <translation>Reset Surface Heating Correction</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1474"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1480"/>
         <source>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the surface heating correction to the default values of Burba et al. (2008)?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advprocessingoptions.cpp" line="1476"/>
+        <location filename="../src/advprocessingoptions.cpp" line="1482"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>

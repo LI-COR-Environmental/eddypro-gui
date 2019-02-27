@@ -1,0 +1,1 @@
+define({'/EddyPro/home.html':{i:[0],t:['EddyPro Home'],b:['']},'/EddyPro/menu.html':{i:[1],t:['Using EddyPro Software'],b:['']}});
