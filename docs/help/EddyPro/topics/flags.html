@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Filtering Raw Data Records for Instrument Diagnostics and Custom Flags</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Filtering raw data records for instrument diagnostics and custom flags</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -148,8 +148,8 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="FilteringRawDataRecordsforInstrumentDiagnosticsandCustomFlags" data-magellan-target="FilteringRawDataRecordsforInstrumentDiagnosticsandCustomFlags">Filtering Raw Data Records for Instrument Diagnostics and Custom Flags<a name="aanchor61"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor134"></a>Before calculating fluxes, EddyPro<sup>®</sup> Software provides two main mechanisms for excluding raw (high-frequency) data affected by quality issues.  This improves the quality and reliability of flux results. These mechanisms are based on (1) instrument diagnostic values and on (2) custom-defined flags. Both are described in the following.</p>
+                                                <h1 id="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags" data-magellan-target="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags<a name="aanchor61"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p><a name="kanchor128"></a>Before calculating fluxes, EddyPro<sup>®</sup> Software provides two main mechanisms for excluding raw (high-frequency) data affected by quality issues.  This improves the quality and reliability of flux results. These mechanisms are based on (1) instrument diagnostic values and on (2) custom-defined flags. Both are described in the following.</p>
                                                 <h2 id="Filteringforinstrumentdiagnostics" data-magellan-target="Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</h2>
                                                 <p>Instrument diagnostic are values (usually expressed as an integer number) reported along with each raw data record, providing indications about the status of the instrument at the moment of the measurement or about the quality of the measurement itself. Manufacturers usually specify which value or values indicate data of good quality and which, in turn, indicate data that should be discarded because quality cannot be assured. In order to be usable for eliminating individual raw data records, the diagnostic value must be available in the raw data file at the same output rate as the variable(s) to which it refers. Typically, a diagnostic value synthesizes several pieces of information in only one  “word” and the manufacturer is responsible for documenting either how to “expand” the value into the individual pieces or how to interpret the resulting word to retain or discard data.</p>
                                                 <p>Currently, EddyPro supports instrument diagnostics for all LI-COR’s eddy covariance gas analyzers (LI-7500x, LI-7200/RS, LI-7700) and for the following sonic anemometers:</p>
@@ -662,7 +662,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <h2 class="pgBrkBfr" id="Filteringwithcustomflags" data-magellan-target="Filteringwithcustomflags">Filtering with custom flags<a name="kanchor135"></a></h2>
+                                                <h2 class="pgBrkBfr" id="Filteringwithcustomflags" data-magellan-target="Filteringwithcustomflags">Filtering with custom flags<a name="kanchor129"></a></h2>
                                                 <p>In addition to the dedicated diagnostic variables, other variables can be used to identify and eliminate bad raw data before flux computation. For example, you may want to eliminate records for which the vertical wind component is too large, or gas concentrations that take on implausible values due to instrument failure. For this reason, any variable in the EddyPro<sup>®</sup> Software (except those marked as “Ignore” and/or “Not numeric” in the <span class="pop">Raw File Description</span> table) can be treated as a record flag, including variables used in flux computation.</p>
                                                 <p>In EddyPro, elimination of records through flags is done by setting a threshold value for the selected flag variable and by defining whether entire records should be eliminated when the variable value goes above or below the threshold. For example, if you have a data column which is set to “0” for good quality and “1” for bad quality, you can: 1) select that variable as a flag; 2) set the threshold to 0.00; and 3) select <span class="pop">Discard if above threshold</span>. This way, all records for which the variable takes the value “1” will be eliminated from the dataset. As a second example, suppose you want to use the gas concentration as such a flag, instructing EddyPro to eliminate all records for which a CO<sub>2</sub> concentration falls below 300 ppm. In this case, select the CO<sub>2</sub> variable as a flag, set the threshold to 300.00 and set the policy to “Discard if below threshold”.</p>
                                                 <p>Make sure you enter the flag threshold in the units specified by EddyPro in the label following the threshold column. If units do not appear, use the same units used in the raw files.</p>
@@ -672,7 +672,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#FilteringRawDataRecordsforInstrumentDiagnosticsandCustomFlags">Filtering Raw Data Records for Instrument Diagnostics and Custom Flags</a>
+                                                        <li><a href="#Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags</a>
                                                         </li>
                                                         <ul>
                                                             <li><a href="#Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</a>

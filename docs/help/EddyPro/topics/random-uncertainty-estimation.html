@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Random Uncertainty Estimation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Random uncertainty estimation</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,9 +147,9 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="RandomUncertaintyEstimation" data-magellan-target="RandomUncertaintyEstimation">Random Uncertainty Estimation<a name="aanchor72"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Randomuncertaintyestimation" data-magellan-target="Randomuncertaintyestimation">Random uncertainty estimation<a name="aanchor76"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p><span class="product_namesEddyPro">EddyPro</span> can calculate flux random uncertainty due to sampling errors according to two different methods: <a href="references.html#Mann">Mann and Lenschow (1994)</a> and <a href="references.html#Finkelstein">Finkelstein and Sims (2001)</a>. Both methods require the preliminary estimation of the Integral Turbulence time-Scale (ITS), which – for our purposes – can be defined as the integral of the cross-correlation function. The cross-correlation function is given by:</p>
-                                                <p class="equation" data-mc-autonum="10"><span class="autonumber"><span class="right">10</span></span>
+                                                <p class="equation" data-mc-autonum="11"><span class="autonumber"><span class="right">11</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation11.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <i>w</i> is the vertical wind component, <i>c</i> is any scalar of interest (e.g., temperature, gas concentration, etc.), <i>t</i> is time and <i>τ</i>  is the lag-time between the two time series. For <i>τ</i>=0  the cross-correlation function provides the covariance of <i>w</i> and <i>c</i>; as <i>τ</i>  attains values &gt; 0 the cross-correlation function typically decreases towards values close to zero, representing an increasing non-correlation as <i>τ</i>  increases (black line in <a href="#CrossCorrelation" class="ToCaption MCXref xref xrefToCaption">Figure 1</a>).</p>
@@ -157,7 +157,7 @@
                                                 </p>
                                                 <p class="figure" data-mc-autonum="Figure 1"><span class="autonumber"><span>Figure 1</span></span><a name="CrossCorrelation"></a>. Normalized cross correlation and integral time scale over time.</p>
                                                 <p>The following integral represents the ITS:</p>
-                                                <p class="equation" data-mc-autonum="11"><span class="autonumber"><span class="right">11</span></span>
+                                                <p class="equation" data-mc-autonum="12"><span class="autonumber"><span class="right">12</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation12.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>The red line in the figure above represents the integral for any given value of the upper limit, which is theoretically set to infinity. In practical implementations, however, this integral must be stopped at a finite upper limit, which should be defined in such a way that the ITS represents the maximum correlation time of the two time series. <span class="product_namesEddyPro">EddyPro</span> provides three possible ways of defining this upper limit:</p>
@@ -165,12 +165,12 @@
                                                 <p><span class="pop">Cross-correlation first crossing 0:</span> The integral is stopped as soon as the cross-correlation function (which always starts at 1 for <i>τ</i>=0) crosses the x-axis. This definition provides a more conservative definition of ITS than the previous one, and is still “data-derived”, i.e. it is not imposed by the user. The shortcoming with this definition is that the cross-correlation function may never cross the x-axis (in which case, <span class="product_namesEddyPro">EddyPro</span> switches to the next definition); also when it does, the point in which it occurs may be somewhat random, as the cross-correlation function may vary erratically for large values of <i>τ</i>.</p>
                                                 <p><span class="pop">Integrate over the whole correlation period:</span> The integral is stopped when τ reaches the value defined in the field <span class="pop">Maximum correlation period</span>, set by the user. This definition provides a conservative estimation but being imposed <i>a priori</i>, it does not assure that the cross-correlation function is actually close to zero at the upper integration limit. Also, the execution time may get longer with this choice, because the upper integration limit may be set arbitrarily high.</p>
                                                 <p>Once the ITS is calculated, the random uncertainty can be estimated. The random uncertainty of flux <i>F</i>, indicated with  σ<sub>F</sub>, is expressed in <span class="product_namesEddyPro">EddyPro</span> as “absolute uncertainty”, and takes the same units of the flux it refers to. The approach of <a href="references.html#Mann">Mann and Lenschow (1994)</a> uses the following simple equation:</p>
-                                                <p class="equation" data-mc-autonum="12"><span class="autonumber"><span class="right">12</span></span>
+                                                <p class="equation" data-mc-autonum="13"><span class="autonumber"><span class="right">13</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation13.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <i>r</i><sub style="font-style: italic;">wc</sub> is correlation coefficient of <i>w</i> and <i>c</i> and <i>T</i> is the flux averaging interval.</p>
                                                 <p>The approach of <a href="references.html#Finkelstein">Finkelstein and Sims (2001)</a>, instead, is based on the calculation of the “variance of covariance” (their Eq. 8):</p>
-                                                <p class="equation" data-mc-autonum="13"><span class="autonumber"><span class="right">13</span></span>
+                                                <p class="equation" data-mc-autonum="14"><span class="autonumber"><span class="right">14</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation14.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>with ɣ<sub>w,w</sub>(<i>p</i>), ɣ<sub>c,c</sub>(<i>p</i>), ɣ<sub>w,c</sub>, and ɣ<sub>c,w</sub>(<i>p</i>) and   given by Eq. 9 and 10 in the referenced paper, <i>n</i> is the number of samples in the flux averaging interval and <i>m</i> the discrete counterpart of the ITS (m = ITS * acquisition frequency).</p>
@@ -184,7 +184,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#RandomUncertaintyEstimation">Random Uncertainty Estimation</a>
+                                                        <li><a href="#Randomuncertaintyestimation">Random uncertainty estimation</a>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Ensemble Averaged Spectra and Cospectra</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Ensemble averaged spectra and cospectra</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,9 +147,9 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="EnsembleAveragedSpectraandCospectra" data-magellan-target="EnsembleAveragedSpectraandCospectra">Ensemble Averaged Spectra and Cospectra<a name="aanchor62"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Ensembleaveragedspectraandcospectra" data-magellan-target="Ensembleaveragedspectraandcospectra">Ensemble averaged spectra and cospectra<a name="aanchor62"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p><span class="product_namesEddyPro">EddyPro</span> can calculate averaged spectra and cospectra. However, because these quantities serve different purposes, the procedures for getting spectra and cospectra are different; also, these quantities are screened, sorted and averaged in different ways. So, let’s have a look at what <span class="product_namesEddyPro">EddyPro</span> does, why it does so, and what is available to you after the run.</p>
-                                                <h2 id="EnsembleAveragedSpectraofPassiveScalars" data-magellan-target="EnsembleAveragedSpectraofPassiveScalars">Ensemble Averaged Spectra of Passive Scalars</h2>
+                                                <h2 id="Ensembleaveragedspectraofpassivescalars" data-magellan-target="Ensembleaveragedspectraofpassivescalars">Ensemble averaged spectra of passive scalars</h2>
                                                 <p>Ensemble averaged spectra of CO<sub>2</sub>, CH<sub>4</sub> and a 4th passive gas are created when the corresponding raw data are available and if the spectral correction method of <a href="references.html#horst1997">Horst (1997)</a> or <a href="references.html#Ibrom">Ibrom et al. (2007a)</a> was selected. Those correction methods are based on an in-situ determination of the EC system transfer function, which in <span class="product_namesEddyPro">EddyPro</span> is performed as described in Ibrom et al. (2007), evaluating the underestimation of gas concentration variance via a comparison of the average spectrum of the gas under consideration, to that of (sonic) temperature, taken as a reference. The procedure involves the selection of “high-quality” spectra for both gases and temperature, performed on the basis of:</p>
                                                 <ul class="bullet">
                                                     <li value="1">The value of concerned fluxes</li>
@@ -157,9 +157,9 @@
                                                     <li value="3">Exclusion based on outranged spectral values</li>
                                                 </ul>
                                                 <p>For this procedure, <span class="product_namesEddyPro">EddyPro</span> uses binned spectra. This is the reason why, when one of these spectral correction methods is selected, the option “All binned spectra and cospectra” in the Output Files page is checked and deactivated: those methods requires those outputs. Once spectra have been selected as just described, they are averaged to get the results stored in the output file containing the identifier <code>passive_gases_ensemble_spectra</code> in its name. Refer to the output file descriptions for more details on the content of this output file.</p>
-                                                <h2 id="EnsembleAveragedSpectraofWaterVapor" data-magellan-target="EnsembleAveragedSpectraofWaterVapor">Ensemble Averaged Spectra of Water Vapor</h2>
+                                                <h2 id="Ensembleaveragedspectraofwatervapor" data-magellan-target="Ensembleaveragedspectraofwatervapor">Ensemble averaged spectra of water vapor</h2>
                                                 <p>Water vapor requires a different treatment with respect to passive gases, because in closed-path systems its attenuation is strongly dependent on relative humidity (and secondarily on temperature); for this reason, in addition to the screening procedure described above for passive gases, <span class="product_namesEddyPro">EddyPro</span> sorts water vapor spectra into a user-defined number of relative humidity classes, to assess attenuation of H<sub>2</sub>O variance as a function of RH. Thus, you find ensemble averaged water vapor spectra in a separate output, identified by <code>h2o_ensemble_spectra</code> in the file name. Refer to the output file descriptions for more details on the content of this output file.</p>
-                                                <h2 id="EnsembleAveragedCospectraSortedbyTimeoftheDay" data-magellan-target="EnsembleAveragedCospectraSortedbyTimeoftheDay">Ensemble Averaged Cospectra Sorted by Time of the Day</h2>
+                                                <h2 id="Ensembleaveragedcospectrasortedbytimeoftheday" data-magellan-target="Ensembleaveragedcospectrasortedbytimeoftheday">Ensemble averaged cospectra sorted by time of the day</h2>
                                                 <p>Although not directly used for any calculation, <span class="product_namesEddyPro">EddyPro</span> also calculates ensemble averaged cospectra of main fluxes (i.e., based on time series of <i>w</i> and gas concentrations/densities or temperature). In the output file identified by “ensemble_cospectra_by_time”, all available binned cospectra are sorted in 3-hour groups (from 00:00 to 03:00, from 03:00 to 06:00 and so on) so as to provide a “daily course” of average cospectral shapes. Before being considered for ensemble averaging, cospectra are screened for quality according to the following “soft” criteria:</p>
                                                 <ul class="bullet">
                                                     <li value="1">Sensible heat flux is greater than 5 W m<sup>-2</sup> (for all fluxes)</li>
@@ -168,9 +168,9 @@
                                                     <li value="4">Absolute value of CH<sub>4</sub> flux is greater than 10<sup>-3</sup> μmol m<sup>-2</sup> s<sup>-1</sup> (for CH<sub>4</sub>);</li>
                                                 </ul>
                                                 <p class="note"><b>Note:</b> These cospectra are presented as function of the natural frequency, extending in the range defined by the inverse of the flux averaging interval to half the data acquisition sampling frequency.</p>
-                                                <h2 id="EnsembleAveragedCospectraSortedbyStabilityRegime" data-magellan-target="EnsembleAveragedCospectraSortedbyStabilityRegime">Ensemble Averaged Cospectra Sorted by Stability Regime</h2>
+                                                <h2 id="Ensembleaveragedcospectrasortedbystabilityregime" data-magellan-target="Ensembleaveragedcospectrasortedbystabilityregime">Ensemble averaged cospectra sorted by stability regime</h2>
                                                 <p><span class="product_namesEddyPro">EddyPro</span> sorts and averages cospectra according to the atmospheric stability regime, defined by the value of the Monin-Obukhov length L. Ensemble averaged cospectra are provided for unstable (-650 &lt; L &lt; 0) and stable (0 &lt; L &lt; 1000) stratifications. Before being considered for ensemble averaging, cospectra are screened for quality. Cospectra corresponding to stable stratifications are filtered using the same “soft” criteria described above, while cospectra corresponding to unstable stratifications are filtered using the flux thresholds entered by the user in the spectral correction configuration page (default values are used if the spectral correction page is not configured; default values are visible in the GUI). In addition, <span class="product_namesEddyPro">EddyPro</span> fits Massman’s model to the ensemble of individual cospectra.</p>
-                                                <p class="equation" data-mc-autonum="35"><span class="autonumber"><span class="right">35</span></span>
+                                                <p class="equation" data-mc-autonum="36"><span class="autonumber"><span class="right">36</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation62.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <i>n</i> (Hz) is the natural frequency, <i>f = (z-d)* n/U</i> is the normalized frequency and A<sup style="vertical-align: sub;">0</sup>,  <i>f<sub>p</sub></i> and <i>μ</i> are regression parameters. To perform this step, individual cospectra are expressed as a function of the normalized frequency. The overall normalized frequency range is defined <i>a priori</i> in <span class="product_namesEddyPro">EddyPro</span> and extends from 1/4 Hz up to 200 Hz. This is a wide range, which implies that often empty frequency bins are found in the output file, corresponding to normalized frequency ranges where no actual cospectral values were found. Finally, in the same output file, identified by the string <code>ensemble_cospectra_by_stability</code> in the name, “ideal” Kaimal cospectra are also found. For the stable regime, this is only a function of the normalized frequency. However, for the stable range, ideal cospectra are also a function of z/L. Thus <span class="product_namesEddyPro">EddyPro</span> outputs Kaimal cospectra corresponding to two extremely stable conditions, namely z/L = 0.01 (near neutral stratification) and z/L = 10 (strongly stable stratification).</p>
@@ -179,16 +179,16 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#EnsembleAveragedSpectraandCospectra">Ensemble Averaged Spectra and Cospectra</a>
+                                                        <li><a href="#Ensembleaveragedspectraandcospectra">Ensemble averaged spectra and cospectra</a>
                                                         </li>
                                                         <ul>
-                                                            <li><a href="#EnsembleAveragedSpectraofPassiveScalars">Ensemble Averaged Spectra of Passive Scalars</a>
+                                                            <li><a href="#Ensembleaveragedspectraofpassivescalars">Ensemble averaged spectra of passive scalars</a>
                                                             </li>
-                                                            <li><a href="#EnsembleAveragedSpectraofWaterVapor">Ensemble Averaged Spectra of Water Vapor</a>
+                                                            <li><a href="#Ensembleaveragedspectraofwatervapor">Ensemble averaged spectra of water vapor</a>
                                                             </li>
-                                                            <li><a href="#EnsembleAveragedCospectraSortedbyTimeoftheDay">Ensemble Averaged Cospectra Sorted by Time of the Day</a>
+                                                            <li><a href="#Ensembleaveragedcospectrasortedbytimeoftheday">Ensemble averaged cospectra sorted by time of the day</a>
                                                             </li>
-                                                            <li><a href="#EnsembleAveragedCospectraSortedbyStabilityRegime">Ensemble Averaged Cospectra Sorted by Stability Regime</a>
+                                                            <li><a href="#Ensembleaveragedcospectrasortedbystabilityregime">Ensemble averaged cospectra sorted by stability regime</a>
                                                             </li>
                                                         </ul>
                                                     </ul>

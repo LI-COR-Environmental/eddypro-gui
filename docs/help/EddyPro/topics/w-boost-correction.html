@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | "W-boost Bug" Correction for Gill Windmaster and Windmaster Pro</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | W-boost Bug Correction for WindMaster and WindMaster Pro</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,22 +147,21 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="WboostBugCorrectionforGillWindmasterandWindmasterPro" data-magellan-target="WboostBugCorrectionforGillWindmasterandWindmasterPro"><a name="kanchor128"></a>"W-boost Bug" Correction for Gill Windmaster and Windmaster Pro<a name="aanchor50"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="WboostBugCorrectionforWindMasterandWindMasterPro" data-magellan-target="WboostBugCorrectionforWindMasterandWindMasterPro"><a name="kanchor123"></a>W-boost Bug Correction for WindMaster and WindMaster Pro<a name="aanchor49"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>In February 2016, Gill Instruments published <a href="http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf">Technical Key Note</a> KN1509v3 describing a bug in the computation of the vertical wind component (w) in the firmware of Gill WindMaster™ (WM) and WindMaster™ Pro (WMP) anemometers produced between 2006 and 2015. The bug is such that vertical wind speed is underestimated by a factor of 1.166 for positive values and 1.289 for negative values. </p>
-                                                <p><span class="pop">Identifying affected anemometers</span><a name="w-boost_criteria"></a>
-                                                </p>
+                                                <h2 id="Identifyingaffectedanemometers" data-magellan-target="Identifyingaffectedanemometers">Identifying affected anemometers<a name="w-boost_criteria"></a></h2>
                                                 <p>In the Technical Note, Gill Instruments explains that affected anemometers are identified by matching three criteria:</p>
                                                 <ul class="bullet">
                                                     <li value="1">Model is WM or WMP</li>
                                                     <li value="2">Production date is between 2006 and 2015</li>
                                                     <li value="3">Firmware version (command ‘D2’) is in the form: 2329.x.y with x&lt;700</li>
                                                 </ul>
-                                                <p>Therefore, starting from version 6.2.0, EddyPro offers a new option in the Advanced Settings page to correct data for this bug. Simply select the checkbox <span class="pop">Fix ‘w-boost’ bug (Gill WM and WMP only)</span> to instruct EddyPro to apply the correction. In order to determine whether the ‘w-boost’ correction is actually applicable, EddyPro looks at the firmware version entered for the sonic anemometer in the metadata file (see  <a href="sonic-anemometer-firmware-version.html" class="ToHeading MCXref xref xrefToHeading">Entering the Sonic Anemometer Firmware Version</a>) and applies the following rules:</p>
+                                                <p>Therefore, starting from version 6.2.0, EddyPro offers a new option in the Advanced Settings page to correct data for this bug. Simply select the checkbox <span class="pop">Fix ‘w-boost’ bug (Gill WM and WMP only)</span> to instruct EddyPro to apply the correction. In order to determine whether the ‘w-boost’ correction is actually applicable, EddyPro looks at the firmware version entered for the sonic anemometer in the metadata file (see  <a href="sonic-anemometer-firmware-version.html" class="ToHeading MCXref xref xrefToHeading">Entering the sonic anemometer firmware version</a>) and applies the following rules:</p>
                                                 <ul class="bullet">
                                                     <li value="1">If the sonic anemometer model is WM or WMP, the firmware version is in the form [2329.x.y with x&lt;700] and the option Fix ‘w-boost’ bug is selected, then EddyPro will apply the multipliers 1.166 (w&gt;0) and 1.289 (w&lt;0) at the raw data level, before any other operation.</li>
                                                     <li value="2">In any other conditions, EddyPro will not apply the ‘w boost’ bug fix. These include:<ul class="inlist"><li value="1">The anemometer model is other than WM or WMP</li><li value="2">The firmware version is not provided or, if provided, is not in the form [2329.x.y with x&lt;700]</li><li value="3">The option <span class="pop">Fix ‘w-boost’ bug</span> is not selected</li></ul></li>
                                                 </ul>
-                                                <h2 id="HandlingthewboostbugfixincombinationwiththeAngleofAttackforWMandWMP" data-magellan-target="HandlingthewboostbugfixincombinationwiththeAngleofAttackforWMandWMP">Handling the ‘w-boost’ bug fix in combination with the Angle of Attack for WM and WMP</h2>
+                                                <h2 id="HandlingthewboostbugfixincombinationwiththeangleofattackforWMandWMP" data-magellan-target="HandlingthewboostbugfixincombinationwiththeangleofattackforWMandWMP">Handling the ‘w-boost’ bug fix in combination with the angle of attack for WM and WMP</h2>
                                                 <p>The Angle of Attack correction proposed by Nakai and Shimoyama (2012) for the WM and the WMP was derived by using units affected by the ‘w-boost’ bug. This means the correction is applicable ‘as is’ only to WM and WMP units affected by the ‘w-boost bug’ (see <a href="#w-boost_criteria" class="ToHeading MCXref xref xrefToHeading">Identifying affected anemometers</a>). </p>
                                                 <p>The 'w-boost bug' correction and an Angle of Attack correction cannot both be applied to the same anemometer. Our current recommendation is to select <span class="pop">Fix ‘w-boost’ bug</span>. When <span class="pop">Fix ‘w-boost’ bug</span> is selected, EddyPro does not apply an angle-of-attack correction, even if an Angle of Attack correction is selected or the <span class="pop">Select automatically</span> option is selected. </p>
                                                 <p>In Express Mode and by default in SmartFlux, EddyPro does not apply any Angle of Attack correction, but it does apply the ‘w-boost bug’ correction to eligible data (see <a href="#w-boost_criteria" class="ToHeading MCXref xref xrefToHeading">Identifying affected anemometers</a>).</p>
@@ -171,10 +170,12 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#WboostBugCorrectionforGillWindmasterandWindmasterPro">"W-boost Bug" Correction for Gill Windmaster and Windmaster Pro</a>
+                                                        <li><a href="#WboostBugCorrectionforWindMasterandWindMasterPro">W-boost Bug Correction for WindMaster and WindMaster Pro</a>
                                                         </li>
                                                         <ul>
-                                                            <li><a href="#HandlingthewboostbugfixincombinationwiththeAngleofAttackforWMandWMP">Handling the ‘w-boost’ bug fix in combination with the Angle of Attack for WM and WMP</a>
+                                                            <li><a href="#Identifyingaffectedanemometers">Identifying affected anemometers</a>
+                                                            </li>
+                                                            <li><a href="#HandlingthewboostbugfixincombinationwiththeangleofattackforWMandWMP">Handling the ‘w-boost’ bug fix in combination with the angle of attack for WM and WMP</a>
                                                             </li>
                                                         </ul>
                                                     </ul>

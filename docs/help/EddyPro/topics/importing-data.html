@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Importing Data</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Importing data</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,7 +147,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="ImportingData" data-magellan-target="ImportingData">Importing Data<a name="aanchor30"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Importingdata" data-magellan-target="Importingdata">Importing data<a name="aanchor31"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>When you click the “Run” button in the <span class="product_namesEddyPro">EddyPro</span> interface, the program launches the processing module that, as a first step, reads the Processing Project file (“.eddypro”) compiled by the program, and then reports the settings specified in the graphical interface. Next, the processing module looks in the selected <span class="pop">Raw data folder</span> (and its subfolders if instructed to do so) and detects the names of all available raw files. By interpreting timestamps in the file names, the software prepares a chronological list of the files to be processed and creates a timeline, based on the timestamp of the first file and on the flux averaging interval specified in the interface. From this point forward, the timestamps in the filenames are no longer used as a timeline, but only to correctly time-reference the data in each file. Of course, if the flux averaging period is identical to the raw file duration, a perfect match of files timestamps and the timeline timestamps can be expected.</p>
                                                 <p>At this point the software is ready to start iterative processing of all available files. With each iteration, <span class="product_namesEddyPro">EddyPro</span> reads files that are consecutive in time and loads the corresponding data. If a lag is found (e.g., because a file is missing) <span class="product_namesEddyPro">EddyPro</span> stops the importation process and deals with the data that has been imported up to that point. At the next iteration, it will start from the next file available. After completing importation, <span class="product_namesEddyPro">EddyPro</span> has loaded the <i>merged dataset</i>, comprised of all data contained in the raw files read for the current iteration.</p>
                                                 <p>Once the merged dataset is prepared, <span class="product_namesEddyPro">EddyPro</span> extracts the data needed for the first averaging period. In <span class="product_namesEddyPro">EddyPro</span> this dataset is called the <i>averaging dataset</i>. If the merged dataset is longer than the one needed for the averaging dataset, <span class="product_namesEddyPro">EddyPro</span> will make another iteration within the same merged dataset, trying to build up a second (and third, fourth and so on) averaging dataset.</p>
@@ -156,7 +156,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#ImportingData">Importing Data</a>
+                                                        <li><a href="#Importingdata">Importing data</a>
                                                         </li>
                                                     </ul>
                                                 </div>

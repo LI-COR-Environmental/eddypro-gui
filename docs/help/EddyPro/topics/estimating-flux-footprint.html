@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Estimating the Flux Footprint</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Estimating the flux footprint</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,7 +147,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="EstimatingtheFluxFootprint" data-magellan-target="EstimatingtheFluxFootprint">Estimating the Flux Footprint<a name="kanchor188"></a><a name="Footprin"></a><a name="aanchor88"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Estimatingthefluxfootprint" data-magellan-target="Estimatingthefluxfootprint">Estimating the flux footprint<a name="kanchor182"></a><a name="Footprin"></a><a name="aanchor92"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p class="note">See <a href="selecting-advanced-options.html#Footprin" class="ToHeading MCXref xref xrefToHeading">Footprint estimation</a> for more information.</p>
                                                 <p><span class="product_namesEddyPro">EddyPro</span> features three crosswind-integrated flux footprint models, useful to estimate the upwind area contributing to the measured fluxes. The flux footprint functions estimate the location and relative importance of passive scalar sources influencing flux measurements at a given receptor height, depending on receptor height, atmospheric stability, and surface roughness (Kljun et al., 2004). Regardless of the chosen model, the footprint estimation is provided as a set of distances from the anemometer location in the direction from which the wind blows. These distances express:</p>
                                                 <ul class="bullet">
@@ -159,10 +159,10 @@
                                                 <h2 class="pgBrkBfr" id="FootprintparameterizationfromKljunetal2004" data-magellan-target="FootprintparameterizationfromKljunetal2004">Footprint parameterization from Kljun et al (2004)</h2>
                                                 <p>A footprint estimation is provided according to the “simple footprint parameterization” described in <a href="references.html#Kljun">Kljun et al. (2004)</a>.  The set of distances is calculated according to:</p>
                                                 <p>Peak contributing distance (<i>m</i>): </p>
-                                                <p class="equation" data-mc-autonum="125"><span class="autonumber"><span class="right">125</span></span>
+                                                <p class="equation" data-mc-autonum="126"><span class="autonumber"><span class="right">126</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation157.svg" alt="" class="_MCEquation_0 mcReset" />, <img src="../../GeneratedImages/Equations/Equation158.svg" alt="" class="_MCEquation_0 mcReset" /></p>
                                                 <p>NN% contribution (<i>m</i>):</p>
-                                                <p class="equation" data-mc-autonum="126"><span class="autonumber"><span class="right">126</span></span>
+                                                <p class="equation" data-mc-autonum="127"><span class="autonumber"><span class="right">127</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation159.svg" alt="" class="_MCEquation_0 mcReset" />, <img src="../../GeneratedImages/Equations/Equation160.svg" alt="" class="_MCEquation_0 mcReset" /></p>
                                                 <p>The second equation is used to provide the offset distance (NN = 1) and the 10% to 90% distances. In these equations, parameters c and d are calculated using Eqs. 13 to 16 in Kljun et al. (2004) (where the roughness length enters as a parameter). The distance <i>L'</i><a href="javascript:void(0);" class="MCTextPopup popup popupHead" style="font-size: 0.9em; vertical-align: super">1<span class="MCTextPopupBody MCTextPopupBody_Closed needs-pie popupBody"><span class="MCTextPopupArrow"></span>The FORTRAN source code for this calculation, along with the tabulated values of L’, were shared by the main author of the model, Natascha Kljun, for being embedded into ECO2S, and subsequently, EddyPro. We gratefully acknowledge Dr. Kljun for this contribution.</span></a> is tabulated for each percentage between 0 and 95% (see Figure A1 in the referenced paper). All other quantities are routinely calculated by EddyPro.</p>
                                                 <p>The footprint parameterization is valid only in certain ranges of micrometeorological conditions, well specified in the <a href="references.html#Kljun">Kljun et al. (2004)</a>. In particular, the model is claimed to be valid if the following conditions hold:</p>
@@ -176,27 +176,27 @@
                                                 <p><span class="product_namesEddyPro">EddyPro</span> checks for the last three of these conditions and switches to the 'Kormann and Meixner' model (see later), if either condition is not met.</p>
                                                 <h2 class="noTOC" id="FootprintmodelfromKormannandMeixner2001" data-magellan-target="FootprintmodelfromKormannandMeixner2001">Footprint model from Kormann and Meixner (2001)</h2>
                                                 <p>This is a crosswind integrated model based on the solution of the two dimensional advection-diffusion equation given, e.g., by van Ulden (1978) for power-law profiles in wind velocity and eddy diffusivity. Contributing distances are calculated according to (Eq. 21 in the original paper):</p>
-                                                <p class="equation" data-mc-autonum="127"><span class="autonumber"><span class="right">127</span></span>
+                                                <p class="equation" data-mc-autonum="128"><span class="autonumber"><span class="right">128</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation161.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where <i>x</i> is the distance from the location of the anemometer measured in the wind direction, <i>ξ</i>=<i>ξ</i>(<i>z</i>) is a flux length scale that depends on the height above the ground <i>z</i>, <i>μ</i> is a dimensionless model constant and Γ(<i>μ</i>) is the gamma function. The equation is actually used to calculate <i>x</i>, given the fraction of the flux contribution of interest (10%, 30%, etc.). The equation for the peak distance is explicitly derived by the authors (Eq. 22), by merely finding the maximum from the former equation:</p>
-                                                <p class="equation" data-mc-autonum="128"><span class="autonumber"><span class="right">128</span></span>
+                                                <p class="equation" data-mc-autonum="129"><span class="autonumber"><span class="right">129</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation162.svg" alt="" class="_MCEquation_0 mcReset" />.</p>
                                                 <h2 class="noTOC" id="FootprintmodelfromHsiehetal2000" data-magellan-target="FootprintmodelfromHsiehetal2000">Footprint model from Hsieh et al. (2000)</h2>
                                                 <p>This is a crosswind integrated model based on the former model of Gash (1986) and on simulations with a Lagrangian stochastic model. Contributing distances are calculated according to (Eq. 17 in the original paper):</p>
-                                                <p class="equation" data-mc-autonum="129"><span class="autonumber"><span class="right">129</span></span>
+                                                <p class="equation" data-mc-autonum="130"><span class="autonumber"><span class="right">130</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation163.svg" alt="" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>where, again, <i>x</i> and <i>z</i> are the upwind distance from the measuring location and the measuring height, <i>L</i> is the Monin-Obukhov length and <i>k</i>, <i>D</i>, <i>P</i>, <i>z</i><sub style="font-style: italic;">u</sub> are model-specific parameters.</p>
                                                 <p>Similar to Kormann and Meixner (2001), the equation above is actually used to calculate <i>x</i>, given the fraction of the flux contribution of interest (10%, 30%, etc.). The equation for the peak distance is explicitly derived by the authors (Eq. 19), by merely finding the maximum from the former equation:</p>
-                                                <p class="equation" data-mc-autonum="130"><span class="autonumber"><span class="right">130</span></span>
+                                                <p class="equation" data-mc-autonum="131"><span class="autonumber"><span class="right">131</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation164.svg" alt="" class="_MCEquation_0 mcReset" />.</p>
                                             </div>
                                             <div>
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#EstimatingtheFluxFootprint">Estimating the Flux Footprint</a>
+                                                        <li><a href="#Estimatingthefluxfootprint">Estimating the flux footprint</a>
                                                         </li>
                                                         <ul>
                                                             <li><a href="#FootprintparameterizationfromKljunetal2004">Footprint parameterization from Kljun et al (2004)</a>

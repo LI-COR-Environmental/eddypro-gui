@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | The Full Output File</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | The full output file</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -148,11 +148,11 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 style="page-break-before: always;" id="TheFullOutputFile" data-magellan-target="TheFullOutputFile">The Full Output File<a name="aanchor68"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor140"></a>This is the most comprehensive output file produced by <span class="product_namesEddyPro">EddyPro</span>. It contains many of the intermediate and final variables calculated during data processing. Results values are grouped by the first line of the header to facilitate interpretation. Here we provide an overview of available outputs. For more specific descriptions of each variable refer to the <a href="#Variable">Variables Table</a>.</p>
-                                                <h2 id="Headings" data-magellan-target="Headings">Headings</h2>
+                                                <h1 id="Thefulloutputfile" data-magellan-target="Thefulloutputfile">The full output file<a name="aanchor70"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p><a name="kanchor134"></a>This is the most comprehensive output file produced by <span class="product_namesEddyPro">EddyPro</span>. It contains many of the intermediate and final variables calculated during data processing. Results values are grouped by the first line of the header to facilitate interpretation. Here we provide an overview of available outputs. For more specific descriptions of each variable refer to the <a href="#Variable">Variables Table</a>.</p>
+                                                <h2 class="noTOC" id="Headings" data-magellan-target="Headings">Headings</h2>
                                                 <p>The first row in the file (when opened in a spreadsheet) gives the top-level headings below. The second row includes subheadings for variables and values included in the results.</p>
-                                                <h3><a name="kanchor141"></a>File info</h3>
+                                                <h3><a name="kanchor135"></a>File info</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Raw file name</li>
                                                     <li value="2">Date and time of the end of the averaging period</li>
@@ -171,12 +171,12 @@
                                                 <ul class="bullet">
                                                     <li value="1">Vertical advection gas fluxes obtained by multiplication of the mean vertical wind speed and mean gas concentration. These are zero if the mean vertical velocity is forced to zero, as is the case with the double rotations schemes for tilt correction.</li>
                                                 </ul>
-                                                <h3><a name="kanchor142"></a>Gas densities, concentrations, and time lags</h3>
+                                                <h3><a name="kanchor136"></a>Gas densities, concentrations, and time lags</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Average molar density, mole fraction (moles of gas per mole of wet air) and mixing ratio (moles of gas per mole of dry air) for available gases. Quantities are either calculated or estimated from raw data, depending on the available measurements. In particular, calculation of densities to concentrations (and vice-versa) requires measured temperatures and pressures, while estimation is done using barometric pressure and/or corrected sonic temperature, if measured values are not available. Toggling between mole fractions and mixing ratios requires fast measurements of water vapor.</li>
                                                     <li value="2">Time lags used for flux calculation and a flag indicating whether the time lag used was calculated with the covariance maximization procedure (value “F”) or was the nominal one (“T”).</li>
                                                 </ul>
-                                                <h3><a name="kanchor143"></a>Air properties</h3>
+                                                <h3><a name="kanchor137"></a>Air properties</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Evapotranspiration flux, expressed as millimeters of water per hour</li>
                                                     <li value="2">Mean ambient pressure and temperature, either calculated or estimated, depending on the content of raw files</li>
@@ -184,25 +184,25 @@
                                                     <li value="4">Mean ambient water vapor density, partial pressure, partial pressure at saturation</li>
                                                     <li value="5">Mean ambient specific and relative humidity, water vapor pressure deficit and dew point temperature</li>
                                                 </ul>
-                                                <h3><a name="kanchor144"></a>Unrotated and rotated wind</h3>
+                                                <h3><a name="kanchor138"></a>Unrotated and rotated wind</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Mean wind components in the anemometer coordinate framework</li>
                                                     <li value="2">Wind components after rotations for tilt correction</li>
                                                     <li value="3">Mean wind speed, instantaneous maximum wind speed and mean wind direction</li>
                                                 </ul>
-                                                <h3><a name="kanchor145"></a>Rotation angles</h3>
+                                                <h3><a name="kanchor139"></a>Rotation angles</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Yaw, pitch, and roll angles used to correct anemometer tilting, according to the selected method.</li>
                                                 </ul>
-                                                <h3><a name="kanchor146"></a>Turbulence</h3>
+                                                <h3><a name="kanchor140"></a>Turbulence</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Turbulence parameters: friction velocity, Monin-Obukhov length, stability parameter, turbulent kinetic energy, Bowen ratio, and scaling temperature.</li>
                                                 </ul>
-                                                <h3><a name="kanchor147"></a>Footprint</h3>
+                                                <h3><a name="kanchor141"></a>Footprint</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Estimation of crosswind integrated footprints: model used, along wind distances providing peak, 10%, 30%, 50%, 70%, and 90% contributions to total fluxes. Footprint offset is the distance from the tower providing less than 1% contribution to total fluxes. <a href="estimating-flux-footprint.html" class="ConceptPageNumber MCXref xref xrefConceptPageNumber"></a><a href="estimating-flux-footprint.html">Learn more...</a></li>
                                                 </ul>
-                                                <h3><a name="kanchor148"></a>Uncorrected fluxes</h3>
+                                                <h3><a name="kanchor142"></a>Uncorrected fluxes</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Net vertical turbulent fluxes of momentum, sensible heat, latent heat and all available gases, calculated from corresponding covariances by conversion of physical units, prior to application of corrections.</li>
                                                     <li value="2">Spectral correction factors calculated according to the selected method.</li>
@@ -217,22 +217,22 @@
                                                     <li value="2">Detailed summary of diagnostics for LI&#8209;7500RS, LI&#8209;7200RS, and LI&#8209;7700. The values here are the sum of records in each flux averaging interval, for which flags are set to "on" (bad data). Thus values here go from zero (best case) to the number of available records (worst case).</li>
                                                     <li value="3">Average AGC or Signal Strength (LI&#8209;7500RS or LI&#8209;7200RS) and RSSI (LI&#8209;7700).</li>
                                                 </ul>
-                                                <h3><a name="kanchor149"></a>Variances</h3>
+                                                <h3><a name="kanchor143"></a>Variances</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Variances of all sensitive variables, calculated at the end of the whole raw data processing, including despiking, corrections, rotations and detrending.</li>
                                                 </ul>
-                                                <h3><a name="kanchor150"></a>Covariances</h3>
+                                                <h3><a name="kanchor144"></a>Covariances</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Covariances between <i>w</i> (vertical wind component) and all non-anemometric sensitive variables calculated at the end of the whole raw data processing, including despiking, corrections, rotations, detrending, and time lag compensation.</li>
                                                 </ul>
-                                                <h3><a name="kanchor151"></a>Custom variables</h3>
+                                                <h3><a name="kanchor145"></a>Custom variables</h3>
                                                 <ul class="bullet">
                                                     <li value="1">Mean values for all non-sensitive variables are reported at the end of the output record.</li>
                                                 </ul>
-                                                <h3><a name="Variable"></a>Variables Table<a name="kanchor152"></a></h3>
+                                                <h3><a name="Variable"></a>Variables table<a name="kanchor146"></a></h3>
                                                 <p>The following table summarizes all output results available in the rich output file. In the table, <i>var</i> stands for any available sensitive variable, <i>gas</i> stands for any available sensitive gas measurement and <i>extravar</i> stands for any non-sensitive variable.</p>
                                                 <table class="TableStyle-basic" cellspacing="0" style="mc-table-style: url('../../Resources/TableStyles/basic.css');">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. <a name="kanchor153"></a>Shorthand for variables in output files from <span class="product_namesEddyPro">EddyPro</span>.</caption>
+                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. <a name="kanchor147"></a>Shorthand for variables in output files from <span class="product_namesEddyPro">EddyPro</span>.</caption>
                                                     <col class="TableStyle-basic-Column-Column1" />
                                                     <col class="TableStyle-basic-Column-Column1" />
                                                     <col class="TableStyle-basic-Column-Column1" />
@@ -717,7 +717,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#TheFullOutputFile">The Full Output File</a>
+                                                        <li><a href="#Thefulloutputfile">The full output file</a>
                                                         </li>
                                                         <ul>
                                                             <li><a href="#Headings">Headings</a>

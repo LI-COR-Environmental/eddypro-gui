@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating Spectra, Cospectra, and Ogives</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Calculating spectra, cospectra, and ogives</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,7 +147,7 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="CalculatingSpectraCospectraandOgives" data-magellan-target="CalculatingSpectraCospectraandOgives">Calculating Spectra, Cospectra, and Ogives<a name="aanchor21"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Calculatingspectracospectraandogives" data-magellan-target="Calculatingspectracospectraandogives">Calculating spectra, cospectra, and ogives<a name="aanchor22"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>EddyPro<sup>®</sup> Software allows calculation and output of most relevant spectra and cospectra. Namely spectra are available for the three wind components, the sonic temperature (or the alternative fast temperature reading used in place of sonic temperature, as applicable) and the gas concentrations or densities. Similarly, cospectra are available for covariances of <i>w</i> (vertical wind component) and all such variables. In the remainder of this paragraph we use the wording “(co)spectra” to refer to both spectra and cospectra.</p>
                                                 <p>(Co)spectra are calculated after raw data have been fully processed, including the compensation of time lags, and are available in two different formats: either “full” or “binned”. Full (co)spectra are calculated for each flux averaging period and contain a number of frequencies equal to half the number of raw records. As an example, a raw dataset of 18000 records (30 minutes at 10 Hz) will provide (co)spectra specified for 9000 frequencies, linearly distributed between the lower frequency of 1/(30 minutes) and the maximum frequency (the Nyquist frequency) of (10 Hz)/2. One property of full (co)spectra is that their integration over the entire frequency range provides the (co)variance of the concerned variables. For details on the derivation and interpretation of spectra and cospectra refer, for example, to <a href="references.html#Smith">Smith (1998)</a>. </p>
                                                 <p>However, the full (co)spectra dataset is difficult to handle because of the size of each individual (co)spectrum, and difficult to interpret because of the noise that typically affects the medium and high-frequency ranges. For these reasons, <span class="product_namesEddyPro">EddyPro</span> also calculates and outputs reduced, or “binned” (co)spectra. The reduction procedure consists of dividing the frequency range in a user-specified number of exponentially spaced frequency bins (e.g. 100) and averaging individual (co)spectral values that fall within each bin. The exponential nature of the size increase of the bins assures that increasingly more spectral values are averaged as it moves toward higher frequencies, thereby increasingly reducing noise. The figure below shows an example of a full spectrum and the corresponding binned version.</p>
@@ -181,7 +181,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#CalculatingSpectraCospectraandOgives">Calculating Spectra, Cospectra, and Ogives</a>
+                                                        <li><a href="#Calculatingspectracospectraandogives">Calculating spectra, cospectra, and ogives</a>
                                                         </li>
                                                     </ul>
                                                 </div>

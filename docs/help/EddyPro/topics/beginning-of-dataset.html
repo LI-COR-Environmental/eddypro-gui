@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Beginning of Dataset</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Beginning of dataset</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,23 +147,29 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="BeginningofDataset" data-magellan-target="BeginningofDataset">Beginning of Dataset<a name="aanchor65"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor138"></a>By convention, all output files of <span class="product_namesEddyPro">EddyPro</span> report results for each averaging interval, associating them with the timestamp of the ending minute of each interval, regardless of the convention used in the file names.</p>
+                                                <h1 id="Beginningofdataset" data-magellan-target="Beginningofdataset">Beginning of dataset<a name="aanchor67"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p><a name="kanchor132"></a>By convention, all output files of <span class="product_namesEddyPro">EddyPro</span> report results for each averaging interval, associating them with the timestamp of the ending minute of each interval, regardless of the convention used in the file names.</p>
                                                 <p>For example, imagine a 30 minute raw file with a name such as:</p>
-                                                <p class="courier">2011-02-15-1230_mysite.raw</p>
+                                                <div class="code">
+                                                    <p class="courier">2011-02-15-1230_mysite.raw</p>
+                                                </div>
                                                 <p>with the timestamp referring to the beginning of the averaging period. It means the file contains data from 12:30 to 13:00 of 02/15/2011. Assume now that you select 15 minutes as a flux averaging period. From this file, you will get two result records with the following headings:</p>
-                                                <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:45</p>
-                                                <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 13:00</p>
+                                                <div class="code">
+                                                    <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:45</p>
+                                                    <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 13:00</p>
+                                                </div>
                                                 <p>where the time refers to the end of each 15 minute block.</p>
                                                 <p>On the contrary, if the timestamp in the raw file name referred to the end of the averaging period, the file contained data from 12:00 to 12:30 and the corresponding result records would read:</p>
-                                                <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:15</p>
-                                                <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:30.</p>
+                                                <div class="code">
+                                                    <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:15</p>
+                                                    <p class="courier">2011-02-15-1230_mysite.raw, 2011-02-15, 12:30.</p>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#BeginningofDataset">Beginning of Dataset</a>
+                                                        <li><a href="#Beginningofdataset">Beginning of dataset</a>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Nominal, Minimal, and Maximum Time Lag</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Nominal, minimal, and maximum Time Lag</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,28 +147,28 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="NominalMinimalandMaximumTimeLag" data-magellan-target="NominalMinimalandMaximumTimeLag">Nominal, Minimal, and Maximum Time Lag<a name="aanchor52"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor130"></a>The name <span class="pop">time lag</span> refers to the delay with which the gas analyzer measures ambient quantities (concentrations, temperatures, pressures, etc.), with respect to the anemometer, taken as a reference. The anemometer provides measurements of an air parcel virtually instantaneously. The gas analyzer provides readings for the same parcel with a delay that can be due to: 1) the physical distance from the anemometer; 2) the need to take the air sample to the measuring cell through an intake tube (closed path analyzers).</p>
+                                                <h1 id="NominalminimalandmaximumTimeLag" data-magellan-target="NominalminimalandmaximumTimeLag">Nominal, minimal, and maximum Time Lag<a name="aanchor51"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p><a name="kanchor125"></a>The name <span class="pop">time lag</span> refers to the delay with which the gas analyzer measures ambient quantities (concentrations, temperatures, pressures, etc.), with respect to the anemometer, taken as a reference. The anemometer provides measurements of an air parcel virtually instantaneously. The gas analyzer provides readings for the same parcel with a delay that can be due to: 1) the physical distance from the anemometer; 2) the need to take the air sample to the measuring cell through an intake tube (closed path analyzers).</p>
                                                 <p>The nominal time lag is the <i>expected</i> value of the delay time, which primarily depends on the distance between the measuring volumes and, for closed-path systems, the sampling line geometry and the flow rate. However, due to changing wind directions and possible instabilities of the flow rates, the actual time lag can deviate from the nominal one. In addition, transit time of water vapor along the intake tube of a closed path system can vary substantially with relative humidity, due to absorption/desorption processes at the tube walls.</p>
                                                 <p>For these reasons, a range of plausible time lags can be specified by providing its minimum and maximum values. Within this lag window <span class="product_namesEddyPro">EddyPro</span> attempts to determine the actual time lag for each averaging period, by means of the <a href="time-lag-detect-correct.html">covariance maximization procedure</a>. If not set explicitly, <span class="product_namesEddyPro">EddyPro</span> will set nominal, minimum, and maximum time lag values according to meta-information available. Specifically, for closed path systems a nominal time lag (<i>τ</i><sub style="font-style: italic;">nom</sub>) is set by calculating the nominal transit time of the airflow along the intake tube, based on tube volume and the flow rate:</p>
-                                                <p class="equation" data-mc-autonum="3"><span class="autonumber"><span class="right">3</span></span>
+                                                <p class="equation" data-mc-autonum="4"><span class="autonumber"><span class="right">4</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation4.svg" alt="tnom=(tubelength*cross section)/flow rate" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <p class="equation" data-mc-autonum="4"><span class="autonumber"><span class="right">4</span></span>
+                                                <p class="equation" data-mc-autonum="5"><span class="autonumber"><span class="right">5</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation5.svg" alt="tmin=tnom-2" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <p class="equation" data-mc-autonum="5"><span class="autonumber"><span class="right">5</span></span>
+                                                <p class="equation" data-mc-autonum="6"><span class="autonumber"><span class="right">6</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation6.svg" alt="tmax=tnom+2*tnom" class="_MCEquation_0 mcReset" />
                                                 </p>
                                                 <p>The range is set asymmetrically because it is more likely that the time lag will increase (due, for example, to lower flow rates caused by clogged filters), rather than decrease. The constant 2 in the last equation is replaced by 10 for water vapor, as the  time lag of water vapor is observed to exhibit a strong dependence on relative humidity (e.g., <a href="references.html#Ibrom2">Ibrom et al., 2007b</a>)</p>
                                                 <p>For open path systems, by contrast, the nominal time lag is set to zero as the most likely value in sites that lack a prevailing wind direction. Minimum and maximum values are calculated based on the separation between the gas analyzer and the anemometer and  a 0.5 m/s average wind speed:</p>
-                                                <p class="equation" data-mc-autonum="6"><span class="autonumber"><span class="right">6</span></span>
+                                                <p class="equation" data-mc-autonum="7"><span class="autonumber"><span class="right">7</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation7.svg" alt="tnom=0" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <p class="equation" data-mc-autonum="7"><span class="autonumber"><span class="right">7</span></span>
+                                                <p class="equation" data-mc-autonum="8"><span class="autonumber"><span class="right">8</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation8.svg" alt="tmin=-sensor separation/0.5" class="_MCEquation_0 mcReset" />
                                                 </p>
-                                                <p class="equation" data-mc-autonum="8"><span class="autonumber"><span class="right">8</span></span>
+                                                <p class="equation" data-mc-autonum="9"><span class="autonumber"><span class="right">9</span></span>
                                                     <img src="../../GeneratedImages/Equations/Equation9.svg" alt="tmax=sensor separation/0.5" class="_MCEquation_0 mcReset" />
                                                 </p>
                                             </div>
@@ -176,7 +176,7 @@
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#NominalMinimalandMaximumTimeLag">Nominal, Minimal, and Maximum Time Lag</a>
+                                                        <li><a href="#NominalminimalandmaximumTimeLag">Nominal, minimal, and maximum Time Lag</a>
                                                         </li>
                                                     </ul>
                                                 </div>

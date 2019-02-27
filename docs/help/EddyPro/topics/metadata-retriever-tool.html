@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Metadata Retriever Tool</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Metadata retriever tool</title>
         <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
         <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
@@ -147,26 +147,26 @@
                                                 </ul>
                                             </div>
                                             <div>
-                                                <h1 id="MetadataRetrieverTool" data-magellan-target="MetadataRetrieverTool">Metadata Retriever Tool<a name="aanchor54"></a><MadCap:concept term="eddypro" /></h1>
+                                                <h1 id="Metadataretrievertool" data-magellan-target="Metadataretrievertool">Metadata retriever tool<a name="aanchor53"></a><MadCap:concept term="eddypro" /></h1>
                                                 <p>The <span class="pop">Metadata Retriever</span> tool is accessible under the <span class="pop">Run</span> menu in the main menu bar. </p>
                                                 <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Run_Menu_MetaRetrieve.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="237" data-mc-height="128" src="../images/Run_Menu_MetaRetrieve_thumb_560_0.png" alt="" title="" tabindex="" /></a>
                                                 </p>
-                                                <p>This tool is only available when the selected file type is LI&#8209;COR .ghg. The tool is intended to extract information from all .metadata files included in the .ghg dataset, and collect them into a unique file that can:</p>
+                                                <p>This tool is only available when the selected file type is <strong>LI&#8209;COR .ghg</strong>. The tool is intended to extract information from all metadata files included in the dataset, and collect them into a unique file that can:</p>
                                                 <ul class="bullet">
                                                     <li value="1">Be provided to <span class="product_namesEddyPro">EddyPro</span> as a <span class="pop">Dynamic metadata file</span>, possibly after making changes to account for information that was not updated during data collection;</li>
                                                     <li value="2">Be used to analyze evolution of site (canopy height, roughness length, etc.) and setup (anemometer height, sensors separation, etc.) parameters.</li>
                                                 </ul>
-                                                <p>The <span class="pop">Metadata Retriever</span> is by all means a “run mode.” If you click on the <span class="pop">Metadata Retriever</span> button, <span class="product_namesEddyPro">EddyPro</span> will start processing the selected dataset. However, all settings entered in the GUI will be ignored (except for those that are needed to identify the dataset, i.e., the raw data directory and the start/end dates) and <span class="product_namesEddyPro">EddyPro</span> will simply unzip all .ghg files, retrieve the metadata contained in them and output them in a corresponding metadata file.</p>
+                                                <p>The <span class="pop">Metadata Retriever</span> is by all means a run mode, like Express or Advanced modes. If you click on the <span class="pop">Metadata Retriever</span> button, <span class="product_namesEddyPro">EddyPro</span> will start processing the selected dataset. However, all settings entered in the software will be ignored (except for those that are needed to identify the dataset, i.e., the raw data directory and the start/end dates) and <span class="product_namesEddyPro">EddyPro</span> will simply unzip all <kbd>.ghg</kbd> files, retrieve the metadata contained in them and output them in a corresponding metadata file.</p>
                                                 <h2 id="WhentoUseThisTool" data-magellan-target="WhentoUseThisTool">When to Use This Tool?</h2>
-                                                <p>The <span class="pop">Metadata Retriever</span> tool is useful, for example, if you are aware that the metadata files in the .ghg dataset contain errors or were not updated at the proper time. In this scenario, using .ghg files with “embedded metadata” is not a viable option, because (some) embedded files are corrupted or include incorrect data. Thus, you need to bypass them using the “alternative metadata” file. However, if you still need to account for time-dependent site/setup parameters, you need to use a dynamic metadata file: the latter file can be created by first running the <span class="pop">Metadata Retriever</span> and then manually (e.g., in a text editor or spreadsheet program) adjusting the wrong parameters, paying attention to only modify the numbers, and not the format of the timestamp or the spellings in the header lines.</p>
+                                                <p>The <span class="pop">Metadata Retriever</span> tool is useful, for example, if you are aware that the metadata files in the <kbd>.ghg</kbd> dataset contain errors or were not updated at the proper time. In this scenario, using <kbd>.ghg</kbd> files with “embedded metadata” is not a viable option, because (some) embedded files are corrupted or include incorrect data. Thus, you need to bypass them using the “alternative metadata” file. However, if you still need to account for time-dependent site/setup parameters, you need to use a dynamic metadata file: the latter file can be created by first running the <span class="pop">Metadata Retriever</span> and then manually (e.g., in a text editor or spreadsheet program) adjusting the wrong parameters, paying attention to only modify the numbers, and not the format of the timestamp or the spellings in the header lines.</p>
                                                 <h2 id="HowtoUseThisTool" data-magellan-target="HowtoUseThisTool">How to Use This Tool?</h2>
-                                                <p>Use a retrieved metadata file in the same way you would use a <a href="dynamic-metadata.html">Dynamic metadata file</a>. See <a href="dynamic-metadata.html" class="ToHeading MCXref xref xrefToHeading">Time-varying (Dynamic) Metadata</a>.</p>
+                                                <p>Use a retrieved metadata file in the same way you would use a <a href="dynamic-metadata.html">Dynamic metadata file</a>. See <a href="dynamic-metadata.html" class="ToHeading MCXref xref xrefToHeading">Time-varying (dynamic) metadata</a>.</p>
                                             </div>
                                             <div>
                                                 <div class="in-page-sticky-mid">
                                                     <p class="in-this-page">In this page:</p>
                                                     <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#MetadataRetrieverTool">Metadata Retriever Tool</a>
+                                                        <li><a href="#Metadataretrievertool">Metadata retriever tool</a>
                                                         </li>
                                                         <ul>
                                                             <li><a href="#WhentoUseThisTool">When to Use This Tool?</a>
