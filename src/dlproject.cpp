@@ -881,7 +881,8 @@ bool DlProject::loadProject(const QString& filename, bool checkVersion, bool *mo
 
     datafile.close();
 
-//    hasGoodWindComponentsAndTemperature();
+    // DO NOT REMOVE
+    hasGoodWindComponentsAndTemperature();
 
     // just loaded projects are not modified
     if (!isVersionCompatible && checkVersion && !firstReading)
@@ -1243,7 +1244,8 @@ bool DlProject::saveProject(const QString& filename)
                              tr("Unable to tag project file!"));
     }
 
-//    hasGoodWindComponentsAndTemperature();
+    // DO NOT REMOVE
+    hasGoodWindComponentsAndTemperature();
 
     // project is saved, so set flags accordingly
     setModified(false);
