@@ -452,15 +452,20 @@ void WidgetUtils::showHelp(const QUrl& url)
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
 
+    qDebug() << "autoChooseHelp" << autoChooseHelp;
+    qDebug() << "offlineHelp" << offlineHelp;
+
     if (autoChooseHelp)
     {
         if (!offlineHelp)
         {
             // browse online help version
-            qDebug() << "online" << url << QDesktopServices::openUrl(url);
+            qDebug() << "online url" << url << QDesktopServices::openUrl(url);
         }
         else
         {
+            qDebug() << "offline url" << url;
+
             // open local help
             auto htmlHelpPath = QApplication::applicationDirPath();
             auto localUrlString = QString();
@@ -479,12 +484,12 @@ void WidgetUtils::showHelp(const QUrl& url)
             }
             else if (url.toString().contains(QStringLiteral("videos")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/videos.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/eddypro/videos.html");
             }
             else
             {
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env"));
                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
@@ -501,6 +506,8 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
             }
+
+            qDebug() << "local url" << localUrl;
             QDesktopServices::openUrl(localUrl);
         }
     }
