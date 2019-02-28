@@ -116,8 +116,6 @@ private:
     DlIniDialog *dlIniDialog_;
     QStackedWidget *metadataTab;
 
-//    QStackedWidget* slowMeasuresTab;
-
     MyTabWidget* metadataEditors;
 
     bool isMetadataEditorOn_;

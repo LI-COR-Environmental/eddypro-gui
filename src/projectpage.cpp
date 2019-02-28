@@ -130,7 +130,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     metadataEditors->setObjectName(QStringLiteral("metadataEditorsTabwidget"));
     metadataEditors->getTabBarAsPublic()->setObjectName(QStringLiteral("metadataEditorsTabbar"));
     metadataEditors->addTab(metadataTab, QStringLiteral("Metadata File Editor"));
-//    metadataEditors->addTab(slowMeasuresTab, QStringLiteral("Meteo and ecological measurements files"));
 
     metadataLabel = new ClickLabel;
     metadataLabel->setText(tr("Metadata file :"));
