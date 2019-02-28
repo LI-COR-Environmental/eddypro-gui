@@ -67,7 +67,6 @@ private slots:
     void updateHeaderRows(int n);
     void onClickDataRecLabel();
     void updateDataRecLabel(const QString& s);
-    void onlineHelpTrigger_1();
 
 private:
     ClickLabel* fieldSepLabel;
@@ -76,7 +75,6 @@ private:
     QSpinBox* headerRowsSpin;
     ClickLabel* dataRecLabel;
     CustomClearLineEdit* dataRecLabelEdit;
-    QPushButton *questionMark_1;
 
     DlProject *dlProject_;
 };

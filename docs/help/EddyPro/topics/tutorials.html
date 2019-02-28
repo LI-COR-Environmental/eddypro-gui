@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_top_nav" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="">
+    <head data-mc-conditions="Helps.Support_Exclude">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Processing eddy covariance datasets</title>
+        <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BoldItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Italic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Light.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-LightItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Medium.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-MediumItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Regular.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Thin.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-ThinItalic.ttf" rel="font" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/local-help.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.6.2.3_custom.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+        <script src="../../Resources/Scripts/tabs.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-left" id="offCanvas" data-off-canvas="" data-position="left" data-mc-ignore="true">
+                    <ul class="off-canvas-accordion vertical menu off-canvas-list" data-accordion-menu="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" data-mc-ignore="true">
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <button class="menu-icon" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="http://www.licor.com/env" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="3" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                <div class="search-filter-wrapper">
+                                                    <div class="search-filter">
+                                                        <div class="search-filter-content">
+                                                            <ul>
+                                                                <li>All products</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <section class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <div class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="body-container" data-mc-content-body="True">
+                                <div class="top">
+                                    <div class="nocontent">
+                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrap">
+                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                    <section>
+                                        <div class="RowClass6">
+                                            <div>
+                                                <form class="search" action="#">
+                                                    <div class="search-bar search-bar-container needs-pie">
+                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                        <div class="search-filter-wrapper">
+                                                            <div class="search-filter">
+                                                                <div class="search-filter-content">
+                                                                    <ul>
+                                                                        <li>All products</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="search-submit-wrapper" dir="ltr">
+                                                            <div class="search-submit" title="Search">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <div class="RowClass11">
+                                            <div>
+                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                </ul>
+                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                </ul>
+                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h1 class="section" id="Processingeddycovariancedatasets" data-magellan-target="Processingeddycovariancedatasets">Processing eddy covariance datasets<a name="aanchor32"></a><MadCap:concept term="eddypro" /></h1>
+                                                <p>This section describes the basic steps for using <span class="product_namesEddyPro">EddyPro</span>.</p>
+                                                <h2 id="Processingghgfileswithcorrectsiteparameters" data-magellan-target="Processingghgfileswithcorrectsiteparameters">Processing .ghg files with correct site parameters<a name="kanchor88"></a></h2>
+                                                <p>If you logged the eddy covariance data to a SmartFlux Sytem <kbd>.ghg</kbd> format and entered the correct site information, the <kbd>.ghg</kbd> file will contain an embedded <kbd>.metadata</kbd> file with information needed for processing the accompanying <kbd>.data</kbd> file.</p>
+                                                <p>If, during the acquisition period, you changed settings in the gas analyzer data logging interface in order to account for changes in the site parameters, these changes will be stored in the metadata. <span class="product_namesEddyPro">EddyPro</span> allows you to account for the time dependency by processing each data file (<kbd>.data</kbd> extension) using meta-information retrieved from the paired metadata file embedded in the <kbd>.ghg</kbd> file.</p>
+                                                <p class="note"><b>Note:</b> If there were no changes in the project metadata for the eddy covariance dataset under consideration, you can speed up processing by using a single metadata file for the entire project, as described in <a href="#Processi" class="ToHeading MCXref xref xrefToHeading">Processing .ghg files with incorrect or no site parameters</a>.</p>
+                                                <p>To process the dataset, launch EddyPro:</p>
+                                                <ol>
+                                                    <li value="1">Start a <span class="pop">New Project</span>.</li>
+                                                    <li value="2">Enter a <span class="pop">Project name</span> (optional).</li>
+                                                    <li value="3">Click the <span class="pop">Basic Settings</span> button. See <a href="dataset-selection-page.html" class="ToHeading MCXref xref xrefToHeading">Basic settings</a>.</li>
+                                                    <li class="num_no">
+                                                        <img src="../images/Dataset_Selection_btn.png" alt="" title="" />
+                                                    </li>
+                                                </ol>
+                                                <h2 id="Processingghgfileswithincorrectornositeparameters" data-magellan-target="Processingghgfileswithincorrectornositeparameters"><a name="Processi"></a>Processing .ghg files with incorrect or no site parameters<a name="kanchor89"></a></h2>
+                                                <p>If you collected eddy covariance data using LI-COR<sup>®</sup> data logging software, your dataset will be comprised of raw files in <kbd>.ghg</kbd> format. Each <kbd>.ghg</kbd> file contains a metadata file (extension of <kbd>.metadata</kbd>) with information needed for processing the paired <kbd>.data</kbd> file. If, during the acquisition period, you changed settings in the data logging interface in order to account for modification of critical meta-information, the obtained dataset will contain dynamic, time-dependent metadata. <span class="product_namesEddyPro">EddyPro</span> allows you to account for this time dependency, processing each <kbd>.data</kbd> file using meta-information retrieved from the paired .metadata file embedded in the compressed <kbd>.ghg</kbd> file.</p>
+                                                <p>However, there are two situations in which you might want or need to bypass embedded metadata files:</p>
+                                                <ul class="bullet">
+                                                    <li value="1">When embedded metadata files have incorrect information (e.g., because they contain errors in critical meta-information);</li>
+                                                    <li value="2">When all embedded metadata files, correct or incorrect, are identical because no changes were made during data acquisition.</li>
+                                                </ul>
+                                                <p>In these cases EddyPro provides a way to bypass embedded .metadata files and use an alternative file.</p>
+                                                <p class="note"><b>Important:</b> Using an alternative .metadata file means that all <kbd>.ghg</kbd> files are processed with the same meta-information (unless you provide a dynamic metadata file; see <a href="dynamic-metadata.html" class="ToHeading MCXref xref xrefToHeading">Time-varying (dynamic) metadata</a>). It also implies that all <kbd>.data</kbd> files must have the exact same format, which must be correctly described in the alternative .metadata file.</p>
+                                                <p>To use an alternative metadata file for your dataset:</p>
+                                                <ol>
+                                                    <li value="1">Start a <span class="pop">New Project</span> and select <strong>LI&#8209;COR .ghg</strong> as the file type.</li>
+                                                    <li value="2">Enter a <span class="pop">Project name</span> (optional).</li>
+                                                    <li value="3">In the <span class="pop">Basic Settings</span> page, enter the <span class="pop">Raw data directory</span>, where your raw data are stored.</li>
+                                                    <li value="4">Return to the <span class="pop">Project Creation</span> page and select the option <span class="pop">Metadata file: Use alternative file</span>. The <span class="pop">Metadata File Editor</span> will activate with the metadata from the first <kbd>.ghg</kbd> file in your project.</li>
+                                                    <li value="5">Make changes to the metadata file as needed.</li>
+                                                    <li value="6">Click <span class="pop">Save metadata as...</span> and save the file with a new file name. This file is the <span class="pop">Alternative metadata file</span>. You can modify it here or use it as it is.</li>
+                                                    <li class="num_no">When all mandatory meta-information is entered with plausible values, the <span class="pop">Basic Settings</span> button activates.</li>
+                                                    <li class="num_no">
+                                                        <img src="../images/Dataset_Selection_btn.png" alt="" title="" />
+                                                    </li>
+                                                    <li value="7">Click it. See <a href="dataset-selection-page.html" class="ToHeading MCXref xref xrefToHeading">Basic settings</a>.</li>
+                                                </ol>
+                                                <h2 id="ProcessingASCIIbinaryTOB1orSLTfiles" data-magellan-target="ProcessingASCIIbinaryTOB1orSLTfiles">Processing ASCII, binary, TOB1, or SLT files<a name="kanchor90"></a></h2>
+                                                <p>EddyPro<sup>®</sup> Software can process raw data in a variety of formats, including virtually all sorts of Generic ASCII, Binary, TOB1 (Campbell<sup>®</sup> Scientific, Inc.), and SLT (EddySoft and EdiSol)  formats.</p>
+                                                <p>For interpreting and processing those files, <span class="product_namesEddyPro">EddyPro</span> needs the same meta-information needed for <kbd>.ghg</kbd> files, but for these file types, the meta-information is not available directly in the data files. Therefore, you must create and use an alternative .metadata file. Selecting any <span class="pop">Raw file format</span> other than LI&#8209;COR .ghg will cause the <span class="pop">Metadata file</span> entry to automatically toggle to the <span class="pop">Use alternative file</span> option and the <span class="pop">Metadata File Editor</span> to activate. </p>
+                                                <p class="note"><b>Note:</b> The <span class="pop">Use embedded files</span> option deactivates, because in this case there is no embedded <kbd>.metadata</kbd> file available.</p>
+                                                <ol>
+                                                    <li value="1">Launch <span class="product_namesEddyPro">EddyPro</span> and start a <span class="pop">New Project</span>.</li>
+                                                    <li value="2">Enter a <span class="pop">Project name</span> (optional).</li>
+                                                    <li value="3">Select either ASCII plain text, Generic binary, TOB1, SLT (EddySoft), or SLT (EdiSol) as the <span class="pop">Raw file format</span>.</li>
+                                                    <li value="4">Enter all the required information in the <span class="pop">Metadata File Editor</span>.</li>
+                                                    <li class="num_no">The graphical interface will help you prepare a valid metadata file by preventing you from entering non-physical or implausible values and by activating the <span class="pop">Basic Settings</span> button only when all mandatory fields hold valid entries. Fill out the mandatory entries in the <span class="pop">Station</span>, <span class="pop">Instruments</span> and <span class="pop">Raw file description</span> tabs, in this order. Also configure the <span class="pop">Raw File Settings</span> dialog. The metadata file will be saved automatically when it is edited. The path of the saved file will appear in the text field adjacent to the <i>Use alternative file</i> option of the <span class="pop">Metadata file</span> entry. See <a href="metadata-file-editor-using.html" class="ToHeading MCXref xref xrefToHeading">Using the metadata file editor</a></li>
+                                                    <li value="5">Click the     <span class="pop">Basic Settings</span> button to advance to the Basic Settings page. </li>
+                                                    <li class="num_no">See <a href="dataset-selection-page.html" class="ToHeading MCXref xref xrefToHeading">Basic settings</a>.</li>
+                                                    <li class="num_no">
+                                                        <img src="../images/Dataset_Selection_btn.png" alt="" title="" />
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div>
+                                                <div class="in-page-sticky-mid">
+                                                    <p class="in-this-page">In this page:</p>
+                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                        <li><a href="#Processingeddycovariancedatasets">Processing eddy covariance datasets</a>
+                                                        </li>
+                                                        <ul>
+                                                            <li><a href="#Processingghgfileswithcorrectsiteparameters">Processing .ghg files with correct site parameters</a>
+                                                            </li>
+                                                            <li><a href="#Processingghgfileswithincorrectornositeparameters">Processing .ghg files with incorrect or no site parameters</a>
+                                                            </li>
+                                                            <li><a href="#ProcessingASCIIbinaryTOB1orSLTfiles">Processing ASCII, binary, TOB1, or SLT files</a>
+                                                            </li>
+                                                        </ul>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+            <script>/* <![CDATA[ */$(document).foundation();/* ]]> */</script>
+        </div>
+    </body>
+</html>

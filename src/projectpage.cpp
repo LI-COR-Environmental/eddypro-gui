@@ -130,7 +130,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     metadataEditors->setObjectName(QStringLiteral("metadataEditorsTabwidget"));
     metadataEditors->getTabBarAsPublic()->setObjectName(QStringLiteral("metadataEditorsTabbar"));
     metadataEditors->addTab(metadataTab, QStringLiteral("Metadata File Editor"));
-//    metadataEditors->addTab(slowMeasuresTab, QStringLiteral("Meteo and ecological measurements files"));
 
     metadataLabel = new ClickLabel;
     metadataLabel->setText(tr("Metadata file :"));
@@ -280,7 +279,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     gridRight->addWidget(questionMark_6, 8, 4);
     gridRight->addWidget(biomExtDirRadio, 9, 1, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(biometExtDirBrowse, 9, 2, 1, 2);
-    gridRight->addWidget(questionMark_7, 9, 4);
     gridRight->addWidget(biomExtDirRecCheckBox, 10, 1, Qt::AlignRight);
     gridRight->addWidget(biomExtDirSuffixLabel, 10, 2, Qt::AlignRight);
     gridRight->addWidget(biomExtDirCombo, 10, 3);
@@ -837,8 +835,6 @@ void ProjectPage::createQuestionMark()
     questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_6 = new QPushButton;
     questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_7 = new QPushButton;
-    questionMark_7->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_2);
@@ -852,8 +848,6 @@ void ProjectPage::createQuestionMark()
             this, &ProjectPage::onlineHelpTrigger_6);
     connect(questionMark_6, &QPushButton::clicked,
             this, &ProjectPage::onlineHelpTrigger_7);
-    connect(questionMark_7, &QPushButton::clicked,
-            this, &ProjectPage::onlineHelpTrigger_8);
 }
 
 // used to avoid loading projects with no ghg or with
@@ -895,37 +889,32 @@ void ProjectPage::setSmartfluxUI()
 
 void ProjectPage::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/LI-COR_GHG_File_Format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/ghg-file-format.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Dynamic_Metadata.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/dynamic-metadata.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Use_Alternative_Metadata_File.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/metadata-file-use-alternative.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/TOB1_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/tob1-files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Generic_Binary_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/generic-binary-files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Biomet_Data_Format.html")));
-}
-
-void ProjectPage::onlineHelpTrigger_8()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Biomet_Data_Format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/biomet-data-format.html")));
 }
 
 void ProjectPage::binSettingsDialog()

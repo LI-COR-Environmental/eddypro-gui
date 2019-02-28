@@ -38,7 +38,7 @@
 #include "container_helpers.h"
 #include "widget_utils.h"
 
-const auto helpPage = QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Assessment_Tests.html");
+const auto helpPage = QStringLiteral("http://www.licor.com/env/help/eddypro/topics/assessment-tests.html");
 
 AncillaryFileTest::AncillaryFileTest(FileType type,
                                      QWidget *parent) :

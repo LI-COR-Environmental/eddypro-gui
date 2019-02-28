@@ -7,23 +7,23 @@
       high-frequency variables, covariances between all high-frequency variables,
       biomet mean values and metadata, as well as results of new implementations (see
       below)
-    - Add: new data filtering tool allowing user to eliminate raw records corresponding 
+    - Add: new data filtering tool allowing user to eliminate raw records corresponding
       to istantaneous wind directions from specified sectors (up to 16 sectors)
     - Add: new Stationarity test after Mahrt (1998)
     - Add: new Random Uncertainty estimation method after Mahrt (1998)
-    - Add: new QC test named KID (Kurtosis Index on Differenced variable) test 
+    - Add: new QC test named KID (Kurtosis Index on Differenced variable) test
       (Vitale et al., in preparation)
-    - Add: new test to identify period of repeated data and drop-outs 
+    - Add: new test to identify period of repeated data and drop-outs
       (Vitale et al., in preparation)
-    - Add: new supported anemometers:  Metek uSonic-3 Class A MP and 
+    - Add: new supported anemometers:  Metek uSonic-3 Class A MP and
       Metek uSonic-3 Cage MP
     - Add: computation of wind direction variance
-    - Add: ET is now treated as a first-class flux (results only available in FLUXNET 
+    - Add: ET is now treated as a first-class flux (results only available in FLUXNET
       output)
-    - Refine: improve computation of statistical moments which is now fully robust to 
+    - Refine: improve computation of statistical moments which is now fully robust to
       presence of missing data
     - Refine: more accurate computation of mean wind direction
-    - Refine: Potential Radiation is now computed used timestamp of END of period 
+    - Refine: Potential Radiation is now computed used timestamp of END of period
       instead of START
     - Remove: obsolete GHG-Europe and AmeriFlux outputs
     - Fix: minor fixes to Random Error and Footprint settings
@@ -32,10 +32,10 @@
     - Add: Fluxnet output settings
     - Add: visual tool for wind directions filtering settings to specify up to 16 sectors
     - Add: random uncertainty estimation method after Mahrt (1998)
-    - Add: new supported anemometers: Metek uSonic-3 Class A MP 
+    - Add: new supported anemometers: Metek uSonic-3 Class A MP
       and Metek uSonic-3 Cage MP
-    - Change: move random uncertainty settings from 
-      [RawProcess_RandomUncertainty_Settings] to [Project] managing backward 
+    - Change: move random uncertainty settings from
+      [RawProcess_RandomUncertainty_Settings] to [Project] managing backward
       compatibility
     - Remove: obsolete GHG-Europe and AmeriFlux outputs
     - Remove: previous data results setting

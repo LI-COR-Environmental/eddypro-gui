@@ -1,0 +1,2129 @@
+/*<meta />*/
+
+@namespace MadCap url(http://www.madcapsoftware.com/Schemas/MadCap.xsd);
+
+@font-face 
+{
+	font-family: 'Roboto', 'Open Sans', sans-serif;
+	src: url('../Fonts/Roboto-Regular.ttf');
+}
+
+@font-face 
+{
+	font-family: 'Roboto-Medium';
+	src: url('../Fonts/Roboto-Medium.ttf');
+}
+
+@font-face 
+{
+	font-family: 'Roboto-Light';
+	src: url('../Fonts/Roboto-Light.ttf');
+}
+
+@font-face 
+{
+	font-family: 'Roboto-Thin';
+	src: url('../Fonts/Roboto-Thin.ttf');
+}
+
+MadCap|section
+{
+	
+}
+
+.off-canvas-content	/*hides overflow so that there is no left-to-right scolling or extra scroll bars*/
+{
+	overflow: hidden;
+}
+
+/*Beginning of sortable table styles*/
+
+#sortInput,
+#filterInput
+{
+	background-position: 4px 10px;
+	background-repeat: no-repeat;
+	width: 99%;
+	font-size: 16px;
+	padding: 4px 0px 4px 4px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
+
+#docsTable
+{
+	border-collapse: collapse;
+	width: 99%;
+	border: 1px solid #ddd;
+}
+
+#docsTable th,
+#docsTable td
+{
+	text-align: left;
+	padding: 12px;
+}
+
+#docsTable tr
+{
+	border-bottom: 1px solid #ddd;
+}
+
+/*End of sortable table styes*/
+
+div pre	/* use this to contain code samples*/
+{
+	background: #f4faff;
+	overflow: auto;
+	width: auto;
+	border: solid #50afe2;
+	border-width: 1px;
+	border-radius: 3px;
+	padding: 6px;
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+
+kbd
+{
+	background: #e9f0f8;
+	padding: 0 3px 0 3px;
+}
+
+p.download_name
+{
+	font-size: 60%;
+	opacity: 0.75;
+	margin-bottom: 2px;
+}
+
+div.download_software
+{
+	background-image: url('../Images/download.svg');
+	background-repeat: no-repeat;
+	background-position: left 4px;
+	background-size: 28px 28px;
+	padding-left: 40px;
+	margin-top: 8pt;
+	margin-bottom: 20pt;
+}
+
+div.download_doc
+{
+	background-image: url('../Images/doc.svg');
+	background-repeat: no-repeat;
+	background-position: left 4px;
+	background-size: 28px 28px;
+	padding-left: 40px;
+	margin-top: 8pt;
+	margin-bottom: 20pt;
+}
+
+div.download_doc p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.download_software p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+p.download_name
+{
+	font-size: 60%;
+	opacity: 0.75;
+	margin-bottom: 2px;
+	line-height: 2em;
+}
+
+div.include
+{
+	clear: both;
+}
+
+div.wrap
+{
+	background-color: white;
+	/*max-width:960px; omiting this helps with internet explorer*/
+	padding-top: 64px;
+	margin-left: -62em;
+	padding-left: 62em;
+	margin-right: -62em;
+	padding-right: 62em;
+}
+
+div.top
+{
+	padding-left: 14%;
+	margin-top: -16px;
+	/* set to 25px when building for web. Set to -16x when building for local*/
+	height: 10px;
+	margin-left: -62em;
+	padding-left: 62em;
+	margin-right: -62em;
+	padding-right: 62em;
+}
+
+div.footer
+{
+	clear: both;
+	margin-top: -62px;
+}
+
+p.home a
+{
+	background-image: url('../Images/circle_bb.png');
+	background-repeat: no-repeat;
+	padding-left: 28pt;
+	color: #93b1cc;
+	font-size: 2em;
+	cursor: pointer;
+	font-weight: 200;
+}
+
+p.title
+{
+	font-style: normal;
+	font-size: 2.83em;
+	font-weight: 300;
+	line-height: 1.25em;
+	margin-bottom: 13px;
+	max-width: none;
+}
+
+p.title a
+{
+	color: black;
+}
+
+.part_num
+{
+	font-weight: 200;
+	border: solid 1px #000000;
+	padding: 8px 8px 8px 8px;
+	background-color: #b5dbf3;
+	border-radius: 4px;
+}
+
+.courier
+{
+	font-family: 'Courier New';
+	text-transform: lowercase;
+}
+
+.border
+{
+	border: solid 1px black;
+}
+
+.code,
+.code-small
+{
+	font-family: 'Courier New';
+	margin-left: 0.25in;
+	text-transform: lowercase;
+}
+
+.code p,
+.code-small p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+html
+{
+	height: 100%;
+}
+
+body
+{
+	margin: 0px;
+	font-family: 'Roboto', 'Open Sans', sans-serif;
+	font-size: 1em;
+}
+
+b
+{
+	font-weight: 600;
+}
+
+.right
+{
+	float: right;
+	padding-left: 10pt;
+}
+
+.left
+{
+	float: left;
+	margin-right: unset;
+}
+
+.right_half
+{
+	float: right;
+	width: 3in;
+	padding-left: 10px;
+}
+
+.left_half
+{
+	float: left;
+	width: 3.5in;
+	padding-right: 10px;
+}
+
+.note_warning
+{
+	border-top: solid 1px #000000;
+	border-bottom: solid 1px #000000;
+	padding: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-repeat: no-repeat;
+	background-image: url('../Images/warning40pt.png');
+	padding-left: 0.65in;
+	background-position: 4px 20px;
+	width: 90%;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.clear
+{
+	clear: both;
+}
+
+.french
+{
+	mc-conditions: 'Helps.Support_Exclude';
+}
+
+.steps
+{
+	mc-auto-number-format: '{n+}. ';
+	mc-heading-level: 0;
+	mc-auto-number-class: BigSteps;
+	mc-hyphenate: never;
+	margin-top: 16px;
+	margin-bottom: 0;
+	font-size: 1.3em;
+	page-break-after: avoid;
+}
+
+.BigSteps
+{
+	font-size: 140%;
+}
+
+h1
+{
+	margin-top: 0px;
+	margin: 0px;
+	margin-bottom: 10px;
+	font-weight: 100;
+	font-size: 2.83em;
+	line-height: 1.15em;
+	color: #002f5f;
+}
+
+h2
+{
+	font-weight: 300;
+	font-size: 2em;
+	line-height: 1.3em;
+	margin-bottom: 16px;
+	margin-top: 16px;
+	color: #0077c6;
+}
+
+h3
+{
+	color: #163965;
+	font-size: 1.75em;
+	font-weight: 300;
+	margin-bottom: 15px;
+}
+
+h4
+{
+	margin: 0;
+	color: #344b75;
+	font-size: 1.1em;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	font-weight: normal;
+	mc-heading-level: 0;
+}
+
+h5
+{
+	color: #667596;
+	font-size: 1.1em;
+	margin-bottom: 15px;
+	font-weight: normal;
+	mc-heading-level: 0;
+}
+
+p.welcome
+{
+	margin-top: 0em;
+}
+
+.equation
+{
+	mc-auto-number-class: right;
+	mc-auto-number-format: 'CH:{n+}';
+	margin-left: 24px;
+}
+
+.equation_no_num
+{
+	margin-left: 24px;
+}
+
+.equation0
+{
+	mc-auto-number-class: right;
+	mc-auto-number-format: 'CH:{n+}';
+}
+
+p.in_the
+{
+	text-align: center;
+}
+
+caption
+{
+	line-height: 15px;
+	font-size: 1em;
+	text-align: left;
+}
+
+.dropdown
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 1.75em;
+}
+
+.note
+{
+	padding: 3pt;
+	border-radius: 3px;
+	border: solid 1px #7a5f9b;
+	background-color: #b5dbf3;
+	margin-top: 16px;
+}
+
+p.img
+{
+	margin-bottom: 0px;
+}
+
+li
+{
+	margin-bottom: 6px;
+}
+
+caption.table
+{
+	mc-auto-number-format: 'T:{b}Table {n+}';
+	line-height: 22px;
+}
+
+.figure
+{
+	margin-top: 0px;
+	font-style: italic;
+	mc-auto-number-format: 'F:Figure {n+}';
+}
+
+.figure_front
+{
+	font-style: italic;
+	mc-auto-number-format: 'F:Figure {n+}';
+}
+
+MadCap|xref.ToCaption
+{
+	text-decoration: none;
+	color: #1175bc;
+	mc-format: '{paranum}';
+}
+
+MadCap|xref.ToHeading
+{
+	color: #1175bc;
+	mc-format: '{paratext}';
+}
+
+MadCap|xref.eqn
+{
+	color: #1175bc;
+	mc-format: '{paranum}';
+}
+
+MadCap|xref
+{
+	color: #1175bc;
+	mc-format: '{paranum}';
+}
+
+.figure span.variable
+{
+	font-style: normal;
+}
+
+var,
+span.variable
+{
+	font-style: italic;
+	font-family: 'Times New Roman';
+	font-size: 1.1em;
+}
+
+table
+{
+	z-index: 1;
+	margin-left: 0;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+MadCap|topicToolbarProxy.nav
+{
+	position: fixed;
+	bottom: 25px;
+	text-align: center;
+}
+
+MadCap|breadcrumbsProxy
+{
+	margin-bottom: 0px;
+	border-bottom-width: 0px;
+	border-bottom-style: none;
+	color: #667596;
+	font-size: 10px;
+	font-weight: 300;
+	mc-breadcrumbs-prefix: 'EddyPro 7 Help > ';
+}
+
+a.MCBreadcrumbsLink:hover
+{
+	color: #444444;
+	text-decoration: underline;
+}
+
+a.MCBreadcrumbsLink
+{
+	text-decoration: none;
+	color: #999999;
+}
+
+MadCap|equation
+{
+	font-size: 1.1em;
+	max-width: 480px;
+}
+
+MadCap|equation.inline
+{
+	max-height: 20px;
+	vertical-align: -5px;
+}
+
+strong,
+span.pop
+{
+	font-weight: 600;
+}
+
+a
+{
+	color: #1175bc;
+	text-decoration: none;
+}
+
+p
+{
+	margin-bottom: 9px;
+	margin-top: 9px;
+	line-height: 1.4em;
+}
+
+p.citation
+{
+	margin-bottom: 3px;
+	margin-top: 3px;
+	margin-left: 24px;
+	mc-auto-number-offset: 24px;
+	mc-auto-number-position: outside-head;
+	mc-auto-number-format: '{n+}';
+}
+
+img.width125pct
+{
+	height: auto;
+	max-width: 458px;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width100pct
+{
+	height: auto;
+	max-width: 458px;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width088pct
+{
+	max-width: 400px;
+	height: auto;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width075pct
+{
+	max-width: 400px;
+	height: auto;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width066pct
+{
+	max-width: 290px;
+	height: auto;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width050pct
+{
+	max-width: 270px;
+	height: auto;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width033pct
+{
+	max-width: 186px;
+	height: auto;
+	mc-thumbnail: popup;
+	mc-thumbnail-max-height: auto;
+	mc-thumbnail-max-width: 560px;
+}
+
+img.width025pct
+{
+	max-width: 125px;
+	height: auto;
+}
+
+img.width013pct
+{
+	height: auto;
+	max-width: 80px;
+}
+
+img.pc_icon
+{
+	width: auto;
+	height: 35px;
+	mc-thumbnail: none;
+}
+
+img.app_icon
+{
+	width: auto;
+	height: 35px;
+	mc-thumbnail: none;
+}
+
+img
+{
+	border: none;
+	height: auto;
+	mc-thumbnail: none;
+}
+
+MadCap|dropDown.normal
+{
+	font-weight: 400;
+	font-style: normal;
+	mc-image-position: left;
+	mc-open-image: none;
+	mc-closed-image: none;
+}
+
+MadCap|dropDownHotspot
+{
+	color: #0a9ccc;
+	display: table;
+	width: 100%;
+}
+
+MadCap|dropDown.faqs
+{
+	font-size: 18px;
+	mc-open-image: none;
+	mc-closed-image: none;
+	mc-image-spacing: 0px;
+	text-indent: 0px;
+	background-color: #eff6fb;
+	margin: -1px 0px 15px 0px;
+	border: 1px solid #ddecf8;
+}
+
+MadCap|dropDownHead.faqs
+{
+	background-image: url('../Images/dropdown_q.png');
+	padding-left: 60px;
+	padding-bottom: 10px;
+	background-repeat: no-repeat;
+	line-height: 28px;
+}
+
+MadCap|dropDownBody.faqs
+{
+	margin-left: 0px;
+	padding: 10px 10px 0px 60px;
+	text-indent: 0px;
+	background-color: white;
+	background-image: url('../Images/dropdown_a.png');
+	background-repeat: no-repeat;
+}
+
+img.no_thumb
+{
+	mc-thumbnail: none;
+}
+
+MadCap|snippetBlock
+{
+	
+}
+
+MadCap|snippetText
+{
+	
+}
+
+MadCap|glossaryProxy
+{
+	border-top-style: none;
+	border-top-width: 0px;
+}
+
+MadCap|footnote
+{
+	mc-footnote-position: topic;
+}
+
+MadCap|searchBarProxy
+{
+	float: left;
+}
+
+ul.inlist
+{
+	margin-left: -16px;
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+
+ul.inlist li
+{
+	margin-top: 2px;
+	line-height: 1.3em;
+	list-style-image: url('../Images/GreenBullet.png');
+	display: list-item;
+}
+
+ul
+{
+	margin-left: 0px;
+	margin-top: 0em;
+	margin-bottom: 0em;
+	list-style-type: disc;
+}
+
+ul li
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	line-height: 1.4em;
+}
+
+ul li:before
+{
+	padding-right: 8px;
+	line-height: 10px;
+}
+
+ul.bulleted li,
+ul.bullet li
+/*this exists because I have not named classes the same way. The correct name is .bullet, but don't deleted .bulleted until a search and purge for it.*/
+/*this reapplies the bullets to lists. Overrides the override, so to speak.*/
+{
+	margin-left: -22px;
+	margin-bottom: .8rem;
+	line-height: 1.4em;
+	list-style-image: url('../Images/GreenBullet.png');
+	display: list-item;
+	padding: 0;
+}
+
+ul.bullet li:before
+{
+	
+}
+
+ol
+{
+	list-style-type: decimal;
+	margin-left: -20px;
+}
+
+ol > li::marker
+{
+	content: counter(num) '.';
+}
+
+ol li
+{
+	font-weight: 300;
+	line-height: 1.4em;
+}
+
+ol.Letters
+{
+	list-style-type: upper-alpha;
+	margin-left: 0px;
+}
+
+.num_no,
+li.num_no
+{
+	display: block;
+	list-style-image: none !important;
+	list-style-type: none !important;
+	content: none;
+	font-size: 1.0em;
+}
+
+MadCap|miniTocProxy
+{
+	display: none;
+}
+
+span.SearchHighlight1
+{
+	background-color: #ffff88;
+}
+
+span.SearchHighlight2
+{
+	background-color: #ffffbb;
+}
+
+span.SearchHighlight3
+{
+	background-color: #ffffee;
+}
+
+span.journal_article
+{
+	font-weight: bold;
+	font-style: italic;
+}
+
+MadCap|slideshow
+{
+	box-shadow: none;
+	width: 100%;
+	display: block;
+}
+
+MadCap|slide
+{
+	
+}
+
+MadCap|variable
+{
+	white-space: nowrap;
+}
+
+MadCap|slideshowBullet
+{
+	background-color: #d8e3ee;
+	width: 190px;
+	height: 4px;
+	margin-left: -1px;
+	margin-right: -1px;
+	border-radius: 2px;
+}
+
+MadCap|slideshowBullet:hover
+{
+	background-color: #97b2cb;
+}
+
+MadCap|slideshowBullet:active
+{
+	background-color: #97b2cb;
+}
+
+MadCap|menuProxy
+{
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #69be28;
+	margin-bottom: 2em;
+}
+
+MadCap|expandingBody
+{
+	clear: both;
+}
+
+.using-the
+{
+	font-size: 16px;
+	margin-bottom: 0px;
+	margin-top: 1px;
+	line-height: 20px;
+	padding: 10px 5px 10px 10px;
+	background-color: #49ace0;
+	width: 150px;
+	text-decoration: none;
+}
+
+p.using-the a
+{
+	color: white;
+}
+
+/*beginning of section that positions elements when scrolling*/
+
+.in-page-sticky-top
+{
+	top: 0px;
+	position: fixed;
+}
+
+.in-page-sticky-mid
+{
+	margin-top: 0px;
+}
+
+.in-this-page
+{
+	margin-right: 25px;
+	margin-bottom: 0px;
+	margin-top: 20px;
+	padding-bottom: 10px;
+	font-size: 120%;
+}
+
+/*end of section that positions elements when scrolling*/
+
+p.contents
+{
+	font-size: 24pt;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	padding-bottom: 6px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #69bf29;
+}
+
+p.specs
+{
+	
+}
+
+p.specs2
+{
+	margin-left: 16px;
+}
+
+div.RowClass1	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass1::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass1::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass1 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass1 > div.border-left
+{
+	border-left-color: #74c02c;
+	border-left-style: solid;
+	border-left-width: 1px;
+}
+
+div.RowClass1 > div:nth-child(1)
+{
+	width: 47.5%;
+	margin-right: 2.5%;
+}
+
+div.RowClass1 > div:nth-child(2)
+{
+	width: 47.5%;
+	padding-left: 2.5%;
+}
+
+div.RowClass2	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass2::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass2::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass2 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass2 > div:nth-child(1)
+{
+	width: 58%;
+	margin-right: 1%;
+}
+
+div.RowClass2 > div:nth-child(2)
+{
+	width: 40%;
+	margin-left: 1%;
+	background-color: #edf0f5;
+}
+
+div.RowClass3	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass3::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass3::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass3 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass3 > div
+{
+	width: 30.66666%;
+	margin-right: 1%;
+	margin-left: 1%;
+}
+
+div.RowClass4	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass4::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass4::after
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass4 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 240px;
+	height: 350px;
+	margin-right: 5px;
+	overflow: hidden;
+}
+
+div.RowClass4 div p
+{
+	width: 240px;
+	margin: 0px;
+}
+
+div.RowClass5	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass5::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass5::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass5 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass5 > div:nth-child(1)
+{
+	width: 66.66667%;
+	margin-left: 0%;
+	border: solid 1px #37aee3;
+}
+
+div.RowClass5 > div:nth-child(2)
+{
+	width: 32.33333%;
+	margin-left: 1%;
+	border: solid 1px #37aee3;
+}
+
+div.RowClass6	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+	clear: both;
+	min-height: 64px;
+}
+
+div.RowClass6::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass6::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass6 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass6 > div:nth-child(1)
+{
+	/*width: 65%;*/
+	width: 100%;
+}
+
+div.RowClass6 > div:nth-child(2) div.RowClass7
+/*{
+	width: 32%;
+	float: right;
+	margin-top: 8px;
+}*/
+/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+
+div.RowClass7::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass7::after
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass7 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass7 > div:nth-child(1)
+{
+	width: 100%;
+	margin-left: 0%;
+	border: solid 1px #37aee3;
+}
+
+div.RowClass8	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass8::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass8::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass8 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-bottom: 18px;
+	margin-top: 18px;
+}
+
+div.RowClass8 > div:nth-child(1)
+{
+	width: 360px;
+	background-color: #edf0f5;
+	padding: 2em;
+	padding-top: 0;
+	clear: both;
+}
+
+div.RowClass8 > div:nth-child(2)
+{
+	width: 315px;
+	margin-left: 2em;
+}
+
+div.RowClass9	/*This is a responsive layout for the left menu.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 36px;
+}
+
+div.RowClass9::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass9::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass9 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass9 > div:nth-child(1)
+{
+	width: 10.625em;
+	margin-left: 0%;
+	padding-top: 0;
+}
+
+div.RowClass9 > div:nth-child(2)
+{
+	margin-left: 12.625em;
+	float: none;
+}
+
+div.RowClass10	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass10::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass10::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass10 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass10 > div:nth-child(1)
+{
+	width: 20%;
+	margin-left: 0%;
+}
+
+div.RowClass10 > div:nth-child(2)
+{
+	margin-left: 0%;
+	width: 20%;
+}
+
+div.RowClass10 > div:nth-child(3)
+{
+	width: 20%;
+	margin-left: 0%;
+}
+
+div.RowClass10 > div:nth-child(4)
+{
+	width: 20%;
+	margin-left: 0%;
+}
+
+div.RowClass10 > div:nth-child(5)
+{
+	width: 20%;
+	margin-left: 0%;
+}
+
+div.RowClass11	/*This is a responsive layout for the "topic" topics - not landing pages or videos.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 36px;
+}
+
+div.RowClass11::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass11::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass11 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.RowClass11 > div:nth-child(1)
+{
+	width: 170px;
+	margin-right: 16px;
+	margin-left: 0%;
+	padding-top: 0;
+}
+
+div.RowClass11 > div:nth-child(2)
+{
+	max-width: 550px;
+}
+
+div.RowClass11 > div:nth-child(3)
+{
+	width: 170px;
+	margin-left: 32px;
+}
+
+div.RowClass12	/*This is a custom responsive layout row style (div class) in your stylesheet. To provide your own description for this style: (1) Open the stylesheet; (2) Find and select the div class with this name; and (3) In the Comment field, replace this text with your own. For more information on adding comments to styles, see the online Help.*/
+{
+	mc-grid-row: true;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.RowClass12::before
+{
+	content: ' ';
+	display: table;
+}
+
+div.RowClass12::after
+{
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+div.RowClass12 > div
+{
+	float: left;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 14px;
+	width: 23%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 2%;
+}
+
+@media only screen and (max-width: 1000px)
+{
+	.tabcontent
+	{
+		width: 78%;
+	}
+
+	div.wrap
+	{
+		padding-top: 14px;
+		padding-bottom: 290px;
+	}
+
+	div.top
+	{
+		margin-top: 5px;
+	}
+
+	div.tab
+	{
+		float: left;
+		margin-top: 5px;
+		margin-left: 15px;
+	}
+
+	img.link
+	{
+		height: 127px;
+		width: auto;
+		mc-thumbnail: none;
+	}
+
+	div.product
+	{
+		border-radius: 7px;
+		height: 200px;
+		margin-right: 3px;
+		margin-left: 3px;
+		margin-bottom: 7px;
+		padding-bottom: 8px;
+		float: left;
+		text-align: center;
+		background-color: #e9f0f8;
+	}
+
+	div.product-tile
+	{
+		height: 128px;
+		width: 128px;
+		margin-bottom: 10px;
+		padding-bottom: 12px;
+	}
+
+	div.product-tile p
+	{
+		padding: 30px 8px 8px 8px;
+		line-height: 20px;
+	}
+
+	div.welcome_head
+	{
+		font-size: 0.9em;
+		color: #ffffff;
+		height: 36px;
+		padding: 9px;
+		background: #41aadf;
+	}
+
+	p.title
+	{
+		color: #002f5f;
+		font-size: 2em;
+		float: left;
+		font-weight: 200;
+		margin-top: 0.4em;
+	}
+
+	/*beginning: modifies menu position for mobile and tablets. This is visible when you tap the hamburger to open the menu.*/
+
+	aside
+	{
+		margin-top: 80px;
+	}
+
+	/*end: modifies menu position for mobile and tablets*/
+
+	.in-this-page
+	{
+		margin-right: 7px;
+		background-color: white;
+		font-size: 100%;
+	}
+
+	div.survey
+	{
+		display: none;
+		position: fixed;
+		bottom: 5px;
+		right: 5px;
+		background-color: #f4faff;
+		padding: 0px 10px 10px 10px;
+		z-index: 10;
+		width: 155px;
+		border-radius: 6px;
+		font-size: 80%;
+	}
+
+	div.RowClass1 > div:nth-child(1)
+	{
+		width: 47.5%;
+		margin-right: 0%;
+		margin-left: 0%;
+	}
+
+	div.RowClass1 > div:nth-child(2)
+	{
+		width: 47.5%;
+		padding-left: 0%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(1)
+	{
+		width: 61.66667%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(2)
+	{
+		width: 36.33333%;
+		padding-left: 2%;
+	}
+
+	div.RowClass3 > div
+	{
+		width: 33.33333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(3)
+	{
+		width: 8.3333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass5 > div:nth-child(1)
+	{
+		width: 66.66667%;
+		margin-left: 0%;
+	}
+
+	div.RowClass5 > div:nth-child(2)
+	{
+		width: 33.33333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass6 > div:nth-child(1)
+	{
+		width: 66%;
+		margin-left: 0%;
+	}
+
+	div.RowClass6 > div:nth-child(2)
+	{
+		width: 32%;
+		margin-left: 1%;
+	}
+
+	div.RowClass7 > div:nth-child(1)
+	{
+		width: 66.66667%;
+		margin-left: 0%;
+	}
+
+	div.RowClass7 > div:nth-child(2)
+	{
+		width: 33.33333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass8 > div:nth-child(1)
+	{
+		width: 50%;
+		margin-left: 0%;
+	}
+
+	div.RowClass8 > div:nth-child(2)
+	{
+		width: 50%;
+		margin-left: 0%;
+	}
+
+	div.RowClass9 > div:nth-child(1)
+	{
+		width: 21%;
+	}
+
+	div.RowClass9 > div:nth-child(2)
+	{
+		width: 78%;
+		margin-left: 1%;
+		float: left;
+	}
+
+	div.RowClass10 > div:nth-child(1)
+	{
+		margin-left: 0%;
+	}
+
+	div.RowClass10 > div:nth-child(2)
+	{
+		width: 33.33333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass10 > div:nth-child(3)
+	{
+		width: 33.33333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass11 > div:nth-child(1)
+	{
+		width: 20%;
+		margin-right: 2%;
+		padding-top: 0;
+	}
+
+	div.RowClass11 > div:nth-child(2)
+	{
+		max-width: 78%;
+	}
+
+	div.RowClass11 > div:nth-child(3)
+	{
+		display: none;
+	}
+
+	div.RowClass12 > div
+	{
+		border-radius: 4px;
+		width: 31%;
+		margin-left: 1%;
+		margin-right: 1%;
+	}
+}
+
+@media only screen and (max-width: 650px)
+{
+	div.wrap
+	{
+		padding-top: 10px;
+		padding-left: 5px;
+		max-width: unset;
+		margin-left: unset;
+	}
+
+	div.welcome_head
+	{
+		font-size: 0.9em;
+		color: #ffffff;
+		height: 36px;
+		padding: 9px;
+		background: #41aadf;
+	}
+
+	img.no_thumb
+	{
+		mc-thumbnail: none;
+		vertical-align: text-top;
+		max-width: 30px;
+		height: auto;
+	}
+
+	.top
+	{
+		display: none;
+	}
+
+	.in-this-page
+	{
+		display: none;
+	}
+
+	p.title
+	{
+		font-size: 1.75em;
+	}
+
+	.right
+	{
+		float: left;
+		padding-left: 0pt;
+	}
+
+	h1
+	{
+		font-size: 1.83em;
+	}
+
+	div.RowClass1 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass1 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass2 > div:nth-child(3)
+	{
+		width: 8.3333%;
+		margin-left: 0%;
+	}
+
+	div.RowClass3 > div
+	{
+		width: 44%;
+		margin-left: 3%;
+		margin-right: 3%;
+	}
+
+	div.RowClass5 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass5 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass6 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass6 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+		font-size: 90%;
+		margin-top: 24px;
+	}
+
+	div.RowClass7 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass7 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass8 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass8 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass9	/*This is a responsive layout for the left menu.*/
+	{
+		mc-grid-row: true;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	div.RowClass9::before
+	{
+		content: ' ';
+		display: table;
+	}
+
+	div.RowClass9::after
+	{
+		content: ' ';
+		display: table;
+		clear: both;
+	}
+
+	div.RowClass9 > div
+	{
+		float: left;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	div.RowClass9 > div:nth-child(1)
+	{
+		display: none;
+	}
+
+	div.RowClass9 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass10 > div:nth-child(1)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass10 > div:nth-child(2)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass10 > div:nth-child(3)
+	{
+		width: 100%;
+		margin-left: 0%;
+	}
+
+	div.RowClass11 > div:nth-child(1)	/*This is a responsive layout for the "topic" topics - not landing pages or videos.*/
+	{
+		width: 100%;
+	}
+
+	div.RowClass11 > div:nth-child(2)
+	{
+		max-width: 100%;
+	}
+
+	div.RowClass11 > div:nth-child(3)
+	{
+		display: none;
+	}
+
+	div.RowClass12 > div
+	{
+		border-radius: 4px;
+		width: 48%;
+		margin-left: 1%;
+		margin-right: 1%;
+	}
+}
+
+/*Things below this are to ensure that the content looks right when a customer prints the web page. If editing the medium for a pdf, edit the manual.css or note.css files.*/
+
+@media print
+{
+	img
+	{
+		max-width: 500px;
+	}
+
+	body
+	{
+		font-family: 'Sabon Next Com Regular';
+		font-size: 12px;
+		line-height: 1.3;
+	}
+
+	section.contact
+	{
+		display: none;
+	}
+
+	div.RowClass11 > div:nth-child(1)
+	{
+		display: none;
+	}
+
+	div.RowClass11 > div:nth-child(2)
+	{
+		width: 100%;
+	}
+
+	div.RowClass11 > div:nth-child(3)
+	{
+		display: none;
+	}
+
+	div.RowClass6
+	{
+		display: none;
+	}
+
+	div.wrap
+	{
+		background-color: white;
+		padding-top: 0px;
+		margin-left: 0em;
+		padding-left: 0em;
+		margin-right: 0em;
+		padding-right: 0em;
+		padding-bottom: 100px;
+	}
+
+	div.top
+	{
+		display: none;
+	}
+
+	.part_num
+	{
+		font-family: 'Sabon Next Com Regular';
+		border: none;
+		background-color: white;
+	}
+
+	h1
+	{
+		font-size: 24pt;
+		font-family: 'Univers Next Pro Light';
+		color: black;
+	}
+
+	h2
+	{
+		font-size: 18pt;
+		margin-top: 14px;
+		font-family: 'Univers Next Pro Thin';
+		color: black;
+	}
+
+	h3,
+	h4,
+	h5
+	{
+		font-size: 13pt;
+		color: black;
+		font-family: 'Univers Next Pro Condensed';
+	}
+
+	b
+	{
+		font-weight: bold;
+		font-family: 'Sabon Next Com Regular';
+	}
+
+	p.title
+	{
+		font-family: 'Univers Next Pro Light';
+		font-size: 20pt;
+		margin-top: 0em;
+	}
+
+	p.title:after
+	{
+		display: block;
+		font-family: 'Sabon Next Com Regular';
+		margin-top: 10px;
+		margin-bottom: 10px;
+		border: 1px solid #bbb;
+		padding: 3px 5px;
+		font-size: 10pt;
+		font-style: italic;
+		line-height: 12pt;
+	}
+
+	table
+	{
+		margin-left: 0in !important;
+		margin-top: 0.25in;
+	}
+
+	.num_no
+	{
+		display: block;
+		font-weight: normal;
+	}
+
+	ul li.num_no
+	{
+		list-style-type: none;
+		content: none;
+	}
+
+	ul.inlist
+	{
+		margin-left: -20pt;
+		text-indent: -10pt;
+		list-style-type: none;
+		margin-top: 0em;
+		margin-bottom: 0em;
+		font-weight: normal;
+	}
+
+	ul.inlist li:before
+	{
+		content: "•";
+		color: #69be28;
+		line-height: 1px;
+		font-size: 75%;
+		padding-right: 8px;
+	}
+
+	ul.inlist li
+	{
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	ul li:before
+	{
+		background-color: transparent;
+	}
+
+	ul
+	{
+		list-style-type: none;
+		margin-left: 0px;
+		margin-top: 0em;
+		margin-bottom: 0em;
+		text-indent: -30pt;
+	}
+
+	ul li
+	{
+		margin-top: 10px;
+		margin-bottom: 10px;
+		line-height: 10pt;
+	}
+
+	ul li:before
+	{
+		content: "■";
+		color: #69be28;
+		padding-right: 8px;
+		line-height: 10px;
+	}
+
+	.note
+	{
+		page-break-inside: avoid;
+	}
+}
+
+@page 
+{
+	margin: 1.25in;
+	margin-top: 0.75in;
+}
+
