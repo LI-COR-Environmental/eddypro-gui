@@ -747,7 +747,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advprocessingoptions.cpp" line="1245"/>
         <location filename="../src/advprocessingoptions.cpp" line="1251"/>
         <source>* U</source>
-        <translation type="unfinished"></translation>
+        <translation>* U</translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="226"/>
@@ -979,7 +979,7 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/advprocessingoptions.cpp" line="1242"/>
         <location filename="../src/advprocessingoptions.cpp" line="1247"/>
         <source> + </source>
-        <translation type="unfinished"></translation>
+        <translation> + </translation>
     </message>
     <message>
         <location filename="../src/advprocessingoptions.cpp" line="1164"/>
@@ -7043,7 +7043,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/updatedialog.cpp" line="125"/>
         <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="143"/>
@@ -7247,7 +7247,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="168"/>
         <source> – Powerful software for analyzing EddyPro outputs</source>
-        <translation type="unfinished"></translation>
+        <translation> – Powerful software for analyzing EddyPro outputs</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="171"/>
@@ -7257,12 +7257,12 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="180"/>
         <source>Measure and submit the Leaf Area Index within your footprint using the LAI-2200C</source>
-        <translation type="unfinished"></translation>
+        <translation>Measure and submit the Leaf Area Index within your footprint using the LAI-2200C</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="183"/>
         <source>Introducing new Soil Gas Flux Solutions</source>
-        <translation type="unfinished"></translation>
+        <translation>Measure and submit the Leaf Area Index within your footprint using the LAI-2200C</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="205"/>
@@ -7328,7 +7328,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     <message>
         <location filename="../src/welcomepage.cpp" line="234"/>
         <source>LI-COR Newsline (articles and technical tips)</source>
-        <translation type="unfinished"></translation>
+        <translation>LI-COR Newsline (articles and technical tips)</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="236"/>
