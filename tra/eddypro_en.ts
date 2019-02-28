@@ -2270,17 +2270,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3185"/>
         <source>Reset Statistical Analysis Settings</source>
         <translation>Reset Statistical Analysis Settings</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3189"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3186"/>
         <source>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3191"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
