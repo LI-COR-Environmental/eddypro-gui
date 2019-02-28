@@ -183,5 +183,5 @@ void RawFileSettingsDialog::updateDataRecLabel(const QString& s)
 
 void RawFileSettingsDialog::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Label_Data_Records.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/label-data-records.html")));
 }

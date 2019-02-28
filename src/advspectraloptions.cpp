@@ -1929,32 +1929,32 @@ void AdvSpectralOptions::createQuestionMarks()
 
 void AdvSpectralOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Ensemble_Averages.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/ensemble-averages.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectral_Correction_Factors.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectral-correction-factors.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/High-pass_Filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/high-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Low-pass_Filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/low-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Spectral_Corrections.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/spectral-corrections.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectra_Cospectra_and_Ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvSpectralOptions::updateTooltip(int i)

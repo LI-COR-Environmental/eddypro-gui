@@ -465,9 +465,9 @@ void WidgetUtils::showHelp(const QUrl& url)
             auto htmlHelpPath = QApplication::applicationDirPath();
             auto localUrlString = QString();
 
-            if (url.toString().contains(QStringLiteral("EddyPro_Home")))
+            if (url.toString().contains(QStringLiteral("home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/eddypro/home.html");
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
@@ -477,9 +477,9 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                  htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_Manual_12025.pdf");
             }
-            else if (url.toString().contains(QStringLiteral("Video_Library")))
+            else if (url.toString().contains(QStringLiteral("videos")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/Video_Library.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/videos.html");
             }
             else
             {

@@ -1609,7 +1609,7 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/home.html"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
@@ -3840,7 +3840,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Error_Codes.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/error-codes.html")));
 }
 
 // qt5

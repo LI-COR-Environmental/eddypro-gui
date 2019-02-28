@@ -107,7 +107,6 @@ private:
     QPushButton *questionMark_4;
     QPushButton *questionMark_5;
     QPushButton *questionMark_6;
-    QPushButton *questionMark_7;
 
     DlProject *dlProject_;
     EcProject *ecProject_;
@@ -167,7 +166,6 @@ private slots:
     void onlineHelpTrigger_5();
     void onlineHelpTrigger_6();
     void onlineHelpTrigger_7();
-    void onlineHelpTrigger_8();
 
     void tobSettingsUpdate(int n);
     void binSettingsDialog();

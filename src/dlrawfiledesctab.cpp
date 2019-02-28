@@ -233,8 +233,3 @@ void DlRawfileDescTab::clearInstrModels()
     modelList << tr("Other");
     variableModel_->setInstrModels(modelList);
 }
-
-void DlRawfileDescTab::onlineHelpTrigger_1()
-{
-//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/")));
-}

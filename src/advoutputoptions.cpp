@@ -1465,22 +1465,22 @@ void AdvOutputOptions::createQuestionMark()
 
 void AdvOutputOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_Overview.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-overview.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_Full_Output.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-full-output.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectra_Cospectra_and_Ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_6()
@@ -1495,12 +1495,12 @@ void AdvOutputOptions::onlineHelpTrigger_7()
 
 void AdvOutputOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_The_Stats_Folder.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-the-stats-folder.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onClickerrorFormatLabel()

@@ -206,11 +206,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpTitle->setProperty("groupTitle3", true);
 
     auto item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
-    item_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"));
+    item_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/home.html"));
     auto item_2 = new QListWidgetItem(tr("Getting started (PDF)"));
     item_2->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/qmhucid6g0hdvd3d13tk"));
     auto item_3 = new QListWidgetItem(tr("Video tutorials"));
-    item_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Video_Library.html"));
+    item_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics/videos.html"));
     auto item_4 = new QListWidgetItem(tr("Printable manual (PDF)"));
     item_4->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/1ium2zmwm6hl36yz9bu4"));
     auto item_5 = new QListWidgetItem(tr("Download sample data files"));
@@ -231,14 +231,12 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     auto item_6 = new QListWidgetItem(tr("Forum"));
     item_6->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro"));
-    auto item_7 = new QListWidgetItem(tr("Eddy Covariance Glossary"));
-    item_7->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Glossary.html"));
-    auto item_8 = new QListWidgetItem(tr("LI-COR Newsline (EddyPro related articles and technical tips)"));
-    item_8->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/newsline/tag/eddypro/"));
-    auto item_9 = new QListWidgetItem(tr("Features request"));
-    item_9->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/forum/?topic=feature-requests"));
-    auto item_10 = new QListWidgetItem(tr("Check for updates"));
-    item_10->setData(Qt::UserRole, QStringLiteral("check_updates"));
+    auto item_7 = new QListWidgetItem(tr("LI-COR Newsline (articles and technical tips)"));
+    item_7->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/newsline/tag/eddypro/"));
+    auto item_8 = new QListWidgetItem(tr("Features request"));
+    item_8->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/forum/?topic=feature-requests"));
+    auto item_9 = new QListWidgetItem(tr("Check for updates"));
+    item_9->setData(Qt::UserRole, QStringLiteral("check_updates"));
 
     supportListWidget = new QListWidget;
     supportListWidget->setProperty("helpListItem", true);
@@ -248,7 +246,6 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     supportListWidget->addItem(item_7);
     supportListWidget->addItem(item_8);
     supportListWidget->addItem(item_9);
-    supportListWidget->addItem(item_10);
 
     auto helpLayout = new QGridLayout;
     helpLayout->addWidget(helpTitle, 0, 0);
@@ -444,5 +441,5 @@ void WelcomePage::createQuestionMark()
 
 void WelcomePage::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/smartfluxSettings.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/smartflux-settings.html")));
 }
