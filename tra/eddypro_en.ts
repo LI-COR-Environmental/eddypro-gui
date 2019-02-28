@@ -2270,17 +2270,17 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3185"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
         <source>Reset Statistical Analysis Settings</source>
         <translation>Reset Statistical Analysis Settings</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3186"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3189"/>
         <source>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3191"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -6154,12 +6154,12 @@ Output</translation>
         <translation>Do &amp;Not Save</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="554"/>
+        <location filename="../src/widget_utils.cpp" line="561"/>
         <source>Close SmartFlux Configuration</source>
         <translation>Close SmartFlux Configuration</translation>
     </message>
     <message>
-        <location filename="../src/widget_utils.cpp" line="555"/>
+        <location filename="../src/widget_utils.cpp" line="562"/>
         <source>Do you want to leave the SmartFlux Configuration?</source>
         <translation>Do you want to leave the SmartFlux Configuration?</translation>
     </message>
@@ -7245,9 +7245,24 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>What&apos;s New at LI-COR</translation>
     </message>
     <message>
+        <location filename="../src/welcomepage.cpp" line="168"/>
+        <source> – Powerful software for analyzing EddyPro outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/welcomepage.cpp" line="171"/>
         <source>New Trace Gas Analyzers – high performance in an entirely new, portable design</source>
         <translation>New Trace Gas Analyzers – high performance in an entirely new, portable design</translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="180"/>
+        <source>Measure and submit the Leaf Area Index within your footprint using the LAI-2200C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/welcomepage.cpp" line="183"/>
+        <source>Introducing new Soil Gas Flux Solutions</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="205"/>
@@ -7275,24 +7290,9 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Introducing Tovi</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="168"/>
-        <source> – Powerful software for processing EddyPro outputs</source>
-        <translation> – Powerful software for processing EddyPro outputs</translation>
-    </message>
-    <message>
         <location filename="../src/welcomepage.cpp" line="174"/>
         <source>Simplified Biomet data collection with the LI-COR-designed Data Acquisition System</source>
         <translation>Simplified Biomet data collection with the LI-COR-designed Data Acquisition System</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="180"/>
-        <source>LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities</source>
-        <translation>LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="183"/>
-        <source>Learn how to make accurate soil gas flux measurements in a free online training course</source>
-        <translation>Learn how to make accurate soil gas flux measurements in a free online training course</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="186"/>

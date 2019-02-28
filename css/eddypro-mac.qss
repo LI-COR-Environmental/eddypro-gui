@@ -1694,21 +1694,6 @@ ClickLabel:disabled {
     color: grey;
 }
 
-ClickLabel#questionMarkImg {
-    background-color: transparent;
-    border: none;
-    image: url(:/icons/qm-enabled);
-    min-height: 12px;
-}
-
-ClickLabel#questionMarkImg:hover {
-    image: url(:/icons/qm-hover);
-}
-
-ClickLabel#questionMarkImg:pressed {
-    image: url(:/icons/qm-pressed);
-}
-
 ClickLabel#licorLogo {
     padding-left: 20px;
     image: url(:/icons/licor-logo);
