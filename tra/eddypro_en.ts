@@ -5762,193 +5762,193 @@ Output</translation>
         <translation>&lt;b&gt;Generic Binary Settings:&lt;/b&gt; Use the &lt;b&gt;&lt;i&gt;Settings...&lt;/i&gt;&lt;/b&gt; button to provide specifications of the binary format, to help EddyPro to correctly read the files.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="136"/>
+        <location filename="../src/projectpage.cpp" line="135"/>
         <source>Metadata file :</source>
         <translation>Metadata file :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="137"/>
+        <location filename="../src/projectpage.cpp" line="136"/>
         <source>&lt;b&gt;Metadata:&lt;/b&gt; Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format.</source>
         <translation>&lt;b&gt;Metadata:&lt;/b&gt; Choose whether to use metadata files embedded into GHG files or to bypass them by using an alternative metadata file. Only applicable to raw files in LI-COR GHG format.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="138"/>
+        <location filename="../src/projectpage.cpp" line="137"/>
         <source>Use embedded file</source>
         <translation>Use embedded file</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="139"/>
+        <location filename="../src/projectpage.cpp" line="138"/>
         <source>&lt;b&gt;Use embedded metadata file:&lt;/b&gt; Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive.</source>
         <translation>&lt;b&gt;Use embedded metadata file:&lt;/b&gt; Select this option to use file-specific meta-information, retrieved from the metadata file residing inside the GHG archive.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="140"/>
+        <location filename="../src/projectpage.cpp" line="139"/>
         <source> QRadioButton { padding-left: 2px; } </source>
         <translation> QRadioButton { padding-left: 2px; } </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="142"/>
+        <location filename="../src/projectpage.cpp" line="141"/>
         <source>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</source>
         <translation>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="143"/>
+        <location filename="../src/projectpage.cpp" line="142"/>
         <source> QRadioButton { padding-left: 0px; } </source>
         <translation> QRadioButton { padding-left: 0px; } </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="151"/>
+        <location filename="../src/projectpage.cpp" line="150"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing metadata file to edit it in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you use the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; to create and save a new metadata file from scratch, its path will appear here.</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing metadata file to edit it in the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you use the &lt;i&gt;&lt;b&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; to create and save a new metadata file from scratch, its path will appear here.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="159"/>
+        <location filename="../src/projectpage.cpp" line="158"/>
         <source>Use dynamic metadata file :</source>
         <translation>Use dynamic metadata file :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="174"/>
+        <location filename="../src/projectpage.cpp" line="173"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing dynamic metadata file.</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing dynamic metadata file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="180"/>
+        <location filename="../src/projectpage.cpp" line="179"/>
         <source>Biomet data :</source>
         <translation>Biomet data :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="184"/>
+        <location filename="../src/projectpage.cpp" line="183"/>
         <source>Use embedded files </source>
         <translation>Use embedded files </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="186"/>
+        <location filename="../src/projectpage.cpp" line="185"/>
         <source>&lt;b&gt;Use embedded files:&lt;/b&gt; Choose this option to use data from biomet files embedded in the LI-COR GHG files. This option is only available for GHG files collected with the LI-7550 embedded software version 6.0.0 or newer, provided a biomet system was used during data collection. EddyPro will automatically read biomet files from the GHG bundles, interpret them and extract relevant variables.</source>
         <translation>&lt;b&gt;Use embedded files:&lt;/b&gt; Choose this option to use data from biomet files embedded in the LI-COR GHG files. This option is only available for GHG files collected with the LI-7550 embedded software version 6.0.0 or newer, provided a biomet system was used during data collection. EddyPro will automatically read biomet files from the GHG bundles, interpret them and extract relevant variables.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="188"/>
+        <location filename="../src/projectpage.cpp" line="187"/>
         <source>Use external file:</source>
         <translation>Use external file:</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="189"/>
+        <location filename="../src/projectpage.cpp" line="188"/>
         <source>&lt;b&gt;Use external file:&lt;/b&gt; Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button to access the guidelines on EddyPro Help.</source>
         <translation>&lt;b&gt;Use external file:&lt;/b&gt; Select this option if you have all biomet data collected in one only external file, and provide the path to this file by using the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; The biomet file must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Load...&lt;/i&gt;&lt;/b&gt; button to access the guidelines on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="201"/>
+        <location filename="../src/projectpage.cpp" line="200"/>
         <source>Use external directory:</source>
         <translation>Use external directory:</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="205"/>
+        <location filename="../src/projectpage.cpp" line="204"/>
         <source>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</source>
         <translation>&lt;b&gt;Browse :&lt;/b&gt; Use to specify the folder that contains the external biomet data. If data are also contained in subfolders, select the &lt;i&gt;Search in subfolders&lt;/i&gt; box.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="214"/>
+        <location filename="../src/projectpage.cpp" line="213"/>
         <source>Search in subfolders</source>
         <translation>Search in subfolders</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="217"/>
+        <location filename="../src/projectpage.cpp" line="216"/>
         <source>Files extension :</source>
         <translation>Files extension :</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="218"/>
+        <location filename="../src/projectpage.cpp" line="217"/>
         <source>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</source>
         <translation>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="309"/>
+        <location filename="../src/projectpage.cpp" line="307"/>
         <source>Project Info</source>
         <translation>Project Info</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="317"/>
+        <location filename="../src/projectpage.cpp" line="315"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="432"/>
+        <location filename="../src/projectpage.cpp" line="430"/>
         <source>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="152"/>
+        <location filename="../src/projectpage.cpp" line="151"/>
         <source>Select the Metadata File</source>
         <translation>Select the Metadata File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="154"/>
+        <location filename="../src/projectpage.cpp" line="153"/>
         <source>%1 Metadata Files (*.metadata);;All Files (*.*)</source>
         <translation>%1 Metadata Files (*.metadata);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="193"/>
+        <location filename="../src/projectpage.cpp" line="192"/>
         <source>Select the Biomet File</source>
         <translation>Select the Biomet File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="198"/>
+        <location filename="../src/projectpage.cpp" line="197"/>
         <source>%1 Biomet Files (*.csv);;All Files (*.*)</source>
         <translation>%1 Biomet Files (*.csv);;All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="175"/>
+        <location filename="../src/projectpage.cpp" line="174"/>
         <source>Select the Dynamic Metadata File</source>
         <translation>Select the Dynamic Metadata File</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="141"/>
+        <location filename="../src/projectpage.cpp" line="140"/>
         <source>Use alternative file: </source>
         <translation>Use alternative file: </translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="160"/>
+        <location filename="../src/projectpage.cpp" line="159"/>
         <source>&lt;b&gt;Use dynamic metadata file:&lt;/b&gt; Check this option and provide the corresponding path to instruct EddyPro to use an externally-created file that contains time changing metadata, such as canopy height, instrument separations and more.Click on the question mark at the right side of the &lt;b&gt;Load&lt;/b&gt; button to learn more about dynamic metadata on the EddyPro Help.</source>
         <translation>&lt;b&gt;Use dynamic metadata file:&lt;/b&gt; Check this option and provide the corresponding path to instruct EddyPro to use an externally-created file that contains time changing metadata, such as canopy height, instrument separations and more.Click on the question mark at the right side of the &lt;b&gt;Load&lt;/b&gt; button to learn more about dynamic metadata on the EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="177"/>
-        <location filename="../src/projectpage.cpp" line="196"/>
+        <location filename="../src/projectpage.cpp" line="176"/>
+        <location filename="../src/projectpage.cpp" line="195"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="182"/>
+        <location filename="../src/projectpage.cpp" line="181"/>
         <source>&lt;b&gt;Biomet data:&lt;/b&gt; Select this option and choose the source of biomet data. Biomet data are slow (&lt; 1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file.</source>
         <translation>&lt;b&gt;Biomet data:&lt;/b&gt; Select this option and choose the source of biomet data. Biomet data are slow (&lt; 1 Hz) measurements of biological and meteorological variables that complement eddy covariance measurements. Some biomet measurements can be used to improve flux results (ambient temperature, relative humidity and pressure, global radiation, PAR and long-wave incoming radiation). All biomet data available are screened for physical plausibility, averaged on the same time scale of the fluxes, and provided in a separate output file.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="192"/>
+        <location filename="../src/projectpage.cpp" line="191"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing biomet external file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing biomet external file</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="202"/>
+        <location filename="../src/projectpage.cpp" line="201"/>
         <source>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</source>
         <translation>&lt;b&gt;Use external directory:&lt;/b&gt; Select this option if you have biomet data collected in more than one external file, and provide the path to the directory that contains those files by using the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button. &lt;br /&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; All biomet files must be formatted according the guidelines that you can find in EddyPro Help and User&apos;s Guide. Click on the question mark at the right side of the &lt;b&gt;&lt;i&gt;Browse...&lt;/i&gt;&lt;/b&gt; button to access the guidelines page on EddyPro Help.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="210"/>
+        <location filename="../src/projectpage.cpp" line="209"/>
         <source>Select the Biomet Files Directory</source>
         <translation>Select the Biomet Files Directory</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="215"/>
+        <location filename="../src/projectpage.cpp" line="214"/>
         <source>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</source>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1078"/>
+        <location filename="../src/projectpage.cpp" line="1067"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1079"/>
+        <location filename="../src/projectpage.cpp" line="1068"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>
@@ -7042,8 +7042,8 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="125"/>
-        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
+        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="143"/>
@@ -7311,7 +7311,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="216"/>
-        <location filename="../src/welcomepage.cpp" line="361"/>
+        <location filename="../src/welcomepage.cpp" line="358"/>
         <source>Download sample data files</source>
         <translation>Download sample data files</translation>
     </message>
@@ -7327,36 +7327,31 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="234"/>
-        <source>Eddy Covariance Glossary</source>
-        <translation>Eddy Covariance Glossary</translation>
+        <source>LI-COR Newsline (articles and technical tips)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/welcomepage.cpp" line="236"/>
-        <source>LI-COR Newsline (EddyPro related articles and technical tips)</source>
-        <translation>LI-COR Newsline (EddyPro related articles and technical tips)</translation>
-    </message>
-    <message>
-        <location filename="../src/welcomepage.cpp" line="238"/>
         <source>Features request</source>
         <translation>Features request</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="240"/>
+        <location filename="../src/welcomepage.cpp" line="238"/>
         <source>Check for updates</source>
         <translation>Check for updates</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="266"/>
+        <location filename="../src/welcomepage.cpp" line="263"/>
         <source>Manage Projects</source>
         <translation>Manage Projects</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="267"/>
+        <location filename="../src/welcomepage.cpp" line="264"/>
         <source>News</source>
         <translation>News</translation>
     </message>
     <message>
-        <location filename="../src/welcomepage.cpp" line="268"/>
+        <location filename="../src/welcomepage.cpp" line="265"/>
         <source>Help and Support</source>
         <translation>Help and Support</translation>
     </message>
