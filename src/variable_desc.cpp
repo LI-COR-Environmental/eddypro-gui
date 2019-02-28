@@ -990,7 +990,7 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
     const QString& outputUnit = var.outputUnit();
 
     qDebug() << "name" << name;
-    qDebug() << "type" << (type == AnalogType::SLOW ? 'SLOW' : 'FAST');
+    qDebug() << "type" << (type == AnalogType::SLOW ? "SLOW" : "FAST");
 
     // 1
     bool isGoodName = false;
