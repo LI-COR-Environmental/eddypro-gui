@@ -77,9 +77,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     dataRecLabelEdit = new CustomClearLineEdit;
     dataRecLabelEdit->setToolTip(dataRecLabel->toolTip());
     dataRecLabelEdit->setVisible(false);
-    questionMark_1 = new QPushButton;
-    questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_1->setVisible(false);
 
     auto rawPropertiesLayout = new QGridLayout;
     rawPropertiesLayout->addWidget(fieldSepLabel, 0, 0, 1, 1, Qt::AlignRight);
@@ -87,7 +84,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     rawPropertiesLayout->addWidget(headerRowsLabel, 1, 0, 1, 1, Qt::AlignRight);
     rawPropertiesLayout->addWidget(headerRowsSpin, 1, 2);
     rawPropertiesLayout->addWidget(dataRecLabel, 2, 0, 1, 1, Qt::AlignRight);
-    rawPropertiesLayout->addWidget(questionMark_1, 2, 1);
     rawPropertiesLayout->addWidget(dataRecLabelEdit, 2, 2);
     rawPropertiesLayout->setVerticalSpacing(3);
     rawPropertiesLayout->setContentsMargins(3, 3, 3, 3);
@@ -121,9 +117,6 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
             this, &RawFileSettingsDialog::onClickDataRecLabel);
     connect(dataRecLabelEdit, &CustomClearLineEdit::textChanged,
             this, &RawFileSettingsDialog::updateDataRecLabel);
-
-    connect(questionMark_1, &QPushButton::clicked,
-            this, &RawFileSettingsDialog::onlineHelpTrigger_1);
 
     connect(okButton, &QPushButton::clicked,
             [=](){ if (this->isVisible()) hide(); });
@@ -179,9 +172,4 @@ void RawFileSettingsDialog::onClickDataRecLabel()
 void RawFileSettingsDialog::updateDataRecLabel(const QString& s)
 {
     dlProject_->setDataLabel(s);
-}
-
-void RawFileSettingsDialog::onlineHelpTrigger_1()
-{
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/label-data-records.html")));
 }
