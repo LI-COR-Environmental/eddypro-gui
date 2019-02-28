@@ -6251,7 +6251,7 @@ Output</translation>
         <translation>Label of data records :</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="98"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="94"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
