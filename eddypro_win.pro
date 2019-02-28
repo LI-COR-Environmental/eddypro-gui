@@ -126,3 +126,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # workaround for QTBUG-34424
 TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0/*
+
+message("QMAKE_HOST.arch: $$QMAKE_HOST.arch")
+message("QMAKE_HOST.os: $$QMAKE_HOST.os")
+message("QMAKE_HOST.cpu_count: $$QMAKE_HOST.cpu_count")
+message("QMAKE_HOST.name: $$QMAKE_HOST.name")
+message("QMAKE_HOST.version: $$QMAKE_HOST.version")
+message("QMAKE_HOST.version_string: $$QMAKE_HOST.version_string")
+message("QT_ARCH: $$QT_ARCH")
+message("QT_BUILDABI: $$QT_BUILDABI")
