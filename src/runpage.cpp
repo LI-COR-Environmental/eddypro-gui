@@ -204,14 +204,16 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     WidgetUtils::updatePropertyListAndStyle(main_progress_bar, progressBarProp);
     WidgetUtils::updatePropertyListAndStyle(mini_progress_bar_, progressBarProp);
 
-    QTimer::singleShot(0, this, SLOT([=]() {
-        progressWidget_->stopAnimation();
-    }));
+    QTimer::singleShot(0, this, SLOT(init()));
 }
 
 RunPage::~RunPage()
 {
     delete pauseResumeDelayTimer_;
+}
+
+void RunPage::init() {
+    progressWidget_->stopAnimation();
 }
 
 void RunPage::startRun(Defs::CurrRunStatus mode)

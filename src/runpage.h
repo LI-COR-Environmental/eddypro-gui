@@ -74,6 +74,8 @@ private slots:
     void openOutputDir();
     void openToviHomepage();
 
+    void init();
+
 private:
     bool filterData(const QByteArray &data);
     QByteArray cleanupEngineOutput(QByteArray data);

@@ -490,6 +490,8 @@ private slots:
     void windFilterModelModified();
     void updateWindFilterModel();
 
+    void init();
+
 signals:
     void updateMetadataReadResult(bool b);
     void setDateRangeRequest(FileUtils::DateRange);

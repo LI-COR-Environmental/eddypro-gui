@@ -1260,16 +1260,18 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
 
     // other inits
     QTimer::singleShot(0, this, SLOT(reset()));
-    QTimer::singleShot(0, this, SLOT([=]() {
-        findFileProgressWidget->stopAnimation();
-        magneticDeclinationFetchProgress->stopAnimation();
-    }));
+    QTimer::singleShot(0, this, SLOT(init()));
 }
 
 BasicSettingsPage::~BasicSettingsPage()
 {
     delete httpReply_;
     delete httpManager_;
+}
+
+void BasicSettingsPage::init() {
+    findFileProgressWidget->stopAnimation();
+    magneticDeclinationFetchProgress->stopAnimation();
 }
 
 void BasicSettingsPage::datapathSelected(const QString& dir_path)
