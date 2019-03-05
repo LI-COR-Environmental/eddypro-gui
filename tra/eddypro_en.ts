@@ -4526,13 +4526,6 @@ Change this setting under the Help menu.</translation>
         <translation>Save Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="907"/>
-        <source>&amp;Open
-Project...</source>
-        <translation>&amp;Open
-Project...</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="914"/>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
@@ -4546,13 +4539,6 @@ Project...</translation>
         <location filename="../src/mainwindow.cpp" line="922"/>
         <source>Open &amp;Recent...</source>
         <translation>Open &amp;Recent...</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="934"/>
-        <source>Save
-&amp;As...</source>
-        <translation>Save
-&amp;As...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="937"/>
@@ -4580,56 +4566,14 @@ Project...</translation>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="973"/>
-        <source>Project
-Creation</source>
-        <translation>Project
-Creation</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="981"/>
-        <source>Basic
-Settings</source>
-        <translation>Basic
-Settings</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="988"/>
-        <source>Advanced
-Settings</source>
-        <translation>Advanced
-Settings</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1010"/>
-        <source>Express
-Mode</source>
-        <translation>Express
-Mode</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="1013"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="1019"/>
-        <source>Advanced
-Mode</source>
-        <translation>Advanced
-Mode</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="1022"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="1028"/>
-        <source>Metadata
-Retriever</source>
-        <translation>Metadata
-Retriever</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1031"/>
@@ -5140,10 +5084,20 @@ Retriever</translation>
         <translation>Do you want to save your changes?</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="900"/>
+        <source>&amp;New</source>
+        <translation>&amp;New</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="944"/>
         <location filename="../src/mainwindow.cpp" line="1667"/>
         <source>SmartFlux Configuration</source>
         <translation>SmartFlux Configuration</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="996"/>
+        <source>Run Output</source>
+        <translation>Run Output</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1113"/>
@@ -5171,15 +5125,14 @@ Retriever</translation>
         <translation>Close EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="900"/>
-        <source>&amp;New
-Project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="903"/>
         <source>Start a new project. (%1)</source>
         <translation>Start a new project. (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="907"/>
+        <source>&amp;Open...</source>
+        <translation>&amp;Open...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="910"/>
@@ -5207,6 +5160,11 @@ Project</source>
         <translation>Save the current project. (%1)</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="934"/>
+        <source>Save &amp;As...</source>
+        <translation>Save &amp;As...</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="938"/>
         <source>Save the current project with a new name. (%1)</source>
         <translation>Save the current project with a new name. (%1)</translation>
@@ -5232,6 +5190,11 @@ Project</source>
         <translation>Go to the &lt;i&gt;Welcome page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="973"/>
+        <source>Project Creation</source>
+        <translation>Project Creation</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="975"/>
         <source>Alt+2</source>
         <translation>Alt+2</translation>
@@ -5240,6 +5203,11 @@ Project</source>
         <location filename="../src/mainwindow.cpp" line="976"/>
         <source>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Project Creation Page&lt;/i&gt;. (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="981"/>
+        <source>Basic Settings</source>
+        <translation>Basic Settings</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="983"/>
@@ -5252,6 +5220,11 @@ Project</source>
         <translation>Go to the &lt;i&gt;Basic Settings Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="988"/>
+        <source>Advanced Settings</source>
+        <translation>Advanced Settings</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="990"/>
         <source>Alt+4</source>
         <translation>Alt+4</translation>
@@ -5260,13 +5233,6 @@ Project</source>
         <location filename="../src/mainwindow.cpp" line="991"/>
         <source>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</source>
         <translation>Go to the &lt;i&gt;Advanced Settings Page&lt;/i&gt;. (%1)</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="996"/>
-        <source>Run
-Output</source>
-        <translation>Run
-Output</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="998"/>
@@ -5279,14 +5245,29 @@ Output</translation>
         <translation>Go to the &lt;i&gt;Output Console Page&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="1010"/>
+        <source>Express Mode</source>
+        <translation>Express Mode</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="1015"/>
         <source>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Express mode&lt;/i&gt;. (%1)</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="1019"/>
+        <source>Advanced Mode</source>
+        <translation>Express Mode</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="1024"/>
         <source>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</source>
         <translation>Process in &lt;i&gt;Advanced mode&lt;/i&gt;. (%1)</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1028"/>
+        <source>Metadata Retriever</source>
+        <translation>Metadata Retriever</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1033"/>
@@ -5470,112 +5451,112 @@ Output</translation>
         <translation>&lt;b&gt;End:&lt;/b&gt; End date of the time period to be used for planar fit assessment. This time period cannot be longer than about 1 month. As a general recommendation, select a time period during which the instrument setup and the canopy height and structure did not undergo major modifications. Results obtained using a given time period (e.g., 2 weeks) can be used for processing a longer time period, in which major modifications did not occur at the site. The higher the &lt;b&gt;&lt;i&gt;Number of wind sectors&lt;/i&gt;&lt;/b&gt; and the &lt;b&gt;&lt;i&gt;Minimum number of elements per sector&lt;/i&gt;&lt;/b&gt;, the longer the period should be.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="129"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="130"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing planar fit file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing planar fit file</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="138"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="139"/>
         <source>Minimum number of elements per sector :</source>
         <translation>Minimum number of elements per sector :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="139"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="140"/>
         <source>&lt;b&gt;Minimum number of elements per sector:&lt;/b&gt; Enter the minimum number of mean wind vectors (calculated over each flux averaging interval), required to calculate planar fit rotation matrices. A too small number may lead to inaccurate regressions and rotation matrices. A too large number may lead to sectors without planar fit rotation matrices. If for a certain averaging interval, wind is blowing from a sector for which the rotation matrix could not be calculated, the policy selected in &lt;b&gt;&lt;i&gt;If planar fit calculations fail for a sector&lt;/i&gt;&lt;/b&gt; apply.</source>
         <translation>&lt;b&gt;Minimum number of elements per sector:&lt;/b&gt; Enter the minimum number of mean wind vectors (calculated over each flux averaging interval), required to calculate planar fit rotation matrices. A too small number may lead to inaccurate regressions and rotation matrices. A too large number may lead to sectors without planar fit rotation matrices. If for a certain averaging interval, wind is blowing from a sector for which the rotation matrix could not be calculated, the policy selected in &lt;b&gt;&lt;i&gt;If planar fit calculations fail for a sector&lt;/i&gt;&lt;/b&gt; apply.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="142"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="151"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="162"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="143"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="152"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="163"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="146"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="147"/>
         <source>Maximum mean vertical wind component :</source>
         <translation>Maximum mean vertical wind component :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="147"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="148"/>
         <source>&lt;b&gt;Maximum mean vertical wind component:&lt;/b&gt; Set a maximum vertical wind component to instruct EddyPro to ignore flux averaging periods with larger mean vertical wind components, when calculating the rotation matrices. Using elements with too large (unrealistic) vertical wind components would corrupt the assessment of the fitting plane, and of the related rotation matrices.</source>
         <translation>&lt;b&gt;Maximum mean vertical wind component:&lt;/b&gt; Set a maximum vertical wind component to instruct EddyPro to ignore flux averaging periods with larger mean vertical wind components, when calculating the rotation matrices. Using elements with too large (unrealistic) vertical wind components would corrupt the assessment of the fitting plane, and of the related rotation matrices.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="154"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="165"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="155"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="166"/>
         <source>  [m/s]</source>
         <comment>Velocity</comment>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="157"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="158"/>
         <source>Minimum mean horizontal wind component :</source>
         <translation>Minimum mean horizontal wind component :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="158"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="159"/>
         <source>&lt;b&gt;Minimum mean horizontal wind component:&lt;/b&gt; Set a minimum horizontal wind component to instruct EddyPro to ignore flux averaging periods with smaller mean horizontal wind components, when calculating the rotation matrices. When the horizontal wind is very small, the attack angle may be affected by large errors, and so would be the vertical wind component, resulting in poor quality data that would degrade the planar fit assessment.</source>
         <translation>&lt;b&gt;Minimum mean horizontal wind component:&lt;/b&gt; Set a minimum horizontal wind component to instruct EddyPro to ignore flux averaging periods with smaller mean horizontal wind components, when calculating the rotation matrices. When the horizontal wind is very small, the attack angle may be affected by large errors, and so would be the vertical wind component, resulting in poor quality data that would degrade the planar fit assessment.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="168"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="169"/>
         <source>If planar fit calculations fail for a sector :</source>
         <translation>If planar fit calculations fail for a sector :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="169"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="170"/>
         <source>&lt;b&gt;If planar fit calculations fail for a sector:&lt;/b&gt; Select how EddyPro should behave when encountering data from a wind sector, for which the planar fit rotation matrix could not be calculated for any reason. Either use the rotation matrix for the closest sector (clockwise or counterclockwise), or switch to double-rotations for that sector.</source>
         <translation>&lt;b&gt;If planar fit calculations fail for a sector:&lt;/b&gt; Select how EddyPro should behave when encountering data from a wind sector, for which the planar fit rotation matrix could not be calculated for any reason. Either use the rotation matrix for the closest sector (clockwise or counterclockwise), or switch to double-rotations for that sector.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="171"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="172"/>
         <source>Use closest valid sector, clockwise</source>
         <translation>Use closest valid sector, clockwise</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="172"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="173"/>
         <source>Use closest valid sector, counterclockwise</source>
         <translation>Use closest valid sector, counterclockwise</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="173"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="174"/>
         <source>Use double rotations</source>
         <translation>Use double rotations</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="202"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="203"/>
         <source>Configure wind sectors</source>
         <translation>Configure wind sectors</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="215"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="216"/>
         <source>Set equally spaced</source>
         <translation>Set equally spaced</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="217"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="218"/>
         <source>&lt;b&gt;Set equally spaced:&lt;/b&gt; Clicking this button will cause the EddyPro to divide the whole 360&amp;deg; circle in n equally-wide sectors, when n is the number of sectors currently entered. Note that the operation will not modify the north offset.</source>
         <translation>&lt;b&gt;Set equally spaced:&lt;/b&gt; Clicking this button will cause the EddyPro to divide the whole 360&amp;deg; circle in n equally-wide sectors, when n is the number of sectors currently entered. Note that the operation will not modify the north offset.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="219"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="220"/>
         <source>North offset first sector:</source>
         <translation>North offset first sector:</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="220"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="221"/>
         <source>&lt;b&gt;North offset first sector:&lt;/b&gt; This parameter is meant to allow you design a sector that spans through the north. Entering an offset of a degrees will cause all sectors to rotate a degrees clockwise. Note that north is intended here as local, magnetic north (the one you assess with the compass at the site).</source>
         <translation>&lt;b&gt;North offset first sector:&lt;/b&gt; This parameter is meant to allow you design a sector that spans through the north. Entering an offset of a degrees will cause all sectors to rotate a degrees clockwise. Note that north is intended here as local, magnetic north (the one you assess with the compass at the site).</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="226"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="227"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="130"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="131"/>
         <source>Select the Planar Fit File</source>
         <translation>Select the Planar Fit File</translation>
     </message>
@@ -5585,32 +5566,32 @@ Output</translation>
         <translation>Planar fit file available : </translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="132"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="133"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="247"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="248"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="662"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="663"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="666"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="667"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="676"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="677"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="680"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="681"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</translation>
     </message>
@@ -5782,6 +5763,7 @@ Output</translation>
     </message>
     <message>
         <location filename="../src/projectpage.cpp" line="139"/>
+        <location filename="../src/projectpage.cpp" line="142"/>
         <source> QRadioButton { padding-left: 2px; } </source>
         <translation> QRadioButton { padding-left: 2px; } </translation>
     </message>
@@ -5789,11 +5771,6 @@ Output</translation>
         <location filename="../src/projectpage.cpp" line="141"/>
         <source>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</source>
         <translation>&lt;b&gt;Use alternative metadata file:&lt;/b&gt; Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file &lt;b&gt;&lt;i&gt;Load&lt;/i&gt;&lt;/b&gt; button. Make changes if needed and save the file.</translation>
-    </message>
-    <message>
-        <location filename="../src/projectpage.cpp" line="142"/>
-        <source> QRadioButton { padding-left: 0px; } </source>
-        <translation> QRadioButton { padding-left: 0px; } </translation>
     </message>
     <message>
         <location filename="../src/projectpage.cpp" line="150"/>
@@ -5861,17 +5838,17 @@ Output</translation>
         <translation>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="305"/>
+        <location filename="../src/projectpage.cpp" line="301"/>
         <source>Project Info</source>
         <translation>Project Info</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="313"/>
+        <location filename="../src/projectpage.cpp" line="309"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="428"/>
+        <location filename="../src/projectpage.cpp" line="424"/>
         <source>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -5942,12 +5919,12 @@ Output</translation>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1065"/>
+        <location filename="../src/projectpage.cpp" line="1061"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1066"/>
+        <location filename="../src/projectpage.cpp" line="1062"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>
@@ -6830,174 +6807,174 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>&lt;b&gt;End:&lt;/b&gt; End date of the time period to be used for time lag optimization. This time should not be shorter than about 1-2 months. As a general recommendation, select a time period during which the instrumental setup did not undergo major modifications. Results obtained using a given time period (e.g., 2 months) can be used for processing a longer time period, in which major modifications did not occur in the setup. The stricter the threshold setup in this dialogue, the longer the period should be in order to get robust results.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="118"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="119"/>
         <source>&lt;b&gt;Load:&lt;/b&gt; Load an existing time lag file</source>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing time lag file</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="119"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="120"/>
         <source>Select the Time Lag Optimization File</source>
         <translation>Select the Time Lag Optimization File</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="127"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="128"/>
         <source>Water vapor time lag as a function of relative humidity</source>
         <translation>Water vapor time lag as a function of relative humidity</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="129"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="130"/>
         <source>Plausibility range around median value :</source>
         <translation>Plausibility range around median value :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="130"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="131"/>
         <source>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</source>
         <translation>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="136"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="137"/>
         <source>  [mad]</source>
         <translation>  [mad]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="138"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="139"/>
         <source>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="140"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="141"/>
         <source>Number of RH classes :</source>
         <translation>Number of RH classes :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="141"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="142"/>
         <source>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range or RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. Selecting 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</source>
         <translation>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range of RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. If you select 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="147"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="148"/>
         <source>Do not sort in RH classes</source>
         <translation>Do not sort in RH classes</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="150"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="151"/>
         <source>Passive gases</source>
         <translation>Passive gases</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="152"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="162"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="153"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="163"/>
         <source>Minimum (absolute) %1 flux :</source>
         <translation>Minimum (absolute) %1 flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="153"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="163"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="154"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="164"/>
         <source>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="159"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="169"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="179"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="189"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="160"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="170"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="180"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="190"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="172"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="173"/>
         <source>Minimum (absolute) %1 gas flux :</source>
         <translation>Minimum (absolute) %1 gas flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="173"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="174"/>
         <source>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="182"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="183"/>
         <source>Minimum latent heat flux :</source>
         <translation>Minimum latent heat flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="183"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="184"/>
         <source>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="192"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="193"/>
         <source>Time lag searching windows</source>
         <translation>Time lag searching windows</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="194"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="195"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="195"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="196"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="197"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="198"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="198"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="199"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="200"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="220"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="240"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="201"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="221"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="241"/>
         <source>%1 :</source>
         <translation>%1 :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="206"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="215"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="226"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="235"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="246"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="255"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="266"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="275"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="207"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="216"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="227"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="236"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="247"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="256"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="267"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="276"/>
         <source>Detect automatically</source>
         <translation>Detect automatically</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="208"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="217"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="228"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="237"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="248"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="257"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="268"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="277"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="209"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="218"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="229"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="238"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="249"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="258"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="269"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="278"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="260"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="261"/>
         <source>%1 gas :</source>
         <translation>%1 gas :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="331"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="332"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="708"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="709"/>
         <source>Select the Timelag Optimization File</source>
         <translation>Select the Timelag Optimization File</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="121"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="710"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="122"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="711"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
