@@ -124,6 +124,7 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     dateTimeContainer->setColumnStretch(3, 2);
     dateTimeContainer->setContentsMargins(0, 0, 0, 0);
     dateTimeContainer->setVerticalSpacing(3);
+    dateTimeContainer->setHorizontalSpacing(3);
 
     fileBrowse = new FileBrowseWidget;
     fileBrowse->setToolTip(tr("<b>Load:</b> Load an existing planar fit file"));

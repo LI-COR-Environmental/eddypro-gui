@@ -139,7 +139,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     embMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 2px; } "));
     altMetadataFileRadio = new QRadioButton(tr("Use alternative file: "));
     altMetadataFileRadio->setToolTip(tr("<b>Use alternative metadata file:</b> Select this option to use an alternative metadata file. Note that in this case all GHG files are processed using the same meta-information, retrieved from the alternative metadata file. This file is created and/or edited in the <b><i>Metadata File Editor</i></b>. If you are about to process GHG files, you can speed up the completion of the alternative METADATA by unzipping any raw file and loading the extracted METADATA from the Metadata file: Use alternative file <b><i>Load</i></b> button. Make changes if needed and save the file."));
-    altMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 0px; } "));
+    altMetadataFileRadio->setStyleSheet(tr(" QRadioButton { padding-left: 2px; } "));
 
     metadataRadioGroup = new QButtonGroup(this);
     metadataRadioGroup->addButton(embMetadataFileRadio, 0);
@@ -232,11 +232,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     biomRadioGroup->addButton(biomExtFileRadio, 1);
     biomRadioGroup->addButton(biomExtDirRadio, 2);
 
-    auto altMetadataFileRadioBox = new QHBoxLayout;
-    altMetadataFileRadioBox->addWidget(altMetadataFileRadio);
-    altMetadataFileRadioBox->addWidget(questionMark_3);
-    altMetadataFileRadioBox->addStretch();
-
     auto gridLeft = new QGridLayout;
     gridLeft->addWidget(titleLabel, 0, 0, Qt::AlignRight);
     gridLeft->addWidget(titleEdit, 0, 1, 1, 3);
@@ -265,7 +260,8 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     auto gridRight = new QGridLayout;
     gridRight->addWidget(metadataLabel, 1, 0, Qt::AlignRight);
     gridRight->addWidget(embMetadataFileRadio, 1, 1, 1, 1, Qt::AlignLeft);
-    gridRight->addLayout(altMetadataFileRadioBox, 2, 1);
+    gridRight->addWidget(altMetadataFileRadio, 2, 1, 1, 1, Qt::AlignLeft);
+    gridRight->addWidget(questionMark_3, 2, 2, 1, 1, Qt::AlignLeft);
     gridRight->addWidget(metadataFileBrowse, 3, 1, 1, 3);
     gridRight->addWidget(dynamicMdCheckBox, 5, 0, Qt::AlignRight);
     gridRight->addWidget(dynamicMdFileBrowse, 5, 1, 1, 3);

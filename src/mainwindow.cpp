@@ -897,14 +897,14 @@ void MainWindow::updateInfoMessages()
 void MainWindow::createActions()
 {
     newAction = new QAction(this);
-    newAction->setText(tr("&New\nProject"));
+    newAction->setText(tr("&New"));
     newAction->setIcon(QIcon(QStringLiteral(":/icons/new")));
     newAction->setShortcut(QKeySequence(QKeySequence::New));
     newAction->setToolTip(tr("Start a new project. (%1)")
                           .arg((newAction->shortcut().toString())));
 
     openAction = new QAction(this);
-    openAction->setText(tr("&Open\nProject..."));
+    openAction->setText(tr("&Open..."));
     openAction->setIcon(QIcon(QStringLiteral(":/icons/open")));
     openAction->setShortcut(QKeySequence(QKeySequence::Open));
     openAction->setToolTip(tr("Open an existing project. (%1)")
@@ -931,7 +931,7 @@ void MainWindow::createActions()
                            .arg((saveAction->shortcut().toString())));
 
     saveAsAction = new QAction(this);
-    saveAsAction->setText(tr("Save\n&As..."));
+    saveAsAction->setText(tr("Save &As..."));
     saveAsAction->setIcon(QIcon(QStringLiteral(":/icons/save-as")));
     // Extend to Windows the other platforms' standard shortcut
     saveAsAction->setShortcut(tr("Ctrl+Shift+S"));
@@ -970,7 +970,7 @@ void MainWindow::createActions()
                                   .arg((viewWelcomeAction->shortcut().toString())));
 
     viewProjectCreationAction = new QAction(this);
-    viewProjectCreationAction->setText(tr("Project\nCreation"));
+    viewProjectCreationAction->setText(tr("Project Creation"));
     viewProjectCreationAction->setIcon(QIcon(QStringLiteral(":/icons/project")));
     viewProjectCreationAction->setShortcut(tr("Alt+2"));
     viewProjectCreationAction->setToolTip(tr("Go to the <i>Project Creation Page</i>. (%1)")
@@ -978,14 +978,14 @@ void MainWindow::createActions()
                                                 ->shortcut().toString())));
 
     viewBasicSettingsAction = new QAction(this);
-    viewBasicSettingsAction->setText(tr("Basic\nSettings"));
+    viewBasicSettingsAction->setText(tr("Basic Settings"));
     viewBasicSettingsAction->setIcon(QIcon(QStringLiteral(":/icons/basic-settings")));
     viewBasicSettingsAction->setShortcut(tr("Alt+3"));
     viewBasicSettingsAction->setToolTip(tr("Go to the <i>Basic Settings Page</i>. (%1)")
                                         .arg((viewBasicSettingsAction->shortcut().toString())));
 
     viewAdvancedAction = new QAction(this);
-    viewAdvancedAction->setText(tr("Advanced\nSettings"));
+    viewAdvancedAction->setText(tr("Advanced Settings"));
     viewAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/advanced-settings")));
     viewAdvancedAction->setShortcut(tr("Alt+4"));
     viewAdvancedAction->setToolTip(tr("Go to the <i>Advanced Settings Page</i>. (%1)")
@@ -993,7 +993,7 @@ void MainWindow::createActions()
 
     viewRunPageAction = new QAction(this);
     viewRunPageAction->setObjectName(QStringLiteral("view_run_action"));
-    viewRunPageAction->setText(tr("Run\nOutput"));
+    viewRunPageAction->setText(tr("Run Output"));
     viewRunPageAction->setIcon(QIcon(QStringLiteral(":/icons/console")));
     viewRunPageAction->setShortcut(tr("Alt+5"));
     viewRunPageAction->setToolTip(tr("Go to the <i>Output Console Page</i>. (%1)")
@@ -1007,7 +1007,7 @@ void MainWindow::createActions()
     viewActionGroup->addAction(viewRunPageAction);
 
     runExpressAction = new QAction(this);
-    runExpressAction->setText(tr("Express\nMode"));
+    runExpressAction->setText(tr("Express Mode"));
     runExpressAction->setIcon(QIcon(QStringLiteral(":/icons/run-exp")));
     runExpressAction->setPriority(QAction::HighPriority);
     runExpressAction->setShortcut(tr("Ctrl+E"));
@@ -1016,7 +1016,7 @@ void MainWindow::createActions()
                                  .arg((runExpressAction->shortcut().toString())));
 
     runAdvancedAction = new QAction(this);
-    runAdvancedAction->setText(tr("Advanced\nMode"));
+    runAdvancedAction->setText(tr("Advanced Mode"));
     runAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/run-adv")));
     runAdvancedAction->setPriority(QAction::HighPriority);
     runAdvancedAction->setShortcut(tr("Ctrl+A"));
@@ -1025,7 +1025,7 @@ void MainWindow::createActions()
                                   .arg((runAdvancedAction->shortcut().toString())));
 
     runRetrieverAction = new QAction(this);
-    runRetrieverAction->setText(tr("Metadata\nRetriever"));
+    runRetrieverAction->setText(tr("Metadata Retriever"));
     runRetrieverAction->setIcon(QIcon(QStringLiteral(":/icons/run-ret")));
     runRetrieverAction->setPriority(QAction::HighPriority);
     runRetrieverAction->setShortcut(tr("Ctrl+R"));
