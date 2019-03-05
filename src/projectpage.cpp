@@ -102,7 +102,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     binaryFileTypeRadio = new QRadioButton(tr("Generic binary"));
     binaryFileTypeRadio->setToolTip(tr("<b>Generic binary:</b> Generic binary (unformatted) raw data files. Limited to fixed-length binary words that contain data stored as single precision (real) numbers."));
 
-    fileTypeRadioGroup = new QButtonGroup(this);
+    fileTypeRadioGroup = new QButtonGroup;
     fileTypeRadioGroup->addButton(ghgFileTyperRadio, 0);
     fileTypeRadioGroup->addButton(asciiFileTypeRadio, 1);
     fileTypeRadioGroup->addButton(tobFileTypeRadio, 2);
@@ -110,7 +110,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     fileTypeRadioGroup->addButton(sltEdisolFileTypeRadio, 4);
     fileTypeRadioGroup->addButton(binaryFileTypeRadio, 5);
 
-    tobSettingsCombo = new QComboBox(this);
+    tobSettingsCombo = new QComboBox;
     tobSettingsCombo->addItem(tr("Detect automatically"));
     tobSettingsCombo->addItem(tr("Only ULONG and IEEE4 fields"));
     tobSettingsCombo->addItem(tr("Only ULONG and FP2 fields"));
@@ -236,8 +236,6 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     altMetadataFileRadioBox->addWidget(altMetadataFileRadio);
     altMetadataFileRadioBox->addWidget(questionMark_3);
     altMetadataFileRadioBox->addStretch();
-//    altMetadataFileRadioBox->setSpacing(0);
-//    altMetadataFileRadioBox->setContentsMargins(0, 0, 0, 0);
 
     auto gridLeft = new QGridLayout;
     gridLeft->addWidget(titleLabel, 0, 0, Qt::AlignRight);

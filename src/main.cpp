@@ -134,13 +134,13 @@ int main(int argc, char *argv[])
     ///
     /// A set of flags to workaroud issues in specific cases
     ///
-    //  QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
-    //  QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
-    //  QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
-    //  QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
-    //  QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    //  QCoreApplication::setAttribute(Qt::AA_SetPalette);
-    //  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+    // QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    // QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    // QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    // QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
+    // QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    // QCoreApplication::setAttribute(Qt::AA_SetPalette);
+    // QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 
     QApplication app(argc, argv);
     QApplication::setApplicationName(Defs::APP_NAME);

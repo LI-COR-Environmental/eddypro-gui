@@ -85,7 +85,7 @@ void IrgaView::addIrga()
     // model() already returns the setModel() assigned to the view instance
     auto concreteModel = dynamic_cast<IrgaModel *>(model());
 
-    concreteModel->insertColumns(currCol, 1, QModelIndex());
+    concreteModel->insertColumns(currCol, 1);
     updateGeometries();
     concreteModel->flush();
     setCurrentIndex(concreteModel->index(IrgaModel::MANUFACTURER, currCol));
@@ -100,7 +100,7 @@ void IrgaView::removeIrga()
     if (currCol == -1)
         currCol = lastCol;
 
-    dynamic_cast<IrgaModel *>(model())->removeColumns(currCol, 1, QModelIndex());
+    dynamic_cast<IrgaModel *>(model())->removeColumns(currCol, 1);
     updateGeometries();
     clearSelection();
 }

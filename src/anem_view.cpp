@@ -85,7 +85,7 @@ void AnemView::addAnem()
     // model() already returns the setModel() assigned to the view instance
     auto concreteModel = dynamic_cast<AnemModel *>(model());
 
-    concreteModel->insertColumns(currCol, 1, QModelIndex());
+    concreteModel->insertColumns(currCol, 1);
     updateGeometries();
     concreteModel->flush();
     setCurrentIndex(concreteModel->index(AnemModel::MANUFACTURER, currCol));

@@ -1753,534 +1753,534 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>&lt;b&gt;Mahrt (1998):&lt;/b&gt; ...</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="154"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="155"/>
         <source>Integral turbulence scale (ITS)</source>
         <translation>Integral turbulence scale (ITS)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="157"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="158"/>
         <source>Definition of the ITS :</source>
         <translation>Definition of the ITS :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="158"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="159"/>
         <source>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</source>
         <translation>&lt;b&gt;Definition of the ITS:&lt;/b&gt; The Integral Turbulence (time-) Scale is defined by the integral of the cross-correlation function, between zero and infinite lag time. However, because the cross-correlation function, starting always at 1 for zero lag time, decreases more or less rapidly towards values close to zero (non-correlation for large lag times) the infinite integral can safely be approximated by a finite one. Here you can select the criterion to define the upper integration limit.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="160"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="161"/>
         <source>Cross-correlation first crossing 1/e</source>
         <translation>Cross-correlation first crossing 1/e</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="161"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
         <source>Cross-correlation first crossing zero</source>
         <translation>Cross-correlation first crossing zero</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="162"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
         <source>Integrate over the whole correlation period</source>
         <translation>Integrate over the whole correlation period</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="163"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
         <source>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 1/e:&lt;/b&gt; The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="164"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="165"/>
         <source>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</source>
         <translation>&lt;b&gt;Cross-correlation first crossing 0:&lt;/b&gt; The integration will be halted when the cross-correlation function crosses the &lt;i&gt;x&lt;/i&gt;-axis for the first time. It may happen that the function never cross the &lt;i&gt;x&lt;/i&gt;-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="165"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="166"/>
         <source>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Integrate over the whole correlation period:&lt;/b&gt; The integration will be performed from lag time equal to zero up to the maximum lag time defined by &lt;b&gt;&lt;i&gt;Maximum correlation period&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="167"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="169"/>
         <source>Maximum correlation period :</source>
         <translation>Maximum correlation period :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="168"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="170"/>
         <source>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</source>
         <translation>&lt;b&gt;Maximum correlation period:&lt;/b&gt; Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="174"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="176"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="178"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="180"/>
         <source>Security coefficient :</source>
         <translation>Security coefficient :</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="179"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="181"/>
         <source>&lt;b&gt;Security coefficient :&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Security coefficient :&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="213"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="215"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="565"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="567"/>
         <source>Vickers and Mahrt, 1997</source>
         <translation>Vickers and Mahrt, 1997</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="567"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="569"/>
         <source>Mauder et al., 2013</source>
         <translation>Mauder et al., 2013</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="573"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="575"/>
         <source>Maximum number of consecutive outliers : </source>
         <translation>Maximum number of consecutive outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="574"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="576"/>
         <source>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</source>
         <translation>&lt;b&gt;Maximum number of consecutive outliers:&lt;/b&gt; Spikes are detected as outliers with respect to a certain plausibility range. However, if a series of consecutive outliers is found, it might be a sign of a physical trend. Specify &lt;i&gt;n&lt;/i&gt;, the maximum number of consecutive outliers that define a spike. If more than &lt;i&gt;n&lt;/i&gt; consecutive outliers are found, they are not flagged or removed. Note, however, that those values may be eliminated on the basis of a physical plausibility test (&lt;b&gt;&lt;i&gt;Absolute limits&lt;/i&gt;&lt;/b&gt; test).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="581"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="583"/>
         <source>Accepted spikes : </source>
         <translation>Accepted spikes : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="582"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="584"/>
         <source>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</source>
         <translation>&lt;b&gt;Accepted spikes:&lt;/b&gt; Specify the percentage of spikes, after which each variable is flagged for too large number of spikes.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="588"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="721"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="763"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="773"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1269"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1279"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1379"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="590"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="723"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="765"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="775"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1271"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1281"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1381"/>
         <source>  [%]</source>
         <comment>Percentage</comment>
         <translation>  [%]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="592"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="594"/>
         <source>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</source>
         <translation>&lt;b&gt;Replace spikes with linear interpolation:&lt;/b&gt; Check this option to instruct EddyPro to replace spikes with linear interpolation of neighboring data points.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="593"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="595"/>
         <source>Replace spikes with linear interpolation</source>
         <translation>Replace spikes with linear interpolation</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="598"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="600"/>
         <source>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>Plausibility ranges (&lt;tt&gt;%1%2n%3&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="599"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="602"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="612"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="622"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="632"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="642"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="652"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="601"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="604"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="614"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="624"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="634"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="644"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="654"/>
         <source>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Plausibility range:&lt;/b&gt; A plausibility range is defined in a window of fixed length that moves throughout the time series, to detect outliers. The plausibility range is defined as the mean value in the window, %1 &lt;i&gt;n&lt;/i&gt; times the standard deviation of the window. Specify here n. Note that default values differ for different variables. Note also that wind components, as well as fast temperature measurements, are included in &lt;b&gt;&lt;i&gt;All other variables&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="601"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="603"/>
         <source>All other variables : </source>
         <translation>All other variables : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="608"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="618"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="628"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="638"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="648"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="658"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="704"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="610"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="620"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="630"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="640"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="650"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="660"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="706"/>
         <source>  [%1]</source>
         <comment>Sigma</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="611"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="815"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1105"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="613"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="817"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1107"/>
         <source>W : </source>
         <translation>W : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="621"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="631"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="641"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="824"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="841"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="858"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="875"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1113"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1121"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1129"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1137"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="623"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="633"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="643"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="826"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="843"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="860"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="877"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1115"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1123"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1131"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1139"/>
         <source>%1 : </source>
         <translation>%1 : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="651"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="892"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1145"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="653"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="894"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1147"/>
         <source>%1 Gas : </source>
         <translation>%1 Gas : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="697"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="699"/>
         <source>Range of variation : </source>
         <translation>Range of variation : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="698"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="700"/>
         <source>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</source>
         <translation>&lt;b&gt;Range of variation:&lt;/b&gt; The procedure requires the definition of the total range of variation for each variable along the time series. This range is defined as the largest among %1 &lt;i&gt;n&lt;/i&gt;/2 times the standard deviation around the mean value of the variable, where &lt;i&gt;n&lt;/i&gt; is the number you enter here, and the difference between the maximum and the minimum values attained by the variable along the time series.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="707"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="709"/>
         <source>Number of bins : </source>
         <translation>Number of bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="708"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="710"/>
         <source>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</source>
         <translation>&lt;b&gt;Number of bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and counting how many bins are empty, in order to detect if small enough variations are captured by the instrument. The higher the number of bins, the higher the expectation on the instrument ability to resolve tiny fluctuations.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="715"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="717"/>
         <source>Accepted empty bins : </source>
         <translation>Accepted empty bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="716"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="718"/>
         <source>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</source>
         <translation>&lt;b&gt;Accepted empty bins:&lt;/b&gt; Specify the maximum number of empty bins allowed for each variable. If more empty bins are found, the variable is flagged for poor amplitude resolution.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="748"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="750"/>
         <source>Percentile defining extreme bins : </source>
         <translation>Percentile defining extreme bins : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="749"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="751"/>
         <source>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</source>
         <translation>&lt;b&gt;Percentile defining extreme bins:&lt;/b&gt; The procedure requires the division of the variable variation range in &lt;i&gt;n&lt;/i&gt; bins, and the definition of &lt;b&gt;&lt;i&gt;extreme&lt;/i&gt;&lt;/b&gt; and &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins. Specify the percentile that sets this threshold.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="756"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="758"/>
         <source>Accepted central drop-outs : </source>
         <translation>Accepted central drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="757"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="759"/>
         <source>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted central drop-outs:&lt;/b&gt; Specify the percentage of consecutive data found to share the same bin as neighboring data. It is more likely to find this occurrence for &lt;i&gt;&lt;b&gt;central&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is higher. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="766"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="768"/>
         <source>Accepted extreme drop-outs : </source>
         <translation>Accepted extreme drop-outs : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="767"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="769"/>
         <source>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</source>
         <translation>&lt;b&gt;Accepted extreme drop-outs:&lt;/b&gt; Specify the percentage of data found consecutive to share the same bin as neighboring data. It is less likely to find this occurrence for &lt;i&gt;&lt;b&gt;extreme&lt;/b&gt;&lt;/i&gt; bins, which is why the default percentage here is lower. If a higher percentage is found, the variable is flagged for drop-outs.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="800"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="802"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="801"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="803"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Set the minimum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="803"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="805"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="804"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="806"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Set the maximum value physically plausible for each variable. If at least 1 value is found to exceed this limit, the variable is flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="806"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1097"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="808"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1099"/>
         <source>U : </source>
         <translation>U : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="812"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="821"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="916"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="924"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="814"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="823"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="918"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="926"/>
         <source>  [m/s]</source>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="830"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="838"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="847"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="855"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="864"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="872"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="881"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="889"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="898"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="907"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="832"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="840"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="849"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="857"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="866"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="874"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="883"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="891"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="900"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="909"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="928"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="930"/>
         <source>Filter outranged values</source>
         <translation>Filter outranged values</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="929"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="931"/>
         <source>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</source>
         <translation>&lt;b&gt;Filter outranged values:&lt;/b&gt; Check this option to instruct EddyPro to eliminate values outside the plausibility range. When values are eliminated, all other variables are preserved and a lag is avoided by replacing the value with EddyPro&apos;s error code.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="994"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1091"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="996"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1093"/>
         <source>Hard-flag threshold</source>
         <translation>Hard-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="995"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="997"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for hard-flagging the variable. If statistical moments are found to exceed these ranges, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="997"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1094"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="999"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1096"/>
         <source>Soft-flag threshold</source>
         <translation>Soft-flag threshold</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="998"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1000"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the lower and upper limits to both skewness and kurtosis for soft-flagging the variable. If statistical moments are found to exceed these ranges, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1000"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1002"/>
         <source>Skewness lower limit : </source>
         <translation>Skewness lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1008"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1010"/>
         <source>Skewness upper limit : </source>
         <translation>Skewness upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1030"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1032"/>
         <source>Kurtosis lower limit : </source>
         <translation>Kurtosis lower limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1038"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1040"/>
         <source>Kurtosis upper limit : </source>
         <translation>Kurtosis upper limit : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1092"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1094"/>
         <source>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Hard-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is hard-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1095"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1097"/>
         <source>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</source>
         <translation>&lt;b&gt;Soft-flag threshold:&lt;/b&gt; Set the limits to the values attained by the Haar functions, beyond which the variable is soft-flagged for discontinuities. Refer to the original publication for the definition of the Haar functions.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1153"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1155"/>
         <source>Variances : </source>
         <translation>Variances : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1262"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1264"/>
         <source>Accepted covariance difference (hard-flag) : </source>
         <translation>Accepted covariance difference (hard-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1263"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1265"/>
         <source>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (hard-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is hard-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1272"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1274"/>
         <source>Accepted covariance difference (soft-flag) : </source>
         <translation>Accepted covariance difference (soft-flag) : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1273"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1275"/>
         <source>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</source>
         <translation>&lt;b&gt;Accepted covariance difference (soft-flag):&lt;/b&gt; Set the percentage of deviation between the covariance calculated at the nominal time lag and the maximal covariance. If the actual difference exceeds this limit, the variable is soft-flagged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1282"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1292"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1302"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1284"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1294"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1304"/>
         <source>Nominal %1 time lag : </source>
         <translation>Nominal %1 time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1283"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1285"/>
         <source>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CO&lt;sub&gt;2&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CO&lt;sub&gt;2&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1289"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1299"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1309"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1319"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1291"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1301"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1311"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1321"/>
         <source>  [s]</source>
         <comment>Seconds</comment>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1293"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1295"/>
         <source>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</source>
         <translation>&lt;b&gt;Nominal H&lt;sub&gt;2&lt;/sub&gt;O time lag:&lt;/b&gt; Set the nominal (best guess) time for H&lt;sub&gt;2&lt;/sub&gt;O. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt; or written inside your GHG files. Note that the test may become highly unreliable for H&lt;sub&gt;2&lt;/sub&gt;O in cases of closed path systems with unheated sampling line, due to the strong dependency of H&lt;sub&gt;2&lt;/sub&gt;O time lag on relative humidity (e.g. Runkle et al. 2012, BLM).</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1303"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1305"/>
         <source>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</source>
         <translation>&lt;b&gt;Nominal CH&lt;sub&gt;4&lt;/sub&gt; time lag:&lt;/b&gt; Set the nominal (best guess) time for CH&lt;sub&gt;4&lt;/sub&gt;. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;, or written inside your GHG files.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1312"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1314"/>
         <source>Nominal %1 Gas time lag : </source>
         <translation>Nominal %1 Gas time lag : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1313"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1315"/>
         <source>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</source>
         <translation>&lt;b&gt;Nominal 4&lt;sup&gt;th&lt;/sup&gt; gas time lag:&lt;/b&gt; Set the nominal (best guess) time for your customized 4&lt;sup&gt;th&lt;/sup&gt; gas. You may want to use the same value entered in the &lt;b&gt;&lt;i&gt;Metadata File Editor&lt;/i&gt;&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1352"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1354"/>
         <source>Minimum angle of attack : </source>
         <translation>Minimum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1353"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1355"/>
         <source>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Minimum angle of attack:&lt;/b&gt; Set the minimal angle of attack. Individual values below this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1359"/>
-        <location filename="../src/advstatisticaloptions.cpp" line="1369"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1361"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1371"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1362"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1364"/>
         <source>Maximum angle of attack : </source>
         <translation>Maximum angle of attack : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1363"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1365"/>
         <source>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</source>
         <translation>&lt;b&gt;Maximum angle of attack:&lt;/b&gt; Set the maximal angle of attack. Individual values above this one will be counted as outranged.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1372"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1374"/>
         <source>Accepted amount of outliers : </source>
         <translation>Accepted amount of outliers : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1373"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1375"/>
         <source>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</source>
         <translation>&lt;b&gt;Accepted amount of outliers:&lt;/b&gt; Set the accepted percentage of outranged attack angles. If the actual percentage is above your setting, the current flux averaging interval will be flagged correspondingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1406"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1408"/>
         <source>Accepted wind relative instationarity : </source>
         <translation>Accepted wind relative instationarity : </translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1407"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1409"/>
         <source>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</source>
         <translation>&lt;b&gt;Accepted wind relative instationarity:&lt;/b&gt; Set the maximum relative variation of horizontal wind between the beginning and the end of the file, assessed on the linear regression of horizontal wind time series. If the actual variation is beyond this limit, the flux averaging interval is flagged accordingly.</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1433"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1435"/>
         <source>&amp;Spike count/removal</source>
         <translation>&amp;Spike count/removal</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1434"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1436"/>
         <source>&amp;Amplitude resolution</source>
         <translation>&amp;Amplitude resolution</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1435"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1437"/>
         <source>D&amp;rop-outs</source>
         <translation>D&amp;rop-outs</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1436"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1438"/>
         <source>A&amp;bsolute limits</source>
         <translation>A&amp;bsolute limits</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1437"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1439"/>
         <source>S&amp;kewness &amp;&amp; kurtosis</source>
         <translation>S&amp;kewness &amp;&amp; kurtosis</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1438"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1440"/>
         <source>D&amp;iscontinuities</source>
         <translation>D&amp;iscontinuities</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1439"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1441"/>
         <source>&amp;Time lags</source>
         <translation>&amp;Time lags</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1440"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1442"/>
         <source>Angle of atta&amp;ck</source>
         <translation>Angle of atta&amp;ck</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="1441"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="1443"/>
         <source>S&amp;teadiness of horizontal wind</source>
         <translation>S&amp;teadiness of horizontal wind</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3185"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3187"/>
         <source>Reset Statistical Analysis Settings</source>
         <translation>Reset Statistical Analysis Settings</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3186"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
         <source>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Do you want to reset the Statistical Analysis settings to the default settings?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/advstatisticaloptions.cpp" line="3188"/>
+        <location filename="../src/advstatisticaloptions.cpp" line="3190"/>
         <source>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;You cannot undo this action.&lt;/p&gt;</translation>
     </message>
@@ -3411,7 +3411,7 @@ Missing flux averaging period are filled with error codes)</translation>
     </message>
     <message>
         <location filename="../src/binarysettingsdialog.cpp" line="54"/>
-        <location filename="../src/binarysettingsdialog.cpp" line="71"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="73"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
@@ -3441,37 +3441,37 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>LF</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="66"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="68"/>
         <source>Number of bytes per variable :</source>
         <translation>Number of bytes per variable :</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="67"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="69"/>
         <source>&lt;b&gt;Number of bytes per variable:&lt;/b&gt; Specify the number of bytes reserved for each variable stored as a single precision number. Typically 2 bytes are reserved for each number.</source>
         <translation>&lt;b&gt;Number of bytes per variable:&lt;/b&gt; Specify the number of bytes reserved for each variable stored as a single precision number. Typically 2 bytes are reserved for each number.</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="75"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="77"/>
         <source>Endianess :</source>
         <translation>Endianess :</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="76"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="78"/>
         <source>&lt;b&gt;Endianess:&lt;/b&gt; In a multi-bytes binary word, &lt;i&gt;Little endian&lt;/i&gt; means that the most significant byte is the last byte (highest address); &lt;i&gt;Big endian&lt;/i&gt; means that the most significant byte is the first byte (lowest address).</source>
         <translation>&lt;b&gt;Endianess:&lt;/b&gt; In a multi-bytes binary word, &lt;i&gt;Little endian&lt;/i&gt; means that the most significant byte is the last byte (highest address); &lt;i&gt;Big endian&lt;/i&gt; means that the most significant byte is the first byte (lowest address).</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="78"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="80"/>
         <source>Big endian</source>
         <translation>Big endian</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="79"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="81"/>
         <source>Little endian</source>
         <translation>Little endian</translation>
     </message>
     <message>
-        <location filename="../src/binarysettingsdialog.cpp" line="98"/>
+        <location filename="../src/binarysettingsdialog.cpp" line="101"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -4526,13 +4526,6 @@ Change this setting under the Help menu.</translation>
         <translation>Save Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="900"/>
-        <source>&amp;New
-Project</source>
-        <translation>&amp;New
-Project</translation>
-    </message>
-    <message>
         <location filename="../src/mainwindow.cpp" line="907"/>
         <source>&amp;Open
 Project...</source>
@@ -5178,6 +5171,12 @@ Retriever</translation>
         <translation>Close EddyPro</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="900"/>
+        <source>&amp;New
+Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="903"/>
         <source>Start a new project. (%1)</source>
         <translation>Start a new project. (%1)</translation>
@@ -5476,101 +5475,101 @@ Output</translation>
         <translation>&lt;b&gt;Load:&lt;/b&gt; Load an existing planar fit file</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="145"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="138"/>
         <source>Minimum number of elements per sector :</source>
         <translation>Minimum number of elements per sector :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="146"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="139"/>
         <source>&lt;b&gt;Minimum number of elements per sector:&lt;/b&gt; Enter the minimum number of mean wind vectors (calculated over each flux averaging interval), required to calculate planar fit rotation matrices. A too small number may lead to inaccurate regressions and rotation matrices. A too large number may lead to sectors without planar fit rotation matrices. If for a certain averaging interval, wind is blowing from a sector for which the rotation matrix could not be calculated, the policy selected in &lt;b&gt;&lt;i&gt;If planar fit calculations fail for a sector&lt;/i&gt;&lt;/b&gt; apply.</source>
         <translation>&lt;b&gt;Minimum number of elements per sector:&lt;/b&gt; Enter the minimum number of mean wind vectors (calculated over each flux averaging interval), required to calculate planar fit rotation matrices. A too small number may lead to inaccurate regressions and rotation matrices. A too large number may lead to sectors without planar fit rotation matrices. If for a certain averaging interval, wind is blowing from a sector for which the rotation matrix could not be calculated, the policy selected in &lt;b&gt;&lt;i&gt;If planar fit calculations fail for a sector&lt;/i&gt;&lt;/b&gt; apply.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="149"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="158"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="169"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="142"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="151"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="162"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="153"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="146"/>
         <source>Maximum mean vertical wind component :</source>
         <translation>Maximum mean vertical wind component :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="154"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="147"/>
         <source>&lt;b&gt;Maximum mean vertical wind component:&lt;/b&gt; Set a maximum vertical wind component to instruct EddyPro to ignore flux averaging periods with larger mean vertical wind components, when calculating the rotation matrices. Using elements with too large (unrealistic) vertical wind components would corrupt the assessment of the fitting plane, and of the related rotation matrices.</source>
         <translation>&lt;b&gt;Maximum mean vertical wind component:&lt;/b&gt; Set a maximum vertical wind component to instruct EddyPro to ignore flux averaging periods with larger mean vertical wind components, when calculating the rotation matrices. Using elements with too large (unrealistic) vertical wind components would corrupt the assessment of the fitting plane, and of the related rotation matrices.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="161"/>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="172"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="154"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="165"/>
         <source>  [m/s]</source>
         <comment>Velocity</comment>
         <translation>  [m/s]</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="164"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="157"/>
         <source>Minimum mean horizontal wind component :</source>
         <translation>Minimum mean horizontal wind component :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="165"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="158"/>
         <source>&lt;b&gt;Minimum mean horizontal wind component:&lt;/b&gt; Set a minimum horizontal wind component to instruct EddyPro to ignore flux averaging periods with smaller mean horizontal wind components, when calculating the rotation matrices. When the horizontal wind is very small, the attack angle may be affected by large errors, and so would be the vertical wind component, resulting in poor quality data that would degrade the planar fit assessment.</source>
         <translation>&lt;b&gt;Minimum mean horizontal wind component:&lt;/b&gt; Set a minimum horizontal wind component to instruct EddyPro to ignore flux averaging periods with smaller mean horizontal wind components, when calculating the rotation matrices. When the horizontal wind is very small, the attack angle may be affected by large errors, and so would be the vertical wind component, resulting in poor quality data that would degrade the planar fit assessment.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="175"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="168"/>
         <source>If planar fit calculations fail for a sector :</source>
         <translation>If planar fit calculations fail for a sector :</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="176"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="169"/>
         <source>&lt;b&gt;If planar fit calculations fail for a sector:&lt;/b&gt; Select how EddyPro should behave when encountering data from a wind sector, for which the planar fit rotation matrix could not be calculated for any reason. Either use the rotation matrix for the closest sector (clockwise or counterclockwise), or switch to double-rotations for that sector.</source>
         <translation>&lt;b&gt;If planar fit calculations fail for a sector:&lt;/b&gt; Select how EddyPro should behave when encountering data from a wind sector, for which the planar fit rotation matrix could not be calculated for any reason. Either use the rotation matrix for the closest sector (clockwise or counterclockwise), or switch to double-rotations for that sector.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="178"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="171"/>
         <source>Use closest valid sector, clockwise</source>
         <translation>Use closest valid sector, clockwise</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="179"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="172"/>
         <source>Use closest valid sector, counterclockwise</source>
         <translation>Use closest valid sector, counterclockwise</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="180"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="173"/>
         <source>Use double rotations</source>
         <translation>Use double rotations</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="208"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="202"/>
         <source>Configure wind sectors</source>
         <translation>Configure wind sectors</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="221"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="215"/>
         <source>Set equally spaced</source>
         <translation>Set equally spaced</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="223"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="217"/>
         <source>&lt;b&gt;Set equally spaced:&lt;/b&gt; Clicking this button will cause the EddyPro to divide the whole 360&amp;deg; circle in n equally-wide sectors, when n is the number of sectors currently entered. Note that the operation will not modify the north offset.</source>
         <translation>&lt;b&gt;Set equally spaced:&lt;/b&gt; Clicking this button will cause the EddyPro to divide the whole 360&amp;deg; circle in n equally-wide sectors, when n is the number of sectors currently entered. Note that the operation will not modify the north offset.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="225"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="219"/>
         <source>North offset first sector:</source>
         <translation>North offset first sector:</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="226"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="220"/>
         <source>&lt;b&gt;North offset first sector:&lt;/b&gt; This parameter is meant to allow you design a sector that spans through the north. Entering an offset of a degrees will cause all sectors to rotate a degrees clockwise. Note that north is intended here as local, magnetic north (the one you assess with the compass at the site).</source>
         <translation>&lt;b&gt;North offset first sector:&lt;/b&gt; This parameter is meant to allow you design a sector that spans through the north. Entering an offset of a degrees will cause all sectors to rotate a degrees clockwise. Note that north is intended here as local, magnetic north (the one you assess with the compass at the site).</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="232"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="226"/>
         <source>  [%1]</source>
         <comment>Degrees</comment>
         <translation>  [%1]</translation>
@@ -5591,27 +5590,27 @@ Output</translation>
         <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="253"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="247"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="668"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="662"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add an angle.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="672"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="666"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove an angle.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove an angle.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="682"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="676"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left.</translation>
     </message>
     <message>
-        <location filename="../src/planarfitsettingsdialog.cpp" line="686"/>
+        <location filename="../src/planarfitsettingsdialog.cpp" line="680"/>
         <source>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</source>
         <translation>&lt;b&gt;Planar fit:&lt;/b&gt; Visualization of the described wind sectors. Add or remove wind sector using the &lt;b&gt;+&lt;/b&gt; and &lt;b&gt;-&lt;/b&gt; buttons on the left. Use the north-offset to design a sector that spans through the north. At any time, double click on the empty space of the pie to fill the circle with one more sector, wide right enough to close the 360&amp;deg; angle.</translation>
     </message>
@@ -5862,17 +5861,17 @@ Output</translation>
         <translation>&lt;b&gt;Files extension :&lt;/b&gt; Select or directly edit the extension of the biomet files in the selected folder. We recommend removing any other file with the same extension from this folder (and possibly its subfolders) to avoid conflicts.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="307"/>
+        <location filename="../src/projectpage.cpp" line="305"/>
         <source>Project Info</source>
         <translation>Project Info</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="315"/>
+        <location filename="../src/projectpage.cpp" line="313"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="430"/>
+        <location filename="../src/projectpage.cpp" line="428"/>
         <source>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>This dialog will activate if you: &lt;br /&gt;&lt;ul&gt;&lt;li&gt;select a Raw file format different than LI-COR GHG&lt;/li&gt;&lt;br /&gt;&lt;li&gt;select Metadata file: Use alternative file&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -5943,12 +5942,12 @@ Output</translation>
         <translation>&lt;b&gt;Search in subfolders:&lt;/b&gt; Check this box if biomet files are in subfolders in the selected directory.</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1067"/>
+        <location filename="../src/projectpage.cpp" line="1065"/>
         <source>Files suffix</source>
         <translation>Files suffix</translation>
     </message>
     <message>
-        <location filename="../src/projectpage.cpp" line="1068"/>
+        <location filename="../src/projectpage.cpp" line="1066"/>
         <source>Enter a non empty string.</source>
         <translation>Enter a non empty string.</translation>
     </message>
@@ -6231,27 +6230,27 @@ Output</translation>
         <translation>Tab</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="63"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="65"/>
         <source>Number of header rows :</source>
         <translation>Number of header rows :</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="64"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="66"/>
         <source>&lt;b&gt;Number of header rows:&lt;/b&gt; Enter the number of rows in the header of the file, if present. In most cases, the software will be able to filter away individual text lines that do not comply with the description provided here. Therefore, most files with a variable number of header lines are supported.</source>
         <translation>&lt;b&gt;Number of header rows:&lt;/b&gt; Enter the number of rows in the header of the file, if present. In most cases, the software will be able to filter away individual text lines that do not comply with the description provided here. Therefore, most files with a variable number of header lines are supported.</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="71"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="73"/>
         <source>Not set</source>
         <translation>Not set</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="75"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="77"/>
         <source>Label of data records :</source>
         <translation>Label of data records :</translation>
     </message>
     <message>
-        <location filename="../src/rawfilesettingsdialog.cpp" line="94"/>
+        <location filename="../src/rawfilesettingsdialog.cpp" line="96"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -6841,164 +6840,164 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Select the Time Lag Optimization File</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="134"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="127"/>
         <source>Water vapor time lag as a function of relative humidity</source>
         <translation>Water vapor time lag as a function of relative humidity</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="136"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="129"/>
         <source>Plausibility range around median value :</source>
         <translation>Plausibility range around median value :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="137"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="130"/>
         <source>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</source>
         <translation>&lt;b&gt;Plausibility range around median value:&lt;/b&gt; The plausibility range is defined as the median time lag, %1 &lt;i&gt;n&lt;/i&gt; times the MAD (median of the absolute deviations from the median time lag). Specify &lt;i&gt;n&lt;/i&gt; here. The value of 1.5 was heuristically found to be optimal.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="143"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="136"/>
         <source>  [mad]</source>
         <translation>  [mad]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="145"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="138"/>
         <source>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</source>
         <translation>(&lt;tt&gt;%1%2n%3mad&lt;/tt&gt;, where you set &lt;tt&gt;n&lt;/tt&gt;)</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="147"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="140"/>
         <source>Number of RH classes :</source>
         <translation>Number of RH classes :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="148"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="141"/>
         <source>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range or RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. Selecting 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</source>
         <translation>&lt;b&gt;Number of RH classes:&lt;/b&gt; Select the number or relative humidity classes, to assess water vapor time lag as a function of RH. The whole range of RH variation (0-100%) will be evenly divided according to the selected number of classes. For example, selecting 10 classes causes EddyPro to assess water vapor time lags for the classes 0-10%, 10-20%,..., 90-100%. If you select 1 class, the label &lt;b&gt;&lt;i&gt;Do not sort in RH classes&lt;/i&gt;&lt;/b&gt; appears and will cause EddyPro to treat water vapor exactly like other passive gases. This option is only suitable for open path systems, or closed path systems with short and heated sampling lines.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="154"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="147"/>
         <source>Do not sort in RH classes</source>
         <translation>Do not sort in RH classes</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="157"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="150"/>
         <source>Passive gases</source>
         <translation>Passive gases</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="159"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="169"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="152"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="162"/>
         <source>Minimum (absolute) %1 flux :</source>
         <translation>Minimum (absolute) %1 flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="160"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="170"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="153"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="163"/>
         <source>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 flux:&lt;/b&gt; %1 time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="166"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="176"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="186"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="196"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="159"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="169"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="179"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="189"/>
         <source>  [%1]</source>
         <translation>  [%1]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="179"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="172"/>
         <source>Minimum (absolute) %1 gas flux :</source>
         <translation>Minimum (absolute) %1 gas flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="180"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="173"/>
         <source>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum (absolute) %1 gas flux:&lt;/b&gt; %1 gas time lags corresponding to fluxes smaller (in module) than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="189"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="182"/>
         <source>Minimum latent heat flux :</source>
         <translation>Minimum latent heat flux :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="190"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="183"/>
         <source>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</source>
         <translation>&lt;b&gt;Minimum latent heat flux:&lt;/b&gt; Minimum latent heat flux: H&lt;sub&gt;2&lt;/sub&gt;O time lags corresponding to latent heat fluxes smaller than this value will not be considered in the time lag optimization. Selecting high-enough fluxes assures that well developed turbulent conditions are met and the correlation function is well characterized.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="199"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="192"/>
         <source>Time lag searching windows</source>
         <translation>Time lag searching windows</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="201"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="194"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="202"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="195"/>
         <source>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Minimum:&lt;/b&gt; Minimum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="204"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="197"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="205"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="198"/>
         <source>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</source>
         <translation>&lt;b&gt;Maximum:&lt;/b&gt; Maximum time lag for each gas, for initializing the time lag optimization procedure. The searching window defined by Minimum and Maximum should be large enough to accommodate all possible time lags. In particular, maximum time lags of water vapor in closed path systems can up to ten times higher than its nominal value, or even higher. Leave as &lt;i&gt;Not set&lt;/i&gt; if in doubt, EddyPro will initialize it automatically.</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="207"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="227"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="247"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="200"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="220"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="240"/>
         <source>%1 :</source>
         <translation>%1 :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="213"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="222"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="233"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="242"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="253"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="262"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="273"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="282"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="206"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="215"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="226"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="235"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="246"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="255"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="266"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="275"/>
         <source>Detect automatically</source>
         <translation>Detect automatically</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="215"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="224"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="235"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="244"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="255"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="264"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="275"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="284"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="208"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="217"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="228"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="237"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="248"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="257"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="268"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="277"/>
         <source>  [s]</source>
         <translation>  [s]</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="267"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="260"/>
         <source>%1 gas :</source>
         <translation>%1 gas :</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="337"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="331"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="714"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="708"/>
         <source>Select the Timelag Optimization File</source>
         <translation>Select the Timelag Optimization File</translation>
     </message>
     <message>
         <location filename="../src/timelagsettingsdialog.cpp" line="121"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="716"/>
+        <location filename="../src/timelagsettingsdialog.cpp" line="710"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
