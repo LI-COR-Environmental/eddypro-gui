@@ -61,6 +61,8 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     binaryEolCombo->addItem(tr("CR+LF"));
     binaryEolCombo->addItem(tr("CR"));
     binaryEolCombo->addItem(tr("LF"));
+    binaryEolCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 110px;"
+                                                 "max-width: 110px;}"));
     binaryEolCombo->setToolTip(binaryEolLabel->toolTip());
 
     binaryNBytesLabel = new ClickLabel(tr("Number of bytes per variable :"));
@@ -77,7 +79,8 @@ BinarySettingsDialog::BinarySettingsDialog(QWidget* parent, EcProject *ecProject
     binaryEndianessCombo = new QComboBox;
     binaryEndianessCombo->addItem(tr("Big endian"));
     binaryEndianessCombo->addItem(tr("Little endian"));
-    binaryEndianessCombo->setMinimumWidth(10);
+    binaryEndianessCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 110px;"
+                                                 "max-width: 110px;}"));
     binaryEndianessCombo->setToolTip(binaryEndianessLabel->toolTip());
 
     auto binPropertiesLayout = new QGridLayout;

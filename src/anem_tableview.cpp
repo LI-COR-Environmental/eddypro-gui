@@ -64,9 +64,9 @@ AnemTableView::~AnemTableView()
 
 void AnemTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 2, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(rowHeight(0) / 2.0) + 2,
+                          static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
@@ -78,12 +78,11 @@ void AnemTableView::resizeEvent(QResizeEvent *event)
 
 void AnemTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 2, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(rowHeight(0) / 2.0) + 2,
+                          static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           rowHeight(0) * m_header->sectionCount());
-
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->setMaximum((horizontalHeader()->count() - 1) * horizontalHeader()->sectionSize(1));
     horizontalScrollBar()->updateGeometry();

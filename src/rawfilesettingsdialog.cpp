@@ -57,6 +57,8 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     fieldSepCombo->addItem(tr("Semicolon"), QStringLiteral("semicolon"));
     fieldSepCombo->addItem(tr("Space"), QStringLiteral("space"));
     fieldSepCombo->addItem(tr("Tab"), QStringLiteral("tab"));
+    fieldSepCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;"
+                                                 "max-width: 72px;}"));
     fieldSepCombo->setToolTip(fieldSepLabel->toolTip());
 
     headerRowsLabel = new ClickLabel;
@@ -101,6 +103,7 @@ RawFileSettingsDialog::RawFileSettingsDialog(QWidget* parent, DlProject *dlProje
     rawSettingsLayout->setVerticalSpacing(10);
     rawSettingsLayout->setContentsMargins(30, 30, 30, 30);
     rawSettingsLayout->setSizeConstraint(QLayout::SetFixedSize);
+    rawSettingsLayout->setRowMinimumHeight(3, 30);
     setLayout(rawSettingsLayout);
 
     connect(fieldSepLabel, &ClickLabel::clicked,

@@ -56,6 +56,8 @@ VariableTableView::VariableTableView(QWidget *parent) :
     m_header->addSection(tr("<i>Nominal time lag</i>"), tr("<b>Nominal time lag:</b> Enter the expected (nominal) time lag of the variable, with respect to the measurements of the anemometer that you plan to use for flux computation, as applicable. Time lags should be specified at least for gas concentrations and can be estimated based on instrument separation (open path) or on the sampling line characteristics and the flow rate (closed path)."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarNomTLag);
     m_header->addSection(tr("<i>Minimum time lag</i>"), tr("<b>Minimum time lag:</b> Enter the minimum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMinTLag);
     m_header->addSection(tr("<i>Maximum time lag</i>"), tr("<b>Maximum time lag:</b> Enter the maximum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMaxTLag);
+
+    verticalHeader()->hide();
 }
 
 VariableTableView::~VariableTableView()
@@ -65,9 +67,9 @@ VariableTableView::~VariableTableView()
 
 void VariableTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(this->rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
@@ -79,9 +81,9 @@ void VariableTableView::resizeEvent(QResizeEvent *event)
 
 void VariableTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(this->rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));

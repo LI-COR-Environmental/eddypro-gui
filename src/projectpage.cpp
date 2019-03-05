@@ -120,7 +120,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     tobSettingsCombo->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
     binSettingsButton = new QPushButton(tr("Settings..."));
-    binSettingsButton->setProperty("commonButton", true);
+    binSettingsButton->setProperty("mdButton", true);
     binSettingsButton->setMaximumWidth(binSettingsButton->sizeHint().width());
     binSettingsButton->setToolTip(tr("<b>Generic Binary Settings:</b> Use the <b><i>Settings...</i></b> button to provide specifications of the binary format, to help EddyPro to correctly read the files."));
 
@@ -223,8 +223,8 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
                               << QStringLiteral("csv")
                               << QStringLiteral("met")
                               << QStringLiteral("meteo"));
-    biomExtDirCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;"
-                                                 "max-width: 72px;}"));
+    biomExtDirCombo->setStyleSheet(QStringLiteral("QComboBox { min-width: 72px;"
+                                                 "max-width: 72px; }"));
     biomExtDirCombo->setToolTip(biomExtDirSuffixLabel->toolTip());
 
     biomRadioGroup = new QButtonGroup(this);

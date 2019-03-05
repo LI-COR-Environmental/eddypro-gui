@@ -870,7 +870,6 @@ QLabel[applogoSmallLabel="true"]:hover {
     min-height: 70px;
 }
 
-
 ClickLabel[toviLabel="true"] {
     image: url(:/icons/tovi-ad-normal);
     min-width: 578px;
@@ -1306,7 +1305,6 @@ QPushButton[commonButton="true"] {
     max-height: 17px;
     padding: 0px 10px;
     color: white;
-    /*font-weight: bold;*/
 }
 
 QPushButton[commonButton="true"]:disabled {
@@ -1320,12 +1318,12 @@ QPushButton[commonButton="true"]:disabled {
 
 QPushButton[commonButton="true"]:hover {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #30a0e7, stop: 0.7 #096cdb, stop: 1 #096cdb);
+                         stop: 0 #30a0e7, stop: 0.7 #096cdb, stop: 1 #096cdb);
 }
 
 QPushButton[commonButton="true"]:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #2272a7, stop: 0.7 #043b79, stop: 1 #043b79);
+                         stop: 0 #2272a7, stop: 0.7 #043b79, stop: 1 #043b79);
 }
 
 QPushButton[commonButton2="true"] {

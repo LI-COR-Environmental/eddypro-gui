@@ -55,6 +55,8 @@ IrgaTableView::IrgaTableView(QWidget *parent) :
     m_header->addSection(tr("Time response"), tr("<b>Time response:</b> Time response of the gas analyzer. Its inverse defines the maximum frequency of the atmospheric turbulent concentration fluctuations that the instrument is able to resolve. Consult the analyzer's specifications or user manual."));
     m_header->addSection(tr("Extinction coeff in Water, k<sub>W</sub>"), tr("<b>Extinction coefficient in Water, k<sub>W</sub>:</b> in Krypton or Lyman-%1 hygrometers, the extinction coefficients for oxygen of the hygrometers, associated with the third-order Taylor expansion of the Lambert-Beer law around reference conditions (van Dijk et al. 2003).").arg(Defs::ALPHA));
     m_header->addSection(tr("Extinction coeff in Oxygen, k<sub>O</sub>"), tr("<b>Extinction coefficient in Oxygen, k<sub>O</sub>:</b> in Krypton or Lyman-%1 hygrometers, the extinction coefficients for oxygen of the hygrometers, associated with the third-order Taylor expansion of the Lambert-Beer law around reference conditions (van Dijk et al. 2003).").arg(Defs::ALPHA));
+
+    verticalHeader()->hide();
 }
 
 IrgaTableView::~IrgaTableView()
@@ -64,9 +66,9 @@ IrgaTableView::~IrgaTableView()
 
 void IrgaTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width() - 2, rowHeight(0) + 2, 0, 0);
+    setViewportMargins(m_header->sizeHint().width() + 40, rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(rowHeight(0) / 2.0) + 2,
+                          static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
@@ -78,9 +80,9 @@ void IrgaTableView::resizeEvent(QResizeEvent *event)
 
 void IrgaTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width() - 2, rowHeight(0) + 2, 0, 0);
+    setViewportMargins(m_header->sizeHint().width() + 40, rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(rowHeight(0) / 2.0) + 2,
+                          static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));

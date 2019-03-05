@@ -334,9 +334,14 @@ QComboBox::drop-down {
     border-bottom-right-radius: 3px;
 }
 
-/* QComboBox::drop-down::item {
-    min-width: 50px;
-} */
+/* dropdown popup list */
+QComboBox QAbstractItemView {
+    background-color: #eee;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 1px 3px;
+    min-width: 10em;
+}
 
 QComboBox::down-arrow {
     image: url(:/icons/combo-normal);
@@ -356,15 +361,6 @@ QComboBox::down-arrow:disabled,
 QComboBox::down-arrow:off {
     left: 0px;
     image: url(:/icons/combo-disabled);
-}
-
-/* dropdown popup list */
-QComboBox QListView {
-    background-color: #eee;
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 3px;
-    min-width: 7em;
 }
 
 QComboBox::item:alternate {

@@ -568,7 +568,7 @@ QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& tex
     button->setText(text);
     button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     button->setDefault(true);
-    button->setProperty("commonButton", true);
+    button->setProperty("mdButton", true);
     return button;
 }
 

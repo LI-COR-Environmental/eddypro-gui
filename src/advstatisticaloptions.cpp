@@ -150,6 +150,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     randomMethodCombo->setItemData(0, tr("<b>Finkelstein and Sims (2001):</b> Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(1, tr("<b>Mann and Lenschow (1994):</b> Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001)."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(2, tr("<b>Mahrt (1998):</b> ..."), Qt::ToolTipRole);
+    randomMethodCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;}"));
 
     auto itsLabel = WidgetUtils::createBlueLabel(this, tr("Integral turbulence scale (ITS)"));
     itsLabel->setToolTip(tr(""));
@@ -163,6 +164,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     itsDefinitionCombo->setItemData(0, tr("<b>Cross-correlation first crossing 1/e:</b> The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time)."), Qt::ToolTipRole);
     itsDefinitionCombo->setItemData(1, tr("<b>Cross-correlation first crossing 0:</b> The integration will be halted when the cross-correlation function crosses the <i>x</i>-axis for the first time. It may happen that the function never cross the <i>x</i>-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below."), Qt::ToolTipRole);
     itsDefinitionCombo->setItemData(2, tr("<b>Integrate over the whole correlation period:</b> The integration will be performed from lag time equal to zero up to the maximum lag time defined by <b><i>Maximum correlation period</i></b>."), Qt::ToolTipRole);
+    itsDefinitionCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;} QComboBox QAbstractItemView { min-width: 14em; }"));
 
     timelagMaxLabel = new ClickLabel(tr("Maximum correlation period :"));
     timelagMaxLabel->setToolTip(tr("<b>Maximum correlation period:</b> Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated."));

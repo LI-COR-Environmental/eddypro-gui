@@ -120,13 +120,6 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     fileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
     fileBrowse->setDialogFilter(tr("All Files (*.*)"));
 
-    auto existingFileLayout = new QHBoxLayout;
-    existingFileLayout->addWidget(existingRadio);
-    existingFileLayout->addWidget(fileBrowse);
-    existingFileLayout->setStretch(2, 1);
-    existingFileLayout->setContentsMargins(0, 0, 0, 0);
-    existingFileLayout->setSpacing(0);
-
     radioGroup = new QButtonGroup(this);
     radioGroup->addButton(existingRadio, 0);
     radioGroup->addButton(nonExistingRadio, 1);
@@ -285,7 +278,8 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
     maxGas4TlSpin->setToolTip(maxLabel->toolTip());
 
     auto propertiesLayout = new QGridLayout;
-    propertiesLayout->addLayout(existingFileLayout, 0, 0, 1, -1);
+    propertiesLayout->addWidget(existingRadio, 0, 0);
+    propertiesLayout->addWidget(fileBrowse, 0, 1, 1, -1);
     propertiesLayout->addWidget(nonExistingRadio, 1, 0);
     propertiesLayout->addWidget(subsetCheckBox, 1, 1, 1, 1, Qt::AlignLeft);
     propertiesLayout->addWidget(startDateLabel, 1, 1, Qt::AlignRight);
