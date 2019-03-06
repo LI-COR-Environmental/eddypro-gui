@@ -1969,22 +1969,41 @@ QHeaderView::section {
     padding-bottom: 3px;
     padding-top: 0px;
     padding-left: 0px;
-    padding-right: 1px;
+    padding-right: 0px;
     margin: 2px 0px;
+    border: 0px solid #F0F0F0;
+    background-color: #F0F0F0;
 }
 
 QHeaderView[pieTableH="true"]::section {
     padding: 3px;
     margin: 3px;
-}
-
-QHeaderView[pieTableH="true"]::section:hover {
-    font-weight: normal;
+    border: 0px solid #F0F0F0;
+    background-color: #F0F0F0;
 }
 
 QHeaderView[pieTableV="true"]::section {
     padding: 0px 3px;
     margin: 2px;
+    border: 0px solid #F0F0F0;
+    background-color: #F0F0F0;
+}
+
+AnemTableView QHeaderView {
+    border: 1px solid #DADADA;
+    background-color: #F0F0F0;
+}
+
+AnemTableView QHeaderView::section {
+    background-color: #F0F0F0;
+}
+
+IrgaTableView QHeaderView {
+    background-color: #F0F0F0;
+}
+
+VariableTableView QHeaderView {
+    background-color: #F0F0F0;
 }
 
 QFileDialog {
