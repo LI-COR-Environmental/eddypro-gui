@@ -1965,45 +1965,81 @@ QToolTip
     font: normal normal 10px "Open Sans";
 }
 
-QHeaderView::section {
-    padding-bottom: 3px;
+QTableView QTableCornerButton::section {
+    background: #F0F0F0;
+    border: 0px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+}
+
+QHeaderView {
+    border: 1px solid #CCCCCC;
+    border-top: 1px solid #F0F0F0;
+    margin: 6px -3px 0px 0px;
     padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin: 2px 0px;
-    border: 0px solid #F0F0F0;
+    background-color: #F0F0F0;
+}
+
+QHeaderView::section {
+    margin: 6px 1px 4px 2px;
+    border: 1px solid #F0F0F0;
+    border-right: 1px solid #CCCCCC;
+    padding: 0px;
+    background-color: #F0F0F0;
+}
+
+QHeaderView::section:!selected {
+    font-weight: normal;
+}
+
+QHeaderView::section:!checked {
+    font-weight: normal;
+}
+
+QHeaderView[pieTableH="true"] {
+    margin: 0px;
+    border-top: 1px solid #F0F0F0;
+    border: 0px solid #CCCCCC;
+    padding-top: 0px;
     background-color: #F0F0F0;
 }
 
 QHeaderView[pieTableH="true"]::section {
-    padding: 3px;
-    margin: 3px;
+    margin: 0px;
     border: 0px solid #F0F0F0;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 0px;
+    background-color: #F0F0F0;
+}
+
+QHeaderView[pieTableH="true"]::section:last {
+    /*margin-right: 0px;*/
+    border: 0px solid #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+QHeaderView[pieTableV="true"] {
+    margin: 0px;
+    margin-top: -1px;
+    border: 0px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    padding-top: 0px;
     background-color: #F0F0F0;
 }
 
 QHeaderView[pieTableV="true"]::section {
-    padding: 0px 3px;
-    margin: 2px;
+    margin: 0px;
     border: 0px solid #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
     background-color: #F0F0F0;
+    padding: 0px;
+    padding-left: 8px;
 }
 
-AnemTableView QHeaderView {
-    border: 1px solid #DADADA;
-    background-color: #F0F0F0;
-}
-
-AnemTableView QHeaderView::section {
-    background-color: #F0F0F0;
-}
-
-IrgaTableView QHeaderView {
-    background-color: #F0F0F0;
-}
-
-VariableTableView QHeaderView {
-    background-color: #F0F0F0;
+QHeaderView[pieTableV="true"]::section:first {
+    border-bottom: 1px solid #CCCCCC;
 }
 
 QFileDialog {
