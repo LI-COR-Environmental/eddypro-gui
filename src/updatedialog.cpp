@@ -126,8 +126,7 @@ void UpdateDialog::getNewVersion(const QString& version)
                          "Do you want to upgrade your copy?</b></p>"
                          "<p>If you have the <b>SMARTFlux<sup>&reg;</sup> System</b>, we also "
                          "recommend that you <br />"
-                         "<a href=\"http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html\">"
-                         "check for updates</a> to the embedded SMARTFlux firmware.</p>"
+                         "check for updates to the embedded SMARTFlux firmware.</p>"
                          "<p>%1 can automatically check for new and updated "
                          "versions using <br />its Software Update Notification feature.<br />"
                          "The new version does not overwrite previously installed versions."
@@ -183,7 +182,7 @@ bool UpdateDialog::hasNewVersion()
 
 void UpdateDialog::showDownloadPage()
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("http://infoenv.licor.com/EddyProDownloads.html")));
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://www.licor.com/env/support/EddyPro/software.html")));
     close();
 }
 
