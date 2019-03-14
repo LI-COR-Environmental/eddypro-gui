@@ -7018,21 +7018,21 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
     </message>
     <message>
         <location filename="../src/updatedialog.cpp" line="125"/>
-        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;&lt;a href=&quot;http://www.licor.com/env/help/eddypro/topics/smartflux-software-update.html&quot;&gt;check for updates&lt;/a&gt; to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
+        <source>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;check for updates to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;A newer version of %1 (version %2) is available from %3.&lt;br /&gt;Do you want to upgrade your copy?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;If you have the &lt;b&gt;SMARTFlux&lt;sup&gt;&amp;reg;&lt;/sup&gt; System&lt;/b&gt;, we also recommend that you &lt;br /&gt;check for updates to the embedded SMARTFlux firmware.&lt;/p&gt;&lt;p&gt;%1 can automatically check for new and updated versions using &lt;br /&gt;its Software Update Notification feature.&lt;br /&gt;The new version does not overwrite previously installed versions.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="143"/>
+        <location filename="../src/updatedialog.cpp" line="142"/>
         <source>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No newer version of %1 is available at this time.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="151"/>
+        <location filename="../src/updatedialog.cpp" line="150"/>
         <source>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;No connection available or connection error.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/updatedialog.cpp" line="159"/>
+        <location filename="../src/updatedialog.cpp" line="158"/>
         <source>&lt;b&gt;Download error.&lt;/b&gt;</source>
         <translation>&lt;b&gt;Download error.&lt;/b&gt;</translation>
     </message>
