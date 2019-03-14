@@ -395,7 +395,7 @@ BasicSettingsPage::BasicSettingsPage(QWidget *parent, DlProject *dlProject, EcPr
     anemRefCombo->setToolTip(anemRefLabel->toolTip());
 
     anemFlagLabel = new ClickLabel(tr("Anemometer Diagnostics :"), this);
-    anemFlagLabel->setToolTip(tr("<b>anemometer Diagnostics:</b> Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured."));
+    anemFlagLabel->setToolTip(tr("<b>Anemometer Diagnostics:</b> Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured."));
     anemFlagCombo = new QComboBox;
     anemFlagCombo->setToolTip(anemFlagLabel->toolTip());
 
@@ -5069,7 +5069,7 @@ void BasicSettingsPage::createWindFilterArea()
     auto windFilterTitle = new QLabel(tr("Wind Direction Filter"));
     windFilterTitle->setProperty("groupLabel", true);
 
-    windFilterApplyCheckbox = new QCheckBox(tr("Aplpy Wind Direction Filter"));
+    windFilterApplyCheckbox = new QCheckBox(tr("Apply Wind Direction Filter"));
 
     setupWindFilterModel();
     setupWindFilterViews();
