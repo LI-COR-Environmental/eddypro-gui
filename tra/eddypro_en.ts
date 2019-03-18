@@ -2863,11 +2863,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Anemometer Diagnostics :</translation>
     </message>
     <message>
-        <location filename="../src/basicsettingspage.cpp" line="398"/>
-        <source>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured.</source>
-        <translation>&lt;b&gt;anemometer Diagnostics:&lt;/b&gt; Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured.</translation>
-    </message>
-    <message>
         <location filename="../src/basicsettingspage.cpp" line="402"/>
         <source>Fast temperature reading (alternative to sonic temp) :</source>
         <translation>Fast temperature reading (alternative to sonic temp) :</translation>
@@ -2926,11 +2921,6 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="5069"/>
         <source>Wind Direction Filter</source>
         <translation>Wind Direction Filter</translation>
-    </message>
-    <message>
-        <location filename="../src/basicsettingspage.cpp" line="5072"/>
-        <source>Aplpy Wind Direction Filter</source>
-        <translation>Aplpy Wind Direction Filter</translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="5130"/>
@@ -3020,6 +3010,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="269"/>
         <source>&lt;b&gt;Detect Dataset Dates:&lt;/b&gt; Click this button to ask EddyPro to retrieve the starting and ending date of the raw dataset contained in the &lt;i&gt;Raw data directory&lt;/i&gt;. You can override this automatic setting by using the &lt;i&gt;Select a different period&lt;/i&gt; option.</source>
         <translation>&lt;b&gt;Detect Dataset Dates:&lt;/b&gt; Click this button to ask EddyPro to retrieve the starting and ending date of the raw dataset contained in the &lt;i&gt;Raw data directory&lt;/i&gt;. You can override this automatic setting by using the &lt;i&gt;Select a different period&lt;/i&gt; option.</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="398"/>
+        <source>&lt;b&gt;Anemometer Diagnostics:&lt;/b&gt; Select the anemometer diagnostics that will be used to filter records for flux computation. Records will be excluded when corresponding diagnostic variables indicate data quality cannot be ensured.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="427"/>
@@ -3207,6 +3202,11 @@ Missing flux averaging period are filled with error codes)</translation>
         <location filename="../src/basicsettingspage.cpp" line="932"/>
         <source>Handle the separator.</source>
         <translation>Handle the separator.</translation>
+    </message>
+    <message>
+        <location filename="../src/basicsettingspage.cpp" line="5072"/>
+        <source>Apply Wind Direction Filter</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/basicsettingspage.cpp" line="127"/>
