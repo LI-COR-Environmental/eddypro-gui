@@ -96,11 +96,14 @@ In a terminal enter the following commands, where `eddypro-source-dir` is the
 directory where the source code is:
 
     1. $ cd eddypro-source-dir scripts/build/
-    2. $ scripts/build/mac-lin-eddypro.sh [debug|release]
+    2. $ scripts/build/lin-build-eddypro.sh [debug|release]
 
 Note : you will need zlib and boost-math library (binary and dev files) installed,
-        and you might also install quazip lib (binary and dev files) rather than 
-        using embedded one.
+        and you might also (previously) install quazip lib (qt5-compiled binary
+        and dev files) rather than compiling and using embedded one (default if
+        no quazip is found on system)
+
+Use `scripts/build/lin-build-eddypro.sh` for more help, especially for quazip.
 
 #### Build the GUI using QtCreator (on Windows or Mac)
 

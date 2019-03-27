@@ -14,6 +14,6 @@ Tested :
         - zlib 1.2.11
     * Debian 9 / gcc 6 / Qt version 5.7.1
         - libboost-math 1.62, libquazip 0.7.2 (qt4/qt5 versions)
-        -  
+        - zlib 1.2.8 
 
 
