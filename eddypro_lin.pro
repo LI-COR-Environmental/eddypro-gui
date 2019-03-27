@@ -16,7 +16,25 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 QT += core gui widgets network concurrent
 CONFIG += warn_on
 CONFIG += debug_and_release
-CONFIG += c++11
+CONFIG += c++14
+
+unix{
+    CONFIG(debug, debug|release) {
+        CONFIG += quazip-local
+    }
+    CONFIG(quazip-qt5, quazip|quazip-qt5|quazip-local) {
+        QUAZIP_NAME = quazip5
+        QUAZIP_INC = /usr/include/quazip5
+    } else:CONFIG(quazip-local, quazip|quazip-qt5|quazip-local) {
+        QUAZIP_NAME = quazip
+        QUAZIP_INC = $$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip
+    } else {
+        QUAZIP_NAME = quazip
+        QUAZIP_INC = /usr/include/quazip
+    }
+}
+
+TRANSLATIONS = tra/eddypro_en.ts
 
 # Build tree with shadow building approach
 include(build_tree.pri)
@@ -46,8 +64,12 @@ CONFIG(debug, debug|release) {
     DEFINES += QT_DEBUG
 
     # to suppress qt and 3rdparty library warnings
-    QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
+    unix {
+        QMAKE_CXXFLAGS += -isystem $$QUAZIP_INC
+    } else {
+        QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
+    }
 
     win32 {
         # mingw warnings
