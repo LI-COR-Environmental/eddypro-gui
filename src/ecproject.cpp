@@ -4603,7 +4603,7 @@ bool EcProject::isEngineStep2Needed()
     }
 
     // in smartflux mode, this output is always disabled
-    if (generalOutMeanCosp())
+    if (generalOutMeanSpectra() || generalOutMeanCosp())
         test = true;
 
     return test;
