@@ -53,7 +53,6 @@ DlInstrTab::DlInstrTab(QWidget *parent, DlProject *dlProject) :
     anemView_->setCornerButtonEnabled(false);
     anemView_->setWordWrap(false);
 
-
     anemView_->horizontalHeader()->setDefaultSectionSize(130);
     anemView_->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     anemView_->horizontalHeader()->setSectionsClickable(true);

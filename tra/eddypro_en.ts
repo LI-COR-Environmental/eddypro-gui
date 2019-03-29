@@ -709,6 +709,22 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>Time Lag Optimization Settings...</translation>
     </message>
     <message>
+        <location filename="../src/advprocessingoptions.cpp" line="232"/>
+        <location filename="../src/advprocessingoptions.cpp" line="236"/>
+        <source>&lt;b&gt;Mauder and Foken 2004:&lt;/b&gt; Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. &quot;0&quot; means high quality fluxes, &quot;1&quot; means fluxes are ok for budget analysis, &quot;2&quot; fluxes should be discarded from the result dataset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="237"/>
+        <source>&lt;b&gt;Foken 2003:&lt;/b&gt; A system based on 9 quality grades. &quot;1&quot; is best, &quot;9&quot; is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/advprocessingoptions.cpp" line="238"/>
+        <source>&lt;b&gt;Goeckede et al., 2004:&lt;/b&gt; A system based on 5 quality grades. &quot;1&quot; is best, &quot;5&quot; is worst.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/advprocessingoptions.cpp" line="257"/>
         <source>Compensate density fluctuations (WPL terms)</source>
         <translation>Compensate density fluctuations (WPL terms)</translation>
@@ -2823,6 +2839,14 @@ Missing flux averaging period are filled with error codes)</translation>
         <translation>000%1 00&apos; E</translation>
     </message>
     <message>
+        <location filename="../src/basicsettingspage.cpp" line="291"/>
+        <location filename="../src/basicsettingspage.cpp" line="4689"/>
+        <source>?:(0\d\d)%1\s([0-5]\d)&apos;\s(E|W))|&quot;).arg(Defs::DEGREE);
+            dec_pattern += tr(R&quot;(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s(E|W))|&quot;).arg(Defs::DEGREE);
+            dec_pattern += tr(R&quot;(?:(180)%1\s(00)&apos;\s(E|W)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/basicsettingspage.cpp" line="297"/>
         <source>000%1 00&apos; &gt;A;x</source>
         <translation>000%1 00&apos; &gt;A;x</translation>
@@ -3783,42 +3807,42 @@ End: %3
 <context>
     <name>DlInstrTab</name>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="72"/>
+        <location filename="../src/dlinstrtab.cpp" line="71"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add a new anemometer.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add a new anemometer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="76"/>
+        <location filename="../src/dlinstrtab.cpp" line="75"/>
         <source>&lt;b&gt;-&lt;/b&gt; Remove the currently selected anemometer.</source>
         <translation>&lt;b&gt;-&lt;/b&gt; Remove the currently selected anemometer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="88"/>
+        <location filename="../src/dlinstrtab.cpp" line="87"/>
         <source>Anemometers Info</source>
         <translation>Anemometers Info</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="91"/>
+        <location filename="../src/dlinstrtab.cpp" line="90"/>
         <source>&lt;b&gt;Anemometers info:&lt;/b&gt; Describe anemometers used at the flux station to collect data you want to process.</source>
         <translation>&lt;b&gt;Anemometers info:&lt;/b&gt; Describe anemometers used at the flux station to collect data you want to process.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="123"/>
+        <location filename="../src/dlinstrtab.cpp" line="122"/>
         <source>&lt;b&gt;+&lt;/b&gt; Add a new gas analyzer.</source>
         <translation>&lt;b&gt;+&lt;/b&gt; Add a new gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="127"/>
+        <location filename="../src/dlinstrtab.cpp" line="126"/>
         <source>&lt;b&gt;-&lt;/b&gt;Remove the currently selected gas analyzer.</source>
         <translation>&lt;b&gt;-&lt;/b&gt;Remove the currently selected gas analyzer.</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="139"/>
+        <location filename="../src/dlinstrtab.cpp" line="138"/>
         <source>Gas Analyzers Info</source>
         <translation>Gas Analyzers Info</translation>
     </message>
     <message>
-        <location filename="../src/dlinstrtab.cpp" line="142"/>
+        <location filename="../src/dlinstrtab.cpp" line="141"/>
         <source>&lt;b&gt;Gas analyzers info:&lt;/b&gt; Describe gas analyzers used to collect the data you want to process.</source>
         <translation>&lt;b&gt;Gas analyzers info:&lt;/b&gt; Describe gas analyzers used to collect the data you want to process.</translation>
     </message>
@@ -4065,6 +4089,20 @@ End: %3
         <translation>00%1 00&apos; 00.000&apos;&apos; N</translation>
     </message>
     <message>
+        <location filename="../src/dlsitetab.cpp" line="150"/>
+        <location filename="../src/dlsitetab.cpp" line="305"/>
+        <location filename="../src/dlsitetab.cpp" line="589"/>
+        <source>(?:([0-8]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(N|S))</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dlsitetab.cpp" line="151"/>
+        <location filename="../src/dlsitetab.cpp" line="306"/>
+        <location filename="../src/dlsitetab.cpp" line="590"/>
+        <source>|(?:(90)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(N|S))</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/dlsitetab.cpp" line="155"/>
         <location filename="../src/dlsitetab.cpp" line="594"/>
         <source>00%1 00&apos; 00.000&apos;&apos; &gt;A;x</source>
@@ -4084,6 +4122,27 @@ End: %3
         <location filename="../src/dlsitetab.cpp" line="165"/>
         <source>000%1 00&apos; 00.000&apos;&apos; E</source>
         <translation>000%1 00&apos; 00.000&apos;&apos; E</translation>
+    </message>
+    <message>
+        <location filename="../src/dlsitetab.cpp" line="166"/>
+        <location filename="../src/dlsitetab.cpp" line="411"/>
+        <location filename="../src/dlsitetab.cpp" line="596"/>
+        <source>(?:(0\d\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dlsitetab.cpp" line="167"/>
+        <location filename="../src/dlsitetab.cpp" line="412"/>
+        <location filename="../src/dlsitetab.cpp" line="597"/>
+        <source>(?:(1[0-7]\d)%1\s([0-5]\d)&apos;\s([0-5]\d)\.(\d\d\d)&apos;&apos;\s(E|W))|</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dlsitetab.cpp" line="168"/>
+        <location filename="../src/dlsitetab.cpp" line="413"/>
+        <location filename="../src/dlsitetab.cpp" line="598"/>
+        <source>(?:(180)%1\s(00)&apos;\s(00)\.(000)&apos;&apos;\s(E|W))</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/dlsitetab.cpp" line="172"/>
@@ -4516,7 +4575,7 @@ Change this setting under the Help menu.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="814"/>
-        <location filename="../src/mainwindow.cpp" line="3881"/>
+        <location filename="../src/mainwindow.cpp" line="3886"/>
         <source>EddyPro is processing (running or in pause).</source>
         <translation>EddyPro is processing (running or in pause).</translation>
     </message>
@@ -4913,64 +4972,64 @@ Change this setting under the Help menu.</translation>
         <translation>&lt;li&gt;&lt;span style=&quot;color: red;&quot;&gt;Spectral Correction Settings:&lt;/span&gt; Load a Spectral assessment file.&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3634"/>
+        <location filename="../src/mainwindow.cpp" line="3638"/>
         <source>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Data processed successfully!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3641"/>
+        <location filename="../src/mainwindow.cpp" line="3645"/>
         <source>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_rp) not found&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3647"/>
-        <location filename="../src/mainwindow.cpp" line="3657"/>
-        <location filename="../src/mainwindow.cpp" line="3774"/>
+        <location filename="../src/mainwindow.cpp" line="3651"/>
+        <location filename="../src/mainwindow.cpp" line="3661"/>
+        <location filename="../src/mainwindow.cpp" line="3779"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3758"/>
+        <location filename="../src/mainwindow.cpp" line="3763"/>
         <source>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</source>
         <translation>&lt;h3&gt;Engine (eddypro_fcc) not found!&lt;/h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3764"/>
+        <location filename="../src/mainwindow.cpp" line="3769"/>
         <source>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</source>
         <translation>&lt;h3&gt;Oops, an error has occurred.&lt;h3&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3882"/>
+        <location filename="../src/mainwindow.cpp" line="3887"/>
         <source>Do you really want to stop the computations?</source>
         <translation>Do you really want to stop the computations?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4139"/>
+        <location filename="../src/mainwindow.cpp" line="4144"/>
         <source>Import Project</source>
         <translation>Import Project</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4140"/>
+        <location filename="../src/mainwindow.cpp" line="4145"/>
         <source>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Your project file has to be imported and updated to a new version. If you proceed, you will lose your file and the compatibility with previous versions of EddyPro but you will have a smooth transition to the new EddyPro version. If you are unsure, select &apos;No&apos; and create a backup copy of your project file before proceeding.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4150"/>
+        <location filename="../src/mainwindow.cpp" line="4155"/>
         <source>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Are you sure you want to import the following file?&lt;br&gt;&lt;b&gt;&quot;%1&quot;&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4158"/>
+        <location filename="../src/mainwindow.cpp" line="4163"/>
         <source>Import Metadata</source>
         <translation>Import Metadata</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4159"/>
+        <location filename="../src/mainwindow.cpp" line="4164"/>
         <source>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</source>
         <translation>&lt;p&gt;Your metadata file has to be imported to a new version for compatibility. &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="4161"/>
+        <location filename="../src/mainwindow.cpp" line="4166"/>
         <source>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Save the metadata file with a new file name to create a backup copy or simply overwrite it.&lt;/p&gt;&lt;p&gt;To cancel the import operation, simply close without pushing &apos;Ok&apos;.&lt;/p&gt;</translation>
     </message>
@@ -5307,7 +5366,7 @@ Change this setting under the Help menu.</translation>
     <message>
         <location filename="../src/mainwindow.cpp" line="3117"/>
         <location filename="../src/mainwindow.cpp" line="3207"/>
-        <location filename="../src/mainwindow.cpp" line="3350"/>
+        <location filename="../src/mainwindow.cpp" line="3354"/>
         <source>Running</source>
         <translation>Running</translation>
     </message>
@@ -5322,73 +5381,73 @@ Change this setting under the Help menu.</translation>
         <translation>Running in Advanced mode means you run using the &lt;br /&gt;advanced settings of EddyPro</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3353"/>
+        <location filename="../src/mainwindow.cpp" line="3357"/>
         <source>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</source>
         <translation>The metadata retriever is a running mode. It will assess the metadata in all GHG files and provide the metadata in a single alternative metadata file that you can examine and edit.&lt;br /&gt;Do you really want to run the Metadata Retriever?</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3615"/>
-        <location filename="../src/mainwindow.cpp" line="3737"/>
+        <location filename="../src/mainwindow.cpp" line="3619"/>
+        <location filename="../src/mainwindow.cpp" line="3741"/>
         <source>EddyPro Results</source>
         <translation>EddyPro Results</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3617"/>
+        <location filename="../src/mainwindow.cpp" line="3621"/>
         <source>Open the output folder</source>
         <translation>Open the output folder</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3648"/>
-        <location filename="../src/mainwindow.cpp" line="3687"/>
-        <location filename="../src/mainwindow.cpp" line="3765"/>
-        <location filename="../src/mainwindow.cpp" line="3804"/>
+        <location filename="../src/mainwindow.cpp" line="3652"/>
+        <location filename="../src/mainwindow.cpp" line="3691"/>
+        <location filename="../src/mainwindow.cpp" line="3770"/>
+        <location filename="../src/mainwindow.cpp" line="3809"/>
         <source>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Double check the project parameters and check the output console for more information.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3662"/>
-        <location filename="../src/mainwindow.cpp" line="3779"/>
+        <location filename="../src/mainwindow.cpp" line="3666"/>
+        <location filename="../src/mainwindow.cpp" line="3784"/>
         <source>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations failed to start. Possible reasons are:&lt;ul&gt;&lt;li&gt;You may have insufficient (virtual) memory&lt;/li&gt;&lt;li&gt;You may have insufficient permissions&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3672"/>
-        <location filename="../src/mainwindow.cpp" line="3789"/>
+        <location filename="../src/mainwindow.cpp" line="3676"/>
+        <location filename="../src/mainwindow.cpp" line="3794"/>
         <source>&lt;p&gt;Computations crashed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations crashed.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3675"/>
-        <location filename="../src/mainwindow.cpp" line="3792"/>
+        <location filename="../src/mainwindow.cpp" line="3679"/>
+        <location filename="../src/mainwindow.cpp" line="3797"/>
         <source>&lt;p&gt;Computations timed out.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations timed out.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3678"/>
-        <location filename="../src/mainwindow.cpp" line="3795"/>
+        <location filename="../src/mainwindow.cpp" line="3682"/>
+        <location filename="../src/mainwindow.cpp" line="3800"/>
         <source>&lt;p&gt;Computations write error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations write error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3681"/>
-        <location filename="../src/mainwindow.cpp" line="3798"/>
+        <location filename="../src/mainwindow.cpp" line="3685"/>
+        <location filename="../src/mainwindow.cpp" line="3803"/>
         <source>&lt;p&gt;Computations read error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations read error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3684"/>
-        <location filename="../src/mainwindow.cpp" line="3801"/>
+        <location filename="../src/mainwindow.cpp" line="3688"/>
+        <location filename="../src/mainwindow.cpp" line="3806"/>
         <source>&lt;p&gt;Computations unknown error.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Computations unknown error.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3697"/>
-        <location filename="../src/mainwindow.cpp" line="3814"/>
+        <location filename="../src/mainwindow.cpp" line="3701"/>
+        <location filename="../src/mainwindow.cpp" line="3819"/>
         <source>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</source>
         <translation>&lt;h3&gt;Program stopped!&lt;/h3&gt;&lt;p style=&quot;font-style: normal; font-weight: normal;&quot;&gt;Preliminary results have been stored in the selected output folder. Depending on your processing settings, these results may be fully valid for analysis. You can remove the temporary extension &quot;.tmp&quot; and use them. However, the format of these files does not allow EddyPro to use them in subsequent runs.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="3880"/>
+        <location filename="../src/mainwindow.cpp" line="3885"/>
         <source>Stop Data Processing</source>
         <translation>Stop Data Processing</translation>
     </message>

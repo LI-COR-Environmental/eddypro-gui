@@ -15,7 +15,7 @@ echo "./$DEBUG_OR_RELEASE/eddypro.app"
 
 if [ "$DEBUG_OR_RELEASE" == "debug" ]; then
     # change bundle name
-    # mv -v "./$DEBUG_OR_RELEASE/eddypro_debug.app" "./$DEBUG_OR_RELEASE/$BUNDLE_NAME" || exit 1
+    #mv -v "./$DEBUG_OR_RELEASE/eddypro_debug.app" "./$DEBUG_OR_RELEASE/$BUNDLE_NAME" || exit 1
 
     EDDYPRO_BUNDLE_DIR="$BUNDLE_NAME/Contents/MacOs/eddypro_debug"
     QUAZIP_LIB=libquazip_debug.1.0.0.dylib
