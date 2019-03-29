@@ -53,7 +53,7 @@ namespace Defs
 {
     const auto APP_VERSION = 0x070000;
     const auto APP_VERSION_STR = QStringLiteral("7.0.0");
-    const auto APP_STAGE_STR = QStringLiteral("-rc6"); // -alpha1, -beta1, -rc1
+    const auto APP_STAGE_STR = QStringLiteral("-rc7"); // -alpha1, -beta1, -rc1
 
     const auto PROJECT_FILE_VERSION = 0x040500;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.5.0");
