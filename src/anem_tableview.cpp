@@ -64,7 +64,7 @@ AnemTableView::~AnemTableView()
 
 void AnemTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 5, 1, 1);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
                           static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
@@ -78,7 +78,7 @@ void AnemTableView::resizeEvent(QResizeEvent *event)
 
 void AnemTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 5, 1, 1);
+    setViewportMargins(m_header->sizeHint().width(), rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
                           static_cast<int>(rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
