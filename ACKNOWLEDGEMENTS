@@ -58,7 +58,6 @@ this free software.
 ## Libraries
 
 - Arjan van Dijk: libdate module
-- Michael Baudin, Arjen Markus: m_logging module
 - University of Chicago: m_levenberg_marquardt from the MINPACK package
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
