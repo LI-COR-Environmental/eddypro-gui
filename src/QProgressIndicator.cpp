@@ -1,13 +1,12 @@
 /***************************************************************************
   QProgressIndicator.cpp
-  -------------------
-  QProgressIndicator class
-  -------------------
+  ----------------------
   Copyright (C) 2009 Morgan Leborgne
 
-  from http://qt-apps.org/content/show.php/QProgressIndicator?content=115762
+  from https://github.com/mojocorp/QProgressIndicator
+  License: MIT
 
-  Modified by Antonio Forgione, 2011
+  Modified by Antonio Forgione, 2011-2019
 ****************************************************************************/
 
 #include "QProgressIndicator.h"

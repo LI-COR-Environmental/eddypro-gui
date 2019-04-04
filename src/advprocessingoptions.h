@@ -1,22 +1,31 @@
 /***************************************************************************
   advprocessingoptions.h
-  -------------------
-  Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
-  All rights reserved.
+  ----------------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
+  Author: Antonio Forgione
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  any later version.
+  This file is part of EddyPro®.
 
-  This program is distributed in the hope that it will be useful,
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
+
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #ifndef ADVPROCESSINGOPTIONS_H
