@@ -3556,22 +3556,22 @@ void BasicSettingsPage::createQuestionMark()
 
 void BasicSettingsPage::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/using-prev-results.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/using-prev-results.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/flags.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/flags.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/raw-file-name-format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/raw-file-name-format.html")));
 }
 
 void BasicSettingsPage::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/declination.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/declination.html")));
 }
 
 void BasicSettingsPage::updateCrossWind(bool b)

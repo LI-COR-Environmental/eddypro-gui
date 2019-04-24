@@ -79,48 +79,48 @@ void CustomHeader::onlineHelpTrigger()
 
     if (data == ClickLabel::AnemSwVersion)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/sonic-anemometer-firmware-version.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sonic-anemometer-firmware-version.html")));
     }
     else if (data == ClickLabel::AnemNAlign)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/axes-alignment.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/axes-alignment.html")));
     }
     else if (data == ClickLabel::AnemNOffset)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/north-offset.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/north-offset.html")));
     }
     else if (data == ClickLabel::AnemNSep
              || data == ClickLabel::AnemESep
              || data == ClickLabel::AnemVSep)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/sensor-separation.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sensor-separation.html")));
     }
     else if (data == ClickLabel::IrgaModel)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/gas-analyzer-model.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/gas-analyzer-model.html")));
     }
     else if (data == ClickLabel::IrgaLPathLength
              || data == ClickLabel::IrgaTPathLength)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/longitude-transverse-pathlengths.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/longitude-transverse-pathlengths.html")));
     }
     else if (data == ClickLabel::VarIgnoreDesc
              || data == ClickLabel::VarNumericDesc
              || data == ClickLabel::VarDesc)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/sensitive-and-nonsensitive-variables.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sensitive-and-nonsensitive-variables.html")));
     }
     else if (data == ClickLabel::VarConv
              || data == ClickLabel::VarMinValue
              || data == ClickLabel::VarMaxValue)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/conversion-type.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/conversion-type.html")));
     }
     else if (data == ClickLabel::VarNomTLag
              || data == ClickLabel::VarMinTLag
              || data == ClickLabel::VarMaxTLag)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/nominal-time-lag.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/nominal-time-lag.html")));
     }
 }
 

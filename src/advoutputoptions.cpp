@@ -1472,22 +1472,22 @@ void AdvOutputOptions::createQuestionMark()
 
 void AdvOutputOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-overview.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-overview.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-full-output.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-full-output.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectra-cospectra-and-ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_6()
@@ -1502,12 +1502,12 @@ void AdvOutputOptions::onlineHelpTrigger_7()
 
 void AdvOutputOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files-the-stats-folder.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-the-stats-folder.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/output-files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onClickerrorFormatLabel()

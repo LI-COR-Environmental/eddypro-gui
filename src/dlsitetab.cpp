@@ -811,15 +811,15 @@ void DlSiteTab::createQuestionMark()
 
 void DlSiteTab::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/beginning-of-dataset.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/beginning-of-dataset.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/displacement-height.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/displacement-height.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/roughness-length.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/roughness-length.html")));
 }

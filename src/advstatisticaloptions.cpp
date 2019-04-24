@@ -2800,57 +2800,57 @@ void AdvStatisticalOptions::createQuestionMark()
 
 void AdvStatisticalOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_10()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/despiking-raw-statistical-screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/random-uncertainty-estimation.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/random-uncertainty-estimation.html")));
 }
 
 void AdvStatisticalOptions::updateRandomErrorArea(bool b)
