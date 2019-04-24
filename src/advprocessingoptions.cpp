@@ -140,12 +140,12 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wBoostCheckBox = new RichTextCheckBox;
     wBoostCheckBox->setText(tr("Fix 'w boost' bug (Gill WindMaster and WindMaster Pro only)"));
     wBoostCheckBox->setToolTip(tr("<b>Fix 'w boost' bug:</b> Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit <a href=\"http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf\">Gill's Technical Key Note</a>"));
-    wBoostCheckBox->setQuestionMark(QStringLiteral("https://www.licor.com/env/help/eddypro/topics/w-boost-correction.html"));
+    wBoostCheckBox->setQuestionMark(QStringLiteral("https://www.licor.com/env/support/EddyPro/topics/w-boost-correction.html"));
 
     aoaCheckBox = new RichTextCheckBox;
     aoaCheckBox->setToolTip(tr("<b>Angle-of-attack correction:</b> Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used."));
     aoaCheckBox->setText(tr("Angle-of-attack correction for wind components (Gill's only)"));
-    aoaCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/angle-of-attack-correction.html"));
+    aoaCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/angle-of-attack-correction.html"));
 
     aoaMethLabel = new ClickLabel(tr("Method :"));
     aoaMethLabel->setEnabled(false);
@@ -161,7 +161,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     rotCheckBox = new RichTextCheckBox;
     rotCheckBox->setToolTip(tr("<b>Axis rotation for tilt correction:</b> Select the appropriate method for compensating anemometer tilt with respect to local streamlines. Uncheck the box to <i>not perform</i> any rotation (not recommnended). If your site has a complex or sloping topography, a planar-fit method is advisable. Click on the <b><i>Planar Fit Settings...</i></b> to configure the procedure."));
     rotCheckBox->setText(tr("Axis rotations for tilt correction"));
-    rotCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/anemometer-tilt-correction.html"));
+    rotCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/anemometer-tilt-correction.html"));
 
     rotMethLabel = new ClickLabel(tr("Rotation method :"));
     rotMethCombo = new QComboBox;
@@ -211,7 +211,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     timeLagCheckBox = new RichTextCheckBox;
     timeLagCheckBox->setToolTip(tr("<b>Time lags compensation:</b> Select the method to compensate time lags between anemometric measurements and any other high frequency measurements included in the raw files. Time lags arise due mainly to sensors physical distances and to the passage of air into sampling lines. Uncheck this box to instruct EddyPro not to compensate time lags (not recommended)."));
     timeLagCheckBox->setText(tr("Time lags compensation"));
-    timeLagCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/time-lag-detect-correct.html"));
+    timeLagCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/time-lag-detect-correct.html"));
 
     timeLagMethodLabel = new ClickLabel(tr("Time lag detection method :"));
     timeLagMethodCombo = new QComboBox;
@@ -232,7 +232,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qcCheckBox = new RichTextCheckBox;
     qcCheckBox->setToolTip(tr("<b>Quality check:</b> Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy."));
     qcCheckBox->setText(tr("Quality check"));
-    qcCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/flux-quality-flags.html"));
+    qcCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/flux-quality-flags.html"));
 
     qcLabel = new ClickLabel(tr("Flagging policy :"));
     qcMethodCombo = new QComboBox;
@@ -247,7 +247,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     fpCheckBox = new RichTextCheckBox;
     fpCheckBox->setToolTip(tr("<b>Footprint estimation:</b> Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given."));
     fpCheckBox->setText(tr("Footprint estimation"));
-    fpCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/estimating-flux-footprint.html"));
+    fpCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/estimating-flux-footprint.html"));
 
     fpLabel = new ClickLabel(tr("Footprint method :"));
     fpMethodCombo = new QComboBox;
@@ -262,13 +262,13 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wplCheckBox = new RichTextCheckBox;
     wplCheckBox->setToolTip(tr("<b>Compensate density fluctuations:</b> This is the so-called WPL correction (Webb et al., 1980). Choose whether to apply the compensation of density fluctuations to raw gas concentrations available as molar densities or mole fractions (moles gas per mole of wet air). The correction does not apply if raw concentrations are available as mixing ratios (mole gas per mole dry air)."));
     wplCheckBox->setText(tr("Compensate density fluctuations (WPL terms)"));
-    wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/converting-to-mixing-ratio.html"));
+    wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/converting-to-mixing-ratio.html"));
 
     // burba correction
     burbaCorrCheckBox = new RichTextCheckBox;
     burbaCorrCheckBox->setToolTip(tr("<b>Add instrument sensible heat components, only for LI-7500:</b> Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008)."));
     burbaCorrCheckBox->setText(tr("Add instrument sensible heat components, only for LI-7500 "));
-    burbaCorrCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-offseason-uptake-correction.html"));
+    burbaCorrCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-offseason-uptake-correction.html"));
 
     burbaTypeLabel = new ClickLabel;
     burbaTypeLabel->setText(tr("Surface temperature estimation :"));
@@ -1461,17 +1461,17 @@ void AdvProcessingOptions::createQuestionMark()
 
 void AdvProcessingOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/windspeed-offsets.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/windspeed-offsets.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-turbulent-flux.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-turbulent-flux.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/raw-processing-options.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/raw-processing-options.html")));
 }
 
 void AdvProcessingOptions::updateTooltip(int i)

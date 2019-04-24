@@ -1936,32 +1936,32 @@ void AdvSpectralOptions::createQuestionMarks()
 
 void AdvSpectralOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/ensemble-averages.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/ensemble-averages.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectral-correction-factors.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectral-correction-factors.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/high-pass-filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/high-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/low-pass-filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/low-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/spectral-corrections.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/spectral-corrections.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/calculate-spectra-cospectra-and-ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvSpectralOptions::updateTooltip(int i)

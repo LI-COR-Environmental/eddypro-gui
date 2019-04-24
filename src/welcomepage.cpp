@@ -213,11 +213,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     helpTitle->setProperty("groupTitle3", true);
 
     auto item_1 = new QListWidgetItem(tr("%1 Help").arg(Defs::APP_NAME));
-    item_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/home.html"));
+    item_1->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/support/EddyPro/home.html"));
     auto item_2 = new QListWidgetItem(tr("Getting started (PDF)"));
     item_2->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/qmhucid6g0hdvd3d13tk"));
     auto item_3 = new QListWidgetItem(tr("Video tutorials"));
-    item_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/help/eddypro/topics/videos.html"));
+    item_3->setData(Qt::UserRole, QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/videos.html"));
     auto item_4 = new QListWidgetItem(tr("Printable manual (PDF)"));
     item_4->setData(Qt::UserRole, QStringLiteral("https://boxenterprise.net/s/1ium2zmwm6hl36yz9bu4"));
     auto item_5 = new QListWidgetItem(tr("Download sample data files"));
@@ -448,5 +448,5 @@ void WelcomePage::createQuestionMark()
 
 void WelcomePage::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/smartflux-settings.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/smartflux-settings.html")));
 }

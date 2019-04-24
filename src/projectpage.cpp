@@ -890,32 +890,32 @@ void ProjectPage::setSmartfluxUI()
 
 void ProjectPage::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/ghg-file-format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/ghg-file-format.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/dynamic-metadata.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/dynamic-metadata.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/metadata-file-use-alternative.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/metadata-file-use-alternative.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/tob1-files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/tob1-files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/generic-binary-files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/generic-binary-files.html")));
 }
 
 void ProjectPage::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics/biomet-data-format.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/biomet-data-format.html")));
 }
 
 void ProjectPage::binSettingsDialog()
