@@ -151,7 +151,7 @@ void DocChooserDialog::close()
     {
         // open local help
         auto htmlHelpPath = QApplication::applicationDirPath()
-                + QStringLiteral("/docs/help/eddypro/home.html");
+                + QStringLiteral("/docs/support/EddyPro/home.html");
     }
 
     // set the variable to true to indicate that the dialog ran once
