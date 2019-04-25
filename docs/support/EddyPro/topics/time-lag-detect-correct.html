@@ -103,128 +103,130 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="body-container" data-mc-content-body="True">
-                                <div class="top">
-                                    <div class="nocontent">
-                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap">
-                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
-                                    <section>
-                                        <div class="RowClass6">
-                                            <div>
-                                                <form class="search" action="#">
-                                                    <div class="search-bar search-bar-container needs-pie">
-                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
-                                                        <div class="search-filter-wrapper">
-                                                            <div class="search-filter">
-                                                                <div class="search-filter-content">
-                                                                    <ul>
-                                                                        <li>All products</li>
-                                                                    </ul>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="search-submit-wrapper" dir="ltr">
-                                                            <div class="search-submit" title="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section>
-                                        <div class="RowClass11">
-                                            <div>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h1 id="Detectingandcompensatingfortimelags" data-magellan-target="Detectingandcompensatingfortimelags">Detecting and compensating for time lags<a name="aanchor17"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p class="note">See <a href="selecting-advanced-options.html" class="ToHeading MCXref xref xrefToHeading">Selecting advanced processing options</a> for more information.</p>
-                                                <p><a name="Time"></a><a name="kanchor26"></a>The last step of raw data processing in <span class="product_namesEddyPro">EddyPro</span>, prior to flux calculation and correction, regards the compensation of possible time lags between anemometric variables and variables measured by any other sensor, notably the gas analyzer(s). A time lag arises for different reasons in closed path and in open path systems.</p>
-                                                <p>The presence of the intake tube in closed path systems (with the inlet normally placed very close to the anemometer measuring volume) implies that gas concentrations are always measured with a certain delay with respect to the moment air is sampled. In addition, the residence time of sticky gases, such as H<sub>2</sub>O, in the sampling line is a strong function of air relative humidity and temperature. Conversely, sonic anemometers measure wind speed and sonic temperature without detectable delays. In open path systems the delay is due to the physical distance between the two instruments (gas analyzer and anemometer), which are usually placed several decimeters or less apart to avoid mutual disturbances. The wind field takes some time to travel from one to the other, resulting in a certain delay between the moments the same air parcel is sampled by the two instruments.</p>
-                                                <p>It is a common practice to compensate for time lags before calculating covariances between anemometric variables and gas analyzer measurements. <span class="product_namesEddyPro">EddyPro</span> provides four different methods for detecting and compensating time lags, besides the option of not compensating at all, which speeds up program execution but will almost certainly lead to systematic flux underestimations.</p>
-                                                <h2 id="Constant" data-magellan-target="Constant">Constant</h2>
-                                                <p>In the Raw File Description table, you can enter <span class="pop">Nominal time lags</span> for variables not measured by the master anemometer. In closed path systems, a nominal time lag can be estimated from the volume of the intake tube and the average flow rate in the tube. In open path systems, a nominal lag can be computed by considering the transit time in the space between the instruments, with site-specific typical wind speeds and directions. Selecting <i>Constant</i> will instruct <span class="product_namesEddyPro">EddyPro</span> to use such nominal values as fixed time lags. Using this option makes the program execution faster, because the automatic time lag detection procedure is avoided. However, this option is only suitable for closed path systems featuring an active control of the sampling line flow rate, such that the travel time of air in the tube does not change as a result of pump fluctuations, filter clogging, or any other reason. Also, this option is not recommended when measuring “sticky” gases such as H<sub>2</sub>O, whose residence time varies according to climatic (RH, T) conditions, on account of sorption processes occurring at the tube walls (e.g., <a href="references.html#Runkle">Runkle et al., 2012</a>).</p>
-                                                <p class="note"><b>Note:</b> If you leave the Nominal time lag set to <i>zero</i>, <span class="product_namesEddyPro">EddyPro</span> will <a href="nominal-time-lag.html">automatically calculate</a> the most plausible value for you.</p>
-                                                <h2 id="Covariancemaximization" data-magellan-target="Covariancemaximization">Covariance maximization</h2>
-                                                <p>A certain degree of uncertainty in the control over the flow rate (closed path) and the variability of wind regimes (open path) suggests an automatic time lag detection procedure, normally performed for each flux averaging period. Typically the detection is accomplished via the “covariance maximization” procedure, consisting of the determination of the time lag that maximizes the covariance of two variables, within a window of plausible time lags (e.g., <a href="references.html#Fan">Fan et al., 1990</a>):</p>
-                                                <p class="equation" data-mc-autonum="32"><span class="autonumber"><span class="right">32</span></span>
-                                                    <img src="../../GeneratedImages/Equations/Equation55.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                </p>
-                                                <p>In this equation, N is the total number of samples in the current flux averaging interval; m and M are the discrete counterparts of the minimum and maximum plausible time lags, respectively; τ is the best time lag estimate, and jτ is its discrete counterpart. You can toggle between discrete indices and actual times in seconds by dividing the formers by the acquisition frequency (<i>f</i><sub style="font-style: italic;">a</sub>, Hz), e.g., <i>τ = j</i><sub style="font-style: italic;">τ</sub><i> • f</i><sub style="font-style: italic;">a</sub><sup>-1</sup>.</p>
-                                                <p>The minimum and maximum plausible time lags are either taken from the <span class="pop">Minimum time lag</span> and <span class="pop">Maximum time lag</span> entered in the <span class="pop">Raw File Description</span> table or, if those are left at zero, <a href="nominal-time-lag.html">automatically calculated</a> by EddyPro.</p>
-                                                <h2 id="Covariancemaximizationwithdefault" data-magellan-target="Covariancemaximizationwithdefault">Covariance maximization with default</h2>
-                                                <p>Selecting this option, if—during the covariance maximization procedure depicted above—a maximum is not attained within the plausibility window, a default is used, either taken as the <span class="pop">Nominal time lag</span> in the <span class="pop">Raw File Description</span> table or automatically calculated by EddyPro.</p>
-                                                <p>Using the covariance maximization procedure (either with or without default), a plausible time lag window has to be defined with the <span class="pop">Minimum</span> and <span class="pop">Maximum time lags</span>, which constitute the end points of the plausibility window. A too narrow plausible window might lead to frequent use of the default (<b style="font-style: italic; font-weight: normal;">Covariance maximization with default</b>) or either endpoint (<i>Covariance maximization</i>) time lag, because the actual time lag is often found outside defined plausibility range. This situation leads to systematic flux underestimations. Conversely, imposing a too broad plausibility window increases the possibility that unrealistic time lags are detected, especially when covariances are small and vary erratically with the lag time. These cases often result in flux overestimations. A trade-off must be reached between the two contrasting needs.</p>
-                                                <h2 id="Automatictimelagoptimization" data-magellan-target="Automatictimelagoptimization">Automatic time lag optimization</h2>
-                                                <p><span class="product_namesEddyPro">EddyPro</span> also provides the possibility of analyzing the actual time lags found in the available dataset and determining the most suitable <span class="pop">Nominal time lag</span> and plausibility window (Minimum and Maximum time lags). This procedure implies a pre-processing step, before actually processing raw files, to statistically evaluate the most likely time lags and their ranges of variations. In this step, raw files are actually handled in a very similar manner as done later in the raw data processing step (e.g., despiking, Angle of Attack correction, detrending, etc.), but the processing stops at the calculation of the time lag. Here, the <i>Covariance Maximization</i> procedure is applied, adopting very broad (and user-customizable) time lag windows. Then, optimal time lags are calculated, in different ways for passive gases (e.g., CO<sub>2</sub>, CH<sub>4</sub>) and for H<sub>2</sub>O.</p>
-                                                <h3>Time lag optimization for passive gases</h3>
-                                                <p>For passive gases, whose time lag is not expected to depend on climatic conditions or other drivers, the nominal time lag is calculated as the median of all calculated time lags:</p>
-                                                <p class="equation" data-mc-autonum="33"><span class="autonumber"><span class="right">33</span></span>
-                                                    <img src="../../GeneratedImages/Equations/Equation56.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                </p>
-                                                <p>where, for convenience, τ<sub>i</sub> represents all time lags calculated from the available dataset.</p>
-                                                <p>The plausibility window is defined as:</p>
-                                                <p class="equation" data-mc-autonum="34"><span class="autonumber"><span class="right">34</span></span>
-                                                    <img src="../../GeneratedImages/Equations/Equation57.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                    <br />
-                                                    <img src="../../GeneratedImages/Equations/Equation58.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                </p>
-                                                <p>where <i>z</i> is a user-selectable parameter, whose optimal value was heuristically determined to be around 1.5.</p>
-                                                <p class="note"><b>Note:</b> This assessment must be performed on a dataset long enough for calculating robust statistics. At least 1 month of data is recommended. </p>
-                                                <p class="note"><b>Note:</b> The dataset used to optimize time lags must refer to a period, in which the sampling line did not undergo major modifications, such as replacement of tubing or filters, change of the flow rate, etc. In the whole period, time lags are expected to be stationary.</p>
-                                                <h3>Time lag optimization for water vapor</h3>
-                                                <p>The time lag of water vapor is a strong function of relative humidity (and secondarily, a function of temperature). Thus, for water vapor, nominal time lags and plausibility windows are assessed for relative humidity classes in the range 0 to 100%. In each class, the same definitions used for passive gases are also used:</p>
-                                                <p class="equation" data-mc-autonum="35"><span class="autonumber"><span class="right">35</span></span>
-                                                    <img src="../../GeneratedImages/Equations/Equation59.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                    <br />
-                                                    <img src="../../GeneratedImages/Equations/Equation60.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                    <br />
-                                                    <img src="../../GeneratedImages/Equations/Equation61.svg" alt="" class="_MCEquation_0 mcReset" />
-                                                </p>
-                                                <p>where now the subscript class indicates that a different value is calculated for each class. Here also <i>z</i> is a user-selectable parameter, with an optimal value around 1.5.</p>
-                                                <p>For each class, a minimum of 30 time lags need be present, for the statistics to be considered valid. Depending on the length of the dataset, such numerosity may not be reached for all class. In such cases, <span class="product_namesEddyPro">EddyPro</span> behaves as follows:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">If the first <i>n</i> classes do not have enough numerosity, their time lags (nominal, minimum, and maximum) are set equal to those of class (<i>n</i> + 1);</li>
-                                                    <li value="2">If the last <i>n</i> classes do not have enough numerosity, their time lags are set to a linear extrapolation of classes (<i>n</i><sub style="font-style: italic;">t</sub> – <i>n</i>) and (<i>n</i><sub style="font-style: italic;">t</sub> <i>- n</i> - 1), where <i>n<sub>t</sub></i> represents the total number of classes;</li>
-                                                    <li value="3">If any intermediate class <i>i</i> does not have enough numerosity, its time lags are set to the average of classes <i>i</i> – 1 and (<i>i</i> + 1).</li>
-                                                </ul>
-                                                <p class="note"><b>Note:</b> Due to class sorting, a much longer dataset is needed for water vapor. A minimum 2 months of raw data are deemed necessary, possibly spanning a broad range of climatic conditions. A longer dataset (&gt; 6 months) will allow a more robust optimization. </p>
-                                                <p>The figure below shows the results of a time lag optimization procedure using 6 months of data. Yellow circles are actual time lags calculated using a very large time lag window while blue lines are nominal, minimum, and maximum time lags calculated by <span class="product_namesEddyPro">EddyPro</span> as a function of RH, by means of the time lag optimization procedure.</p>
-                                                <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Time_lags_RH.png"><img class="MCPopupThumbnail img imgwidth088pct" data-mc-width="798" data-mc-height="599" src="../images/Time_lags_RH_thumb_560_0.png" tabindex="" /></a>
-                                                </p>
-                                                <p class="note"><b>Note:</b> During the following phase of raw data processing, the actual nominal, minimum, and maximum time lags are determined as a function of the current value of relative humidity.</p>
-                                            </div>
-                                            <div>
-                                                <div class="in-page-sticky-mid">
-                                                    <p class="in-this-page">In this page:</p>
-                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#Detectingandcompensatingfortimelags">Detecting and compensating for time lags</a>
-                                                        </li>
-                                                        <ul>
-                                                            <li><a href="#Constant">Constant</a>
-                                                            </li>
-                                                            <li><a href="#Covariancemaximization">Covariance maximization</a>
-                                                            </li>
-                                                            <li><a href="#Covariancemaximizationwithdefault">Covariance maximization with default</a>
-                                                            </li>
-                                                            <li><a href="#Automatictimelagoptimization">Automatic time lag optimization</a>
-                                                            </li>
-                                                        </ul>
-                                                    </ul>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="Detectingandcompensatingfortimelags" data-magellan-target="Detectingandcompensatingfortimelags">Detecting and compensating for time lags<a name="aanchor17"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p class="note">See <a href="selecting-advanced-options.html" class="ToHeading MCXref xref xrefToHeading">Selecting advanced processing options</a> for more information.</p>
+                                                    <p><a name="Time"></a><a name="kanchor26"></a>The last step of raw data processing in <span class="product_namesEddyPro">EddyPro</span>, prior to flux calculation and correction, regards the compensation of possible time lags between anemometric variables and variables measured by any other sensor, notably the gas analyzer(s). A time lag arises for different reasons in closed path and in open path systems.</p>
+                                                    <p>The presence of the intake tube in closed path systems (with the inlet normally placed very close to the anemometer measuring volume) implies that gas concentrations are always measured with a certain delay with respect to the moment air is sampled. In addition, the residence time of sticky gases, such as H<sub>2</sub>O, in the sampling line is a strong function of air relative humidity and temperature. Conversely, sonic anemometers measure wind speed and sonic temperature without detectable delays. In open path systems the delay is due to the physical distance between the two instruments (gas analyzer and anemometer), which are usually placed several decimeters or less apart to avoid mutual disturbances. The wind field takes some time to travel from one to the other, resulting in a certain delay between the moments the same air parcel is sampled by the two instruments.</p>
+                                                    <p>It is a common practice to compensate for time lags before calculating covariances between anemometric variables and gas analyzer measurements. <span class="product_namesEddyPro">EddyPro</span> provides four different methods for detecting and compensating time lags, besides the option of not compensating at all, which speeds up program execution but will almost certainly lead to systematic flux underestimations.</p>
+                                                    <h2 id="Constant" data-magellan-target="Constant">Constant</h2>
+                                                    <p>In the Raw File Description table, you can enter <span class="pop">Nominal time lags</span> for variables not measured by the master anemometer. In closed path systems, a nominal time lag can be estimated from the volume of the intake tube and the average flow rate in the tube. In open path systems, a nominal lag can be computed by considering the transit time in the space between the instruments, with site-specific typical wind speeds and directions. Selecting <i>Constant</i> will instruct <span class="product_namesEddyPro">EddyPro</span> to use such nominal values as fixed time lags. Using this option makes the program execution faster, because the automatic time lag detection procedure is avoided. However, this option is only suitable for closed path systems featuring an active control of the sampling line flow rate, such that the travel time of air in the tube does not change as a result of pump fluctuations, filter clogging, or any other reason. Also, this option is not recommended when measuring “sticky” gases such as H<sub>2</sub>O, whose residence time varies according to climatic (RH, T) conditions, on account of sorption processes occurring at the tube walls (e.g., <a href="references.html#Runkle">Runkle et al., 2012</a>).</p>
+                                                    <p class="note"><b>Note:</b> If you leave the Nominal time lag set to <i>zero</i>, <span class="product_namesEddyPro">EddyPro</span> will <a href="nominal-time-lag.html">automatically calculate</a> the most plausible value for you.</p>
+                                                    <h2 id="Covariancemaximization" data-magellan-target="Covariancemaximization">Covariance maximization</h2>
+                                                    <p>A certain degree of uncertainty in the control over the flow rate (closed path) and the variability of wind regimes (open path) suggests an automatic time lag detection procedure, normally performed for each flux averaging period. Typically the detection is accomplished via the “covariance maximization” procedure, consisting of the determination of the time lag that maximizes the covariance of two variables, within a window of plausible time lags (e.g., <a href="references.html#Fan">Fan et al., 1990</a>):</p>
+                                                    <p class="equation" data-mc-autonum="32"><span class="autonumber"><span class="right">32</span></span>
+                                                        <img src="../../GeneratedImages/Equations/Equation55.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                    </p>
+                                                    <p>In this equation, N is the total number of samples in the current flux averaging interval; m and M are the discrete counterparts of the minimum and maximum plausible time lags, respectively; τ is the best time lag estimate, and jτ is its discrete counterpart. You can toggle between discrete indices and actual times in seconds by dividing the formers by the acquisition frequency (<i>f</i><sub style="font-style: italic;">a</sub>, Hz), e.g., <i>τ = j</i><sub style="font-style: italic;">τ</sub><i> • f</i><sub style="font-style: italic;">a</sub><sup>-1</sup>.</p>
+                                                    <p>The minimum and maximum plausible time lags are either taken from the <span class="pop">Minimum time lag</span> and <span class="pop">Maximum time lag</span> entered in the <span class="pop">Raw File Description</span> table or, if those are left at zero, <a href="nominal-time-lag.html">automatically calculated</a> by EddyPro.</p>
+                                                    <h2 id="Covariancemaximizationwithdefault" data-magellan-target="Covariancemaximizationwithdefault">Covariance maximization with default</h2>
+                                                    <p>Selecting this option, if—during the covariance maximization procedure depicted above—a maximum is not attained within the plausibility window, a default is used, either taken as the <span class="pop">Nominal time lag</span> in the <span class="pop">Raw File Description</span> table or automatically calculated by EddyPro.</p>
+                                                    <p>Using the covariance maximization procedure (either with or without default), a plausible time lag window has to be defined with the <span class="pop">Minimum</span> and <span class="pop">Maximum time lags</span>, which constitute the end points of the plausibility window. A too narrow plausible window might lead to frequent use of the default (<b style="font-style: italic; font-weight: normal;">Covariance maximization with default</b>) or either endpoint (<i>Covariance maximization</i>) time lag, because the actual time lag is often found outside defined plausibility range. This situation leads to systematic flux underestimations. Conversely, imposing a too broad plausibility window increases the possibility that unrealistic time lags are detected, especially when covariances are small and vary erratically with the lag time. These cases often result in flux overestimations. A trade-off must be reached between the two contrasting needs.</p>
+                                                    <h2 id="Automatictimelagoptimization" data-magellan-target="Automatictimelagoptimization">Automatic time lag optimization</h2>
+                                                    <p><span class="product_namesEddyPro">EddyPro</span> also provides the possibility of analyzing the actual time lags found in the available dataset and determining the most suitable <span class="pop">Nominal time lag</span> and plausibility window (Minimum and Maximum time lags). This procedure implies a pre-processing step, before actually processing raw files, to statistically evaluate the most likely time lags and their ranges of variations. In this step, raw files are actually handled in a very similar manner as done later in the raw data processing step (e.g., despiking, Angle of Attack correction, detrending, etc.), but the processing stops at the calculation of the time lag. Here, the <i>Covariance Maximization</i> procedure is applied, adopting very broad (and user-customizable) time lag windows. Then, optimal time lags are calculated, in different ways for passive gases (e.g., CO<sub>2</sub>, CH<sub>4</sub>) and for H<sub>2</sub>O.</p>
+                                                    <h3>Time lag optimization for passive gases</h3>
+                                                    <p>For passive gases, whose time lag is not expected to depend on climatic conditions or other drivers, the nominal time lag is calculated as the median of all calculated time lags:</p>
+                                                    <p class="equation" data-mc-autonum="33"><span class="autonumber"><span class="right">33</span></span>
+                                                        <img src="../../GeneratedImages/Equations/Equation56.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                    </p>
+                                                    <p>where, for convenience, τ<sub>i</sub> represents all time lags calculated from the available dataset.</p>
+                                                    <p>The plausibility window is defined as:</p>
+                                                    <p class="equation" data-mc-autonum="34"><span class="autonumber"><span class="right">34</span></span>
+                                                        <img src="../../GeneratedImages/Equations/Equation57.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                        <br />
+                                                        <img src="../../GeneratedImages/Equations/Equation58.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                    </p>
+                                                    <p>where <i>z</i> is a user-selectable parameter, whose optimal value was heuristically determined to be around 1.5.</p>
+                                                    <p class="note"><b>Note:</b> This assessment must be performed on a dataset long enough for calculating robust statistics. At least 1 month of data is recommended. </p>
+                                                    <p class="note"><b>Note:</b> The dataset used to optimize time lags must refer to a period, in which the sampling line did not undergo major modifications, such as replacement of tubing or filters, change of the flow rate, etc. In the whole period, time lags are expected to be stationary.</p>
+                                                    <h3>Time lag optimization for water vapor</h3>
+                                                    <p>The time lag of water vapor is a strong function of relative humidity (and secondarily, a function of temperature). Thus, for water vapor, nominal time lags and plausibility windows are assessed for relative humidity classes in the range 0 to 100%. In each class, the same definitions used for passive gases are also used:</p>
+                                                    <p class="equation" data-mc-autonum="35"><span class="autonumber"><span class="right">35</span></span>
+                                                        <img src="../../GeneratedImages/Equations/Equation59.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                        <br />
+                                                        <img src="../../GeneratedImages/Equations/Equation60.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                        <br />
+                                                        <img src="../../GeneratedImages/Equations/Equation61.svg" alt="" class="_MCEquation_0 mcReset" />
+                                                    </p>
+                                                    <p>where now the subscript class indicates that a different value is calculated for each class. Here also <i>z</i> is a user-selectable parameter, with an optimal value around 1.5.</p>
+                                                    <p>For each class, a minimum of 30 time lags need be present, for the statistics to be considered valid. Depending on the length of the dataset, such numerosity may not be reached for all class. In such cases, <span class="product_namesEddyPro">EddyPro</span> behaves as follows:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">If the first <i>n</i> classes do not have enough numerosity, their time lags (nominal, minimum, and maximum) are set equal to those of class (<i>n</i> + 1);</li>
+                                                        <li value="2">If the last <i>n</i> classes do not have enough numerosity, their time lags are set to a linear extrapolation of classes (<i>n</i><sub style="font-style: italic;">t</sub> – <i>n</i>) and (<i>n</i><sub style="font-style: italic;">t</sub> <i>- n</i> - 1), where <i>n<sub>t</sub></i> represents the total number of classes;</li>
+                                                        <li value="3">If any intermediate class <i>i</i> does not have enough numerosity, its time lags are set to the average of classes <i>i</i> – 1 and (<i>i</i> + 1).</li>
+                                                    </ul>
+                                                    <p class="note"><b>Note:</b> Due to class sorting, a much longer dataset is needed for water vapor. A minimum 2 months of raw data are deemed necessary, possibly spanning a broad range of climatic conditions. A longer dataset (&gt; 6 months) will allow a more robust optimization. </p>
+                                                    <p>The figure below shows the results of a time lag optimization procedure using 6 months of data. Yellow circles are actual time lags calculated using a very large time lag window while blue lines are nominal, minimum, and maximum time lags calculated by <span class="product_namesEddyPro">EddyPro</span> as a function of RH, by means of the time lag optimization procedure.</p>
+                                                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Time_lags_RH.png"><img class="MCPopupThumbnail img imgwidth088pct" data-mc-width="798" data-mc-height="599" src="../images/Time_lags_RH_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="note"><b>Note:</b> During the following phase of raw data processing, the actual nominal, minimum, and maximum time lags are determined as a function of the current value of relative humidity.</p>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#Detectingandcompensatingfortimelags">Detecting and compensating for time lags</a>
+                                                            </li>
+                                                            <ul>
+                                                                <li><a href="#Constant">Constant</a>
+                                                                </li>
+                                                                <li><a href="#Covariancemaximization">Covariance maximization</a>
+                                                                </li>
+                                                                <li><a href="#Covariancemaximizationwithdefault">Covariance maximization with default</a>
+                                                                </li>
+                                                                <li><a href="#Automatictimelagoptimization">Automatic time lag optimization</a>
+                                                                </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>

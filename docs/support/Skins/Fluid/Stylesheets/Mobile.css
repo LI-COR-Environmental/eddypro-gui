@@ -82,14 +82,19 @@
 		min-height: 40px;
 	}
 
-	.off-canvas-wrapper-inner .outer-row
+	.off-canvas-wrapper-inner .main-section > .outer-row
 	{
-		max-width: 350px;
+		
 	}
 
 	.main-section > .outer-row
 	{
 		padding-top: 0em;
+		max-width: 350px;
+	}
+
+	.off-canvas-wrapper-inner .outer-row
+	{
 		max-width: 350px;
 	}
 

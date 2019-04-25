@@ -231,6 +231,12 @@ ul.navigation ul > li:hover
 	
 }
 
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a:visited
+{
+	color: #2200c1;
+	text-decoration: underline;
+}
+
 #resultList h3.title a:visited
 {
 	color: #2200C1;
@@ -240,6 +246,12 @@ ul.navigation ul > li:hover
 #resultList .glossary .term a:focus
 {
 	
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a:focus
+{
+	color: #2200c1;
+	text-decoration: underline;
 }
 
 #resultList h3.title a:focus
@@ -256,6 +268,12 @@ ul.sidenav li a:hover
 #resultList .glossary .term a:hover
 {
 	
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a:hover
+{
+	color: #2200c1;
+	text-decoration: underline;
 }
 
 #pagination a:hover
@@ -316,6 +334,12 @@ ul.navigation ul ul ul ul > li > a:hover
 #resultList .glossary .term a:active
 {
 	
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a:active
+{
+	color: #2200c1;
+	text-decoration: underline;
 }
 
 #resultList h3.title a:active
@@ -474,6 +498,11 @@ nav.title-bar .menu-icon
 }
 
 .search-bar .search-field::-webkit-search-cancel-button
+{
+	display: none;
+}
+
+.search-field::-ms-clear
 {
 	display: none;
 }
@@ -906,6 +935,67 @@ h1#results-heading
 .search-bar .search-field:-ms-input-placeholder
 {
 	color: #5F5F5F;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response
+{
+	max-height: 200px;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand.expanded
+{
+	background: transparent url('Images/arrow-up.png') no-repeat center center;
+	-pie-background: transparent url('Skins/Fluid/Stylesheets/Images/arrow-up.png') no-repeat center center;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand
+{
+	border-top: solid 1px #b9bec1;
+	border-bottom: solid 1px #b9bec1;
+	height: 40px;
+	background: transparent url('Images/arrow-down.png') no-repeat center center;
+	-pie-background: transparent url('Skins/Fluid/Stylesheets/Images/arrow-down.png') no-repeat center center;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand-transition-wrapper > .micro-content-expand-transition
+{
+	height: 50px;
+	background: -moz-linear-gradient(top, transparent 0%, #ffffff 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,transparent), color-stop(100%,#ffffff));
+	background: -webkit-linear-gradient(top, transparent 0%, #ffffff 100%);
+	background: -o-linear-gradient(top, transparent 0%,#ffffff 100%);
+	background: -ms-linear-gradient(top, transparent 0%,#ffffff 100%);
+	background: linear-gradient(top, transparent 0%,#ffffff 100%);
+	-pie-background: linear-gradient(transparent, #ffffff);
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a
+{
+	color: #2200c1;
+	text-decoration: underline;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title
+{
+	margin-top: 10px;
+	margin-bottom: 2px;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-url cite
+{
+	color: #0e774a;
+	font-size: 0.9em;
+	font-style: normal;
+}
+
+#searchPane > .micro-content-container > .micro-content
+{
+	margin-bottom: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-position: center center;
 }
 
 #pagination

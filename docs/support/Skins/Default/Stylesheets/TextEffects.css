@@ -241,6 +241,190 @@ a.MCToggler_Open.MCTogglerHotSpot
 }
 
 /**/
+/* Topic Popup */
+
+.MCTopicPopup
+{
+	text-decoration: none;
+}
+
+.MCTopicPopupHotSpot
+{
+	cursor: pointer;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+
+.MCTopicPopup_Open.MCTopicPopupHotSpot
+{
+	
+}
+
+.MCTopicPopup_Closed.MCTopicPopupHotSpot
+{
+	
+}
+
+.MCTopicPopupContainer
+{
+	background-color: #FFFFFF;
+	padding: 10px;
+	position: fixed;
+	top: 100px;
+	left: 100px;
+	right: 100px;
+	bottom: 100px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 4px 10px #333333;
+	-moz-box-shadow: 0 4px 10px #333333;
+	box-shadow: 0 4px 10px #333333;
+	filter: alpha( opacity = 0 );
+	opacity: 0.0;
+	z-index: 10001;
+}
+
+#contentBodyInner .MCTopicPopupContainer
+{
+	position: absolute;
+}
+
+.MCTopicPopupBody
+{
+	width: 100%;
+	border: none;
+}
+
+/**/
+/* Thumbnail Popup */
+
+.MCPopupThumbnailLink
+{
+	
+}
+
+.MCPopupThumbnail
+{
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.MCPopupContainer
+{
+	background-color: #FFFFFF;
+	border: solid 1px #000000;
+	padding: 10px;
+	position: absolute;
+	cursor: pointer;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	z-index: 999;
+}
+
+.MCPopupContainer2
+{
+	background-color: #FFFFFF;
+	border: solid 1px #000000;
+	padding: 10px;
+	position: absolute;
+	cursor: pointer;
+	-moz-box-shadow: 2px 2px 8px #FFFFFF;
+	-webkit-box-shadow: 2px 2px 8px #FFFFFF;
+	box-shadow: 2px 2px 8px #FFFFFF;
+}
+
+.MCPopupFullImage
+{
+	width: 0px;
+	height: 0px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/**/
+/* HelpControl */
+
+.MCHelpControl_Image_Icon
+{
+	border: none;
+}
+
+.MCHelpControl span
+{
+	background: url("Images/help-control.png") no-repeat left center;
+	padding-left: 18px;
+}
+
+a.MCHelpControl
+{
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/**/
+/* Dialog */
+
+.MCDialog
+{
+	display: none;
+	width: 400px;
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	padding: 6px;
+	background-color: #000000;
+	border: 1px solid #000000;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+	filter: alpha( opacity = 0 );
+	opacity: 0.0;
+	z-index: 10001;
+}
+
+.MCDialogHeader
+{
+	margin: 0 0 4px;
+	padding: 5px 0 5px 5px;
+	color: #FFFFFF;
+	font-size: 15px;
+	font-family: Helvetica;
+}
+
+.MCDialogClose
+{
+	color: #FFFFFF;
+	font-family: tahoma, sans-serif;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 12px;
+	text-align: center;
+	text-decoration: none;
+	float: right;
+	width: 20px;
+	height: 18px;
+	padding-top: 2px;
+	margin-top: -2px;
+	background-color: #999999;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.MCDialogBody
+{
+	color: #555555;
+	padding: 10px;
+	background-color: #FFFFFF;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+/**/
 
 .link-list-popup
 {

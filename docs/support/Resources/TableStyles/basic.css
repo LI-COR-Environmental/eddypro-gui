@@ -123,6 +123,9 @@
 		separator-style: solid;
 		separator-width: 0.5pt;
 		separator-color: #000000;
+		cell-padding-top: 2pt;
+		cell-padding-bottom: 2pt;
+		cell-padding-right: 2pt;
 	}
 
 	mcTableBodyStyle
@@ -1236,11 +1239,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadI-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadI-Column1-Header1 p
@@ -1252,7 +1257,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadE-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		border-right-width: 0.5pt;
 		border-right-color: #000000;
 		border-right-style: solid;
@@ -1260,6 +1264,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1274,11 +1281,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadF-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1293,7 +1302,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadH-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		border-right-width: 0.5pt;
 		border-right-color: #000000;
 		border-right-style: solid;
@@ -1301,6 +1309,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadH-Column1-Header1 p
@@ -1312,11 +1323,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadD-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1331,11 +1344,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadC-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadC-Column1-Header1 p
@@ -1347,7 +1362,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadB-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		border-right-width: 0.5pt;
 		border-right-color: #000000;
 		border-right-style: solid;
@@ -1355,6 +1369,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadB-Column1-Header1 p
@@ -1366,11 +1383,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadA-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadA-Column1-Header1 p
@@ -1382,11 +1401,13 @@ mcTableFootStyle
 	.TableStyle-basic-HeadG-Column1-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadG-Column1-Header1 p
@@ -1397,12 +1418,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadI-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadI-NoLeft-Header1 p
@@ -1413,7 +1436,6 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadE-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		border-right-width: 1px;
 		border-right-color: #000000;
@@ -1422,6 +1444,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1435,12 +1460,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadF-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1454,7 +1481,6 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadH-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		border-right-width: 1px;
 		border-right-color: #000000;
@@ -1463,6 +1489,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadH-NoLeft-Header1 p
@@ -1473,12 +1502,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadD-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1492,12 +1523,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadC-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadC-NoLeft-Header1 p
@@ -1508,7 +1541,6 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadB-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		border-right-width: 1px;
 		border-right-color: #000000;
@@ -1517,6 +1549,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadB-NoLeft-Header1 p
@@ -1527,12 +1562,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadA-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadA-NoLeft-Header1 p
@@ -1543,12 +1580,14 @@ mcTableFootStyle
 
 	.TableStyle-basic-HeadG-NoLeft-Header1
 	{
-		padding-right: 3pt;
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadG-NoLeft-Header1 p
@@ -1560,13 +1599,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadI-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadI-Courier-Header1 p
@@ -1579,7 +1620,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadE-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		border-right-width: 1px;
@@ -1589,6 +1629,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1604,13 +1647,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadF-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1626,7 +1671,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadH-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		border-right-width: 1px;
@@ -1636,6 +1680,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadH-Courier-Header1 p
@@ -1648,13 +1695,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadD-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 		border-bottom-width: 0.5pt;
 		border-bottom-color: #000000;
 		border-bottom-style: solid;
@@ -1670,13 +1719,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadC-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadC-Courier-Header1 p
@@ -1689,7 +1740,6 @@ mcTableFootStyle
 	.TableStyle-basic-HeadB-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		border-right-width: 1px;
@@ -1699,6 +1749,9 @@ mcTableFootStyle
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadB-Courier-Header1 p
@@ -1711,13 +1764,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadA-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadA-Courier-Header1 p
@@ -1730,13 +1785,15 @@ mcTableFootStyle
 	.TableStyle-basic-HeadG-Courier-Header1
 	{
 		padding-left: 3pt;
-		padding-right: 3pt;
 		font-family: 'Courier New';
 		vertical-align: middle;
 		font-size: 10pt;
 		font-weight: bold;
 		text-align: left;
 		background-color: #dcdcdc;
+		padding-right: 2pt;
+		padding-top: 2pt;
+		padding-bottom: 2pt;
 	}
 
 	.TableStyle-basic-HeadG-Courier-Header1 p

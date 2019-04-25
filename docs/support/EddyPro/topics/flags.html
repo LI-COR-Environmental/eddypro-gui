@@ -27,7 +27,7 @@
         <link href="../../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" />
         <link href="../../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" />
         <link href="../../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" />
-        <link href="../../Resources/TableStyles/Basic.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/basic.css" rel="stylesheet" />
         <link href="../../Resources/Stylesheets/local-help.css" rel="stylesheet" />
         <script src="../../Resources/Scripts/custom.modernizr.js">
         </script>
@@ -104,587 +104,589 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="body-container" data-mc-content-body="True">
-                                <div class="top">
-                                    <div class="nocontent">
-                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap">
-                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
-                                    <section>
-                                        <div class="RowClass6">
-                                            <div>
-                                                <form class="search" action="#">
-                                                    <div class="search-bar search-bar-container needs-pie">
-                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
-                                                        <div class="search-filter-wrapper">
-                                                            <div class="search-filter">
-                                                                <div class="search-filter-content">
-                                                                    <ul>
-                                                                        <li>All products</li>
-                                                                    </ul>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="search-submit-wrapper" dir="ltr">
-                                                            <div class="search-submit" title="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section>
-                                        <div class="RowClass11">
-                                            <div>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h1 id="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags" data-magellan-target="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags<a name="aanchor61"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p><a name="kanchor128"></a>Before calculating fluxes, EddyPro<sup>®</sup> Software provides two main mechanisms for excluding raw (high-frequency) data affected by quality issues.  This improves the quality and reliability of flux results. These mechanisms are based on (1) instrument diagnostic values and on (2) custom-defined flags. Both are described in the following.</p>
-                                                <h2 id="Filteringforinstrumentdiagnostics" data-magellan-target="Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</h2>
-                                                <p>Instrument diagnostic are values (usually expressed as an integer number) reported along with each raw data record, providing indications about the status of the instrument at the moment of the measurement or about the quality of the measurement itself. Manufacturers usually specify which value or values indicate data of good quality and which, in turn, indicate data that should be discarded because quality cannot be assured. In order to be usable for eliminating individual raw data records, the diagnostic value must be available in the raw data file at the same output rate as the variable(s) to which it refers. Typically, a diagnostic value synthesizes several pieces of information in only one  “word” and the manufacturer is responsible for documenting either how to “expand” the value into the individual pieces or how to interpret the resulting word to retain or discard data.</p>
-                                                <p>Currently, EddyPro supports instrument diagnostics for all LI-COR’s eddy covariance gas analyzers (LI-7500x, LI-7200/RS, LI-7700) and for the following sonic anemometers:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Gill Instrument’s WindMaster™ (WM), WindMaster Pro (WMP), and HS-50</li>
-                                                    <li value="2">Campbell<sup>®</sup> Scientific’s CSAT3 and CSAT3B</li>
-                                                </ul>
-                                                <p>Note that while gas analyzers’ diagnostics only eliminate the corresponding gas concentration data, anemometer’s diagnostics eliminate entire data records, because when anemometric data is not available, the corresponding concentration data becomes useless for the purpose of flux computation.</p>
-                                                <p>In order to use instrument diagnostics in EddyPro, diagnostic values must be collected in the raw data files and properly described in the <span class="pop">Metadata File Editor &gt; Raw File Description</span>. Then, in <span class="pop">Basic Settings Select &gt; Items for Flux Computation</span>”, the available diagnostic variables must be explicitly selected from the dedicated combo-boxes.</p>
-                                                <p>For all sonic anemometers listed above, EddyPro will  discard the corresponding data when appropriate, but will not report the diagnostic values in the <span class="pop">Full Output File</span>. For all supported sonic anemometers, the diagnostic value is such that a value of “0” (zero) means “good data” to be retained, while a value different from zero means “bad data” to be discarded. The only exceptions to this rule are:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Gill WM/WMP data records labeled with the diagnostic values ‘0A’ and ‘0B’ shall be retained</li>
-                                                </ul>
-                                                <p>The following tables list diagnostic values that can be reported for each anemometer and whether the corresponding data records are kept or discarded by <span class="product_namesEddyPro">EddyPro</span> for the purpose of computing fluxes.</p>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. Windmaster and Windmaster Pro diagnostics information. </caption>
-                                                    <col style="width: 52px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 96px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 248px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 82px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Description</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Comments</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">00</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostic value is zero, data are OK</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">01</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 1</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">02</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 2</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">03</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 3</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">04</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 1 and 2</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">05 </td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 1 and 3</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">06</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 2 and 3</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">07</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples from all Transducer Pairs</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">08</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">NVM Error</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">NVM Checksum failed</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">09</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">ROM Error</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">ROM Checksum failed</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0A</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">System gain at Maximum</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Results OK, but marginal operation</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">0B</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Retries</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Retries used</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 2&lt;/b&gt;"><span class="autonumber"><span><b>Table 2</b></span></span>. HS-50 diagnostics information </caption>
-                                                    <col style="width: 119px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 73px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 170px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 117px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">No error</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 1 failed</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 2 failed</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 3 failed</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Reserved</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">&#160;</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">16</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Memory error</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">5 </td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">32</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">PRT failed</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 3&lt;/b&gt;"><span class="autonumber"><span><b>Table 3</b></span></span>. CSAT3 diagnostics information. </caption>
-                                                    <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 54px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Comments</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostics value is zero, data are OK.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4096</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sonic signal amplitude is too low</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">There may be an obstruction in the anemometer path or on the transducer face.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">13</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">8192</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sonic signal amplitude too high</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">An obstruction was removed from the anemometer path or the transducer face.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">14</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">16384</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Low signal</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">The anemometer path length may have been altered or the anemometer head is broken.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">15</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">32768</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Difference in the speed of sound between the three non-orthogonal axes is greater than 2.360 s<sup>-1</sup> (<span style="font-family: 'Arial'">~</span>4 °C @ 25 °C)</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">The anemometer path length may have been altered or the anemometer head is broken.</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 4&lt;/b&gt;"><span class="autonumber"><span><b>Table 4</b></span></span>. CSAT3B diagnostics information. </caption>
-                                                    <col style="width: 70px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 43px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 85px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Comments</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostics value is zero, data are OK.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Low amplitude</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Ultrasonic signal is too small. </td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">High amplitude</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Ultrasonic signal is too large.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Tracking</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">The signal lock is poor</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">High Delta C</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Difference in the speed of sound between the three non-orthogonal axes is greater than 2.360 s<sup>-1</sup> (<span style="font-family: 'Arial'">~</span>4 °C @ 25 °C).</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">16</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Acquiring</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Indicates that the anemometer is trying to acquire the sonic signal.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">32</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Low voltage</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">The supply voltage to the anemometer is below 9.0 Vdc.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">6 </td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">64</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Trigger error</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">A measurement trigger has not been received for at least 1 second, or the time interval between triggers is varying by greater than 5%.</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">128</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Internal humidity warning</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">The relative humidity inside the CSAT3B block is greater than 80%</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">8</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">256</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Memory error</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">There is a signature mismatch from the calibration file or another section of memory.</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <p>For LI-COR’s gas analyzers, EddyPro “expands” the individual diagnostic values and, in addition to using them to filter the corresponding gas data when appropriate, also reports their values in the <span class="pop">Full Output File</span>.</p>
-                                                <p>The following tables list diagnostic values that can be reported for each analyzer and the action taken by <span class="product_namesEddyPro">EddyPro</span> for the purpose of computing fluxes.</p>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 5&lt;/b&gt;"><span class="autonumber"><span><b>Table 5</b></span></span>. Diagnostics information for the LI-7500x.</caption>
-                                                    <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 169px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=BAD, 1=OK)</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0-3</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">AGC</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Calculate AGC</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sync</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">PLL</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Detector</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">7</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Chopper</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 6&lt;/b&gt;"><span class="autonumber"><span><b>Table 6</b></span></span>. Diagnostics information for the LI-7200/LI-7200RS.</caption>
-                                                    <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 169px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=BAD, 1=OK)</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0-3</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">AGC</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Calculate AGC</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Sync</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">PLL</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Detector</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Chopper</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Head Pressure</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">9</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Aux Input</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">10</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Tin</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">11</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Tout</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Head Connected</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">13-15</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Not Used—always 0</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 7&lt;/b&gt;"><span class="autonumber"><span><b>Table 7</b></span></span>. Diagnostics information for the LI-7700.</caption>
-                                                    <col style="width: 137px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 178px;" class="TableStyle-basic-Column-Column1" />
-                                                    <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-basic-Head-Header1">
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=OFF, 1=ON)</th>
-                                                            <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
-                                                            <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">7550 Connected</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">TC1-Failure</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">TC2-Failure</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">TC3 Failure</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Motor Failure</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Instrument is Calibrating</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Bottom Heater ON</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Top Heater ON</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Pump ON</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">9</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Motor is Spinning</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">10</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Block Temp Unregulated</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">11</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Laser Temp Unregulated</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Bad Temperature</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">13</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">Reference Channel Unlocked</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">14</td>
-                                                            <td class="TableStyle-basic-BodyE-Column1-Body1">No Sample Signal</td>
-                                                            <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-basic-Body-Body1">
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">15</td>
-                                                            <td class="TableStyle-basic-BodyB-Column1-Body1">Instrument Not Ready</td>
-                                                            <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the Record</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <h2 class="pgBrkBfr" id="Filteringwithcustomflags" data-magellan-target="Filteringwithcustomflags">Filtering with custom flags<a name="kanchor129"></a></h2>
-                                                <p>In addition to the dedicated diagnostic variables, other variables can be used to identify and eliminate bad raw data before flux computation. For example, you may want to eliminate records for which the vertical wind component is too large, or gas concentrations that take on implausible values due to instrument failure. For this reason, any variable in the EddyPro<sup>®</sup> Software (except those marked as “Ignore” and/or “Not numeric” in the <span class="pop">Raw File Description</span> table) can be treated as a record flag, including variables used in flux computation.</p>
-                                                <p>In EddyPro, elimination of records through flags is done by setting a threshold value for the selected flag variable and by defining whether entire records should be eliminated when the variable value goes above or below the threshold. For example, if you have a data column which is set to “0” for good quality and “1” for bad quality, you can: 1) select that variable as a flag; 2) set the threshold to 0.00; and 3) select <span class="pop">Discard if above threshold</span>. This way, all records for which the variable takes the value “1” will be eliminated from the dataset. As a second example, suppose you want to use the gas concentration as such a flag, instructing EddyPro to eliminate all records for which a CO<sub>2</sub> concentration falls below 300 ppm. In this case, select the CO<sub>2</sub> variable as a flag, set the threshold to 300.00 and set the policy to “Discard if below threshold”.</p>
-                                                <p>Make sure you enter the flag threshold in the units specified by EddyPro in the label following the threshold column. If units do not appear, use the same units used in the raw files.</p>
-                                                <p class="note"><b>Note:</b> If you describe more than one flag, <span class="product_namesEddyPro">EddyPro</span> will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</p>
-                                            </div>
-                                            <div>
-                                                <div class="in-page-sticky-mid">
-                                                    <p class="in-this-page">In this page:</p>
-                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags</a>
-                                                        </li>
-                                                        <ul>
-                                                            <li><a href="#Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</a>
-                                                            </li>
-                                                            <li><a href="#Filteringwithcustomflags">Filtering with custom flags</a>
-                                                            </li>
-                                                        </ul>
-                                                    </ul>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags" data-magellan-target="Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags<a name="aanchor61"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p><a name="kanchor128"></a>Before calculating fluxes, EddyPro<sup>®</sup> Software provides two main mechanisms for excluding raw (high-frequency) data affected by quality issues.  This improves the quality and reliability of flux results. These mechanisms are based on (1) instrument diagnostic values and on (2) custom-defined flags. Both are described in the following.</p>
+                                                    <h2 id="Filteringforinstrumentdiagnostics" data-magellan-target="Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</h2>
+                                                    <p>Instrument diagnostic are values (usually expressed as an integer number) reported along with each raw data record, providing indications about the status of the instrument at the moment of the measurement or about the quality of the measurement itself. Manufacturers usually specify which value or values indicate data of good quality and which, in turn, indicate data that should be discarded because quality cannot be assured. In order to be usable for eliminating individual raw data records, the diagnostic value must be available in the raw data file at the same output rate as the variable(s) to which it refers. Typically, a diagnostic value synthesizes several pieces of information in only one  “word” and the manufacturer is responsible for documenting either how to “expand” the value into the individual pieces or how to interpret the resulting word to retain or discard data.</p>
+                                                    <p>Currently, EddyPro supports instrument diagnostics for all LI-COR’s eddy covariance gas analyzers (LI-7500x, LI-7200/RS, LI-7700) and for the following sonic anemometers:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Gill Instrument’s WindMaster™ (WM), WindMaster Pro (WMP), and HS-50</li>
+                                                        <li value="2">Campbell<sup>®</sup> Scientific’s CSAT3 and CSAT3B</li>
+                                                    </ul>
+                                                    <p>Note that while gas analyzers’ diagnostics only eliminate the corresponding gas concentration data, anemometer’s diagnostics eliminate entire data records, because when anemometric data is not available, the corresponding concentration data becomes useless for the purpose of flux computation.</p>
+                                                    <p>In order to use instrument diagnostics in EddyPro, diagnostic values must be collected in the raw data files and properly described in the <span class="pop">Metadata File Editor &gt; Raw File Description</span>. Then, in <span class="pop">Basic Settings Select &gt; Items for Flux Computation</span>”, the available diagnostic variables must be explicitly selected from the dedicated combo-boxes.</p>
+                                                    <p>For all sonic anemometers listed above, EddyPro will  discard the corresponding data when appropriate, but will not report the diagnostic values in the <span class="pop">Full Output File</span>. For all supported sonic anemometers, the diagnostic value is such that a value of “0” (zero) means “good data” to be retained, while a value different from zero means “bad data” to be discarded. The only exceptions to this rule are:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Gill WM/WMP data records labeled with the diagnostic values ‘0A’ and ‘0B’ shall be retained</li>
+                                                    </ul>
+                                                    <p>The following tables list diagnostic values that can be reported for each anemometer and whether the corresponding data records are kept or discarded by <span class="product_namesEddyPro">EddyPro</span> for the purpose of computing fluxes.</p>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. Windmaster and Windmaster Pro diagnostics information. </caption>
+                                                        <col style="width: 52px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 96px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 248px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 82px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Description</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Comments</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">00</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostic value is zero, data are OK</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">01</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 1</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">02</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 2</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">03</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pair 3</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">04</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 1 and 2</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">05 </td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 1 and 3</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">06</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples in the average period from Transducer Pairs 2 and 3</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">07</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sample Failure</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Insufficient samples from all Transducer Pairs</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">08</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">NVM Error</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">NVM Checksum failed</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">09</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">ROM Error</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">ROM Checksum failed</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0A</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">System gain at Maximum</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Results OK, but marginal operation</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">0B</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Retries</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Retries used</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 2&lt;/b&gt;"><span class="autonumber"><span><b>Table 2</b></span></span>. HS-50 diagnostics information </caption>
+                                                        <col style="width: 119px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 73px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 170px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 117px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">No error</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 1 failed</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 2 failed</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Transducer Pair 3 failed</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Reserved</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">16</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Memory error</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">5 </td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">32</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">PRT failed</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 3&lt;/b&gt;"><span class="autonumber"><span><b>Table 3</b></span></span>. CSAT3 diagnostics information. </caption>
+                                                        <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 54px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Comments</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostics value is zero, data are OK.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4096</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sonic signal amplitude is too low</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">There may be an obstruction in the anemometer path or on the transducer face.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">13</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">8192</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sonic signal amplitude too high</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">An obstruction was removed from the anemometer path or the transducer face.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">14</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">16384</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Low signal</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">The anemometer path length may have been altered or the anemometer head is broken.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">15</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">32768</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Difference in the speed of sound between the three non-orthogonal axes is greater than 2.360 s<sup>-1</sup> (<span style="font-family: 'Arial'">~</span>4 °C @ 25 °C)</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">The anemometer path length may have been altered or the anemometer head is broken.</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 4&lt;/b&gt;"><span class="autonumber"><span><b>Table 4</b></span></span>. CSAT3B diagnostics information. </caption>
+                                                        <col style="width: 70px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 43px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 85px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 71px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Status Code Bit</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Value</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Comments</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">OK</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">When the diagnostics value is zero, data are OK.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Low amplitude</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Ultrasonic signal is too small. </td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">High amplitude</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Ultrasonic signal is too large.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Tracking</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">The signal lock is poor</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">High Delta C</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Difference in the speed of sound between the three non-orthogonal axes is greater than 2.360 s<sup>-1</sup> (<span style="font-family: 'Arial'">~</span>4 °C @ 25 °C).</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">16</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Acquiring</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Indicates that the anemometer is trying to acquire the sonic signal.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">32</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Low voltage</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">The supply voltage to the anemometer is below 9.0 Vdc.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">6 </td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">64</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Trigger error</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">A measurement trigger has not been received for at least 1 second, or the time interval between triggers is varying by greater than 5%.</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">128</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Internal humidity warning</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">The relative humidity inside the CSAT3B block is greater than 80%</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">8</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">256</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Memory error</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">There is a signature mismatch from the calibration file or another section of memory.</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>For LI-COR’s gas analyzers, EddyPro “expands” the individual diagnostic values and, in addition to using them to filter the corresponding gas data when appropriate, also reports their values in the <span class="pop">Full Output File</span>.</p>
+                                                    <p>The following tables list diagnostic values that can be reported for each analyzer and the action taken by <span class="product_namesEddyPro">EddyPro</span> for the purpose of computing fluxes.</p>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 5&lt;/b&gt;"><span class="autonumber"><span><b>Table 5</b></span></span>. Diagnostics information for the LI-7500x.</caption>
+                                                        <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 169px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=BAD, 1=OK)</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0-3</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">AGC</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Calculate AGC</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sync</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">PLL</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Detector</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">7</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Chopper</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 6&lt;/b&gt;"><span class="autonumber"><span><b>Table 6</b></span></span>. Diagnostics information for the LI-7200/LI-7200RS.</caption>
+                                                        <col style="width: 146px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 169px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=BAD, 1=OK)</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0-3</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">AGC</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Calculate AGC</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Sync</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">PLL</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Detector</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Chopper</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Head Pressure</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">9</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Aux Input</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">10</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Tin</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">11</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Tout</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Head Connected</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">13-15</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Not Used—always 0</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table style="border-spacing: 0px 0px;mc-table-style: url('../../Resources/TableStyles/basic.css');caption-side: top;width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 7&lt;/b&gt;"><span class="autonumber"><span><b>Table 7</b></span></span>. Diagnostics information for the LI-7700.</caption>
+                                                        <col style="width: 137px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 178px;" class="TableStyle-basic-Column-Column1" />
+                                                        <col style="width: 163px;" class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Bit (0=OFF, 1=ON)</th>
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1" style="padding-left: 3pt;padding-right: 3pt;border-left-style: solid;border-left-width: 0.5pt;border-right-style: solid;border-right-width: 0.5pt;border-right-color: #000000;border-bottom-style: solid;border-bottom-width: 0.5pt;border-bottom-color: #000000;">Description</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">EddyPro Action if Bad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">0</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">7550 Connected</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">1</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">TC1-Failure</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">2</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">TC2-Failure</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">3</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">TC3 Failure</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">4</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Motor Failure</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">5</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Instrument is Calibrating</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">6</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Bottom Heater ON</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">7</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Top Heater ON</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">8</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Pump ON</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">9</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Motor is Spinning</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">10</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Block Temp Unregulated</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">11</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Laser Temp Unregulated</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">12</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Bad Temperature</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Keep the record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">13</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">Reference Channel Unlocked</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">14</td>
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">No Sample Signal</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">15</td>
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Instrument Not Ready</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">Discard the Record</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h2 class="pgBrkBfr" id="Filteringwithcustomflags" data-magellan-target="Filteringwithcustomflags">Filtering with custom flags<a name="kanchor129"></a></h2>
+                                                    <p>In addition to the dedicated diagnostic variables, other variables can be used to identify and eliminate bad raw data before flux computation. For example, you may want to eliminate records for which the vertical wind component is too large, or gas concentrations that take on implausible values due to instrument failure. For this reason, any variable in the EddyPro<sup>®</sup> Software (except those marked as “Ignore” and/or “Not numeric” in the <span class="pop">Raw File Description</span> table) can be treated as a record flag, including variables used in flux computation.</p>
+                                                    <p>In EddyPro, elimination of records through flags is done by setting a threshold value for the selected flag variable and by defining whether entire records should be eliminated when the variable value goes above or below the threshold. For example, if you have a data column which is set to “0” for good quality and “1” for bad quality, you can: 1) select that variable as a flag; 2) set the threshold to 0.00; and 3) select <span class="pop">Discard if above threshold</span>. This way, all records for which the variable takes the value “1” will be eliminated from the dataset. As a second example, suppose you want to use the gas concentration as such a flag, instructing EddyPro to eliminate all records for which a CO<sub>2</sub> concentration falls below 300 ppm. In this case, select the CO<sub>2</sub> variable as a flag, set the threshold to 300.00 and set the policy to “Discard if below threshold”.</p>
+                                                    <p>Make sure you enter the flag threshold in the units specified by EddyPro in the label following the threshold column. If units do not appear, use the same units used in the raw files.</p>
+                                                    <p class="note"><b>Note:</b> If you describe more than one flag, <span class="product_namesEddyPro">EddyPro</span> will eliminate all records flagged by at least one test. Note also that currently the same variable cannot be used in two different flag definitions. The result of such an operation is unpredictable; most likely, only the latest flag definition with the same variable will have an effect.</p>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#Filteringrawdatarecordsforinstrumentdiagnosticsandcustomflags">Filtering raw data records for instrument diagnostics and custom flags</a>
+                                                            </li>
+                                                            <ul>
+                                                                <li><a href="#Filteringforinstrumentdiagnostics">Filtering for instrument diagnostics</a>
+                                                                </li>
+                                                                <li><a href="#Filteringwithcustomflags">Filtering with custom flags</a>
+                                                                </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -104,101 +104,103 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="body-container" data-mc-content-body="True">
-                                <div class="top">
-                                    <div class="nocontent">
-                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap">
-                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
-                                    <section>
-                                        <div class="RowClass6">
-                                            <div>
-                                                <form class="search" action="#">
-                                                    <div class="search-bar search-bar-container needs-pie">
-                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
-                                                        <div class="search-filter-wrapper">
-                                                            <div class="search-filter">
-                                                                <div class="search-filter-content">
-                                                                    <ul>
-                                                                        <li>All products</li>
-                                                                    </ul>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="search-submit-wrapper" dir="ltr">
-                                                            <div class="search-submit" title="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section>
-                                        <div class="RowClass11">
-                                            <div>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h1 id="UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux" data-magellan-target="UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux"><a name="Using"></a>Using planar fit, in situ spectral corrections and timelag optimization in SmartFlux<a name="kanchor83"></a><a name="aanchor26"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p>In order to use planar-fit, <i>in situ</i> spectral corrections or timelag optimization in the original <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 and 3 Systems, <span class="product_namesEddyPro">EddyPro</span> needs to access the respective “planar_fit”, “spectral_assessment” and “timelag_optimization” files, hereafter referred to as “additional configuration files”. These files contain summaries of calculations performed on relatively large datasets (<a href="#Dataset" class="ToCaption MCXref xref xrefToCaption">Table 1</a>) and that also apply to data to be collected in the future. </p>
-                                                <p>For example, you can use three months of data to calculate a spectral assessment, and then use this spectral assessment that is summarized in a short text file, to correct fluxes calculated from data collected after those three months, if the system configuration didn’t change to such an extent that the spectral assessment is no longer representative. Similar considerations apply to the planar fit and the timelag optimization procedures. Refer to EddyPro documentation for more details on when and how to use these three advanced procedures.
-
-</p>
-                                                <p>The additional configuration files are created by EddyPro (3.0 and above), when used in the standard desktop mode. If you have been running your EC system (the EC sytem in  which you intend to use the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System) for some time, you may have already created one or more of these files, or you may have a .ghg dataset suitable for creating them, if the corresponding implementation is deemed necessary to calculate accurate fluxes (again, refer to EddyPro documentation to learn more about when it is suggested to use these options). If you do not have previously-collected .ghg files, then you will need to run the system for a suitable amount of time (for example using SmartFlux in Express mode), then use EddyPro in desktop mode to create the additional configuration files of your interest, and then provide them to the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System as explained below.</p>
-                                                <table class="TableStyle-note" cellspacing="0" style="width: 100%;caption-side: top;mc-table-style-original: url('../../Resources/TableStyles/Basic.css');mc-table-style: url('../../Resources/TableStyles/note.css');">
-                                                    <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span><a name="Dataset"></a>. Recommended dataset durations for Advanced settings.</caption>
-                                                    <col class="TableStyle-note-Column-Column1" style="width: 50%;" />
-                                                    <col class="TableStyle-note-Column-Column2" />
-                                                    <thead>
-                                                        <tr class="TableStyle-note-Head-Header1">
-                                                            <th class="TableStyle-note-HeadE-Column1-Header1">EddyPro Advanced Setting</th>
-                                                            <th class="TableStyle-note-HeadD-Column2-Header1">Recommended Dataset</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-note-Body-Body2">
-                                                            <td class="TableStyle-note-BodyE-Column1-Body2">Planar Fit Settings</td>
-                                                            <td class="TableStyle-note-BodyD-Column2-Body2">2 weeks minimum; &lt; 2 months</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-note-Body-Body1">
-                                                            <td class="TableStyle-note-BodyE-Column1-Body1">Time Lag Optimization</td>
-                                                            <td class="TableStyle-note-BodyD-Column2-Body1">1 to 2 months or more</td>
-                                                        </tr>
-                                                        <tr class="TableStyle-note-Body-Body2">
-                                                            <td class="TableStyle-note-BodyB-Column1-Body2">Spectral Corrections, Assessment of high frequency attenuation</td>
-                                                            <td class="TableStyle-note-BodyA-Column2-Body2">1 month or more</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <p>Thus, assuming that you have a sufficiently long .ghg dataset (<a href="#Dataset" class="ToCaption MCXref xref xrefToCaption">Table 1</a>), the procedure to correctly configure the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System to use planar-fit, in-situ spectral corrections or timelag optimization is illustrated here, using the in-situ spectral corrections as an example. Analogous procedures shall be followed for the planar-fit or the timelag optimization.</p>
-                                                <ol>
-                                                    <li value="1">Open EddyPro (5.0 or above recommended) in normal desktop mode and complete the <span class="pop">Project Creation</span> and <span class="pop">Basic Settings</span> pages as usual (refer to EddyPro documentation if needed).</li>
-                                                    <li class="num_no" style="margin-bottom: 9pt;">In the <span class="pop">Advanced Settings &gt; Spectral Corrections</span>, configure <span class="pop">Corrections for low-pass filtering effects</span> to use one of the <i>in situ</i> methods, i.e. Horst (1997), Ibrom et al. (2007) or Fratini et al. (2012). In the same page, customize the settings to instruct EddyPro to use the dataset of your choice and to filter data appropriately, so as to obtain a sound assessment of spectral attenuations. Click <span class="pop">Run</span> and when this is completed, locate the spectral assessment file (it contains the string “spectral_assessment” in the file name) in the subdirectory \spectral_analysis that you will find inside the selected Output folder. This is the file that you will use for the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System.</li>
-                                                    <li value="2">Open EddyPro (5.0 or above) in SmartFlux Setup Mode. </li>
-                                                    <li class="num_no">Configure everything as explained in the previous sections. In the <span class="pop">Advanced Settings &gt; Spectral Corrections</span>, configure <span class="pop">Corrections for low-pass filtering effects</span> to use one of the <i>in situ</i> methods among Horst (1997) and Ibrom et al. (2007) (the method of Fratini et al. (2012) is currently not usable in the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System). In the <span class="pop">“Spectral assessment file available”</span> entry, select the spectral assessment file created earlier. Then proceed normally and when done, click on the <span class="pop">Create File</span> button to create the <span class="courier">.smartflux</span> bundle, as explained above.</li>
-                                                </ol>
-                                                <p>An analogous procedure can be used to create and use the planar fit and the timelag optimization configuration files.</p>
-                                            </div>
-                                            <div>
-                                                <div class="in-page-sticky-mid">
-                                                    <p class="in-this-page">In this page:</p>
-                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux">Using planar fit, in situ spectral corrections and timelag optimization in SmartFlux</a>
-                                                        </li>
-                                                    </ul>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux" data-magellan-target="UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux"><a name="Using"></a>Using planar fit, in situ spectral corrections and timelag optimization in SmartFlux<a name="kanchor83"></a><a name="aanchor26"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p>In order to use planar-fit, <i>in situ</i> spectral corrections or timelag optimization in the original <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 and 3 Systems, <span class="product_namesEddyPro">EddyPro</span> needs to access the respective “planar_fit”, “spectral_assessment” and “timelag_optimization” files, hereafter referred to as “additional configuration files”. These files contain summaries of calculations performed on relatively large datasets (<a href="#Dataset" class="ToCaption MCXref xref xrefToCaption">Table 1</a>) and that also apply to data to be collected in the future. </p>
+                                                    <p>For example, you can use three months of data to calculate a spectral assessment, and then use this spectral assessment that is summarized in a short text file, to correct fluxes calculated from data collected after those three months, if the system configuration didn’t change to such an extent that the spectral assessment is no longer representative. Similar considerations apply to the planar fit and the timelag optimization procedures. Refer to EddyPro documentation for more details on when and how to use these three advanced procedures.
+
+</p>
+                                                    <p>The additional configuration files are created by EddyPro (3.0 and above), when used in the standard desktop mode. If you have been running your EC system (the EC sytem in  which you intend to use the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System) for some time, you may have already created one or more of these files, or you may have a .ghg dataset suitable for creating them, if the corresponding implementation is deemed necessary to calculate accurate fluxes (again, refer to EddyPro documentation to learn more about when it is suggested to use these options). If you do not have previously-collected .ghg files, then you will need to run the system for a suitable amount of time (for example using SmartFlux in Express mode), then use EddyPro in desktop mode to create the additional configuration files of your interest, and then provide them to the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System as explained below.</p>
+                                                    <table class="TableStyle-note" cellspacing="0" style="width: 100%;caption-side: top;mc-table-style-original: url('../../Resources/TableStyles/Basic.css');mc-table-style: url('../../Resources/TableStyles/note.css');">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span><a name="Dataset"></a>. Recommended dataset durations for Advanced settings.</caption>
+                                                        <col class="TableStyle-note-Column-Column1" style="width: 50%;" />
+                                                        <col class="TableStyle-note-Column-Column2" />
+                                                        <thead>
+                                                            <tr class="TableStyle-note-Head-Header1">
+                                                                <th class="TableStyle-note-HeadE-Column1-Header1">EddyPro Advanced Setting</th>
+                                                                <th class="TableStyle-note-HeadD-Column2-Header1">Recommended Dataset</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-note-Body-Body2">
+                                                                <td class="TableStyle-note-BodyE-Column1-Body2">Planar Fit Settings</td>
+                                                                <td class="TableStyle-note-BodyD-Column2-Body2">2 weeks minimum; &lt; 2 months</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-note-Body-Body1">
+                                                                <td class="TableStyle-note-BodyE-Column1-Body1">Time Lag Optimization</td>
+                                                                <td class="TableStyle-note-BodyD-Column2-Body1">1 to 2 months or more</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-note-Body-Body2">
+                                                                <td class="TableStyle-note-BodyB-Column1-Body2">Spectral Corrections, Assessment of high frequency attenuation</td>
+                                                                <td class="TableStyle-note-BodyA-Column2-Body2">1 month or more</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>Thus, assuming that you have a sufficiently long .ghg dataset (<a href="#Dataset" class="ToCaption MCXref xref xrefToCaption">Table 1</a>), the procedure to correctly configure the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System to use planar-fit, in-situ spectral corrections or timelag optimization is illustrated here, using the in-situ spectral corrections as an example. Analogous procedures shall be followed for the planar-fit or the timelag optimization.</p>
+                                                    <ol>
+                                                        <li value="1">Open EddyPro (5.0 or above recommended) in normal desktop mode and complete the <span class="pop">Project Creation</span> and <span class="pop">Basic Settings</span> pages as usual (refer to EddyPro documentation if needed).</li>
+                                                        <li class="num_no" style="margin-bottom: 9pt;">In the <span class="pop">Advanced Settings &gt; Spectral Corrections</span>, configure <span class="pop">Corrections for low-pass filtering effects</span> to use one of the <i>in situ</i> methods, i.e. Horst (1997), Ibrom et al. (2007) or Fratini et al. (2012). In the same page, customize the settings to instruct EddyPro to use the dataset of your choice and to filter data appropriately, so as to obtain a sound assessment of spectral attenuations. Click <span class="pop">Run</span> and when this is completed, locate the spectral assessment file (it contains the string “spectral_assessment” in the file name) in the subdirectory \spectral_analysis that you will find inside the selected Output folder. This is the file that you will use for the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System.</li>
+                                                        <li value="2">Open EddyPro (5.0 or above) in SmartFlux Setup Mode. </li>
+                                                        <li class="num_no">Configure everything as explained in the previous sections. In the <span class="pop">Advanced Settings &gt; Spectral Corrections</span>, configure <span class="pop">Corrections for low-pass filtering effects</span> to use one of the <i>in situ</i> methods among Horst (1997) and Ibrom et al. (2007) (the method of Fratini et al. (2012) is currently not usable in the <span class="product_namesSmartFlux">SmartFlux System</span> or SmartFlux 2 System). In the <span class="pop">“Spectral assessment file available”</span> entry, select the spectral assessment file created earlier. Then proceed normally and when done, click on the <span class="pop">Create File</span> button to create the <span class="courier">.smartflux</span> bundle, as explained above.</li>
+                                                    </ol>
+                                                    <p>An analogous procedure can be used to create and use the planar fit and the timelag optimization configuration files.</p>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#UsingplanarfitinsituspectralcorrectionsandtimelagoptimizationinSmartFlux">Using planar fit, in situ spectral corrections and timelag optimization in SmartFlux</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>

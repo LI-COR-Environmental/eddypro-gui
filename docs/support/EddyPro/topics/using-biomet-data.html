@@ -103,96 +103,98 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="body-container" data-mc-content-body="True">
-                                <div class="top">
-                                    <div class="nocontent">
-                                        <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="wrap">
-                                    <p class="title">EddyPro<sup>®</sup> 7 Software</p>
-                                    <section>
-                                        <div class="RowClass6">
-                                            <div>
-                                                <form class="search" action="#">
-                                                    <div class="search-bar search-bar-container needs-pie">
-                                                        <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
-                                                        <div class="search-filter-wrapper">
-                                                            <div class="search-filter">
-                                                                <div class="search-filter-content">
-                                                                    <ul>
-                                                                        <li>All products</li>
-                                                                    </ul>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="search-submit-wrapper" dir="ltr">
-                                                            <div class="search-submit" title="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section>
-                                        <div class="RowClass11">
-                                            <div>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
-                                                </ul>
-                                                <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h1 id="Usingbiometdata" data-magellan-target="Usingbiometdata">Using biomet data<a name="aanchor85"></a><MadCap:concept term="eddypro" /></h1>
-                                                <p>EddyPro Software allows you to import and use biomet measurements for improved flux computation and other purposes. Biomet measurements include meteorological as well as ecological (e.g., soil and vegetation) measurements. These data are typically sampled at lower rates than the eddy covariance data (e.g., once per second) and averaged over longer time periods (e.g., 1 to 30 minutes). Traditionally, biomet data—collected by means of a datalogger—are stored in one or more files, distinct from high-speed eddy data. However, LI&#8209;COR eddy covariance systems allow you to collect <kbd>.ghg</kbd> files, a raw file format that bundles eddy covariance data (and the corresponding metadata) together with biomet data (and, again, the corresponding metadata). The advantages are evident:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Eddy covariance and biomet data (high-speed and low-speed data) corresponding to the same time span are stored together;</li>
-                                                    <li value="2">Both eddy covariance and biomet data are documented in the paired metadata files, so the whole file archive is a self-descriptive file that can be interpreted and processed by someone who did not collect those data and does not have any information regarding the site where they were collected and the instruments deployed;</li>
-                                                    <li value="3">Biomet data are automatically extracted, interpreted, filtered and used by EddyPro, along with the paired eddy data.</li>
-                                                </ul>
-                                                <p>While processing eddy covariance data for each given time period (for example from 8:00 to 8:45, no matter the flux averaging interval), <span class="product_namesEddyPro">EddyPro</span> retrieves all biomet data available, whose time stamp falls in that time slot. Biomet data are then used for two main purposes:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Improve flux computation by using slow, accurate measurements of absolute meteorological quantities such as air temperature, pressure, relative humidity, etc.;</li>
-                                                    <li value="2">Screen values and calculate averages of all available biomet measurements, on the same time scale as the flux averaging interval.</li>
-                                                </ul>
-                                                <h2 class="pgBrkBfr" id="Useofbiometdataforimprovedfluxcomputationandcorrection" data-magellan-target="Useofbiometdataforimprovedfluxcomputationandcorrection">Use of biomet data for improved flux computation and correction</h2>
-                                                <p><span class="product_namesEddyPro">EddyPro</span> uses biomet data for the following purposes:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Ambient temperature, pressure and relative humidity, if available, are used to replace the mean values of the same quantities as estimated from eddy covariance data or from site characteristics. For example, in the absence of a reliable ambient temperature reading in the eddy covariance data (as that provided, for example, by the LI&#8209;7700), mean ambient temperature is estimated using sonic temperature, corrected for crosswind and humidity effects. However, absolute sonic temperature may be inaccurate (while its fluctuations, used for calculating sensible heat fluxes, are typically accurately captured), thereby biasing all results that make use of mean ambient temperature (e.g., the WPL correction). If ambient temperature is available in the biomet data file, this can be averaged over the selected flux averaging interval and used directly for improved flux computations/corrections. Similar considerations can be done for the absolute water content of ambient air as derived from eddy covariance data, or for ambient pressure as assumed from site altitude;</li>
-                                                    <li value="2">Data of global radiation and long-wave incoming radiation can be used in the “multiple regression” version of the off-season uptake correction (Burba et al., 2008);</li>
-                                                    <li value="3">Data of photosynthetically active radiation (PAR, also called PPFD, photosynthetic photon flux density) can be used to assess day and night-time radiation loading on the surface of the instrument, to apply the appropriate coefficients and modeling of the instrument surface temperature in the off-season uptake correction.</li>
-                                                </ul>
-                                                <p class="note"><b>Note:</b> Before using biomet data, <span class="product_namesEddyPro">EddyPro</span> screens them for quality (checks that values are within physically plausible ranges) and calculates averages over the appropriate time scale. If the resulting average values are physically implausible, <span class="product_namesEddyPro">EddyPro</span> automatically switches to classic eddy covariance data-based calculations.</p>
-                                                <h2 class="pgBrkBfr" id="Averagingbiometdataforfurtheranalysis" data-magellan-target="Averagingbiometdataforfurtheranalysis">Averaging biomet data for further analysis</h2>
-                                                <p>Besides using some biomet variables for flux computation and refinement, <span class="product_namesEddyPro">EddyPro</span> processes all available biomet measurements by doing the following:</p>
-                                                <ul class="bullet">
-                                                    <li value="1">Screening individual measurements and excluding outlying values;</li>
-                                                    <li value="2">Automatically converting units to conform with <span class="product_namesEddyPro">EddyPro</span> standard units;</li>
-                                                    <li value="3">Averaging all good measurements over the time range defined by the current time averaging period;</li>
-                                                    <li value="4">Outputting average biomet values in a separate file, using the same conventions and formats as all other <span class="product_namesEddyPro">EddyPro</span> output files, so as to be readily processed and merged, for example, with the “full output” file for further analysis.</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <div class="in-page-sticky-mid">
-                                                    <p class="in-this-page">In this page:</p>
-                                                    <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
-                                                        <li><a href="#Usingbiometdata">Using biomet data</a>
-                                                        </li>
-                                                        <ul>
-                                                            <li><a href="#Useofbiometdataforimprovedfluxcomputationandcorrection">Use of biomet data for improved flux computation and correction</a>
-                                                            </li>
-                                                            <li><a href="#Averagingbiometdataforfurtheranalysis">Averaging biomet data for further analysis</a>
-                                                            </li>
-                                                        </ul>
-                                                    </ul>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="Usingbiometdata" data-magellan-target="Usingbiometdata">Using biomet data<a name="aanchor85"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p>EddyPro Software allows you to import and use biomet measurements for improved flux computation and other purposes. Biomet measurements include meteorological as well as ecological (e.g., soil and vegetation) measurements. These data are typically sampled at lower rates than the eddy covariance data (e.g., once per second) and averaged over longer time periods (e.g., 1 to 30 minutes). Traditionally, biomet data—collected by means of a datalogger—are stored in one or more files, distinct from high-speed eddy data. However, LI&#8209;COR eddy covariance systems allow you to collect <kbd>.ghg</kbd> files, a raw file format that bundles eddy covariance data (and the corresponding metadata) together with biomet data (and, again, the corresponding metadata). The advantages are evident:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Eddy covariance and biomet data (high-speed and low-speed data) corresponding to the same time span are stored together;</li>
+                                                        <li value="2">Both eddy covariance and biomet data are documented in the paired metadata files, so the whole file archive is a self-descriptive file that can be interpreted and processed by someone who did not collect those data and does not have any information regarding the site where they were collected and the instruments deployed;</li>
+                                                        <li value="3">Biomet data are automatically extracted, interpreted, filtered and used by EddyPro, along with the paired eddy data.</li>
+                                                    </ul>
+                                                    <p>While processing eddy covariance data for each given time period (for example from 8:00 to 8:45, no matter the flux averaging interval), <span class="product_namesEddyPro">EddyPro</span> retrieves all biomet data available, whose time stamp falls in that time slot. Biomet data are then used for two main purposes:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Improve flux computation by using slow, accurate measurements of absolute meteorological quantities such as air temperature, pressure, relative humidity, etc.;</li>
+                                                        <li value="2">Screen values and calculate averages of all available biomet measurements, on the same time scale as the flux averaging interval.</li>
+                                                    </ul>
+                                                    <h2 class="pgBrkBfr" id="Useofbiometdataforimprovedfluxcomputationandcorrection" data-magellan-target="Useofbiometdataforimprovedfluxcomputationandcorrection">Use of biomet data for improved flux computation and correction</h2>
+                                                    <p><span class="product_namesEddyPro">EddyPro</span> uses biomet data for the following purposes:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Ambient temperature, pressure and relative humidity, if available, are used to replace the mean values of the same quantities as estimated from eddy covariance data or from site characteristics. For example, in the absence of a reliable ambient temperature reading in the eddy covariance data (as that provided, for example, by the LI&#8209;7700), mean ambient temperature is estimated using sonic temperature, corrected for crosswind and humidity effects. However, absolute sonic temperature may be inaccurate (while its fluctuations, used for calculating sensible heat fluxes, are typically accurately captured), thereby biasing all results that make use of mean ambient temperature (e.g., the WPL correction). If ambient temperature is available in the biomet data file, this can be averaged over the selected flux averaging interval and used directly for improved flux computations/corrections. Similar considerations can be done for the absolute water content of ambient air as derived from eddy covariance data, or for ambient pressure as assumed from site altitude;</li>
+                                                        <li value="2">Data of global radiation and long-wave incoming radiation can be used in the “multiple regression” version of the off-season uptake correction (Burba et al., 2008);</li>
+                                                        <li value="3">Data of photosynthetically active radiation (PAR, also called PPFD, photosynthetic photon flux density) can be used to assess day and night-time radiation loading on the surface of the instrument, to apply the appropriate coefficients and modeling of the instrument surface temperature in the off-season uptake correction.</li>
+                                                    </ul>
+                                                    <p class="note"><b>Note:</b> Before using biomet data, <span class="product_namesEddyPro">EddyPro</span> screens them for quality (checks that values are within physically plausible ranges) and calculates averages over the appropriate time scale. If the resulting average values are physically implausible, <span class="product_namesEddyPro">EddyPro</span> automatically switches to classic eddy covariance data-based calculations.</p>
+                                                    <h2 class="pgBrkBfr" id="Averagingbiometdataforfurtheranalysis" data-magellan-target="Averagingbiometdataforfurtheranalysis">Averaging biomet data for further analysis</h2>
+                                                    <p>Besides using some biomet variables for flux computation and refinement, <span class="product_namesEddyPro">EddyPro</span> processes all available biomet measurements by doing the following:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Screening individual measurements and excluding outlying values;</li>
+                                                        <li value="2">Automatically converting units to conform with <span class="product_namesEddyPro">EddyPro</span> standard units;</li>
+                                                        <li value="3">Averaging all good measurements over the time range defined by the current time averaging period;</li>
+                                                        <li value="4">Outputting average biomet values in a separate file, using the same conventions and formats as all other <span class="product_namesEddyPro">EddyPro</span> output files, so as to be readily processed and merged, for example, with the “full output” file for further analysis.</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#Usingbiometdata">Using biomet data</a>
+                                                            </li>
+                                                            <ul>
+                                                                <li><a href="#Useofbiometdataforimprovedfluxcomputationandcorrection">Use of biomet data for improved flux computation and correction</a>
+                                                                </li>
+                                                                <li><a href="#Averagingbiometdataforfurtheranalysis">Averaging biomet data for further analysis</a>
+                                                                </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>

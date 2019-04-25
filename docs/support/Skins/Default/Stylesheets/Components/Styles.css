@@ -40,6 +40,11 @@ input[type="search"]
 	display: none;
 }
 
+.search-field::-ms-clear
+{
+	display: none;
+}
+
 .search-bar .search-filter
 {
 	float: left;
@@ -201,7 +206,7 @@ ul.menu li > a.selected
 	line-height: 1.1em;
 }
 
-#resultList li
+#resultList > li
 {
 	list-style: none;
 	margin-bottom: 16px;
@@ -437,6 +442,74 @@ a.activityText:visited
 {
 	font-weight: bold;
 	border-top: solid 1px #e2e2e6;
+}
+
+#searchPane > .micro-content-container > .micro-content
+{
+	padding: 15px;
+	margin-bottom: 25px;
+	-webkit-box-shadow: 0px 1px 4px 0px #cccccc;
+	-moz-box-shadow: 0px 1px 4px 0px #cccccc;
+	box-shadow: 0px 1px 4px 0px #cccccc;
+	line-height: normal;
+	overflow-y: auto;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response
+{
+	overflow: hidden;
+	max-height: 200px;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand
+{
+	height: 40px;
+	background: #ffffff url('../Images/arrow-down.png') no-repeat center center;
+	border-top: solid 1px #b9bec1;
+	border-bottom: solid 1px #b9bec1;
+	cursor: pointer;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand.expanded
+{
+	background: #ffffff url('../Images/arrow-up.png') no-repeat center center;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand-transition-wrapper
+{
+	position: relative;
+	height: 0px;
+	width: 100%;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-content-expand-transition-wrapper > .micro-content-expand-transition
+{
+	position: absolute;
+	bottom: 0px;
+	height: 50px;
+	left: 0;
+	right: 0;
+	background-image: linear-gradient(to bottom, transparent 0%, #fff 100%);
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title
+{
+	font-size: 16px;
+	font-weight: normal;
+	margin: 10px 0 2px 0;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-title a
+{
+	color: #0185D1;
+	text-decoration: underline;
+}
+
+#searchPane > .micro-content-container > .micro-content > .micro-response-url cite
+{
+	color: #0E774A;
+	font-size: 0.8em;
+	font-style: normal;
 }
 
 ul.menu._Skins_menu_support.mc-component
