@@ -2998,9 +2998,10 @@ FileUtils::DateRange MainWindow::getCurrentDateRange()
     else
     {
         auto extensionIndex = ecProject_->generalFilePrototype().lastIndexOf(QLatin1String(".")) + 1;
-        auto extension = QStringLiteral("*.") + ecProject_->generalFilePrototype().mid(extensionIndex);
+        QString extension = QStringLiteral("*.") + ecProject_->generalFilePrototype().mid(extensionIndex);
         currentRawDataList = FileUtils::getFiles(ecProject_->screenDataPath(), extension, recursion);
     }
+
 
     if (!currentRawDataList.isEmpty())
     {
