@@ -1,8 +1,6 @@
 # define libraries to build and link
 
 CONFIG(debug, debug|release) {
-    APP_NAME = "EddyPro debug $$VERSION"
-
     win32 {
         # quazip
         LIBS += -lquazipd
@@ -15,8 +13,8 @@ CONFIG(debug, debug|release) {
         LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.6-qt-5.12.2-clang-10.0.0-x86_64 -lquazip_debug
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh debug eddypro_debug
-        QMAKE_POST_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-post-link.sh debug $$APP_NAME
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh debug $$OUT_PWD
+        QMAKE_POST_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-post-link.sh debug
     }
     linux {
         # quazip
@@ -26,8 +24,6 @@ CONFIG(debug, debug|release) {
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/lin-pre-link.sh debug
     }
 } else {
-    APP_NAME = $$shell_quote(EddyPro $$VERSION)
-
     win32 {
         # quazip
         LIBS += -lquazip
@@ -39,8 +35,8 @@ CONFIG(debug, debug|release) {
         LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.6-qt-5.12.2-clang-10.0.0-x86_64 -lquazip
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh release eddypro
-        QMAKE_POST_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-post-link.sh release $$APP_NAME
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh release
+        QMAKE_POST_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-post-link.sh release
     }
     linux {
         # quazip

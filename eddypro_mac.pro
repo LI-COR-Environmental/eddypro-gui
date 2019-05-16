@@ -42,8 +42,6 @@ include(tests.pri)
 
 CONFIG(debug, debug|release) {
     TARGET = eddypro_debug
-    APP_NAME = "EddyPro debug $$VERSION"
-
     CONFIG += console
 
     DEFINES += QT_DEBUG
@@ -85,8 +83,6 @@ CONFIG(debug, debug|release) {
     }
 } else {
     TARGET = eddypro
-    APP_NAME = "EddyPro $$VERSION"
-    BUNDLE_NAME = $$shell_quote("$${APP_NAME}.app")
 
     DEFINES -= QT_DEBUG
     DEFINES += QT_NO_DEBUG
@@ -97,7 +93,7 @@ CONFIG(debug, debug|release) {
         QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
 
         # remove debug symbols
-        QMAKE_POST_LINK += && strip -S "$$OUT_PWD/release/$${BUNDLE_NAME}/Contents/MacOS/eddypro"
+        QMAKE_POST_LINK += && strip -S "$$OUT_PWD/release/eddypro.app/Contents/MacOS/eddypro"
     }
 }
 
