@@ -57,7 +57,7 @@ class QStringLiteral;
 namespace Defs
 {
 const auto APP_VERSION = 0x070000;
-const auto APP_VERSION_STR = QStringLiteral("7.0.2");
+const auto APP_VERSION_STR = QStringLiteral("7.0.3");
 const auto APP_STAGE_STR = QStringLiteral(""); // -alpha1, -beta1, -rc1
 
 const auto PROJECT_FILE_VERSION = 0x040500;
