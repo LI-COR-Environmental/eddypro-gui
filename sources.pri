@@ -101,7 +101,8 @@ HEADERS += \
     src/windfilter_view.h \
     src/windfilter_tableview.h \
     src/windfilter_tablemodel.h \
-    src/sector_item.h
+    src/sector_item.h \
+    src/logging.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -194,7 +195,8 @@ SOURCES +=  \
     src/mystyle.cpp \
     src/windfilter_view.cpp \
     src/windfilter_tableview.cpp \
-    src/windfilter_tablemodel.cpp
+    src/windfilter_tablemodel.cpp \
+    src/logging.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

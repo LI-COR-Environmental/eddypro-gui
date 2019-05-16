@@ -3,19 +3,17 @@ echo "[Running $0]"
 echo "Copying frameworks and dynamic libraries in the debug or release binary folder... "
 
 DEBUG_OR_RELEASE=$1
-BUNDLE_NAME="$2.app"
-
-echo "[arg DEBUG_OR_RELEASE: $DEBUG_OR_RELEASE]"
-echo "[arg BUNDLE_NAME: $BUNDLE_NAME]"
 
 PWD=$(pwd)
 echo "[pwd: $PWD]"
 
+echo "[arg DEBUG_OR_RELEASE: $DEBUG_OR_RELEASE]"
+
 if [ "$DEBUG_OR_RELEASE" == "debug" ]; then
-    FRAMEWORKS_DIR="./$DEBUG_OR_RELEASE/$BUNDLE_NAME/Contents/Frameworks"
+    FRAMEWORKS_DIR="./$DEBUG_OR_RELEASE/eddypro_debug.app/Contents/Frameworks"
     QUAZIP_LIB=libquazip_debug.1.0.0.dylib
 else
-    FRAMEWORKS_DIR="./$DEBUG_OR_RELEASE/$BUNDLE_NAME/Contents/Frameworks"
+    FRAMEWORKS_DIR="./$DEBUG_OR_RELEASE/eddypro.app/Contents/Frameworks"
     QUAZIP_LIB=libquazip.1.0.0.dylib
 fi
 
