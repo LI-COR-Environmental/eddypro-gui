@@ -245,6 +245,8 @@ const auto TOB1_NATIVE_DATA_FILE_EXT = QStringLiteral("tob1");
 const auto CSS_FILE_EXT = QStringLiteral("qss");
 const auto TEMPLATE_FILE_EXT = QStringLiteral(".txt");
 
+const auto LOG_FILE_MAX_SIZE = 1048576; // 2^20
+
 // eddypro engine
 const auto ENGINE_RP = QStringLiteral("%1_rp%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
 const auto ENGINE_FCC = QStringLiteral("%1_fcc%2").arg(APP_NAME_LCASE, EXEC_FILE_EXT);
