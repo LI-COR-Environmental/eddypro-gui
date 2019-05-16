@@ -375,6 +375,7 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Pausing computations..."));
+        progressWidget_->setDisplayedWhenStopped(true);
         progressWidget_->stopAnimation();
         total_elapsed_update_timer_->stop();
         main_progress_timer_.invalidate();
@@ -431,6 +432,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
         WidgetUtils::updatePropertyListAndStyle(runModeIcon_, iconModeProp);
         runModeIcon_->setVisible(true);
         pauseResumeLabel_->setText(tr("Resuming computations..."));
+        progressWidget_->setDisplayedWhenStopped(true);
         progressWidget_->startAnimation();
         total_elapsed_update_timer_->start();
         main_progress_timer_.restart();
@@ -442,6 +444,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
 
 void RunPage::stopRun()
 {
+    progressWidget_->setDisplayedWhenStopped(false);
     progressWidget_->stopAnimation();
     resetBuffer();
     resetProgressHard();
