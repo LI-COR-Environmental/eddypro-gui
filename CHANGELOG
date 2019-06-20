@@ -1,3 +1,9 @@
+7.0.4 (2019-06-20)
+
+    GUI
+    - Fix creation of log file directory at startup
+    - Fix time-lag dialog double popup during file uploading
+
 7.0.3 (2019-06-08)
 
     Engine
