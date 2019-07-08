@@ -3,9 +3,9 @@
 TEMPLATE = app
 
 # EddyPro version
-VER_MAJ = 6
-VER_MIN = 2
-VER_PAT = 2
+VER_MAJ = 7
+VER_MIN = 0
+VER_PAT = 3
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
 # Qt version and path
@@ -14,6 +14,7 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 
 # Qt config
 QT += core gui widgets network concurrent
+
 CONFIG += warn_on
 CONFIG += debug_and_release
 CONFIG += c++14
@@ -47,7 +48,7 @@ CONFIG(debug, debug|release) {
 
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.3/quazip"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.6/quazip"
 
     win32 {
         # mingw warnings
@@ -55,11 +56,9 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_67_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
-        QMAKE_CXXFLAGS += --system-header-prefix=boost/
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Headers"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtCore.framework/Versions/5/Headers"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/lib/QtGui.framework/Headers"
@@ -94,7 +93,7 @@ CONFIG(debug, debug|release) {
         QMAKE_PRE_LINK += && $$_PRO_FILE_PWD_/scripts/build/mac-update-translations.sh$$escape_expand(\\n\\t)
 
         # remove debug symbols
-        QMAKE_POST_LINK += && strip -S $$OUT_PWD/release/eddypro.app/Contents/MacOS/eddypro
+        QMAKE_POST_LINK += && strip -S "$$OUT_PWD/release/eddypro.app/Contents/MacOS/eddypro"
     }
 }
 
@@ -122,6 +121,3 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #build_pass:message(QMAKE_CFLAGS: $$QMAKE_CFLAGS)
 #build_pass:message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
-
-# workaround for QTBUG-34424
-TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_67_0/*

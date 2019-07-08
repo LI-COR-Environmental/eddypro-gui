@@ -1,23 +1,30 @@
 /***************************************************************************
   advspectraloptions.cpp
-  -------------------
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ----------------------
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "advspectraloptions.h"
@@ -42,7 +49,6 @@
 #include "clicklabel.h"
 #include "customcombomodel.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "dirbrowsewidget.h"
 #include "dlproject.h"
 #include "ecproject.h"
@@ -577,19 +583,19 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     spectraQaQcLabel->addStretch();
     auto settingsGroup1Label = new QHBoxLayout;
     settingsGroup1Label->addWidget(settingsGroupTitle_1);
-    settingsGroup1Label->addWidget(questionMark_11, 0, Qt::AlignRight | Qt::AlignVCenter);
+    settingsGroup1Label->addWidget(questionMark_2, 0, Qt::AlignRight | Qt::AlignVCenter);
     settingsGroup1Label->addStretch();
     auto lowFreqLabel = new QHBoxLayout;
     lowFreqLabel->addWidget(lowFreqTitle);
-    lowFreqLabel->addWidget(questionMark_22, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    lowFreqLabel->addWidget(questionMark_3, 0, Qt::AlignLeft | Qt::AlignVCenter);
     lowFreqLabel->addStretch();
     auto highFreqLabel = new QHBoxLayout;
     highFreqLabel->addWidget(highFreqTitle);
-    highFreqLabel->addWidget(questionMark_33, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    highFreqLabel->addWidget(questionMark_4, 0, Qt::AlignLeft | Qt::AlignVCenter);
     highFreqLabel->addStretch();
     auto assessmentHighFreqLabel= new QHBoxLayout;
     assessmentHighFreqLabel->addWidget(freqAttenuationTitle);
-    assessmentHighFreqLabel->addWidget(questionMark_44, 0, Qt::AlignLeft | Qt::AlignVCenter);
+    assessmentHighFreqLabel->addWidget(questionMark_5, 0, Qt::AlignLeft | Qt::AlignVCenter);
     assessmentHighFreqLabel->addStretch();
 
     auto settingsLayout = new QGridLayout;
@@ -924,7 +930,7 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
                                     << horstCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
@@ -949,10 +955,6 @@ AdvSpectralOptions::AdvSpectralOptions(QWidget *parent,
     }
 
     QTimer::singleShot(0, this, SLOT(reset()));
-}
-
-AdvSpectralOptions::~AdvSpectralOptions()
-{
 }
 
 void AdvSpectralOptions::setSmartfluxUI()
@@ -1907,64 +1909,64 @@ void AdvSpectralOptions::createQuestionMarks()
 {
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_11 = new QPushButton;
-    questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_22 = new QPushButton;
-    questionMark_22->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_33 = new QPushButton;
-    questionMark_33->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_44 = new QPushButton;
-    questionMark_44->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_55 = new QPushButton;
-    questionMark_55->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_2 = new QPushButton;
+    questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_4 = new QPushButton;
+    questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_5 = new QPushButton;
+    questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_6 = new QPushButton;
+    questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_11);
-    connect(questionMark_11, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_1);
-    connect(questionMark_22, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_2);
-    connect(questionMark_33, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_3);
-    connect(questionMark_44, &QPushButton::clicked,
+    connect(questionMark_5, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_4);
-    connect(questionMark_55, &QPushButton::clicked,
+    connect(questionMark_6, &QPushButton::clicked,
             this, &AdvSpectralOptions::onlineHelpTrigger_5);
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Ensemble_Averages.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/ensemble-averages.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectral_Correction_Factors.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectral-correction-factors.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/High-pass_Filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/high-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Low-pass_Filtering.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/low-pass-filtering.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Spectral_Corrections.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/spectral-corrections.html")));
 }
 
 void AdvSpectralOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectra_Cospectra_and_Ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvSpectralOptions::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }

@@ -870,7 +870,6 @@ QLabel[applogoSmallLabel="true"]:hover {
     min-height: 70px;
 }
 
-
 ClickLabel[toviLabel="true"] {
     image: url(:/icons/tovi-ad-normal);
     min-width: 578px;
@@ -1306,7 +1305,6 @@ QPushButton[commonButton="true"] {
     max-height: 17px;
     padding: 0px 10px;
     color: white;
-    /*font-weight: bold;*/
 }
 
 QPushButton[commonButton="true"]:disabled {
@@ -1320,12 +1318,12 @@ QPushButton[commonButton="true"]:disabled {
 
 QPushButton[commonButton="true"]:hover {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #30a0e7, stop: 0.7 #096cdb, stop: 1 #096cdb);
+                         stop: 0 #30a0e7, stop: 0.7 #096cdb, stop: 1 #096cdb);
 }
 
 QPushButton[commonButton="true"]:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #2272a7, stop: 0.7 #043b79, stop: 1 #043b79);
+                         stop: 0 #2272a7, stop: 0.7 #043b79, stop: 1 #043b79);
 }
 
 QPushButton[commonButton2="true"] {
@@ -1665,21 +1663,6 @@ ClickLabel:disabled {
     color: grey;
 }
 
-ClickLabel#questionMarkImg {
-    background-color: transparent;
-    border: none;
-    image: url(:/icons/qm-enabled);
-    min-height: 12px;
-}
-
-ClickLabel#questionMarkImg:hover {
-    image: url(:/icons/qm-hover);
-}
-
-ClickLabel#questionMarkImg:pressed {
-    image: url(:/icons/qm-pressed);
-}
-
 ClickLabel#licorLogo {
     padding-left: 20px;
     image: url(:/icons/licor-logo);
@@ -1982,26 +1965,81 @@ QToolTip
     font: normal normal 10px "Open Sans";
 }
 
-QHeaderView::section {
-    padding-bottom: 3px;
+QTableView QTableCornerButton::section {
+    background: #F0F0F0;
+    border: 0px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+}
+
+QHeaderView {
+    border: 1px solid #CCCCCC;
+    border-top: 1px solid #F0F0F0;
+    margin: 6px -3px 0px 0px;
     padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 1px;
-    margin: 2px 0px;
+    background-color: #F0F0F0;
 }
 
-QHeaderView[pieTableH="true"]::section {
-    padding: 3px;
-    margin: 3px;
+QHeaderView::section {
+    margin: 6px 1px 4px 2px;
+    border: 1px solid #F0F0F0;
+    border-right: 1px solid #CCCCCC;
+    padding: 0px;
+    background-color: #F0F0F0;
 }
 
-QHeaderView[pieTableH="true"]::section:hover {
+QHeaderView::section:!selected {
     font-weight: normal;
 }
 
+QHeaderView::section:!checked {
+    font-weight: normal;
+}
+
+QHeaderView[pieTableH="true"] {
+    margin: 0px;
+    border-top: 1px solid #F0F0F0;
+    border: 0px solid #CCCCCC;
+    padding-top: 0px;
+    background-color: #F0F0F0;
+}
+
+QHeaderView[pieTableH="true"]::section {
+    margin: 0px;
+    border: 0px solid #F0F0F0;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 0px;
+    background-color: #F0F0F0;
+}
+
+QHeaderView[pieTableH="true"]::section:last {
+    /*margin-right: 0px;*/
+    border: 0px solid #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+QHeaderView[pieTableV="true"] {
+    margin: 0px;
+    margin-top: -1px;
+    border: 0px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    padding-top: 0px;
+    background-color: #F0F0F0;
+}
+
 QHeaderView[pieTableV="true"]::section {
-    padding: 0px 3px;
-    margin: 2px;
+    margin: 0px;
+    border: 0px solid #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    background-color: #F0F0F0;
+    padding: 0px;
+    padding-left: 8px;
+}
+
+QHeaderView[pieTableV="true"]::section:first {
+    border-bottom: 1px solid #CCCCCC;
 }
 
 QFileDialog {
@@ -2064,8 +2102,6 @@ QLabel#tableRefLabel {
 
 QTableView {
     selection-color: black;
-/*    selection-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
-                                stop:0 white, stop:1 #D1E4E7);*/
     selection-background-color: #D1E4E7;
 }
 

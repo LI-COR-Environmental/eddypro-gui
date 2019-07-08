@@ -1,41 +1,47 @@
 /***************************************************************************
   angle_tablemodel.cpp
-  -------------------
-  Copyright (C) 2012-2018, LI-COR Biosciences
+  --------------------
+  Copyright © 2012-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "angle_tablemodel.h"
 
 #include <QDebug>
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "widget_utils.h"
 
 namespace {
 // private constants
 const int MaxColumns = 1;
-const double MinDegrees = 0.0;
-const double MaxDegrees = 360.0;
-const double InitialAngle = 30.0;
+const double MinDegree = 0.0;
+const double MaxDegree = 360.0;
+const double DefaultSectorWidth = 30.0;
 
-static int colorHueDecStep_ = 1;
+int colorHueDecStep_ = 1;
 } // namespace unnamed
 
 
@@ -189,16 +195,16 @@ bool AngleTableModel::setData(const QModelIndex &index,
                 double currAngleSum = angleSum();
                 double followingAngle = nextItem.angle_;
 
-                if (angle > MaxDegrees)
-                    angle = MaxDegrees;
+                if (angle > MaxDegree)
+                    angle = MaxDegree;
 
                 if (numAngles > 1)
                 {
-                    if (!ok || angle < MinDegrees)
+                    if (!ok || angle < MinDegree)
                         return false;
 
                     // equal to 360 degrees
-                    if (qFuzzyCompare(currAngleSum, MaxDegrees))
+                    if (qFuzzyCompare(currAngleSum, MaxDegree))
                     {
                         // eat following
                         if (angle <= (currAngle + followingAngle))
@@ -219,12 +225,12 @@ bool AngleTableModel::setData(const QModelIndex &index,
                         }
                     }
                     // lesser than 360 degrees
-                    else if (currAngleSum < MaxDegrees)
+                    else if (currAngleSum < MaxDegree)
                     {
                         // fill up to 360
-                        if (angle > (MaxDegrees - (currAngleSum - currAngle)))
+                        if (angle > (MaxDegree - (currAngleSum - currAngle)))
                         {
-                            angle = MaxDegrees - (currAngleSum - currAngle);
+                            angle = MaxDegree - (currAngleSum - currAngle);
                         }
                         else
                         {
@@ -255,7 +261,7 @@ bool AngleTableModel::setData(const QModelIndex &index,
         {
             case DEGREES:
             {
-                Qt::CheckState included = static_cast<Qt::CheckState>(value.toUInt());
+                auto included = static_cast<Qt::CheckState>(value.toUInt());
                 item.included_ = included;
                 break;
             }
@@ -275,13 +281,18 @@ bool AngleTableModel::setData(const QModelIndex &index,
     return true;
 }
 
+bool AngleTableModel::setHeaderData(int, Qt::Orientation, const QVariant &, int)
+{
+    return false;
+}
+
 bool AngleTableModel::insertRows(int row, int count, const QModelIndex&)
 {
     if (count != 1) return false;
     if ((row < 0) || (row >= angles_->count()))
         row = angles_->count();
 
-    if (angleSum() < MaxDegrees)
+    if (angleSum() < MaxDegree)
     {
         beginInsertRows(QModelIndex(), row, row + count - 1);
         for (int i = 0; i < count; ++i)
@@ -365,11 +376,11 @@ double AngleTableModel::angleSum()
 
 double AngleTableModel::angleToBeInserted()
 {
-    double angleAvailable = MaxDegrees - angleSum();
+    double angleAvailable = MaxDegree - angleSum();
     double angleToBeInserted = angleAvailable;
 
-    if (angleAvailable >= InitialAngle)
-        angleToBeInserted = InitialAngle;
+    if (angleAvailable >= DefaultSectorWidth)
+        angleToBeInserted = DefaultSectorWidth;
 
     return angleToBeInserted;
 }

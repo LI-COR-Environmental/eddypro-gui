@@ -1,24 +1,31 @@
 /***************************************************************************
   advstatisticaloptions.cpp
-  -------------------
-  Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "advstatisticaloptions.h"
@@ -38,7 +45,6 @@
 #include <QUrl>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "splitter.h"
 #include "widget_utils.h"
@@ -147,8 +153,11 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     randomMethodCombo = new QComboBox;
     randomMethodCombo->addItem(tr("Finkelstein and Sims (2001)"));
     randomMethodCombo->addItem(tr("Mann and Lenschow (1994)"));
+    randomMethodCombo->addItem(tr("Mahrt (1998)"));
     randomMethodCombo->setItemData(0, tr("<b>Finkelstein and Sims (2001):</b> Based on a mathematically rigorous expression for the variance of a covariance, which includes the auto- and cross-covariance terms for atmospheric fluxes. The uncertainty estimate is based on Eqs. 8-10 of the referenced paper."), Qt::ToolTipRole);
     randomMethodCombo->setItemData(1, tr("<b>Mann and Lenschow (1994):</b> Define the error variance of the central moment of the time series. The uncertainty estimate is based on, e.g. Eqs. 5 of Finkelstein and Sims (2001)."), Qt::ToolTipRole);
+    randomMethodCombo->setItemData(2, tr("<b>Mahrt (1998):</b> ..."), Qt::ToolTipRole);
+    randomMethodCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;}"));
 
     auto itsLabel = WidgetUtils::createBlueLabel(this, tr("Integral turbulence scale (ITS)"));
     itsLabel->setToolTip(tr(""));
@@ -162,6 +171,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
     itsDefinitionCombo->setItemData(0, tr("<b>Cross-correlation first crossing 1/e:</b> The integration will be halted when the cross-correlation function for the first time attains a value of 1/e (note that the cross-correlation function always start at 1 for zero lag time)."), Qt::ToolTipRole);
     itsDefinitionCombo->setItemData(1, tr("<b>Cross-correlation first crossing 0:</b> The integration will be halted when the cross-correlation function crosses the <i>x</i>-axis for the first time. It may happen that the function never cross the <i>x</i>-axis in the selected lag time range. In this case, the integration will be performed over the whole correlation period defined below."), Qt::ToolTipRole);
     itsDefinitionCombo->setItemData(2, tr("<b>Integrate over the whole correlation period:</b> The integration will be performed from lag time equal to zero up to the maximum lag time defined by <b><i>Maximum correlation period</i></b>."), Qt::ToolTipRole);
+    itsDefinitionCombo->setStyleSheet(QStringLiteral("QComboBox {min-width: 72px;} QComboBox QAbstractItemView { min-width: 14em; }"));
 
     timelagMaxLabel = new ClickLabel(tr("Maximum correlation period :"));
     timelagMaxLabel->setToolTip(tr("<b>Maximum correlation period:</b> Define here the expected maximum cross-correlation period in seconds. Beyond the maximum correlation period, you expect variables (vertical wind component and gas concentrations) to be virtually uncorrelated."));
@@ -247,7 +257,7 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
                                        << nonSteadyCheckBox;
     for (auto widget : checkbox_list)
     {
-        auto checkbox = static_cast<QCheckBox *>(widget);
+        auto checkbox = dynamic_cast<QCheckBox *>(widget);
         connect(checkbox, &QCheckBox::toggled,
                 this, &AdvStatisticalOptions::updateSelectAllCheckbox);
     }
@@ -546,17 +556,13 @@ AdvStatisticalOptions::AdvStatisticalOptions(QWidget *parent,
                                     << itsDefinitionCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
 
     // init
     QTimer::singleShot(0, this, SLOT(reset()));
-}
-
-AdvStatisticalOptions::~AdvStatisticalOptions()
-{
 }
 
 void AdvStatisticalOptions::createTabWidget()
@@ -1478,10 +1484,10 @@ int AdvStatisticalOptions::findClosestEnabledTest(int indexDisabled)
         }
     }
 
-    if (found)
+    if (found) {
         return i;
-    else
-        return 0;
+    }
+    return 0;
 }
 
 void AdvStatisticalOptions::on_spikeRemCheckBox_clicked(bool checked)
@@ -2414,12 +2420,10 @@ void AdvStatisticalOptions::reset()
     WidgetUtils::resetComboToItem(randomMethodCombo, 0);
     WidgetUtils::resetComboToItem(itsDefinitionCombo, 0);
 
-    // NOTE: hack to prevent side effect setting from calling
-    // WidgetUtils::resetComboToItem(randomMethodCombo, 0)
-    ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.randomError.method);
+    ecProject_->setRandomErrorMethod(ecProject_->defaultSettings.projectGeneral.ru_method);
 
-    timelagMaxSpin->setValue(ecProject_->defaultSettings.randomError.its_tlag_max);
-    securityCoeffSpin->setValue(ecProject_->defaultSettings.randomError.its_sec_factor);
+    timelagMaxSpin->setValue(ecProject_->defaultSettings.projectGeneral.its_tlag_max);
+    securityCoeffSpin->setValue(ecProject_->defaultSettings.projectGeneral.its_sec_factor);
 
     // restore modified flag
     ecProject_->setModified(oldmod);
@@ -2796,57 +2800,57 @@ void AdvStatisticalOptions::createQuestionMark()
 
 void AdvStatisticalOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_6()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_7()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_10()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Despiking_Raw_Stat_Screening.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/despiking-raw-statistical-screening.html")));
 }
 
 void AdvStatisticalOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Random_Uncertainty_Estimation.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/random-uncertainty-estimation.html")));
 }
 
 void AdvStatisticalOptions::updateRandomErrorArea(bool b)
@@ -3179,7 +3183,7 @@ void AdvStatisticalOptions::onClickNonSteadyLabel_1()
 
 void AdvStatisticalOptions::updateTooltip(int i)
 {
-    QComboBox* senderCombo = qobject_cast<QComboBox *>(sender());
+    auto senderCombo = qobject_cast<QComboBox *>(sender());
 
     WidgetUtils::updateComboItemTooltip(senderCombo, i);
 }

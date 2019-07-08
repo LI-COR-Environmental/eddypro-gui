@@ -1,24 +1,31 @@
 /***************************************************************************
   advprocessingoptions.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ------------------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "advprocessingoptions.h"
@@ -41,14 +48,9 @@
 #include <fstream>
 #include <iostream>
 
-#include "xnode.hpp"
-#include "xtree.hpp"
-
-#include "calibrationdialog.h"
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customresetlineedit.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "fileutils.h"
@@ -57,18 +59,15 @@
 #include "richtextcheckbox.h"
 #include "timelagsettingsdialog.h"
 #include "stringutils.h"
-#include "vector_utils.h"
 #include "widget_utils.h"
 
 AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
                                            DlProject *dlProject,
                                            EcProject *ecProject,
-                                           ConfigState *config) :
-    QWidget(parent),
-    dlProject_(dlProject),
-    ecProject_(ecProject),
-    configState_(config),
-    calibration_info_()
+                                           ConfigState *config) : QWidget(parent),
+                                                                  dlProject_(dlProject),
+                                                                  ecProject_(ecProject),
+                                                                  configState_(config)
 {
     createQuestionMark();
 
@@ -90,7 +89,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     uOffsetSpin->setSuffix(tr("  [m/s]", "Velocity"));
 #if defined(Q_OS_WIN)
     uOffsetSpin->setMinimumWidth(uOffsetSpin->sizeHint().width() * 1.3);
-#elif defined (Q_OS_MACOS)
+#elif defined(Q_OS_MACOS)
     uOffsetSpin->setMinimumWidth(102);
 #endif
     uOffsetSpin->setToolTip(windOffsetLabel->toolTip());
@@ -141,12 +140,12 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wBoostCheckBox = new RichTextCheckBox;
     wBoostCheckBox->setText(tr("Fix 'w boost' bug (Gill WindMaster and WindMaster Pro only)"));
     wBoostCheckBox->setToolTip(tr("<b>Fix 'w boost' bug:</b> Gill WindMaster and WindMaster Pro produced between 2006 and 2015 and identified by a firmware version of the form 2329.x.y with x &lt; 700, are affected by a bug such that the vertical wind speed is underestimated. Check this option to have EddyPro fix the bug. For more details, please visit <a href=\"http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf\">Gill's Technical Key Note</a>"));
-    wBoostCheckBox->setQuestionMark(QStringLiteral("https://www.licor.com/env/help/eddypro/topics_eddypro/w-boost_bug_correction.html"));
+    wBoostCheckBox->setQuestionMark(QStringLiteral("https://www.licor.com/env/support/EddyPro/topics/w-boost-correction.html"));
 
     aoaCheckBox = new RichTextCheckBox;
     aoaCheckBox->setToolTip(tr("<b>Angle-of-attack correction:</b> Applies only to vertical mount Gill sonic anemometers with the same geometry of the R3 (e.g., R2, WindMaster, WindMaster Pro). This correction is meant to compensate the effects of flow distortion induced by the anemometer frame on the turbulent flow field. We recommend applying this correction whenever an R3-shaped anemometer was used."));
     aoaCheckBox->setText(tr("Angle-of-attack correction for wind components (Gill's only)"));
-    aoaCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Angle_of_Attack_Correction.html"));
+    aoaCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/angle-of-attack-correction.html"));
 
     aoaMethLabel = new ClickLabel(tr("Method :"));
     aoaMethLabel->setEnabled(false);
@@ -162,7 +161,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     rotCheckBox = new RichTextCheckBox;
     rotCheckBox->setToolTip(tr("<b>Axis rotation for tilt correction:</b> Select the appropriate method for compensating anemometer tilt with respect to local streamlines. Uncheck the box to <i>not perform</i> any rotation (not recommnended). If your site has a complex or sloping topography, a planar-fit method is advisable. Click on the <b><i>Planar Fit Settings...</i></b> to configure the procedure."));
     rotCheckBox->setText(tr("Axis rotations for tilt correction"));
-    rotCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Anemometer_Tilt_Correction.html"));
+    rotCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/anemometer-tilt-correction.html"));
 
     rotMethLabel = new ClickLabel(tr("Rotation method :"));
     rotMethCombo = new QComboBox;
@@ -212,7 +211,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     timeLagCheckBox = new RichTextCheckBox;
     timeLagCheckBox->setToolTip(tr("<b>Time lags compensation:</b> Select the method to compensate time lags between anemometric measurements and any other high frequency measurements included in the raw files. Time lags arise due mainly to sensors physical distances and to the passage of air into sampling lines. Uncheck this box to instruct EddyPro not to compensate time lags (not recommended)."));
     timeLagCheckBox->setText(tr("Time lags compensation"));
-    timeLagCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Time_Lag_Detect_Correct.html"));
+    timeLagCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/time-lag-detect-correct.html"));
 
     timeLagMethodLabel = new ClickLabel(tr("Time lag detection method :"));
     timeLagMethodCombo = new QComboBox;
@@ -233,22 +232,22 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     qcCheckBox = new RichTextCheckBox;
     qcCheckBox->setToolTip(tr("<b>Quality check:</b> Select the quality flagging policy. Flux quality flags are obtained from the combination of two partial flags that result from the application of the steady-state and the developed turbulence tests. Select the flag combination policy."));
     qcCheckBox->setText(tr("Quality check"));
-    qcCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Flux_Quality_Flags.html"));
+    qcCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/flux-quality-flags.html"));
 
     qcLabel = new ClickLabel(tr("Flagging policy :"));
     qcMethodCombo = new QComboBox;
-    qcMethodCombo->setToolTip(tr("<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. \"0\" means high quality fluxes, \"1\" means fluxes are ok for budget analysis, \"2\" fluxes should be discarded from the result dataset."));
+    qcMethodCombo->setToolTip(tr(R"(<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. "0" means high quality fluxes, "1" means fluxes are ok for budget analysis, "2" fluxes should be discarded from the result dataset.)"));
     qcMethodCombo->addItem(tr("Mauder and Foken (2004) (0-1-2 system)"));
     qcMethodCombo->addItem(tr("Foken (2003) (1 to 9 system)"));
     qcMethodCombo->addItem(tr("Goeckede et al. (2004) (1 to 5 system)"));
-    qcMethodCombo->setItemData(0, tr("<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. \"0\" means high quality fluxes, \"1\" means fluxes are ok for budget analysis, \"2\" fluxes should be discarded from the result dataset."), Qt::ToolTipRole);
-    qcMethodCombo->setItemData(1, tr("<b>Foken 2003:</b> A system based on 9 quality grades. \"1\" is best, \"9\" is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system."), Qt::ToolTipRole);
-    qcMethodCombo->setItemData(2, tr("<b>Goeckede et al., 2004:</b> A system based on 5 quality grades. \"1\" is best, \"5\" is worst."), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(0, tr(R"(<b>Mauder and Foken 2004:</b> Policy described in the documentation of the TK2 Eddy Covariance software that also constituted the standard of the CarboEurope IP project and is widely adopted. "0" means high quality fluxes, "1" means fluxes are ok for budget analysis, "2" fluxes should be discarded from the result dataset.)"), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(1, tr(R"(<b>Foken 2003:</b> A system based on 9 quality grades. "1" is best, "9" is worst. The system of Mauder and Foken (2004) and of Goeckede et al. (2006) are based on a rearrangement of these system.)"), Qt::ToolTipRole);
+    qcMethodCombo->setItemData(2, tr(R"(<b>Goeckede et al., 2004:</b> A system based on 5 quality grades. "1" is best, "5" is worst.)"), Qt::ToolTipRole);
 
     fpCheckBox = new RichTextCheckBox;
     fpCheckBox->setToolTip(tr("<b>Footprint estimation:</b> Select whether to calculate flux footprint estimations and which method should be used. Flux crosswind-integrated footprints are provided as distances from the tower contributing for 10%, 30%, 50%, 70% and 90% to measured fluxes. Also, the location of the peak contribution is given."));
     fpCheckBox->setText(tr("Footprint estimation"));
-    fpCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Estimating_Flux_Footprint.html"));
+    fpCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/estimating-flux-footprint.html"));
 
     fpLabel = new ClickLabel(tr("Footprint method :"));
     fpMethodCombo = new QComboBox;
@@ -263,13 +262,13 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     wplCheckBox = new RichTextCheckBox;
     wplCheckBox->setToolTip(tr("<b>Compensate density fluctuations:</b> This is the so-called WPL correction (Webb et al., 1980). Choose whether to apply the compensation of density fluctuations to raw gas concentrations available as molar densities or mole fractions (moles gas per mole of wet air). The correction does not apply if raw concentrations are available as mixing ratios (mole gas per mole dry air)."));
     wplCheckBox->setText(tr("Compensate density fluctuations (WPL terms)"));
-    wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Converting_to_Mixing_Ratio.html"));
+    wplCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/converting-to-mixing-ratio.html"));
 
     // burba correction
     burbaCorrCheckBox = new RichTextCheckBox;
     burbaCorrCheckBox->setToolTip(tr("<b>Add instrument sensible heat components, only for LI-7500:</b> Only applies to the LI-7500. It takes into account air density fluctuations due to temperature fluctuations induced by heat exchange processes at the instrument surfaces, as from Burba et al. (2008)."));
     burbaCorrCheckBox->setText(tr("Add instrument sensible heat components, only for LI-7500 "));
-    burbaCorrCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Off-season_Uptake_Correction.html"));
+    burbaCorrCheckBox->setQuestionMark(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-offseason-uptake-correction.html"));
 
     burbaTypeLabel = new ClickLabel;
     burbaTypeLabel->setText(tr("Surface temperature estimation :"));
@@ -317,57 +316,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     burbaParamWidget->addWidget(burbaSimpleTab);
     burbaParamWidget->addWidget(burbaMultiTab);
     burbaParamWidget->setCurrentIndex(0);
-
-    // drift correction
-
-    auto driftTitle = new QLabel(tr("Correction of gas concentration errors (Fratini et al., 2014) – LI-7500/A/RS and LI-7200/RS only"));
-    driftTitle->setProperty("groupLabel", true);
-    driftTitle->setVisible(false);
-
-    noDriftCorrectionRadio = new QRadioButton;
-    noDriftCorrectionRadio->setText(tr("Do not correct"));
-    noDriftCorrectionRadio->setVisible(false);
-
-    linearDriftCorrectionRadio = new QRadioButton;
-    linearDriftCorrectionRadio->setText(tr("Linear interpolation"));
-    linearDriftCorrectionRadio->setVisible(false);
-
-    rssiDriftCorrectionRadio = new QRadioButton;
-    rssiDriftCorrectionRadio->setText(tr("RSSI-driven interpolation "
-                                         "(requires ‘raw counts’ in raw data files)"));
-    rssiDriftCorrectionRadio->setVisible(false);
-
-    driftCorrectionRadioGroup = new QButtonGroup(this);
-    driftCorrectionRadioGroup->addButton(noDriftCorrectionRadio, 0);
-    driftCorrectionRadioGroup->addButton(linearDriftCorrectionRadio, 1);
-    driftCorrectionRadioGroup->addButton(rssiDriftCorrectionRadio, 2);
-
-    auto retrieveCalibrationTitle = new QLabel;
-    retrieveCalibrationTitle->setText(tr("Calibration data"));
-    retrieveCalibrationTitle->setProperty("groupLabel", true);
-    retrieveCalibrationTitle->setVisible(false);
-
-    retrieveCalibrationButton = new QPushButton;
-    retrieveCalibrationButton->setProperty("mdButton", true);
-    retrieveCalibrationButton->setText(tr("Fetch from LI-COR"));
-    retrieveCalibrationButton->setVisible(false);
-
-    editCalibrationButton = new QPushButton;
-    editCalibrationButton->setText(tr("Calibration values"));
-    editCalibrationButton->setProperty("mdButton", true);
-    editCalibrationButton->setVisible(false);
-
-    auto serialNumberLabel = new QLabel;
-    serialNumberLabel->setText(tr("IRGA serial number: "));
-    serialNumberLabel->setVisible(false);
-
-    serialNumberEdit = new QLineEdit;
-    serialNumberEdit->setInputMask(QStringLiteral("00\\H-0000;_"));
-    serialNumberEdit->setText(QStringLiteral("00H0000"));
-    serialNumberEdit->setCursorPosition(0);
-    serialNumberEdit->setVisible(false);
-
-//
+    //
     auto wplTitle = new QLabel(tr("Compensation of density fluctuations"));
     wplTitle->setProperty("groupLabel", true);
 
@@ -378,9 +327,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     hrLabel->setObjectName(QStringLiteral("hrLabel"));
     auto hrLabel_2 = new QLabel;
     hrLabel_2->setObjectName(QStringLiteral("hrLabel"));
-    auto hrLabel_3 = new QLabel;
-    hrLabel_3->setObjectName(QStringLiteral("hrLabel"));
-    hrLabel_3->setVisible(false);
 
     auto qBox_1 = new QHBoxLayout;
     qBox_1->addWidget(windOffsetLabel);
@@ -389,10 +335,10 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     auto qBox_2 = new QHBoxLayout;
     qBox_2->addWidget(detrendLabel);
-    qBox_2->addWidget(questionMark_4);
+    qBox_2->addWidget(questionMark_2);
     qBox_2->addStretch();
 
-//
+    //
     auto toviLogo = new QPushButton;
     toviLogo->setObjectName(QStringLiteral("toviLogoImg"));
     connect(toviLogo, &QPushButton::clicked,
@@ -408,7 +354,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     toviBox->addWidget(toviAdsText);
     toviBox->addStretch();
 
-//
+    //
     auto settingsLayout = new QGridLayout;
     settingsLayout->addWidget(rawProcessingTitle, 0, 0);
     settingsLayout->addLayout(qBox_1, 1, 0, 1, 2);
@@ -441,18 +387,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->addWidget(defaultContainer, 15, 0, 1, 4);
     settingsLayout->addWidget(hrLabel_2, 16, 0, 1, 4);
 
-    // NOTE: temporarly disabled because not complete
-//    settingsLayout->addWidget(driftTitle, 17, 0);
-//    settingsLayout->addWidget(noDriftCorrectionRadio, 18, 0);
-//    settingsLayout->addWidget(retrieveCalibrationTitle, 18, 1);
-//    settingsLayout->addWidget(linearDriftCorrectionRadio, 19, 0);
-//    settingsLayout->addWidget(serialNumberLabel, 19, 1, Qt::AlignRight);
-//    settingsLayout->addWidget(serialNumberEdit, 19, 2, Qt::AlignLeft);
-//    settingsLayout->addWidget(retrieveCalibrationButton, 19, 2, Qt::AlignCenter);
-//    settingsLayout->addWidget(rssiDriftCorrectionRadio, 20, 0);
-//    settingsLayout->addWidget(editCalibrationButton, 20, 2, Qt::AlignCenter);
-//    settingsLayout->addWidget(hrLabel_3, 21, 0, 1, 4);
-
     settingsLayout->addWidget(qcTitle, 22, 0);
     settingsLayout->addWidget(qcCheckBox, 23, 0);
     settingsLayout->addWidget(qcLabel, 23, 1, Qt::AlignRight);
@@ -464,16 +398,16 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     settingsLayout->setRowStretch(26, 1);
     settingsLayout->setColumnStretch(4, 1);
 
-//    auto overallFrame = new QWidget;
-//    overallFrame->setProperty("scrollContainerWidget", true);
-//    overallFrame->setLayout(settingsLayout);
+    //    auto overallFrame = new QWidget;
+    //    overallFrame->setProperty("scrollContainerWidget", true);
+    //    overallFrame->setLayout(settingsLayout);
 
-//    auto scrollArea = new QScrollArea;
-//    scrollArea->setWidget(overallFrame);
-//    scrollArea->setWidgetResizable(true);
+    //    auto scrollArea = new QScrollArea;
+    //    scrollArea->setWidget(overallFrame);
+    //    scrollArea->setWidgetResizable(true);
 
-//    auto settingsGroupLayout = new QHBoxLayout;
-//    settingsGroupLayout->addWidget(scrollArea);
+    //    auto settingsGroupLayout = new QHBoxLayout;
+    //    settingsGroupLayout->addWidget(scrollArea);
 
     auto settingsGroupLayout = new QHBoxLayout;
     settingsGroupLayout->addWidget(WidgetUtils::getContainerScrollArea(this, settingsLayout));
@@ -483,7 +417,7 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
 
     auto qBox_11 = new QHBoxLayout;
     qBox_11->addWidget(settingsGroupTitle, 0, Qt::AlignRight | Qt::AlignBottom);
-    qBox_11->addWidget(questionMark_11);
+    qBox_11->addWidget(questionMark_3);
     qBox_11->addStretch();
 
     auto mainLayout = new QVBoxLayout(this);
@@ -536,8 +470,6 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
             this, &AdvProcessingOptions::showPfSettingsDialog);
     connect(tlSettingsButton, &QPushButton::clicked,
             this, &AdvProcessingOptions::showTlSettingsDialog);
-    connect(editCalibrationButton, &QPushButton::clicked,
-            this, &AdvProcessingOptions::showCalibDialog);
 
     connect(detrendMethLabel, &ClickLabel::clicked,
             this, &AdvProcessingOptions::onClickDetrendLabel);
@@ -591,18 +523,14 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
     connect(wplCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::updateBurbaGroup);
     connect(wplCheckBox, &RichTextCheckBox::toggled,
-            [=](bool b){ burbaCorrCheckBox->setEnabled(b); });
-    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled, [=](bool checked)
-            { ecProject_->setScreenBuCorr(checked); });
+            [=](bool b) { burbaCorrCheckBox->setEnabled(b); });
+    connect(burbaCorrCheckBox, &RichTextCheckBox::toggled, [=](bool checked) { ecProject_->setScreenBuCorr(checked); });
     connect(burbaCorrCheckBox, &RichTextCheckBox::toggled,
             this, &AdvProcessingOptions::enableBurbaCorrectionArea);
     connect(burbaRadioGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(updateBurbaType_2(int)));
     connect(setDefaultsButton, &QPushButton::clicked,
             this, &AdvProcessingOptions::on_setDefaultsButton_clicked);
-
-    connect(retrieveCalibrationButton, &QPushButton::clicked,
-            this, &AdvProcessingOptions::fetchCalibration);
 
     connect(ecProject_, &EcProject::ecProjectNew,
             this, &AdvProcessingOptions::reset);
@@ -617,27 +545,20 @@ AdvProcessingOptions::AdvProcessingOptions(QWidget *parent,
                                     << fpMethodCombo;
     for (auto widget : combo_list)
     {
-        auto combo = static_cast<QComboBox *>(widget);
+        auto combo = dynamic_cast<QComboBox *>(widget);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(updateTooltip(int)));
     }
 
     createPfSettingsDialog();
     createTlSettingsDialog();
-    createCalibDialog();
     QTimer::singleShot(0, this, SLOT(reset()));
 }
 
 AdvProcessingOptions::~AdvProcessingOptions()
 {
-    if (pfDialog_)
-        delete pfDialog_;
-
-    if (tlDialog_)
-        delete tlDialog_;
-
-    if (calibDialog_)
-        delete calibDialog_;
+    delete pfDialog_;
+    delete tlDialog_;
 }
 
 void AdvProcessingOptions::updateUOffset(double d)
@@ -761,7 +682,7 @@ void AdvProcessingOptions::updateTlagMeth_2(int n)
 
 void AdvProcessingOptions::onClickDetrendCombo(int newDetrendMethod)
 {
-    DetrendMethod currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
+    auto currDetrendMethod = static_cast<DetrendMethod>(newDetrendMethod);
 
     if (previousDetrendMethod_ == DetrendMethod::LinearDetrending)
     {
@@ -899,7 +820,6 @@ void AdvProcessingOptions::reset()
 
     pfDialog_->reset();
     tlDialog_->reset();
-    calibDialog_->reset();
 
     qcLabel->setEnabled(true);
     qcCheckBox->setChecked(true);
@@ -982,8 +902,7 @@ void AdvProcessingOptions::refresh()
         rotMethCombo->setCurrentIndex(0);
     }
 
-    pfSettingsButton->setEnabled((ecProject_->screenRotMethod() == 3)
-                                 || (ecProject_->screenRotMethod() == 4));
+    pfSettingsButton->setEnabled((ecProject_->screenRotMethod() == 3) || (ecProject_->screenRotMethod() == 4));
 
     timeConstantSpin->setValue(ecProject_->screenTimeConst());
     detrendCombo->setCurrentIndex(ecProject_->screenDetrendMeth());
@@ -1110,22 +1029,6 @@ void AdvProcessingOptions::showTlSettingsDialog()
     tlDialog_->activateWindow();
 }
 
-void AdvProcessingOptions::createCalibDialog()
-{
-    if (!calibDialog_)
-    {
-        calibDialog_ = new CalibrationDialog(this, ecProject_, configState_);
-    }
-}
-
-void AdvProcessingOptions::showCalibDialog()
-{
-    calibDialog_->refresh();
-    calibDialog_->show();
-    calibDialog_->raise();
-    calibDialog_->activateWindow();
-}
-
 void AdvProcessingOptions::onClickQcMethodLabel()
 {
     if (qcMethodCombo->isEnabled())
@@ -1139,7 +1042,6 @@ void AdvProcessingOptions::updateQcMeth_1(bool b)
     if (b)
     {
         ecProject_->setGeneralQcMeth(qcMethodCombo->currentIndex() + 1);
-
     }
     else
     {
@@ -1165,7 +1067,6 @@ void AdvProcessingOptions::updateFpMeth_1(bool b)
     if (b)
     {
         ecProject_->setGeneralFpMeth(fpMethodCombo->currentIndex() + 1);
-
     }
     else
     {
@@ -1265,19 +1166,22 @@ void AdvProcessingOptions::createBurbaParamItems()
 
     multiDayGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 0, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 0, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 0, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 0, 9, 1, 1);
     multiDayGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 1, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 1, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 1, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 1, 9, 1, 1);
     multiDayGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
     multiDayGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 2, 5, 1, 1);
-    multiDayGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" + "), this), 2, 3, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 5, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr(" * R<sub>g</sub> + "), this), 2, 7, 1, 1);
+    multiDayGrid->addWidget(new QLabel(tr("* U"), this), 2, 9, 1, 1);
 
     mDayBot1 = new CustomResetLineEdit;
     mDayBot1->setMaxLength(10);
@@ -1336,19 +1240,22 @@ void AdvProcessingOptions::createBurbaParamItems()
 
     multiNightGrid->addWidget(new QLabel(tr("Bottom :"), this), 0, 0, 1, 1, Qt::AlignRight);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>bot</sub> - T<sub>a</sub> = "), this), 0, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 0, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 0, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 0, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 0, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 0, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 0, 9, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("Top :"), this), 1, 0, 1, 1, Qt::AlignRight);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>top</sub> - T<sub>a</sub> = "), this), 1, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 1, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 1, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 1, 3, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 1, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 1, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 1, 9, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("Spar :"), this), 2, 0, 1, 1, Qt::AlignRight);
+    multiNightGrid->addWidget(new QLabel(tr(" + "), this), 2, 3, 1, 1);
     multiNightGrid->addWidget(new QLabel(tr("T<sub>spar</sub> - T<sub>a</sub> = "), this), 2, 1, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 3, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 2, 5, 1, 1);
-    multiNightGrid->addWidget(new QLabel(tr(" * U + "), this), 2, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * T<sub>a</sub> + "), this), 2, 5, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr(" * LWin + "), this), 2, 7, 1, 1);
+    multiNightGrid->addWidget(new QLabel(tr("* U"), this), 2, 9, 1, 1);
 
     mNightBot1 = new CustomResetLineEdit;
     mNightBot1->setMaxLength(10);
@@ -1410,85 +1317,49 @@ void AdvProcessingOptions::createBurbaParamItems()
     burbaMultiDay->setLayout(multiDayGrid);
     burbaMultiNight->setLayout(multiNightGrid);
 
-    connect(lDayBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayBotGain(s.toDouble()); });
-    connect(lDayBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayBotOffset(s.toDouble()); });
-    connect(lDayTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayTopGain(s.toDouble()); });
-    connect(lDayTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDayTopOffset(s.toDouble()); });
-    connect(lDaySparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDaySparGain(s.toDouble()); });
-    connect(lDaySparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLDaySparOffset(s.toDouble()); });
+    connect(lDayBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayBotGain(s.toDouble()); });
+    connect(lDayBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayBotOffset(s.toDouble()); });
+    connect(lDayTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayTopGain(s.toDouble()); });
+    connect(lDayTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDayTopOffset(s.toDouble()); });
+    connect(lDaySparGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDaySparGain(s.toDouble()); });
+    connect(lDaySparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLDaySparOffset(s.toDouble()); });
 
-    connect(lNightBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightBotGain(s.toDouble()); });
-    connect(lNightBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightBotOffset(s.toDouble()); });
-    connect(lNightTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightTopGain(s.toDouble()); });
-    connect(lNightTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightTopOffset(s.toDouble()); });
-    connect(lNightSparGain, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightSparGain(s.toDouble()); });
-    connect(lNightSparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenLNightSparOffset(s.toDouble()); });
+    connect(lNightBotGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightBotGain(s.toDouble()); });
+    connect(lNightBotOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightBotOffset(s.toDouble()); });
+    connect(lNightTopGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightTopGain(s.toDouble()); });
+    connect(lNightTopOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightTopOffset(s.toDouble()); });
+    connect(lNightSparGain, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightSparGain(s.toDouble()); });
+    connect(lNightSparOffset, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenLNightSparOffset(s.toDouble()); });
 
-    connect(mDayBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot1(s.toDouble()); });
-    connect(mDayBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot2(s.toDouble()); });
-    connect(mDayBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot3(s.toDouble()); });
-    connect(mDayBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayBot4(s.toDouble()); });
+    connect(mDayBot1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot1(s.toDouble()); });
+    connect(mDayBot2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot2(s.toDouble()); });
+    connect(mDayBot3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot3(s.toDouble()); });
+    connect(mDayBot4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayBot4(s.toDouble()); });
 
-    connect(mDayTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop1(s.toDouble()); });
-    connect(mDayTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop2(s.toDouble()); });
-    connect(mDayTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop3(s.toDouble()); });
-    connect(mDayTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDayTop4(s.toDouble()); });
+    connect(mDayTop1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop1(s.toDouble()); });
+    connect(mDayTop2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop2(s.toDouble()); });
+    connect(mDayTop3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop3(s.toDouble()); });
+    connect(mDayTop4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDayTop4(s.toDouble()); });
 
-    connect(mDaySpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar1(s.toDouble()); });
-    connect(mDaySpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar2(s.toDouble()); });
-    connect(mDaySpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar3(s.toDouble()); });
-    connect(mDaySpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMDaySpar4(s.toDouble()); });
+    connect(mDaySpar1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar1(s.toDouble()); });
+    connect(mDaySpar2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar2(s.toDouble()); });
+    connect(mDaySpar3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar3(s.toDouble()); });
+    connect(mDaySpar4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMDaySpar4(s.toDouble()); });
 
-    connect(mNightBot1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot1(s.toDouble()); });
-    connect(mNightBot2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot2(s.toDouble()); });
-    connect(mNightBot3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot3(s.toDouble()); });
-    connect(mNightBot4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightBot4(s.toDouble()); });
+    connect(mNightBot1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot1(s.toDouble()); });
+    connect(mNightBot2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot2(s.toDouble()); });
+    connect(mNightBot3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot3(s.toDouble()); });
+    connect(mNightBot4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightBot4(s.toDouble()); });
 
-    connect(mNightTop1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop1(s.toDouble()); });
-    connect(mNightTop2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop2(s.toDouble()); });
-    connect(mNightTop3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop3(s.toDouble()); });
-    connect(mNightTop4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightTop4(s.toDouble()); });
+    connect(mNightTop1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop1(s.toDouble()); });
+    connect(mNightTop2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop2(s.toDouble()); });
+    connect(mNightTop3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop3(s.toDouble()); });
+    connect(mNightTop4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightTop4(s.toDouble()); });
 
-    connect(mNightSpar1, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar1(s.toDouble()); });
-    connect(mNightSpar2, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar2(s.toDouble()); });
-    connect(mNightSpar3, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar3(s.toDouble()); });
-    connect(mNightSpar4, &CustomResetLineEdit::textChanged, [=](const QString &s)
-            { ecProject_->setScreenMNightSpar4(s.toDouble()); });
+    connect(mNightSpar1, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar1(s.toDouble()); });
+    connect(mNightSpar2, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar2(s.toDouble()); });
+    connect(mNightSpar3, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar3(s.toDouble()); });
+    connect(mNightSpar4, &CustomResetLineEdit::textChanged, [=](const QString &s) { ecProject_->setScreenMNightSpar4(s.toDouble()); });
 }
 
 void AdvProcessingOptions::setBurbaDefaultValues()
@@ -1575,32 +1446,32 @@ void AdvProcessingOptions::createQuestionMark()
 {
     questionMark_1 = new QPushButton;
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_4 = new QPushButton;
-    questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_11 = new QPushButton;
-    questionMark_11->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_2 = new QPushButton;
+    questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_1);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_2, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_4);
-    connect(questionMark_11, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvProcessingOptions::onlineHelpTrigger_11);
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Wind_Speed_Offsets.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/windspeed-offsets.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculate_Turbulent_Flux.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-turbulent-flux.html")));
 }
 
 void AdvProcessingOptions::onlineHelpTrigger_11()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Raw_Processing_Options.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/raw-processing-options.html")));
 }
 
 void AdvProcessingOptions::updateTooltip(int i)
@@ -1612,173 +1483,10 @@ void AdvProcessingOptions::updateTooltip(int i)
 bool AdvProcessingOptions::requestBurbaSettingsReset()
 {
     return WidgetUtils::yesNoQuestion(this,
-                tr("Reset Surface Heating Correction"),
-                tr("<p>Do you want to reset the surface heating correction "
-                   "to the default values of Burba et al. (2008)?</p>"),
-                tr("<p>You cannot undo this action.</p>"));
-}
-
-void AdvProcessingOptions::fetchCalibration()
-{
-    calibration_api_ = new CalibrationAPI(this);
-
-    connect(calibration_api_, &CalibrationAPI::calibrationInfoReady,
-            this, &AdvProcessingOptions::parseCalibrationInfo);
-    connect(calibration_api_, &CalibrationAPI::calibrationFileReady,
-            this, &AdvProcessingOptions::parseCalibrationFile);
-
-    calibration_api_->getCalibrationInfo(serialNumberEdit->text());
-}
-
-void AdvProcessingOptions::parseCalibrationInfo(const QByteArray &data)
-{
-    CalibrationInfo calResponse(data);
-    calibration_info_ = calResponse;
-
-    // get calibration date
-    calibration_.calib_date = StringUtils::fromUnixTimeToISOString(calibration_info_.calDate());
-
-    // get file
-    if (calibration_info_.responseCode() == 200.0)
-    {
-        calibration_api_->getCalibrationFile(calibration_info_.calLink());
-    }
-}
-
-void AdvProcessingOptions::parseCalibrationFile()
-{
-    auto calDir = configState_->general.env
-            + QLatin1Char('/')
-            + Defs::CAL_FILE_DIR
-            + QLatin1Char('/');
-
-    QString calFilename = calDir + QFileInfo(calibration_info_.calLink()).fileName();
-    FileUtils::zipExtract(calFilename, calDir);
-
-    // remove pdf's
-    FileUtils::cleanDirFromFiletypeRecursively(calDir, QStringList() << QStringLiteral("pdf"));
-
-    calibration_file_ = FileUtils::getFiles(calDir, QStringLiteral("*.l7x")).first();
-    FileUtils::chmod_644(calibration_file_);
-
-    // parsing calibration data
-
-    // precondition the file
-    FileUtils::prependToFile(QStringLiteral("(LI7200 "), calibration_file_);
-    FileUtils::prependToFile(QStringLiteral(")\n"), calibration_file_);
-
-    // read dtd file
-    std::string dtd_filename("li7200.dtd");
-    std::ifstream dtd(dtd_filename);
-
-    // After this attempt to open a file, we can safely use perror() only
-    // in case f.is_open() returns False.
-    if (!dtd.is_open())
-    {
-        qDebug() << "error while opening dtd file";
-        return;
-    }
-
-    // read cal file
-    std::string calname(calibration_file_.toStdString());
-    std::ifstream cal(calname);
-    if (!cal.is_open())
-    {
-        qDebug() << "error while opening cal file";
-        return;
-    }
-
-    if (dtd)
-    {
-        try
-        {
-            xtreefactory tree_factory;
-            xtree* parser = tree_factory.createTree(dtd);
-            parser->parse(cal);
-
-            calibration_.co2_1_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(A)")->getValue()).toDouble();
-            calibration_.co2_2_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(B)")->getValue()).toDouble();
-            calibration_.co2_3_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(C)")->getValue()).toDouble();
-            calibration_.co2_4_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(D)")->getValue()).toDouble();
-            calibration_.co2_5_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(E)")->getValue()).toDouble();
-            calibration_.co2_XS = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(XS)")->getValue()).toDouble();
-            calibration_.co2_Z = QString::fromStdString(parser->query("(LI7200(Coef(Current(CO2(Z)")->getValue()).toDouble();
-            calibration_.co2_Zero = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroCO2(Val)")->getValue()).toDouble();
-            calibration_.co2_Zero_date = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroCO2(Date)")->getValue());
-            calibration_.co2_Span = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanCO2(Val)")->getValue()).toDouble();
-            calibration_.co2_Span_date = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanCO2(Date)")->getValue());
-            calibration_.co2_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2CO2(Val)")->getValue()).toDouble();
-            calibration_.co2_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2CO2(Date)")->getValue());
-
-            calibration_.h2o_1_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(A)")->getValue()).toDouble();
-            calibration_.h2o_2_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(B)")->getValue()).toDouble();
-            calibration_.h2o_3_dir = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(C)")->getValue()).toDouble();
-            calibration_.h2o_XS = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(XS)")->getValue()).toDouble();
-            calibration_.h2o_Z = QString::fromStdString(parser->query("(LI7200(Coef(Current(H2O(Z)")->getValue()).toDouble();
-            calibration_.h2o_Zero = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroH2O(Val)")->getValue()).toDouble();
-            calibration_.h2o_Zero_date = QString::fromStdString(parser->query("(LI7200(Calibrate(ZeroH2O(Date)")->getValue());
-            calibration_.h2o_Span = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanH2O(Val)")->getValue()).toDouble();
-            calibration_.h2o_Span_date = QString::fromStdString(parser->query("(LI7200(Calibrate(SpanH2O(Date)")->getValue());
-            calibration_.h2o_Span_2 = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Val)")->getValue()).toDouble();
-            calibration_.h2o_Span_2_date = QString::fromStdString(parser->query("(LI7200(Calibrate(Span2H2O(Date)")->getValue());
-
-            try
-            {
-                calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(CX)")->getValue()).toDouble();
-                calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Calibrate(MaxRef(WX)")->getValue()).toDouble();
-            }
-            catch(xmlError& e)
-            {
-                std::cout << "Could not query CX and WX: " << e.getError() << std::endl;
-                return;
-            }
-
-            try
-            {
-                calibration_.co2_CX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(CX)")->getValue()).toDouble();
-                calibration_.h2o_WX = QString::fromStdString(parser->query("(LI7200(Coef(Current(MaxRef(WX)")->getValue()).toDouble();
-            }
-            catch(xmlError& e)
-            {
-                std::cout << "Could not query CX and WX: " << e.getError() << std::endl;
-                return;
-            }
-        }
-        catch(xmlError& e)
-        {
-            std::cout << "Could not create parser: " << e.getError() << std::endl;
-            return;
-        }
-
-        computeInverseCoefficients(calibration_);
-    }
-}
-
-void AdvProcessingOptions::computeInverseCoefficients(Calibration &cal)
-{
-    auto x_range = VectorUtils::arange<double>(0.000416, 0.001192, 0.000004);
-
-    std::vector<double> co2_dir_coeffs = {0.0, cal.co2_1_dir, cal.co2_2_dir, cal.co2_3_dir, cal.co2_4_dir, cal.co2_5_dir, 0.0};
-    std::vector<double> h2o_dir_coeffs = {0.0, cal.h2o_1_dir, cal.h2o_2_dir, cal.h2o_3_dir, 0.0, 0.0, 0.0};
-
-    std::vector<double> co2_inv_coeffs = VectorUtils::poly_boost(x_range, co2_dir_coeffs, 6);
-    std::vector<double> h2o_inv_coeffs = VectorUtils::poly_boost(x_range, h2o_dir_coeffs, 6);
-
-    cal.co2_0_inv = co2_inv_coeffs.at(0);
-    cal.co2_1_inv = co2_inv_coeffs.at(1);
-    cal.co2_2_inv = co2_inv_coeffs.at(2);
-    cal.co2_3_inv = co2_inv_coeffs.at(3);
-    cal.co2_4_inv = co2_inv_coeffs.at(4);
-    cal.co2_5_inv = co2_inv_coeffs.at(5);
-    cal.co2_6_inv = co2_inv_coeffs.at(6);
-
-    cal.h2o_0_inv = h2o_inv_coeffs.at(0);
-    cal.h2o_1_inv = h2o_inv_coeffs.at(1);
-    cal.h2o_2_inv = h2o_inv_coeffs.at(2);
-    cal.h2o_3_inv = h2o_inv_coeffs.at(3);
-    cal.h2o_4_inv = h2o_inv_coeffs.at(4);
-    cal.h2o_5_inv = h2o_inv_coeffs.at(5);
-    cal.h2o_6_inv = h2o_inv_coeffs.at(6);
+                                      tr("Reset Surface Heating Correction"),
+                                      tr("<p>Do you want to reset the surface heating correction "
+                                         "to the default values of Burba et al. (2008)?</p>"),
+                                      tr("<p>You cannot undo this action.</p>"));
 }
 
 void AdvProcessingOptions::openToviHomepage()

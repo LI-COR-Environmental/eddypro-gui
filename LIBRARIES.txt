@@ -1,0 +1,36 @@
+This software uses the following frameworks, libraries and helper utilities:
+
+- Qt
+
+    Author: The Qt Company Ltd
+    URL: https://www.qt.io
+    License: LGPL v3
+    Usage: dynamically linked
+
+- QProgressIndicator
+
+    Author: Morgan Leborgne
+    URL: https://github.com/mojocorp/QProgressIndicator
+    License: MIT
+    Usage: statically linked
+
+- QuaZip
+
+    Author: Sergei Tachenov
+    URL: https://github.com/stachenov
+    License: LGPL v2.1
+    Usage: dynamically linked
+
+- pausep
+
+    Author: Daniel Turini
+    URL: http://www.codeproject.com/Articles/2964/Win-process-suspend-resume-tool
+    License: Code Project Open License
+    Usage: redistributed as-is
+
+- 7za
+
+    Author: Igor Pavlov
+    URL: https://www.7-zip.org/
+    License: mostly LGPL (see here for details, https://www.7-zip.org/license.txt)
+    Usage: redistributed as-is

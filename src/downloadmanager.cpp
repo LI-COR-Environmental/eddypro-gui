@@ -1,23 +1,30 @@
 /***************************************************************************
   downloadmanager.cpp
   -------------------
-  Copyright (C) 2016-2018, LI-COR Biosciences
+  Copyright © 2016-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
 #include "downloadmanager.h"
@@ -28,17 +35,12 @@
 
 #include <QThread>
 
-#include "dbghelper.h"
 #include "defs.h"
 
 DownloadManager::DownloadManager(QObject *parent) :
     QObject(parent),
     reply(nullptr),
     versionNr(QByteArray())
-{
-}
-
-DownloadManager::~DownloadManager()
 {
 }
 
@@ -76,18 +78,10 @@ void DownloadManager::get(const QUrl &url)
 
     reply = manager.get(request);
 
-    // TODO(emiola): remove test when bump Qt version on Windows
-#if (QT_VERSION > 0x050302) && (__GNUC__ >= 4) && (__GNUC_MINOR__ > 8)
     connect(reply, &QNetworkReply::downloadProgress,
             this, &DownloadManager::downloadProgress);
     connect(reply, &QNetworkReply::finished,
             this, &DownloadManager::downloadFinished);
-#else
-    connect(reply, SIGNAL(downloadProgress(qint64, qint64)),
-            this, SLOT(downloadProgress(qint64, qint64)));
-    connect(reply, SIGNAL(finished()),
-            this, SLOT(downloadFinished()));
-#endif
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
             this, SLOT(downloadError(QNetworkReply::NetworkError)));
 }

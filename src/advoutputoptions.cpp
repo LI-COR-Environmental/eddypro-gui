@@ -1,23 +1,30 @@
 /***************************************************************************
   advoutputoptions.cpp
-  -------------------
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  --------------------
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "advoutputoptions.h"
@@ -34,11 +41,11 @@
 #include <QTimer>
 #include <QUrl>
 #include <QDesktopServices>
+#include <QGroupBox>
 
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customcheckbox.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "richtextcheckbox.h"
 #include "widget_utils.h"
@@ -234,24 +241,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outFullCospectraCheckBoxN2o = new RichTextCheckBox;
     outFullCospectraCheckBoxN2o->setText(tr("W/%1 Gas").arg(Defs::GAS4_STRING));
 
-    outGhgEuCheckBox = new QCheckBox;
-    outGhgEuCheckBox->setText(tr("GHG-Europe results (fluxes and more, "
-                                 "formatted for GHG-Europe database)"));
-    tooltipStr =
-        tr("<b>GHG-Europe results:</b> A selection of main results formatted "
-           "so as to be easily completed with missing variables and submitted "
-           "to the GHG-Europe database.");
-    outGhgEuCheckBox->setToolTip(tooltipStr);
-
-    outAmFluxCheckBox = new QCheckBox;
-    outAmFluxCheckBox->setText(tr("AmeriFlux results (fluxes and more, "
-                                  "formatted for AmeriFlux database)"));
-    tooltipStr =
-        tr("<b>AmeriFlux results:</b> A selection of main results formatted "
-           "so as to be easily completed with missing variables and submitted "
-           "to the AmeriFlux database.");
-    outAmFluxCheckBox->setToolTip(tooltipStr);
-
     outFullCheckBox = new QCheckBox;
     outFullCheckBox->setText(tr("Full output (fluxes, quality flags, "
                                 "turbulence, statistics...)"));
@@ -331,6 +320,16 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     errorFormatCombo->setEditable(true);
     QLineEdit* errorLinedit = errorFormatCombo->lineEdit();
     errorLinedit->setMaxLength(32);
+
+    // Fluxnet box
+    auto fluxnetBox = new QGroupBox(tr("Fluxnet output settings"));
+    fluxnetStdBiometCheckBox = new QCheckBox(tr("Use Fluxnet standard for biomet labels and units"));
+    fluxnetErrLabelCheckBox = new QCheckBox(tr("Set error label in Fluxnet mode (-9999)"));
+    auto vbox = new QVBoxLayout;
+    vbox->addWidget(fluxnetStdBiometCheckBox);
+    vbox->addWidget(fluxnetErrLabelCheckBox);
+    vbox->addStretch(1);
+    fluxnetBox->setLayout(vbox);
 
     auto statLabel = WidgetUtils::createBlueLabel(this, tr("Statistics"));
     tooltipStr =
@@ -453,12 +452,12 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
     auto qBox_4 = new QHBoxLayout;
     qBox_4->addWidget(createDatasetCheckBox);
-    qBox_4->addWidget(questionMark_4);
+    qBox_4->addWidget(questionMark_3);
     qBox_4->addStretch();
 
     auto qBox_10 = new QHBoxLayout;
     qBox_10->addWidget(title_6);
-    qBox_10->addWidget(questionMark_5);
+    qBox_10->addWidget(questionMark_4);
     qBox_10->addStretch();
 
     auto qBox_5 = new QHBoxLayout;
@@ -481,12 +480,12 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
 
     auto qBox_8 = new QHBoxLayout;
     qBox_8->addWidget(statLabel);
-    qBox_8->addWidget(questionMark_8);
+    qBox_8->addWidget(questionMark_5);
     qBox_8->addStretch();
 
     auto qBox_9 = new QHBoxLayout;
     qBox_9->addWidget(timeSeriesLabel);
-    qBox_9->addWidget(questionMark_9);
+    qBox_9->addWidget(questionMark_6);
     qBox_9->addStretch();
 
 //
@@ -522,8 +521,7 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
     outputLayout->addLayout(qBox_4, 5, 6, 6, 2, Qt::AlignLeft);
     outputLayout->addLayout(qBox_3, 7, 2, Qt::AlignRight);
     outputLayout->addWidget(errorFormatCombo, 7, 3);
-    outputLayout->addWidget(outAmFluxCheckBox, 8, 0, 1, 4);
-    outputLayout->addWidget(outGhgEuCheckBox, 9, 0, 1, 4);
+    outputLayout->addWidget(fluxnetBox, 7, 0, 2, 2);
     outputLayout->addWidget(outBiometCheckBox, 10, 0, 1, 4);
     outputLayout->addWidget(outDetailsCheckBox, 11, 0, 1, 4);
     outputLayout->addWidget(outMdCheckBox, 12, 0, 1, 4);
@@ -634,8 +632,6 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             { ecProject_->setGeneralOutMeanCosp(checked); });
     connect(outMeanCospCheckBox, &QCheckBox::toggled,
             this, &AdvOutputOptions::updateBinSpectra);
-    connect(outGhgEuCheckBox, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setGeneralOutGhgEu(checked); });
     connect(outDetailsCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setScreenlOutDetails(checked); });
     connect(outMdCheckBox, &QCheckBox::toggled, [=](bool checked)
@@ -644,10 +640,20 @@ AdvOutputOptions::AdvOutputOptions(QWidget* parent,
             { ecProject_->setGeneralOutBiomet(checked); });
     connect(createDatasetCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralMakeDataset(checked); });
-    connect(outAmFluxCheckBox, &QCheckBox::toggled, [=](bool checked)
-            { ecProject_->setGeneralOutAmFluxOut(checked); });
     connect(outFullCheckBox, &QCheckBox::toggled, [=](bool checked)
             { ecProject_->setGeneralOutRich(checked); });
+    connect(fluxnetStdBiometCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralFluxnetStandardize(checked); });
+    connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
+            { ecProject_->setGeneralFluxnetErrLabel(checked); });
+    connect(fluxnetErrLabelCheckBox, &QCheckBox::toggled, [=](bool checked)
+            {   if (checked) {
+                    errorFormatCombo->setCurrentIndex(0);
+                    errorFormatCombo->setDisabled(true);
+                } else {
+                    errorFormatCombo->setDisabled(false);
+                }
+            });
 
     // buttonClicked() is and overloaded signal...
     connect(outputFormatRadioGroup, SIGNAL(buttonClicked(int)),
@@ -770,6 +776,8 @@ void AdvOutputOptions::setSmartfluxUI()
     QWidgetList enableableWidgets;
     enableableWidgets << outFullCheckBox
                       << fullOutformatLabel
+                      << fluxnetStdBiometCheckBox
+                      << fluxnetErrLabelCheckBox
                       << fixedVarsOutputRadio
                       << variableVarsOutputRadio
                       << errorFormatLabel
@@ -777,8 +785,6 @@ void AdvOutputOptions::setSmartfluxUI()
                       << createDatasetCheckBox
                       << outMeanSpectraCheckBox
                       << outMeanCospCheckBox
-                      << outAmFluxCheckBox
-                      << outGhgEuCheckBox
                       << outBiometCheckBox
                       << outMdCheckBox
                       << outFullSpectraCheckBoxU
@@ -869,6 +875,8 @@ void AdvOutputOptions::setSmartfluxUI()
     QList<QAbstractButton *> checkableWidgets;
     checkableWidgets << outFullCheckBox
                      << outBiometCheckBox
+                     << fluxnetStdBiometCheckBox
+                     << fluxnetErrLabelCheckBox
                      << fixedVarsOutputRadio;
     for (auto w : checkableWidgets)
     {
@@ -884,29 +892,27 @@ void AdvOutputOptions::setSmartfluxUI()
     }
 
     QList<QCheckBox *> uncheckableCheckbox;
-    uncheckableCheckbox << outAmFluxCheckBox
-                       << outGhgEuCheckBox
-                       << createDatasetCheckBox
-                       << outMeanSpectraCheckBox
-                       << outMeanCospCheckBox
-                       << outDetailsCheckBox
-                       << outMdCheckBox
-                       << outBinOgivesCheckBox
-                       << outSt1CheckBox
-                       << outSt2CheckBox
-                       << outSt3CheckBox
-                       << outSt4CheckBox
-                       << outSt5CheckBox
-                       << outSt6CheckBox
-                       << outSt7CheckBox
-                       << outRaw1CheckBox
-                       << outRaw2CheckBox
-                       << outRaw3CheckBox
-                       << outRaw4CheckBox
-                       << outRaw5CheckBox
-                       << outRaw6CheckBox
-                       << outRaw7CheckBox
-                       << outVarsAllCheckBox;
+    uncheckableCheckbox << createDatasetCheckBox
+                        << outMeanSpectraCheckBox
+                        << outMeanCospCheckBox
+                        << outDetailsCheckBox
+                        << outMdCheckBox
+                        << outBinOgivesCheckBox
+                        << outSt1CheckBox
+                        << outSt2CheckBox
+                        << outSt3CheckBox
+                        << outSt4CheckBox
+                        << outSt5CheckBox
+                        << outSt6CheckBox
+                        << outSt7CheckBox
+                        << outRaw1CheckBox
+                        << outRaw2CheckBox
+                        << outRaw3CheckBox
+                        << outRaw4CheckBox
+                        << outRaw5CheckBox
+                        << outRaw6CheckBox
+                        << outRaw7CheckBox
+                        << outVarsAllCheckBox;
     for (auto w : uncheckableCheckbox)
     {
         if (on)
@@ -976,6 +982,9 @@ void AdvOutputOptions::reset()
     variableVarsOutputRadio->setChecked(true);
     errorFormatCombo->setCurrentIndex(0);
 
+    fluxnetStdBiometCheckBox->setChecked(ecProject_->generalFluxnetStandardize());
+    fluxnetErrLabelCheckBox->setChecked(ecProject_->generalFluxnetErrLabel());
+
     if (ecProject_->generalUseBiomet())
     {
         outBiometCheckBox->setChecked(true);
@@ -1014,13 +1023,13 @@ void AdvOutputOptions::refresh()
     outFullCospectraCheckBoxCh4->setChecked(ecProject_->screenOutFullCospectraCh4());
     outFullCospectraCheckBoxN2o->setChecked(ecProject_->screenOutFullCospectraN2o());
 
-    outGhgEuCheckBox->setChecked(ecProject_->generalOutGhgEu());
-    outAmFluxCheckBox->setChecked(ecProject_->generalOutAmFlux());
     outFullCheckBox->setChecked(ecProject_->generalOutRich());
     outDetailsCheckBox->setChecked(ecProject_->screenOutDetails());
     outMdCheckBox->setChecked(ecProject_->generalOutMd());
     outBiometCheckBox->setChecked(ecProject_->generalOutBiomet());
     createDatasetCheckBox->setChecked(ecProject_->generalMakeDataset());
+    fluxnetStdBiometCheckBox->setChecked(ecProject_->generalFluxnetStandardize());
+    fluxnetErrLabelCheckBox->setChecked(ecProject_->generalFluxnetErrLabel());
 
     outputFormatRadioGroup->buttons().at(ecProject_->generalFixedOutFormat())->setChecked(true);
 
@@ -1263,8 +1272,6 @@ void AdvOutputOptions::checkVarsAll(bool b)
 void AdvOutputOptions::selectMin()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(false);
-    outGhgEuCheckBox->setChecked(false);
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(false);
@@ -1285,8 +1292,6 @@ void AdvOutputOptions::selectMin()
 void AdvOutputOptions::selectTypical()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(false);
-    outGhgEuCheckBox->setChecked(false);
     outDetailsCheckBox->setChecked(false);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(true);
@@ -1306,8 +1311,6 @@ void AdvOutputOptions::selectTypical()
 void AdvOutputOptions::selectFull()
 {
     outFullCheckBox->setChecked(true);
-    outAmFluxCheckBox->setChecked(true);
-    outGhgEuCheckBox->setChecked(true);
     outDetailsCheckBox->setChecked(true);
     outMdCheckBox->setChecked(true);
     outBiometCheckBox->setChecked(true);
@@ -1444,47 +1447,47 @@ void AdvOutputOptions::createQuestionMark()
     questionMark_1->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_2 = new QPushButton;
     questionMark_2->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_3 = new QPushButton;
+    questionMark_3->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_4 = new QPushButton;
     questionMark_4->setObjectName(QStringLiteral("questionMarkImg"));
     questionMark_5 = new QPushButton;
     questionMark_5->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_8 = new QPushButton;
-    questionMark_8->setObjectName(QStringLiteral("questionMarkImg"));
-    questionMark_9 = new QPushButton;
-    questionMark_9->setObjectName(QStringLiteral("questionMarkImg"));
+    questionMark_6 = new QPushButton;
+    questionMark_6->setObjectName(QStringLiteral("questionMarkImg"));
 
     connect(questionMark_1, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_1);
     connect(questionMark_2, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_2);
-    connect(questionMark_4, &QPushButton::clicked,
+    connect(questionMark_3, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_4);
-    connect(questionMark_5, &QPushButton::clicked,
+    connect(questionMark_4, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_5);
-    connect(questionMark_8, &QPushButton::clicked,
+    connect(questionMark_5, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_8);
-    connect(questionMark_9, &QPushButton::clicked,
+    connect(questionMark_6, &QPushButton::clicked,
             this, &AdvOutputOptions::onlineHelpTrigger_9);
 }
 
 void AdvOutputOptions::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_Overview.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-overview.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_4()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_Full_Output.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-full-output.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_5()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Calculating_Spectra_Cospectra_and_Ogives.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/calculate-spectra-cospectra-and-ogives.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_6()
@@ -1499,12 +1502,12 @@ void AdvOutputOptions::onlineHelpTrigger_7()
 
 void AdvOutputOptions::onlineHelpTrigger_8()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files_The_Stats_Folder.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files-the-stats-folder.html")));
 }
 
 void AdvOutputOptions::onlineHelpTrigger_9()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Output_Files.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/output-files.html")));
 }
 
 void AdvOutputOptions::onClickerrorFormatLabel()

@@ -1,24 +1,31 @@
 /***************************************************************************
   aboutdialog.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ---------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "aboutdialog.h"
@@ -41,8 +48,8 @@ AboutDialog::AboutDialog(QWidget* parent)
     resize(530, 620);
     setMinimumSize(530, 620);
 #elif defined(Q_OS_MACOS)
-    resize(660, 690);
-    setMinimumSize(660, 690);
+    resize(660, 670);
+    setMinimumSize(660, 670);
 #endif
 
     setWindowModality(Qt::WindowModal);
@@ -50,23 +57,21 @@ AboutDialog::AboutDialog(QWidget* parent)
     setWindowTitle(titleText);
     WidgetUtils::removeContextHelpButton(this);
 
+    auto compiler =
+#if defined(Q_OS_WIN)
+            Defs::WIN_COMPILER;
+#elif defined(Q_OS_MACOS)
+            Defs::MAC_COMPILER;
+#elif defined(Q_OS_LINUX)
+            Defs::LIN_COMPILER;
+#endif
+
     auto introduction = new QLabel;
     introduction->setText(
         tr("<h2>%1<sup>&reg;</sup> v%2%3</h2>"
            "<h6>Built on %4 at %5<br />With %6<br /></h6>"
-           ).arg(Defs::APP_NAME,
-            Defs::APP_VERSION_STR,
-            Defs::APP_STAGE_STR,
-            QStringLiteral(__DATE__),
-            QStringLiteral(__TIME__))
-        #if defined(Q_OS_WIN)
-            .arg(Defs::WIN_COMPILER)
-        #elif defined(Q_OS_MACOS)
-            .arg(Defs::MAC_COMPILER)
-        #elif defined(Q_OS_LINUX)
-            .arg(Defs::LIN_COMPILER)
-        #endif
-        );
+           ).arg(Defs::APP_NAME, Defs::APP_VERSION_STR, Defs::APP_STAGE_STR,
+                 QStringLiteral(__DATE__), QStringLiteral(__TIME__), compiler));
     auto icon = new QLabel;
     auto app_logo_2x = QPixmap(QStringLiteral(":/icons/app-logo-about"));
 #if defined(Q_OS_MACOS)
@@ -118,85 +123,11 @@ AboutDialog::AboutDialog(QWidget* parent)
     thanksLabel->setWordWrap(true);
 
     auto thanksEdit = new QTextEdit;
-    thanksEdit->setText(
-        tr("<h4>Original Authors</h4>"
-           "<ul type=\"square\">"
-           "<li>Gerardo Fratini (gerardo.fratini@licor.com): processing engines designer and developer</li>"
-           "<li>Antonio Forgione (antonio.forgione@licor.com): GUI designer and developer</li>"
-           "<li>Dario Papale (darpap@unitus.it): project manager and coordinator</li>"
-           "</ul>"
-
-           "<h4>Others contributors</h4>"
-           "<ul type=\"square\">"
-           "<li>Carlo Trotta: code harmonization and documentation</li>"
-           "<li>Natascha Kljun: code for footprint estimation, Kljun et al. (2004, BLM)</li>"
-           "<li>Taro Nakai: code for angle of attack correction, Nakai et al. (2006, AFM)</li>"
-           "<li>Andreas Ibrom: supervision during implementation of a spectral correction procedure, Ibrom et al. (2007, AFM)</li>"
-           "<li>Stephen Chan: Revision, refinement and testing of implementation of Massman 2000/2001 spectral correction.</li>"
-           "</ul>"
-
-           "<h4>Software validation (intercomparison)</h4>"
-           "<ul type=\"square\">"
-           "<li>Juha-Pekka Tuovinen</li>"
-           "<li>Andreas Ibrom</li>"
-           "<li>Ivan Mammarella</li>"
-           "<li>Robert Clement</li>"
-           "<li>Meelis Molder</li>"
-           "<li>Olaf Kolle</li>"
-           "<li>Corinna Rebmann</li>"
-           "<li>Matthias Mauder</li>"
-           "<li>Jan Elbers</li>"
-           "</ul>"
-
-           "<h4>User testing and bug notifications</h4>"
-           "<ul type=\"square\">"
-           "<li>Tarek El-Madany</li>"
-           "<li>Sergiy Medinets</li>"
-           "<li>Beniamino Gioli</li>"
-           "<li>Nicola Arriga</li>"
-           "<li>Luca Belelli</li>"
-           "<li>Michal Heliasz</li>"
-           "<li>Bernard Heinesch</li>"
-           "<li>Arnaud Carrara</li>"
-           "<li>Patrik Vestin</li>"
-           "<li>Matthias Barthel</li>"
-           "<li>Karoline Wischnewski</li>"
-           "<li>Matthew Wilkinson</li>"
-           "<li>Simone Sabbatini</li>"
-           "</ul>"
-
-           "<h4>Software discussions</h4>"
-           "<ul type=\"square\">"
-           "<li>Ian Elbers</li>"
-           "<li>George Burba</li>"
-           "<li>Christian Wille</li>"
-           "</ul>"
-
-           "<h4>Libraries</h4>"
-           "<ul type=\"square\">"
-           "<li>Arjan van Dijk: libdate module</li>"
-           "<li>Michael Baudin, Arjen Markus: m_logging module</li>"
-           "<li>University of Chicago: m_levenberg_marquardt from the MINPACK package</li>"
-           "<li>netlib.org: FFT routines from the SLATEC Common Mathematical Library</li>"
-           "<li>The Qt Company: Qt framework</li>"
-           "<li>Boost::math</li>"
-           "<li>Trenton Schulz (Trolltech AS): Fader widget</li>"
-           "<li>Morgan Leborgne: QProgressIndicator widget</li>"
-           "<li>Witold Wysota: Debug helper class</li>"
-           "<li>Sergey A. Tachenov: QuaZIP</li>"
-           "<li>Mark Summerfield: classes from the book 'Advanced Qt Programming'</li>"
-           "</ul>"
-
-           "<h4>Tools</h4>"
-           "<ul type=\"square\">"
-           "<li>GFortran compiler</li>"
-           "<li>MinGW compiler and GDB debugger</li>"
-           "<li>Clang compiler</li>"
-           "<li>The Qt Company: Qt Creator IDE</li>"
-           "<li>Code::Blocks IDE</li>"
-           "<li>\n</li>"
-           "</ul>"));
+    QFile thanksFile(QStringLiteral(":/docs/thanks"));
+    thanksFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    thanksEdit->setText(QLatin1String(thanksFile.readAll()));
     thanksEdit->setReadOnly(true);
+    thanksFile.close();
 
     auto thanksLayout = new QVBoxLayout;
     thanksLayout->addWidget(thanksLabel);
@@ -210,8 +141,7 @@ AboutDialog::AboutDialog(QWidget* parent)
         tr("<br />The %1 software application is Copyright &copy; 2011-%2 "
            "LI-COR Inc.\n\n"
            "You may use, distribute and copy the %1 programs suite under "
-           "the terms of the GNU General Public License version 3, "
-           "which is displayed below. If you would like to obtain "
+           "the terms of the EULA's displayed below. If you would like to obtain "
            "a copy of the source package please contact LI-COR "
            "Biosciences at "
            "<a href=\"mailto:envsupport@licor.com?subject=%1 %3&body="
@@ -221,16 +151,30 @@ AboutDialog::AboutDialog(QWidget* parent)
     licenseLabel->setWordWrap(true);
     licenseLabel->setOpenExternalLinks(true);
 
-    auto licenseEdit = new QTextEdit;
-    QFile licenseFile(QStringLiteral(":/docs/license"));
-    licenseFile.open(QIODevice::ReadOnly | QIODevice::Text);
-    licenseEdit->setText(QLatin1String(licenseFile.readAll()));
-    licenseEdit->setReadOnly(true);
-    licenseFile.close();
+    auto eulaNonCommercialEdit = new QTextEdit;
+    QFile eulaNonCommercialFile(QStringLiteral(":/docs/eula-non-commercial"));
+    eulaNonCommercialEdit->setAcceptRichText(true);
+    eulaNonCommercialFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    eulaNonCommercialEdit->setText(QLatin1String(eulaNonCommercialFile.readAll()));
+    eulaNonCommercialEdit->setReadOnly(true);
+    eulaNonCommercialFile.close();
+
+    auto eulaCommercialEdit = new QTextEdit;
+    QFile eulaCommercialFile(QStringLiteral(":/docs/eula-commercial"));
+    eulaCommercialEdit->setAcceptRichText(true);
+    eulaCommercialFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    eulaCommercialEdit->setText(QLatin1String(eulaCommercialFile.readAll()));
+    eulaCommercialEdit->setReadOnly(true);
+    eulaCommercialFile.close();
+
+    auto licenseTab = new QTabWidget;
+    licenseTab->addTab(eulaNonCommercialEdit, tr("EULA Non Commercial"));
+    licenseTab->addTab(eulaCommercialEdit, tr("EULA Commercial"));
+    licenseTab->setStyleSheet(QStringLiteral("QTabWidget::pane {margin-bottom: 0px}"));
 
     auto licenseLayout = new QVBoxLayout;
     licenseLayout->addWidget(licenseLabel);
-    licenseLayout->addWidget(licenseEdit);
+    licenseLayout->addWidget(licenseTab);
     licenseWidget->setLayout(licenseLayout);
 
     // Changelog
@@ -259,7 +203,7 @@ AboutDialog::AboutDialog(QWidget* parent)
     auto tab = new QTabWidget;
     tab->addTab(infoWidget, tr("About"));
     tab->addTab(thanksWidget, tr("Acknowledgments"));
-    tab->addTab(licenseWidget, tr("License"));
+    tab->addTab(licenseWidget, tr("Licenses"));
     tab->addTab(changelogWidget, tr("Changes"));
 
     auto okButton = WidgetUtils::createCommonButton(this, tr("Ok"));
@@ -274,8 +218,4 @@ AboutDialog::AboutDialog(QWidget* parent)
 
     connect(okButton, &QPushButton::clicked,
             [=](){ if (this->isVisible()) hide(); });
-}
-
-AboutDialog::~AboutDialog()
-{
 }

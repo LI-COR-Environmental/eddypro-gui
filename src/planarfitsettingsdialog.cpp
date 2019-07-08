@@ -1,23 +1,30 @@
 /***************************************************************************
   planarfitsettingsdialog.cpp
-  -------------------
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ---------------------------
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "planarfitsettingsdialog.h"
@@ -46,7 +53,6 @@
 #include "clicklabel.h"
 #include "configstate.h"
 #include "customclearlineedit.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "filebrowsewidget.h"
 #include "globalsettings.h"
@@ -125,19 +131,13 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     dateTimeContainer->setColumnStretch(3, 2);
     dateTimeContainer->setContentsMargins(0, 0, 0, 0);
     dateTimeContainer->setVerticalSpacing(3);
+    dateTimeContainer->setHorizontalSpacing(3);
 
     fileBrowse = new FileBrowseWidget;
     fileBrowse->setToolTip(tr("<b>Load:</b> Load an existing planar fit file"));
     fileBrowse->setDialogTitle(tr("Select the Planar Fit File"));
     fileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
     fileBrowse->setDialogFilter(tr("All Files (*.*)"));
-
-    auto existingFileLayout = new QHBoxLayout;
-    existingFileLayout->addWidget(existingRadio);
-    existingFileLayout->addWidget(fileBrowse);
-    existingFileLayout->setStretch(2, 1);
-    existingFileLayout->setContentsMargins(0, 0, 0, 0);
-    existingFileLayout->setSpacing(0);
 
     radioGroup = new QButtonGroup(this);
     radioGroup->addButton(existingRadio, 0);
@@ -182,7 +182,8 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     fixPolicyCombo->setToolTip(fixPolicyLabel->toolTip());
 
     auto propertiesLayout = new QGridLayout;
-    propertiesLayout->addLayout(existingFileLayout, 0, 0, 1, -1);
+    propertiesLayout->addWidget(existingRadio, 0, 0);
+    propertiesLayout->addWidget(fileBrowse, 0, 1, 1, -1);
     propertiesLayout->addWidget(nonExistingRadio, 1, 0);
     propertiesLayout->addWidget(subsetCheckBox, 1, 1, 1, 1, Qt::AlignLeft);
     propertiesLayout->addWidget(startDateLabel, 1, 1, Qt::AlignRight);
@@ -352,10 +353,6 @@ PlanarFitSettingsDialog::PlanarFitSettingsDialog(QWidget* parent, EcProject *ecP
     // init
     forceEndDatePolicy();
     forceEndTimePolicy();
-}
-
-PlanarFitSettingsDialog::~PlanarFitSettingsDialog()
-{
 }
 
 void PlanarFitSettingsDialog::close()

@@ -193,8 +193,10 @@
         <file alias="winstyle">css/eddypro-win.qss</file>
     </qresource>
     <qresource prefix="/docs">
+        <file alias="thanks">ACKNOWLEDGEMENTS</file>
         <file alias="changelog">CHANGELOG</file>
-        <file alias="license">LICENSE</file>
+        <file alias="eula-commercial">COMMERCIAL-EULA.html</file>
+        <file alias="eula-non-commercial">NON-COMMERCIAL-EULA.html</file>
     </qresource>
     <qresource prefix="/mac_files">
         <file>mac_files/app.icns</file>

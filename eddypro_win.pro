@@ -3,8 +3,8 @@
 TEMPLATE = app
 
 # EddyPro version
-VER_MAJ = 6
-VER_MIN = 2
+VER_MAJ = 7
+VER_MIN = 0
 VER_PAT = 2
 VERSION = $$sprintf("%1.%2.%3",$$VER_MAJ,$$VER_MIN,$$VER_PAT)
 
@@ -14,6 +14,7 @@ QT_PATH = $$[QT_INSTALL_PREFIX]
 
 # Qt config
 QT += core gui widgets network concurrent
+
 CONFIG += warn_on
 CONFIG += debug_and_release
 CONFIG += c++14
@@ -47,7 +48,7 @@ CONFIG(debug, debug|release) {
 
     # to suppress qt and 3rdparty library warnings
     QMAKE_CXXFLAGS += -isystem "$$QT_PATH/include"
-    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.1/quazip"
+    QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/libs/quazip-0.7.6/quazip"
 
     win32 {
         # mingw warnings
@@ -55,7 +56,7 @@ CONFIG(debug, debug|release) {
         QMAKE_CXXFLAGS_WARN_ON += -O0 -fno-inline -Wunused-result
 
         # to suppress compiler library warnings
-        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0"
+        QMAKE_CXXFLAGS += -isystem "$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0"
         QMAKE_CXXFLAGS += -isystem "$$QT_PATH/../Tools/mingw492_32"
     }
     macx {
@@ -124,4 +125,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #message(QMAKE_CXXFLAGS: $$QMAKE_CXXFLAGS)
 
 # workaround for QTBUG-34424
-TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_61_0/*
+TR_EXCLUDE +=	$$_PRO_FILE_PWD_/../../../libs/c++/boost_1_68_0/*
+
+message("QMAKE_HOST.arch: $$QMAKE_HOST.arch")
+message("QMAKE_HOST.os: $$QMAKE_HOST.os")
+message("QMAKE_HOST.cpu_count: $$QMAKE_HOST.cpu_count")
+message("QMAKE_HOST.name: $$QMAKE_HOST.name")
+message("QMAKE_HOST.version: $$QMAKE_HOST.version")
+message("QMAKE_HOST.version_string: $$QMAKE_HOST.version_string")
+message("QT_ARCH: $$QT_ARCH")
+message("QT_BUILDABI: $$QT_BUILDABI")

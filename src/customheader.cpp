@@ -1,26 +1,31 @@
 /***************************************************************************
   customheader.cpp
-  -------------------
-  Custom header for table view classes
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ----------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "customheader.h"
@@ -68,54 +73,54 @@ void CustomHeader::addSection(const QString &txt,
 
 void CustomHeader::onlineHelpTrigger()
 {
-    ClickLabel* cLabel = qobject_cast<ClickLabel *>(sender());
+    auto cLabel = qobject_cast<ClickLabel *>(sender());
 
     ClickLabel::HeaderData data = cLabel->headerData();
 
     if (data == ClickLabel::AnemSwVersion)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/sonic_firmware_version.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sonic-anemometer-firmware-version.html")));
     }
     else if (data == ClickLabel::AnemNAlign)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Axes_Alignment.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/axes-alignment.html")));
     }
     else if (data == ClickLabel::AnemNOffset)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/North_Offset.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/north-offset.html")));
     }
     else if (data == ClickLabel::AnemNSep
              || data == ClickLabel::AnemESep
              || data == ClickLabel::AnemVSep)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Sensor_Separation.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sensor-separation.html")));
     }
     else if (data == ClickLabel::IrgaModel)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Gas_Analyzer_Model.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/gas-analyzer-model.html")));
     }
     else if (data == ClickLabel::IrgaLPathLength
              || data == ClickLabel::IrgaTPathLength)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Longitude_Transverse.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/longitude-transverse-pathlengths.html")));
     }
     else if (data == ClickLabel::VarIgnoreDesc
              || data == ClickLabel::VarNumericDesc
              || data == ClickLabel::VarDesc)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Sensitive_and_Non-sensitive_Variables.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/sensitive-and-nonsensitive-variables.html")));
     }
     else if (data == ClickLabel::VarConv
              || data == ClickLabel::VarMinValue
              || data == ClickLabel::VarMaxValue)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Conversion_Type.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/conversion-type.html")));
     }
     else if (data == ClickLabel::VarNomTLag
              || data == ClickLabel::VarMinTLag
              || data == ClickLabel::VarMaxTLag)
     {
-        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Nominal_Time_Lag.html")));
+        WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/nominal-time-lag.html")));
     }
 }
 

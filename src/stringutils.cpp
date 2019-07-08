@@ -1,23 +1,30 @@
 /***************************************************************************
   stringutils.cpp
-  -------------------
-  Copyright (C) 2013-2018, LI-COR Biosciences
+  ---------------
+  Copyright © 2013-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "stringutils.h"
@@ -30,13 +37,12 @@
 #include <QString>
 #include <QStringList>
 
-#include "dbghelper.h"
-
 const QString StringUtils::fromBool2YesNoString(bool b)
 {
     return ((b) ? QObject::tr("yes") : QObject::tr("no"));
 }
 
+// simple wrapper around QString::insert()
 const QString StringUtils::insertIndex(const QString& srcStr, int pos, const QString& str)
 {
     QString strData = srcStr;
@@ -72,12 +78,11 @@ bool StringUtils::isISODateTimeString(const QString& s)
     QRegularExpressionValidator validator(dateTimeExp);
 
     const auto dateTimeLenght = 17;
+    auto str = QString(s);
     auto pos = 0;
 
-    // Function validate() does not accept a const argument, but does not attempt to
-    // modify the content of the passed parameter. So, we do const_cast.
     return (s.length() == dateTimeLenght
-            && validator.validate(const_cast<QString&>(s), pos) == QValidator::Acceptable
+            && validator.validate(str, pos) == QValidator::Acceptable
             && pos != s.length());
 }
 
@@ -98,7 +103,7 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
 // assume the input is in classic "MM.NN.PP" form (MM = major, NN = minor, PP = patch)
 // and return 0xMMNNPP
 // if patch number is missing, it will be zeroed
-int StringUtils::getVersionFromString(const QString& versionStr)
+int StringUtils::getHexVersionFromString(const QString& versionStr)
 {
     auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
     auto minor = versionStr.section(QLatin1Char('.'), 1, 1).toInt();
@@ -116,7 +121,7 @@ int StringUtils::getVersionFromString(const QString& versionStr)
 
 bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& localVersion)
 {
-    return getVersionFromString(remoteVersion) > getVersionFromString((localVersion));
+    return getHexVersionFromString(remoteVersion) > getHexVersionFromString((localVersion));
 }
 
 const QStringList StringUtils::subStringList(const QStringList& list, int begin, int end)

@@ -1,24 +1,31 @@
 /***************************************************************************
   variable_desc.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -----------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "variable_desc.h"
@@ -27,7 +34,6 @@
 #include <QStringList>
 
 #include "anem_desc.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "irga_desc.h"
 
@@ -446,40 +452,38 @@ VariableDesc::VariableDesc() :
     maxTimelag_(0.0)
 { ; }
 
-VariableDesc::VariableDesc(const QString& ignore,
-                           const QString& notNumeric,
-                           const QString& variable,
-                           const QString& instrument,
-                           const QString& measureType,
-                           const QString& inputUnit,
+VariableDesc::VariableDesc(QString ignore,
+                           QString notNumeric,
+                           QString variable,
+                           QString instrument,
+                           QString measureType,
+                           QString inputUnit,
                            qreal minValue,
                            qreal maxValue,
-                           const QString& conversionType,
-                           const QString& outputUnit,
+                           QString conversionType,
+                           QString outputUnit,
                            qreal aValue,
                            qreal bValue,
                            qreal nomTimelag,
                            qreal minTimelag,
                            qreal maxTimelag
                            ) :
-    ignore_(ignore),
-    numeric_(notNumeric),
-    variable_(variable),
-    instrument_(instrument),
-    measureType_(measureType),
-    inputUnit_(inputUnit),
+    ignore_(std::move(ignore)),
+    numeric_(std::move(notNumeric)),
+    variable_(std::move(variable)),
+    instrument_(std::move(instrument)),
+    measureType_(std::move(measureType)),
+    inputUnit_(std::move(inputUnit)),
     minValue_(minValue),
     maxValue_(maxValue),
-    conversionType_(conversionType),
-    outputUnit_(outputUnit),
+    conversionType_(std::move(conversionType)),
+    outputUnit_(std::move(outputUnit)),
     aValue_(aValue),
     bValue_(bValue),
     nomTimelag_(nomTimelag),
     minTimelag_(minTimelag),
     maxTimelag_(maxTimelag)
 { ; }
-
-VariableDesc::~VariableDesc() { ; }
 
 VariableDesc::VariableDesc(const VariableDesc& fileDesc) :
     ignore_(fileDesc.ignore_),
@@ -668,18 +672,20 @@ const QStringList VariableDesc::yesNoStringList()
             << tr("no"));
 }
 
+// test on u (rho), v (theta), w
 bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
     if (!name.isEmpty())
     {
+        // u, v, w, rho, theta
         isGoodName = (name == getVARIABLE_VAR_STRING_0())
                       || (name == getVARIABLE_VAR_STRING_1())
                       || (name == getVARIABLE_VAR_STRING_2())
@@ -696,15 +702,17 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 
     // 3
     bool isGoodInputUnit = false;
+    // empty or no scaling
     if (conversionType.isEmpty()
         || conversionType == getVARIABLE_CONVERSION_TYPE_STRING_2())
     {
         if (!inputUnit.isEmpty())
         {
+            // good if m/s, cm/s, mm/s or degrees
             isGoodInputUnit = (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_2())
                            || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_3())
                            || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_4())
-                           || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_18());
+                           || (inputUnit == getVARIABLE_MEASURE_UNIT_STRING_27());
         }
     }
     else
@@ -713,15 +721,18 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
     }
 
     bool isGoodOutputUnit = false;
+    // empty and different from none
     if (!outputUnit.isEmpty() && outputUnit != getVARIABLE_MEASURE_UNIT_STRING_18())
     {
+        // good if m/s, cm/s, mm/s or degrees
         isGoodOutputUnit = (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_2())
                         || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_3())
-                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4());
-
+                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_4())
+                        || (outputUnit == getVARIABLE_MEASURE_UNIT_STRING_27());
     }
 
     bool isGoodUnit = false;
+    // empty or no scaling
     if (conversionType.isEmpty()
         || conversionType == getVARIABLE_CONVERSION_TYPE_STRING_2())
     {
@@ -734,6 +745,16 @@ bool VariableDesc::isGoodWindComponent(const VariableDesc& var)
 
     // 5
     bool isGoodABValue = goodGainOffsetTest(var);
+
+    qDebug() << "var name" << name;
+    if (!isGoodName)
+        qDebug() << "isGoodName" << isGoodName;
+    if (!isGoodInstrument)
+        qDebug() << "isGoodInstrument" << isGoodInstrument;
+    if (!isGoodUnit)
+        qDebug() << "isGoodUnit" << isGoodUnit;
+    if (!isGoodABValue)
+        qDebug() << "isGoodABValue" << isGoodABValue;
 
     // all
     return (isGoodName
@@ -774,12 +795,12 @@ bool isGoodGasUnit(const QString& unit, const QString& type)
 
 bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString measureType = var.measureType();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& measureType = var.measureType();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -854,11 +875,11 @@ bool VariableDesc::isGoodGas(const VariableDesc& var, bool isCustom)
 
 bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -969,11 +990,14 @@ bool VariableDesc::isGoodSonicTempOrSpeed(const VariableDesc& var)
 
 bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
+
+    qDebug() << "name" << name;
+    qDebug() << "type" << (type == AnalogType::SLOW ? "SLOW" : "FAST");
 
     // 1
     bool isGoodName = false;
@@ -1082,11 +1106,11 @@ bool VariableDesc::isGoodTemperature(const VariableDesc& var, AnalogType type)
 
 bool VariableDesc::isGoodPressure(const VariableDesc& var)
 {
-    const QString name = var.variable();
-    const QString instrument = var.instrument();
-    const QString inputUnit = var.inputUnit();
-    const QString conversionType = var.conversionType();
-    const QString outputUnit = var.outputUnit();
+    const QString& name = var.variable();
+    const QString& instrument = var.instrument();
+    const QString& inputUnit = var.inputUnit();
+    const QString& conversionType = var.conversionType();
+    const QString& outputUnit = var.outputUnit();
 
     // 1
     bool isGoodName = false;
@@ -1373,7 +1397,7 @@ const QStringList VariableDesc::flowRateOutputUnitStringList()
 
 bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
 {
-    const QString conversionType = var.conversionType();
+    const QString& conversionType = var.conversionType();
     qreal aValue = var.aValue();
     qreal bValue = var.bValue();
 
@@ -1383,12 +1407,9 @@ bool VariableDesc::goodGainOffsetTest(const VariableDesc& var)
         return !qFuzzyCompare(aValue, bValue);
     }
     // gain-offset
-    else if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_1())
+    if (conversionType == getVARIABLE_CONVERSION_TYPE_STRING_1())
     {
         return (aValue != 0.0);
     }
-    else
-    {
-        return true;
-    }
+    return true;
 }

@@ -1,30 +1,37 @@
 /***************************************************************************
   ecinidefs.h
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -----------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ***************************************************************************/
 
 #ifndef ECINIDEFS_H
 #define ECINIDEFS_H
 
-class QString;
+#include <QString>
 
 namespace EcIni
 {
@@ -68,8 +75,6 @@ namespace EcIni
     const auto INI_PROJECT_34   = QStringLiteral("use_biom");
     const auto INI_PROJECT_35   = QStringLiteral("biom_file");
     const auto INI_PROJECT_36   = QStringLiteral("col_ts");
-    const auto INI_PROJECT_37   = QStringLiteral("out_ghg_eu");
-    const auto INI_PROJECT_38   = QStringLiteral("out_amflux");
     const auto INI_PROJECT_39   = QStringLiteral("out_rich");
     const auto INI_PROJECT_40   = QStringLiteral("run_fcc");
     const auto INI_PROJECT_41   = QStringLiteral("make_dataset");
@@ -101,6 +106,8 @@ namespace EcIni
     const auto INI_PROJECT_67   = QStringLiteral("hf_correct_ghg_zoh");
     const auto INI_PROJECT_68   = QStringLiteral("sonic_output_rate");
     const auto INI_PROJECT_69   = QStringLiteral("col_diag_anem");
+    const auto INI_PROJECT_70   = QStringLiteral("fluxnet_standardize_biomet");
+    const auto INI_PROJECT_71   = QStringLiteral("fluxnet_err_label");
 
     const auto INIGROUP_SPEC_SETTINGS = QStringLiteral("FluxCorrection_SpectralAnalysis_General");
     const auto INI_SPEC_SETTINGS_0    = QStringLiteral("sa_start_date");
@@ -419,54 +426,11 @@ namespace EcIni
     const auto INI_BIOMET_8    = QStringLiteral("biom_lwin");
     const auto INI_BIOMET_9    = QStringLiteral("biom_ppfd");
 
-    const auto INIGROUP_DRIFT = QStringLiteral("RawProcess_DriftCorrection");
-    const auto INI_DRIFT_0    = QStringLiteral("drift_serial_number");
-    const auto INI_DRIFT_1    = QStringLiteral("drift_calib_date");
-    const auto INI_DRIFT_2    = QStringLiteral("drift_co2_0_dir");
-    const auto INI_DRIFT_3    = QStringLiteral("drift_co2_1_dir");
-    const auto INI_DRIFT_4    = QStringLiteral("drift_co2_2_dir");
-    const auto INI_DRIFT_5    = QStringLiteral("drift_co2_3_dir");
-    const auto INI_DRIFT_6    = QStringLiteral("drift_co2_4_dir");
-    const auto INI_DRIFT_7    = QStringLiteral("drift_co2_5_dir");
-    const auto INI_DRIFT_8    = QStringLiteral("drift_co2_6_dir");
-    const auto INI_DRIFT_9    = QStringLiteral("drift_co2_0_inv");
-    const auto INI_DRIFT_10   = QStringLiteral("drift_co2_1_inv");
-    const auto INI_DRIFT_11   = QStringLiteral("drift_co2_2_inv");
-    const auto INI_DRIFT_12   = QStringLiteral("drift_co2_3_inv");
-    const auto INI_DRIFT_13   = QStringLiteral("drift_co2_4_inv");
-    const auto INI_DRIFT_14   = QStringLiteral("drift_co2_5_inv");
-    const auto INI_DRIFT_15   = QStringLiteral("drift_co2_6_inv");
-    const auto INI_DRIFT_16   = QStringLiteral("drift_co2_zero");
-    const auto INI_DRIFT_17   = QStringLiteral("drift_co2_zero_date");
-    const auto INI_DRIFT_18   = QStringLiteral("drift_co2_span");
-    const auto INI_DRIFT_19   = QStringLiteral("drift_co2_span_date");
-    const auto INI_DRIFT_20   = QStringLiteral("drift_co2_span_2");
-    const auto INI_DRIFT_21   = QStringLiteral("drift_co2_span_2_date");
-    const auto INI_DRIFT_22   = QStringLiteral("drift_co2_cx");
-    const auto INI_DRIFT_23   = QStringLiteral("drift_co2_cx_date");
-    const auto INI_DRIFT_24   = QStringLiteral("drift_h2o_0_dir");
-    const auto INI_DRIFT_25   = QStringLiteral("drift_h2o_1_dir");
-    const auto INI_DRIFT_26   = QStringLiteral("drift_h2o_2_dir");
-    const auto INI_DRIFT_27   = QStringLiteral("drift_h2o_3_dir");
-    const auto INI_DRIFT_28   = QStringLiteral("drift_h2o_4_dir");
-    const auto INI_DRIFT_29   = QStringLiteral("drift_h2o_5_dir");
-    const auto INI_DRIFT_30   = QStringLiteral("drift_h2o_6_dir");
-    const auto INI_DRIFT_31   = QStringLiteral("drift_h2o_0_inv");
-    const auto INI_DRIFT_32   = QStringLiteral("drift_h2o_1_inv");
-    const auto INI_DRIFT_33   = QStringLiteral("drift_h2o_2_inv");
-    const auto INI_DRIFT_34   = QStringLiteral("drift_h2o_3_inv");
-    const auto INI_DRIFT_35   = QStringLiteral("drift_h2o_4_inv");
-    const auto INI_DRIFT_36   = QStringLiteral("drift_h2o_5_inv");
-    const auto INI_DRIFT_37   = QStringLiteral("drift_h2o_6_inv");
-    const auto INI_DRIFT_38   = QStringLiteral("drift_h2o_zero");
-    const auto INI_DRIFT_39   = QStringLiteral("drift_h2o_zero_date");
-    const auto INI_DRIFT_40   = QStringLiteral("drift_h2o_span");
-    const auto INI_DRIFT_41   = QStringLiteral("drift_h2o_span_date");
-    const auto INI_DRIFT_42   = QStringLiteral("drift_h2o_span_2");
-    const auto INI_DRIFT_43   = QStringLiteral("drift_h2o_span_2_date");
-    const auto INI_DRIFT_44   = QStringLiteral("drift_h2o_wx");
-    const auto INI_DRIFT_45   = QStringLiteral("drift_h2o_wx_date");
-
+    const auto INIGROUP_WIND_FILTER         = QStringLiteral("RawProcess_WindDirectionFilter");
+    const auto INI_WIND_FILTER_APPLY        = QStringLiteral("wdf_apply");
+    const auto INI_WIND_FILTER_PREFIX       = QStringLiteral("wdf_sect_");
+    const auto INI_WIND_FILTER_START_SUFFIX = QStringLiteral("start");
+    const auto INI_WIND_FILTER_END_SUFFIX   = QStringLiteral("end");
 } // namespace EcIni
 
 #endif // ECINIDEFS_H

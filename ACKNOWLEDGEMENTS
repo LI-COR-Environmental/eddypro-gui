@@ -43,7 +43,7 @@ this free software.
 - Michal Heliasz
 - Bernard Heinesch
 - Arnaud Carrara
-- Paik Vestin
+- Patrik Vestin
 - Matthias Barthel
 - Karoline Wischnewski
 - Matthew Wilkinson
@@ -58,16 +58,11 @@ this free software.
 ## Libraries
 
 - Arjan van Dijk: libdate module
-- Michael Baudin, Arjen Markus: m_logging module
 - University of Chicago: m_levenberg_marquardt from the MINPACK package
 - netlib.org: FFT routines from the SLATEC Common Mathematical Library
 - The Qt Company: Qt framework
-- Boost C++ Libraries
-- Trenton Schulz (former Trolltech AS): Fader widget
+- Sergey Tachenov: QuaZIP
 - Morgan Leborgne: QProgressIndicator widget
-- Witold Wysota: Debug helper class
-- Sergey A. Tachenov: QuaZIP
-- Mark Summerfield: helper classes from the book 'Advanced Qt Programming'
 
 ## Tools
 
@@ -75,3 +70,5 @@ this free software.
 - MinGW compiler and GDB debugger
 - Clang compiler
 - The Qt Company: Qt Creator IDE
+- Daniel Turini: pausep
+- Igor Pavlov: 7za

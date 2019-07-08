@@ -1,24 +1,31 @@
 /***************************************************************************
   irga_desc.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "irga_desc.h"
@@ -152,10 +159,10 @@ IrgaDesc::IrgaDesc() :
     kOxygen_(0.0085)
 { ; }
 
-IrgaDesc::IrgaDesc(const QString& manufacture,
-                   const QString& model,
-                   const QString& swVersion,
-                   const QString& id,
+IrgaDesc::IrgaDesc(QString manufacture,
+                   QString model,
+                   QString swVersion,
+                   QString id,
                    qreal tubeLength,
                    qreal tubeDiameter,
                    qreal tubeFlowRate,
@@ -167,10 +174,10 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
                    qreal tau,
                    qreal kWater,
                    qreal kOxygen) :
-    manufacturer_(manufacture),
-    model_(model),
-    swVersion_(swVersion),
-    id_(id),
+    manufacturer_(std::move(manufacture)),
+    model_(std::move(model)),
+    swVersion_(std::move(swVersion)),
+    id_(std::move(id)),
     tubeLength_(tubeLength),
     tubeDiameter_(tubeDiameter),
     tubeFlowRate_(tubeFlowRate),
@@ -183,8 +190,6 @@ IrgaDesc::IrgaDesc(const QString& manufacture,
     kWater_(kWater),
     kOxygen_(kOxygen)
 { ; }
-
-IrgaDesc::~IrgaDesc() { ; }
 
 IrgaDesc::IrgaDesc(const IrgaDesc& irga) :
     manufacturer_(irga.manufacturer_),
@@ -317,8 +322,8 @@ bool IrgaDesc::isALicorModel(const QString& model)
 
 bool IrgaDesc::isWellNamed(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
-    const QString manufacturer = irga.manufacturer();
+    const auto& model = irga.model();
+    const QString& manufacturer = irga.manufacturer();
 
     auto isGoodManufacturer = !manufacturer.isEmpty();
     auto isLicorModel = isALicorModel(model);
@@ -354,7 +359,7 @@ bool IrgaDesc::hasGoodSeparations(const IrgaDesc& irga)
 
 bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
+    const auto& model = irga.model();
 
     auto isGoodTubeLength = irga.tubeLength() > 0.0;
     auto isGoodTubeDiameter = irga.tubeDiameter() > 0.0;
@@ -381,7 +386,7 @@ bool IrgaDesc::isAGoodClosedPath(const IrgaDesc& irga)
 
 bool IrgaDesc::hasGoodFlowRate(const IrgaDesc& irga)
 {
-    const auto model = irga.model();
+    const auto& model = irga.model();
 
     auto isGoodTubeFlowRate = irga.tubeFlowRate() > 0.0;
 
@@ -423,7 +428,7 @@ bool IrgaDesc::hasGoodPathLength(const IrgaDesc& irga)
 
 bool IrgaDesc::isGoodIrga(const IrgaDesc &irga)
 {
-    const QString model = irga.model();
+    const QString& model = irga.model();
 
     // 1
     auto isGoodManufacturer = !irga.manufacturer().isEmpty();

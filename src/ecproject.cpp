@@ -1,24 +1,31 @@
 /***************************************************************************
   ecproject.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "ecproject.h"
@@ -26,19 +33,18 @@
 #include <QDebug>
 #include <QSettings>
 
-#include "dbghelper.h"
 #include "ecinidefs.h"
 #include "fileutils.h"
 #include "mainwindow.h"
 #include "stringutils.h"
 #include "widget_utils.h"
 
-EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
+EcProject::EcProject(QObject *parent, ProjConfigState project_config) :
     QObject(parent),
     defaultSettings(EcProjectState()),
     modified_(false),
     ec_project_state_(EcProjectState()),
-    project_config_state_(project_config)
+    project_config_state_(std::move(project_config))
 {
     Defs::qt_registerCustomTypes();
 }
@@ -62,637 +68,6 @@ EcProject& EcProject::operator=(const EcProject &project)
         project_config_state_ = project.project_config_state_;
     }
     return *this;
-}
-
-// destructor
-EcProject::~EcProject()
-{ ; }
-
-bool EcProject::previousSettingsCompare(bool current, bool previous)
-{
-    if (previous)
-    {
-        return true;
-    }
-    else
-    {
-        if (current)
-            return false;
-        else
-            return true;
-    }
-}
-
-bool EcProject::previousFourthGasCompare(int currentGas, double currGasMw, double currGasDiff,
-                                         int previousGas, double previousGasMw, double previousGasDiff)
-{
-    if (currentGas >= 0 && currentGas == previousGas)
-    {
-        if (qFuzzyCompare(currGasMw, previousGasMw) && qFuzzyCompare(currGasDiff, previousGasDiff))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return false;
-}
-
-bool EcProject::previousFileNameCompare(const QString& currentPath, const QString& previousPath)
-{
-    QFileInfo currentFilename(currentPath);
-    QFileInfo previousFilename(previousPath);
-    return (currentFilename.fileName() == previousFilename.fileName());
-}
-
-// true if current range is a subrange of the previous one
-bool EcProject::compareDates(const QString& currStartDate, const QString& prevStartDate,
-                             const QString& currStartTime, const QString& prevStartTime,
-                             const QString& currEndDate, const QString& prevEndDate,
-                             const QString& currEndTime, const QString& prevEndTime)
-{
-    QDate cStartDate = QDate::fromString(currStartDate, Qt::ISODate);
-    QDate pStartDate = QDate::fromString(prevStartDate, Qt::ISODate);
-    QTime cStartTime = QTime::fromString(currStartTime, QStringLiteral("hh:mm"));
-    QTime pStartTime = QTime::fromString(prevStartTime, QStringLiteral("hh:mm"));
-    QDate cEndDate = QDate::fromString(currEndDate, Qt::ISODate);
-    QDate pEndDate = QDate::fromString(prevEndDate, Qt::ISODate);
-    QTime cEndTime = QTime::fromString(currEndTime, QStringLiteral("hh:mm"));
-    QTime pEndTime = QTime::fromString(prevEndTime, QStringLiteral("hh:mm"));
-
-    bool test_1 = (cStartDate > pStartDate);
-    bool test_2 = (cStartDate == pStartDate);
-    bool test_3 = true;
-    if (test_2)
-        test_3 = (cStartTime >= pStartTime);
-    bool startTest = (test_1 || test_2) && test_3;
-
-    bool test_4 = (cEndDate < pEndDate);
-    bool test_5 = (cEndDate == pEndDate);
-    bool test_6 = true;
-    if (test_5)
-        test_6 = (cEndTime <= pEndTime);
-    bool endTest = (test_4 || test_5) && test_6;
-
-    return (startTest && endTest);
-}
-
-bool EcProject::fuzzyCompare(const EcProject& previousProject)
-{
-    bool dataSetTest = (ec_project_state_.projectGeneral.file_type == previousProject.ec_project_state_.projectGeneral.file_type)
-        && (ec_project_state_.projectGeneral.file_prototype == previousProject.ec_project_state_.projectGeneral.file_prototype)
-        && (ec_project_state_.projectGeneral.col_ts == previousProject.ec_project_state_.projectGeneral.col_ts)
-        && (ec_project_state_.projectGeneral.col_co2 == previousProject.ec_project_state_.projectGeneral.col_co2)
-        && (ec_project_state_.projectGeneral.col_h2o == previousProject.ec_project_state_.projectGeneral.col_h2o)
-        && (ec_project_state_.projectGeneral.col_ch4 == previousProject.ec_project_state_.projectGeneral.col_ch4)
-        && previousFourthGasCompare(ec_project_state_.projectGeneral.col_n2o,
-                                    ec_project_state_.projectGeneral.gas_mw,
-                                    ec_project_state_.projectGeneral.gas_diff,
-                                    previousProject.ec_project_state_.projectGeneral.col_n2o,
-                                    previousProject.ec_project_state_.projectGeneral.gas_mw,
-                                    previousProject.ec_project_state_.projectGeneral.gas_diff)
-        && (ec_project_state_.projectGeneral.col_int_t_1 == previousProject.ec_project_state_.projectGeneral.col_int_t_1)
-        && (ec_project_state_.projectGeneral.col_int_t_2 == previousProject.ec_project_state_.projectGeneral.col_int_t_2)
-        && (ec_project_state_.projectGeneral.col_int_p == previousProject.ec_project_state_.projectGeneral.col_int_p)
-        && (ec_project_state_.projectGeneral.col_air_t == previousProject.ec_project_state_.projectGeneral.col_air_t)
-        && (ec_project_state_.projectGeneral.col_air_p == previousProject.ec_project_state_.projectGeneral.col_air_p)
-        && (ec_project_state_.projectGeneral.col_int_t_c == previousProject.ec_project_state_.projectGeneral.col_int_t_c)
-        && (ec_project_state_.projectGeneral.col_diag_72 == previousProject.ec_project_state_.projectGeneral.col_diag_72)
-        && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_75)
-        && (ec_project_state_.projectGeneral.col_diag_75 == previousProject.ec_project_state_.projectGeneral.col_diag_77)
-        && (ec_project_state_.projectGeneral.col_diag_anem == previousProject.ec_project_state_.projectGeneral.col_diag_anem);
-
-    if (ec_project_state_.projectGeneral.subset)
-    {
-        dataSetTest = dataSetTest
-            && compareDates(ec_project_state_.projectGeneral.start_date, previousProject.ec_project_state_.projectGeneral.start_date,
-                ec_project_state_.projectGeneral.start_time, previousProject.ec_project_state_.projectGeneral.start_time,
-                ec_project_state_.projectGeneral.end_date, previousProject.ec_project_state_.projectGeneral.end_date,
-                ec_project_state_.projectGeneral.end_time, previousProject.ec_project_state_.projectGeneral.end_time);
-    }
-    else
-    {
-        dataSetTest = dataSetTest
-            && (ec_project_state_.projectGeneral.files_found == previousProject.ec_project_state_.projectGeneral.files_found);
-    }
-
-    dataSetTest = dataSetTest
-        && previousSettingsCompare(ec_project_state_.screenGeneral.recurse, previousProject.ec_project_state_.screenGeneral.recurse);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_col == previousProject.ec_project_state_.screenGeneral.flag1_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag1_threshold, previousProject.ec_project_state_.screenGeneral.flag1_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag1_policy == previousProject.ec_project_state_.screenGeneral.flag1_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_col == previousProject.ec_project_state_.screenGeneral.flag2_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag2_threshold, previousProject.ec_project_state_.screenGeneral.flag2_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag2_policy == previousProject.ec_project_state_.screenGeneral.flag2_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_col == previousProject.ec_project_state_.screenGeneral.flag3_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag3_threshold, previousProject.ec_project_state_.screenGeneral.flag3_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag3_policy == previousProject.ec_project_state_.screenGeneral.flag3_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_col == previousProject.ec_project_state_.screenGeneral.flag4_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag4_threshold, previousProject.ec_project_state_.screenGeneral.flag4_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag4_policy == previousProject.ec_project_state_.screenGeneral.flag4_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_col == previousProject.ec_project_state_.screenGeneral.flag5_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag5_threshold, previousProject.ec_project_state_.screenGeneral.flag5_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag5_policy == previousProject.ec_project_state_.screenGeneral.flag5_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_col == previousProject.ec_project_state_.screenGeneral.flag6_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag6_threshold, previousProject.ec_project_state_.screenGeneral.flag6_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag6_policy == previousProject.ec_project_state_.screenGeneral.flag6_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_col == previousProject.ec_project_state_.screenGeneral.flag7_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag7_threshold, previousProject.ec_project_state_.screenGeneral.flag7_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag7_policy == previousProject.ec_project_state_.screenGeneral.flag7_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_col == previousProject.ec_project_state_.screenGeneral.flag8_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag8_threshold, previousProject.ec_project_state_.screenGeneral.flag8_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag8_policy == previousProject.ec_project_state_.screenGeneral.flag8_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_col == previousProject.ec_project_state_.screenGeneral.flag9_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag9_threshold, previousProject.ec_project_state_.screenGeneral.flag9_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag9_policy == previousProject.ec_project_state_.screenGeneral.flag9_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_col == previousProject.ec_project_state_.screenGeneral.flag10_col);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenGeneral.flag10_threshold, previousProject.ec_project_state_.screenGeneral.flag10_threshold);
-    dataSetTest = dataSetTest && (ec_project_state_.screenGeneral.flag10_policy == previousProject.ec_project_state_.screenGeneral.flag10_policy);
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.max_lack == previousProject.ec_project_state_.screenSetting.max_lack);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.u_offset, previousProject.ec_project_state_.screenSetting.u_offset);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.v_offset, previousProject.ec_project_state_.screenSetting.v_offset);
-    dataSetTest = dataSetTest && qFuzzyCompare(ec_project_state_.screenSetting.w_offset, previousProject.ec_project_state_.screenSetting.w_offset);
-    dataSetTest = dataSetTest && (ec_project_state_.screenSetting.avrg_len == previousProject.ec_project_state_.screenSetting.avrg_len);
-
-    bool advSettingsTest = true;
-    bool subTest = (ec_project_state_.screenSetting.detrend_meth == previousProject.ec_project_state_.screenSetting.detrend_meth);
-
-    if (subTest && ec_project_state_.screenSetting.detrend_meth)
-    {
-        advSettingsTest = advSettingsTest && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
-    }
-
-    if ((ec_project_state_.projectGeneral.hf_meth > 1
-         && ec_project_state_.projectGeneral.hf_meth < 5
-         && ec_project_state_.spectraSettings.sa_mode)
-        || ec_project_state_.screenSetting.out_bin_sp == 1
-        || ec_project_state_.screenSetting.out_bin_og == 1
-        || ec_project_state_.screenSetting.out_full_sp_u == 1
-        || ec_project_state_.screenSetting.out_full_sp_v == 1
-        || ec_project_state_.screenSetting.out_full_sp_w == 1
-        || ec_project_state_.screenSetting.out_full_sp_ts == 1
-        || ec_project_state_.screenSetting.out_full_sp_ch4 == 1
-        || ec_project_state_.screenSetting.out_full_sp_co2 == 1
-        || ec_project_state_.screenSetting.out_full_sp_h2o == 1
-        || ec_project_state_.screenSetting.out_full_sp_n2o == 1
-        || ec_project_state_.screenSetting.out_full_cosp_ch4 == 1
-        || ec_project_state_.screenSetting.out_full_cosp_co2 == 1
-        || ec_project_state_.screenSetting.out_full_cosp_h2o == 1
-        || ec_project_state_.screenSetting.out_full_cosp_n2o == 1
-        || ec_project_state_.screenSetting.out_full_cosp_ts == 1
-        || ec_project_state_.screenSetting.out_full_cosp_u == 1
-        || ec_project_state_.screenSetting.out_full_cosp_v == 1
-        || ec_project_state_.projectGeneral.out_mean_spectra == 1
-        || ec_project_state_.projectGeneral.out_mean_cosp == 1)
-    {
-        advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenSetting.tap_win == previousProject.ec_project_state_.screenSetting.tap_win)
-               && (ec_project_state_.screenSetting.nbins == previousProject.ec_project_state_.screenSetting.nbins);
-    }
-
-    advSettingsTest = advSettingsTest
-        && qFuzzyCompare(ec_project_state_.screenSetting.timeconst, previousProject.ec_project_state_.screenSetting.timeconst);
-
-    advSettingsTest = advSettingsTest
-        && (ec_project_state_.screenSetting.tlag_meth == previousProject.ec_project_state_.screenSetting.tlag_meth);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_bin_sp, previousProject.ec_project_state_.screenSetting.out_bin_sp);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_bin_og, previousProject.ec_project_state_.screenSetting.out_bin_og);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_spectra, previousProject.ec_project_state_.projectGeneral.out_mean_spectra);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.projectGeneral.out_mean_cosp, previousProject.ec_project_state_.projectGeneral.out_mean_cosp);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_u, previousProject.ec_project_state_.screenSetting.out_full_sp_u);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_v, previousProject.ec_project_state_.screenSetting.out_full_sp_v);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_w, previousProject.ec_project_state_.screenSetting.out_full_sp_w);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_ts, previousProject.ec_project_state_.screenSetting.out_full_sp_ts);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_co2, previousProject.ec_project_state_.screenSetting.out_full_sp_co2);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_h2o, previousProject.ec_project_state_.screenSetting.out_full_sp_h2o);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_ch4, previousProject.ec_project_state_.screenSetting.out_full_sp_ch4);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_sp_n2o, previousProject.ec_project_state_.screenSetting.out_full_sp_n2o);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_u, previousProject.ec_project_state_.screenSetting.out_full_cosp_u);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_v, previousProject.ec_project_state_.screenSetting.out_full_cosp_v);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_ts, previousProject.ec_project_state_.screenSetting.out_full_cosp_ts);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_co2, previousProject.ec_project_state_.screenSetting.out_full_cosp_co2);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_h2o, previousProject.ec_project_state_.screenSetting.out_full_cosp_h2o);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_ch4, previousProject.ec_project_state_.screenSetting.out_full_cosp_ch4);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_full_cosp_n2o, previousProject.ec_project_state_.screenSetting.out_full_cosp_n2o);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_1, previousProject.ec_project_state_.screenSetting.out_st_1);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_2, previousProject.ec_project_state_.screenSetting.out_st_2)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_3, previousProject.ec_project_state_.screenSetting.out_st_3)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_4, previousProject.ec_project_state_.screenSetting.out_st_4)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_5, previousProject.ec_project_state_.screenSetting.out_st_5)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_6, previousProject.ec_project_state_.screenSetting.out_st_6)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_st_7, previousProject.ec_project_state_.screenSetting.out_st_7)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_details, previousProject.ec_project_state_.screenSetting.out_details)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_1, previousProject.ec_project_state_.screenSetting.out_raw_1)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_2, previousProject.ec_project_state_.screenSetting.out_raw_2)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_3, previousProject.ec_project_state_.screenSetting.out_raw_3)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_4, previousProject.ec_project_state_.screenSetting.out_raw_4)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_5, previousProject.ec_project_state_.screenSetting.out_raw_5)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_6, previousProject.ec_project_state_.screenSetting.out_raw_6)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_7, previousProject.ec_project_state_.screenSetting.out_raw_7)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_u, previousProject.ec_project_state_.screenSetting.out_raw_u)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_v, previousProject.ec_project_state_.screenSetting.out_raw_v)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_w, previousProject.ec_project_state_.screenSetting.out_raw_w)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_ts, previousProject.ec_project_state_.screenSetting.out_raw_ts)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_co2, previousProject.ec_project_state_.screenSetting.out_raw_co2)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_h2o, previousProject.ec_project_state_.screenSetting.out_raw_h2o)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_ch4, previousProject.ec_project_state_.screenSetting.out_raw_ch4)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_gas4, previousProject.ec_project_state_.screenSetting.out_raw_gas4)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_tair, previousProject.ec_project_state_.screenSetting.out_raw_tair)
-        && previousSettingsCompare(ec_project_state_.screenSetting.out_raw_pair, previousProject.ec_project_state_.screenSetting.out_raw_pair);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenTest.test_sr, previousProject.ec_project_state_.screenTest.test_sr);
-
-    advSettingsTest = advSettingsTest
-        && previousSettingsCompare(ec_project_state_.screenTest.test_ar, previousProject.ec_project_state_.screenTest.test_ar)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_do, previousProject.ec_project_state_.screenTest.test_do)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_al, previousProject.ec_project_state_.screenTest.test_al)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_sk, previousProject.ec_project_state_.screenTest.test_sk)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_ds, previousProject.ec_project_state_.screenTest.test_ds)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_tl, previousProject.ec_project_state_.screenTest.test_tl)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_aa, previousProject.ec_project_state_.screenTest.test_aa)
-        && previousSettingsCompare(ec_project_state_.screenTest.test_ns, previousProject.ec_project_state_.screenTest.test_ns);
-
-    subTest = (ec_project_state_.screenTest.test_sr && previousProject.ec_project_state_.screenTest.test_sr);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.sr_num_spk == previousProject.ec_project_state_.screenParam.sr_num_spk)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_hf, previousProject.ec_project_state_.screenParam.sr_lim_hf)
-               && (ec_project_state_.screenSetting.filter_sr == previousProject.ec_project_state_.screenSetting.filter_sr)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_u, previousProject.ec_project_state_.screenParam.sr_lim_u)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_w, previousProject.ec_project_state_.screenParam.sr_lim_w)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_co2, previousProject.ec_project_state_.screenParam.sr_lim_co2)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_h2o, previousProject.ec_project_state_.screenParam.sr_lim_h2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_ch4, previousProject.ec_project_state_.screenParam.sr_lim_ch4)
-               && qFuzzyCompare(ec_project_state_.screenParam.sr_lim_n2o, previousProject.ec_project_state_.screenParam.sr_lim_n2o);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_ar && previousProject.ec_project_state_.screenTest.test_ar);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.ar_lim, previousProject.ec_project_state_.screenParam.ar_lim)
-               && (ec_project_state_.screenParam.ar_bins == previousProject.ec_project_state_.screenParam.ar_bins)
-               && (ec_project_state_.screenParam.ar_hf_lim == previousProject.ec_project_state_.screenParam.ar_hf_lim);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_do && previousProject.ec_project_state_.screenTest.test_do);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && (ec_project_state_.screenParam.do_extlim_dw == previousProject.ec_project_state_.screenParam.do_extlim_dw)
-               && qFuzzyCompare(ec_project_state_.screenParam.do_hf1_lim, previousProject.ec_project_state_.screenParam.do_hf1_lim)
-               && qFuzzyCompare(ec_project_state_.screenParam.do_hf2_lim, previousProject.ec_project_state_.screenParam.do_hf2_lim);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_al && previousProject.ec_project_state_.screenTest.test_al);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.al_u_max, previousProject.ec_project_state_.screenParam.al_u_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_w_max, previousProject.ec_project_state_.screenParam.al_w_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_tson_min, previousProject.ec_project_state_.screenParam.al_tson_min)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_tson_max, previousProject.ec_project_state_.screenParam.al_tson_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_co2_min, previousProject.ec_project_state_.screenParam.al_co2_min)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_co2_max, previousProject.ec_project_state_.screenParam.al_co2_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_h2o_min, previousProject.ec_project_state_.screenParam.al_h2o_min)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_h2o_max, previousProject.ec_project_state_.screenParam.al_h2o_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_ch4_min, previousProject.ec_project_state_.screenParam.al_ch4_min)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_ch4_max, previousProject.ec_project_state_.screenParam.al_ch4_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_n2o_min, previousProject.ec_project_state_.screenParam.al_n2o_min)
-               && qFuzzyCompare(ec_project_state_.screenParam.al_n2o_max, previousProject.ec_project_state_.screenParam.al_n2o_max)
-               && (ec_project_state_.screenSetting.filter_al == previousProject.ec_project_state_.screenSetting.filter_al);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_sk && previousProject.ec_project_state_.screenTest.test_sk);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_kumax, previousProject.ec_project_state_.screenParam.sk_hf_kumax)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_kumin, previousProject.ec_project_state_.screenParam.sk_hf_kumin)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_skmax, previousProject.ec_project_state_.screenParam.sk_hf_skmax)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_hf_skmin, previousProject.ec_project_state_.screenParam.sk_hf_skmin)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_kumax, previousProject.ec_project_state_.screenParam.sk_sf_kumax)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_kumin, previousProject.ec_project_state_.screenParam.sk_sf_kumin)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmax, previousProject.ec_project_state_.screenParam.sk_sf_skmax)
-               && qFuzzyCompare(ec_project_state_.screenParam.sk_sf_skmin, previousProject.ec_project_state_.screenParam.sk_sf_skmin);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_ds && previousProject.ec_project_state_.screenTest.test_ds);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_ch4, previousProject.ec_project_state_.screenParam.ds_hf_ch4)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_co2, previousProject.ec_project_state_.screenParam.ds_hf_co2)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_h2o, previousProject.ec_project_state_.screenParam.ds_hf_h2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_n2o, previousProject.ec_project_state_.screenParam.ds_hf_n2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_t, previousProject.ec_project_state_.screenParam.ds_hf_t)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_uv, previousProject.ec_project_state_.screenParam.ds_hf_uv)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_var, previousProject.ec_project_state_.screenParam.ds_hf_var)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_hf_w, previousProject.ec_project_state_.screenParam.ds_hf_w)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_ch4, previousProject.ec_project_state_.screenParam.ds_sf_ch4)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_co2, previousProject.ec_project_state_.screenParam.ds_sf_co2)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_h2o, previousProject.ec_project_state_.screenParam.ds_sf_h2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_n2o, previousProject.ec_project_state_.screenParam.ds_sf_n2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_t, previousProject.ec_project_state_.screenParam.ds_sf_t)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_uv, previousProject.ec_project_state_.screenParam.ds_sf_uv)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_var, previousProject.ec_project_state_.screenParam.ds_sf_var)
-               && qFuzzyCompare(ec_project_state_.screenParam.ds_sf_w, previousProject.ec_project_state_.screenParam.ds_sf_w)
-               && ec_project_state_.screenParam.despike_vm == previousProject.ec_project_state_.screenParam.despike_vm;
-    }
-
-    subTest = (ec_project_state_.screenTest.test_tl && previousProject.ec_project_state_.screenTest.test_tl);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_ch4, previousProject.ec_project_state_.screenParam.tl_def_ch4)
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_co2, previousProject.ec_project_state_.screenParam.tl_def_co2)
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_h2o, previousProject.ec_project_state_.screenParam.tl_def_h2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_def_n2o, previousProject.ec_project_state_.screenParam.tl_def_n2o)
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_hf_lim, previousProject.ec_project_state_.screenParam.tl_hf_lim)
-               && qFuzzyCompare(ec_project_state_.screenParam.tl_sf_lim, previousProject.ec_project_state_.screenParam.tl_sf_lim);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_aa && previousProject.ec_project_state_.screenTest.test_aa);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.aa_lim, previousProject.ec_project_state_.screenParam.aa_lim)
-               && qFuzzyCompare(ec_project_state_.screenParam.aa_max, previousProject.ec_project_state_.screenParam.aa_max)
-               && qFuzzyCompare(ec_project_state_.screenParam.aa_min, previousProject.ec_project_state_.screenParam.aa_min);
-    }
-
-    subTest = (ec_project_state_.screenTest.test_ns && previousProject.ec_project_state_.screenTest.test_ns);
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && qFuzzyCompare(ec_project_state_.screenParam.ns_hf_lim, previousProject.ec_project_state_.screenParam.ns_hf_lim);
-    }
-
-    subTest = (ec_project_state_.projectGeneral.use_biomet == previousProject.ec_project_state_.projectGeneral.use_biomet);
-    dataSetTest = dataSetTest && subTest;
-
-    if (subTest)
-    {
-        advSettingsTest = advSettingsTest
-               && (ec_project_state_.biomParam.col_lwin == previousProject.ec_project_state_.biomParam.col_lwin)
-               && (ec_project_state_.biomParam.col_pa == previousProject.ec_project_state_.biomParam.col_pa)
-               && (ec_project_state_.biomParam.col_ppfd == previousProject.ec_project_state_.biomParam.col_ppfd)
-               && (ec_project_state_.biomParam.col_rg == previousProject.ec_project_state_.biomParam.col_rg)
-               && (ec_project_state_.biomParam.col_rh == previousProject.ec_project_state_.biomParam.col_rh)
-               && (ec_project_state_.biomParam.col_ta == previousProject.ec_project_state_.biomParam.col_ta);
-    }
-
-    subTest = (ec_project_state_.projectGeneral.use_alt_md_file == previousProject.ec_project_state_.projectGeneral.use_alt_md_file);
-    dataSetTest = dataSetTest && subTest;
-
-    if (subTest && ec_project_state_.projectGeneral.use_alt_md_file)
-        subTest = subTest && previousFileNameCompare(ec_project_state_.projectGeneral.md_file, previousProject.ec_project_state_.projectGeneral.md_file);
-    dataSetTest = dataSetTest && subTest;
-
-    subTest = (ec_project_state_.projectGeneral.use_tlfile == previousProject.ec_project_state_.projectGeneral.use_tlfile);
-    dataSetTest = dataSetTest && subTest;
-
-    if (subTest && ec_project_state_.projectGeneral.use_tlfile)
-        subTest = subTest && previousFileNameCompare(ec_project_state_.projectGeneral.timeline_file, previousProject.ec_project_state_.projectGeneral.timeline_file);
-    dataSetTest = dataSetTest && subTest;
-
-    subTest = (ec_project_state_.projectGeneral.wpl_meth == previousProject.ec_project_state_.projectGeneral.wpl_meth);
-    advSettingsTest = advSettingsTest && subTest;
-
-    if (subTest && ec_project_state_.projectGeneral.wpl_meth)
-    {
-        subTest = (ec_project_state_.screenSetting.bu_corr == previousProject.ec_project_state_.screenSetting.bu_corr);
-        advSettingsTest = advSettingsTest && subTest;
-
-        if (subTest && ec_project_state_.screenSetting.bu_multi == previousProject.ec_project_state_.screenSetting.bu_multi)
-        {
-            advSettingsTest = advSettingsTest
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_bot_gain, previousProject.ec_project_state_.screenSetting.l_day_bot_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_bot_offset, previousProject.ec_project_state_.screenSetting.l_day_bot_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_spar_gain, previousProject.ec_project_state_.screenSetting.l_day_spar_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_spar_offset, previousProject.ec_project_state_.screenSetting.l_day_spar_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_top_gain, previousProject.ec_project_state_.screenSetting.l_day_top_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_day_top_offset, previousProject.ec_project_state_.screenSetting.l_day_top_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_bot_gain, previousProject.ec_project_state_.screenSetting.l_night_bot_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_bot_offset, previousProject.ec_project_state_.screenSetting.l_night_bot_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_spar_gain, previousProject.ec_project_state_.screenSetting.l_night_spar_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_spar_offset, previousProject.ec_project_state_.screenSetting.l_night_spar_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_top_gain, previousProject.ec_project_state_.screenSetting.l_night_top_gain)
-                && qFuzzyCompare(ec_project_state_.screenSetting.l_night_top_offset, previousProject.ec_project_state_.screenSetting.l_night_top_offset)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot1, previousProject.ec_project_state_.screenSetting.m_day_bot1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot2, previousProject.ec_project_state_.screenSetting.m_day_bot2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot3, previousProject.ec_project_state_.screenSetting.m_day_bot3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_bot4, previousProject.ec_project_state_.screenSetting.m_day_bot4)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar1, previousProject.ec_project_state_.screenSetting.m_day_spar1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar2, previousProject.ec_project_state_.screenSetting.m_day_spar2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar3, previousProject.ec_project_state_.screenSetting.m_day_spar3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_spar4, previousProject.ec_project_state_.screenSetting.m_day_spar4)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top1, previousProject.ec_project_state_.screenSetting.m_day_top1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top2, previousProject.ec_project_state_.screenSetting.m_day_top2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top3, previousProject.ec_project_state_.screenSetting.m_day_top3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_day_top4, previousProject.ec_project_state_.screenSetting.m_day_top4)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot1, previousProject.ec_project_state_.screenSetting.m_night_bot1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot2, previousProject.ec_project_state_.screenSetting.m_night_bot2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot3, previousProject.ec_project_state_.screenSetting.m_night_bot3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_bot4, previousProject.ec_project_state_.screenSetting.m_night_bot4)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar1, previousProject.ec_project_state_.screenSetting.m_night_spar1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar2, previousProject.ec_project_state_.screenSetting.m_night_spar2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar3, previousProject.ec_project_state_.screenSetting.m_night_spar3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_spar4, previousProject.ec_project_state_.screenSetting.m_night_spar4)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top1, previousProject.ec_project_state_.screenSetting.m_night_top1)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top2, previousProject.ec_project_state_.screenSetting.m_night_top2)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top3, previousProject.ec_project_state_.screenSetting.m_night_top3)
-                && qFuzzyCompare(ec_project_state_.screenSetting.m_night_top4, previousProject.ec_project_state_.screenSetting.m_night_top4);
-        }
-    }
-
-    subTest = (ec_project_state_.projectGeneral.master_sonic == previousProject.ec_project_state_.projectGeneral.master_sonic);
-    dataSetTest = dataSetTest && subTest;
-    if (subTest && !ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("csat")))
-    {
-        dataSetTest = dataSetTest && (ec_project_state_.screenSetting.cross_wind == previousProject.ec_project_state_.screenSetting.cross_wind);
-    }
-
-    if (subTest && (ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("hs"))
-                    || ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("wm"))
-                    || ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("r2"))
-                    || ec_project_state_.projectGeneral.master_sonic.contains(QStringLiteral("r3"))))
-    {
-        dataSetTest = dataSetTest && (ec_project_state_.screenSetting.flow_distortion == previousProject.ec_project_state_.screenSetting.flow_distortion);
-    }
-
-    subTest = (ec_project_state_.screenSetting.rot_meth == previousProject.ec_project_state_.screenSetting.rot_meth);
-    advSettingsTest = advSettingsTest && subTest;
-
-    if (subTest && (ec_project_state_.screenSetting.rot_meth == 3
-                    || ec_project_state_.screenSetting.rot_meth == 4))
-    {
-        subTest = (ec_project_state_.screenTilt.mode == previousProject.ec_project_state_.screenTilt.mode);
-        advSettingsTest = advSettingsTest && subTest;
-
-        if (subTest && ec_project_state_.screenTilt.mode == 1)
-        {
-            advSettingsTest = advSettingsTest
-                && qFuzzyCompare(ec_project_state_.screenTilt.north_offset, previousProject.ec_project_state_.screenTilt.north_offset)
-                && (ec_project_state_.screenTilt.min_num_per_sec == previousProject.ec_project_state_.screenTilt.min_num_per_sec)
-                && qFuzzyCompare(ec_project_state_.screenTilt.w_max, previousProject.ec_project_state_.screenTilt.w_max)
-                && qFuzzyCompare(ec_project_state_.screenTilt.u_min, previousProject.ec_project_state_.screenTilt.u_min)
-                && (ec_project_state_.screenTilt.fix_policy == previousProject.ec_project_state_.screenTilt.fix_policy);
-
-            subTest = (ec_project_state_.screenTilt.subset == previousProject.ec_project_state_.screenTilt.subset);
-            if (subTest)
-            {
-                if (ec_project_state_.screenTilt.subset)
-                {
-                    advSettingsTest = advSettingsTest
-                                      && (ec_project_state_.screenTilt.start_date == previousProject.ec_project_state_.screenTilt.start_date)
-                                      && (ec_project_state_.screenTilt.end_date == previousProject.ec_project_state_.screenTilt.end_date);
-                }
-                else
-                {
-                    advSettingsTest = advSettingsTest
-                                      && (ec_project_state_.projectGeneral.files_found == previousProject.ec_project_state_.projectGeneral.files_found);
-                }
-            }
-            else
-            {
-                advSettingsTest = false;
-            }
-        }
-        else if (subTest && ec_project_state_.screenTilt.mode == 0)
-        {
-            advSettingsTest = advSettingsTest
-                              && previousFileNameCompare(ec_project_state_.screenTilt.file, previousProject.ec_project_state_.screenTilt.file);
-        }
-        else
-        {
-            advSettingsTest = false;
-        }
-    }
-
-    subTest = (ec_project_state_.screenSetting.tlag_meth == previousProject.ec_project_state_.screenSetting.tlag_meth);
-    advSettingsTest = advSettingsTest && subTest;
-
-    if (subTest && (ec_project_state_.screenSetting.tlag_meth == 4))
-    {
-        subTest = (ec_project_state_.timelagOpt.mode == previousProject.ec_project_state_.timelagOpt.mode);
-        advSettingsTest = advSettingsTest && subTest;
-
-        if (subTest && ec_project_state_.timelagOpt.mode == 1)
-        {
-            advSettingsTest = advSettingsTest
-                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_max_lag, previousProject.ec_project_state_.timelagOpt.ch4_max_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_min_flux, previousProject.ec_project_state_.timelagOpt.ch4_min_flux)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.ch4_min_lag, previousProject.ec_project_state_.timelagOpt.ch4_min_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_max_lag, previousProject.ec_project_state_.timelagOpt.co2_max_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_min_flux, previousProject.ec_project_state_.timelagOpt.co2_min_flux)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.co2_min_lag, previousProject.ec_project_state_.timelagOpt.co2_min_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_max_lag, previousProject.ec_project_state_.timelagOpt.gas4_max_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_min_flux, previousProject.ec_project_state_.timelagOpt.gas4_min_flux)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.gas4_min_lag, previousProject.ec_project_state_.timelagOpt.gas4_min_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.h2o_max_lag, previousProject.ec_project_state_.timelagOpt.h2o_max_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.h2o_min_lag, previousProject.ec_project_state_.timelagOpt.h2o_min_lag)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.le_min_flux, previousProject.ec_project_state_.timelagOpt.le_min_flux)
-                && qFuzzyCompare(ec_project_state_.timelagOpt.pg_range, previousProject.ec_project_state_.timelagOpt.pg_range)
-                && (ec_project_state_.timelagOpt.to_h2o_nclass == previousProject.ec_project_state_.timelagOpt.to_h2o_nclass);
-
-            subTest = (ec_project_state_.timelagOpt.subset == previousProject.ec_project_state_.timelagOpt.subset);
-            if (subTest)
-            {
-                if (ec_project_state_.timelagOpt.subset)
-                {
-                    advSettingsTest = advSettingsTest
-                                      && (ec_project_state_.timelagOpt.start_date == previousProject.ec_project_state_.timelagOpt.start_date)
-                                      && (ec_project_state_.timelagOpt.end_date == previousProject.ec_project_state_.timelagOpt.end_date);
-                }
-                else
-                {
-                    advSettingsTest = advSettingsTest
-                                      && (ec_project_state_.projectGeneral.files_found == previousProject.ec_project_state_.projectGeneral.files_found);
-                }
-            }
-            else
-            {
-                advSettingsTest = false;
-            }
-        }
-        else if (subTest && ec_project_state_.timelagOpt.mode == 0)
-        {
-            advSettingsTest = advSettingsTest
-                              && previousFileNameCompare(ec_project_state_.timelagOpt.file, previousProject.ec_project_state_.timelagOpt.file);
-        }
-        else
-        {
-            advSettingsTest = false;
-        }
-    }
-
-    subTest = ec_project_state_.randomError.method == previousProject.ec_project_state_.randomError.method;
-    advSettingsTest = advSettingsTest && subTest;
-
-    if (subTest && (ec_project_state_.randomError.method == 1 || ec_project_state_.randomError.method == 2))
-    {
-        advSettingsTest = advSettingsTest
-            && ec_project_state_.randomError.its_method == previousProject.ec_project_state_.randomError.its_method
-            && qFuzzyCompare(ec_project_state_.randomError.its_tlag_max, previousProject.ec_project_state_.randomError.its_tlag_max);
-    }
-
-    switch (ec_project_state_.projectGeneral.run_mode)
-    {
-        case Defs::CurrRunMode::Express:
-            return dataSetTest;
-        case Defs::CurrRunMode::Advanced:
-            return (dataSetTest && advSettingsTest);
-        case Defs::CurrRunMode::Retriever:
-            return false;
-    }
-    Q_ASSERT(false);
 }
 
 // New project
@@ -743,8 +118,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.col_ts = defaultEcProjectState.projectGeneral.col_ts;
     ec_project_state_.projectGeneral.gas_mw = defaultEcProjectState.projectGeneral.gas_mw;
     ec_project_state_.projectGeneral.gas_diff = defaultEcProjectState.projectGeneral.gas_diff;
-    ec_project_state_.projectGeneral.out_ghg_eu = defaultEcProjectState.projectGeneral.out_ghg_eu;
-    ec_project_state_.projectGeneral.out_amflux = defaultEcProjectState.projectGeneral.out_amflux;
     ec_project_state_.projectGeneral.out_rich = defaultEcProjectState.projectGeneral.out_rich;
     ec_project_state_.projectGeneral.out_md = defaultEcProjectState.projectGeneral.out_md;
     ec_project_state_.projectGeneral.out_biomet = defaultEcProjectState.projectGeneral.out_biomet;
@@ -776,6 +149,12 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.projectGeneral.hf_correct_ghg_ba = defaultEcProjectState.projectGeneral.hf_correct_ghg_ba;
     ec_project_state_.projectGeneral.hf_correct_ghg_zoh = defaultEcProjectState.projectGeneral.hf_correct_ghg_zoh;
     ec_project_state_.projectGeneral.sonic_output_rate = defaultEcProjectState.projectGeneral.sonic_output_rate;
+    ec_project_state_.projectGeneral.fluxnet_standardize_biomet = defaultEcProjectState.projectGeneral.fluxnet_standardize_biomet;
+    ec_project_state_.projectGeneral.fluxnet_err_label = defaultEcProjectState.projectGeneral.fluxnet_err_label;
+    ec_project_state_.projectGeneral.ru_method = defaultEcProjectState.projectGeneral.ru_method;
+    ec_project_state_.projectGeneral.its_method = defaultEcProjectState.projectGeneral.its_method;
+    ec_project_state_.projectGeneral.its_tlag_max = defaultEcProjectState.projectGeneral.its_tlag_max;
+    ec_project_state_.projectGeneral.its_sec_factor = defaultEcProjectState.projectGeneral.its_sec_factor;
 
     // preproc general section
     ec_project_state_.screenGeneral.start_run.clear();
@@ -1073,11 +452,6 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.timelagOpt.gas4_max_lag = defaultEcProjectState.timelagOpt.gas4_max_lag;
     ec_project_state_.timelagOpt.subset  = defaultEcProjectState.timelagOpt.subset;
 
-    ec_project_state_.randomError.method = defaultEcProjectState.randomError.method;
-    ec_project_state_.randomError.its_method = defaultEcProjectState.randomError.its_method;
-    ec_project_state_.randomError.its_tlag_max = defaultEcProjectState.randomError.its_tlag_max;
-    ec_project_state_.randomError.its_sec_factor = defaultEcProjectState.randomError.its_sec_factor;
-
     ec_project_state_.biomParam.native_header = defaultEcProjectState.biomParam.native_header;
     ec_project_state_.biomParam.hlines = defaultEcProjectState.biomParam.hlines;
     ec_project_state_.biomParam.separator = defaultEcProjectState.biomParam.separator;
@@ -1088,6 +462,9 @@ void EcProject::newEcProject(const ProjConfigState& project_config)
     ec_project_state_.biomParam.col_ppfd = defaultEcProjectState.biomParam.col_ppfd;
     ec_project_state_.biomParam.col_rg = defaultEcProjectState.biomParam.col_rg;
     ec_project_state_.biomParam.col_lwin = defaultEcProjectState.biomParam.col_lwin;
+
+    ec_project_state_.windFilter.apply = defaultEcProjectState.windFilter.apply;
+    ec_project_state_.windFilter.sectors.clear();
 
     setModified(false); // new documents are not in a modified state
     emit ecProjectNew();
@@ -1105,8 +482,7 @@ bool EcProject::saveEcProject(const QString &filename)
         WidgetUtils::warning(nullptr,
                              tr("Write Project Error"),
                              tr("Cannot write file %1:\n%2")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }
@@ -1177,8 +553,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_31, QString::number(ec_project_state_.projectGeneral.gas_mw, 'f', 4));
         project_ini.setValue(EcIni::INI_PROJECT_32, QString::number(ec_project_state_.projectGeneral.gas_diff, 'f', 5));
         project_ini.setValue(EcIni::INI_PROJECT_36, ec_project_state_.projectGeneral.col_ts);
-        project_ini.setValue(EcIni::INI_PROJECT_37, ec_project_state_.projectGeneral.out_ghg_eu);
-        project_ini.setValue(EcIni::INI_PROJECT_38, ec_project_state_.projectGeneral.out_amflux);
         project_ini.setValue(EcIni::INI_PROJECT_39, ec_project_state_.projectGeneral.out_rich);
         project_ini.setValue(EcIni::INI_PROJECT_56, ec_project_state_.projectGeneral.out_md);
         project_ini.setValue(EcIni::INI_PROJECT_41, QVariant(ec_project_state_.projectGeneral.make_dataset).toInt());
@@ -1210,6 +584,19 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_PROJECT_66, ec_project_state_.projectGeneral.hf_correct_ghg_ba);
         project_ini.setValue(EcIni::INI_PROJECT_67, ec_project_state_.projectGeneral.hf_correct_ghg_zoh);
         project_ini.setValue(EcIni::INI_PROJECT_68, ec_project_state_.projectGeneral.sonic_output_rate);
+        project_ini.setValue(EcIni::INI_PROJECT_70, ec_project_state_.projectGeneral.fluxnet_standardize_biomet);
+        project_ini.setValue(EcIni::INI_PROJECT_71, ec_project_state_.projectGeneral.fluxnet_err_label);
+
+        // random uncertainty
+        project_ini.setValue(EcIni::INI_RAND_ERROR_0,
+                             ec_project_state_.projectGeneral.ru_method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_1,
+                             ec_project_state_.projectGeneral.its_method);
+        project_ini.setValue(EcIni::INI_RAND_ERROR_2,
+                             QString::number(ec_project_state_.projectGeneral.its_tlag_max, 'f', 1));
+        // NOTE: temporarly disabled
+        //project_ini.setValue(EcIni::INI_RAND_ERROR_3,
+        //                     QString::number(ec_project_state_.projectGeneral.its_sec_factor, 'f', 1));
     project_ini.endGroup();
 
     // spec settings section
@@ -1508,15 +895,15 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_SCREEN_TILT_11, ec_project_state_.screenTilt.subset);
 
         // iterate through angle list
-        int k = 0;
+        int k = 1;
         for (const auto &angle : ec_project_state_.screenTilt.angles)
         {
-            QString index = QStringLiteral("_") + QString::number(k + 1);
+            QString index = QStringLiteral("_") + QString::number(k);
             QString prefix = StringUtils::insertIndex(EcIni::INI_SCREEN_TILT_PREFIX, 7, index);
 
             int excluded = angle.included_ ? 0 : 1;
 
-            project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_9, angle.angle_);
+            project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_9, QString::number(angle.angle_, 'f', 1));
             project_ini.setValue(prefix + EcIni::INI_SCREEN_TILT_10, excluded);
 
             ++k;
@@ -1548,20 +935,6 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_TIMELAG_OPT_18, ec_project_state_.timelagOpt.subset);
     project_ini.endGroup();
 
-    // random error section
-    project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_0,
-                             ec_project_state_.randomError.method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_1,
-                             ec_project_state_.randomError.its_method);
-        project_ini.setValue(EcIni::INI_RAND_ERROR_2,
-                             QString::number(ec_project_state_.randomError.its_tlag_max, 'f', 1));
-
-        // NOTE: temporarly disabled
-//        project_ini.setValue(EcIni::INI_RAND_ERROR_3,
-//                             QString::number(ec_project_state_.randomError.its_sec_factor, 'f', 1));
-    project_ini.endGroup();
-
     // biomet section
     project_ini.beginGroup(EcIni::INIGROUP_BIOMET);
         project_ini.setValue(EcIni::INI_BIOMET_0, ec_project_state_.biomParam.native_header);
@@ -1576,55 +949,22 @@ bool EcProject::saveEcProject(const QString &filename)
         project_ini.setValue(EcIni::INI_BIOMET_9, ec_project_state_.biomParam.col_ppfd);
     project_ini.endGroup();
 
-    // drift correction section
-    project_ini.beginGroup(EcIni::INIGROUP_DRIFT);
-        project_ini.setValue(EcIni::INI_DRIFT_0, ec_project_state_.driftCorr.serial_number);
-        project_ini.setValue(EcIni::INI_DRIFT_1, ec_project_state_.driftCorr.calib_date);
-        project_ini.setValue(EcIni::INI_DRIFT_2, ec_project_state_.driftCorr.co2_0_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_3, ec_project_state_.driftCorr.co2_1_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_4, ec_project_state_.driftCorr.co2_2_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_5, ec_project_state_.driftCorr.co2_3_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_6, ec_project_state_.driftCorr.co2_4_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_7, ec_project_state_.driftCorr.co2_5_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_8, ec_project_state_.driftCorr.co2_6_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_9, ec_project_state_.driftCorr.co2_0_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_10, ec_project_state_.driftCorr.co2_1_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_11, ec_project_state_.driftCorr.co2_2_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_12, ec_project_state_.driftCorr.co2_3_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_13, ec_project_state_.driftCorr.co2_4_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_14, ec_project_state_.driftCorr.co2_5_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_15, ec_project_state_.driftCorr.co2_6_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_16, ec_project_state_.driftCorr.co2_Zero);
-        project_ini.setValue(EcIni::INI_DRIFT_17, ec_project_state_.driftCorr.co2_Zero_date);
-        project_ini.setValue(EcIni::INI_DRIFT_18, ec_project_state_.driftCorr.co2_Span);
-        project_ini.setValue(EcIni::INI_DRIFT_19, ec_project_state_.driftCorr.co2_Span_date);
-        project_ini.setValue(EcIni::INI_DRIFT_20, ec_project_state_.driftCorr.co2_Span_2);
-        project_ini.setValue(EcIni::INI_DRIFT_21, ec_project_state_.driftCorr.co2_Span_2_date);
-        project_ini.setValue(EcIni::INI_DRIFT_22, ec_project_state_.driftCorr.co2_CX);
-        project_ini.setValue(EcIni::INI_DRIFT_23, ec_project_state_.driftCorr.co2_CX_date);
-        project_ini.setValue(EcIni::INI_DRIFT_24, ec_project_state_.driftCorr.h2o_0_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_25, ec_project_state_.driftCorr.h2o_1_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_26, ec_project_state_.driftCorr.h2o_2_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_27, ec_project_state_.driftCorr.h2o_3_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_28, ec_project_state_.driftCorr.h2o_4_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_29, ec_project_state_.driftCorr.h2o_5_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_30, ec_project_state_.driftCorr.h2o_6_dir);
-        project_ini.setValue(EcIni::INI_DRIFT_31, ec_project_state_.driftCorr.h2o_0_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_32, ec_project_state_.driftCorr.h2o_1_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_33, ec_project_state_.driftCorr.h2o_2_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_34, ec_project_state_.driftCorr.h2o_3_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_35, ec_project_state_.driftCorr.h2o_4_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_36, ec_project_state_.driftCorr.h2o_5_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_37, ec_project_state_.driftCorr.h2o_6_inv);
-        project_ini.setValue(EcIni::INI_DRIFT_38, ec_project_state_.driftCorr.h2o_Zero);
-        project_ini.setValue(EcIni::INI_DRIFT_39, ec_project_state_.driftCorr.h2o_Zero_date);
-        project_ini.setValue(EcIni::INI_DRIFT_40, ec_project_state_.driftCorr.h2o_Span);
-        project_ini.setValue(EcIni::INI_DRIFT_41, ec_project_state_.driftCorr.h2o_Span_date);
-        project_ini.setValue(EcIni::INI_DRIFT_42, ec_project_state_.driftCorr.h2o_Span_2);
-        project_ini.setValue(EcIni::INI_DRIFT_43, ec_project_state_.driftCorr.h2o_Span_2_date);
-        project_ini.setValue(EcIni::INI_DRIFT_44, ec_project_state_.driftCorr.h2o_WX);
-        project_ini.setValue(EcIni::INI_DRIFT_45, ec_project_state_.driftCorr.h2o_WX_date);
+    // wind filter section
+    project_ini.beginGroup(EcIni::INIGROUP_WIND_FILTER);
+        project_ini.setValue(EcIni::INI_WIND_FILTER_APPLY, ec_project_state_.windFilter.apply);
+
+        // sectors
+        auto n = 1;
+        for (const auto &sector : ec_project_state_.windFilter.sectors)
+        {
+            QString index = QStringLiteral("_") + QString::number(n);
+            QString prefix = StringUtils::insertIndex(EcIni::INI_WIND_FILTER_PREFIX, 8, index);
+            project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX, QString::number(sector.startAngle_, 'f', 1));
+            project_ini.setValue(prefix + EcIni::INI_WIND_FILTER_END_SUFFIX, QString::number(sector.endAngle_, 'f', 1));
+            ++n;
+        }
     project_ini.endGroup();
+
     project_ini.sync();
 
     bool result = tagProject(filename);
@@ -1643,7 +983,7 @@ bool EcProject::saveEcProject(const QString &filename)
 // Load a project. Assumes file has been checked with nativeFormat()
 bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *modified)
 {
-    auto parent = static_cast<MainWindow*>(this->parent());
+    auto parent = dynamic_cast<MainWindow*>(this->parent());
     if (parent == nullptr) { return false; }
 
     bool isVersionCompatible = true;
@@ -1712,11 +1052,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
 
                 project_ini.remove(EcIni::INI_PROJECT_33_OLD);
                 isVersionCompatible = false;
-            }
-            else
-            {
-                // abort the file loading to skip it during previous data comparison
-                return false;
             }
         }
         else
@@ -1820,12 +1155,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.gas_diff
                 = project_ini.value(EcIni::INI_PROJECT_32,
                                     defaultEcProjectState.projectGeneral.gas_diff).toReal();
-        ec_project_state_.projectGeneral.out_ghg_eu
-                = project_ini.value(EcIni::INI_PROJECT_37,
-                                    defaultEcProjectState.projectGeneral.out_ghg_eu).toInt();
-        ec_project_state_.projectGeneral.out_amflux
-                = project_ini.value(EcIni::INI_PROJECT_38,
-                                    defaultEcProjectState.projectGeneral.out_amflux).toInt();
 
         // NOTE: backward compatibility change for 'out_rich' key
         if (project_ini.value(EcIni::INI_PROJECT_5,
@@ -1839,11 +1168,6 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 }
                 ec_project_state_.projectGeneral.out_rich = 1;
                 isVersionCompatible = false;
-            }
-            else
-            {
-                // abort the file loading to skip it during previous data comparison
-                return false;
             }
         }
         else
@@ -1945,6 +1269,24 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
         ec_project_state_.projectGeneral.sonic_output_rate
                 = project_ini.value(EcIni::INI_PROJECT_68,
                                     defaultEcProjectState.projectGeneral.sonic_output_rate).toInt();
+
+        // random error
+        ec_project_state_.projectGeneral.ru_method
+                = project_ini.value(EcIni::INI_RAND_ERROR_0,
+                                    defaultEcProjectState.projectGeneral.ru_method).toInt();
+        ec_project_state_.projectGeneral.its_method
+                = project_ini.value(EcIni::INI_RAND_ERROR_1,
+                                    defaultEcProjectState.projectGeneral.its_method).toInt();
+        ec_project_state_.projectGeneral.its_tlag_max
+                = project_ini.value(EcIni::INI_RAND_ERROR_2,
+                                    defaultEcProjectState.projectGeneral.its_tlag_max).toDouble();
+
+        ec_project_state_.projectGeneral.fluxnet_standardize_biomet
+                = project_ini.value(EcIni::INI_PROJECT_70,
+                                    defaultEcProjectState.projectGeneral.fluxnet_standardize_biomet).toInt();
+        ec_project_state_.projectGeneral.fluxnet_err_label
+                = project_ini.value(EcIni::INI_PROJECT_71,
+                                    defaultEcProjectState.projectGeneral.fluxnet_err_label).toInt();
     project_ini.endGroup();
 
     // spec settings section
@@ -2753,16 +2095,15 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                 = project_ini.value(EcIni::INI_SCREEN_TILT_11,
                                     defaultEcProjectState.screenTilt.subset).toInt();
 
-        ec_project_state_.screenTilt.angles.clear();
-        int numAngles = countPlanarFitAngles(project_ini.allKeys());
         // iterate through angle list
-        for (int k = 0; k < numAngles; ++k)
+        ec_project_state_.screenTilt.angles.clear();
+        auto numAngles = countPlanarFitAngles(project_ini.allKeys());
+        for (auto k = 1; k <= numAngles; ++k)
         {
-            QString prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k + 1) + QStringLiteral("_");
-
-            int exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
-            int include = exclude ? 0 : (exclude + 2);
-            Qt::CheckState included = static_cast<Qt::CheckState>(include);
+            QString prefix = EcIni::INI_SCREEN_TILT_PREFIX + QString::number(k) + QStringLiteral("_");
+            auto exclude = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_10).toInt();
+            auto include = exclude ? 0 : (exclude + 2);
+            auto included = static_cast<Qt::CheckState>(include);
 
             AngleItem item;
             item.angle_ = project_ini.value(prefix + EcIni::INI_SCREEN_TILT_9).toDouble();
@@ -2841,22 +2182,30 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
     project_ini.endGroup();
 
     // random error section
-    project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
-        ec_project_state_.randomError.method
-                = project_ini.value(EcIni::INI_RAND_ERROR_0,
-                                    defaultEcProjectState.randomError.method).toInt();
-        ec_project_state_.randomError.its_method
-                = project_ini.value(EcIni::INI_RAND_ERROR_1,
-                                    defaultEcProjectState.randomError.its_method).toInt();
-        ec_project_state_.randomError.its_tlag_max
-                = project_ini.value(EcIni::INI_RAND_ERROR_2,
-                                    defaultEcProjectState.randomError.its_tlag_max).toDouble();
-
-        // NOTE: temporarly disabled
-//        ec_project_state_.randomError.its_sec_factor
-//                = project_ini.value(EcIni::INI_RAND_ERROR_3,
-//                                    defaultEcProjectState.randomError.its_sec_factor).toDouble();
-    project_ini.endGroup();
+    auto ini_version_loading =
+        StringUtils::getHexVersionFromString(ec_project_state_.projectGeneral.ini_version);
+    if (ini_version_loading <= QT_VERSION_CHECK(4, 3, 3))
+    {
+        if (checkVersion)
+        {
+            if (!parent->queryEcProjectImport(filename))
+            {
+                return false;
+            }
+            project_ini.beginGroup(EcIni::INIGROUP_RAND_ERROR);
+                ec_project_state_.projectGeneral.ru_method
+                        = project_ini.value(EcIni::INI_RAND_ERROR_0,
+                                            defaultEcProjectState.randomError.ru_method).toInt();
+                ec_project_state_.projectGeneral.its_method
+                        = project_ini.value(EcIni::INI_RAND_ERROR_1,
+                                            defaultEcProjectState.randomError.its_method).toInt();
+                ec_project_state_.projectGeneral.its_tlag_max
+                        = project_ini.value(EcIni::INI_RAND_ERROR_2,
+                                            defaultEcProjectState.randomError.its_tlag_max).toDouble();
+            project_ini.endGroup();
+            isVersionCompatible = false;
+        }
+    }
 
     // biomet section
     project_ini.beginGroup(EcIni::INIGROUP_BIOMET);
@@ -2880,153 +2229,24 @@ bool EcProject::loadEcProject(const QString &filename, bool checkVersion, bool *
                                     defaultEcProjectState.biomParam.col_ppfd).toInt();
     project_ini.endGroup();
 
-    // drift correction section
-    project_ini.beginGroup(EcIni::INIGROUP_DRIFT);
-        ec_project_state_.driftCorr.serial_number
-                = project_ini.value(EcIni::INI_DRIFT_0,
-                                    defaultEcProjectState.driftCorr.serial_number).toString();
-        ec_project_state_.driftCorr.calib_date
-                = project_ini.value(EcIni::INI_DRIFT_1,
-                                    defaultEcProjectState.driftCorr.calib_date).toString();
+    // wind filter section
+    project_ini.beginGroup(EcIni::INIGROUP_WIND_FILTER);
+        ec_project_state_.windFilter.apply
+                = project_ini.value(EcIni::INI_WIND_FILTER_APPLY,
+                                    defaultEcProjectState.windFilter.apply).toInt();
+        // iterate through sector list
+        ec_project_state_.windFilter.sectors.clear();
+        auto numSectors = countWindFilterSectors(project_ini.allKeys());
+        for (auto k = 1; k <= numSectors; ++k)
+        {
+            QString prefix = EcIni::INI_WIND_FILTER_PREFIX + QString::number(k) + QStringLiteral("_");
 
-        ec_project_state_.driftCorr.co2_0_dir
-                = project_ini.value(EcIni::INI_DRIFT_2,
-                                    defaultEcProjectState.driftCorr.co2_0_dir).toDouble();
-        ec_project_state_.driftCorr.co2_1_dir
-                = project_ini.value(EcIni::INI_DRIFT_3,
-                                    defaultEcProjectState.driftCorr.co2_1_dir).toDouble();
-        ec_project_state_.driftCorr.co2_2_dir
-                = project_ini.value(EcIni::INI_DRIFT_4,
-                                    defaultEcProjectState.driftCorr.co2_2_dir).toDouble();
-        ec_project_state_.driftCorr.co2_3_dir
-                = project_ini.value(EcIni::INI_DRIFT_5,
-                                    defaultEcProjectState.driftCorr.co2_3_dir).toDouble();
-        ec_project_state_.driftCorr.co2_4_dir
-                = project_ini.value(EcIni::INI_DRIFT_6,
-                                    defaultEcProjectState.driftCorr.co2_4_dir).toDouble();
-        ec_project_state_.driftCorr.co2_5_dir
-                = project_ini.value(EcIni::INI_DRIFT_7,
-                                    defaultEcProjectState.driftCorr.co2_5_dir).toDouble();
-        ec_project_state_.driftCorr.co2_6_dir
-                = project_ini.value(EcIni::INI_DRIFT_8,
-                                    defaultEcProjectState.driftCorr.co2_6_dir).toDouble();
-
-        ec_project_state_.driftCorr.co2_0_inv
-                = project_ini.value(EcIni::INI_DRIFT_9,
-                                    defaultEcProjectState.driftCorr.co2_0_inv).toDouble();
-        ec_project_state_.driftCorr.co2_1_dir
-                = project_ini.value(EcIni::INI_DRIFT_10,
-                                    defaultEcProjectState.driftCorr.co2_1_inv).toDouble();
-        ec_project_state_.driftCorr.co2_2_dir
-                = project_ini.value(EcIni::INI_DRIFT_11,
-                                    defaultEcProjectState.driftCorr.co2_2_inv).toDouble();
-        ec_project_state_.driftCorr.co2_3_dir
-                = project_ini.value(EcIni::INI_DRIFT_12,
-                                    defaultEcProjectState.driftCorr.co2_3_inv).toDouble();
-        ec_project_state_.driftCorr.co2_4_dir
-                = project_ini.value(EcIni::INI_DRIFT_13,
-                                    defaultEcProjectState.driftCorr.co2_4_inv).toDouble();
-        ec_project_state_.driftCorr.co2_5_dir
-                = project_ini.value(EcIni::INI_DRIFT_14,
-                                    defaultEcProjectState.driftCorr.co2_5_inv).toDouble();
-        ec_project_state_.driftCorr.co2_6_dir
-                = project_ini.value(EcIni::INI_DRIFT_15,
-                                    defaultEcProjectState.driftCorr.co2_6_inv).toDouble();
-
-        ec_project_state_.driftCorr.co2_Zero
-                = project_ini.value(EcIni::INI_DRIFT_16,
-                                    defaultEcProjectState.driftCorr.co2_Zero).toDouble();
-        ec_project_state_.driftCorr.co2_Zero_date
-                = project_ini.value(EcIni::INI_DRIFT_17,
-                                    defaultEcProjectState.driftCorr.co2_Zero_date).toString();
-        ec_project_state_.driftCorr.co2_Span
-                = project_ini.value(EcIni::INI_DRIFT_18,
-                                    defaultEcProjectState.driftCorr.co2_Span).toDouble();
-        ec_project_state_.driftCorr.co2_Span_date
-                = project_ini.value(EcIni::INI_DRIFT_19,
-                                    defaultEcProjectState.driftCorr.co2_Span_date).toString();
-        ec_project_state_.driftCorr.co2_Span_2
-                = project_ini.value(EcIni::INI_DRIFT_20,
-                                    defaultEcProjectState.driftCorr.co2_Span_2).toDouble();
-        ec_project_state_.driftCorr.co2_Span_2_date
-                = project_ini.value(EcIni::INI_DRIFT_21,
-                                    defaultEcProjectState.driftCorr.co2_Span_2_date).toString();
-        ec_project_state_.driftCorr.co2_CX
-                = project_ini.value(EcIni::INI_DRIFT_22,
-                                    defaultEcProjectState.driftCorr.co2_CX).toDouble();
-        ec_project_state_.driftCorr.co2_CX_date
-                = project_ini.value(EcIni::INI_DRIFT_23,
-                                    defaultEcProjectState.driftCorr.co2_CX_date).toString();
-
-        ec_project_state_.driftCorr.h2o_0_dir
-                = project_ini.value(EcIni::INI_DRIFT_24,
-                                    defaultEcProjectState.driftCorr.h2o_0_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_1_dir
-                = project_ini.value(EcIni::INI_DRIFT_25,
-                                    defaultEcProjectState.driftCorr.h2o_1_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_2_dir
-                = project_ini.value(EcIni::INI_DRIFT_26,
-                                    defaultEcProjectState.driftCorr.h2o_2_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_3_dir
-                = project_ini.value(EcIni::INI_DRIFT_27,
-                                    defaultEcProjectState.driftCorr.h2o_3_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_4_dir
-                = project_ini.value(EcIni::INI_DRIFT_28,
-                                    defaultEcProjectState.driftCorr.h2o_4_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_5_dir
-                = project_ini.value(EcIni::INI_DRIFT_29,
-                                    defaultEcProjectState.driftCorr.h2o_5_dir).toDouble();
-        ec_project_state_.driftCorr.h2o_6_dir
-                = project_ini.value(EcIni::INI_DRIFT_30,
-                                    defaultEcProjectState.driftCorr.h2o_6_dir).toDouble();
-
-        ec_project_state_.driftCorr.h2o_0_inv
-                = project_ini.value(EcIni::INI_DRIFT_31,
-                                    defaultEcProjectState.driftCorr.h2o_0_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_1_dir
-                = project_ini.value(EcIni::INI_DRIFT_32,
-                                    defaultEcProjectState.driftCorr.h2o_1_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_2_dir
-                = project_ini.value(EcIni::INI_DRIFT_33,
-                                    defaultEcProjectState.driftCorr.h2o_2_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_3_dir
-                = project_ini.value(EcIni::INI_DRIFT_34,
-                                    defaultEcProjectState.driftCorr.h2o_3_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_4_dir
-                = project_ini.value(EcIni::INI_DRIFT_35,
-                                    defaultEcProjectState.driftCorr.h2o_4_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_5_dir
-                = project_ini.value(EcIni::INI_DRIFT_36,
-                                    defaultEcProjectState.driftCorr.h2o_5_inv).toDouble();
-        ec_project_state_.driftCorr.h2o_6_dir
-                = project_ini.value(EcIni::INI_DRIFT_37,
-                                    defaultEcProjectState.driftCorr.h2o_6_inv).toDouble();
-
-        ec_project_state_.driftCorr.h2o_Zero
-                = project_ini.value(EcIni::INI_DRIFT_38,
-                                    defaultEcProjectState.driftCorr.h2o_Zero).toDouble();
-        ec_project_state_.driftCorr.h2o_Zero_date
-                = project_ini.value(EcIni::INI_DRIFT_39,
-                                    defaultEcProjectState.driftCorr.h2o_Zero_date).toString();
-        ec_project_state_.driftCorr.h2o_Span
-                = project_ini.value(EcIni::INI_DRIFT_40,
-                                    defaultEcProjectState.driftCorr.h2o_Span).toDouble();
-        ec_project_state_.driftCorr.h2o_Span_date
-                = project_ini.value(EcIni::INI_DRIFT_41,
-                                    defaultEcProjectState.driftCorr.h2o_Span_date).toString();
-        ec_project_state_.driftCorr.h2o_Span_2
-                = project_ini.value(EcIni::INI_DRIFT_42,
-                                    defaultEcProjectState.driftCorr.h2o_Span_2).toDouble();
-        ec_project_state_.driftCorr.h2o_Span_2_date
-                = project_ini.value(EcIni::INI_DRIFT_43,
-                                    defaultEcProjectState.driftCorr.h2o_Span_2_date).toString();
-        ec_project_state_.driftCorr.h2o_WX
-                = project_ini.value(EcIni::INI_DRIFT_44,
-                                    defaultEcProjectState.driftCorr.h2o_WX).toDouble();
-        ec_project_state_.driftCorr.h2o_WX_date
-                = project_ini.value(EcIni::INI_DRIFT_45,
-                                    defaultEcProjectState.driftCorr.h2o_WX_date).toString();
-
+            SectorItem item;
+            item.startAngle_ = project_ini.value(prefix + EcIni::INI_WIND_FILTER_START_SUFFIX).toDouble();
+            item.endAngle_ = project_ini.value(prefix + EcIni::INI_WIND_FILTER_END_SUFFIX).toDouble();
+            item.color_ = WidgetUtils::getColor(k);
+            addWindFilterSector(item);
+        }
     project_ini.endGroup();
 
     datafile.close();
@@ -3983,18 +3203,6 @@ void EcProject::setGeneralFpMeth(int n)
 void EcProject::setGeneralTob1Format(int n)
 {
     ec_project_state_.projectGeneral.tob1_format = n;
-    setModified(true);
-}
-
-void EcProject::setGeneralOutGhgEu(int n)
-{
-    ec_project_state_.projectGeneral.out_ghg_eu = n;
-    setModified(true);
-}
-
-void EcProject::setGeneralOutAmFluxOut(int n)
-{
-    ec_project_state_.projectGeneral.out_amflux = n;
     setModified(true);
 }
 
@@ -4969,6 +4177,18 @@ void EcProject::setGeneralBiomExt(const QString &p)
     setModified(true);
 }
 
+void EcProject::setGeneralFluxnetStandardize(int n)
+{
+    ec_project_state_.projectGeneral.fluxnet_standardize_biomet = n;
+    setModified(true);
+}
+
+void EcProject::setGeneralFluxnetErrLabel(int n)
+{
+    ec_project_state_.projectGeneral.fluxnet_err_label = n;
+    setModified(true);
+}
+
 void EcProject::setScreenAvrgLen(int n)
 {
     ec_project_state_.screenSetting.avrg_len = n;
@@ -5245,25 +4465,25 @@ void EcProject::setTimelagOptGas4MaxLag(double d)
 
 void EcProject::setRandomErrorMethod(int n)
 {
-    ec_project_state_.randomError.method = n;
+    ec_project_state_.projectGeneral.ru_method = n;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsMethod(int n)
 {
-    ec_project_state_.randomError.its_method = n;
+    ec_project_state_.projectGeneral.its_method = n;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsTlagMax(double d)
 {
-    ec_project_state_.randomError.its_tlag_max = d;
+    ec_project_state_.projectGeneral.its_tlag_max = d;
     setModified(true);
 }
 
 void EcProject::setRandomErrorItsSecFactor(double d)
 {
-    ec_project_state_.randomError.its_sec_factor = d;
+    ec_project_state_.projectGeneral.its_sec_factor = d;
     setModified(true);
 }
 
@@ -5285,9 +4505,25 @@ bool EcProject::hasPlanarFitFullAngle()
     return (angleSum == 360.0);
 }
 
+QList<SectorItem> *EcProject::windFilterSectors()
+{
+    return &ec_project_state_.windFilter.sectors;
+}
+
+void EcProject::setWindFilterApply(int n)
+{
+    ec_project_state_.windFilter.apply = n;
+    setModified(true);
+}
+
 void EcProject::addPlanarFitAngle(const AngleItem& angle)
 {
     ec_project_state_.screenTilt.angles.append(angle);
+}
+
+void EcProject::addWindFilterSector(const SectorItem &sector)
+{
+    ec_project_state_.windFilter.sectors.append(sector);
 }
 
 int EcProject::countPlanarFitAngles(const QStringList& list)
@@ -5301,6 +4537,19 @@ int EcProject::countPlanarFitAngles(const QStringList& list)
         }
     }
     return i;
+}
+
+int EcProject::countWindFilterSectors(const QStringList& list)
+{
+    auto i = 0;
+    for (const auto &s : list)
+    {
+        if (s.contains(QStringLiteral("wdf_sect")))
+        {
+            ++i;
+        }
+    }
+    return i / 2;
 }
 
 void EcProject::setBiomParamColAirT(int n)
@@ -5361,7 +4610,7 @@ bool EcProject::isEngineStep2Needed()
     }
 
     // in smartflux mode, this output is always disabled
-    if (generalOutMeanCosp())
+    if (generalOutMeanSpectra() || generalOutMeanCosp())
         test = true;
 
     return test;

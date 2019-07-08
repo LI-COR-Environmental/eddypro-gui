@@ -1,4 +1,5 @@
 # define libraries to build and link
+
 CONFIG(debug, debug|release) {
     win32 {
         # quazip
@@ -9,10 +10,10 @@ CONFIG(debug, debug|release) {
     macx {
         # quazip
         # working but each build delete the install name in the executable, so it requires run install_name_tool after each build
-        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.10.1-clang-9.1.0-x86_64 -lquazip_debug
+        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.6-qt-5.12.2-clang-10.0.0-x86_64 -lquazip_debug
 
         # linking
-        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh debug
+        QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh debug $$OUT_PWD
         QMAKE_POST_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-post-link.sh debug
     }
     linux {
@@ -31,7 +32,7 @@ CONFIG(debug, debug|release) {
     }
     macx {
         # quazip
-        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.3-qt-5.10.1-clang-9.1.0-x86_64 -lquazip
+        LIBS += -L$$OUT_PWD/../../libs/mac/build-quazip-0.7.6-qt-5.12.2-clang-10.0.0-x86_64 -lquazip
 
         # linking
         QMAKE_PRE_LINK += $$_PRO_FILE_PWD_/scripts/build/mac-pre-link.sh release

@@ -1,23 +1,30 @@
 /***************************************************************************
   fileutils.cpp
-  -------------------
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "fileutils.h"
@@ -32,7 +39,6 @@
 
 #include "JlCompress.h"
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "widget_utils.h"
 
@@ -48,11 +54,7 @@ bool FileUtils::isFileEmpty(const QString& fileName)
 
     f.close();
 
-    if (contents.isEmpty())
-    {
-        return true;
-    }
-    return false;
+    return contents.isEmpty();
 }
 
 bool FileUtils::projectFileForcedCopy(const QString& fileName,
@@ -192,10 +194,7 @@ void FileUtils::cleanDirFromFiletypeRecursively(const QString &d, const QStringL
                 illegalFile = true;
                 break;
             }
-            else
-            {
-                illegalFile = false;
-            }
+            illegalFile = false;
         }
 
         if (illegalFile)
@@ -309,31 +308,31 @@ QDateTime FileUtils::getDateTimeFromFilename(const QString& filename, const QStr
         {
             if (i.key() == yyStr)
             {
-                yy = filename.mid(i.value(), yyStr.length()).toInt();
+                yy = filename.midRef(i.value(), yyStr.length()).toInt();
             }
             else if (i.key() == yyyyStr)
             {
-                yyyy = filename.mid(i.value(), yyyyStr.length()).toInt();
+                yyyy = filename.midRef(i.value(), yyyyStr.length()).toInt();
             }
             else if (i.key() == mmStr)
             {
-                mm = filename.mid(i.value(), mmStr.length()).toInt();
+                mm = filename.midRef(i.value(), mmStr.length()).toInt();
             }
             else if (i.key() == ddStr)
             {
-                dd = filename.mid(i.value(), ddStr.length()).toInt();
+                dd = filename.midRef(i.value(), ddStr.length()).toInt();
             }
             else if (i.key() == dddStr)
             {
-                ddd = filename.mid(i.value(), dddStr.length()).toInt();
+                ddd = filename.midRef(i.value(), dddStr.length()).toInt();
             }
             else if (i.key() == HHStr)
             {
-                HH = filename.mid(i.value(), HHStr.length()).toInt();
+                HH = filename.midRef(i.value(), HHStr.length()).toInt();
             }
             else if (i.key() == MMStr)
             {
-                MM = filename.mid(i.value(), MMStr.length()).toInt();
+                MM = filename.midRef(i.value(), MMStr.length()).toInt();
             }
         }
     }
@@ -387,10 +386,7 @@ FileUtils::DateRange FileUtils::getDateRangeFromFileList(const QStringList& file
 
         return DateRange(dateStart, dateEnd);
     }
-    else
-    {
-        return DateRange();
-    }
+    return DateRange();
 }
 
 // extract everything from the first underscore to the end
@@ -435,7 +431,7 @@ void FileUtils::loadStyleSheetFile(const QString &sheetPath)
     }
     else
     {
-        qDebug("\tCSS read error");
+        qDebug("\t CSS read error");
     }
 }
 
@@ -522,8 +518,7 @@ bool FileUtils::prependToFile(const QString &str, const QString &filename)
         WidgetUtils::warning(nullptr,
                              QObject::tr("Write Error"),
                              QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }
@@ -550,8 +545,7 @@ bool FileUtils::appendToFile(const QString &str, const QString &filename)
         WidgetUtils::warning(nullptr,
                              QObject::tr("Write Error"),
                              QObject::tr("Cannot write file <p>%1:</p>\n<b>%2</b>")
-                             .arg(filename)
-                             .arg(datafile.errorString()));
+                             .arg(filename, datafile.errorString()));
         datafile.close();
         return false;
     }

@@ -1,24 +1,31 @@
 /***************************************************************************
   mainwindow.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  --------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "mainwindow.h"
@@ -57,7 +64,6 @@
 #include "clicklabel.h"
 #include "customsplashscreen.h"
 #include "detectdaterangedialog.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "globalsettings.h"
@@ -75,8 +81,8 @@
 #include "wheeleventfilter.h"
 #include "widget_utils.h"
 
-MainWindow::MainWindow(const QString& filename,
-                       const QString& appEnvPath,
+MainWindow::MainWindow(QString filename,
+                       QString appEnvPath,
                        CustomSplashScreen* splashscreen,
                        QWidget* parent,
                        Qt::WindowFlags flags) :
@@ -87,8 +93,8 @@ MainWindow::MainWindow(const QString& filename,
     configState_(ConfigState()),
     dlProject_(nullptr),
     ecProject_(nullptr),
-    currEcProjectFilename_(filename),
-    appEnvPath_(appEnvPath),
+    currEcProjectFilename_(std::move(filename)),
+    appEnvPath_(std::move(appEnvPath)),
     notificationTimer_(nullptr),
     newFlag_(true),
     modifiedFlag_(false),
@@ -267,25 +273,14 @@ MainWindow::MainWindow(const QString& filename,
 
 MainWindow::~MainWindow()
 {
-    if (notificationTimer_)
-    {
-        delete notificationTimer_;
-    }
-
-    if (aboutDialog)
-    {
-        delete aboutDialog;
-    }
+    delete notificationTimer_;
+    delete aboutDialog;
 
     if (engineProcess_->isRunning())
     {
         engineProcess_->processStop();
     }
-
-    if (engineProcess_)
-    {
-        delete engineProcess_;
-    }
+    delete engineProcess_;
 }
 
 void MainWindow::initialize()
@@ -532,31 +527,22 @@ bool MainWindow::openFile(const QString& filename)
                         }
                         return true;
                     }
-                    else
-                    {
-                        // load was unsuccessful
-                        WidgetUtils::warning(this,
-                                             tr("Load Project Error"),
-                                             tr("Unable to load the project."));
+                    // load was unsuccessful
+                    WidgetUtils::warning(this,
+                                         tr("Load Project Error"),
+                                         tr("Unable to load the project."));
 
-                        // close the current open project to prevent partial loading
-                        // of ec project settings (currently there is no roll-back
-                        // of the loadEcProject() function)
-                        fileClose();
-                        return false;
-                    }
-                }
-                // file not in native format
-                else
-                {
+                    // close the current open project to prevent partial loading
+                    // of ec project settings (currently there is no roll-back
+                    // of the loadEcProject() function)
+                    fileClose();
                     return false;
                 }
-            }
-            // file does not exist
-            else
-            {
+                // file not in native format
                 return false;
             }
+            // file does not exist
+            return false;
         }
     }
     else
@@ -574,7 +560,7 @@ bool MainWindow::openFile(const QString& filename)
 
 void MainWindow::fileRecent()
 {
-    QAction *action = qobject_cast<QAction *>(sender());
+    auto action = qobject_cast<QAction *>(sender());
     if (!action) { return; }
 
     QString fname = action->text();
@@ -614,7 +600,7 @@ void MainWindow::fileRecent()
 
 // Return true if it saved successfully, false if the operation was canceled
 // or if an error occurred.
-bool MainWindow::fileSave(const bool quiet)
+bool MainWindow::fileSave(bool quiet)
 {
     closeOpenDialogs();
 
@@ -622,37 +608,30 @@ bool MainWindow::fileSave(const bool quiet)
     {
         return fileSaveAs();
     }
-    else
+    if (!quiet)
     {
-        if (!quiet)
+        if (alertChangesWhileRunning())
         {
-            if (alertChangesWhileRunning())
-            {
-                showStatusTip(tr("Canceled..."));
-                return false;
-            }
-        }
-        if (saveFile(currentProjectFile()))
-        {
-            // successful in saving file
-            newFlag_ = false;
-            saveAction->setEnabled(false);
-            setCurrentProjectFile(currentProjectFile());
-            showStatusTip(tr("Project saved"));
-            return true;
-        }
-        else
-        {
-            // error in saving
-            WidgetUtils::warning(this,
-                                 tr("Save Project Error"),
-                                 tr("%1 was unable to save to %2")
-                                 .arg(Defs::APP_NAME)
-                                 .arg(currentProjectFile()));
-            showStatusTip(tr("Error in saving project"));
+            showStatusTip(tr("Canceled..."));
             return false;
         }
     }
+    if (saveFile(currentProjectFile()))
+    {
+        // successful in saving file
+        newFlag_ = false;
+        saveAction->setEnabled(false);
+        setCurrentProjectFile(currentProjectFile());
+        showStatusTip(tr("Project saved"));
+        return true;
+    }
+    // error in saving
+    WidgetUtils::warning(this,
+                         tr("Save Project Error"),
+                         tr("%1 was unable to save to %2")
+                         .arg(Defs::APP_NAME, currentProjectFile()));
+    showStatusTip(tr("Error in saving project"));
+    return false;
 }
 
 // Return true if it saved successfully, false if the operation was canceled
@@ -736,23 +715,18 @@ bool MainWindow::fileSaveAs(const QString& fileName)
             showStatusTip(tr("Project saved"));
             return true;
         }
-        else
-        {
-            // error in saving
-            WidgetUtils::warning(QApplication::activeWindow(),
-                                 tr("Save Project Error"),
-                                 tr("%1 was unable to save to %2")
-                                     .arg(Defs::APP_NAME)
-                                     .arg(QFileInfo(fileToSave).fileName()),
-                                 tr("Make sure the file is not in use "
-                                    "by another application."
-                                    "If the problem persists, contact "
-                                    "envsupport@licor.com ."));
-            showStatusTip(tr("Error in saving project"));
-            return false;
-        }
+        // error in saving
+        WidgetUtils::warning(QApplication::activeWindow(),
+                             tr("Save Project Error"),
+                             tr("%1 was unable to save to %2")
+                                 .arg(Defs::APP_NAME, QFileInfo(fileToSave).fileName()),
+                             tr("Make sure the file is not in use "
+                                "by another application."
+                                "If the problem persists, contact "
+                                "envsupport@licor.com ."));
+        showStatusTip(tr("Error in saving project"));
+        return false;
     }
-
     // fileToSave.isEmpty(), i.e. no file chosen
     showStatusTip(tr("Saving aborted"));
     return false;
@@ -930,14 +904,14 @@ void MainWindow::updateInfoMessages()
 void MainWindow::createActions()
 {
     newAction = new QAction(this);
-    newAction->setText(tr("&New\nProject"));
+    newAction->setText(tr("&New"));
     newAction->setIcon(QIcon(QStringLiteral(":/icons/new")));
     newAction->setShortcut(QKeySequence(QKeySequence::New));
     newAction->setToolTip(tr("Start a new project. (%1)")
                           .arg((newAction->shortcut().toString())));
 
     openAction = new QAction(this);
-    openAction->setText(tr("&Open\nProject..."));
+    openAction->setText(tr("&Open..."));
     openAction->setIcon(QIcon(QStringLiteral(":/icons/open")));
     openAction->setShortcut(QKeySequence(QKeySequence::Open));
     openAction->setToolTip(tr("Open an existing project. (%1)")
@@ -964,7 +938,7 @@ void MainWindow::createActions()
                            .arg((saveAction->shortcut().toString())));
 
     saveAsAction = new QAction(this);
-    saveAsAction->setText(tr("Save\n&As..."));
+    saveAsAction->setText(tr("Save &As..."));
     saveAsAction->setIcon(QIcon(QStringLiteral(":/icons/save-as")));
     // Extend to Windows the other platforms' standard shortcut
     saveAsAction->setShortcut(tr("Ctrl+Shift+S"));
@@ -1003,7 +977,7 @@ void MainWindow::createActions()
                                   .arg((viewWelcomeAction->shortcut().toString())));
 
     viewProjectCreationAction = new QAction(this);
-    viewProjectCreationAction->setText(tr("Project\nCreation"));
+    viewProjectCreationAction->setText(tr("Project Creation"));
     viewProjectCreationAction->setIcon(QIcon(QStringLiteral(":/icons/project")));
     viewProjectCreationAction->setShortcut(tr("Alt+2"));
     viewProjectCreationAction->setToolTip(tr("Go to the <i>Project Creation Page</i>. (%1)")
@@ -1011,14 +985,14 @@ void MainWindow::createActions()
                                                 ->shortcut().toString())));
 
     viewBasicSettingsAction = new QAction(this);
-    viewBasicSettingsAction->setText(tr("Basic\nSettings"));
+    viewBasicSettingsAction->setText(tr("Basic Settings"));
     viewBasicSettingsAction->setIcon(QIcon(QStringLiteral(":/icons/basic-settings")));
     viewBasicSettingsAction->setShortcut(tr("Alt+3"));
     viewBasicSettingsAction->setToolTip(tr("Go to the <i>Basic Settings Page</i>. (%1)")
                                         .arg((viewBasicSettingsAction->shortcut().toString())));
 
     viewAdvancedAction = new QAction(this);
-    viewAdvancedAction->setText(tr("Advanced\nSettings"));
+    viewAdvancedAction->setText(tr("Advanced Settings"));
     viewAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/advanced-settings")));
     viewAdvancedAction->setShortcut(tr("Alt+4"));
     viewAdvancedAction->setToolTip(tr("Go to the <i>Advanced Settings Page</i>. (%1)")
@@ -1026,7 +1000,7 @@ void MainWindow::createActions()
 
     viewRunPageAction = new QAction(this);
     viewRunPageAction->setObjectName(QStringLiteral("view_run_action"));
-    viewRunPageAction->setText(tr("Run\nOutput"));
+    viewRunPageAction->setText(tr("Run Output"));
     viewRunPageAction->setIcon(QIcon(QStringLiteral(":/icons/console")));
     viewRunPageAction->setShortcut(tr("Alt+5"));
     viewRunPageAction->setToolTip(tr("Go to the <i>Output Console Page</i>. (%1)")
@@ -1040,7 +1014,7 @@ void MainWindow::createActions()
     viewActionGroup->addAction(viewRunPageAction);
 
     runExpressAction = new QAction(this);
-    runExpressAction->setText(tr("Express\nMode"));
+    runExpressAction->setText(tr("Express Mode"));
     runExpressAction->setIcon(QIcon(QStringLiteral(":/icons/run-exp")));
     runExpressAction->setPriority(QAction::HighPriority);
     runExpressAction->setShortcut(tr("Ctrl+E"));
@@ -1049,7 +1023,7 @@ void MainWindow::createActions()
                                  .arg((runExpressAction->shortcut().toString())));
 
     runAdvancedAction = new QAction(this);
-    runAdvancedAction->setText(tr("Advanced\nMode"));
+    runAdvancedAction->setText(tr("Advanced Mode"));
     runAdvancedAction->setIcon(QIcon(QStringLiteral(":/icons/run-adv")));
     runAdvancedAction->setPriority(QAction::HighPriority);
     runAdvancedAction->setShortcut(tr("Ctrl+A"));
@@ -1058,7 +1032,7 @@ void MainWindow::createActions()
                                   .arg((runAdvancedAction->shortcut().toString())));
 
     runRetrieverAction = new QAction(this);
-    runRetrieverAction->setText(tr("Metadata\nRetriever"));
+    runRetrieverAction->setText(tr("Metadata Retriever"));
     runRetrieverAction->setIcon(QIcon(QStringLiteral(":/icons/run-ret")));
     runRetrieverAction->setPriority(QAction::HighPriority);
     runRetrieverAction->setShortcut(tr("Ctrl+R"));
@@ -1642,7 +1616,7 @@ void MainWindow::viewInfoOutput(bool on)
 
 void MainWindow::showHelp()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html"), QUrl::StrictMode));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/home.html"), QUrl::StrictMode));
 }
 
 void MainWindow::showPdfHelp()
@@ -2507,18 +2481,18 @@ void MainWindow::showGuidedModeMessages_2()
     }
 
     AnemDescList *adl = dlProject_->anems();
-    if (adl->size() > 0)
+    if (!adl->isEmpty())
     {
         QString anemModel = ecProject_->generalColMasterSonic();
         if (!anemModel.isEmpty())
         {
-            int anemIndex = anemModel.mid(anemModel.lastIndexOf(QLatin1Char('_')) + 1).toInt();
+            int anemIndex = anemModel.midRef(anemModel.lastIndexOf(QLatin1Char('_')) + 1).toInt();
 
             // check if valid index position in the list (i.e., 0 <= i < size())
             int i = anemIndex - 1;
             if (i >= 0 && i < adl->size())
             {
-                AnemDesc anem = adl->at(i);
+                const AnemDesc& anem = adl->at(i);
                 if (!anem.hasGoodTemp()
                     && dlProject_->hasOneFastTemperature()
                     && ecProject_->generalColTs() == 0)
@@ -2928,7 +2902,7 @@ void MainWindow::changeViewToolbarSeparators(Defs::CurrPage page)
     }
 }
 
-void MainWindow::fileOpenRequest(QString file)
+void MainWindow::fileOpenRequest(const QString& file)
 {
     if (configState_.project.smartfluxMode
             && !file.isEmpty())
@@ -2980,7 +2954,7 @@ void MainWindow::setMetadataRead(bool b)
     metadataReadFlag_ = b;
 }
 
-int MainWindow::testBeforeRunningPassed(int step)
+int MainWindow::testBeforeRunningPassed()
 {
     int returnValue = QMessageBox::Yes;
 
@@ -2989,107 +2963,11 @@ int MainWindow::testBeforeRunningPassed(int step)
         changePage(Defs::CurrPage::BasicSettings);
     }
 
-    if (step == 0 && !ecProject_->spectraExDir().isEmpty())
-    {
-        if (expressClicked_)
-        {
-            if (testForPreviousData())
-            {
-                if (!WidgetUtils::yesNoQuestion(QApplication::activeWindow(),
-                    tr("Previous Results Available"),
-                    tr("Previous results available!"),
-                    tr("Most likely results of this run will be identical "
-                       "to results of a previous run available in the \"Previous "
-                       "Output Directory\", so you wouldn't need to proceed.\n\n"
-                       "Do you prefer to proceed anyway?")))
-                {
-                    expressClicked_ = false;
-                    showStatusTip(tr("Canceled..."));
-                    fileSaveSilently();
-                    return QMessageBox::Cancel;
-                }
-            }
-            else
-            {
-                int ret = QMessageBox::warning(QApplication::activeWindow(),
-                              tr("No Previous Results Available"),
-                              tr("It is not possible to use results from any previous run. "
-                                 "EddyPro will start the processing from the raw files."),
-                              QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok);
-
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                        break;
-                    case QMessageBox::Cancel:
-                        expressClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-        }
-        else if (advancedClicked_)
-        {
-            if (testForPreviousData())
-            {
-                int ret = QMessageBox::question(QApplication::activeWindow(),
-                                     tr("Previous Results Available"),
-                                     tr("Previous results available!\n\n"
-                                        "Do you want to proceed using results "
-                                        "from a previous run? (Recommended)\n"),
-                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
-                                     QMessageBox::Yes);
-                switch (ret)
-                {
-                    case QMessageBox::Yes:
-                        returnValue = QMessageBox::No;
-                        break;
-                    case QMessageBox::No:
-                        advancedClicked_ = false;
-                        returnValue = QMessageBox::Yes;
-                        break;
-                    case QMessageBox::Cancel:
-                        advancedClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-            else
-            {
-                int ret = QMessageBox::warning(QApplication::activeWindow(),
-                              tr("No Previous Results Available"),
-                              tr("It is not possible to use results from any previous run. "
-                                 "EddyPro will start the processing from the raw files."),
-                              QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok);
-
-                switch (ret)
-                {
-                    case QMessageBox::Ok:
-                        break;
-                    case QMessageBox::Cancel:
-                        advancedClicked_ = false;
-                        showStatusTip(tr("Canceled..."));
-                        fileSaveSilently();
-                        return ret;
-                }
-            }
-        }
-        else if (retrieverClicked_)
-        {
-            // nothing to do
-        }
-    }
-
     if (!fileSaveSilently())
     {
         return QMessageBox::Cancel;
     }
-    else
-    {
-        return returnValue;
-    }
+    return returnValue;
 }
 
 void MainWindow::closeOpenDialogs()
@@ -3104,7 +2982,6 @@ void MainWindow::closeOpenDialogs()
             dialog->accept();
         }
     }
-//    DEBUG_FUNC_MSG(QString())
 }
 
 FileUtils::DateRange MainWindow::getCurrentDateRange()
@@ -3121,9 +2998,10 @@ FileUtils::DateRange MainWindow::getCurrentDateRange()
     else
     {
         auto extensionIndex = ecProject_->generalFilePrototype().lastIndexOf(QLatin1String(".")) + 1;
-        auto extension = QStringLiteral("*.") + ecProject_->generalFilePrototype().mid(extensionIndex);
+        QString extension = QStringLiteral("*.") + ecProject_->generalFilePrototype().mid(extensionIndex);
         currentRawDataList = FileUtils::getFiles(ecProject_->screenDataPath(), extension, recursion);
     }
+
 
     if (!currentRawDataList.isEmpty())
     {
@@ -3275,10 +3153,10 @@ void MainWindow::runExpress()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Express);
@@ -3363,14 +3241,14 @@ void MainWindow::runAdvancedStep_1()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        int ret = testBeforeRunningPassed(0);
+        int ret = testBeforeRunningPassed();
         if (ret == QMessageBox::Cancel) { return; }
 
         // start from step 1
         if (ret == QMessageBox::Yes)
         {
             changePage(Defs::CurrPage::Run);
-            QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+            QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
             QString engine1FilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
             ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
@@ -3419,10 +3297,10 @@ void MainWindow::runAdvancedStep_2()
     {
         updateSpectraPaths();
 
-        if (testBeforeRunningPassed(1) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_FCC);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Advanced);
@@ -3502,10 +3380,10 @@ void MainWindow::runRetriever()
 
     if (status == Defs::CurrStatus::Ready)
     {
-        if (testBeforeRunningPassed(0) == QMessageBox::Cancel) { return; }
+        if (testBeforeRunningPassed() == QMessageBox::Cancel) { return; }
 
         changePage(Defs::CurrPage::Run);
-        QString workingDir = qApp->applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
+        QString workingDir = QApplication::applicationDirPath() + QLatin1Char('/') + Defs::BIN_FILE_DIR;
         QString engineFilePath(workingDir + QLatin1Char('/') + Defs::ENGINE_RP);
 
         ecProject_->setGeneralRunMode(Defs::CurrRunMode::Retriever);
@@ -3844,14 +3722,8 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
     {
         QDesktopServices::openUrl(QUrl::fromLocalFile(ecProject_->generalOutPath()));
     }
-    if (openOutDirButton)
-    {
-        delete openOutDirButton;
-    }
-    if (questionMark_1)
-    {
-        delete questionMark_1;
-    }
+    delete openOutDirButton;
+    delete questionMark_1;
 
     expressClicked_ = false;
     advancedClicked_ = false;
@@ -3967,10 +3839,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
         updateMenuActionStatus(currentPage());
         msgBox.exec();
     }
-    if (questionMark_1)
-    {
-        delete questionMark_1;
-    }
+    delete questionMark_1;
 
     expressClicked_ = false;
     advancedClicked_ = false;
@@ -3979,7 +3848,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
 void MainWindow::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Error_Codes.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/error-codes.html")));
 }
 
 // qt5
@@ -4066,8 +3935,8 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QSize widgetSize = event->size();
     QSize widgetOldSize = event->oldSize();
 
-    qDebug() << "size" << widgetSize;
-    qDebug() << "old size" << widgetOldSize;
+    // qDebug() << "size" << widgetSize;
+    // qDebug() << "old size" << widgetOldSize;
 
     if (widgetSize.width() <= 1200 || widgetSize.height() <= 900)
     {
@@ -4142,29 +4011,6 @@ void MainWindow::updateSpectraPaths()
     }
 }
 
-void MainWindow::updateSpectraPathFromPreviousData(const QString& exFilePath)
-{
-    ecProject_->setSpectraExFile(exFilePath);
-
-    if (ecProject_->generalHfMethod() == 2
-        || ecProject_->generalHfMethod() == 3
-        || ecProject_->generalHfMethod() == 4)
-    {
-        if (ecProject_->generalBinSpectraAvail())
-        {
-            ecProject_->setSpectraBinSpectra(ecProject_->spectraBinSpectra());
-        }
-
-        if (ecProject_->generalHfMethod() == 4)
-        {
-            if (ecProject_->generalFullSpectraAvail())
-            {
-                ecProject_->setSpectraFullSpectra(ecProject_->spectraFullSpectra());
-            }
-        }
-    }
-}
-
 void MainWindow::showUpdateDialog()
 {
     if (!updateDialog)
@@ -4202,88 +4048,6 @@ void MainWindow::showAutoUpdateResults()
     {
         qDebug() << "no NEW VERSION";
     }
-}
-
-bool MainWindow::testForPreviousData()
-{
-    bool test = false;
-
-    // first preliminary test
-    if ((ecProject_->generalHfMethod() == 2 || ecProject_->generalHfMethod() == 3)
-        && (ecProject_->spectraMode() == 1 && ecProject_->generalBinSpectraAvail() == 0))
-    {
-        return test;
-    }
-
-    // second preliminary test
-    if (ecProject_->generalHfMethod() == 4
-        && ((ecProject_->spectraMode() == 1 && ecProject_->generalBinSpectraAvail() == 0)
-        || ecProject_->generalFullSpectraAvail() == 0))
-    {
-        return test;
-    }
-
-    QString epFormat = QStringLiteral("*.") + Defs::APP_NAME_LCASE;
-    QString csvFormat = QStringLiteral("*.") + Defs::CSV_NATIVE_DATA_FILE_EXT;
-
-    auto recurse = true;
-    QStringList previousRunList(FileUtils::getFiles(ecProject_->spectraExDir(),
-                                         epFormat,
-                                         recurse));
-    QStringList previousEssentialList(FileUtils::getFiles(ecProject_->spectraExDir(),
-                                         csvFormat,
-                                         recurse));
-    previousEssentialList = previousEssentialList.filter(QStringLiteral("essentials"));
-
-    // prunes the previousRunList if there are no corresponding essential files
-    for (const auto & processingFile : previousRunList)
-    {
-        QFileInfo info(processingFile);
-        QString filenameDate = info.fileName().mid(11, 17);
-
-        if (!StringUtils::isISODateTimeString(filenameDate)
-            || previousEssentialList.filter(filenameDate).isEmpty())
-        {
-            previousRunList.removeOne(processingFile);
-        }
-    }
-
-    // load and compare each old project found with the current project
-    ConfigState currConfigState;
-
-    QScopedPointer<EcProject> currEcProject(new EcProject(this, currConfigState.project));
-    QScopedPointer<EcProject> prevEcProject(new EcProject(this, currConfigState.project));
-    int i = 0;
-    for (const auto &processingFile : previousRunList)
-    {
-        bool modified; // not necessary in this case
-
-        if (currEcProject->loadEcProject(ecProject_->generalFileName(), false, &modified)
-            && prevEcProject->loadEcProject(processingFile, false, &modified)
-            && prevEcProject->generalRunMode() == Defs::CurrRunMode::Advanced)
-        {
-            if (currEcProject->fuzzyCompare(*prevEcProject))
-            {
-                test = true;
-                QFileInfo info(processingFile);
-                QString exFilePath = previousEssentialList.filter(info.fileName().mid(11, 17)).first();
-                updateSpectraPathFromPreviousData(exFilePath);
-                break;
-            }
-            else
-            {
-                qDebug() << "fuzzyCompare: FAIL";
-            }
-        }
-        else
-        {
-            // NOTE: for testing only
-            qDebug() << "loading FAIL";
-        }
-        ++i;
-    }
-
-    return test;
 }
 
 void MainWindow::openLicorSite() const

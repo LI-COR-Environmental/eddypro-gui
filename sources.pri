@@ -1,10 +1,6 @@
 # source code files
 
-# precompiled headers (PCH)
-#PRECOMPILED_HEADER = src/stable.h
-
 HEADERS += \
-#    src/stable.h \
     src/globalsettings.h \
     src/widget_utils.h \
     src/aboutdialog.h \
@@ -22,7 +18,6 @@ HEADERS += \
     src/customcombomodel.h \
     src/customheader.h \
     src/customsplashscreen.h \
-    src/dbghelper.h \
     src/defs.h \
     src/dlinidefs.h \
     src/dlinidialog.h \
@@ -35,7 +30,6 @@ HEADERS += \
     src/ecinidefs.h \
     src/ecproject.h \
     src/ecprojectstate.h \
-    src/faderwidget.h \
     src/fileutils.h \
     src/infomessage.h \
     src/irga_delegate.h \
@@ -55,8 +49,6 @@ HEADERS += \
     src/rawfilenamedialog.h \
     src/rawfilesettingsdialog.h \
     src/runpage.h \
-    src/slowmeasuretab.h \
-    src/specgroup.h \
     src/splitter.h \
     src/splitterhandle.h \
     src/stringutils.h \
@@ -106,15 +98,11 @@ HEADERS += \
     src/detectdaterangedialog.h \
     src/downloadmanager.h \
     src/openfilefilter.h \
-    src/lisp_parser/xnode.hpp \
-    src/lisp_parser/xtree.hpp \
-    src/calibrationapi.h \
-    src/calibrationinfo.h \
-    src/calibrationdialog.h \
-    src/calibration.h \
-    src/polyfit.hpp \
-    src/vector_utils.h \
-    src/QScienceSpinBox.h
+    src/windfilter_view.h \
+    src/windfilter_tableview.h \
+    src/windfilter_tablemodel.h \
+    src/sector_item.h \
+    src/logging.h
 
 SOURCES +=  \
     src/globalsettings.cpp \
@@ -131,7 +119,6 @@ SOURCES +=  \
     src/customcombomodel.cpp \
     src/customheader.cpp \
     src/customsplashscreen.cpp \
-    src/dbghelper.cpp \
     src/dlinidialog.cpp \
     src/dlinstrtab.cpp \
     src/dlproject.cpp \
@@ -139,7 +126,6 @@ SOURCES +=  \
     src/dlsitetab.cpp \
     src/docchooser.cpp \
     src/ecproject.cpp \
-    src/faderwidget.cpp \
     src/fileutils.cpp \
     src/infomessage.cpp \
     src/irga_delegate.cpp \
@@ -158,8 +144,6 @@ SOURCES +=  \
     src/rawfilenamedialog.cpp \
     src/rawfilesettingsdialog.cpp \
     src/runpage.cpp \
-    src/slowmeasuretab.cpp \
-    src/specgroup.cpp \
     src/splitter.cpp \
     src/splitterhandle.cpp \
     src/stringutils.cpp \
@@ -208,13 +192,11 @@ SOURCES +=  \
     src/detectdaterangedialog.cpp \
     src/downloadmanager.cpp \
     src/openfilefilter.cpp \
-    src/lisp_parser/xnode.cpp \
-    src/lisp_parser/xtree.cpp \
-    src/calibrationapi.cpp \
-    src/calibrationinfo.cpp \
-    src/calibrationdialog.cpp \
-    src/QScienceSpinBox.cpp \
-    src/vector_utils.cpp
+    src/mystyle.cpp \
+    src/windfilter_view.cpp \
+    src/windfilter_tableview.cpp \
+    src/windfilter_tablemodel.cpp \
+    src/logging.cpp
 
 TRANSLATIONS += $$_PRO_FILE_PWD_/tra/eddypro_en.ts
 

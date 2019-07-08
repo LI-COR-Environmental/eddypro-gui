@@ -1,24 +1,31 @@
 /***************************************************************************
   updatedialog.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ----------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "updatedialog.h"
@@ -31,7 +38,6 @@
 #include <QTimer>
 #include <QUrl>
 
-#include "dbghelper.h"
 #include "defs.h"
 #include "downloadmanager.h"
 #include "stringutils.h"
@@ -97,10 +103,6 @@ UpdateDialog::UpdateDialog(QWidget *parent) :
             this, &UpdateDialog::downloadTimeout);
 }
 
-UpdateDialog::~UpdateDialog()
-{
-}
-
 void UpdateDialog::initialize()
 {
     msgLabel->clear();
@@ -131,8 +133,7 @@ void UpdateDialog::getNewVersion(const QString& version)
                          "Do you want to upgrade your copy?</b></p>"
                          "<p>If you have the <b>SMARTFlux<sup>&reg;</sup> System</b>, we also "
                          "recommend that you <br />"
-                         "<a href=\"http://www.licor.com/env/help/eddypro/topics_eddypro/SMARTFlux_Software_Update.html\">"
-                         "check for updates</a> to the embedded SMARTFlux firmware.</p>"
+                         "check for updates to the embedded SMARTFlux firmware.</p>"
                          "<p>%1 can automatically check for new and updated "
                          "versions using <br />its Software Update Notification feature.<br />"
                          "The new version does not overwrite previously installed versions."
@@ -188,7 +189,7 @@ bool UpdateDialog::hasNewVersion()
 
 void UpdateDialog::showDownloadPage()
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("http://infoenv.licor.com/EddyProDownloads.html")));
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://www.licor.com/env/support/EddyPro/software.html")));
     close();
 }
 

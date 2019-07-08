@@ -1,23 +1,30 @@
 /***************************************************************************
   runpage.cpp
-  -------------------
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -----------
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "runpage.h"
@@ -38,7 +45,6 @@
 #include "QProgressIndicator.h"
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "ecproject.h"
 #include "smartfluxbar.h"
 #include "widget_utils.h"
@@ -46,6 +52,7 @@
 RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     : QWidget(parent),
       runMode_(Defs::CurrRunStatus::Express),
+      progressWidget_(nullptr),
       ecProject_(ecProject),
       configState_(config),
       progressValue_(0),
@@ -196,20 +203,24 @@ RunPage::RunPage(QWidget *parent, EcProject *ecProject, ConfigState* config)
     connect(clearErrorEditButton, &QPushButton::clicked,
             errorEdit_, &QTextEdit::clear);
 
+    // other init
     QList<WidgetUtils::PropertyList> progressBarProp;
     progressBarProp << WidgetUtils::PropertyList("expRun", false)
                     << WidgetUtils::PropertyList("advRun", false)
                     << WidgetUtils::PropertyList("retRun", false);
     WidgetUtils::updatePropertyListAndStyle(main_progress_bar, progressBarProp);
     WidgetUtils::updatePropertyListAndStyle(mini_progress_bar_, progressBarProp);
+
+    QTimer::singleShot(0, this, SLOT(init()));
 }
 
 RunPage::~RunPage()
 {
-    if (pauseResumeDelayTimer_)
-    {
-        delete pauseResumeDelayTimer_;
-    }
+    delete pauseResumeDelayTimer_;
+}
+
+void RunPage::init() {
+    progressWidget_->stopAnimation();
 }
 
 void RunPage::startRun(Defs::CurrRunStatus mode)
@@ -371,10 +382,7 @@ bool RunPage::pauseRun(Defs::CurrRunStatus mode)
         QTimer::singleShot(1000, this, SLOT(pauseLabel()));
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 bool RunPage::resumeRun(Defs::CurrRunStatus mode)
@@ -431,10 +439,7 @@ bool RunPage::resumeRun(Defs::CurrRunStatus mode)
         QTimer::singleShot(1000, this, SLOT(resumeLabel()));
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 void RunPage::stopRun()
@@ -531,9 +536,8 @@ void RunPage::bufferData(QByteArray &data)
     // newline found
     if (lineList.at(0) != rxBuffer_)
     {
-        for (int i = 0; i < lineList.size(); ++i)
+        for (const auto& tempData : lineList)
         {
-            QByteArray tempData(lineList.at(i));
             data = cleanupEngineOutput(tempData);
             if (!data.isEmpty())
             {
@@ -771,8 +775,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         QDateTime toDate(currentPlanarFitDate, currentPlanarFitTime);
         toStr = toDate.toString(Qt::ISODate);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -876,8 +879,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
         toStr = toDate.toString(Qt::ISODate);
 
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -972,8 +974,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         toStr = QLatin1String(cleanLine.mid(7, 16).constData());
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
         auto avgPeriod = avgPeriodLabel_->text();
         errorEdit_->append(avgPeriod.prepend(QStringLiteral("<font color=\"#A6D7F2\">"))
                                     .append(QStringLiteral("</font>")));
@@ -1016,8 +1017,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         mini_progress_bar_->setValue(1);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
 
         fileProgressLabel_->setText(tr("Parsing file"));
 
@@ -1032,8 +1032,7 @@ void RunPage::parseEngineOutput(const QByteArray &data)
     {
         main_progress_bar->setValue(++progressValue_);
         avgPeriodLabel_->setText(tr("Averaging interval, From: %1, To: %2")
-                            .arg(fromStr)
-                            .arg(toStr));
+                            .arg(fromStr, toStr));
 
 #ifdef QT_DEBUG
         out << "Skipping to next averaging period";
@@ -1561,7 +1560,7 @@ void RunPage::updateMiniProgress()
         if (avrgPeriod == 0) ++avrgPeriod;
 
         // factor to scale speed of progression in respect of the standard 30 minutes
-        int progressFactor = static_cast<int>(lround(7.0 * 30.0 / avrgPeriod));
+        auto progressFactor = static_cast<int>(lround(7.0 * 30.0 / avrgPeriod));
 
         WidgetUtils::setProgressValue(mini_progress_bar_,
                                       mini_progress_bar_->value() + progressFactor);
@@ -1571,9 +1570,9 @@ void RunPage::updateMiniProgress()
 // Return ETC (Estimated Time to Completion) in msec and update the running average
 // of the processing time using a Simple Moving Average
 int RunPage::updateETC(int* mean_processing_time,
-                       const int current_processing_time,
-                       const int index,
-                       const int num_steps)
+                       int current_processing_time,
+                       int index,
+                       int num_steps)
 {
     Q_ASSERT(index != 0);
 

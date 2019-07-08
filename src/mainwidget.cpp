@@ -1,24 +1,31 @@
 /***************************************************************************
   mainwidget.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  --------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "mainwidget.h"
@@ -31,7 +38,6 @@
 #include "advspectraloptions.h"
 #include "basicsettingspage.h"
 #include "configstate.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "ecproject.h"
 #include "projectpage.h"
@@ -49,9 +55,7 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     projectPage_(nullptr),
     basicSettingsPage_(nullptr),
     advancedSettingsPage_(nullptr),
-    runPage_(nullptr),
-    faderWidget(nullptr),
-    fadingOn(true)
+    runPage_(nullptr)
 {
     // stacked widget # 0
     welcomePage_ = new WelcomePage(this, ecProject_, configState_);
@@ -87,16 +91,13 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
 
     setLayout(mainWidgetLayout);
 
-    connect(mainWidgetLayout, &QStackedLayout::currentChanged,
-            this, &MainWidget::fadeInWidget);
-
     // from MainWindow
-    connect(static_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
+    connect(dynamic_cast<QMainWindow*>(parent), SIGNAL(updateMetadataReadRequest()),
             basicSettingsPage_, SLOT(updateMetadataRead()));
     connect(this, SIGNAL(showSetPrototypeRequest()),
             basicSettingsPage_, SLOT(showSetPrototype()));
 
-    connect(static_cast<QMainWindow*>(parent), SIGNAL(checkMetadataOutputRequest()),
+    connect(dynamic_cast<QMainWindow*>(parent), SIGNAL(checkMetadataOutputRequest()),
             advancedSettingsPage_->advancedSettingPages(), SIGNAL(checkMetadataOutputRequest()));
 
     connect(projectPage_, SIGNAL(updateMetadataReadRequest()),
@@ -118,10 +119,6 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
             this, &MainWidget::newProjectRequest);
     connect(welcomePage_, &WelcomePage::checkUpdatesRequest,
             this, &MainWidget::checkUpdatesRequest);
-}
-
-MainWidget::~MainWidget()
-{
 }
 
 void MainWidget::setCurrentPage(Defs::CurrPage page)
@@ -148,20 +145,6 @@ Defs::CurrPage MainWidget::currentPage()
 bool MainWidget::smartFluxCloseRequest()
 {
     return WidgetUtils::okToCloseSmartFlux(this);
-}
-
-void MainWidget::fadeInWidget(int index)
-{
-    if (fadingOn)
-    {
-        if (faderWidget)
-        {
-            faderWidget->close();
-        }
-        faderWidget = new FaderWidget(mainWidgetLayout->widget(index));
-        faderWidget->setFadeDuration(200);
-        faderWidget->start();
-    }
 }
 
 // update smartflux bar visibility on all the subpages

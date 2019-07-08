@@ -1,30 +1,37 @@
-
 /***************************************************************************
   widget_utils.cpp
-  -------------------
-  Copyright (C) 2014-2018, LI-COR Biosciences
+  ----------------
+  Copyright © 2014-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "widget_utils.h"
 
 #include <limits>
 
+#include <QApplication>
 #include <QCalendarWidget>
 #include <QComboBox>
 #include <QCoreApplication>
@@ -47,10 +54,7 @@
 
 #include <memory>
 
-#include "QScienceSpinBox.h"
-
 #include "configstate.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "docchooser.h"
 #include "fileutils.h"
@@ -69,7 +73,7 @@
 
 const QColor WidgetUtils::getColor(int step)
 {
-    QColor c("#aae6ff");
+    QColor c(170, 230, 255); // #aae6ff
     auto h = c.hue();
     auto s = c.saturation();
     auto v = c.value();
@@ -188,7 +192,7 @@ void WidgetUtils::customizeCalendar(QCalendarWidget* cal)
 {
     cal->setVerticalHeaderFormat(QCalendarWidget::ISOWeekNumbers);
 
-    QToolButton *btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_prevmonth"));
+    auto btn = cal->findChild<QToolButton *>(QStringLiteral("qt_calendar_prevmonth"));
 
     QIcon icon_left;
     auto left_arrow_pixmap = QPixmap(QStringLiteral(":/icons/cal-left-arrow"));
@@ -349,7 +353,7 @@ void WidgetUtils::warning(QWidget* parent,
                           const QString& objectName)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
-    messageBox.get()->setObjectName(objectName);
+    messageBox->setObjectName(objectName);
 
     // macOS compatibility (to look like a sheet)
     if (parent)
@@ -415,7 +419,7 @@ bool WidgetUtils::yesNoQuestion(QWidget* parent,
                            const QString& noText)
 {
     auto messageBox = std::make_unique<QMessageBox>(parent);
-    messageBox.get()->setObjectName(objectName);
+    messageBox->setObjectName(objectName);
 
     // macOS compatibility (to look like a sheet)
     if (parent)
@@ -455,22 +459,27 @@ void WidgetUtils::showHelp(const QUrl& url)
                 Defs::CONFGROUP_WINDOW,
                 Defs::CONF_WIN_OFFLINEHELP, false).toBool();
 
+    qDebug() << "autoChooseHelp" << autoChooseHelp;
+    qDebug() << "offlineHelp" << offlineHelp;
+
     if (autoChooseHelp)
     {
         if (!offlineHelp)
         {
             // browse online help version
-            qDebug() << "online" << url << QDesktopServices::openUrl(url);
+            qDebug() << "online url" << url << QDesktopServices::openUrl(url);
         }
         else
         {
+            qDebug() << "offline url" << url;
+
             // open local help
-            auto htmlHelpPath = qApp->applicationDirPath();
+            auto htmlHelpPath = QApplication::applicationDirPath();
             auto localUrlString = QString();
 
-            if (url.toString().contains(QStringLiteral("EddyPro_Home")))
+            if (url.toString().contains(QStringLiteral("home")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/support/EddyPro/home.html");
             }
             else if (url.toString().contains(QStringLiteral("qmhucid6g0hdvd3d13tk")))
             {
@@ -480,14 +489,14 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                  htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/EddyPro_Manual_12025.pdf");
             }
-            else if (url.toString().contains(QStringLiteral("Video_Library")))
+            else if (url.toString().contains(QStringLiteral("videos")))
             {
-                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/help/topics_eddypro/Video_Library.html");
+                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs/support/EddyPro/videos.html");
             }
             else
             {
                 localUrlString = url.toString(QUrl::RemoveAuthority
-                    | QUrl::RemoveScheme).remove(QStringLiteral("/env")).remove(QStringLiteral("/eddypro"));
+                    | QUrl::RemoveScheme).remove(QStringLiteral("/env"));
                 htmlHelpPath = htmlHelpPath + QStringLiteral("/docs") + localUrlString;
             }
 
@@ -504,6 +513,8 @@ void WidgetUtils::showHelp(const QUrl& url)
             {
                 localUrl = QUrl::fromLocalFile(htmlHelpPath);
             }
+
+            qDebug() << "local url" << localUrl;
             QDesktopServices::openUrl(localUrl);
         }
     }
@@ -558,17 +569,15 @@ bool WidgetUtils::okToCloseSmartFlux(QWidget* parent)
                          QObject::tr("Do you want to leave the SmartFlux Configuration?"));
 }
 
-
 QPushButton *WidgetUtils::createCommonButton(QWidget* parent, const QString& text)
 {
     auto button = new QPushButton(parent);
     button->setText(text);
     button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     button->setDefault(true);
-    button->setProperty("commonButton", true);
+    button->setProperty("mdButton", true);
     return button;
 }
-
 
 QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
 {
@@ -576,14 +585,4 @@ QLabel *WidgetUtils::createBlueLabel(QWidget *parent, const QString& text)
     label->setText(text);
     label->setProperty("blueLabel", true);
     return label;
-}
-
-QScienceSpinBox* WidgetUtils::createCalibrationSpinbox(QWidget *parent)
-{
-    auto spinbox = new QScienceSpinBox(parent);
-    spinbox->setRange(std::numeric_limits<double>::lowest(),
-                            std::numeric_limits<double>::max());
-    spinbox->setDecimals(7);
-    spinbox->setAccelerated(true);
-    return spinbox;
 }

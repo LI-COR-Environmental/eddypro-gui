@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_top_nav" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="How it Works|Processing Steps">
+    <head data-mc-conditions="Helps.Support_Exclude">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Despiking and raw data statistical screening</title>
+        <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BoldItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Italic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Light.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-LightItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Medium.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-MediumItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Regular.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Thin.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-ThinItalic.ttf" rel="font" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/basic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/local-help.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.6.2.3_custom.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+        <script src="../../Resources/Scripts/tabs.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-left" id="offCanvas" data-off-canvas="" data-position="left" data-mc-ignore="true">
+                    <ul class="off-canvas-accordion vertical menu off-canvas-list" data-accordion-menu="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" data-mc-ignore="true">
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <button class="menu-icon" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="http://www.licor.com/env" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="3" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                <div class="search-filter-wrapper">
+                                                    <div class="search-filter">
+                                                        <div class="search-filter-content">
+                                                            <ul>
+                                                                <li>All products</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <section class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <div class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="Despikingandrawdatastatisticalscreening" data-magellan-target="Despikingandrawdatastatisticalscreening">Despiking and raw data statistical screening<a name="aanchor44"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p><a name="kanchor119"></a><span class="product_namesEddyPro">EddyPro</span> allows you to perform up to 9 tests to assess the statistical quality of the raw time series. Tests are derived from the paper of <a href="references.html#Vickers">Vickers and Mahrt (1997)</a>, and an additional spike count and removal option from <a href="references.html#Mauder2013">Mauder (2013)</a>. Each test can be individually selected and configured to fit your dataset. <span class="product_namesEddyPro">EddyPro</span> provides defaults for all configurable parameters, as derived from the original publication. </p>
+                                                    <p>For each test and for each concerned variable, <span class="product_namesEddyPro">EddyPro</span> outputs a flag that indicates whether the variable passed the test:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">Passed: 0</li>
+                                                        <li value="2">Failed: 1</li>
+                                                        <li value="3">Not selected: 9</li>
+                                                    </ul>
+                                                    <p><span class="product_namesEddyPro">EddyPro</span> does not filter results according to these flags. It is left up to the user to decide whether to investigate the flagged time series and assess them for physical plausibility.</p>
+                                                    <h2 id="Despiking" data-magellan-target="Despiking">Despiking<a name="Spike"></a></h2>
+                                                    <p>The <strong>despiking</strong> procedure consists of detecting and eliminating short-term outranged values in the time series. </p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/spikes.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/spikes_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 1"><span class="autonumber"><span>Figure 1</span></span>. Spikes in a typical data set.</p>
+                                                    <p>Following <a href="references.html#Vickers">Vickers and Mahrt (1997)</a>, for each variable a spike is detected as up to 3 (settable) consecutive outliers with respect to a plausibility range defined within a certain time window, which moves throughout the time series. The rationale is that if more consecutive values are found to exceed the plausibility threshold, they might be a sign of an unusual yet physical trend. The width of the moving window is defined as one sixth of the current flux averaging period and the plausibility range is quantified differently for different variables. The table below provides <span class="product_namesEddyPro">EddyPro</span> default values, that  can be changed by the user. The window moves forward half its length at a time. The procedure is repeated up to twenty times, or until no more spikes are found for all variables. Detected spikes are counted and replaced by linear interpolation of neighboring values.</p>
+                                                    <table style="mc-table-style: url('../../Resources/TableStyles/basic.css');width: 100%;" class="TableStyle-basic" cellspacing="0">
+                                                        <caption class="table" data-mc-autonum="&lt;b&gt;Table 1&lt;/b&gt;"><span class="autonumber"><span><b>Table 1</b></span></span>. Plausibility range for spike detection for each sensitive variable.</caption>
+                                                        <col class="TableStyle-basic-Column-Column1" />
+                                                        <col class="TableStyle-basic-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-basic-Head-Header1">
+                                                                <th class="TableStyle-basic-HeadE-Column1-Header1">Variable</th>
+                                                                <th class="TableStyle-basic-HeadD-Column1-Header1">Plausibility Range</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1"><i>u</i>, <i>v</i></td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">window mean ±3.5 st. dev.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1"><i>w</i>
+                                                                </td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">window mean ±5.0 st. dev.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">CO<sub>2</sub>, H<sub>2</sub>O</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">window mean ±3.5 st. dev.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyE-Column1-Body1">CH<sub>4</sub>, N<sub>2</sub>O</td>
+                                                                <td class="TableStyle-basic-BodyD-Column1-Body1">window mean ±8.0 st. dev.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-basic-Body-Body1">
+                                                                <td class="TableStyle-basic-BodyB-Column1-Body1">Temperatures, Pressures</td>
+                                                                <td class="TableStyle-basic-BodyA-Column1-Body1">window mean ±3.5 st. dev.</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>As an example, consider the time series in the figure below, where a time series is shown along with its mean value (gray line) and the plausibility range (blue lines). Here, the first 4 consecutive outliers on the left are considered as a local trend and not counted as a spike. On the contrary, the single red outlier on the right is considered as a spike.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/Despiking.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth100pct imgborder" data-mc-width="497" data-mc-height="210" src="../images/Despiking_thumb_560_0.png" alt="" title="" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 2"><span class="autonumber"><span>Figure 2</span></span>. Example of outliers not detected as a spike (green points) and as a spike (red data point) in <span class="product_namesEddyPro">EddyPro</span>. The red line is the window mean, blue lines define the plausibility range.</p>
+                                                    <p>While despiking, <span class="product_namesEddyPro">EddyPro</span> counts the number of spikes found. If, for each variable and for the flux averaging period, the number of spikes is larger than 1% (a user-settable value) of the number of data samples, the variable is hard-flagged for too many spikes.</p>
+                                                    <p class="note"><b>Note:</b> 1, 2, or 3 consecutive outliers are counted as only one spike. </p>
+                                                    <p class="note"><b>Note:</b> At each of the 20 iterations of the procedure, a spike that was detected (and replaced) at the previous repetition can appear again as a spike, due to the changed plausibility range; it is replaced again by linear interpolation, however it is not counted again for the purpose of flagging.</p>
+                                                    <p>Following Mauder (2013), there are no settings to configure except the percent of spikes, and whether to perform linear interpolation between the spikes.</p>
+                                                    <h2 id="Amplituderesolution" data-magellan-target="Amplituderesolution">Amplitude resolution<a name="Amplitude"></a></h2>
+                                                    <p>For some records with weak variance (weak winds and stable conditions), the amplitude resolution of the recorded data may not be sufficient to capture the fluctuations, leading to a step ladder appearance in the data. A resolution problem also might result from a faulty instrument or data recording and processing systems (<a href="references.html#Vickers">Vickers and Mahrt, 1997</a>). This test attempts to detect these situations by assessing whether the number of different values each variable takes throughout the time series covers its range of variation with sufficient homogeneity. </p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/amplitude_resolution.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/amplitude_resolution_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 3"><span class="autonumber"><span>Figure 3</span></span>. Example of a time series affected by an instrument's poor resolution.</p>
+                                                    <p>In a window moving throughout the time series, data for each variable are clustered into a user-specified number of bins and the frequency distribution is calculated. When the number of empty bins exceeds a critical threshold, the variable is flagged for a resolution problem. The range of variation for each variable is defined by the minimum among: 1) the difference between the maximum and the minimum value attained by the variable and 2) ±3.5 (a user-settable value) times the standard deviation of the variable in the current window.</p>
+                                                    <h2 class="pgBrkBfr" id="Dropouts" data-magellan-target="Dropouts">Drop-outs<a name="Drop"></a></h2>
+                                                    <p>The drop-outs test attempts to detect (relatively) short periods in which the time series sticks to some value that is statistically different from the average value calculated over the whole period. These values may well be within the measuring range of the instruments and within physically plausible values, but the time series stays for “too long” on a value that is far from the mean. This occurrence may be the sign of a short term instrument malfunction, for example due to rain or to the obstruction of the optical or sonic path or indicate an unresponsive instrument or electronic recording problems.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/dropout.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/dropout_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 4"><span class="autonumber"><span>Figure 4</span></span>. Dropouts appear as short-lived periods in which the variable sticks to values statistically different from the overall trend.</p>
+                                                    <p>The test attempts to detecting drop-outs as too many consecutive values falling within bins too distant from the mean value of the time series.  Extreme bins (as opposed to central bins) are expected to have smaller numbers of consecutive data points. Furthermore, fluxes are more sensitive to drop-outs in the extreme bins. Thus, thresholds are defined differently for extreme and central bins.</p>
+                                                    <h2 class="pgBrkBfr" id="Absolutelimits" data-magellan-target="Absolutelimits">Absolute limits<a name="Absolute"></a></h2>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/abs_limits.png" data-mc-popup-alt=""><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="322" data-mc-height="201" src="../images/abs_limits_thumb_560_0.png" alt="" title="" tabindex="" /></a>
+                                                    </p>
+                                                    <p>This test simply assesses whether each variable attains, at least once in the current time series, a value that is outside a user-defined plausible range. In this case, the variable is flagged. The test is performed after the despiking procedure. Thus, each outranged value found here is not a spike, it will remain in the time series and affect calculated statistics, including fluxes. Therefore, it is mandatory to carefully set the expected plausible ranges for all variables and to consider each flux averaging period in which any variables are flagged for “absolute limits.”</p>
+                                                    <p class="figure" data-mc-autonum="Figure 5"><span class="autonumber"><span>Figure 5</span></span>. Absolute limits set a boundary on plausible data values.</p>
+                                                    <h2 id="Skewnessandkurtosis" data-magellan-target="Skewnessandkurtosis">Skewness and kurtosis<a name="Skewness"></a></h2>
+                                                    <p>Third and fourth order moments are calculated on the whole time series and variables are flagged if their values exceed user-selected thresholds. Excessive skewness and kurtosis may help detect periods of instrument malfunction.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/skew_kurt.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/skew_kurt_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 6"><span class="autonumber"><span>Figure 6</span></span>. Example of a time series flagged for excessive skewness and kurtosis.</p>
+                                                    <h2 class="pgBrkBfr" id="Discontinuities" data-magellan-target="Discontinuities">Discontinuities<a name="Discontinuities"></a></h2>
+                                                    <p>The goal of this test is to detect discontinuities that lead to semi-permanent changes, as opposed to sharp changes associated with smaller-scale fluctuations (<a href="references.html#Vickers">Vickers and Mahrt, 1997</a>). Discontinuities in the data are detected using the Haar transform, which calculates the difference in some quantity over two half-window means. Large values of the transform identify changes that are coherent on the scale of the window.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/discontinuites.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/discontinuites_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 7"><span class="autonumber"><span>Figure 7</span></span>. Example of a time series featuring a "permanent" change in the mean value.</p>
+                                                    <h2 id="Timelags" data-magellan-target="Timelags">Time lags<a name="Time"></a></h2>
+                                                    <p>This test flags the scalar time series if the maximal <i>w</i>-covariances, determined via the covariance maximization procedure and evaluated over a predefined time-lag window, are too different from those calculated for the user-suggested time lags. That is, the mismatch between fluxes calculated with the expected time lags and with the “actual” time lags is too large.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/timelag_with_frame.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/timelag_with_frame_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 8"><span class="autonumber"><span>Figure 8</span></span>. Time lags are compensated by detecting the time difference in covariances or other methods.</p>
+                                                    <h2 class="pgBrkBfr" id="Angleofattack" data-magellan-target="Angleofattack">Angle of attack<a name="Angle"></a></h2>
+                                                    <p>This test calculates sample-wise Angle of Attacks throughout the current flux averaging period, and flags it if the percentage of angles of attack exceeding a user-defined range is beyond a (user-defined) threshold.</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/angle of attack_with_border.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/angle of attack_with_border_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 9"><span class="autonumber"><span>Figure 9</span></span>. The Angle of Attack test.</p>
+                                                    <h2 id="Steadinessofhorizontalwind" data-magellan-target="Steadinessofhorizontalwind">Steadiness of horizontal wind<a name="Steadiness"></a></h2>
+                                                    <p>This test assesses whether the along-wind and crosswind components of the wind vector undergo a systematic reduction (or increase) throughout the file. If the quadratic combination of such systematic variations is beyond the user-selected limit, the flux averaging period is hard-flagged for instationary horizontal wind (<a href="references.html#Vickers">Vickers and Mahrt, 1997</a>, Par. 6g).</p>
+                                                    <p class="img"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../images/instationarity.png"><img class="MCPopupThumbnail img imgwidth050pct" data-mc-width="320" data-mc-height="199" src="../images/instationarity_thumb_560_0.png" tabindex="" /></a>
+                                                    </p>
+                                                    <p class="figure" data-mc-autonum="Figure 10"><span class="autonumber"><span>Figure 10</span></span>. Steadiness of horizontal wind assesses systematic changes in wind measurements in the time series.</p>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#Despikingandrawdatastatisticalscreening">Despiking and raw data statistical screening</a>
+                                                            </li>
+                                                            <ul>
+                                                                <li><a href="#Despiking">Despiking</a>
+                                                                </li>
+                                                                <li><a href="#Amplituderesolution">Amplitude resolution</a>
+                                                                </li>
+                                                                <li><a href="#Dropouts">Drop-outs</a>
+                                                                </li>
+                                                                <li><a href="#Absolutelimits">Absolute limits</a>
+                                                                </li>
+                                                                <li><a href="#Skewnessandkurtosis">Skewness and kurtosis</a>
+                                                                </li>
+                                                                <li><a href="#Discontinuities">Discontinuities</a>
+                                                                </li>
+                                                                <li><a href="#Timelags">Time lags</a>
+                                                                </li>
+                                                                <li><a href="#Angleofattack">Angle of attack</a>
+                                                                </li>
+                                                                <li><a href="#Steadinessofhorizontalwind">Steadiness of horizontal wind</a>
+                                                                </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+            <script>/* <![CDATA[ */$(document).foundation();/* ]]> */</script>
+        </div>
+    </body>
+</html>

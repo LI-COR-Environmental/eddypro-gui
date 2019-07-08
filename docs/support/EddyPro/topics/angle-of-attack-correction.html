@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_top_nav" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print" data-mc-toc-path="How it Works|Processing Steps">
+    <head data-mc-conditions="Helps.Support_Exclude">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>EddyPro | Angle of attack correction</title>
+        <link href="../../Resources/Fonts/Roboto-Black.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BlackItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Bold.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-BoldItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Italic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Light.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-LightItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Medium.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-MediumItalic.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Regular.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-Thin.ttf" rel="font" />
+        <link href="../../Resources/Fonts/Roboto-ThinItalic.ttf" rel="font" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/local-help.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.6.2.3_custom.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+        <script src="../../Resources/Scripts/tabs.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-left" id="offCanvas" data-off-canvas="" data-position="left" data-mc-ignore="true">
+                    <ul class="off-canvas-accordion vertical menu off-canvas-list" data-accordion-menu="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" data-mc-ignore="true">
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <button class="menu-icon" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="http://www.licor.com/env" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="3" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                <div class="search-filter-wrapper">
+                                                    <div class="search-filter">
+                                                        <div class="search-filter-content">
+                                                            <ul>
+                                                                <li>All products</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <section class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <div class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="top">
+                                        <div class="nocontent">
+                                            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">EddyPro 7 Help &gt; </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wrap">
+                                        <p class="title">EddyPro<sup>®</sup> 7 Software</p>
+                                        <section>
+                                            <div class="RowClass6">
+                                                <div>
+                                                    <form class="search" action="#">
+                                                        <div class="search-bar search-bar-container needs-pie">
+                                                            <input class="search-field needs-pie" type="search" placeholder="What do you want help with?" />
+                                                            <div class="search-filter-wrapper">
+                                                                <div class="search-filter">
+                                                                    <div class="search-filter-content">
+                                                                        <ul>
+                                                                            <li>All products</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="search-submit-wrapper" dir="ltr">
+                                                                <div class="search-submit" title="Search">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="RowClass11">
+                                                <div>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support01.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support_nested mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Menu.js" data-mc-side-menu="True" data-mc-max-depth="-1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
+                                                    </ul>
+                                                    <ul class="nocontent menu _Skins_menu_support mc-component" data-mc-linked-toc="Data/Tocs/EddyPro__EddyPro_Support02.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="False" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <h1 id="Angleofattackcorrection" data-magellan-target="Angleofattackcorrection">Angle of attack correction<a name="aanchor60"></a><MadCap:concept term="eddypro" /></h1>
+                                                    <p class="note">See <a href="selecting-advanced-options.html#Angle" class="ToHeading MCXref xref xrefToHeading">Angle of attack correction for wind components (Gill anemometers only)</a> for more information.</p>
+                                                    <p><a name="kanchor127"></a><a name="Angle"></a>The so-called Angle of Attack error arises due to the imperfect sine and cosine response of an anemometer. When the wind approaches the anemometer with a considerable angle of attack (that is, at an angle that deviates significantly from horizontal), the frame of a post-mounted sonic (such as Gill R2, R3, WindMaster, or Metek USA-1) distorts the flow, resulting in inaccurate measurements. Furthermore, the transducer poles create a self-sheltering effect that also affects the measurement. This second effect also occurs with yoke-style anemometer (such as Gill HS and Campbell<sup>®</sup> Scientific, Inc. CSAT3). </p>
+                                                    <p>Refining a method first described by <a href="references.html#vanderMolen">van der Molen et al. (2004)</a>, <a href="references.html#Nakai">Nakai et al. (2006)</a> proposed a correction to compensate for the Angle of Attack error. A FORTRAN implementation, valid for R3-style Gill anemometers (also including R2, WindMaster™ and WindMaster™ Pro), is available at <a href="https://sites.google.com/site/micrometeorologist/">Taro Nakai’s web page</a>. The routine, developed by Taro Nakai and translated into FORTRAN by Michiel K. Van der Molen, was embedded into <span class="product_namesEddyPro">EddyPro</span> with minor modifications, after explicit authorization by the author.</p>
+                                                    <p>The correction is implemented in <span class="product_namesEddyPro">EddyPro</span> following Eq. 3-6 and bulleted procedure at p. 21 in <a href="references.html#Nakai">Nakai et al. (2006)</a>. It is worthwhile to note that the application of this correction is virtually independent (Taro Nakai, personal communication) from the internal correction “applied to calibrate out the affects of the transducers and head framework” (cited from the <a href="references.html">R3/R3A User Manual, Gill Instruments Ltd.</a>).</p>
+                                                    <p><a href="references.html#NakaiandShim2012">Nakai and Shimoyama (2012)</a> further refine the correction, by carrying out a field experiment using Gill WindMaster™ anemometers, to overcome the critics of the correction of 2006 being derived from wind tunnel experiments. A C code for this new correction is available at <a href="https://sites.google.com/site/micrometeorologist/">Taro Nakai’s web page</a>. That code was translated into FORTRAN by G. Fratini and embedded in EddyPro® after authorization of the author. A stand-alone version of the same FORTRAN code is now also available at Nakai’s software web page.</p>
+                                                    <h2 id="ApplicabilityoftheangleofattackcorrectionsofNakaiandcoauthors" data-magellan-target="ApplicabilityoftheangleofattackcorrectionsofNakaiandcoauthors">Applicability of the angle of attack corrections of Nakai and co-authors</h2>
+                                                    <p>Based on the most recent information available to LI-COR at the time of this writing (April 2016), which include the recent discovery of the “w-boost” bug in Gill WM and WMP units produced between 2006 and 2015 (<a href="http://gillinstruments.com/data/manuals/KN1509_WindMaster_WBug_info.pdf">see Gill's Technical Key Note KN1509v3</a>), we recommend that:</p>
+                                                    <ul class="bullet">
+                                                        <li value="1">The correction by Nakai et al. (2006) be applied only to Gill R2 and R3 family anemometers. Special care must be paid to making sure that the correction is applicable to the current dataset, based on the anemometer settings used when collecting the data (e.g. CALIBRATED vs. UNCALIBRATED data) as they compare to the settings used by Nakai and co-author in their wind tunnel experiments. Please contact Taro Nakai or Gill Instruments if in doubt. The wrong application of the correction may result in a systematic flux overestimation of roughly 5-7%.</li>
+                                                        <li value="2">The correction of Nakai and Shimoyama (2012) be applied only to WM and WMP anemometers. The correction needs to be handled differently for data affected or not by the so-called ‘w-boost’ bug. Please review <a href="w-boost-correction.html" class="ToHeading MCXref xref xrefToHeading">W-boost Bug Correction for WindMaster and WindMaster Pro</a>  to learn more about: (1) the meaning and effects of the ‘w-boost bug’ in WM and WMP; (2) how to determine if your data is affected by this bug; (3) how to fix affected data in EddyPro; and (4) how EddyPro handles the w-boost bug and the Angle of Attack correction in WM and WMP data.</li>
+                                                    </ul>
+                                                    <p class="note">Note: Based on the most up-to-date information available to us, we consider that fixing the w-boost in affected data (e.g. using EddyPro) guarantees a very high-quality wind and sonic temperature dataset, virtually unaffected by any Angle of Attack effects in the full range specified by Gill Instruments. Applying the Angle of Attack correction of Nakai and Shimoyama (2012) instead of the w-boost does not appear to bring significant improvements to Angle of Attacks of +/- 50 degrees.</p>
+                                                    <p>If in doubt with Gill WM and WMP, we recommend that you choose “Select automatically” for the Angle of Attack Correction. EddyPro will determine whether to apply the correction as proposed by Nakai and Shimoyama (2012) based on the firmware version. See also <a href="sonic-anemometer-firmware-version.html" class="ToHeading MCXref xref xrefToHeading">Entering the sonic anemometer firmware version</a>. </p>
+                                                    <p>In Express Mode and by default in SmartFlux, EddyPro does not apply any Angle of Attack correction, but it does apply the ‘w-boost bug’ correction to eligible data (see <a href="w-boost-correction.html#w-boost_criteria" class="ToHeading MCXref xref xrefToHeading">Identifying affected anemometers</a> for eligibility criteria).</p>
+                                                </div>
+                                                <div>
+                                                    <div class="in-page-sticky-mid">
+                                                        <p class="in-this-page">In this page:</p>
+                                                        <ul data-magellan="" data-animation-duration="250" data-active-class="selected" data-scroll-container-on="small" class="nocontent menu _Skins_menu_fixed mc-component">
+                                                            <li><a href="#Angleofattackcorrection">Angle of attack correction</a>
+                                                            </li>
+                                                            <ul>
+                                                                <li><a href="#ApplicabilityoftheangleofattackcorrectionsofNakaiandcoauthors">Applicability of the angle of attack corrections of Nakai and co-authors</a>
+                                                                </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section><a data-close="true"></a>
+                </div>
+            </div>
+            <script>/* <![CDATA[ */$(document).foundation();/* ]]> */</script>
+        </div>
+    </body>
+</html>

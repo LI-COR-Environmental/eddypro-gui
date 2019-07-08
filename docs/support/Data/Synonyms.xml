@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MadCapSynonyms xml:lang="en-us">
+    <Groups>
+        <SynonymGroup>
+            <Word>firmware</Word>
+            <Word>software</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>eddy</Word>
+            <Word>pro</Word>
+            <Word>eddypro</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>lai2200</Word>
+            <Word>lai2200c</Word>
+            <Word>2200</Word>
+            <Word>2200c</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li180</Word>
+            <Word>180</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li250a</Word>
+            <Word>250a</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li610</Word>
+            <Word>610</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li820</Word>
+            <Word>820</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li840</Word>
+            <Word>840</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li840a</Word>
+            <Word>840a</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li830</Word>
+            <Word>830</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li850</Word>
+            <Word>850</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li1400</Word>
+            <Word>1400</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li1500</Word>
+            <Word>1500</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li3000c</Word>
+            <Word>3000c</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li3100c</Word>
+            <Word>3100c</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li6251</Word>
+            <Word>6251</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li6252</Word>
+            <Word>6252</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li6262</Word>
+            <Word>6262</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li6400</Word>
+            <Word>li6400xt</Word>
+            <Word>6400xt</Word>
+            <Word>6400/xt</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li6800</Word>
+            <Word>6800</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7000</Word>
+            <Word>7000</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7200</Word>
+            <Word>7200</Word>
+            <Word>7200rs</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7500a</Word>
+            <Word>7500a</Word>
+            <Word>7500rs</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7500ds</Word>
+            <Word>7500ds</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7700</Word>
+            <Word>7700</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7810</Word>
+            <Word>7810</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li7815</Word>
+            <Word>7815</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li8100a</Word>
+            <Word>8100a</Word>
+            <Word>li8100</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li190</Word>
+            <Word>190</Word>
+            <Word>190r</Word>
+            <Word>li190r</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li191</Word>
+            <Word>191</Word>
+            <Word>191r</Word>
+            <Word>li191r</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li192</Word>
+            <Word>192</Word>
+            <Word>192r</Word>
+            <Word>li192r</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li193</Word>
+            <Word>193</Word>
+            <Word>193r</Word>
+            <Word>li193r</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li200</Word>
+            <Word>li200r</Word>
+            <Word>200</Word>
+            <Word>200r</Word>
+        </SynonymGroup>
+        <SynonymGroup>
+            <Word>li210r</Word>
+            <Word>li210</Word>
+            <Word>210</Word>
+            <Word>210r</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="user">user</Word>
+            <Word Stem="manual">manual</Word>
+            <Word Stem="instruct">instruction</Word>
+            <Word Stem="guid">guide</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="gapfil">gapfill</Word>
+            <Word Stem="gap">gap</Word>
+            <Word Stem="fill">fill</Word>
+        </SynonymGroup>
+    </Groups>
+    <Directional>
+        <DirectionalSynonym From="2200" To="2200c" />
+        <DirectionalSynonym From="3000" To="3000c" />
+        <DirectionalSynonym From="3100" To="3100c" />
+        <DirectionalSynonym From="250" To="250a" />
+        <DirectionalSynonym From="specs" To="specif" />
+        <DirectionalSynonym From="download" To="transfer" />
+        <DirectionalSynonym From="7500" To="7500a" />
+        <DirectionalSynonym From="8100" To="8100a" />
+        <DirectionalSynonym From="7200" To="7200rs" />
+    </Directional>
+</MadCapSynonyms>

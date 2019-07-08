@@ -1,14 +1,12 @@
 /***************************************************************************
   QProgressIndicator.h
-  -------------------
-  QProgressIndicator class
-  -------------------
+  --------------------
   Copyright (C) 2009 Morgan Leborgne
 
-  from http://qt-apps.org/content/show.php/QProgressIndicator?content=115762
-  License: LGPL
+  from https://github.com/mojocorp/QProgressIndicator
+  License: MIT
 
-  Modified by Antonio Forgione, 2011
+  Modified by Antonio Forgione, 2011-2019
 ****************************************************************************/
 
 #ifndef QPROGRESSINDICATOR_H
@@ -24,7 +22,7 @@
 /// \date        2009-2010
 /// \author      Morgan Leborgne
 /// \note        Modified for EddyPro by Antonio Forgione
-/// \sa http://qt-apps.org/content/show.php/QProgressIndicator?content=115762
+/// \sa https://github.com/mojocorp/QProgressIndicator
 /// \bug
 /// \deprecated
 /// \test

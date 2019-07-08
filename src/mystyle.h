@@ -1,23 +1,30 @@
 /***************************************************************************
   mystyle.h
-  -------------------
-  Copyright (C) 2013-2018, LI-COR Biosciences
+  ---------
+  Copyright © 2013-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #ifndef MYSTYLE_H
@@ -31,36 +38,8 @@ class MyStyle : public ProxyStyle
         explicit MyStyle(const QString& style)
             : ProxyStyle(style) {}
 
-        int pixelMetric(PixelMetric metric, const QStyleOption* option = nullptr,
-                        const QWidget* widget = nullptr) const;
+        int pixelMetric(QStyle::PixelMetric metric, const QStyleOption* option = nullptr,
+                        const QWidget* widget = nullptr) const override;
 };
 
 #endif // MYSTYLE_H
-
-int MyStyle::pixelMetric(QStyle::PixelMetric metric, const QStyleOption *option, const QWidget *widget) const
-{
-    // TODO: to verify
-    // hack for the menu icons size
-#if defined(Q_OS_WIN)
-    if (metric == QStyle::PM_SmallIconSize)
-        return 16;
-#endif
-
-//    if (metric == PM_SplitterWidth)
-//        return 10;
-
-    // TODO: general, customize
-//    if (metric == PM_DockWidgetSeparatorExtent)
-//        return 7;
-
-//    if (metric == PM_DockWidgetHandleExtent)
-//        return 7;
-
-    if (metric == PM_DockWidgetTitleBarButtonMargin)
-        return 0;
-
-    if (metric == PM_DockWidgetTitleMargin)
-        return 0;
-
-    return ProxyStyle::pixelMetric(metric, option, widget);
-}

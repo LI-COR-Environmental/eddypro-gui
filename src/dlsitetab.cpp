@@ -1,24 +1,31 @@
 /***************************************************************************
   dlsitetab.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
 #include "dlsitetab.h"
@@ -39,7 +46,6 @@
 #include <cmath>
 
 #include "clicklabel.h"
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "widget_utils.h"
 
@@ -148,8 +154,8 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     latitudeEdit = new QLineEdit;
     latitudeEdit->setToolTip(latitudeLabel->toolTip());
     latitudeEdit->setText(tr("00%1 00' 00.000'' N").arg(Defs::DEGREE));
-    QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-            lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+    QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+            lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
     QRegularExpression latRx(lat_pattern);
     auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
     latitudeEdit->setValidator(latValidator);
@@ -164,9 +170,9 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
     longitudeEdit = new QLineEdit;
     longitudeEdit->setToolTip(longitudeLabel->toolTip());
     longitudeEdit->setText(tr("000%1 00' 00.000'' E").arg(Defs::DEGREE));
-    QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-            lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-            lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+    QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+            lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+            lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
     QRegularExpression lonRx(lon_pattern);
     auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
     longitudeEdit->setValidator(lonValidator);
@@ -296,10 +302,6 @@ DlSiteTab::DlSiteTab(QWidget *parent, DlProject *dlProject) :
             this, SLOT(updateFileDuration(int)));
 }
 
-DlSiteTab::~DlSiteTab()
-{
-}
-
 // get latitude in signed decimal degrees from ddmmss.sss string
 double DlSiteTab::numLatitude(const QString &text)
 {
@@ -307,8 +309,8 @@ double DlSiteTab::numLatitude(const QString &text)
 
     if (!decimalDegrees_)
     {
-        QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-                lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+        QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+                lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
         QRegularExpression latRx(lat_pattern);
         auto match = latRx.match(text);
         if (match.hasMatch())
@@ -366,7 +368,7 @@ QString DlSiteTab::strLatitude(double lat)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     rest = min_rest - minutes;
     double seconds = rest * 60.0;
@@ -413,9 +415,9 @@ double DlSiteTab::numLongitude(const QString &text)
 
     if (!decimalDegrees_)
     {
-        QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+        QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
         QRegularExpression lonRx(lon_pattern);
         auto match = lonRx.match(text);
         if (match.hasMatch())
@@ -454,7 +456,7 @@ double DlSiteTab::numLongitude(const QString &text)
     else
     {
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
-                lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
+                lon_pattern += QLatin1String(R"((?:(?:\+|-)(?:1[0-7]\d)\.(?:\d+))|)");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
         QRegularExpression lonRx(lon_pattern);
         auto match = lonRx.match(text);
@@ -481,7 +483,7 @@ QString DlSiteTab::strLongitude(double lon)
     double min_d;
     modf(min_rest, &min_d);
 
-    int minutes = static_cast<int>(min_d);
+    auto minutes = static_cast<int>(min_d);
 
     rest = min_rest - minutes;
     double seconds = rest * 60.0;
@@ -591,16 +593,16 @@ void DlSiteTab::sexDegRadioToogled(bool checked)
         latitudeEdit->blockSignals(true);
         longitudeEdit->blockSignals(true);
 
-        QString lat_pattern = tr("(?:([0-8]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(N|S))").arg(Defs::DEGREE);
-                lat_pattern += tr("|(?:(90)%1\\s(00)'\\s(00)\\.(000)''\\s(N|S))").arg(Defs::DEGREE);
+        QString lat_pattern = tr(R"((?:([0-8]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(N|S)))").arg(Defs::DEGREE);
+                lat_pattern += tr(R"(|(?:(90)%1\s(00)'\s(00)\.(000)''\s(N|S)))").arg(Defs::DEGREE);
         QRegularExpression latRx(lat_pattern);
         auto latValidator = new QRegularExpressionValidator(latRx, latitudeEdit);
         latitudeEdit->setValidator(latValidator);
         latitudeEdit->setInputMask(tr("00%1 00' 00.000'' >A;x").arg(Defs::DEGREE));
 
-        QString lon_pattern = tr("(?:(0\\d\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(1[0-7]\\d)%1\\s([0-5]\\d)'\\s([0-5]\\d)\\.(\\d\\d\\d)''\\s(E|W))|").arg(Defs::DEGREE);
-                lon_pattern += tr("(?:(180)%1\\s(00)'\\s(00)\\.(000)''\\s(E|W))").arg(Defs::DEGREE);
+        QString lon_pattern = tr(R"((?:(0\d\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(1[0-7]\d)%1\s([0-5]\d)'\s([0-5]\d)\.(\d\d\d)''\s(E|W))|)").arg(Defs::DEGREE);
+                lon_pattern += tr(R"((?:(180)%1\s(00)'\s(00)\.(000)''\s(E|W)))").arg(Defs::DEGREE);
         QRegularExpression lonRx(lon_pattern);
         auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
         longitudeEdit->setValidator(lonValidator);
@@ -632,7 +634,7 @@ void DlSiteTab::decDegRadioToogled(bool checked)
         latitudeEdit->setInputMask(QStringLiteral("#00.000000"));
 
         QString lon_pattern = QStringLiteral("(?:(?:\\+|-)(?:0\\d\\d)\\.(?:\\d+))|");
-                lon_pattern += QLatin1String("(?:(?:\\+|-)(?:1[0-7]\\d)\\.(?:\\d+))|");
+                lon_pattern += QLatin1String(R"((?:(?:\+|-)(?:1[0-7]\d)\.(?:\d+))|)");
                 lon_pattern += QLatin1String("(?:(?:\\+|-)(?:180)\\.(?:0+))");
         QRegularExpression lonRx(lon_pattern);
         auto lonValidator = new QRegularExpressionValidator(lonRx, longitudeEdit);
@@ -809,15 +811,15 @@ void DlSiteTab::createQuestionMark()
 
 void DlSiteTab::onlineHelpTrigger_1()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Beginning_of_dataset.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/beginning-of-dataset.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_2()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Displacement_Height.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/displacement-height.html")));
 }
 
 void DlSiteTab::onlineHelpTrigger_3()
 {
-    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/Roughness_Length.html")));
+    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/support/EddyPro/topics/roughness-length.html")));
 }

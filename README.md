@@ -234,10 +234,10 @@ use of the EddyPro wordmark and logo.
 More information is available at:
 
   - [EddyPro web page](http://www.licor.com/eddypro)
-  - [EddyPro help](http://www.licor.com/env/help/eddypro/topics_eddypro/EddyPro_Home.html)
+  - [EddyPro help](http://www.licor.com/env/support/EddyPro/home.html)
 
 Be sure to check out the
-'[What's new](http://www.licor.com/env/help/eddypro/topics_eddypro/Whats_New.html)'
+'[What's new](http://www.licor.com/env/support/EddyPro/topics/whats-new.html)'
 page, which will list any known problems or limitations of the current and
 past versions.
 

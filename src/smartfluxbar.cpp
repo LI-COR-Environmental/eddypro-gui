@@ -1,23 +1,30 @@
 /***************************************************************************
   smartfluxbar.cpp
-  -------------------
-  Copyright (C) 2013-2018, LI-COR Biosciences
+  ----------------
+  Copyright © 2013-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
 #include "smartfluxbar.h"
@@ -36,7 +43,6 @@
 
 #include "clicklabel.h"
 #include "createpackagedialog.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "ecproject.h"
 #include "fileutils.h"
@@ -113,10 +119,7 @@ SmartFluxBar::SmartFluxBar(EcProject* ecProject,
 SmartFluxBar::~SmartFluxBar()
 {
     // NOTE: qobject with parent, so it should not require deletion
-    if (cpDialog_)
-    {
-        delete cpDialog_;
-    }
+    delete cpDialog_;
 }
 
 // NOTE: necessary to accept styling with css files
@@ -296,7 +299,7 @@ void SmartFluxBar::createPackage()
         cpDialog_->showResult(JlCompress::compressDir(smartfluxFile, smfDir, true),
                           smartfluxFilename);
 #if 0
-        Process zipper(this, qApp->applicationDirPath());
+        Process zipper(this, QApplication::applicationDirPath());
         cpDialog_->showResult(zipper.zipProcessAddStart(smartfluxFile,
                                                         Defs::INI_FILE_DIR
                                                         + QLatin1Char('/'),

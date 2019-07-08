@@ -1,24 +1,31 @@
 /***************************************************************************
   dlrawfiledesctab.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  --------------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
 #include "dlrawfiledesctab.h"
@@ -31,7 +38,6 @@
 #include <QScrollArea>
 #include <QToolButton>
 
-#include "dbghelper.h"
 #include "dlproject.h"
 #include "rawfilesettingsdialog.h"
 #include "variable_delegate.h"
@@ -141,8 +147,8 @@ DlRawfileDescTab::DlRawfileDescTab(QWidget* parent, DlProject* dlProject) :
     // to trigger table editing with single click without altering the
     // editTriggers property, because that way the column selection
     // clicking on the header trigger the first cell editor
-    connect(variableView_, SIGNAL(clicked(const QModelIndex &)),
-            variableView_, SLOT(edit(const QModelIndex &)));
+    connect(variableView_, SIGNAL(clicked(QModelIndex)),
+            variableView_, SLOT(edit(QModelIndex)));
 }
 
 DlRawfileDescTab::~DlRawfileDescTab()
@@ -192,7 +198,7 @@ void DlRawfileDescTab::updateModels()
     for (const auto &anem : *adl)
     {
         ++k;
-        const QString aModel = anem.model();
+        const QString& aModel = anem.model();
         if (AnemDesc::isGoodAnemometer(anem))
         {
             models << tr("Sonic ") + QString::number(k) + QStringLiteral(": ") + aModel;
@@ -203,7 +209,7 @@ void DlRawfileDescTab::updateModels()
     for (const auto &irga : *idl)
     {
         ++k;
-        const QString iModel = irga.model();
+        const QString& iModel = irga.model();
         if (IrgaDesc::isGoodIrga(irga))
         {
             models << tr("Irga ") + QString::number(k) + QStringLiteral(": ") + iModel;
@@ -233,9 +239,4 @@ void DlRawfileDescTab::clearInstrModels()
     QStringList modelList;
     modelList << tr("Other");
     variableModel_->setInstrModels(modelList);
-}
-
-void DlRawfileDescTab::onlineHelpTrigger_1()
-{
-//    WidgetUtils::showHelp(QUrl(QStringLiteral("http://www.licor.com/env/help/eddypro/topics_eddypro/")));
 }

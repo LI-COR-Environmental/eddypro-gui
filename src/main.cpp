@@ -3,24 +3,31 @@
   -------------------
   EddyPro is an evolution of the ECO2S Eddy Covariance programs suite
   -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ***************************************************************************/
 
 #include <QApplication>
@@ -33,9 +40,9 @@
 #include <QTextCodec>
 #include <QTextStream>
 #include <QTranslator>
+#include <QLoggingCategory>
 
 #include "customsplashscreen.h"
-#include "dbghelper.h"
 #include "defs.h"
 #include "fileutils.h"
 #include "globalsettings.h"
@@ -46,6 +53,7 @@
 #include "qt_helpers.h"
 #include "stringutils.h"
 #include "widget_utils.h"
+#include "logging.h"
 
 // in debug mode
 //#ifndef QT_NO_DEBUG_OUTPUT
@@ -76,7 +84,7 @@ void doVersion(QTextStream &stream);
 /// \param[in] arguments
 /// \param[outputStream] stream
 /// \return A file name string
-QString doArgs(const QStringList& arguments, QTextStream &stream, bool *getLogFile = nullptr);
+QString doArgs(const QStringList& arguments, QTextStream &stream);
 
 ///
 /// \brief Extract docs.zip shipped inside the Mac bundle.
@@ -101,9 +109,12 @@ bool extractDocs(const QString& currentDir);
 ///
 int main(int argc, char *argv[])
 {
-#if QT_DEBUG
-    // logger creation
-#endif
+    // handle logs
+    qInstallMessageHandler(Logging::messageHandler);
+    // activate useful diagnostics
+    QLoggingCategory::setFilterRules(QStringLiteral(
+                             "qtc.clang*=true\n"
+                             "qt.scenegraph.general=true\n"));
 
     // initialize resources at startup (qrc file loading)
 #if defined(Q_OS_MACOS)
@@ -114,13 +125,13 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(eddypro_lin);
 #endif
 
-    qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 #if defined(Q_OS_MACOS)
-    qApp->setAttribute(Qt::AA_DontShowIconsInMenus);
+    QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 
     // workaround necessary in case of widget painting issues
-//    qApp->setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
+//    QCoreApplication::setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
 #endif
 
 //    QApplication::setColorSpec(QApplication::ManyColor);
@@ -135,19 +146,19 @@ int main(int argc, char *argv[])
     ///
     /// A set of flags to workaroud issues in specific cases
     ///
-    //  QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
-    //  QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
-    //  QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
-    //  QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
-    //  QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
-    //  QCoreApplication::setAttribute(Qt::AA_SetPalette);
-    //  QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
+    // QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+    // QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    // QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
+    // QCoreApplication::setAttribute(Qt::AA_ForceRasterWidgets);
+    // QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    // QCoreApplication::setAttribute(Qt::AA_SetPalette);
+    // QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 
     QApplication app(argc, argv);
-    app.setApplicationName(Defs::APP_NAME);
-    app.setApplicationDisplayName(Defs::APP_NAME);
-    app.setOrganizationName(Defs::ORG_NAME);
-    app.setOrganizationDomain(Defs::ORG_DOMAIN);
+    QApplication::setApplicationName(Defs::APP_NAME);
+    QApplication::setApplicationDisplayName(Defs::APP_NAME);
+    QApplication::setOrganizationName(Defs::ORG_NAME);
+    QApplication::setOrganizationDomain(Defs::ORG_DOMAIN);
 
     qDebug() << "currentUnicodeVersion" << QChar::currentUnicodeVersion();
 
@@ -163,7 +174,7 @@ int main(int argc, char *argv[])
     // install event filter to open clicked files in macOS
     OpenFileFilter openFileFilter;
     app.installEventFilter(&openFileFilter);
-    app.processEvents();
+    QApplication::processEvents();
     auto requestedFile = openFileFilter.fileRequested();
     if (requestedFile.endsWith(QStringLiteral(".eddypro")))
     {
@@ -192,14 +203,14 @@ int main(int argc, char *argv[])
     QTranslator appTranslator;
     bool ok = appTranslator.load(QStringLiteral(":/tra/en"));
     qDebug() << "loading translation:" << ok;
-    app.installTranslator(&appTranslator);
+    QApplication::installTranslator(&appTranslator);
 
     // working dir
     QDir dir = QDir::current();
     qDebug() << "current dir" << dir.absolutePath();
 
     QString currentWorkingDir = QDir::currentPath();
-    QString installationDir = qApp->applicationDirPath();
+    QString installationDir = QApplication::applicationDirPath();
     qDebug() << "currentWorkingDir" << currentWorkingDir;
     qDebug() << "installationDir" << installationDir;
     if (currentWorkingDir != installationDir)
@@ -207,13 +218,13 @@ int main(int argc, char *argv[])
         QDir::setCurrent(installationDir);
     }
     qDebug() << "currentWorkingDir" << QDir::currentPath();
-    qDebug() << "currentWorkingDir" << QCoreApplication::applicationDirPath();
+    qDebug() << "currentWorkingDir" << QApplication::applicationDirPath();
 
     // styles
     qDebug() << "------------------------------------------------------------";
-    qDebug() << "Default Style: " << app.style()->metaObject()->className();
+    qDebug() << "Default Style: " << QApplication::style()->metaObject()->className();
 
-    MyStyle myStyle(app.style()->objectName());
+    MyStyle myStyle(QApplication::style()->objectName());
     QApplication::setStyle(&myStyle);
 
 #if defined(Q_OS_WIN)
@@ -237,14 +248,8 @@ int main(int argc, char *argv[])
     // check for command line arguments
     QTextStream stream(stdout);
 
-//#ifdef QT_DEBUG
-//    bool getLogFile = true;
-//#else
-    bool getLogFile = false;
-//#endif
-    QString filename = doArgs(app.arguments(), stream, &getLogFile);
+    QString filename = doArgs(QApplication::arguments(), stream);
     qDebug() << "filename:" << filename;
-    qDebug() << "getLogFile:" << getLogFile;
 
 #if defined(Q_OS_MACOS)
     if (!fileToOpen.isEmpty())
@@ -252,32 +257,6 @@ int main(int argc, char *argv[])
         filename = fileToOpen;
     }
 #endif
-
-    // log file
-    QFile logFile(appEnvPath
-                  + QLatin1Char('/')
-                  + Defs::LOG_FILE_DIR
-                  + QLatin1Char('/')
-                  + Defs::APP_NAME_LCASE
-                  + QStringLiteral("_gui.")
-                  + Defs::LOG_FILE_EXT);
-    if (getLogFile)
-    {
-        if (logFile.size() > 1048576)
-            logFile.remove();
-
-        if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-        {
-            outputStream = new QTextStream(&logFile);
-            QtMessageHandler oldMsgHandler(qInstallMessageHandler(logOutput));
-            Q_UNUSED(oldMsgHandler);
-        }
-        else
-        {
-            qDebug() << "Error opening logFile file '" << Defs::APP_NAME_LCASE
-                     << "'. All debug output redirected to console.";
-        }
-    }
 
     // create and show splash screen
     QPixmap pixmap(QStringLiteral(":/icons/splash-img"));
@@ -314,7 +293,7 @@ int main(int argc, char *argv[])
         splash.show();
         splash.showStatusMessage(QObject::tr("Initializing..."));
     }
-    qApp->processEvents();
+    QApplication::processEvents();
 
     QLocale::setDefault(QLocale::C);
 
@@ -325,17 +304,10 @@ int main(int argc, char *argv[])
         splash.setProgressValue(30);
         splash.repaint();
     }
-    qApp->processEvents();
 
-//#if defined(Q_OS_MACOS)
-//    MainWindow mainWin(filename, appEnvPath, &splash, 0,
-//                       Qt::WindowFlags()
-//                       Window|WindowTitleHint|WindowSystemMenuHint|WindowMinMaxButtonsHint|WindowCloseButtonHint|WindowFullscreenButtonHint
-//                       Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint
-//                       );
-//#elif defined(Q_OS_WIN)
+    QApplication::processEvents();
+
     MainWindow mainWin(filename, appEnvPath, &splash);
-//#endif
 
     if (show_splash)
     {
@@ -355,9 +327,8 @@ int main(int argc, char *argv[])
         splash.setProgressValue(100);
         splash.repaint();
     }
-//    qApp->processEvents();
 
-    qDebug() << "applicationDisplayName" << qApp->applicationDisplayName();
+    qDebug() << "applicationDisplayName" << QApplication::applicationDisplayName();
 
 #if defined(Q_OS_MACOS)
     qDebug() << "____________________________________________________";
@@ -367,61 +338,12 @@ int main(int argc, char *argv[])
 #endif
     qDebug() << "++++++++++++++++++++++++++++++++++++++++++++++++++++";
 
-    const int returnVal = app.exec();
+    const int returnVal = QApplication::exec();
 
-    // cleanup
-//    if (logFile)
-//    {
-//        logFile->close();
-//        delete logFile;
-//    }
-
-    if (outputStream)
-    {
-        delete outputStream;
-    }
-
+    delete outputStream;
     return returnVal;
 }
-///////////////////////////////////////////////////////////////////////////////
-////////////////////////
-/// \brief logOutput
-/// \param type
-/// \param context
-/// \param msg
-///
-void logOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context)
-    QString debugTimestamp = QDateTime::currentDateTime().toString(QStringLiteral("yyyy.MM.dd hh:mm:ss"));
-    QString localMsg;
-    switch (type)
-    {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
-    case QtInfoMsg:
-        localMsg = debugTimestamp + QStringLiteral("[I]");
-        break;
-#endif
-    case QtDebugMsg:
-        localMsg = debugTimestamp + QStringLiteral("[D]");
-        break;
-    case QtWarningMsg:
-        localMsg = debugTimestamp + QStringLiteral("[W]");
-        break;
-    case QtCriticalMsg:
-        localMsg = debugTimestamp + QStringLiteral("[C]");
-        break;
-    case QtFatalMsg:
-        localMsg = debugTimestamp + QStringLiteral("[F]");
-        break;
-    }
-    (*outputStream) << localMsg << " " << msg << "\n";
 
-    if (QtFatalMsg == type)
-    {
-        abort();
-    }
-}
 
 ////////////////////
 /// \brief doHelp
@@ -442,8 +364,6 @@ void doHelp(QTextStream &stream)
     // general options
     stream << QObject::tr("Options [options]:");
     stream << endl;
-//    stream << QObject::tr("    --lang       xx       Start loading a specific language at start-up,\n");
-//    stream << QObject::tr("                          where \"xx\" is a valid locale (ex. \"it\").\n");
     stream << QObject::tr("    --help                Print the command line options.");
     stream << endl;
     stream << QObject::tr("    --version             Print the application version.");
@@ -465,10 +385,9 @@ void doVersion(QTextStream &stream)
 /// \brief doArgs
 /// \param arguments
 /// \param stream
-/// \param getLogFile
 /// \return
 ///
-QString doArgs(const QStringList& arguments, QTextStream &stream, bool *getLogFile)
+QString doArgs(const QStringList& arguments, QTextStream &stream)
 {
     QString arg;
     for (int n = 1; n < arguments.count(); ++n)
@@ -488,18 +407,6 @@ QString doArgs(const QStringList& arguments, QTextStream &stream, bool *getLogFi
             doVersion(stream);
             exit(0);
         }
-        else if ((arg == QLatin1String("-d"))
-                    || (arg == QLatin1String("-debug"))
-                    || (arg == QLatin1String("--debug")))
-        {
-            *getLogFile = true;
-        }
-//        else if ((arg == QLatin1String("-l"))
-//                    || (arg == QLatin1String("-lang"))
-//                    || (arg == QLatin1String("--lang")))
-//        {
-//            doLocale(stream);
-//        }
         else if (arg[0] == QLatin1Char('-'))
         {
             // no other valid options
@@ -516,149 +423,9 @@ QString doArgs(const QStringList& arguments, QTextStream &stream, bool *getLogFi
     return Defs::DEFAULT_PROJECT_FILENAME;
 }
 
-#if 0
-//#ifdef QT_DEBUG
-
-#include <QMessageBox>
-#include <QThread>
-#include <iostream>
-
-// By default, fairly big problems like QObject::connect not working due to not being able
-// to find a signal or slot goes to the debug output.  There can be a lot of spew which
-// makes that easy to miss.  While perhaps the release build would want to try and
-// keep going, it helps debugging to get told this ASAP.
-//
-// Would be nice to chain to the default Qt platform error handler
-// However, this is not feasible as there is no "default error handler" function
-// The default error handling is merely what runs in qt_message_output
-// 	http://qt.gitorious.org/qt/qt/blobs/4.5/src/corelib/global/qglobal.cpp#line2004
-//
-
-// http://blog.hostilefork.com/qt-essential-noisy-debug-hook/
-void noisyFailureMsgHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context)
-
-//    QString msg (msgAsCstring);
-//    std::cerr << msgAsCstring;
-//    std::cerr.flush();
-
-    // Why on earth didn't Qt want to make failed signal/slot connections qWarning?
-    if ((type == QtDebugMsg)
-            && msg.contains(QStringLiteral("::connect")))
-    {
-        type = QtWarningMsg;
-    }
-
-    // this is another one that doesn't make sense as just a debug message.  pretty serious
-    // sign of a problem
-    // http://www.developer.nokia.com/Community/Wiki/QPainter::begin:Paint_device_returned_engine_%3D%3D_0_(Known_Issue)
-    if ((type == QtDebugMsg)
-            && msg.contains(QStringLiteral("QPainter::begin"))
-            && msg.contains(QStringLiteral("Paint device returned engine")))
-    {
-        type = QtWarningMsg;
-    }
-
-    // This qWarning about "Cowardly refusing to send clipboard message to hung application..."
-    // is something that can easily happen if you are debugging and the application is paused.
-    // As it is so common, not worth popping up a dialog.
-    if ((type == QtWarningMsg)
-            && QString(msg).contains(QStringLiteral("QClipboard::event"))
-            && QString(msg).contains(QStringLiteral("Cowardly refusing")))
-    {
-        type = QtDebugMsg;
-    }
-
-    // only the GUI thread should display message boxes.  If you are
-    // writing a multithreaded application and the error happens on
-    // a non-GUI thread, you'll have to queue the message to the GUI
-    QCoreApplication * instance = QCoreApplication::instance();
-    const bool isGuiThread =
-        instance && (QThread::currentThread() == instance->thread());
-
-    if (isGuiThread)
-    {
-        QMessageBox messageBox;
-        switch (type)
-        {
-        case QtDebugMsg:
-            return;
-        case QtWarningMsg:
-            messageBox.setIcon(QMessageBox::Warning);
-            messageBox.setInformativeText(msg);
-            messageBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-            break;
-        case QtCriticalMsg:
-            messageBox.setIcon(QMessageBox::Critical);
-            messageBox.setInformativeText(msg);
-            messageBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-            break;
-        case QtFatalMsg:
-            messageBox.setIcon(QMessageBox::Critical);
-            messageBox.setInformativeText(msg);
-            messageBox.setStandardButtons(QMessageBox::Cancel);
-            break;
-        }
-
-        int ret = messageBox.exec();
-        if (ret == QMessageBox::Cancel)
-            abort();
-    }
-    else
-    {
-        if (type != QtDebugMsg)
-            abort(); // be NOISY unless overridden!
-    }
-}
-#endif
-
-// NOTE: not used
-//void doLog(const QString& appEnvPath)
-//{
-//// in debug mode
-////#ifndef QT_NO_DEBUG_OUTPUT
-////#ifdef QT_DEBUG
-//#if 1
-//    QFile *logFile = new QFile(appEnvPath
-//                           + QLatin1Char('/')
-//                           + Defs::LOG_FILE_DIR
-//                           + QLatin1Char('/')
-//                           + Defs::APP_NAME_LCASE
-//                           + QStringLiteral("_gui.")
-//                           + Defs::LOG_FILE_EXT);
-
-//    if (logFile->size() > 1048576)
-//        logFile->remove();
-
-//    if (logFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
-//    {
-//        outputStream = new QTextStream(logFile);
-//        QtMessageHandler oldMsgHandler(qInstallMessageHandler(logOutput));
-//        Q_UNUSED(oldMsgHandler);
-//    }
-//    else
-//    {
-//        qDebug() << "Error opening logFile file '" << Defs::APP_NAME_LCASE
-//                 << "'. All debug output redirected to console.";
-//    }
-//#endif
-
-//#if 0
-////#ifdef QT_DEBUG
-//    // Because our "noisy" message handler uses the GUI subsystem for message
-//    // boxes, we can't install it until after the QApplication is constructed.  But it
-//    // is good to be the very next thing to run, to start catching warnings ASAP.
-//    {
-//        QtMessageHandler oldMsgHandler (qInstallMessageHandler(noisyFailureMsgHandler));
-//        Q_UNUSED(oldMsgHandler); // squash "didn't use" compiler warning
-//    }
-//#endif
-//}
-
 bool extractDocs(const QString& currentDir)
 {
-    auto docDir = currentDir
+    QString docDir = currentDir
                   + QStringLiteral("/")
                   + Defs::DOC_DIR;
     qDebug() << "docDir" << docDir;
@@ -669,7 +436,7 @@ bool extractDocs(const QString& currentDir)
         return false;
     }
 
-    auto docArchive = docDir
+    QString docArchive = docDir
                       + QStringLiteral(".")
                       + Defs::ZIP_NATIVE_DATA_FILE_EXT;
     qDebug() << "docArchive" << docArchive;

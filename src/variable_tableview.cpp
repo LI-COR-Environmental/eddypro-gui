@@ -1,24 +1,31 @@
 /***************************************************************************
   variable_tableview.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  ----------------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "variable_tableview.h"
@@ -29,7 +36,6 @@
 #include <QScrollBar>
 
 #include "customheader.h"
-#include "dbghelper.h"
 
 VariableTableView::VariableTableView(QWidget *parent) :
     QTableView(parent)
@@ -57,6 +63,8 @@ VariableTableView::VariableTableView(QWidget *parent) :
     m_header->addSection(tr("<i>Nominal time lag</i>"), tr("<b>Nominal time lag:</b> Enter the expected (nominal) time lag of the variable, with respect to the measurements of the anemometer that you plan to use for flux computation, as applicable. Time lags should be specified at least for gas concentrations and can be estimated based on instrument separation (open path) or on the sampling line characteristics and the flow rate (closed path)."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarNomTLag);
     m_header->addSection(tr("<i>Minimum time lag</i>"), tr("<b>Minimum time lag:</b> Enter the minimum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMinTLag);
     m_header->addSection(tr("<i>Maximum time lag</i>"), tr("<b>Maximum time lag:</b> Enter the maximum expected time lag for the current variable, with respect to anemometric measurements."), CustomHeader::QuestionMarkHint::QuestionMark, ClickLabel::VarMaxTLag);
+
+    verticalHeader()->hide();
 }
 
 VariableTableView::~VariableTableView()
@@ -66,9 +74,9 @@ VariableTableView::~VariableTableView()
 
 void VariableTableView::resizeEvent(QResizeEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(this->rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));
@@ -80,9 +88,9 @@ void VariableTableView::resizeEvent(QResizeEvent *event)
 
 void VariableTableView::showEvent(QShowEvent *event)
 {
-    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 6, 0, 0);
+    setViewportMargins(m_header->sizeHint().width(), this->rowHeight(0) + 7, 1, 1);
     m_header->setGeometry(0,
-                          static_cast<int>(this->rowHeight(0) / 2.0),
+                          static_cast<int>(this->rowHeight(0) / 2.0) + 8,
                           m_header->sizeHint().width() + 10,
                           this->rowHeight(0) * m_header->sectionCount());
     horizontalHeader()->setMinimumWidth(horizontalHeader()->count() * horizontalHeader()->sectionSize(1));

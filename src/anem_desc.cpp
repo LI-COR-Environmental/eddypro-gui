@@ -1,24 +1,31 @@
 /***************************************************************************
   anem_desc.cpp
-  -------------------
-  Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2018, LI-COR Biosciences
+  -------------
+  Copyright © 2007-2011, Eco2s team, Antonio Forgione
+  Copyright © 2011-2019, LI-COR Biosciences, Inc. All Rights Reserved.
   Author: Antonio Forgione
 
-  This file is part of EddyPro (R).
+  This file is part of EddyPro®.
 
-  EddyPro (R) is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  NON-COMMERCIAL RESEARCH PURPOSES ONLY - EDDYPRO® is licensed for
+  non-commercial academic and government research purposes only,
+  as provided in the EDDYPRO® End User License Agreement.
+  EDDYPRO® may only be used as provided in the End User License Agreement
+  and may not be used or accessed for any commercial purposes.
+  You may view a copy of the End User License Agreement in the file
+  EULA_NON_COMMERCIAL.rtf.
 
-  EddyPro (R) is distributed in the hope that it will be useful,
+  Commercial companies that are LI-COR flux system customers are
+  encouraged to contact LI-COR directly for our commercial EDDYPRO®
+  End User License Agreement.
+
+  EDDYPRO® contains Open Source Components (as defined in the
+  End User License Agreement). The licenses and/or notices for the
+  Open Source Components can be found in the file LIBRARIES.txt.
+
+  EddyPro® is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with EddyPro (R). If not, see <http://www.gnu.org/licenses/>.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ****************************************************************************/
 
 #include "anem_desc.h"
@@ -225,13 +232,13 @@ AnemDesc::AnemDesc() :
     hasGoodTemp_(false)
 { ; }
 
-AnemDesc::AnemDesc (const QString& manufacturer,
-                    const QString& model,
-                    const QString& swVersion,
-                    const QString& id,
+AnemDesc::AnemDesc (QString manufacturer,
+                    QString model,
+                    QString swVersion,
+                    QString id,
                     qreal height,
-                    const QString& windFormat,
-                    const QString& northAlignment,
+                    QString windFormat,
+                    QString northAlignment,
                     qreal northOffset,
                     qreal nSeparation,
                     qreal eSeparation,
@@ -241,13 +248,13 @@ AnemDesc::AnemDesc (const QString& manufacturer,
                     qreal tau,
                     bool hasGoodWindComponents,
                     bool hasGoodTemp) :
-    manufacturer_(manufacturer),
-    model_(model),
-    swVersion_(swVersion),
-    id_(id),
+    manufacturer_(std::move(manufacturer)),
+    model_(std::move(model)),
+    swVersion_(std::move(swVersion)),
+    id_(std::move(id)),
     height_(height),
-    windFormat_(windFormat),
-    northAlignment_(northAlignment),
+    windFormat_(std::move(windFormat)),
+    northAlignment_(std::move(northAlignment)),
     northOffset_(northOffset),
     nSeparation_(nSeparation),
     eSeparation_(eSeparation),
@@ -258,8 +265,6 @@ AnemDesc::AnemDesc (const QString& manufacturer,
     hasGoodWindComponents_(hasGoodWindComponents),
     hasGoodTemp_(hasGoodTemp)
 { ; }
-
-AnemDesc::~AnemDesc() { ; }
 
 AnemDesc::AnemDesc(const AnemDesc& anem) :
     manufacturer_(anem.manufacturer_),
@@ -354,8 +359,8 @@ const QStringList AnemDesc::allModelStringList()
             << getANEM_MODEL_STRING_11()
             << getANEM_MODEL_STRING_12()
             << getANEM_MODEL_STRING_13()
-//            << getANEM_MODEL_STRING_14()
-//            << getANEM_MODEL_STRING_15()
+            << getANEM_MODEL_STRING_14()
+            << getANEM_MODEL_STRING_15()
             << getANEM_MODEL_STRING_16()
             << getANEM_MODEL_STRING_17()
             << getANEM_MODEL_STRING_18()
@@ -392,8 +397,8 @@ const QStringList AnemDesc::metekModelStringList()
     return (QStringList()
             << getANEM_MODEL_STRING_9()
             << getANEM_MODEL_STRING_10()
-//            << getANEM_MODEL_STRING_14()
-//            << getANEM_MODEL_STRING_15()
+            << getANEM_MODEL_STRING_14()
+            << getANEM_MODEL_STRING_15()
             << getANEM_MODEL_STRING_12()
             );
 }
@@ -469,13 +474,13 @@ const QStringList AnemDesc::yesNoStringList()
             << tr("no"));
 }
 
-bool AnemDesc::isGoodAnemometer(AnemDesc anem)
+bool AnemDesc::isGoodAnemometer(const AnemDesc& anem)
 {
-    const QString manufacturer = anem.manufacturer();
-    const QString model = anem.model();
+    const auto& manufacturer = anem.manufacturer();
+    const auto& model = anem.model();
     qreal height = anem.height();
-    const QString windFormat = anem.windFormat();
-    const QString northAlignment = anem.northAlignment();
+    const auto& windFormat = anem.windFormat();
+    const auto& northAlignment = anem.northAlignment();
 
     // 1
     bool isGoodManufacturer = !manufacturer.isEmpty();
