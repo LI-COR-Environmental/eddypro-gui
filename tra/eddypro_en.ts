@@ -7029,13 +7029,7 @@ In the &apos;Raw data directory&apos; we found no files.</translation>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/timelagsettingsdialog.cpp" line="716"/>
-        <source>Select the Timelag Optimization File</source>
-        <translation>Select the Timelag Optimization File</translation>
-    </message>
-    <message>
         <location filename="../src/timelagsettingsdialog.cpp" line="129"/>
-        <location filename="../src/timelagsettingsdialog.cpp" line="718"/>
         <source>All Files (*.*)</source>
         <translation>All Files (*.*)</translation>
     </message>
