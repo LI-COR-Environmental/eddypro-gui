@@ -4,13 +4,16 @@ macx {
     CONFIG += x86
     CONFIG += app_bundle
 
-    # 10.7 = lion (minimum supported by EddyPro, so we can use only -stdlib=libc++)
+    # 10.7 = lion
     # 10.8 = mountain lion
-    # 10.9 = mavericks
+    # 10.9 = mavericks (current minimum supported)
     # 10.10 = yosemite
     # 10.11 = el capitan
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
-    QMAKE_MAC_SDK = macosx
+    # 10.12 = sierra
+#    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
+#    QMAKE_MAC_SDK = macosx
+#    QMAKE_MAC_SDK.macosx.version = 10.12
+#    QMAKE_MAC_SDK = macosx10.12
 
     QMAKE_CFLAGS += -gdwarf-2
     QMAKE_CXXFLAGS += -gdwarf-2

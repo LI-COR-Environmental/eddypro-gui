@@ -4,7 +4,7 @@
   Global application resources. Constants, enumerations and strings.
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -52,20 +52,20 @@ class QStringLiteral;
 namespace Defs
 {
     const auto APP_VERSION = 0x060100;
-    const auto APP_VERSION_STR = QStringLiteral("6.2.0");
+    const auto APP_VERSION_STR = QStringLiteral("6.2.1");
     const auto APP_STAGE_STR = QStringLiteral(""); // -rc6
 
     const auto PROJECT_FILE_VERSION = 0x040402;
-    const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.2");
+    const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.3");
 
     const auto METADATA_FILE_VERSION = 0x030201;
     const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
 
-    const auto WIN_COMPILER = QStringLiteral("MinGW 4.9.2 x86_32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 7.3.0 (clang-703.0.31) x86_64 on Mac OS X<sup>&reg;</sup> 10.11.4");
+    const auto WIN_COMPILER = QStringLiteral("MinGW 5.3.0 x86_32 on Windows<sup>&reg;</sup> 10");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 9.0.0 (clang-900.0.37) x86_64 on macOS<sup>&reg;</sup> 10.12.6");
     const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
-    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2016");
+    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2017");
 
     enum class CurrPage
     {
@@ -129,7 +129,7 @@ namespace Defs
 #if defined(Q_OS_WIN)
     const auto EXEC_FILE_EXT = QStringLiteral(".exe");
     const auto HOST_OS = QStringLiteral("win");
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     const auto EXEC_FILE_EXT = QString();
     const auto HOST_OS = QStringLiteral("mac");
 #elif defined(Q_OS_LINUX)
@@ -219,7 +219,7 @@ namespace Defs
 
 #if defined(Q_OS_WIN)
     const auto LICOR_ENV_DIR        = QStringLiteral(".licor");
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_DARWIN)
     const auto LICOR_ENV_DIR        = QStringLiteral("licor");
 #elif defined(Q_OS_LINUX)
     const auto LICOR_ENV_DIR        = ORG_NAME;
@@ -251,7 +251,7 @@ namespace Defs
     const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
 #if defined(Q_OS_WIN)
     const auto FREEZER_BIN           = QStringLiteral("pausep%1").arg(EXEC_FILE_EXT);
-#elif defined(Q_OS_MAC) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
     const auto FREEZER_BIN           = QStringLiteral("kill");
 #endif
 

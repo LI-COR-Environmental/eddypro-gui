@@ -2,7 +2,7 @@
   docchooser.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -41,8 +41,6 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
     QDialog(parent),
     url_(url)
 {
-    DEBUG_FUNC_NAME
-
     resize(390, 250);
     setMinimumSize(390, 250);
 
@@ -89,7 +87,6 @@ DocChooserDialog::DocChooserDialog(const QUrl& url, QWidget *parent) :
 
 DocChooserDialog::~DocChooserDialog()
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 void DocChooserDialog::setAutoChooser(bool automatic)
@@ -143,7 +140,6 @@ void DocChooserDialog::restoreOfflineState()
 
 void DocChooserDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (onlineHelpRadio->isChecked())
     {
         // browse online help version
@@ -154,7 +150,6 @@ void DocChooserDialog::close()
         // open local help
         QString htmlHelpPath = qApp->applicationDirPath()
                 + QStringLiteral("/docs/help/topics_eddypro/EddyPro_Home.html");
-        qDebug() << QDesktopServices::openUrl(QUrl::fromLocalFile(htmlHelpPath));
     }
 
     // set the variable to true to indicate that the dialog ran once

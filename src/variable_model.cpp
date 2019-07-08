@@ -2,7 +2,7 @@
   variable_model.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -37,12 +37,10 @@ VariableModel::VariableModel(QObject *parent, VariableDescList *list) :
 
 VariableModel::~VariableModel()
 {
-    DEBUG_FUNC_NAME
 }
 
 void VariableModel::flush()
 {
-    DEBUG_FUNC_NAME
     beginResetModel();
     endResetModel();
 }
@@ -909,7 +907,6 @@ bool VariableModel::setData(const QModelIndex& index, const QVariant& value, int
     // whole column may have changed
     emit dataChanged(index.sibling(IGNORE, column),
                      index.sibling(MAXTIMELAG, column));
-    qDebug() << "emit dataChanged()";
     return true;
 }
 
@@ -1103,8 +1100,6 @@ const QStringList VariableModel::instrModels() const
 
 void VariableModel::setInstrModels(const QStringList& list)
 {
-    DEBUG_FUNC_NAME
-
     instrModelList_ = list;
 
     for (int i = 0; i < list_->count(); ++i)
@@ -1129,8 +1124,6 @@ void VariableModel::setInstrModels(const QStringList& list)
 // NOTE: never used
 void VariableModel::triggerSetData() const
 {
-    DEBUG_FUNC_NAME
-
     // NOTE: hack for emitting a signal from within a const member function to a const slots
     // easier with custom signal
     emit const_cast<VariableModel *>(this)->layoutChanged();

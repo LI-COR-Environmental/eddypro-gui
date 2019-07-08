@@ -1,7 +1,7 @@
 /***************************************************************************
   ancillaryfiletest.cpp
   -------------------
-  Copyright (C) 2014-2016, LI-COR Biosciences
+  Copyright (C) 2014-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -112,8 +112,6 @@ QString AncillaryFileTest::formatPassFail(bool test_result)
 
 bool AncillaryFileTest::makeTest()
 {
-    qDebug() << "makeTest name_" << name_;
-
     auto result = testFile();
     if (!result)
     {
@@ -125,8 +123,6 @@ bool AncillaryFileTest::makeTest()
 
 bool AncillaryFileTest::testFile()
 {
-    DEBUG_FUNC_NAME
-
     bool parseResult = false;
     bool formalResult = false;
     bool scientificResult = false;
@@ -153,14 +149,12 @@ bool AncillaryFileTest::testFile()
         }
     }
 
-    qDebug() << "begin parsing...";
     parseResult = parseFile(name_, &actualLines_);
     if (!parseResult)
     {
         testResults_->append(parseErrorStr_2);
         return false;
     }
-    qDebug() << "begin parsing...";
 
     testResults_->append(QLatin1String("<b>FORMAT test</b>"));
     formalResult =
@@ -202,9 +196,6 @@ bool AncillaryFileTest::testFile()
         }
     }
 
-    qDebug() << "formalResult && scientificResult"
-             << formalResult
-             << scientificResult;
     return (formalResult && scientificResult);
 }
 
@@ -338,7 +329,6 @@ bool AncillaryFileTest::testSpectraF(const LineList& templateList, const LineLis
                                       + formatPassFail(last_test()));
     }
 
-    qDebug() << "test.size()" << test.size();
     auto res = true;
     for (auto i = 0; i < test.size(); ++i)
     {
@@ -500,7 +490,6 @@ bool AncillaryFileTest::testSpectraS(const LineList &actualList)
                                    "shall be within the range [0; 1]: ");
     testResults_->append(e1_label + formatPassFail(last_test()));
 
-    qDebug() << "test.size()" << test.size();
     auto res = true;
     for (auto i = 0; i < test.size(); ++i)
     {
@@ -596,7 +585,6 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
                          + QStringLiteral(": ")
                          + formatPassFail(last_test()));
 
-    qDebug() << "begin test d1";
     // test d1
     test << true;
     for (auto i = 0; i < windSectors; ++i)
@@ -622,7 +610,6 @@ bool AncillaryFileTest::testPlanarFitF(const LineList &templateList, const LineL
     }
     testResults_->append(QLatin1String("Rotation matrices formal structure 1: ")
                          + formatPassFail(last_test()));
-    qDebug() << "end test d1";
 
     // test d2
     test << true;
@@ -809,8 +796,6 @@ bool AncillaryFileTest::testPlanarFitS(const LineList &actualList)
 
 bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineList &actualList)
 {
-    qDebug() << "begin testTimeLagF...";
-
     // preliminary test, number of rows
     auto rowCountTest = (actualList.size() > 2);
     testResults_->append(QLatin1String("Number of rows [")
@@ -818,7 +803,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                  + QStringLiteral("]: ")
                                  + formatPassFail(rowCountTest));
     if (!rowCountTest) { return false; }
-    qDebug() << "begin testTimeLagF 1";
 
     QList<bool> test;
     auto last_test = [&](){ return test.value(test.size() - 1); };
@@ -832,7 +816,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                              + QStringLiteral(": ")
                              + formatPassFail(last_test()));
     }
-    qDebug() << "begin testTimeLagF a";
 
     // test b
     auto gasCount = 0;
@@ -867,8 +850,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         timelagValues[1][gasCount - 1] = actualList.value(7 + 5 * (gasCount - 1)).value(1).toDouble();
         timelagValues[2][gasCount - 1] = actualList.value(8 + 5 * (gasCount - 1)).value(1).toDouble();
     }
-    qDebug() << "begin testTimeLagF b";
-    qDebug() << "gasCount" << gasCount;
 
     // test c1
     // compare 3 lines of RH headers
@@ -892,7 +873,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
                                  + QStringLiteral("]: ")
                                  + formatPassFail(last_test()));
         }
-        qDebug() << "begin testTimeLagF c1";
 
         // test c2
         if (rhClassCount <= 20)
@@ -915,7 +895,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
             }
 
             testResults_->append(QStringLiteral("Consistent RH ranges: ") + formatPassFail(last_test()));
-            qDebug() << "begin testTimeLagF c2";
         }
         else
         {
@@ -928,7 +907,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
         auto rhIsEmpty = actualList.value(5 + 5 * gasCount).isEmpty()
                          && actualList.value(6 + 5 * gasCount).isEmpty()
                          && actualList.value(7 + 5 * gasCount).isEmpty();
-        qDebug() << "rhIsEmpty" << rhIsEmpty;
 
         // with no gases and no rh classes
         if (!gasCount && rhIsEmpty)
@@ -972,7 +950,6 @@ bool AncillaryFileTest::testTimeLagF(const LineList &templateList, const LineLis
 bool AncillaryFileTest::testTimeLagS(const LineList &actualList)
 {
     Q_UNUSED(actualList);
-    qDebug() << "begin testTimeLagS...";
 
     QList<bool> test;
     auto last_test_index = [&](){ return (test.size() - 1); };

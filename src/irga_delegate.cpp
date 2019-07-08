@@ -2,7 +2,7 @@
   irga_delegate.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2016, LI-COR Biosciences
+  Copyright (C) 2011-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -47,7 +47,6 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
                                      const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     Q_UNUSED(option)
 
     QLabel *label;
@@ -56,8 +55,6 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
     QLineEdit *ledit;
     QString currentManufacturer = index.model()->data(index.model()->index(IrgaModel::MANUFACTURER, index.column())).toString();
     QString currentModel = index.model()->data(index.model()->index(IrgaModel::MODEL, index.column())).toString();
-
-//    qDebug() << "index.row()" << index.row();
 
     // can only edit name on blank column
     if (index.column() >= index.model()->columnCount()) return 0;
@@ -248,7 +245,6 @@ QWidget *IrgaDelegate::createEditor(QWidget* parent,
 void IrgaDelegate::setEditorData(QWidget* editor,
                                   const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -345,7 +341,6 @@ void IrgaDelegate::setEditorData(QWidget* editor,
 void IrgaDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
                                 const QModelIndex& index) const
 {
-    DEBUG_FUNC_NAME
     QComboBox *combo;
     QDoubleSpinBox *dspin;
     QLineEdit *ledit;
@@ -480,7 +475,6 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
                                                || eventKey == Qt::Key_Enter
                                                || eventKey == Qt::Key_Return))))
     {
-//        qDebug() << eventType << combo;
         if (combo)
         {
             combo->showPopup();
@@ -490,7 +484,6 @@ bool IrgaDelegate::eventFilter(QObject* editor, QEvent* event)
     else if ((eventType == QEvent::ShortcutOverride && eventKey == Qt::Key_Escape)
              || eventType == QEvent::CloseSoftwareInputPanel)
     {
-//        qDebug() << eventType << "ShortcutOverride";
         commitAndCloseEditor(editor);
         return true;
     }

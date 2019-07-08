@@ -28,7 +28,7 @@
     <key>CFBundleIdentifier</key>
     <string>com.licor.eddypro</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © 2011-2016, LI-COR Inc.</string>
+    <string>Copyright © 2011-2017, LI-COR Inc.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.education</string>
     <key>LSMinimumSystemVersion</key>

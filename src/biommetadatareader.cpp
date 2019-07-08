@@ -1,7 +1,7 @@
 /***************************************************************************
   biometmetadatareader.cpp
   -------------------
-  Copyright (C) 2013-2016, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -72,8 +72,6 @@ BiomMetadataReader::BiomMetadataReader(QList<BiomItem> *biomMetadata)
 
 bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -139,7 +137,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
         if (type_components_size > 4)
         {
             QStringList extracted_var_name = type_components_list.mid(0, type_components_size - 3);
-            extracted_type = extracted_var_name.join(QStringLiteral("_"));
+            extracted_type = extracted_var_name.join(QLatin1Char('_'));
         }
         // entry with positional notation and no underscore
         // in the variable name (e.g. PA_1_1_1)
@@ -168,7 +166,7 @@ bool BiomMetadataReader::readEmbMetadata(const QString& fileName)
 int BiomMetadataReader::countEmbVariables(const QStringList& list)
 {
     auto i = 0;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (s.contains(BmIni::INI_VARS_0))
         {
@@ -180,8 +178,6 @@ int BiomMetadataReader::countEmbVariables(const QStringList& list)
 
 bool BiomMetadataReader::readAltMetadata(const QString& fileName)
 {
-    DEBUG_FUNC_NAME
-
     // open file
     QFile dataFile(fileName);
     if (!dataFile.open(QIODevice::ReadOnly | QIODevice::Text))

@@ -2,7 +2,7 @@
   calibrationdialog.cpp
   -------------------
   -------------------
-  Copyright (C) 2016, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -231,7 +231,6 @@ CalibrationDialog::CalibrationDialog(QWidget* parent, EcProject *ecProject, Conf
 
 void CalibrationDialog::close()
 {
-    DEBUG_FUNC_NAME
     if (isVisible())
     {
         hide();

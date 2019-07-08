@@ -1,7 +1,7 @@
 /***************************************************************************
   container_helpers.h
   -------------------
-  Copyright (C) 2014-2016, LI-COR Biosciences
+  Copyright (C) 2014-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).

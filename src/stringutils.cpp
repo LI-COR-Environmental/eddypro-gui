@@ -1,7 +1,7 @@
 /***************************************************************************
   stringutils.cpp
   -------------------
-  Copyright (C) 2013-2016, LI-COR Biosciences
+  Copyright (C) 2013-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -84,7 +84,7 @@ bool StringUtils::isISODateTimeString(const QString& s)
 bool StringUtils::stringBelongsToList(const QString& str, const QStringList& list)
 {
     bool ok = false;
-    foreach (const QString& s, list)
+    for (const auto &s : list)
     {
         if (str == s)
         {
@@ -101,27 +101,21 @@ bool StringUtils::stringBelongsToList(const QString& str, const QStringList& lis
 int StringUtils::getVersionFromString(const QString& versionStr)
 {
     auto major = versionStr.section(QLatin1Char('.'), 0, 0).toInt();
-    qDebug() << "major" << major;
-
     auto minor = versionStr.section(QLatin1Char('.'), 1, 1).toInt();
-    qDebug() << "minor" << minor;
-
     auto patchStr = versionStr.section(QLatin1Char('.'), 2, 2);
+
     // in case of 2 digits version only
     if (patchStr.isEmpty())
     {
         patchStr = QStringLiteral("00");
     }
     auto patch = patchStr.toInt();
-    qDebug() << "patch" << patch;
 
     return QT_VERSION_CHECK(major, minor, patch);
 }
 
 bool StringUtils::isNewVersion(const QString& remoteVersion, const QString& localVersion)
 {
-    DEBUG_FUNC_NAME
-
     return getVersionFromString(remoteVersion) > getVersionFromString((localVersion));
 }
 

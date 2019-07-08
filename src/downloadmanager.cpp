@@ -1,7 +1,7 @@
 /***************************************************************************
   downloadmanager.cpp
   -------------------
-  Copyright (C) 2016, LI-COR Biosciences
+  Copyright (C) 2016-2017, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -44,8 +44,6 @@ DownloadManager::~DownloadManager()
 
 void DownloadManager::abort()
 {
-    DEBUG_FUNC_NAME
-
     if (reply)
     {
         if (reply->isRunning())
@@ -77,7 +75,6 @@ void DownloadManager::get(const QUrl &url)
     request.setRawHeader("User-Agent", Defs::EP_USER_AGENT.toLatin1());
 
     reply = manager.get(request);
-    qDebug() << "reply" << reply;
 
     // TODO(emiola): remove test when bump Qt version on Windows
 #if (QT_VERSION > 0x050302) && (__GNUC__ >= 4) && (__GNUC_MINOR__ > 8)
@@ -102,7 +99,6 @@ void DownloadManager::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 
 void DownloadManager::downloadError(QNetworkReply::NetworkError error)
 {
-    DEBUG_FUNC_NAME
     qDebug() << "Reply error" << error;
     qDebug() << reply->errorString();
     versionNr = QByteArray();
@@ -121,16 +117,9 @@ void DownloadManager::downloadFinished()
             qDebug() << "Request Succeded";
         }
 
-        qDebug() << reply->header(QNetworkRequest::ContentTypeHeader).toString();
-        qDebug() << reply->header(QNetworkRequest::LastModifiedHeader).toDateTime().toString();
-        qDebug() << reply->header(QNetworkRequest::ContentLengthHeader).toULongLong();
-        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-        qDebug() << reply->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
-
         if (!reply->error())
         {
             versionNr = reply->readAll();
-            qDebug() << "versionNr" << versionNr.trimmed().constData();
         }
 
         reply->deleteLater();
