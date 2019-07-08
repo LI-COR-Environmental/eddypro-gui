@@ -2,7 +2,7 @@
   calibrationapi.h
   -------------------
   -------------------
-  Copyright (C) 2016-2017, LI-COR Biosciences
+  Copyright (C) 2016-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,7 +34,7 @@ class CalibrationAPI : public QObject
     Q_OBJECT
 
 public:
-    explicit CalibrationAPI(QObject *parent = 0);
+    explicit CalibrationAPI(QObject *parent = nullptr);
 
     void getCalibrationInfo(const QString &serialNumber);
     void getCalibrationFile(const QString &fileUrl);

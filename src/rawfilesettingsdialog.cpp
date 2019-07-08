@@ -2,7 +2,7 @@
   rawfilesettingsdialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -142,7 +142,7 @@ void RawFileSettingsDialog::refresh()
 
     QString currFielSep = dlProject_->fieldSep();
 
-    fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep));
+    fieldSepCombo->setCurrentIndex(fieldSepCombo->findText(currFielSep, Qt::MatchFixedString));
 
     headerRowsSpin->setValue(dlProject_->headerRows());
 

@@ -2,7 +2,7 @@
   anem_desc.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -137,6 +137,36 @@ const QString AnemDesc::getANEM_MODEL_STRING_12()
 const QString AnemDesc::getANEM_MODEL_STRING_13()
 {
     static const QString s(QStringLiteral("CSAT-3B"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_14()
+{
+    static const QString s(QStringLiteral("uSonic-3 Class A MP"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_15()
+{
+    static const QString s(QStringLiteral("uSonic-3 Cage MP"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_16()
+{
+    static const QString s(QStringLiteral("81000V"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_17()
+{
+    static const QString s(QStringLiteral("81000RE"));
+    return s;
+}
+
+const QString AnemDesc::getANEM_MODEL_STRING_18()
+{
+    static const QString s(QStringLiteral("81000VRE"));
     return s;
 }
 
@@ -323,7 +353,13 @@ const QStringList AnemDesc::allModelStringList()
             << getANEM_MODEL_STRING_10()
             << getANEM_MODEL_STRING_11()
             << getANEM_MODEL_STRING_12()
-            << getANEM_MODEL_STRING_13());
+            << getANEM_MODEL_STRING_13()
+//            << getANEM_MODEL_STRING_14()
+//            << getANEM_MODEL_STRING_15()
+            << getANEM_MODEL_STRING_16()
+            << getANEM_MODEL_STRING_17()
+            << getANEM_MODEL_STRING_18()
+            );
 }
 
 // Return string list of usage types
@@ -356,7 +392,10 @@ const QStringList AnemDesc::metekModelStringList()
     return (QStringList()
             << getANEM_MODEL_STRING_9()
             << getANEM_MODEL_STRING_10()
-            << getANEM_MODEL_STRING_12());
+//            << getANEM_MODEL_STRING_14()
+//            << getANEM_MODEL_STRING_15()
+            << getANEM_MODEL_STRING_12()
+            );
 }
 
 // Return string list of usage types
@@ -364,7 +403,11 @@ const QStringList AnemDesc::youngModelStringList()
 {
     return (QStringList()
             << getANEM_MODEL_STRING_11()
-            << getANEM_MODEL_STRING_12());
+            << getANEM_MODEL_STRING_16()
+            << getANEM_MODEL_STRING_17()
+            << getANEM_MODEL_STRING_18()
+            << getANEM_MODEL_STRING_12()
+            );
 }
 
 // Return string list of usage types
@@ -463,11 +506,16 @@ bool AnemDesc::isGoodAnemometer(AnemDesc anem)
         {
             isGoodModel = (model == getANEM_MODEL_STRING_9())
                            || (model == getANEM_MODEL_STRING_10())
+                           || (model == getANEM_MODEL_STRING_14())
+                           || (model == getANEM_MODEL_STRING_15())
                            || (model == getANEM_MODEL_STRING_12());
         }
         else if (manufacturer == getANEM_MANUFACTURER_STRING_3())
         {
             isGoodModel = (model == getANEM_MODEL_STRING_11())
+                           || (model == getANEM_MODEL_STRING_16())
+                           || (model == getANEM_MODEL_STRING_17())
+                           || (model == getANEM_MODEL_STRING_18())
                            || (model == getANEM_MODEL_STRING_12());
         }
         else if (manufacturer == getANEM_MANUFACTURER_STRING_4())

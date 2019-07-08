@@ -29,7 +29,7 @@
 
 
 // reimplemented function, copied from qspinbox.cpp
-static bool isIntermediateValueHelper(qint64 num, qint64 minimum, qint64 maximum, qint64 *match = 0);
+static bool isIntermediateValueHelper(qint64 num, qint64 minimum, qint64 maximum, qint64 *match = nullptr);
 static bool isIntermediateValueHelper(qint64 num, qint64 min, qint64 max, qint64 *match)
 {
     QSBDEBUG("%lld %lld %lld", num, min, max);

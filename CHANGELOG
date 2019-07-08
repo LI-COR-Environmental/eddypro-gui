@@ -1,3 +1,14 @@
+6.2.2 (2018-05-11)
+
+    Engine
+    - Add: support for Young 81000V, 81000RE, 81000VRE sonic anemometers.
+
+    GUI
+    - Add: support for Young 81000V, 81000RE, 81000VRE sonic anemometers.
+    - Add: references to the Tovi platform.
+    - Fix: Raw File Settings persistency.
+    - Fix: local help not showing.
+
 6.2.1 (2017-10-09)
 
     Engine
@@ -5,7 +16,7 @@
 
     GUI
     - Add: support for new LI-7500DS instruments.
-    - Fix magnetic declination retrieval from NOAA.
+    - Fix: magnetic declination retrieval from NOAA.
 
 6.2.0 (2016-08-23)
 

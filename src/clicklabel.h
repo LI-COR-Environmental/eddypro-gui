@@ -4,7 +4,7 @@
   QLabel class with clicked signal
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -57,8 +57,8 @@ class ClickLabel : public QLabel
     Q_ENUMS(HeaderData)
 
 public:
-    explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
-    explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
+    explicit ClickLabel(QWidget* parent = nullptr, Qt::WindowFlags flags = nullptr);
+    explicit ClickLabel(const QString& text, QWidget* parent = nullptr, Qt::WindowFlags flags = nullptr);
     explicit ClickLabel(const ClickLabel& clabel);
     ClickLabel& operator=(const ClickLabel& clabel);
     ~ClickLabel();

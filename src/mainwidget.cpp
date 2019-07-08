@@ -2,7 +2,7 @@
   mainwidget.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -44,13 +44,13 @@ MainWidget::MainWidget(QWidget *parent, DlProject *dlProject, EcProject *ecProje
     dlProject_(dlProject),
     ecProject_(ecProject),
     configState_(configState),
-    mainWidgetLayout(0),
-    welcomePage_(0),
-    projectPage_(0),
-    basicSettingsPage_(0),
-    advancedSettingsPage_(0),
-    runPage_(0),
-    faderWidget(0),
+    mainWidgetLayout(nullptr),
+    welcomePage_(nullptr),
+    projectPage_(nullptr),
+    basicSettingsPage_(nullptr),
+    advancedSettingsPage_(nullptr),
+    runPage_(nullptr),
+    faderWidget(nullptr),
     fadingOn(true)
 {
     // stacked widget # 0

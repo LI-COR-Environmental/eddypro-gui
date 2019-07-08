@@ -1,7 +1,7 @@
 /***************************************************************************
   fileutils.cpp
   -------------------
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -447,7 +447,7 @@ QString FileUtils::setupEnv()
 
 #if defined(Q_OS_WIN)
     userHomePath = QDir::fromNativeSeparators(env.value(QStringLiteral("USERPROFILE")).trimmed());
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     userHomePath = env.value(QStringLiteral("HOME"));
     configPath = QStringLiteral(".config");
 #endif
@@ -457,7 +457,7 @@ QString FileUtils::setupEnv()
         return QString();
     }
 
-#if defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#if defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     FileUtils::createDir(configPath, userHomePath);
     userHomePath = userHomePath + QStringLiteral("/") + configPath;
 #endif

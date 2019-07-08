@@ -2,7 +2,7 @@
   ecproject.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -44,7 +44,7 @@ EcProject::EcProject(QObject *parent, const ProjConfigState& project_config) :
 }
 
 EcProject::EcProject(const EcProject& project) :
-    QObject(0),
+    QObject(nullptr),
     defaultSettings(EcProjectState()),
     modified_(project.modified_),
     ec_project_state_(project.ec_project_state_),

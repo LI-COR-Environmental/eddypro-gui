@@ -2,7 +2,7 @@
   projectpage.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -196,7 +196,7 @@ ProjectPage::ProjectPage(QWidget *parent, DlProject *dlProject, EcProject *ecPro
     biometExtFileBrowse->setToolTip(tr("<b>Load:</b> Load an existing biomet external file"));
     biometExtFileBrowse->setDialogTitle(tr("Select the Biomet File"));
     biometExtFileBrowse->setDialogWorkingDir(WidgetUtils::getSearchPathHint());
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     biometExtFileBrowse->setDialogFilter(tr("All Files (*.*)"));
 #else
     biometExtFileBrowse->setDialogFilter(tr("%1 Biomet Files (*.csv);;All Files (*.*)").arg(Defs::APP_NAME));

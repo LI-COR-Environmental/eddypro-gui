@@ -870,6 +870,82 @@ QLabel[applogoSmallLabel="true"]:hover {
     min-height: 70px;
 }
 
+
+ClickLabel[toviLabel="true"] {
+    image: url(:/icons/tovi-ad-normal);
+    min-width: 578px;
+    min-height: 165px;
+}
+
+ClickLabel[toviLabel="true"]:hover {
+    image: url(:/icons/tovi-ad-hover);
+    min-width: 578px;
+    min-height: 165px;
+}
+
+ClickLabel[toviLabel="true"]:pressed {
+    image: url(:/icons/tovi-ad-pressed);
+    min-width: 578px;
+    min-height: 165px;
+}
+
+ClickLabel[toviWideLabel="true"] {
+    image: url(:/icons/tovi-wide-ad-normal);
+    min-width: 513px;
+    min-height: 97px;
+}
+
+ClickLabel[toviWideLabel="true"]:hover {
+    image: url(:/icons/tovi-wide-ad-hover);
+    min-width: 513px;
+    min-height: 97px;
+}
+
+ClickLabel[toviWideLabel="true"]:pressed {
+    image: url(:/icons/tovi-wide-ad-pressed);
+    min-width: 513px;
+    min-height: 97px;
+}
+
+ClickLabel[toviThinLabel="true"] {
+    image: url(:/icons/tovi-thin-ad-normal);
+    min-width: 305px;
+    min-height: 108px;
+    margin-left: -15px;
+    padding-left: 0px;
+}
+
+ClickLabel[toviThinLabel="true"]:hover {
+    image: url(:/icons/tovi-thin-ad-hover);
+    min-width: 305px;
+    min-height: 108px;
+}
+
+ClickLabel[toviThinLabel="true"]:pressed {
+    image: url(:/icons/tovi-thin-ad-pressed);
+    min-width: 305px;
+    min-height: 108px;
+}
+
+QPushButton#toviLogoImg {
+    background-color: transparent;
+    border: none;
+    image: url(:/icons/tovi-icon-normal);
+    min-width: 35px;
+    max-width: 35px;
+    min-height: 30px;
+    max-height: 30px;
+    margin-left: 5px;
+}
+
+QPushButton#toviLogoImg:hover {
+    image: url(:/icons/tovi-icon-hover);
+}
+
+QPushButton#toviLogoImg:pressed {
+    image: url(:/icons/tovi-icon-pressed);
+}
+
 QLabel[feedbackLabel="true"] {
     image: url(:/icons/feedback-button);
     min-width: 168px;
@@ -999,6 +1075,11 @@ QLabel[groupLabel="true"] {
     font-size: 12px;
     padding: 0.4em 0.4em 0.1em 0.4em;
     margin-bottom: 5px;
+}
+
+QLabel[toviAds="true"] {
+    font-size: 14px;
+    font-style: italic;
 }
 
 /*QLabel[groupLabel="true"] {

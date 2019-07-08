@@ -2,7 +2,7 @@
   welcomepage.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -52,10 +52,11 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     connect(appLogoLabel, &ClickLabel::clicked,
             this, &WidgetUtils::openAppWebsite);
 
-    feedbackLabel = new ClickLabel;
-    feedbackLabel->setProperty("feedbackLabel", true);
-    connect(feedbackLabel, &ClickLabel::clicked,
-            this, &WelcomePage::openForumFeedback);
+    toviLabel = new ClickLabel;
+    toviLabel->setProperty("toviLabel", true);
+    toviLabel->setProperty("toviWideLabel", false);
+    connect(toviLabel, &ClickLabel::clicked,
+            this, &WelcomePage::openToviHomepage);
 
     newButton = new QToolButton;
     newButton->setText(tr("New Project"));
@@ -108,7 +109,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     auto title = new ClickLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/smartflux-grey"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     title->setPixmap(pixmap);
@@ -164,23 +165,27 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     newsListWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/ep")), tr("Early access to new Data Analysis software – import EddyPro files and easily perform QA/QC"), newsListWidget);
-    rssItem_1->setData(Qt::UserRole, QStringLiteral("http://licor.com/env/products/eddy_covariance/earlyaccess.html "));
+    auto rssItem_1 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/ep")), tr("Introducing Tovi") + Defs::TRADEMARK_SYMBOL
+                                                                                 + tr(" – Powerful software for processing EddyPro outputs"), newsListWidget);
+    rssItem_1->setData(Qt::UserRole, QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads"));
 
-    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New LI-7500DS CO2/H2O Analyzer features a lower price and runs on less power"), newsListWidget);
-    rssItem_2->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/LI-7500DS.html"));
+    auto rssItem_2 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New Trace Gas Analyzers – high performance in an entirely new, portable design"), newsListWidget);
+    rssItem_2->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/trace_gas/"));
 
-    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("See how LI‑COR gas analyzers are based on proven technologies"), newsListWidget);
-    rssItem_3->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/performance.html"));
+    auto rssItem_3 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("Simplified Biomet data collection with the LI-COR-designed Data Acquisition System"), newsListWidget);
+    rssItem_3->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/daqm.html"));
 
-    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities"), newsListWidget);
-    rssItem_4->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/photosynthesis/LI-6800/"));
+    auto rssItem_4 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("New LI-7500DS CO2/H2O Analyzer features a lower price and runs on less power"), newsListWidget);
+    rssItem_4->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/LI-7500DS.html"));
 
-    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("Learn how to make accurate soil gas flux measurements in a free online training course"), newsListWidget);
-    rssItem_5->setData(Qt::UserRole, QStringLiteral("https://accounts.skilljar.com/accounts/signup/?next=%2Fauth%2Fendpoint%2Flogin%2Fresult%3Fd%3D2hffjl7lbimea%26next%3D%252F&d=2hffjl7lbimea&t=zhzzn654u9er"));
+    auto rssItem_5 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/article")), tr("LI-6800 Portable Photosynthesis System – Fast response creates new research possibilities"), newsListWidget);
+    rssItem_5->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/photosynthesis/LI-6800/"));
 
-    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("See upcoming Eddy Covariance training courses"), newsListWidget);
-    rssItem_6->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/resources.html#training"));
+    auto rssItem_6 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("Learn how to make accurate soil gas flux measurements in a free online training course"), newsListWidget);
+    rssItem_6->setData(Qt::UserRole, QStringLiteral("https://accounts.skilljar.com/accounts/signup/?next=%2Fauth%2Fendpoint%2Flogin%2Fresult%3Fd%3D2hffjl7lbimea%26next%3D%252F&d=2hffjl7lbimea&t=zhzzn654u9er"));
+
+    auto rssItem_7 = new QListWidgetItem(QIcon(QStringLiteral(":/icons/grad")), tr("See upcoming Eddy Covariance training courses"), newsListWidget);
+    rssItem_7->setData(Qt::UserRole, QStringLiteral("https://www.licor.com/env/products/eddy_covariance/resources.html#training"));
 
     newsListWidget->addItem(rssItem_1);
     newsListWidget->addItem(rssItem_2);
@@ -188,6 +193,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     newsListWidget->addItem(rssItem_4);
     newsListWidget->addItem(rssItem_5);
     newsListWidget->addItem(rssItem_6);
+    newsListWidget->addItem(rssItem_7);
 
     auto newsLayout = new QGridLayout;
     newsLayout->addWidget(newsTitle, 0, 0);
@@ -256,7 +262,7 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
 
     helpWidget->setLayout(helpLayout);
     helpWidget->setMinimumWidth(600);
-
+//
     auto welcomeTab = new QTabWidget;
     welcomeTab->addTab(projectsWidget, tr("Manage Projects"));
     welcomeTab->addTab(newsWidget, tr("News"));
@@ -267,15 +273,15 @@ WelcomePage::WelcomePage(QWidget *parent, EcProject *ecProject, ConfigState* con
     smartfluxBarPlaceholder_ = new QWidget;
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     smartfluxBarPlaceholder_->setMinimumHeight(35);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     smartfluxBarPlaceholder_->setMinimumHeight(50);
 #endif
 
     mainLayout_ = new QGridLayout(this);
     mainLayout_->addWidget(smartfluxBar_, 0, 0, 1, -1);
     mainLayout_->addWidget(smartfluxBarPlaceholder_, 0, 0, 1, -1, Qt::AlignHCenter);
-    mainLayout_->addWidget(appLogoLabel, 1, 0, 1, -1, Qt::AlignHCenter);
-    mainLayout_->addWidget(feedbackLabel, 2, 0, 1, 1, Qt::AlignHCenter);
+    mainLayout_->addWidget(appLogoLabel, 1, 0, 1, -1, Qt::AlignHCenter | Qt::AlignVCenter);
+    mainLayout_->addWidget(toviLabel, 2, 0, 1, 1, Qt::AlignHCenter);
     mainLayout_->addWidget(welcomeTab, 3, 0, 1, -1, Qt::AlignHCenter);
     mainLayout_->setRowStretch(0, 0);
     mainLayout_->setRowStretch(1, 1);
@@ -393,24 +399,30 @@ void WelcomePage::updateRecentList()
 void WelcomePage::updateWelcomePage(bool small)
 {
     QList<WidgetUtils::PropertyList> appLogoProp;
+    QList<WidgetUtils::PropertyList> toviAdProp;
 
     if (small)
     {
         appLogoProp << WidgetUtils::PropertyList("applogoLabel", false)
                     << WidgetUtils::PropertyList("applogoSmallLabel", true);
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", false)
+                   << WidgetUtils::PropertyList("toviWideLabel", true);
     }
     else
     {
         appLogoProp << WidgetUtils::PropertyList("applogoLabel", true)
                     << WidgetUtils::PropertyList("applogoSmallLabel", false);
+        toviAdProp << WidgetUtils::PropertyList("toviLabel", true)
+                   << WidgetUtils::PropertyList("toviWideLabel", false);
     }
 
     WidgetUtils::updatePropertyListAndStyle(appLogoLabel, appLogoProp);
+    WidgetUtils::updatePropertyListAndStyle(toviLabel, toviAdProp);
 }
 
-void WelcomePage::openForumFeedback()
+void WelcomePage::openToviHomepage()
 {
-    QDesktopServices::openUrl(QUrl(QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro")));
+    QDesktopServices::openUrl(QUrl(QStringLiteral("https://tovi.io/?utm_source=EddyPro%20Software&utm_medium=Tovi%20Ads&utm_campaign=EP_Tovi_ads")));
 }
 
 void WelcomePage::updateSmartfluxBar()

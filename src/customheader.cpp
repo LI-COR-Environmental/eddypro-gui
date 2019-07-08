@@ -4,7 +4,7 @@
   Custom header for table view classes
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -54,7 +54,7 @@ void CustomHeader::addSection(const QString &txt,
         auto questionMarkLabel = new ClickLabel;
 
         auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
         pixmap_2x.setDevicePixelRatio(2.0);
 #endif
         questionMarkLabel->setPixmap(pixmap_2x);

@@ -2,7 +2,7 @@
   process.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -38,12 +38,12 @@
 
 Process::Process(QWidget* parent, const QString &fullPath) :
     QObject(parent),
-    process_(0),
+    process_(nullptr),
     fullPath_(fullPath),
     processExit_(ExitStatus::Success),
     processPid_(0),
     winPid_(QString()),
-    freezerUtility_(0),
+    freezerUtility_(nullptr),
     rxBuffer_(QByteArray())
 {
     process_ = new QProcess(this);
@@ -225,7 +225,7 @@ void Process::processPause(Defs::CurrRunStatus mode)
     connect(freezerUtility_, &QProcess::readyReadStandardOutput,
              this, &Process::bufferFreezerOutput);
 
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     // on mac anc linux we use the standard kill
     // calling, 'kill -STOP processPid_'
 
@@ -256,7 +256,7 @@ void Process::processResume(Defs::CurrRunStatus mode)
     args << winPid_;
     args << QStringLiteral("/r");
 
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     // on mac anc linux we use the standard kill
     // calling, 'kill -CONT processPid_'
 

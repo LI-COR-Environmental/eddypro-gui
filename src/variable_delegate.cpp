@@ -2,7 +2,7 @@
   variable_delegate.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -63,7 +63,7 @@ QWidget *VariableDelegate::createEditor(QWidget* parent,
     QString currentInputUnit = index.model()->data(index.model()->index(VariableModel::INPUTUNIT, column)).toString();
 
     // can only edit name on blank column
-    if (column >= index.model()->columnCount()) return 0;
+    if (column >= index.model()->columnCount()) return nullptr;
 
     // different kind of editor for each row
     switch (index.row())

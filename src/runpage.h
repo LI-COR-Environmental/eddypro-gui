@@ -1,7 +1,7 @@
 /***************************************************************************
   runpage.h
   -------------------
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -53,6 +53,7 @@ public:
     bool resumeRun(Defs::CurrRunStatus mode);
     void stopRun();
     void updateSmartfluxBar();
+    void updateRunPage(bool small);
 
 public slots:
     void resetBuffer();
@@ -70,6 +71,7 @@ private slots:
     void updateElapsedTime();
     void updateMiniProgress();
     void openOutputDir();
+    void openToviHomepage();
 
 private:
     bool filterData(const QByteArray &data);
@@ -99,6 +101,7 @@ private:
     QLabel* timeEstimateLabels_;
     QLabel* pauseResumeLabel_;
     QPushButton* open_output_dir;
+    ClickLabel *toviLabel;
 
     EcProject* ecProject_;
     ConfigState* configState_;

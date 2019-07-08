@@ -1,7 +1,7 @@
 /***************************************************************************
   advmenudelegate.cpp
   -------------------
-  Copyright (C) 2014-2017, LI-COR Biosciences
+  Copyright (C) 2014-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -58,7 +58,7 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 
     auto icon = qvariant_cast<QIcon>(index.data(IconRole));
 
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
 //    auto pixmap = icon.pixmap(icon.actualSize(QSize(42, 42)));
 //    auto pixmap = icon.pixmap(QSize(42, 42));
 //    pixmap.setDevicePixelRatio(2.0);
@@ -70,7 +70,7 @@ void AdvMenuDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
         icon.paint(painter, r.adjusted(8, 0, 8, 0), Qt::AlignVCenter | Qt::AlignLeft);
     }
 
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     auto fontSize = 13;
 #elif defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     auto fontSize = 10;

@@ -3,7 +3,7 @@
   -------------------
   Label with click signal
   -------------------
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -32,7 +32,7 @@ class ClickableLabel : public QLabel
     Q_OBJECT
 
 public:
-    explicit ClickableLabel(QWidget *parent = 0);
+    explicit ClickableLabel(QWidget *parent = nullptr);
 
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

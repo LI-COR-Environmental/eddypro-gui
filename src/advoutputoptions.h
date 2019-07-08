@@ -1,7 +1,7 @@
 /***************************************************************************
   advoutputoptions.h
   -------------------
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -104,6 +104,8 @@ private slots:
     void onlineHelpTrigger_9();
 
     void onClickerrorFormatLabel();
+
+    void openToviHomepage();
 
 private:
     bool areAllCheckedVars();

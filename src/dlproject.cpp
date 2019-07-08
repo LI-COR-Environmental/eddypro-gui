@@ -2,7 +2,7 @@
   dlproject.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -226,6 +226,36 @@ const QString DlProject::getANEM_MODEL_STRING_13()
     return s;
 }
 
+const QString DlProject::getANEM_MODEL_STRING_14()
+{
+    static const QString s(QStringLiteral("u3amp"));
+    return s;
+}
+
+const QString DlProject::getANEM_MODEL_STRING_15()
+{
+    static const QString s(QStringLiteral("u3cagemp"));
+    return s;
+}
+
+const QString DlProject::getANEM_MODEL_STRING_16()
+{
+    static const QString s(QStringLiteral("81000v"));
+    return s;
+}
+
+const QString DlProject::getANEM_MODEL_STRING_17()
+{
+    static const QString s(QStringLiteral("81000re"));
+    return s;
+}
+
+const QString DlProject::getANEM_MODEL_STRING_18()
+{
+    static const QString s(QStringLiteral("81000vre"));
+    return s;
+}
+
 DlProject::DlProject(QObject* parent) :
     QObject(parent),
     modified_(false),
@@ -243,7 +273,7 @@ DlProject::DlProject(QObject* parent, const ProjConfigState &project_config) :
 { ; }
 
 DlProject::DlProject(const DlProject& project)
-    : QObject(0),
+   : QObject(nullptr),
       modified_(project.modified_),
       project_state_(project.project_state_),
       project_config_state_(project.project_config_state_),
@@ -1345,6 +1375,26 @@ const QString DlProject::toIniAnemModel(const QString& s)
     {
         return DlProject::getANEM_MODEL_STRING_13();
     }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_14())
+    {
+        return DlProject::getANEM_MODEL_STRING_14();
+    }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_15())
+    {
+        return DlProject::getANEM_MODEL_STRING_15();
+    }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_16())
+    {
+        return DlProject::getANEM_MODEL_STRING_16();
+    }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_17())
+    {
+        return DlProject::getANEM_MODEL_STRING_17();
+    }
+    else if (s == AnemDesc::getANEM_MODEL_STRING_18())
+    {
+        return DlProject::getANEM_MODEL_STRING_18();
+    }
     else
     {
         return QString();
@@ -1840,6 +1890,26 @@ const QString DlProject::fromIniAnemModel(const QString& s)
     else if (s == DlProject::getANEM_MODEL_STRING_13())
     {
         return AnemDesc::getANEM_MODEL_STRING_13();
+    }
+    else if (s == DlProject::getANEM_MODEL_STRING_14())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_14();
+    }
+    else if (s == DlProject::getANEM_MODEL_STRING_15())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_15();
+    }
+    else if (s == DlProject::getANEM_MODEL_STRING_16())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_16();
+    }
+    else if (s == DlProject::getANEM_MODEL_STRING_17())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_17();
+    }
+    else if (s == DlProject::getANEM_MODEL_STRING_18())
+    {
+        return AnemDesc::getANEM_MODEL_STRING_18();
     }
     else
     {

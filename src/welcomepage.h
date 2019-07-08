@@ -2,7 +2,7 @@
   welcomepage.h
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -78,6 +78,7 @@ private:
     ConfigState* configState_;
 
     ClickLabel *appLogoLabel;
+    ClickLabel *toviLabel;
     ClickLabel *feedbackLabel;
     QToolButton *newButton;
     QToolButton *openButton;
@@ -100,7 +101,7 @@ private slots:
     void helpItemRequested(QListWidgetItem* item);
     void supportItemRequested(QListWidgetItem* item);
     void updateRecentList();
-    void openForumFeedback();
+    void openToviHomepage();
     void onlineHelpTrigger_1();
 
 signals:

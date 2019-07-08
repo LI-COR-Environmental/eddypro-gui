@@ -2,7 +2,7 @@
   mainwindow.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -136,7 +136,7 @@ MainWindow::MainWindow(const QString& filename,
 #if defined(Q_OS_WIN)
     // NOTE: inserted fake (inexistent) icon to prevent icon in the menu bar
     setWindowIcon(QIcon(QStringLiteral(":/win_files/app_ico.png")));
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     setWindowIcon(QIcon(QStringLiteral(":/mac_files/app.icns")));
 #elif defined(Q_OS_LINUX)
     setWindowIcon(QIcon(QStringLiteral(":/lin_files/app.png")));
@@ -179,7 +179,7 @@ MainWindow::MainWindow(const QString& filename,
     setCentralWidget(mainWidget_);
 
     //
-    setMinimumSize(800, 600);
+    setMinimumSize(800, 666);
 
     connectActions();
 
@@ -454,7 +454,7 @@ void MainWindow::fileOpen(const QString &fileName)
                         tr("Select an %1 Project File").arg(Defs::APP_NAME),
                         WidgetUtils::getSearchPathHint(),
                         tr("%1 Project Files (*.%2);;All Files (*.*)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
-                        0
+                        nullptr
                         // , QFileDialog::DontUseNativeDialog
                         );
         if (fileStr.isEmpty()) { return; }
@@ -692,7 +692,7 @@ bool MainWindow::fileSaveAs(const QString& fileName)
                 tr("Save the Project File Name As..."),
                 filenameHint,
                 tr("%1 Project Files (*.%2)").arg(Defs::APP_NAME, Defs::PROJECT_FILE_EXT),
-                0
+                nullptr
                 // see after
                                                  ,
                 QFileDialog::DontConfirmOverwrite
@@ -992,7 +992,7 @@ void MainWindow::createActions()
     viewWelcomeAction->setText(tr("Welcome"));
 
 //    auto welcome_pixmap_2x = QPixmap(QStringLiteral(":/icons/welcome"));
-//#if defined(Q_OS_DARWIN)
+//#if defined(Q_OS_MACOS)
 //    welcome_pixmap_2x.setDevicePixelRatio(2.0);
 //#endif
 //    viewWelcomeAction->setIcon(welcome_pixmap_2x);
@@ -1082,7 +1082,7 @@ void MainWindow::createActions()
     stopAction->setToolTip(tr("Stop processing. (%1)")
                            .arg((stopAction->shortcut().toString())));
 
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     // Full Screen Action
     toggleFullScreenAction = new QAction(this);
     toggleFullScreenAction->setText(tr("Full Screen"));
@@ -1128,8 +1128,11 @@ void MainWindow::createActions()
     toggleOfflineHelpAct->setText(tr("Use Offline Help"));
     toggleOfflineHelpAct->setCheckable(true);
 
-    swWebpageAction = new QAction(this);
-    swWebpageAction->setText(tr("EddyPro Web Page"));
+    appWebpageAction = new QAction(this);
+    appWebpageAction->setText(tr("EddyPro Web Page"));
+
+    forumWebpageAction = new QAction(this);
+    forumWebpageAction->setText(tr("EddyPro Forum"));
 
     checkUpdateAction = new QAction(this);
     checkUpdateAction->setText(tr("Check for Updates..."));
@@ -1178,7 +1181,7 @@ void MainWindow::connectActions()
     connect(stopAction, &QAction::triggered,
             this, &MainWindow::stopEngine);
 
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     connect(toggleFullScreenAction, &QAction::toggled,
             this, &MainWindow::setFullScreen);
 //#endif
@@ -1216,8 +1219,10 @@ void MainWindow::connectActions()
             this, &MainWindow::showStarterPdfHelp);
     connect(toggleOfflineHelpAct, &QAction::triggered,
             this, &MainWindow::setOfflineHelp);
-    connect(swWebpageAction, &QAction::triggered,
+    connect(appWebpageAction, &QAction::triggered,
             this, &WidgetUtils::openAppWebsite);
+    connect(forumWebpageAction, &QAction::triggered,
+            this, &WidgetUtils::openForumWebsite);
     connect(checkUpdateAction, &QAction::triggered,
             this, &MainWindow::showUpdateDialog);
     connect(aboutAction, &QAction::triggered,
@@ -1258,7 +1263,7 @@ void MainWindow::createMenus()
     viewMenu->addAction(toggleInfoOutputAct);
     viewMenu->addAction(toggleTooltipOutputAct);
     viewMenu->addAction(toggleStatusbarAct);
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     viewMenu->addAction(toggleFullScreenAction);
 //#endif
 
@@ -1277,7 +1282,8 @@ void MainWindow::createMenus()
     helpMenu->addAction(starterPdfHelpAction);
     helpMenu->addAction(toggleOfflineHelpAct);
     helpMenu->addSeparator();
-    helpMenu->addAction(swWebpageAction);
+    helpMenu->addAction(appWebpageAction);
+    helpMenu->addAction(forumWebpageAction);
     helpMenu->addAction(checkUpdateAction);
     helpMenu->addSeparator();
     helpMenu->addAction(aboutAction);
@@ -1298,7 +1304,7 @@ void MainWindow::createToolBars()
 
     sep1 = new ClickLabel;
     auto sep_pixmap = QPixmap(QStringLiteral(":/icons/sep"));
-#if defined(Q_OS_MACX)
+#if defined(Q_OS_MACOS)
     sep_pixmap.setDevicePixelRatio(2.0);
 #endif
     sep1->setPixmap(sep_pixmap);
@@ -1560,7 +1566,7 @@ void MainWindow::restorePreviousStatus()
 {
     // must be before restoreGeometry(), which restore the possible full screen
     // state, because otherwise setFullScreen() reset restoreGeometry()
-//#if !defined(Q_OS_DARWIN)
+//#if !defined(Q_OS_MACOS)
     toggleFullScreenAction->setChecked(configState_.window.fullScreen);
 //#endif
 
@@ -2838,7 +2844,7 @@ void MainWindow::changeViewToolbarSeparators(Defs::CurrPage page)
     auto sep_normal_2x = QPixmap(QStringLiteral(":/icons/sep"));
     auto sep_right_selected_2x = QPixmap(QStringLiteral(":/icons/seprightsel"));
 
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     sep_left_selected_2x.setDevicePixelRatio(2.0);
     sep_normal_2x.setDevicePixelRatio(2.0);
     sep_right_selected_2x.setDevicePixelRatio(2.0);
@@ -3741,7 +3747,7 @@ void MainWindow::displayExitMsg(Process::ExitStatus exitReason)
     auto openOutDirButton = new QPushButton(tr("Open the output folder"));
     auto questionMark_1 = new QPushButton;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     questionMark_1->setIcon(pixmap_2x);
@@ -3868,7 +3874,7 @@ void MainWindow::displayExitMsg2(Process::ExitStatus exitReason)
 
     auto questionMark_1 = new QPushButton;
     auto pixmap_2x = QPixmap(QStringLiteral(":/icons/qm-enabled"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2x.setDevicePixelRatio(2.0);
 #endif
     questionMark_1->setIcon(pixmap_2x);
@@ -4060,7 +4066,10 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QSize widgetSize = event->size();
     QSize widgetOldSize = event->oldSize();
 
-    if (widgetSize.width() <= 1200 || widgetSize.height() <= 630)
+    qDebug() << "size" << widgetSize;
+    qDebug() << "old size" << widgetOldSize;
+
+    if (widgetSize.width() <= 1200 || widgetSize.height() <= 900)
     {
         minimizeGui();
     }
@@ -4086,7 +4095,7 @@ void MainWindow::minimizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     mainWidget_->welcomePage()->updateWelcomePage(true);
-//    mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 0, 30, 0);
+    mainWidget_->runPage()->updateRunPage(true);
 
     configState_.general.recentnum = 2;
 }
@@ -4098,7 +4107,7 @@ void MainWindow::maximizeGui()
     runToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     mainWidget_->welcomePage()->updateWelcomePage(false);
-//   mainDialog_->startPage()->mainLayout()->setContentsMargins(30, 30, 30, 0);
+    mainWidget_->runPage()->updateRunPage(false);
 
     updateMenuActionStatus(currentPage());
 

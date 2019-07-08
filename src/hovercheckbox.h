@@ -3,7 +3,7 @@
   -------------------
   Checkbox with hover effect
   -------------------
-  Copyright (C) 2016-2017, LI-COR Biosciences
+  Copyright (C) 2016-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -32,7 +32,7 @@ class HoverCheckBox : public QCheckBox
     Q_OBJECT
 
 public:
-    explicit HoverCheckBox(QWidget *parent = 0);
+    explicit HoverCheckBox(QWidget *parent = nullptr);
 
 private:
     bool isHover;

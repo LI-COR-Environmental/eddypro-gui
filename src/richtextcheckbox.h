@@ -3,7 +3,7 @@
   -------------------
   Checkbox with rich text support
   -------------------
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -37,7 +37,7 @@ class RichTextCheckBox : public QWidget
 {
     Q_OBJECT
 public:
-    explicit RichTextCheckBox(QWidget *parent = 0);
+    explicit RichTextCheckBox(QWidget *parent = nullptr);
     ~RichTextCheckBox();
 
     HoverCheckBox* getCheckBox() { return checkBox; }

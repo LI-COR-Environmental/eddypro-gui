@@ -3,7 +3,7 @@
   -------------------
   Widget with combination of line edit and browse button
   -------------------
-  Copyright (C) 2016-2017, LI-COR Biosciences
+  Copyright (C) 2016-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -34,7 +34,7 @@ class LineEditAndBrowseWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LineEditAndBrowseWidget(QWidget *parent = 0);
+    explicit LineEditAndBrowseWidget(QWidget *parent = nullptr);
 
     QString toolTip() const;
     void setToolTip(const QString &text);

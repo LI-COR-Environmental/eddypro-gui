@@ -65,7 +65,7 @@ To compile the Engine use [gfortran](https://gcc.gnu.org/wiki/GFortran)
 
 To compile the GUI:
 
-1. install the [Qt framework](http://qt-project.org/)
+1. install the [Qt framework](https://www.qt.io/developers/)
 2. install [git](http://git-scm.com/)
 3. build the Qt `eddypro.pro` project file using custom build scripts available
    under `source/scripts/build` or using QtCreator

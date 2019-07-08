@@ -1,7 +1,7 @@
 /***************************************************************************
   createpackagedialog.cpp
   -------------------
-  Copyright (C) 2013-2017, LI-COR Biosciences
+  Copyright (C) 2013-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -82,7 +82,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     filenameEdit->setMaximumWidth(400);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     filenameEdit->setMaximumWidth(395);
 #endif
 
@@ -97,7 +97,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 #if defined(Q_OS_WIN)
     outpathBrowse->setMaximumWidth(400);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     outpathBrowse->setMaximumWidth(395);
 #endif
 
@@ -137,7 +137,7 @@ CreatePackageDialog::CreatePackageDialog(EcProject *ecProject,
 
 //#if defined(Q_OS_WIN)
     mainLayout->setContentsMargins(15, 15, 15, 15);
-//#elif defined(Q_OS_DARWIN)
+//#elif defined(Q_OS_MACOS)
 //    mainLayout->setContentsMargins(30, 30, 30, 30);
 //#endif
     setLayout(mainLayout);

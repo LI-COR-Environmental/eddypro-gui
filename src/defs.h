@@ -4,7 +4,7 @@
   Global application resources. Constants, enumerations and strings.
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -52,20 +52,20 @@ class QStringLiteral;
 namespace Defs
 {
     const auto APP_VERSION = 0x060100;
-    const auto APP_VERSION_STR = QStringLiteral("6.2.1");
-    const auto APP_STAGE_STR = QStringLiteral(""); // -rc6
+    const auto APP_VERSION_STR = QStringLiteral("6.2.2");
+    const auto APP_STAGE_STR = QStringLiteral(""); // -rc1
 
     const auto PROJECT_FILE_VERSION = 0x040402;
     const auto PROJECT_FILE_VERSION_STR = QStringLiteral("4.4.3");
 
     const auto METADATA_FILE_VERSION = 0x030201;
-    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.1");
+    const auto METADATA_FILE_VERSION_STR = QStringLiteral("3.2.2");
 
     const auto WIN_COMPILER = QStringLiteral("MinGW 5.3.0 x86_32 on Windows<sup>&reg;</sup> 10");
-    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 9.0.0 (clang-900.0.37) x86_64 on macOS<sup>&reg;</sup> 10.12.6");
+    const auto MAC_COMPILER = QStringLiteral("Apple LLVM 9.1.0 (clang-902.0.39.1) x86_64 on macOS<sup>&reg;</sup> 10.13.4");
     const auto LIN_COMPILER = QStringLiteral("GCC 4.8.5 x86-64 on Linux");
 
-    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2017");
+    const auto CURRENT_COPYRIGHT_YEAR = QStringLiteral("2018");
 
     enum class CurrPage
     {
@@ -129,7 +129,7 @@ namespace Defs
 #if defined(Q_OS_WIN)
     const auto EXEC_FILE_EXT = QStringLiteral(".exe");
     const auto HOST_OS = QStringLiteral("win");
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     const auto EXEC_FILE_EXT = QString();
     const auto HOST_OS = QStringLiteral("mac");
 #elif defined(Q_OS_LINUX)
@@ -143,9 +143,8 @@ namespace Defs
     const auto APP_NAME_UCASE = QStringLiteral("EDDYPRO");
     const auto ORG_DOMAIN     = QStringLiteral("licor.com");
     const auto ORG_NAME       = QStringLiteral("LI-COR");
-    const auto APP_URL
-        = QStringLiteral("http://www.licor.com/env/products/"
-                         "eddy_covariance/eddypro.html");
+    const auto APP_URL        = QStringLiteral("http://www.licor.com/eddypro/");
+    const auto APP_FORUM_URL  = QStringLiteral("http://www.licor.com/env/forum/?forum=eddypro");
     const auto CALIBRATION_API_URL
         = QStringLiteral("http://envprod.licor.com:8080/api/2012-04/instruments/");
 
@@ -219,7 +218,7 @@ namespace Defs
 
 #if defined(Q_OS_WIN)
     const auto LICOR_ENV_DIR        = QStringLiteral(".licor");
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     const auto LICOR_ENV_DIR        = QStringLiteral("licor");
 #elif defined(Q_OS_LINUX)
     const auto LICOR_ENV_DIR        = ORG_NAME;
@@ -251,7 +250,7 @@ namespace Defs
     const auto COMPRESSOR_BIN        = QStringLiteral("7z%1").arg(EXEC_FILE_EXT);
 #if defined(Q_OS_WIN)
     const auto FREEZER_BIN           = QStringLiteral("pausep%1").arg(EXEC_FILE_EXT);
-#elif defined(Q_OS_DARWIN) || defined(Q_OS_LINUX)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_LINUX)
     const auto FREEZER_BIN           = QStringLiteral("kill");
 #endif
 

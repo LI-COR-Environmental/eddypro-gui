@@ -2,7 +2,7 @@
   dlinidialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -287,7 +287,7 @@ void DlIniDialog::fileSaveAs()
                                          tr("Save the Metadata File As..."),
                                          filenameHint,
                                          tr("%1 Metadata Files (*.metadata);;All files (*)").arg(Defs::APP_NAME),
-                                         0,
+                                         nullptr,
                                          QFileDialog::DontConfirmOverwrite);
 
     // we got a filename

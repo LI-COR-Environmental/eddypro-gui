@@ -2,7 +2,7 @@
   aboutdialog.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -40,7 +40,7 @@ AboutDialog::AboutDialog(QWidget* parent)
 #if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
     resize(530, 620);
     setMinimumSize(530, 620);
-#elif defined(Q_OS_DARWIN)
+#elif defined(Q_OS_MACOS)
     resize(660, 690);
     setMinimumSize(660, 690);
 #endif
@@ -61,7 +61,7 @@ AboutDialog::AboutDialog(QWidget* parent)
             QStringLiteral(__TIME__))
         #if defined(Q_OS_WIN)
             .arg(Defs::WIN_COMPILER)
-        #elif defined(Q_OS_DARWIN)
+        #elif defined(Q_OS_MACOS)
             .arg(Defs::MAC_COMPILER)
         #elif defined(Q_OS_LINUX)
             .arg(Defs::LIN_COMPILER)
@@ -69,7 +69,7 @@ AboutDialog::AboutDialog(QWidget* parent)
         );
     auto icon = new QLabel;
     auto app_logo_2x = QPixmap(QStringLiteral(":/icons/app-logo-about"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     app_logo_2x.setDevicePixelRatio(2.0);
 #endif
     icon->setPixmap(app_logo_2x);

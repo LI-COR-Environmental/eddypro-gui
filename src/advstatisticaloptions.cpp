@@ -2,7 +2,7 @@
   advstatisticaloptions.cpp
   -------------------
   Copyright (C) 2007-2011 Eco2s team. Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -936,14 +936,14 @@ void AdvStatisticalOptions::createTabWidget()
 
     auto lockedIcon_1 = new QLabel;
     auto pixmap_1 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_1.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_1->setPixmap(pixmap_1);
 
     auto lockedIcon_2 = new QLabel;
     auto pixmap_2 = QPixmap(QStringLiteral(":/icons/link"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap_2.setDevicePixelRatio(2.0);
 #endif
     lockedIcon_2->setPixmap(pixmap_2);

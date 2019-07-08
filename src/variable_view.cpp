@@ -2,7 +2,7 @@
   variable_view.cpp
   -------------------
   Copyright (C) 2007-2011, Eco2s team, Antonio Forgione
-  Copyright (C) 2011-2017, LI-COR Biosciences
+  Copyright (C) 2011-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -32,9 +32,9 @@
 
 VariableView::VariableView(QWidget *parent) :
     VariableTableView(parent),
-    addAction_(0),
-    removeAction_(0),
-    clearAction_(0)
+    addAction_(nullptr),
+    removeAction_(nullptr),
+    clearAction_(nullptr)
 {
     // create context menu actions
     addAction_ = new QAction(tr("&Add Variable"), this);

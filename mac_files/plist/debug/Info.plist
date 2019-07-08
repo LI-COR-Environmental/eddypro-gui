@@ -28,11 +28,13 @@
     <key>CFBundleIdentifier</key>
     <string>com.licor.eddypro_debug</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © 2011-2017, LI-COR Inc.</string>
+    <string>Copyright © 2011-2018, LI-COR Inc.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.education</string>
     <key>LSMinimumSystemVersion</key>
-    <string>10.7</string>
+    <string>10.9</string>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
 
     <key>CFBundleDocumentTypes</key>
     <array>

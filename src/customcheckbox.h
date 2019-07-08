@@ -1,7 +1,7 @@
 /***************************************************************************
   customcheckbox.h
   -------------------
-  Copyright (C) 2016-2017, LI-COR Biosciences
+  Copyright (C) 2016-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -32,7 +32,7 @@ class CustomCheckBox : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CustomCheckBox(QWidget *parent = 0);
+    explicit CustomCheckBox(QWidget *parent = nullptr);
     ~CustomCheckBox();
 
     void setLabel(const QString& text);

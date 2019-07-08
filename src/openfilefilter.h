@@ -1,7 +1,7 @@
 /***************************************************************************
   openfilefilter.h
   -------------------
-  Copyright (C) 2016-2017, LI-COR Biosciences
+  Copyright (C) 2016-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -30,7 +30,7 @@ class OpenFileFilter : public QObject
     Q_OBJECT
 
 public:
-    explicit OpenFileFilter(QObject *parent = 0);
+    explicit OpenFileFilter(QObject *parent = nullptr);
     const QString& fileRequested() const;
 
 protected:

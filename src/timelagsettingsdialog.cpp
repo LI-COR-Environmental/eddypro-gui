@@ -1,7 +1,7 @@
 /***************************************************************************
   timelagsettingsdialog.cpp
   -------------------
-  Copyright (C) 2013-2017, LI-COR Biosciences
+  Copyright (C) 2013-2018, LI-COR Biosciences
   Author: Antonio Forgione
 
   This file is part of EddyPro (R).
@@ -86,7 +86,7 @@ TimeLagSettingsDialog::TimeLagSettingsDialog(QWidget *parent, EcProject *ecProje
 
     lockedIcon = new QLabel;
     auto pixmap = QPixmap(QStringLiteral(":/icons/vlink-locked"));
-#if defined(Q_OS_DARWIN)
+#if defined(Q_OS_MACOS)
     pixmap.setDevicePixelRatio(2.0);
 #endif
     lockedIcon->setPixmap(pixmap);
