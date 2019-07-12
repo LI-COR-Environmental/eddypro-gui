@@ -712,14 +712,7 @@ void TimeLagSettingsDialog::updateFile(const QString& fp)
 
 void TimeLagSettingsDialog::testSelectedFile(const QString& fp)
 {
-    QString paramFile = QFileDialog::getOpenFileName(this,
-                        tr("Select the Timelag Optimization File"),
-                        WidgetUtils::getSearchPathHint(),
-                        tr("All Files (*.*)")
-                        );
-    if (paramFile.isEmpty()) { return; }
-
-    QFileInfo paramFilePath(paramFile);
+    QFileInfo paramFilePath(fp);
     QString canonicalParamFile = paramFilePath.canonicalFilePath();
 
     AncillaryFileTest test_dialog(AncillaryFileTest::FileType::TimeLag, this);

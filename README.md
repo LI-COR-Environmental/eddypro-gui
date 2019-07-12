@@ -27,23 +27,29 @@ The EddyPro installer installs the following components:
     html version of the online EddyPro Help system, the 'Getting Started' and
     'User Guide' documents in PDF format
 
-Both are pre-built for a particular environment (operating system and compiler).
+Both Engine and GUI are pre-built for a particular environment (operating system and compiler).
 
-##Source Code Repository
+## License
+
+EddyPro 7 is now protected under an End User License Agreement (EULA). The software will continue to be free of charge, and while EddyPro 7 will remain an open-source software, this new license limits the use of EddyPro by other commercial organizations. The EddyPro source code will continue to be available to academic and government researchers around the world, and because we encourage and welcome modifications from that same community. These new licenses were chosen to protect EddyPro and the investment of LI-COR and contributing researchers from ongoing efforts by other commercial entities from taking free and open source code and re-releasing it for profit under a proprietary software platform.
+
+Prior versions of EddyPro were released with and will retain the [GNU General Public License (GPL) v3.0](https://github.com/LI-COR/eddypro-gui/blob/master/LICENSE).
+
+## Source Code Repository
 
 EddyPro is a fully cross-platform application, which consists of a set of
 command line programs and a graphical user interface (GUI).
 
 The source code is developed using two independent Git repositories, namely:
 
-  - eddypro-engine
-  - eddypro-gui
+  - [eddypro-engine](https://github.com/li-cor/eddypro-engine)
+  - [eddypro-gui](https://github.com/li-cor/eddypro-gui)
 
 ## Installing EddyPro
 
 You can download EddyPro from the LI-COR
-[EddyPro website](http://www.licor.com/eddypro).
-The site provides download links for all supported platforms.
+[EddyPro web page](http://www.licor.com/eddypro).
+The page provides download links for all supported platforms.
 
 Start the installation program like any executable on the development platform.
 Select the components that you want to install and follow the instructions of
@@ -58,12 +64,15 @@ To build EddyPro follow these instructions:
 To compile the Engine use [gfortran](https://gcc.gnu.org/wiki/GFortran)
 (The GNU Fortran compiler) and run:
 
-    $ make Makefile_rp
-    $ make Makefile_fcc
+    $ cd prj
+    $ make rp
+    $ make fcc
 
 ### GUI
 
-To compile the GUI:
+Source code compilation instructions for the GUI are undergoing a revision. They will posted as soon the update is completed.
+
+<!-- To compile the GUI:
 
 1. install the [Qt framework](https://www.qt.io/developers/)
 2. install [git](http://git-scm.com/)
@@ -102,7 +111,7 @@ directory where the source code is:
     4. In the 'quazip.pro' project settings:
         4.1 set the build directory to '..\..\..\..\build\libs\build-quazip-0.7.1-qt-5.4.2-mingw-4.9.1-x86_64'
             for both debug and release targets
-    5. In the 'eddypro.pro' project, build both targets
+    5. In the 'eddypro.pro' project, build both targets -->
 
 ## Utilities
 
@@ -120,7 +129,7 @@ The console application consists of two files:
 - 7z.dll
 - 7z.exe
 
-License: [LGPL](https://www.gnu.org/licenses/lgpl.html).
+License: [LGPL](https://www.7-zip.org/license.txt).
 
 ### pausep
 
@@ -135,8 +144,8 @@ License: Code Project Open License,
 
 ## Using EddyPro sample data
 
-You can run EddyPro using sample data files available in the LI-COR
-[EddyPro website](http://www.licor.com/eddypro).
+You can run EddyPro using sample data files available at the LI-COR
+[EddyPro web page](http://www.licor.com/eddypro).
 
 ## Data Processing Options in EddyPro
 
@@ -211,6 +220,7 @@ You can run EddyPro using sample data files available in the LI-COR
 + Available outputs
   - Full (rich) output with fluxes, quality flags and much more (standard format
     or available results only)
+  - FLUXNET output (complying latest FLUXNET format definition)
   - Ameriflux format
   - GHG Europe format
   - Raw data statistics

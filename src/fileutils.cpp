@@ -85,7 +85,7 @@ void FileUtils::createDir(const QString& dirName, const QString& absoluteDirDest
     QDir dir;
     if (!dir.exists(dirPath))
     {
-        bool created = dir.mkdir(dirPath);
+        bool created = dir.mkpath(dirPath);
         if (!created)
         {
             WidgetUtils::warning(nullptr,
