@@ -501,10 +501,10 @@ void DetectDateRangeDialog::showDateRange(DateRangeType type)
     switch (type) {
         case DateRangeType::RawData:
         {
-            auto dataStartStr = ecProject_->generalStartDate()
+            QString dataStartStr = ecProject_->generalStartDate()
                                 + QStringLiteral("T")
                                 + ecProject_->generalStartTime();
-            auto dataEndStr = ecProject_->generalEndDate()
+            QString dataEndStr = ecProject_->generalEndDate()
                               + QStringLiteral("T")
                               + ecProject_->generalEndTime();
             auto dataStart = QDateTime::fromString(dataStartStr, Qt::ISODate);
@@ -526,10 +526,10 @@ void DetectDateRangeDialog::showDateRange(DateRangeType type)
             if (ecProject_->screenRotMethod() == 3
                 || ecProject_->screenRotMethod() == 4)
             {
-                auto pfStartStr = ecProject_->planarFitStartDate()
+                QString pfStartStr = ecProject_->planarFitStartDate()
                                   + QStringLiteral("T")
                                   + ecProject_->planarFitStartTime();
-                auto pfEndStr = ecProject_->planarFitEndDate()
+                QString pfEndStr = ecProject_->planarFitEndDate()
                                 + QStringLiteral("T")
                                 + ecProject_->planarFitEndTime();
                 auto pfStart = QDateTime::fromString(pfStartStr, Qt::ISODate);
@@ -551,10 +551,10 @@ void DetectDateRangeDialog::showDateRange(DateRangeType type)
         {
             if (ecProject_->screenTlagMeth() == 4)
             {
-                auto tlStartStr = ecProject_->timelagOptStartDate()
+                QString tlStartStr = ecProject_->timelagOptStartDate()
                                   + QStringLiteral("T")
                                   + ecProject_->timelagOptStartTime();
-                auto tlEndStr = ecProject_->timelagOptEndDate()
+                QString tlEndStr = ecProject_->timelagOptEndDate()
                                 + QStringLiteral("T")
                                 + ecProject_->timelagOptEndTime();
                 auto tlStart = QDateTime::fromString(tlStartStr, Qt::ISODate);
@@ -576,10 +576,10 @@ void DetectDateRangeDialog::showDateRange(DateRangeType type)
         {
             if (isSpectraSubsetPosssible())
             {
-                auto spStartStr = ecProject_->spectraStartDate()
+                QString spStartStr = ecProject_->spectraStartDate()
                                   + QStringLiteral("T")
                                   + ecProject_->spectraStartTime();
-                auto spEndStr = ecProject_->spectraEndDate()
+                QString spEndStr = ecProject_->spectraEndDate()
                                 + QStringLiteral("T")
                                 + ecProject_->spectraEndTime();
                 auto spStart = QDateTime::fromString(spStartStr, Qt::ISODate);
